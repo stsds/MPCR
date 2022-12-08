@@ -1,0 +1,12 @@
+Package: MPR
+Type: Package
+Title: Multi-Precision Datatype for R
+Version: 1.0
+Date: 2022-12-04
+Author: Your Name
+Maintainer: Your Name <your@email.com>
+Description: One paragraph description of what the package does as one
+        or more full sentences.
+License: GPL (>= 2)
+Imports: methods, Rcpp (>= 1.0.9)
+LinkingTo: Rcpp
