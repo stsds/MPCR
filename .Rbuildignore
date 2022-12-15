@@ -1,0 +1,14 @@
+^\.Rproj\.user$
+^dev/*
+^README_files*
+^README*
+^.RData*
+^.Rhistory*
+.gitignore
+src/Makevars.win
+.git
+.travis.yml
+^doc$
+^Meta$
+bin/
+cmake-build-debug/
