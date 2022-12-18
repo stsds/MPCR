@@ -12,6 +12,5 @@ RCPP_MODULE(DataTypeTest){
     class_<DataType>("DataType")
         .constructor<size_t,int>()
         .method("PrintValues",&DataType::PrintVal)
-//        .property("size",&DataType::GetSize)
         ;
 }
