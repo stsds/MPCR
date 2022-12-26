@@ -10,7 +10,15 @@ RCPP_EXPOSED_CLASS(DataType)
 RCPP_MODULE(DataTypeTest){
     using namespace Rcpp;
     class_<DataType>("DataType")
-        .constructor<size_t,int>()
-        .method("PrintValues",&DataType::PrintVal)
+        .constructor<size_t,std::string>()
+        .property("IsMatrix",&DataType::IsMatrix)
+        .property("Size",&DataType::GetSize)
+        .property("Row",&DataType::GetNRow)
+        .property("Col",&DataType::GetNCol)
+        .method("PrintValues",&DataType::Print)
+        .method("[[",&DataType::GetVal)
+        .method("[[<-",&DataType::SetVal)
+        .method("ToMatrix",&DataType::ToMatrix)
+        .method("ToVector",&DataType::ToVector)
         ;
 }
