@@ -6,6 +6,7 @@
 using namespace mpr::precision;
 using namespace std;
 
+
 /**
  * Exceptions cannot be tested inside C++ since Rcpp::stop throw segmentation
  * fault if called inside C++ due to stack trace ();
