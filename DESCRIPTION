@@ -1,0 +1,11 @@
+Package: MPR
+Type: Package
+Title: Multi Precision Support For R
+Version: 1.0
+Date: 2022-12-08
+Author: David Helmy
+Maintainer: David Helmy <david.helmy@brightskiesinc.com>
+Description: MPR offers 3 Different Precision Operations For R (16-bit/32-bit/64-bit)
+License: GPL (>= 2) + file LICENSE
+Imports: methods, Rcpp (>= 1.0.9)
+LinkingTo: Rcpp
