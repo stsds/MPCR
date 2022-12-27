@@ -1,9 +1,9 @@
-\name{Rcpp Modules Examples}
+\name{MPR Module Examples}
 \alias{DataType}
 \alias{Rcpp DataType Class}
 
 \title{
-  Functions and Objects created by Rcpp Modules Example
+  Rcpp Module Object for exporting C++ MPR Class to R as S4 object
 }
 \description{
   These function and objects are accessible from R via the Rcpp Modules mechanism

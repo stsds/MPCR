@@ -10,13 +10,11 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// rcpp_hello_world
-List rcpp_hello_world();
+
 RcppExport SEXP _rcpp_module_boot_DataTypeTest();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rcpp_module_boot_DataTypeTest", (DL_FUNC) &_rcpp_module_boot_DataTypeTest, 0},
-    {"rcpp_hello_world", (DL_FUNC) &_MPR_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };
 

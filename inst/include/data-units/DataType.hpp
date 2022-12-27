@@ -216,16 +216,7 @@ public:
      * @brief
      * DataType De-Constructor
      */
-    ~DataType() {
-        if (this->mpData != nullptr) {
-            delete mpData;
-            this->mpData = nullptr;
-        }
-        if (this->mpDimensions != nullptr) {
-            delete mpDimensions;
-            this->mpData = nullptr;
-        }
-    }
+    ~DataType();
 
     /**
      * @brief

@@ -3,32 +3,25 @@
 \alias{MPR}
 \docType{package}
 \title{
-  A short title line describing what the package does
+  Multi Precision For R
 }
 \description{
-  A more detailed description of what the package does. A length
-  of about one to five lines is recommended.
+  MPR offers 3 Different Precision For R (16-bit/32-bit/64-bit)
 }
 \details{
-  This section should provide a more detailed overview of how to use the
-  package, including the most important functions.
+    MPR offers 3 Different Precision For R (16-bit/32-bit/64-bit)
+    supporting Vectors and Matrix operation for Basic and Mathematical operations,and offering MultiPrecision operations.
 }
 \author{
-Your Name, email optional.
+Your David, email optional.
 
-Maintainer: Your Name <your@email.com>
+Maintainer: David Helmy <david.helmy@brightskiesinc.com>
 }
-\references{
-  This optional section can contain literature or other references for
-  background information.
-}
+
 \keyword{ package }
 \seealso{
-  Optional links to other man pages
+  README.md
 }
 \examples{
-  \dontrun{
-     ## Optional simple examples of the most important functions
-     ## These can be in \dontrun{} and \donttest{} blocks.   
-  }
+
 }
