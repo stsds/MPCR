@@ -8,11 +8,11 @@
 
 /** MPR API Exceptions Macro to use for Errors **/
 #define MPR_API_EXCEPTION(MESSAGE, ERROR_CODE) \
-MPIAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,true,ERROR_CODE)
+MPIAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,false,ERROR_CODE)
 
 /** MPR API Warning Macro to use for Warnings **/
-#define MPR_API_WARN(MESSAGE, ERROR_CODE) \
-MPIAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,false,ERROR_CODE)
+#define MPR_API_WARN(MESSAGE, WARNING_CODE) \
+MPIAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,true,WARNING_CODE)
 
 class MPIAPIException {
 
@@ -28,6 +28,7 @@ public:
 
         ss << apMessage << std::endl;
 
+#ifdef RUNNING_CPP
         ss << std::left << std::setfill(' ') << std::setw(10)
            << "File" << ": ";
         ss << std::left << std::setfill(' ') << std::setw(10)
@@ -37,7 +38,7 @@ public:
            << "Line" << ": ";
         ss << std::left << std::setfill(' ') << std::setw(10)
            << aLineNumber << std::endl;
-
+#endif
         ss << std::left << std::setfill(' ') << std::setw(10)
            << "Function" << ": ";
         ss << std::left << std::setfill(' ') << std::setw(10)
@@ -65,13 +66,23 @@ private:
 
     static void
     ThrowError(std::string aString) {
+#ifdef RUNNING_CPP
+        throw std::invalid_argument(aString.c_str());
+#endif
+#ifndef RUNNING_CPP
         Rcpp::stop(aString);
+#endif
     }
 
 
     static void
     ThrowWarning(std::string aString) {
+#ifdef RUNNING_CPP
+        std::cout << aString << std::endl;
+#endif
+#ifndef RUNNING_CPP
         Rcpp::warning(aString);
+#endif
     }
 
 };

@@ -59,7 +59,7 @@ TEST_DATA_TYPE() {
         REQUIRE(a.GetSize() == 50);
         REQUIRE(a.GetDimensions() == nullptr);
 
-        delete validator;
+        delete[] validator;
     }SECTION("Test Setter and Getter") {
         DataType a(50, "double");
         char *validator;
@@ -98,7 +98,7 @@ TEST_DATA_TYPE() {
             }
 
         }
-        delete validator;
+        delete[] validator;
     }
 
     SECTION("Test Clear Up") {

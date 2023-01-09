@@ -1,7 +1,8 @@
 
 
 add_subdirectory(data-units)
-
+add_subdirectory(operations)
+add_subdirectory(adapters)
 # Add MPR library for Testing CPP using all C/C++ Code
 add_library(mpr
         SHARED

@@ -59,12 +59,14 @@ namespace mpr {
          */
         inline
         Precision
-        GetOutputPrecision(Precision &aPrecisionA, Precision &aPrecisionB) {
+        GetOutputPrecision(const Precision &aPrecisionA,
+                           const Precision &aPrecisionB) {
             if (aPrecisionA > 3 || aPrecisionB > 3) {
                 MPR_API_EXCEPTION("Unknown Type Value", -1);
             }
-            return (aPrecisionA >= aPrecisionB) ? aPrecisionA : aPrecisionB;
+            return ( aPrecisionA >= aPrecisionB ) ? aPrecisionA : aPrecisionB;
         }
+
 
         /**
          * @brief
@@ -82,7 +84,8 @@ namespace mpr {
          */
         inline
         Precision
-        GetOperationPrecision(Precision &aPrecisionA, Precision &aPrecisionB,
+        GetOperationPrecision(const Precision &aPrecisionA,
+                              const Precision &aPrecisionB,
                               Precision &aPrecisionC) {
 
             /** this formula is used instead of writing many if/else cases **/
@@ -91,11 +94,12 @@ namespace mpr {
              *  position ( Generating a unique value for each operation)
              **/
             int temp =
-                (3 * aPrecisionA) + (5 * aPrecisionB) + (7 * aPrecisionC);
+                ( 3 * aPrecisionA ) + ( 5 * aPrecisionB ) + ( 7 * aPrecisionC );
 
-            Precision operation = static_cast<Precision>(temp);
+            auto operation = static_cast<Precision>(temp);
             return operation;
         }
+
 
         /**
          * @brief
@@ -111,7 +115,7 @@ namespace mpr {
          */
         inline
         Precision
-        GetInputPrecision(int aPrecision) {
+        GetInputPrecision(const int &aPrecision) {
             if (aPrecision > 0 && aPrecision < 4) {
                 return static_cast<Precision>(aPrecision);
             } else {
@@ -121,6 +125,7 @@ namespace mpr {
             }
             return ERROR;
         }
+
 
         /**
          * @brief

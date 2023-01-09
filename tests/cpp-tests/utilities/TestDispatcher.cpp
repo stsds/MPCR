@@ -44,18 +44,6 @@ GenerateData(DataType *aDataType, double aVal) {
 }
 
 
-template<typename T>
-void
-ChangeType(DataType *aDataType, Precision aPrecision) {
-    auto size = aDataType->GetSize();
-    T *temp = new T[size];
-    aDataType->SetData((char *) temp);
-    aDataType->SetPrecision(aPrecision);
-    aDataType->Init<T>();
-
-}
-
-
 void
 TEST_DISPATCHER() {
 

@@ -109,7 +109,7 @@ using namespace mpr::precision;
 /** Instantiators for Template functions with return type the same as dispatching
  *  type (One template argument)
  **/
-#define SIMPLE_INSTANTIATE_WITH_RETURN( __FUN__, ...) \
+#define SIMPLE_INSTANTIATE_WITH_RETURN(__FUN__, ...) \
         template int __FUN__<int> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template float __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template double __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \

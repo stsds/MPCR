@@ -47,9 +47,9 @@ typedef struct Dimensions {
      * @param[in] aDimensions
      * Dimensions struct object to copy its dimensions
      */
-    Dimensions(Dimensions &aDimensions) {
+    Dimensions(const Dimensions &aDimensions) {
         this->mRow = aDimensions.mRow;
-        this->mRow = aDimensions.mRow;
+        this->mCol = aDimensions.mCol;
     }
 
 
@@ -61,11 +61,7 @@ typedef struct Dimensions {
      * Dimensions struct object to copy its dimensions
      */
     Dimensions &
-    operator=(const Dimensions &aDimensions) {
-        this->mRow = aDimensions.mRow;
-        this->mCol = aDimensions.mCol;
-        return *this;
-    }
+    operator =(const Dimensions &aDimensions) = default;
 
 
     /**
@@ -165,7 +161,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a String)
      */
-    DataType(size_t aSize, std::string aPrecision);
+    DataType(size_t aSize, const std::string &aPrecision);
 
     /**
      * @brief
@@ -210,13 +206,14 @@ public:
      * DataType object to copy its content
      */
     DataType &
-    operator=(DataType &aDataType);
+    operator =(const DataType &aDataType);
 
     /**
      * @brief
      * DataType De-Constructor
      */
     ~DataType();
+
 
     /**
      * @brief
@@ -227,15 +224,12 @@ public:
     ClearUp() {
         this->mSize = 0;
         this->mMatrix = false;
-        if (this->mpData != nullptr) {
-            delete this->mpData;
-            this->mpData = nullptr;
-        }
-        if (this->mpDimensions != nullptr) {
-            delete this->mpDimensions;
-            this->mpDimensions = nullptr;
-        }
+        delete[] this->mpData;
+        delete this->mpDimensions;
+        this->mpData = nullptr;
+        this->mpDimensions = nullptr;
     }
+
 
     /**
      * @brief
@@ -278,6 +272,21 @@ public:
 
     /**
      * @brief
+     * Get Values in the Matrix according to Index (0-based Indexing)
+     *
+     * @param[in] aRow
+     * Row Index
+     * @param[in] aCol
+     * Col Index
+     *
+     * @returns
+     * Value at idx [row][col]
+     */
+    double
+    GetValMatrix(const size_t &aRow,const size_t &aCol);
+
+    /**
+     * @brief
      * Set Values in the Vector according to Index (0-based Indexing)
      *
      * @param[in] aIndex
@@ -288,6 +297,19 @@ public:
     void
     SetVal(int aIndex, double aVal);
 
+    /**
+     * @brief
+     * Set Values in the Vector according to Index (0-based Indexing)
+     *
+     * @param[in] aRow
+     * Row Index
+     * @param[in] aCol
+     * Col Index
+     * @param[in] aVal
+     * Value used to set the vector[idx] with
+     */
+    void
+    SetValMatrix(size_t aRow,size_t aCol, double aVal);
     /**
      * @brief
      * Get Precision of the Object
@@ -381,7 +403,7 @@ public:
      * Number of Rows in a Matrix
      */
     size_t
-    GetNRow();
+    GetNRow() const;
 
     /**
      * @brief
@@ -392,7 +414,7 @@ public:
      *
      */
     size_t
-    GetNCol();
+    GetNCol() const;
 
     /**
      * @brief
@@ -415,47 +437,7 @@ public:
      * Dimensions struct containing the Dimensions of the Matrix
      */
     Dimensions *
-    GetDimensions();
-
-
-private:
-
-    /**
-     * @brief
-     * Get Values in the Vector according to Index (0-based Indexing) and
-     * Precision type
-     *
-     * @param[in] aIndex
-     * Index in Vector
-     * @param[out] aOutput
-     * Value at idx
-     *
-     */
-    template<typename T>
-    void
-    GetValue(int aIndex, double *&aOutput);
-
-    /**
-     * @brief
-     * Set Values in the Vector according to Index (0-based Indexing) and
-     * Precision type
-     *
-     * @param[in] aIndex
-     * Index in Vector
-     * @param[in] aVal
-     * Value to set index with
-     */
-    template<typename T>
-    void
-    SetValue(int aIndex, double &aVal);
-
-    /**
-     * @brief
-     * Prints all data in the Vector according to its type
-     */
-    template<typename T>
-    void
-    PrintVal();
+    GetDimensions() const;
 
 
     /**
@@ -470,9 +452,116 @@ private:
     inline
     bool
     CanBeMatrix(size_t aRow, size_t aCol) const {
-        return ((aRow * aCol) == this->mSize);
+        return (( aRow * aCol ) == this->mSize );
     }
 
+
+    /**
+     * @brief
+     * Check Whether Element at index is NAN or Not
+     *
+     * @param[in] aIndex
+     * Index of Element to check
+     *
+     * @returns
+     * true if NAN,-NAN else Otherwise
+     *
+     */
+    bool
+    IsNA(const size_t &aIndex);
+
+    /**
+     * @brief
+     * Get total size of Memory used by MPR Object
+     *
+     * @returns
+     * Total size of Memory used by MPR Object
+     *
+     */
+    size_t
+    GetObjectSize();
+
+    /**
+     * @brief
+     * Get Element at Idx from MPR Vector as MPR Object
+     *
+     * @param[in] aIndex
+     * Index to Get Value from
+     *
+     * @returns
+     * MPR Object holding element at idx
+     *
+     */
+    inline
+    DataType *
+    GetElementVector(const size_t &aIndex){
+        auto element = GetVal(aIndex);
+        auto output=new DataType(1,this->mPrecision);
+        output->SetVal(0,element);
+        return output;
+    }
+
+    /**
+     * @brief
+     * Get Element with Idx [row][col] from MPR Matrix as MPR Object
+     *
+     * @param[in] aRow
+     * Row Idx
+     * @param[in] aCol
+     * Col Idx
+     *
+     * @returns
+     * MPR Object holding element at idx
+     *
+     */
+    inline
+    DataType *
+    GetElementMatrix(const size_t &aRow,const size_t &aCol){
+        auto index= GetMatrixIndex(aRow,aCol);
+        auto element = GetVal(index);
+        auto output=new DataType(1,this->mPrecision);
+        output->SetVal(0,element);
+        return output;
+    }
+
+private:
+
+    /**
+     * @brief
+     * Get Values in the Vector according to Index (0-based Indexing) and
+     * Precision type
+     *
+     * @param[in] aIndex
+     * Index in Vector
+     * @param[out] aOutput
+     * Value at idx
+     *
+     */
+    template <typename T>
+    void
+    GetValue(int aIndex, double *&aOutput);
+
+    /**
+     * @brief
+     * Set Values in the Vector according to Index (0-based Indexing) and
+     * Precision type
+     *
+     * @param[in] aIndex
+     * Index in Vector
+     * @param[in] aVal
+     * Value to set index with
+     */
+    template <typename T>
+    void
+    SetValue(int aIndex, double &aVal);
+
+    /**
+     * @brief
+     * Prints all data in the Vector according to its type
+     */
+    template <typename T>
+    void
+    PrintVal();
 
     /**
      * @brief
@@ -484,17 +573,43 @@ private:
      * Buffer to copy to
      *
      */
-    template<typename T>
+    template <typename T>
     void
-    GetCopyOfData(char *&aSrc, char *&aDest);
+    GetCopyOfData(const char *aSrc, char *&aDest);
 
     /**
      * @brief
      * Initialize Data Buffer according to its type
      */
-    template<typename T>
+    template <typename T>
     void
     Init();
+
+    /**
+     * @brief
+     * Check Whether Element at Index is NAN or Not
+     *
+     * @param[in] aIndex
+     * Index of Element to check
+     * @param[out] aFlag
+     * True if NAN,-NAN else otherwise
+     *
+     */
+    template <typename T>
+    void
+    CheckNA(const size_t &aIndex, bool &aFlag);
+
+    /**
+     * @brief
+     * Get total size of Memory used by Data in MPR Object
+     *
+     * @param[out] aDataSize
+     * Total size of Memory used by Data in MPR Object
+     *
+     */
+    template <typename T>
+    void
+    GetDataSize(size_t &aDataSize);
 
     /** Buffer Holding the Data **/
     char *mpData;
