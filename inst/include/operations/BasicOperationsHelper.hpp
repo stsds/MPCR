@@ -4,36 +4,26 @@
 #define MPR_BASICOPERATIONSHELPER_HPP
 
 
+#define OPERATION(dataA, dataB, dataOut, FUN, val, accum)                      \
+           for(auto i=0;i<size;i++){                                           \
+                idx=idx%stat_size;                                             \
+                dataOut[i]=dataA[i] FUN dataB[idx];                            \
+                idx+=accum + 1;                                                \
+            }
 
-#define RUN_OP(dataA, dataB, dataOut, FUN, val)                                \
+
+#define RUN_OP(dataA, dataB, dataOut, FUN, val, accum)                         \
          if(FUN=="+")  {                                                       \
-            for(auto i=0;i<size;i++){                                          \
-                idx=i%val;                                                     \
-                idx=idx%size;                                                  \
-                dataOut[i]=dataA[i] + dataB[idx];                              \
-            }                                                                  \
+              OPERATION(dataA,dataB,dataOut,+,val,accum)                       \
          }else if(FUN=="-")  {                                                 \
-           for(auto i=0;i<size;i++){                                           \
-                idx=i%val;                                                     \
-                idx=idx%size;                                                  \
-                dataOut[i]=dataA[i] - dataB[idx];                              \
-            }                                                                  \
+           OPERATION(dataA,dataB,dataOut,-,val,accum)                          \
          }else if(FUN=="*")  {                                                 \
-           for(auto i=0;i<size;i++){                                           \
-                idx=i%val;                                                     \
-                idx=idx%size;                                                  \
-                dataOut[i]=dataA[i] * dataB[idx];                              \
-            }                                                                  \
+           OPERATION(dataA,dataB,dataOut,*,val,accum)                          \
          }else if(FUN=="/")  {                                                 \
-           for(auto i=0;i<size;i++){                                           \
-                idx=i%val;                                                     \
-                idx=idx%size;                                                  \
-                dataOut[i]=dataA[i] / dataB[idx];                              \
-            }                                                                  \
+           OPERATION(dataA,dataB,dataOut,/,val,accum)                          \
          }else {                                                               \
              MPR_API_EXCEPTION("Operation Not Supported", -1);                 \
          }                                                                     \
-
 
 
 

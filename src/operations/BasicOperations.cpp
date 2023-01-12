@@ -113,30 +113,34 @@ template <typename T, typename X, typename Y>
 void
 basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
              const int &aMargin, const std::string &aFun) {
+    if (!aVec.IsMatrix()) {
+        MPR_API_EXCEPTION("Cannot Sweep a Vector", -1);
+    }
+
     aOutput.ClearUp();
     auto row = aVec.GetNRow();
     auto col = aVec.GetNCol();
-    aOutput.SetSize(row * col);
-    aOutput.SetDimensions(row, col);
+    aOutput.ToMatrix(row, col);
     T *input_data = (T *) aVec.GetData();
     X *sweep_data = (X *) aStats.GetData();
     Y *output_data;
-    size_t idx;
+    size_t idx = 0;
 
 
     auto size = aVec.GetSize();
+    auto stat_size = aStats.GetSize();
     output_data = new Y[size];
 
-    if (aMargin == 1 && row % aStats.GetSize() ||
-        aMargin != 1 && col % aStats.GetSize()) {
+    if (aMargin == 1 && row % stat_size ||
+        aMargin != 1 && col % stat_size) {
         MPR_API_WARN("STATS does not recycle exactly across MARGIN", -1);
     }
 
     if (aMargin == 1) {
-        RUN_OP(input_data, sweep_data, output_data, aFun, col)
+        RUN_OP(input_data, sweep_data, output_data, aFun, col, row - 1)
 
     } else {
-        RUN_OP(input_data, sweep_data, output_data, aFun, row)
+        RUN_OP(input_data, sweep_data, output_data, aFun, row, 0)
     }
     aOutput.SetData((char *) output_data);
 }
@@ -151,17 +155,28 @@ basic::Concatenate(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         return;
     }
 
-    T *data_in_one = (T *) aOutput.GetData();
+    if (aInputA.IsMatrix()) {
+        MPR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
+    }
+
+    T *data_in_one = (T *) aInputA.GetData();
     Y *data_out = (Y *) aOutput.GetData();
     auto size = aInputA.GetSize();
+
     std::copy(data_in_one, data_in_one + size, data_out + aCurrentIdx);
     aCurrentIdx += size;
 
     if (aInputB.GetSize() != 0) {
-        X *data_in_two = (X *) aOutput.GetData();
+        if (aInputB.IsMatrix()) {
+            MPR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
+        }
+
+        X *data_in_two = (X *) aInputB.GetData();
         size = aInputB.GetSize();
+
         std::copy(data_in_two, data_in_two + size, data_out + aCurrentIdx);
         aCurrentIdx += size;
+
     }
 
     aOutput.SetData((char *) data_out);
@@ -287,11 +302,11 @@ basic::GetAsStr(DataType &aVec, std::string &aType) {
     }
     auto itr = ( 10 > aVec.GetSize()) ? aVec.GetSize() : 10;
     ss << "Data :" << std::endl << std::left << std::setfill(' ')
-       << std::setw(10) << "[ ";
+       << std::setw(3) << "[ ";
     for (auto i = 0; i < itr; ++i) {
-        ss << aVec.GetVal(i) << "\t";
+        ss << aVec.GetVal(i) << "   ";
     }
-    ss << " ... " << std::endl;
+    ss << " ... ]" << std::endl;
     aType += ss.str();
 }
 

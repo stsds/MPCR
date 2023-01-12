@@ -8,6 +8,7 @@ using namespace mpr::precision;
 
 
 DataType::DataType(size_t aSize, Precision aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aSize;
     this->mpDimensions = nullptr;
@@ -17,6 +18,7 @@ DataType::DataType(size_t aSize, Precision aPrecision) {
 
 
 DataType::DataType(size_t aSize, int aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = nullptr;
     this->mMatrix = false;
@@ -26,6 +28,7 @@ DataType::DataType(size_t aSize, int aPrecision) {
 
 
 DataType::DataType(size_t aSize, const std::string &aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = nullptr;
     this->mMatrix = false;
@@ -36,7 +39,7 @@ DataType::DataType(size_t aSize, const std::string &aPrecision) {
 
 
 DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
-
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
@@ -46,6 +49,7 @@ DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
 
 
 DataType::DataType(mpr::precision::Precision aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mMatrix = false;
     this->mpDimensions = nullptr;
@@ -55,6 +59,7 @@ DataType::DataType(mpr::precision::Precision aPrecision) {
 
 
 DataType::DataType(DataType &aDataType) {
+    this->SetMagicNumber();
     this->mpData = nullptr;
     this->mpDimensions = nullptr;
     this->mSize = aDataType.mSize;
@@ -354,6 +359,10 @@ DataType::SetValMatrix(size_t aRow, size_t aCol, double aVal) {
     SetVal(idx,aVal);
 }
 
+
+void DataType::SetMagicNumber() {
+    this->mMagicNumber=911;
+}
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 

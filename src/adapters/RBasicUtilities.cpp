@@ -18,12 +18,13 @@ RCBind(DataType *apInputA, DataType *apInputB) {
     auto precision_a = apInputA->GetPrecision();
     auto precision_b = apInputB->GetPrecision();
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
-    auto output = new DataType(output_precision);
+    auto pOutput = new DataType(output_precision);
     auto operation_comb = GetOperationPrecision(precision_a, precision_b,
                                                 output_precision);
 
-    DISPATCHER(operation_comb, basic::ColumnBind, *apInputA, *apInputB, *output)
-    return output;
+    DISPATCHER(operation_comb, basic::ColumnBind, *apInputA, *apInputB,
+               *pOutput)
+    return pOutput;
 }
 
 
@@ -32,12 +33,12 @@ RRBind(DataType *apInputA, DataType *apInputB) {
     auto precision_a = apInputA->GetPrecision();
     auto precision_b = apInputB->GetPrecision();
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
-    auto output = new DataType(output_precision);
+    auto pOutput = new DataType(output_precision);
     auto operation_comb = GetOperationPrecision(precision_a, precision_b,
                                                 output_precision);
 
-    DISPATCHER(operation_comb, basic::RowBind, *apInputA, *apInputB, *output)
-    return output;
+    DISPATCHER(operation_comb, basic::RowBind, *apInputA, *apInputB, *pOutput)
+    return pOutput;
 }
 
 
@@ -62,9 +63,9 @@ RIsDouble(DataType *apInput) {
 DataType *
 RReplicate(DataType *apInput, size_t aSize) {
     auto precision = apInput->GetPrecision();
-    auto output = new DataType(precision);
-    SIMPLE_DISPATCH(precision, basic::Replicate, *apInput, *output, aSize)
-    return output;
+    auto pOutput = new DataType(precision);
+    SIMPLE_DISPATCH(precision, basic::Replicate, *apInput, *pOutput, aSize)
+    return pOutput;
 }
 
 
@@ -83,9 +84,9 @@ RNaReplace(DataType *apInput, double aValue) {
 DataType *
 RGetDiagonal(DataType *apInput) {
     auto precision = apInput->GetPrecision();
-    auto output = new DataType(precision);
-    SIMPLE_DISPATCH(precision, basic::GetDiagonal, *apInput, *output)
-    return output;
+    auto pOutput = new DataType(precision);
+    SIMPLE_DISPATCH(precision, basic::GetDiagonal, *apInput, *pOutput)
+    return pOutput;
 
 }
 
@@ -100,21 +101,21 @@ RGetDiagonalWithDims(DataType *apInput, size_t aRow, size_t aCol) {
 }
 
 
-std::string
+void
 RGetType(DataType *apInput) {
     std::string output;
     basic::GetType(*apInput, output);
-    return output;
+    Rcpp::Rcout << output;
 }
 
 
 DataType *
 RGetMin(DataType *apInput) {
     auto precision = apInput->GetPrecision();
-    auto output = new DataType(precision);
+    auto pOutput = new DataType(precision);
     size_t index;
-    SIMPLE_DISPATCH(precision, basic::MinMax, *apInput, *output, index, false)
-    return output;
+    SIMPLE_DISPATCH(precision, basic::MinMax, *apInput, *pOutput, index, false)
+    return pOutput;
 }
 
 
@@ -132,10 +133,10 @@ RGetMinIdx(DataType *apInput) {
 DataType *
 RGetMax(DataType *apInput) {
     auto precision = apInput->GetPrecision();
-    auto output = new DataType(precision);
+    auto pOutput = new DataType(precision);
     size_t index;
-    SIMPLE_DISPATCH(precision, basic::MinMax, *apInput, *output, index, true)
-    return output;
+    SIMPLE_DISPATCH(precision, basic::MinMax, *apInput, *pOutput, index, true)
+    return pOutput;
 }
 
 
@@ -156,13 +157,13 @@ RSweep(DataType *apInput, DataType *apStats, int aMargin,
     auto precision_a = apInput->GetPrecision();
     auto precision_b = apStats->GetPrecision();
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
-    auto output = new DataType(output_precision);
+    auto pOutput = new DataType(output_precision);
     auto operation_comb = GetOperationPrecision(precision_a, precision_b,
                                                 output_precision);
 
-    DISPATCHER(operation_comb, basic::Sweep, *apInput, *apStats, *output,
+    DISPATCHER(operation_comb, basic::Sweep, *apInput, *apStats, *pOutput,
                aMargin, aOperation)
-    return output;
+    return pOutput;
 }
 
 
@@ -190,11 +191,11 @@ RGetNCol(DataType *apInput) {
 }
 
 
-std::string
+void
 RPrint(DataType *apInput) {
     std::string output;
     basic::GetAsStr(*apInput, output);
-    return output;
+    Rcpp::Rcout << output;
 }
 
 
@@ -208,4 +209,67 @@ DataType *
 RGetElementMatrix(DataType *apInput, size_t aRowIdx,
                   size_t aColIdx) {
     return apInput->GetElementMatrix(aRowIdx, aColIdx);
+}
+
+
+DataType *
+RConcatenate(Rcpp::ListOf <SEXP> aList) {
+
+    std::vector <DataType *> mpr_objects;
+    auto list_size = aList.size();
+    auto mpr_list_size = list_size;
+
+    /**
+     * This if condition is added because Concatenate take 2 MPR object at a
+     * time ,so it checks if aList is even or odd and if odd, dummy object
+     * will be added.
+     **/
+    if (list_size % 2 != 0) {
+        mpr_list_size++;
+    }
+
+    mpr_objects.resize(mpr_list_size);
+    size_t i = 0;
+    size_t size_out = 0;
+    auto precision_out = INT;
+
+    for (auto itr = aList.begin(); itr < aList.end(); ++itr) {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            itr->get());
+        if (temp_mpr->IsDataType() && !temp_mpr->IsMatrix()) {
+            mpr_objects[ i ] = temp_mpr;
+            i++;
+
+            size_out += temp_mpr->GetSize();
+            precision_out = GetOutputPrecision(precision_out,
+                                               temp_mpr->GetPrecision());
+        } else {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure all Objects are MPR Objects and Vectors",
+                (int) i);
+        }
+
+    }
+    /** Add Dummy Object **/
+    if (list_size != mpr_list_size) {
+        DataType dummy(0, INT);
+        mpr_objects[ i ] = &dummy;
+    }
+
+    auto pOutput = new DataType(size_out, precision_out);
+    auto operation_precision = INT;
+    auto precision_one = INT;
+    auto precision_two = INT;
+    size_t offset = 0;
+
+    for (auto j = 0; j < mpr_list_size; j += 2) {
+        precision_one = mpr_objects[ j ]->GetPrecision();
+        precision_two = mpr_objects[ j + 1 ]->GetPrecision();
+        operation_precision = GetOperationPrecision(precision_one,
+                                                    precision_two,
+                                                    precision_out);
+        DISPATCHER(operation_precision, basic::Concatenate, *mpr_objects[ j ],
+                   *mpr_objects[ j + 1 ], *pOutput, offset)
+    }
+    return pOutput;
 }

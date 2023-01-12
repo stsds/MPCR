@@ -19,8 +19,17 @@ namespace mpr {
             FLOAT = 2,
             /** 64-Bit Precision **/
             DOUBLE = 3,
+            /** Error Code **/
+            ERROR = -1,
 
-            /** Operations order for Dispatching **/
+            /**
+             * Operations order for Dispatching Assuming Output Must be the
+             *  Same as One of Inputs.
+             *  each precision is multiplied by a prime number according to its
+             *  position ( Generating a unique value for each operation )
+             *  Numbers used (3,5,7)
+             **/
+
             /** in:sfloat ,in:sfloat ,out:sfloat **/
             SSS = 15,
             /** in:float ,in:sfloat ,out:float **/
@@ -39,8 +48,19 @@ namespace mpr {
             FDD = 42,
             /** in:double ,in:double ,out:double **/
             DDD = 45,
-            /** Error Code **/
-            ERROR = -1
+
+            /** This Operation Combinations are used for Concatenation Only **/
+
+            /** in:sfloat ,in:sfloat ,out:double **/
+            SSD = 29,
+            /** in:sfloat ,in:sfloat ,out:float **/
+            SSF = 22,
+            /** in:float ,in:float ,out:double **/
+            FFD = 37,
+            /** in:sfloat ,in:float ,out:double **/
+            SFD = 34,
+            /** in:float ,in:sfloat ,out:double **/
+            FSD = 32
         };
 
 

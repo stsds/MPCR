@@ -283,7 +283,7 @@ public:
      * Value at idx [row][col]
      */
     double
-    GetValMatrix(const size_t &aRow,const size_t &aCol);
+    GetValMatrix(const size_t &aRow, const size_t &aCol);
 
     /**
      * @brief
@@ -309,7 +309,8 @@ public:
      * Value used to set the vector[idx] with
      */
     void
-    SetValMatrix(size_t aRow,size_t aCol, double aVal);
+    SetValMatrix(size_t aRow, size_t aCol, double aVal);
+
     /**
      * @brief
      * Get Precision of the Object
@@ -481,6 +482,7 @@ public:
     size_t
     GetObjectSize();
 
+
     /**
      * @brief
      * Get Element at Idx from MPR Vector as MPR Object
@@ -494,12 +496,13 @@ public:
      */
     inline
     DataType *
-    GetElementVector(const size_t &aIndex){
+    GetElementVector(const size_t &aIndex) {
         auto element = GetVal(aIndex);
-        auto output=new DataType(1,this->mPrecision);
-        output->SetVal(0,element);
+        auto output = new DataType(1, this->mPrecision);
+        output->SetVal(0, element);
         return output;
     }
+
 
     /**
      * @brief
@@ -516,13 +519,28 @@ public:
      */
     inline
     DataType *
-    GetElementMatrix(const size_t &aRow,const size_t &aCol){
-        auto index= GetMatrixIndex(aRow,aCol);
+    GetElementMatrix(const size_t &aRow, const size_t &aCol) {
+        auto index = GetMatrixIndex(aRow, aCol);
         auto element = GetVal(index);
-        auto output=new DataType(1,this->mPrecision);
-        output->SetVal(0,element);
+        auto output = new DataType(1, this->mPrecision);
+        output->SetVal(0, element);
         return output;
     }
+
+
+    /**
+     * @brief
+     * Check if a Casted Memory Address is a DataType.
+     *
+     * @returns
+     * true if the casted pointer is a DataType Object, False Otherwise
+     */
+    inline
+    const bool
+    IsDataType() {
+        return ( this->mMagicNumber == 911 ) ? true : false;
+    }
+
 
 private:
 
@@ -611,6 +629,14 @@ private:
     void
     GetDataSize(size_t &aDataSize);
 
+    /**
+     * @brief
+     * Set Magic Number To Check For DataType Object.
+     *
+     */
+    void
+    SetMagicNumber();
+
     /** Buffer Holding the Data **/
     char *mpData;
     /** Dimensions object that describe the Vector as a Matrix **/
@@ -621,6 +647,8 @@ private:
     mpr::precision::Precision mPrecision;
     /** Bool indicating whether it's a Matrix(True) or Vector(False) **/
     bool mMatrix;
+    /** Magic Number to check if object is DataType **/
+    int mMagicNumber;
 };
 
 #endif //MPR_DATATYPE_HPP

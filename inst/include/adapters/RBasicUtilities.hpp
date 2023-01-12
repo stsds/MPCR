@@ -158,16 +158,13 @@ RGetDiagonalWithDims(DataType *apInput, size_t aRow, size_t aCol);
 
 /**
  * @brief
- * R Adapter for Getting string indicating whether it's 16/32/64 Bit Precision
+ * R Adapter for Printing string indicating whether it's 16/32/64 Bit Precision
  *
  * @param[in] apInput
  * MPR object can be Vector or Matrix
  *
- * @returns
- * String Holding Precision Type
- *
  */
-std::string
+void
 RGetType(DataType *apInput);
 
 /**
@@ -306,17 +303,14 @@ RGetNCol(DataType *apInput);
 
 /**
  * @brief
- * R Adapter for Getting Information about MPR object
+ * R Adapter for Printing Information about MPR object
  * Dimensions-Matrix/Vector-Values ,and Precisions.
  *
  * @param[in] apInput
  * MPR Object.
  *
- * @returns
- * String that will hold the info.
- *
  */
-std::string
+void
 RPrint(DataType *apInput);
 
 /**
@@ -354,5 +348,27 @@ RGetElementVector(DataType *apInput, size_t aIndex);
 DataType *
 RGetElementMatrix(DataType *apInput, size_t aRowIdx,
                   size_t aColIdx);
+
+/**
+ * @brief
+ * R Adapter for Concatenating List of MPR Vectors into one MPR Vector.
+ * This Function Casts the SEXP pointer to DataTypes pointers , And Check a Magic
+ * Number inside the MPR Class to determine if its a MPR object or Not.
+ *
+ * Warning:
+ * There's a very Small Possibility that the Passed Objects' Magic Number is
+ * the Same as DataType , in this case , The behavior of the function is unexpected.
+ * So the User should check whether all Objects are MPR Objects or not.
+ *
+ * @param[in] aList
+ * List Of SEXP
+ *
+ * @returns
+ * MPR Vector containing all values in all lists (Precision = Highest Precision
+ * in the List)
+ *
+ */
+DataType *
+RConcatenate(Rcpp::ListOf <SEXP> aList);
 
 #endif //MPR_RBASICUTILITIES_HPP

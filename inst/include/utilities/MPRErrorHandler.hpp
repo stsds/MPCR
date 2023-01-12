@@ -8,17 +8,17 @@
 
 /** MPR API Exceptions Macro to use for Errors **/
 #define MPR_API_EXCEPTION(MESSAGE, ERROR_CODE) \
-MPIAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,false,ERROR_CODE)
+MPRAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,true,ERROR_CODE)
 
 /** MPR API Warning Macro to use for Warnings **/
 #define MPR_API_WARN(MESSAGE, WARNING_CODE) \
-MPIAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,true,WARNING_CODE)
+MPRAPIException(MESSAGE, __FILE__, __LINE__, __FUNCTION__,false,WARNING_CODE)
 
-class MPIAPIException {
+class MPRAPIException {
 
 public:
 
-    MPIAPIException(const char *apMessage,
+    MPRAPIException(const char *apMessage,
                     const char *apFileName,
                     int aLineNumber,
                     const char *apFunctionName,
@@ -53,14 +53,14 @@ public:
 
 
         if (aIsError) {
-            MPIAPIException::ThrowError(ss.str());
+            MPRAPIException::ThrowError(ss.str());
         } else {
-            MPIAPIException::ThrowWarning(ss.str());
+            MPRAPIException::ThrowWarning(ss.str());
         }
     }
 
 
-    ~MPIAPIException() = default;
+    ~MPRAPIException() = default;
 
 private:
 
@@ -77,9 +77,6 @@ private:
 
     static void
     ThrowWarning(std::string aString) {
-#ifdef RUNNING_CPP
-        std::cout << aString << std::endl;
-#endif
 #ifndef RUNNING_CPP
         Rcpp::warning(aString);
 #endif

@@ -10,11 +10,11 @@ using namespace mpr::precision;
 
 template<typename T>
 void
-CheckValues(DataType *data, char *validator) {
+CheckValues(DataType *apData, char *apValidator) {
 
-    T *temp_data = (T *) data->GetData();
-    T *temp_validate = (T *) validator;
-    auto size = data->GetSize();
+    T *temp_data = (T *) apData->GetData();
+    T *temp_validate = (T *) apValidator;
+    auto size = apData->GetSize();
     for (auto i = 0; i < size; i++) {
         REQUIRE(temp_data[i] == temp_validate[i]);
     }
@@ -23,12 +23,12 @@ CheckValues(DataType *data, char *validator) {
 
 template<typename T>
 void
-InitValidator(char *&data, size_t size) {
-    T *temp = new T[size];
-    for (auto i = 0; i < size; i++) {
+InitValidator(char *&apData, size_t aSize) {
+    T *temp = new T[aSize];
+    for (auto i = 0; i < aSize; i++) {
         temp[i] = (T) 1.5;
     }
-    data = (char *) temp;
+    apData = (char *) temp;
 }
 
 
@@ -88,11 +88,9 @@ TEST_DATA_TYPE() {
             REQUIRE(c.IsMatrix() == false);
             REQUIRE(c.GetDimensions() == nullptr);
 
-
             for (auto i = 0; i < size; i++) {
                 c.SetVal(i, 3.225);
             }
-
             for (auto i = 0; i < size; i++) {
                 REQUIRE(b.GetVal(i) != c.GetVal(i));
             }
