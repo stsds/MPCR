@@ -273,3 +273,97 @@ RConcatenate(Rcpp::ListOf <SEXP> aList) {
     }
     return pOutput;
 }
+
+
+DataType *
+RScale(DataType *apInput, DataType *apCenter, DataType *apScale) {
+    auto precision_a = apInput->GetPrecision();
+    auto precision_b = apCenter->GetPrecision();
+    auto precision_c = apScale->GetPrecision();
+
+    auto output_precision = GetOutputPrecision(precision_a, precision_b);
+    output_precision = GetOutputPrecision(output_precision, precision_c);
+
+    auto pOutput = new DataType(apInput->GetSize(), output_precision);
+    auto operation_comb = GetOperationPrecision(precision_a, precision_b,
+                                                output_precision);
+
+    DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, *apCenter,
+               *pOutput)
+
+    operation_comb = GetOperationPrecision(precision_a, precision_c,
+                                           output_precision);
+
+    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, *apScale, *pOutput)
+    return pOutput;
+
+}
+
+
+DataType *
+RScale(DataType *apInput, bool aCenter, DataType *apScale) {
+    auto precision_a = apInput->GetPrecision();
+    auto precision_b = apScale->GetPrecision();
+
+    auto output_precision = GetOutputPrecision(precision_a, precision_b);
+    auto pOutput = new DataType(apInput->GetSize(), output_precision);
+
+    auto operation_comb = GetOperationPrecision(precision_a, precision_b,
+                                                output_precision);
+    DataType dummy_center(precision_b);
+
+    DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, dummy_center,
+               *pOutput, &aCenter)
+
+    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, *apScale, *pOutput)
+
+    return pOutput;
+
+}
+
+
+DataType *
+RScale(DataType *apInput, DataType *apCenter, bool aScale) {
+    auto precision_a = apInput->GetPrecision();
+    auto precision_b = apCenter->GetPrecision();
+
+    auto output_precision = GetOutputPrecision(precision_a, precision_b);
+    auto pOutput = new DataType(apInput->GetSize(), output_precision);
+
+    auto operation_comb = GetOperationPrecision(precision_a, precision_b,
+                                                output_precision);
+    DataType dummy_scale(precision_b);
+
+    DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, *apCenter,
+               *pOutput)
+
+    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, dummy_scale,
+               *pOutput, &aScale)
+
+    return pOutput;
+}
+
+
+DataType *
+RScale(DataType *apInput, bool aCenter, bool aScale) {
+    auto precision_a = apInput->GetPrecision();
+    auto pOutput = new DataType(apInput->GetSize(), precision_a);
+
+    auto operation_comb = GetOperationPrecision(precision_a, precision_a,
+                                                precision_a);
+    DataType dummy(precision_a);
+
+    DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, dummy,
+               *pOutput, &aCenter)
+
+    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, dummy,
+               *pOutput, &aScale)
+
+    return pOutput;
+}
+
+
+DataType *
+RScale(DataType *apInput) {
+    return RScale(apInput, true, true);
+}

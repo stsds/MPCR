@@ -17,38 +17,38 @@ basic::MinMax(DataType &aVec, DataType &aOutput, size_t &aMinMaxIdx,
         return;
     }
 
-    T *data = (T *) aVec.GetData();
-    T *output;
-    T min = data[ 0 ];
-    T max = data[ 0 ];
-    size_t MinIdx = 0;
-    size_t MaxIdx = 0;
-    output = new T[1];
+    T *pData = (T *) aVec.GetData();
+    T *pOutput;
+    T min = pData[ 0 ];
+    T max = pData[ 0 ];
+    size_t min_idx = 0;
+    size_t max_idx = 0;
+    pOutput = new T[1];
     auto size = aVec.GetSize();
 
     for (auto i = 1; i < size; i++) {
-        if (!std::isnan(data[ i ])) {
-            if (data[ i ] < min) {
-                min = data[ i ];
-                MinIdx = i;
-            } else if (data[ i ] > max) {
-                max = data[ i ];
-                MaxIdx = i;
+        if (!std::isnan(pData[ i ])) {
+            if (pData[ i ] < min) {
+                min = pData[ i ];
+                min_idx = i;
+            } else if (pData[ i ] > max) {
+                max = pData[ i ];
+                max_idx = i;
             }
         }
     }
 
 
     if (aIsMax) {
-        output[ 0 ] = max;
-        aMinMaxIdx = MaxIdx;
+        pOutput[ 0 ] = max;
+        aMinMaxIdx = max_idx;
     } else {
-        output[ 0 ] = min;
-        aMinMaxIdx = MinIdx;
+        pOutput[ 0 ] = min;
+        aMinMaxIdx = min_idx;
     }
     aOutput.ClearUp();
     aOutput.SetSize(1);
-    aOutput.SetData((char *) output);
+    aOutput.SetData((char *) pOutput);
 }
 
 
@@ -78,7 +78,7 @@ template <typename T>
 void
 basic::GetDiagonal(DataType &aVec, DataType &aOutput,
                    Dimensions *apDim) {
-    Dimensions *dims;
+    Dimensions *pDims;
 
     if (!aVec.IsMatrix()) {
         if (apDim == nullptr) {
@@ -88,23 +88,23 @@ basic::GetDiagonal(DataType &aVec, DataType &aOutput,
         if (!aVec.CanBeMatrix(apDim->GetNRow(), apDim->GetNCol())) {
             MPR_API_EXCEPTION("Matrix Out of Bound Wrong Dimensions", -1);
         }
-        dims = apDim;
+        pDims = apDim;
     } else {
-        dims = aVec.GetDimensions();
+        pDims = aVec.GetDimensions();
     }
 
     aOutput.ClearUp();
-    T *output_data;
-    T *data = (T *) aVec.GetData();
-    auto col = dims->GetNCol();
-    output_data = new T[col];
+    T *pOutput_data;
+    T *pData = (T *) aVec.GetData();
+    auto col = pDims->GetNCol();
+    pOutput_data = new T[col];
 
     for (auto i = 0; i < col; i++) {
-        output_data[ i ] = data[ ( i * col ) + i ];
+        pOutput_data[ i ] = pData[ ( i * col ) + i ];
     }
 
     aOutput.SetSize(col);
-    aOutput.SetData((char *) output_data);
+    aOutput.SetData((char *) pOutput_data);
 
 }
 
@@ -121,15 +121,15 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
     auto row = aVec.GetNRow();
     auto col = aVec.GetNCol();
     aOutput.ToMatrix(row, col);
-    T *input_data = (T *) aVec.GetData();
-    X *sweep_data = (X *) aStats.GetData();
-    Y *output_data;
+    T *pInput_data = (T *) aVec.GetData();
+    X *pSweep_data = (X *) aStats.GetData();
+    Y *pOutput_data;
     size_t idx = 0;
 
 
     auto size = aVec.GetSize();
     auto stat_size = aStats.GetSize();
-    output_data = new Y[size];
+    pOutput_data = new Y[size];
 
     if (aMargin == 1 && row % stat_size ||
         aMargin != 1 && col % stat_size) {
@@ -137,12 +137,12 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
     }
 
     if (aMargin == 1) {
-        RUN_OP(input_data, sweep_data, output_data, aFun, col, row - 1)
+        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, col, row - 1)
 
     } else {
-        RUN_OP(input_data, sweep_data, output_data, aFun, row, 0)
+        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, row, 0)
     }
-    aOutput.SetData((char *) output_data);
+    aOutput.SetData((char *) pOutput_data);
 }
 
 
@@ -159,11 +159,11 @@ basic::Concatenate(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         MPR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
     }
 
-    T *data_in_one = (T *) aInputA.GetData();
-    Y *data_out = (Y *) aOutput.GetData();
+    T *pData_in_one = (T *) aInputA.GetData();
+    Y *pData_out = (Y *) aOutput.GetData();
     auto size = aInputA.GetSize();
 
-    std::copy(data_in_one, data_in_one + size, data_out + aCurrentIdx);
+    std::copy(pData_in_one, pData_in_one + size, pData_out + aCurrentIdx);
     aCurrentIdx += size;
 
     if (aInputB.GetSize() != 0) {
@@ -171,15 +171,15 @@ basic::Concatenate(DataType &aInputA, DataType &aInputB, DataType &aOutput,
             MPR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
         }
 
-        X *data_in_two = (X *) aInputB.GetData();
+        X *pData_in_two = (X *) aInputB.GetData();
         size = aInputB.GetSize();
 
-        std::copy(data_in_two, data_in_two + size, data_out + aCurrentIdx);
+        std::copy(pData_in_two, pData_in_two + size, pData_out + aCurrentIdx);
         aCurrentIdx += size;
 
     }
 
-    aOutput.SetData((char *) data_out);
+    aOutput.SetData((char *) pData_out);
 }
 
 
@@ -199,9 +199,9 @@ basic::ColumnBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
     size_t num_cols = dim_one->GetNCol() + dim_two->GetNCol();
     size_t num_cols_in_1 = dim_one->GetNCol();
     size_t num_cols_in_2 = dim_two->GetNCol();
-    T *data_one = (T *) aInputA.GetData();
-    X *data_two = (X *) aInputB.GetData();
-    Y *data_out = new Y[new_size];
+    T *pData_one = (T *) aInputA.GetData();
+    X *pData_two = (X *) aInputB.GetData();
+    Y *pData_out = new Y[new_size];
     size_t offset;
     size_t offset_one;
     size_t offset_two;
@@ -209,15 +209,17 @@ basic::ColumnBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
         offset_one = i * num_cols_in_1;
         offset_two = i * num_cols_in_2;
         offset = i * num_cols;
-        std::copy(data_one + offset_one, data_one + offset_one + num_cols_in_1,
-                  data_out + offset);
+        std::copy(pData_one + offset_one,
+                  pData_one + offset_one + num_cols_in_1,
+                  pData_out + offset);
         offset += num_cols_in_1;
-        std::copy(data_two + offset_two, data_two + offset_two + num_cols_in_2,
-                  data_out + offset);
+        std::copy(pData_two + offset_two,
+                  pData_two + offset_two + num_cols_in_2,
+                  pData_out + offset);
     }
     aOutput.ClearUp();
     aOutput.ToMatrix(num_rows, num_cols);
-    aOutput.SetData((char *) data_out);
+    aOutput.SetData((char *) pData_out);
 }
 
 
@@ -236,18 +238,18 @@ basic::RowBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
     size_t num_rows = dim_one->GetNRow() + dim_two->GetNRow();
     size_t num_cols = dim_one->GetNCol();
 
-    T *data_one = (T *) aInputA.GetData();
-    X *data_two = (X *) aInputB.GetData();
-    Y *data_out = new Y[new_size];
+    T *pData_one = (T *) aInputA.GetData();
+    X *pData_two = (X *) aInputB.GetData();
+    Y *pData_out = new Y[new_size];
 
     /** Check if indexing needs +1 **/
-    std::copy(data_one, data_one + aInputA.GetSize(), data_out);
-    std::copy(data_two, data_two + aInputB.GetSize(),
-              data_out + aInputA.GetSize());
+    std::copy(pData_one, pData_one + aInputA.GetSize(), pData_out);
+    std::copy(pData_two, pData_two + aInputB.GetSize(),
+              pData_out + aInputA.GetSize());
 
     aOutput.ClearUp();
     aOutput.ToMatrix(num_rows, num_cols);
-    aOutput.SetData((char *) data_out);
+    aOutput.SetData((char *) pData_out);
 }
 
 
@@ -273,16 +275,16 @@ template <typename T>
 void
 basic::Replicate(DataType &aInput, DataType &aOutput, const size_t &aSize) {
 
-    T *data = (T *) aInput.GetData();
-    T *buffer = new T[aSize];
+    T *pData = (T *) aInput.GetData();
+    T *pBuffer = new T[aSize];
     size_t data_size = aInput.GetSize();
     for (auto i = 0; i < aSize; ++i) {
-        buffer[ i ] = data[ i % data_size ];
+        pBuffer[ i ] = pData[ i % data_size ];
     }
 
     aOutput.ClearUp();
     aOutput.SetSize(aSize);
-    aOutput.SetData((char *) buffer);
+    aOutput.SetData((char *) pBuffer);
 
 }
 
@@ -299,14 +301,15 @@ basic::GetAsStr(DataType &aVec, std::string &aType) {
         ss << "Number of Column = " << dim->GetNCol() << std::endl;
     } else {
         ss << "Vector Of Size :" << aVec.GetSize() << std::endl;
+        auto itr = ( 10 > aVec.GetSize()) ? aVec.GetSize() : 10;
+        ss << "Data :" << std::endl << std::left << std::setfill(' ')
+           << std::setw(3) << "[ ";
+        for (auto i = 0; i < itr; ++i) {
+            ss << aVec.GetVal(i) << "   ";
+        }
+        ss << " ... ]" << std::endl;
+
     }
-    auto itr = ( 10 > aVec.GetSize()) ? aVec.GetSize() : 10;
-    ss << "Data :" << std::endl << std::left << std::setfill(' ')
-       << std::setw(3) << "[ ";
-    for (auto i = 0; i < itr; ++i) {
-        ss << aVec.GetVal(i) << "   ";
-    }
-    ss << " ... ]" << std::endl;
     aType += ss.str();
 }
 
@@ -314,47 +317,172 @@ basic::GetAsStr(DataType &aVec, std::string &aType) {
 template <typename T>
 void basic::NAExclude(DataType &aInputA) {
 
-    T *data = (T *) aInputA.GetData();
+    T *pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
     auto counter = size;
     if (aInputA.IsMatrix()) {
-        //TODO: check how matrix should be excluded
+
+        std::vector <size_t> row_idx;
+        auto rows = aInputA.GetNRow();
+        auto cols = aInputA.GetNCol();
+        for (auto i = 0; i < rows; i++) {
+            for (auto j = 0; j < cols; j++) {
+                if (std::isnan(pData[ ( i * cols ) + j ])) {
+                    counter -= cols;
+                    goto cont;
+                }
+            }
+            row_idx.push_back(i);
+            cont:
+            continue;
+        }
+
+        T *pOutput = new T[counter];
+        aInputA.SetSize(counter);
+        counter = 0;
+        for (auto i = 0; i < row_idx.size(); i++) {
+            auto start_idx = row_idx[ i ] * cols;
+            std::memcpy(pOutput + counter, pData + start_idx, cols);
+            counter += cols;
+        }
+
+        aInputA.SetData((char *) pOutput);
+
+
     } else {
         for (auto i = 0; i < size; i++) {
-            counter -= std::isnan(data[ i ]);
+            counter -= std::isnan(pData[ i ]);
         }
         if (counter == size) {
             return;
         }
-        T *output = new T[counter];
+        T *pOutput = new T[counter];
         aInputA.SetSize(counter);
         counter = 0;
         for (auto i = 0; i < size; ++i) {
-            if (!std::isnan(data[ i ])) {
-                output[ counter++ ] = data[ i ];
+            if (!std::isnan(pData[ i ])) {
+                pOutput[ counter++ ] = pData[ i ];
             }
         }
 
-        aInputA.SetData((char *) output);
+        aInputA.SetData((char *) pOutput);
     }
 
 }
 
 
 template <typename T, typename X, typename Y>
-void basic::ApplyScale() {
-    //not implemented yet
+void
+basic::ApplyCenter(DataType &aInputA, DataType &aCenter, DataType &aOutput,
+                   const bool *apCenter) {
+    auto pData_input = (T *) aInputA.GetData();
+    auto pOutput = (Y *) aOutput.GetData();
+
+    if (apCenter != nullptr) {
+        if (*apCenter) {
+            double accum;
+            auto col_size = aInputA.GetNCol();
+            auto row_size = aInputA.GetNRow();
+            for (auto i = 0; i < row_size; i++) {
+                accum = 0;
+                auto start_idx = i * col_size;
+                accum = std::accumulate(pData_input + start_idx,
+                                        pData_input + start_idx + col_size,
+                                        accum);
+                for (auto j = 0; j < col_size; j++) {
+                    pOutput[ start_idx + j ] =
+                        pData_input[ start_idx + j ] - accum;
+                }
+            }
+        } else {
+            //no centering is done
+            auto data_size = aInputA.GetSize();
+            std::copy(pData_input, pData_input + data_size, pOutput);
+        }
+    } else {
+        //subtract col element from its respective element in aCenter
+        auto pData_center = (X *) aCenter.GetData();
+        auto center_size = aCenter.GetSize();
+        auto col_size = aInputA.GetNCol();
+        if (col_size != center_size) {
+            MPR_API_EXCEPTION(
+                "Cannot Center with the Provided Data, Column size doesn't equal Center Vector Size",
+                -1);
+        }
+        auto data_size = aInputA.GetSize();
+        for (auto i = 0; i < data_size; i++) {
+            pOutput[ i ] = pData_input[ i ] - pData_center[ i % center_size ];
+        }
+    }
+
+    aOutput.SetData((char *) pOutput);
+}
+
+
+template <typename T, typename X, typename Y>
+void
+basic::ApplyScale(DataType &aInputA, DataType &aScale, DataType &aOutput,
+                  const bool *apScale) {
+
+    auto pData_input = (T *) aInputA.GetData();
+    auto pOutput = (Y *) aOutput.GetData();
+
+    if (apScale != nullptr) {
+        if (*apScale) {
+            double accum;
+            double mean;
+            auto col_size = aInputA.GetNCol();
+            auto row_size = aInputA.GetNRow();
+            for (auto i = 0; i < row_size; i++) {
+                accum = 0;
+                auto start_idx = i * col_size;
+                accum = std::accumulate(pData_input + start_idx,
+                                        pData_input + start_idx + col_size,
+                                        accum);
+                mean = accum / col_size;
+
+                double variance = 0.0;
+                std::for_each(pData_input + start_idx,
+                              pData_input + start_idx + col_size,
+                              [&](const T d) {
+                                  variance += ( d - mean ) * ( d - mean );
+                              });
+
+                double stdev = sqrt(variance / ( col_size - 1 ));
+
+                for (auto j = 0; j < col_size; j++) {
+                    pOutput[ start_idx + j ] = pOutput[ start_idx + j ] / stdev;
+                }
+            }
+        }
+    } else {
+        auto pData_scale = (X *) aScale.GetData();
+        auto scale_size = aScale.GetSize();
+        auto col_size = aInputA.GetNCol();
+        if (col_size != scale_size) {
+            MPR_API_EXCEPTION(
+                "Cannot Scale with the Provided Data, Column size doesn't equal Scale Vector Size",
+                -1);
+        }
+        auto data_size = aInputA.GetSize();
+        for (auto i = 0; i < data_size; i++) {
+            pOutput[ i ] = pOutput[ i ] / pData_scale[ i % scale_size ];
+        }
+
+    }
+    aOutput.SetData((char *) pOutput);
+
 }
 
 
 template <typename T>
 void
 basic::NAReplace(DataType &aInputA, const double &aValue) {
-    T *data = (T *) aInputA.GetData();
+    T *pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
     for (auto i = 0; i < size; i++) {
-        if (std::isnan(data[ i ])) {
-            data[ i ] = (T) aValue;
+        if (std::isnan(pData[ i ])) {
+            pData[ i ] = (T) aValue;
         }
     }
 
@@ -370,6 +498,12 @@ INSTANTIATE(void, basic::RowBind, DataType &aInputA, DataType &aInputB,
 INSTANTIATE(void, basic::Sweep, DataType &aVec, DataType &aStats,
             DataType &aOutput,
             const int &aMargin, const std::string &aFun)
+
+INSTANTIATE(void, basic::ApplyCenter, DataType &aInputA, DataType &aCenter,
+            DataType &aOutput, const bool *apCenter)
+
+INSTANTIATE(void, basic::ApplyScale, DataType &aInputA, DataType &aScale,
+            DataType &aOutput, const bool *apScale)
 
 INSTANTIATE(void, basic::Concatenate, DataType &aInputA, DataType &aInputB,
             DataType &aOutput,

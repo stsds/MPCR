@@ -371,4 +371,93 @@ RGetElementMatrix(DataType *apInput, size_t aRowIdx,
 DataType *
 RConcatenate(Rcpp::ListOf <SEXP> aList);
 
+/**
+ * @brief
+ *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
+ *
+ * @param[in] apInputA
+ * MPR Object.
+ * @param[in] apCenter
+ * numeric-alike MPR vector of length equal to the number of
+ * columns of aInput.
+ * @param[out] apScale
+ * numeric-alike MPR vector of length equal to the number of
+ * columns of aInput.
+ * @returns
+ * MPR Object with the same size and shape after centering and/or scaling.
+ *
+ */
+DataType *
+RScale(DataType *apInput, DataType *apCenter, DataType *apScale);
+
+/**
+ * @brief
+ *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
+ *
+ * @param[in] apInputA
+ * MPR Object.
+ * @param[in] aCenter
+ * bool if true centering is done using column mean ,else no centering is done.
+ * @param[out] apScale
+ * numeric-alike MPR vector of length equal to the number of
+ * columns of aInput.
+ * @returns
+ * MPR Object with the same size and shape after centering and/or scaling.
+ *
+ */
+DataType *
+RScale(DataType *apInput, bool aCenter, DataType *apScale);
+
+/**
+ * @brief
+ *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
+ *
+ * @param[in] apInputA
+ * MPR Object.
+ * @param[in] apCenter
+ * numeric-alike MPR vector of length equal to the number of
+ * columns of aInput.
+ * @param[out] aScale
+ * bool if true scaling is done using column standard deviation,else no scaling
+ * is done.
+ * @returns
+ * MPR Object with the same size and shape after centering and/or scaling.
+ *
+ */
+DataType *
+RScale(DataType *apInput, DataType *apCenter, bool aScale);
+
+/**
+ * @brief
+ *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
+ *
+ * @param[in] apInputA
+ * MPR Object.
+ * @param[in] aCenter
+ * bool if true centering is done using column mean ,else no centering is done.
+ * @param[out] aScale
+ * bool if true scaling is done using column standard deviation,else no scaling
+ * is done.
+ * @returns
+ * MPR Object with the same size and shape after centering and/or scaling.
+ *
+ */
+DataType *
+RScale(DataType *apInput, bool aCenter, bool aScale);
+
+/**
+ * @brief
+ *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
+ *  Centering is done using column mean and scaling is done using column standard
+ *  deviation.
+ *
+ * @param[in] apInputA
+ * MPR Object.
+ * @returns
+ * MPR Object with the same size and shape after centering and/or scaling.
+ *
+ */
+DataType *
+RScale(DataType *apInput);
+
 #endif //MPR_RBASICUTILITIES_HPP

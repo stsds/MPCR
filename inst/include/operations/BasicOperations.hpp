@@ -236,16 +236,46 @@ namespace mpr {
             NAReplace(DataType &aInputA, const double &aValue);
 
             /**
-            * @brief
-            * Not done yet
-            *
-            * @param[in,out] aInputA
-            * MPR Object.
-            *
-            */
+             * @brief
+             * centers the columns of a numeric matrix.
+             *
+             * @param[in] aInputA
+             * MPR Object.
+             * @param[in] aCenter
+             * numeric-alike MPR vector of length equal to the number of
+             * columns of aInput.
+             * @param[out] aOutput
+             * MPR Output Object
+             * @param[in] apCenter
+             * bool to indicate whether to center using mean or not.
+             * if apCenter is not null, aCenter MPR object is ignored.
+             *
+             */
             template <typename T, typename X, typename Y>
             void
-            ApplyScale();
+            ApplyCenter(DataType &aInputA, DataType &aCenter, DataType &aOutput,
+                        const bool *apCenter = nullptr);
+
+            /**
+             * @brief
+             * Scales the columns of a numeric matrix.
+             *
+             * @param[in] aInputA
+             * MPR Object.
+             * @param[in] aScale
+             * numeric-alike MPR vector of length equal to the number of
+             * columns of aInput.
+             * @param[out] aOutput
+             * MPR Output Object
+             * @param[in] apScale
+             * bool to indicate whether to scale using standard deviation or not.
+             * if apScale is not null, aScale MPR object is ignored.
+             *
+             */
+            template <typename T, typename X, typename Y>
+            void
+            ApplyScale(DataType &aInputA, DataType &aScale,
+                       DataType &aOutput, const bool *apScale = nullptr);
 
 
         }

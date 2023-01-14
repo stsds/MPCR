@@ -279,13 +279,14 @@ DataType::GetDimensions() const {
 
 template <typename T>
 void
-DataType::GetCopyOfData(const char *aSrc, char *&aDest) {
-    T *data = (T *) aSrc;
+DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
+    T *data = (T *) apSrc;
     auto size = this->mSize;
-    T *output = new T[size];
+    T *pOutput = new T[size];
 
-    memcpy((char *) output, (char *) data, size * sizeof(T));
-    aDest = (char *) output;
+
+    memcpy((char *) pOutput, (char *) data, size * sizeof(T));
+    apDest = (char *) pOutput;
 }
 
 
@@ -294,6 +295,7 @@ DataType::operator =(const DataType &aDataType) {
     this->mSize = aDataType.mSize;
     this->mPrecision = aDataType.mPrecision;
     this->mMatrix = aDataType.mMatrix;
+    this->mpData = nullptr;
     if (this->mMatrix) {
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     } else {
@@ -356,13 +358,14 @@ DataType::GetValMatrix(const size_t &aRow, const size_t &aCol) {
 void
 DataType::SetValMatrix(size_t aRow, size_t aCol, double aVal) {
     auto idx = this->GetMatrixIndex(aRow, aCol);
-    SetVal(idx,aVal);
+    SetVal(idx, aVal);
 }
 
 
 void DataType::SetMagicNumber() {
-    this->mMagicNumber=911;
+    this->mMagicNumber = 911;
 }
+
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 
@@ -370,8 +373,8 @@ SIMPLE_INSTANTIATE(void, DataType::Init)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 
-SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, const char *aSrc,
-                   char *&aDest)
+SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, const char *apSrc,
+                   char *&apDest)
 
 SIMPLE_INSTANTIATE(void, DataType::GetValue, int aIndex, double *&aOutput)
 

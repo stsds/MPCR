@@ -14,7 +14,7 @@ void
 TEST_BASIC_OPERATION() {
     SECTION("Testing Sweep") {
         cout << "Testing Basic Utilities ..." << endl;
-        std::cout << "Testing Sweep ..." << endl;
+        cout << "Testing Sweep ..." << endl;
 
         DataType a(4, 6, FLOAT);
         DataType b(6, FLOAT);
@@ -299,7 +299,7 @@ TEST_BASIC_OPERATION() {
 //        DataType c(DOUBLE);
 //        try {
 //            DISPATCHER(FDD, basic::ColumnBind, a, b, c)
-//        } catch (std::invalid_argument const &e) {
+//        } catch (invalid_argument const &e) {
 //            REQUIRE(e.what() =="");
 //        }
 
@@ -360,7 +360,7 @@ TEST_BASIC_OPERATION() {
 //        DataType c(DOUBLE);
 //        try {
 //            DISPATCHER(FDD, basic::RowBind, a, b, c)
-//        } catch (std::invalid_argument const &e) {
+//        } catch (invalid_argument const &e) {
 //            REQUIRE(e.what() == "");
 //        }
     }SECTION("Testing Replicate") {

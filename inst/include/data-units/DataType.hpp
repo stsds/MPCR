@@ -125,7 +125,7 @@ typedef struct Dimensions {
 } Dimensions;
 
 
-/** DataType Class creates an array of float that you can access throw
+/** DataType Class creates an array of (16/32/64)-Bit Precision that you can access throw
  * R as C++ object
  **/
 class DataType {
@@ -593,7 +593,7 @@ private:
      */
     template <typename T>
     void
-    GetCopyOfData(const char *aSrc, char *&aDest);
+    GetCopyOfData(const char *apSrc, char *&apDest);
 
     /**
      * @brief
