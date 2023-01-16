@@ -33,17 +33,22 @@ if (${R_FOUND})
     add_definitions(-DUSING_R)
 endif ()
 
+# For Error Handling Class
+if(${RUNNING_CPP})
+    add_definitions(-DRUNNING_CPP)
+endif()
+
 
 # Add Include DIRS
 include_directories(${CMAKE_SOURCE_DIR}/inst/include)
 include_directories(${CMAKE_SOURCE_DIR}/prerequisites)
 
-# Add src Directory to expose added libraries
 
 
 # Options
 option(MPR_BUILD_TESTS "Option to enable building tests" OFF)
 
+# Add src Directory to expose added libraries
 add_subdirectory(src)
 
 message("Installation path : ${CMAKE_INSTALL_PREFIX}")

@@ -9,25 +9,25 @@ using namespace mpr::precision;
 
 template<typename T>
 void
-TestSimpleDispatch(T aNumA, T aNumB, bool &IsEqual) {
+TestSimpleDispatch(T aNumA, T aNumB, bool &aIsEqual) {
     if (aNumA == aNumB) {
-        IsEqual = true;
+        aIsEqual = true;
     } else {
-        IsEqual = false;
+        aIsEqual = false;
     }
 }
 
 
 template<typename T, typename X, typename Y>
 void
-TestComplexDispatch(DataType *aNumA, DataType *aNumB, DataType *aNumC) {
-    T *data_one = (T *) aNumA->GetData();
-    X *data_two = (X *) aNumB->GetData();
-    Y *data_out = (Y *) aNumC->GetData();
+TestComplexDispatch(DataType *apNumA, DataType *apNumB, DataType *apNumC) {
+    T *data_one = (T *) apNumA->GetData();
+    X *data_two = (X *) apNumB->GetData();
+    Y *data_out = (Y *) apNumC->GetData();
 
-    REQUIRE(aNumA->GetSize() == aNumB->GetSize());
+    REQUIRE(apNumA->GetSize() == apNumB->GetSize());
 
-    for (auto i = 0; i < aNumA->GetSize(); i++) {
+    for (auto i = 0; i < apNumA->GetSize(); i++) {
         REQUIRE(data_out[i] == data_one[i] + data_two[i]);
     }
 }
@@ -35,24 +35,12 @@ TestComplexDispatch(DataType *aNumA, DataType *aNumB, DataType *aNumC) {
 
 template<typename T>
 void
-GenerateData(DataType *aDataType, double aVal) {
-    T *data = (T *) aDataType->GetData();
-    auto size = aDataType->GetSize();
+GenerateData(DataType *apDataType, double aVal) {
+    T *data = (T *) apDataType->GetData();
+    auto size = apDataType->GetSize();
     for (auto i = 0; i < size; i++) {
         data[i] = aVal;
     }
-}
-
-
-template<typename T>
-void
-ChangeType(DataType *aDataType, Precision aPrecision) {
-    auto size = aDataType->GetSize();
-    T *temp = new T[size];
-    aDataType->SetData((char *) temp);
-    aDataType->SetPrecision(aPrecision);
-    aDataType->Init<T>();
-
 }
 
 

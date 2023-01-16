@@ -58,3 +58,142 @@ y$Size
 
 paste("Print all Elements in The Vector")
 y$PrintValues()
+
+paste("---------------------------------------------------------------")
+paste("Get Min Value set First element with -1")
+x[[0]]<--1
+min <-min(x)
+min[[0]]
+
+paste("Get Min Value Idx Should be 0")
+min_idx <-which.min(x)
+min_idx
+
+paste("---------------------------------------------------------------")
+paste("Get Max Value set First element with 10.55")
+max <-max(x)
+max[[0]]
+
+paste("Get Min Value Idx Should be 5")
+max_idx <-which.max(x)
+max_idx
+
+paste("---------------------------------------------------------------")
+paste("Is Int Should be True")
+is.sfloat(y)
+paste("Is Int Should be False")
+is.double(y)
+is.float(y)
+
+paste("---------------------------------------------------------------")
+paste("Is NA Should be True")
+x[[10]] <- 0
+x[[11]] <- x[[10]]/0
+is.na(x,11)
+paste("Is NA Should be False")
+is.na(x,12)
+
+paste("---------------------------------------------------------------")
+paste("NA replace with 123")
+na.exclude(x,123)
+x[[11]]
+paste("NA omit size should be 49")
+x[[11]] <- x[[10]]/0
+na.omit(x)
+x$Size
+
+paste("---------------------------------------------------------------")
+paste("Replicate 1 2 3 (3 Times)")
+temp_rep <-new (DataType,3,"float")
+temp_rep[[0]] <- 1
+temp_rep[[1]] <- 2
+temp_rep[[2]] <- 3
+
+replicated <- rep(temp_rep,9)
+replicated$ToMatrix(3,3)
+
+paste("Size should be 9")
+replicated$Size
+replicated$PrintValues()
+
+paste("---------------------------------------------------------------")
+paste("Get Diagonal")
+diag <-diag(replicated)
+paste("size should be 3")
+diag$Size
+paste("values should be 1 , 2 , 3")
+diag$PrintValues()
+
+paste("---------------------------------------------------------------")
+paste("CBind")
+temp_bind <-new (DataType,1,"float")
+temp_bind[[0]] <- 22
+replicated <- rep(temp_bind,30)
+replicated$ToMatrix(5,6)
+
+xx <-new (DataType,30,"float")
+xx$ToMatrix(5,6)
+
+paste("size should be 60")
+cbind_temp <- cbind(xx,replicated)
+cbind_temp$Size
+cbind_temp$IsMatrix
+paste("row should be 5")
+cbind_temp$Row
+paste("col should be 12")
+cbind_temp$Col
+cbind_temp$PrintValues()
+
+paste("---------------------------------------------------------------")
+paste("RBind")
+
+paste("size should be 60")
+cbind_temp <- rbind(xx,replicated)
+cbind_temp$Size
+cbind_temp$IsMatrix
+paste("row should be 10")
+cbind_temp$Row
+paste("col should be 6")
+cbind_temp$Col
+cbind_temp$PrintValues()
+
+
+paste("---------------------------------------------------------------")
+paste("Sweep values should be 3 for all elements 1.5 * 2")
+
+yy <- new(DataType,10,"double")
+temp_bind[[0]] <- 2
+temp_sweep <- sweep(yy,temp_bind,1,"+")
+is.double(temp_sweep)
+
+paste("---------------------------------------------------------------")
+paste("Object size Vector of float 10 Element Float")
+paste("Data size should be 40 byte + 13 metadata")
+obj <- new(DataType,10,"float")
+size <- object.size(obj)
+size
+
+paste("Object size Vector of float 10 Element Double")
+paste("Data size should be 80 byte + 13 metadata")
+obj <- new(DataType,10,"double")
+size <- object.size(obj)
+size
+
+paste("---------------------------------------------------------------")
+paste("Testing Default Print of MPR Object")
+obj
+
+
+paste("---------------------------------------------------------------")
+paste("Testing Scale")
+
+temp_scale<- new(DataType,50,"float")
+temp_scale$ToMatrix(5,10)
+for (val in 0:49){
+  temp_scale[[val]] <- val
+}
+
+temp_scale$PrintValues()
+temp_center_scale <- new(DataType,10,"double")
+z<- scale(temp_scale,FALSE,temp_center_scale)
+z$PrintValues()
