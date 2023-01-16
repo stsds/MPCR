@@ -8,6 +8,7 @@ using namespace mpr::precision;
 
 
 DataType::DataType(size_t aSize, Precision aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aSize;
     this->mpDimensions = nullptr;
@@ -17,6 +18,7 @@ DataType::DataType(size_t aSize, Precision aPrecision) {
 
 
 DataType::DataType(size_t aSize, int aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = nullptr;
     this->mMatrix = false;
@@ -25,7 +27,8 @@ DataType::DataType(size_t aSize, int aPrecision) {
 }
 
 
-DataType::DataType(size_t aSize, std::string aPrecision) {
+DataType::DataType(size_t aSize, const std::string &aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = nullptr;
     this->mMatrix = false;
@@ -36,7 +39,7 @@ DataType::DataType(size_t aSize, std::string aPrecision) {
 
 
 DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
-
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
@@ -46,6 +49,7 @@ DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
 
 
 DataType::DataType(mpr::precision::Precision aPrecision) {
+    this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mMatrix = false;
     this->mpDimensions = nullptr;
@@ -55,6 +59,7 @@ DataType::DataType(mpr::precision::Precision aPrecision) {
 
 
 DataType::DataType(DataType &aDataType) {
+    this->SetMagicNumber();
     this->mpData = nullptr;
     this->mpDimensions = nullptr;
     this->mSize = aDataType.mSize;
@@ -71,38 +76,74 @@ DataType::DataType(DataType &aDataType) {
 
 
 DataType::~DataType() {
-    if (this->mpData != nullptr) {
-        delete mpData;
-        this->mpData = nullptr;
-    }
-    if (this->mpDimensions != nullptr) {
-        delete mpDimensions;
-        this->mpData = nullptr;
-    }
+    delete[] mpData;
+    delete mpDimensions;
 }
 
 
-template<typename T>
+template <typename T>
 void
 DataType::Init() {
     T *temp = new T[mSize];
     for (auto i = 0; i < mSize; i++) {
-        temp[i] = (T) 1.5;
+        temp[ i ] = (T) 1.5;
     }
     this->mpData = (char *) temp;
 
 }
 
 
-template<typename T>
+template <typename T>
 void
 DataType::PrintVal() {
+    std::stringstream ss;
+    auto stream_size = 10000;
     T *temp = (T *) this->mpData;
-    Rcpp::Rcout << mSize << std::endl;
-    Rcpp::Rcout << "---------------------" << std::endl;
-    for (auto i = 0; i < mSize; i++) {
-        Rcpp::Rcout << temp[i] << std::endl;
+    if (this->mMatrix) {
+        auto rows = this->mpDimensions->GetNRow();
+        auto cols = this->mpDimensions->GetNCol();
+        ss << "Number of Rows : " << rows << std::endl;
+        ss << "Number of Columns : " << cols << std::endl;
+        ss << "---------------------" << std::endl;
+        size_t start_idx;
+        size_t print_col = ( cols > 13 ) ? 13 : cols;
+        size_t print_rows = ( rows > 100 ) ? 100 : rows;
+
+        for (auto i = 0; i < print_rows; i++) {
+            start_idx = i * cols;
+            ss << " [\t";
+            for (auto j = 0; j < print_col; j++) {
+                ss << temp[ start_idx + j ] << "\t";
+            }
+            ss << "]" << std::endl;
+            if (ss.gcount() > stream_size) {
+                Rcpp::Rcout << std::string(ss.str());
+                ss.clear();
+            }
+        }
+        if (print_rows * print_col != this->mSize) {
+            ss << "Note Only Matrix with size 100*13 is printed" << std::endl;
+        }
+        Rcpp::Rcout << std::string(ss.str());
+
+
+    } else {
+        ss << "Vector Size : " << mSize << std::endl;
+        ss << "---------------------" << std::endl;
+        ss << " [\t";
+        for (auto i = 0; i < mSize; i++) {
+            ss << temp[ i ] << "\t";
+            if (i % 100 == 0) {
+                if (ss.gcount() > stream_size) {
+                    Rcpp::Rcout << std::string(ss.str());
+                    ss.clear();
+                }
+            }
+        }
+        ss << "]" << std::endl;
+        Rcpp::Rcout << std::string(ss.str());
     }
+
 }
 
 
@@ -130,11 +171,11 @@ DataType::GetSize() const {
 }
 
 
-template<typename T>
+template <typename T>
 void
 DataType::GetValue(int aIndex, double *&aOutput) {
-    double *temp = new double[1];
-    temp[0] = (double) (((T *) this->mpData)[aIndex]);
+    double *temp = new double;
+    *temp = (double) (((T *) this->mpData )[ aIndex ] );
     delete aOutput;
     aOutput = temp;
 }
@@ -151,12 +192,12 @@ DataType::GetVal(int aIndex) {
 }
 
 
-template<typename T>
+template <typename T>
 void
 DataType::SetValue(int aIndex, double &aVal) {
 
     T *data = (T *) this->mpData;
-    data[aIndex] = (T) aVal;
+    data[ aIndex ] = (T) aVal;
 }
 
 
@@ -180,6 +221,7 @@ DataType::SetPrecision(mpr::precision::Precision aPrecision) {
 void
 DataType::ToMatrix(size_t aRow, size_t aCol) {
     this->mpDimensions = new Dimensions(aRow, aCol);
+    this->mSize = aRow * aCol;
     this->mMatrix = true;
 }
 
@@ -202,18 +244,21 @@ DataType::ToVector() {
 
 size_t
 DataType::GetMatrixIndex(size_t aRow, size_t aCol) {
+    if (!this->mMatrix) {
+        MPR_API_EXCEPTION("Not a Matrix Fault.", -1);
+    }
     if (aRow > mpDimensions->GetNRow() || aCol > mpDimensions->GetNCol() ||
         aRow < 0 || aCol < 0) {
         MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
-    return (aRow * mpDimensions->GetNRow()) + aCol;
+    return ( aRow * mpDimensions->GetNCol()) + aCol;
 }
 
 
 void
 DataType::SetData(char *aData) {
     if (aData != mpData) {
-        delete mpData;
+        delete[] mpData;
     }
     this->mpData = aData;
 }
@@ -226,7 +271,7 @@ DataType::SetSize(size_t aSize) {
 
 
 size_t
-DataType::GetNRow() {
+DataType::GetNRow() const {
     if (mMatrix) {
         return this->mpDimensions->GetNRow();
     }
@@ -238,7 +283,7 @@ DataType::GetNRow() {
 
 
 size_t
-DataType::GetNCol() {
+DataType::GetNCol() const {
     if (mMatrix) {
         return this->mpDimensions->GetNCol();
     }
@@ -269,17 +314,30 @@ DataType::SetDimensions(size_t aRow, size_t aCol) {
 
 
 Dimensions *
-DataType::GetDimensions() {
+DataType::GetDimensions() const {
     return this->mpDimensions;
 }
 
 
-DataType &
-DataType::operator=(DataType &aDataType) {
+template <typename T>
+void
+DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
+    T *data = (T *) apSrc;
+    auto size = this->mSize;
+    T *pOutput = new T[size];
 
+
+    memcpy((char *) pOutput, (char *) data, size * sizeof(T));
+    apDest = (char *) pOutput;
+}
+
+
+DataType &
+DataType::operator =(const DataType &aDataType) {
     this->mSize = aDataType.mSize;
     this->mPrecision = aDataType.mPrecision;
     this->mMatrix = aDataType.mMatrix;
+    this->mpData = nullptr;
     if (this->mMatrix) {
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     } else {
@@ -294,26 +352,74 @@ DataType::operator=(DataType &aDataType) {
 }
 
 
-template<typename T>
-void
-DataType::GetCopyOfData(char *&aSrc, char *&aDest) {
-    T *data = (T *) aSrc;
-    auto size = this->mSize;
-    T *output = new T[size];
-
-    memcpy((char *) output, (char *) data, size * sizeof(T));
-    aDest = (char *) output;
+bool
+DataType::IsNA(const size_t &aIndex) {
+    bool flag = false;
+    SIMPLE_DISPATCH(this->mPrecision, CheckNA, aIndex, flag)
+    return flag;
 }
 
+
+template <typename T>
+void
+DataType::CheckNA(const size_t &aIndex, bool &aFlag) {
+    T *data = (T *) this->mpData;
+    aFlag = std::isnan(data[ aIndex ]);
+}
+
+
+template <typename T>
+void
+DataType::GetDataSize(size_t &aDataSize) {
+    aDataSize = this->mSize * sizeof(T);
+}
+
+
+size_t
+DataType::GetObjectSize() {
+    size_t data_size;
+    SIMPLE_DISPATCH(this->mPrecision, GetDataSize, data_size)
+    if (this->mMatrix) {
+        data_size += 3 * sizeof(size_t);
+    } else {
+        data_size += sizeof(size_t);
+    }
+    data_size += sizeof(bool);
+    data_size += sizeof(Precision);
+    return data_size;
+}
+
+
+double
+DataType::GetValMatrix(const size_t &aRow, const size_t &aCol) {
+    auto idx = this->GetMatrixIndex(aRow, aCol);
+    return GetVal(idx);
+}
+
+
+void
+DataType::SetValMatrix(size_t aRow, size_t aCol, double aVal) {
+    auto idx = this->GetMatrixIndex(aRow, aCol);
+    SetVal(idx, aVal);
+}
+
+
+void DataType::SetMagicNumber() {
+    this->mMagicNumber = 911;
+}
+
+
+SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 
 SIMPLE_INSTANTIATE(void, DataType::Init)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 
-SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, char *&aSrc, char *&aDest)
+SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, const char *apSrc,
+                   char *&apDest)
 
 SIMPLE_INSTANTIATE(void, DataType::GetValue, int aIndex, double *&aOutput)
 
 SIMPLE_INSTANTIATE(void, DataType::SetValue, int aIndex, double &aVal)
 
-
+SIMPLE_INSTANTIATE(void, DataType::GetDataSize, size_t &aDataSize)
