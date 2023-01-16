@@ -3,11 +3,6 @@
 #include <adapters/RBasicUtilities.hpp>
 
 
-void
-DataTypeFinalizer(DataType *aDataType) {
-    delete aDataType;
-}
-
 /** Expose C++ class to R to be able to use Wrap and As
  *  Allows C++ to Send and Receive Class object from R
  **/
@@ -30,8 +25,7 @@ RCPP_MODULE(DataTypeTest) {
         .method("[<-", &DataType::SetValMatrix)
         .method("ToMatrix", &DataType::ToMatrix)
         .method("ToVector", &DataType::ToVector)
-        .method("show", &RGetType)
-        .finalizer(&DataTypeFinalizer);
+        .method("show", &RGetType);
 
     /** Basic Utilities **/
 
@@ -61,6 +55,7 @@ RCPP_MODULE(DataTypeTest) {
     function("getVal", &RGetElementVector);
     function("getVal", &RGetElementMatrix);
     function("RConcatenate", &RConcatenate);
+    function("scale", &RScaleDispatcher);
 
 
 }

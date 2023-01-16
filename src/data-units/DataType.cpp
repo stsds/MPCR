@@ -96,12 +96,54 @@ DataType::Init() {
 template <typename T>
 void
 DataType::PrintVal() {
+    std::stringstream ss;
+    auto stream_size = 10000;
     T *temp = (T *) this->mpData;
-    Rcpp::Rcout << mSize << std::endl;
-    Rcpp::Rcout << "---------------------" << std::endl;
-    for (auto i = 0; i < mSize; i++) {
-        Rcpp::Rcout << temp[ i ] << std::endl;
+    if (this->mMatrix) {
+        auto rows = this->mpDimensions->GetNRow();
+        auto cols = this->mpDimensions->GetNCol();
+        ss << "Number of Rows : " << rows << std::endl;
+        ss << "Number of Columns : " << cols << std::endl;
+        ss << "---------------------" << std::endl;
+        size_t start_idx;
+        size_t print_col = ( cols > 13 ) ? 13 : cols;
+        size_t print_rows = ( rows > 100 ) ? 100 : rows;
+
+        for (auto i = 0; i < print_rows; i++) {
+            start_idx = i * cols;
+            ss << " [\t";
+            for (auto j = 0; j < print_col; j++) {
+                ss << temp[ start_idx + j ] << "\t";
+            }
+            ss << "]" << std::endl;
+            if (ss.gcount() > stream_size) {
+                Rcpp::Rcout << std::string(ss.str());
+                ss.clear();
+            }
+        }
+        if (print_rows * print_col != this->mSize) {
+            ss << "Note Only Matrix with size 100*13 is printed" << std::endl;
+        }
+        Rcpp::Rcout << std::string(ss.str());
+
+
+    } else {
+        ss << "Vector Size : " << mSize << std::endl;
+        ss << "---------------------" << std::endl;
+        ss << " [\t";
+        for (auto i = 0; i < mSize; i++) {
+            ss << temp[ i ] << "\t";
+            if (i % 100 == 0) {
+                if (ss.gcount() > stream_size) {
+                    Rcpp::Rcout << std::string(ss.str());
+                    ss.clear();
+                }
+            }
+        }
+        ss << "]" << std::endl;
+        Rcpp::Rcout << std::string(ss.str());
     }
+
 }
 
 

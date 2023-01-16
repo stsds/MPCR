@@ -113,14 +113,17 @@ template <typename T, typename X, typename Y>
 void
 basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
              const int &aMargin, const std::string &aFun) {
-    if (!aVec.IsMatrix()) {
-        MPR_API_EXCEPTION("Cannot Sweep a Vector", -1);
-    }
 
     aOutput.ClearUp();
     auto row = aVec.GetNRow();
     auto col = aVec.GetNCol();
-    aOutput.ToMatrix(row, col);
+
+    if (!aVec.IsMatrix()) {
+      aOutput.SetSize(aVec.GetSize());
+    }else{
+        aOutput.ToMatrix(row, col);
+    }
+
     T *pInput_data = (T *) aVec.GetData();
     X *pSweep_data = (X *) aStats.GetData();
     Y *pOutput_data;
@@ -315,7 +318,8 @@ basic::GetAsStr(DataType &aVec, std::string &aType) {
 
 
 template <typename T>
-void basic::NAExclude(DataType &aInputA) {
+void
+basic::NAExclude(DataType &aInputA) {
 
     T *pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
@@ -336,13 +340,14 @@ void basic::NAExclude(DataType &aInputA) {
             cont:
             continue;
         }
-
         T *pOutput = new T[counter];
         aInputA.SetSize(counter);
+        aInputA.SetDimensions(row_idx.size(), cols);
         counter = 0;
         for (auto i = 0; i < row_idx.size(); i++) {
             auto start_idx = row_idx[ i ] * cols;
-            std::memcpy(pOutput + counter, pData + start_idx, cols);
+            memcpy((char *) pOutput + counter, (char *) pData + start_idx,
+                   cols * sizeof(T));
             counter += cols;
         }
 
@@ -376,35 +381,41 @@ void
 basic::ApplyCenter(DataType &aInputA, DataType &aCenter, DataType &aOutput,
                    const bool *apCenter) {
     auto pData_input = (T *) aInputA.GetData();
-    auto pOutput = (Y *) aOutput.GetData();
+    auto size = aInputA.GetSize();
+    auto col = aInputA.GetNCol();
+    auto row = aInputA.GetNRow();
+    aOutput.ClearUp();
+    aOutput.SetSize(size);
+    aOutput.SetDimensions(row, col);
+    auto pOutput = new Y[size];
 
     if (apCenter != nullptr) {
         if (*apCenter) {
+            auto nansum = [](const double a, const T b) {
+                return a + ( std::isnan(b) ? 0 : b );
+            };
             double accum;
-            auto col_size = aInputA.GetNCol();
-            auto row_size = aInputA.GetNRow();
-            for (auto i = 0; i < row_size; i++) {
+            for (auto i = 0; i < row; i++) {
                 accum = 0;
-                auto start_idx = i * col_size;
+                auto start_idx = i * col;
                 accum = std::accumulate(pData_input + start_idx,
-                                        pData_input + start_idx + col_size,
-                                        accum);
-                for (auto j = 0; j < col_size; j++) {
+                                        pData_input + start_idx + col,
+                                        accum, nansum);
+                accum=accum/col;
+                for (auto j = 0; j < col; j++) {
                     pOutput[ start_idx + j ] =
                         pData_input[ start_idx + j ] - accum;
                 }
             }
         } else {
             //no centering is done
-            auto data_size = aInputA.GetSize();
-            std::copy(pData_input, pData_input + data_size, pOutput);
+            std::copy(pData_input, pData_input + size, pOutput);
         }
     } else {
         //subtract col element from its respective element in aCenter
         auto pData_center = (X *) aCenter.GetData();
         auto center_size = aCenter.GetSize();
-        auto col_size = aInputA.GetNCol();
-        if (col_size != center_size) {
+        if (col != center_size) {
             MPR_API_EXCEPTION(
                 "Cannot Center with the Provided Data, Column size doesn't equal Center Vector Size",
                 -1);
@@ -433,19 +444,24 @@ basic::ApplyScale(DataType &aInputA, DataType &aScale, DataType &aOutput,
             double mean;
             auto col_size = aInputA.GetNCol();
             auto row_size = aInputA.GetNRow();
+            auto nansum = [](const double a, const T b) {
+                return a + ( std::isnan(b) ? 0 : b );
+            };
             for (auto i = 0; i < row_size; i++) {
                 accum = 0;
                 auto start_idx = i * col_size;
                 accum = std::accumulate(pData_input + start_idx,
                                         pData_input + start_idx + col_size,
-                                        accum);
+                                        accum, nansum);
                 mean = accum / col_size;
 
                 double variance = 0.0;
                 std::for_each(pData_input + start_idx,
                               pData_input + start_idx + col_size,
                               [&](const T d) {
-                                  variance += ( d - mean ) * ( d - mean );
+                                  if (!std::isnan(d)) {
+                                      variance += ( d - mean ) * ( d - mean );
+                                  }
                               });
 
                 double stdev = sqrt(variance / ( col_size - 1 ));
@@ -470,7 +486,9 @@ basic::ApplyScale(DataType &aInputA, DataType &aScale, DataType &aOutput,
         }
 
     }
+
     aOutput.SetData((char *) pOutput);
+
 
 }
 

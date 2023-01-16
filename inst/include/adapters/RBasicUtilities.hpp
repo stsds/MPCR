@@ -460,4 +460,22 @@ RScale(DataType *apInput, bool aCenter, bool aScale);
 DataType *
 RScale(DataType *apInput);
 
+/**
+ * @brief
+ *  R Adapter for Dispatching Rscale
+ *
+ * @param[in] SEXP
+ * SEXP Object.
+ * @param[in] SEXP
+ * SEXP Object.
+ * @param[in] SEXP
+ * SEXP Object.
+
+ * @returns
+ * MPR Object with the same size and shape after centering and/or scaling.
+ *
+ */
+DataType *
+RScaleDispatcher(SEXP a, SEXP b, SEXP c);
+
 #endif //MPR_RBASICUTILITIES_HPP

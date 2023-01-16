@@ -53,6 +53,28 @@ TEST_BASIC_OPERATION() {
 
         delete[] validator;
 
+        cout << "Testing Sweep Vector ..." << endl;
+
+        DataType sweep_vec(24, "float");
+        a.ToVector();
+        data_one = (float *) a.GetData();
+        data_two = (float *) sweep_vec.GetData();
+        for (auto i = 0; i < size; i++) {
+            data_one[ i ] = i;
+            data_two[ i ] = i;
+        }
+        margin = 1;
+        DISPATCHER(FFF, basic::Sweep, a, sweep_vec, c, margin, "*")
+        temp_out = (float *) c.GetData();
+        size = c.GetSize();
+        REQUIRE(size == 24);
+        REQUIRE(c.IsMatrix() == false);
+
+        for (auto i = 0; i < size; i++) {
+            REQUIRE(temp_out[ i ] == data_one[ i ] * data_two[ i ]);
+        }
+
+
     }SECTION("Testing Sweep With Small stat size & Margin one") {
 
         DataType a(5, 5, FLOAT);
@@ -415,6 +437,41 @@ TEST_BASIC_OPERATION() {
             REQUIRE(data_in_a[ i ] == 1.5);
         }
 
+        cout << "Testing NA Omit in Matrix ..." << endl;
+        DataType b(5, 6, FLOAT);
+
+        auto data_in_b = (float *) b.GetData();
+        auto size_in_b = b.GetSize();
+        auto col = b.GetNCol();
+        auto row = b.GetNRow();
+
+
+        for (auto i = 0; i < size_in_b; i++) {
+            data_in_b[ i ] = i;
+        }
+
+        for (auto i = 2; i < row - 1; i++) {
+            auto start_idx = i * col;
+            data_in_b[ start_idx + 2 ] = 0;
+            data_in_b[ start_idx + 2 ] = data_in_b[ start_idx + 2 ] / zero;
+        }
+
+        SIMPLE_DISPATCH(FLOAT, basic::NAExclude, b)
+
+        data_in_b = (float *) b.GetData();
+
+        REQUIRE(b.GetNCol() == 6);
+        REQUIRE(b.GetNRow() == 3);
+        size = b.GetSize();
+        REQUIRE(size == ( 5 * 6 ) - ( 12 ));
+        bool flag;
+
+        for (auto i = 0; i < size; i++) {
+            flag = ( data_in_b[ i ] >= 24 || data_in_b[ i ] <= 11 );
+            REQUIRE(flag == true);
+        }
+
+
     }SECTION("Test Object Size") {
         cout << "Testing Get Object Size ..." << endl;
         DataType a(50, FLOAT);
@@ -495,6 +552,159 @@ TEST_BASIC_OPERATION() {
         for (auto &x: mpr_objects) {
             delete x;
         }
+    }SECTION("Test Scale and Center") {
+        DataType a(5, 6, FLOAT);
+        DataType scale_center(6, DOUBLE);
+
+
+        auto data_in_a = (float *) a.GetData();
+        auto size_in_a = a.GetSize();
+
+        auto data_in_scale_center = (double *) scale_center.GetData();
+        auto size_in_scale_center = scale_center.GetSize();
+
+        for (auto i = 0; i < size_in_a; i++) {
+            data_in_a[ i ] = i;
+        }
+
+
+        for (auto i = 0; i < size_in_scale_center; i++) {
+            data_in_scale_center[ i ] = i + 1;
+        }
+
+        DataType output(DOUBLE);
+        DISPATCHER(FDD, basic::ApplyCenter, a, scale_center, output)
+
+        REQUIRE(output.GetSize() == 30);
+        REQUIRE(output.GetNCol() == 6);
+        REQUIRE(output.GetNRow() == 5);
+        auto output_size = output.GetSize();
+        auto data_in_output = (double *) output.GetData();
+
+        for (auto i = 0; i < output_size; i++) {
+            REQUIRE(data_in_output[ i ] == data_in_a[ i ] -
+                                           data_in_scale_center[ i %
+                                                                 size_in_scale_center ]);
+        }
+
+        auto validator = new double[output_size];
+        memcpy((char *) validator, (char *) data_in_output,
+               sizeof(double) * output_size);
+
+        DISPATCHER(DDD, basic::ApplyScale, output, scale_center, output)
+        output_size = output.GetSize();
+        REQUIRE(output_size == 30);
+        REQUIRE(output.GetNCol() == 6);
+        REQUIRE(output.GetNRow() == 5);
+        data_in_output = (double *) output.GetData();
+
+        for (auto i = 0; i < output_size; i++) {
+            REQUIRE(data_in_output[ i ] == validator[ i ] /
+                                           data_in_scale_center[ i %
+                                                                 size_in_scale_center ]);
+        }
+
+        delete[] validator;
+        output.ClearUp();
+
+        auto calc_mean = true;
+        auto row = a.GetNRow();
+        auto col = a.GetNCol();
+        validator = new double[row];
+
+        double accum;
+        size_t start_idx;
+        double zero = 0;
+        a.SetVal(3, zero);
+        a.SetVal(3, zero / zero);
+        for (auto i = 0; i < row; i++) {
+            accum = 0;
+            start_idx = i * col;
+            for (auto j = 0; j < col; j++) {
+                if (!isnan(data_in_a[ start_idx + j ])) {
+                    accum += data_in_a[ start_idx + j ];
+                }
+            }
+            validator[ i ] = accum / col;
+        }
+        DISPATCHER(FDD, basic::ApplyCenter, a, scale_center, output, &calc_mean)
+
+        data_in_output = (double *) output.GetData();
+        REQUIRE(output_size == 30);
+        REQUIRE(output.GetNCol() == 6);
+        REQUIRE(output.GetNRow() == 5);
+
+        for (auto i = 0; i < row; i++) {
+            start_idx = i * col;
+            for (auto j = 0; j < col; j++) {
+                if (!isnan(data_in_a[ start_idx + j ])) {
+                    REQUIRE(data_in_output[ start_idx + j ] ==
+                            data_in_a[ start_idx + j ] - validator[ i ]);
+                }
+            }
+        }
+
+        for (auto i = 0; i < output_size; i++) {
+            data_in_output[ i ] = 0;
+            data_in_a[ i ] = i;
+        }
+        calc_mean = false;
+        DISPATCHER(FDD, basic::ApplyCenter, a, scale_center, output, &calc_mean)
+        data_in_output = (double *) output.GetData();
+        REQUIRE(output_size == 30);
+        REQUIRE(output.GetNCol() == 6);
+        REQUIRE(output.GetNRow() == 5);
+
+        for (auto i = 0; i < output_size; i++) {
+            REQUIRE(data_in_output[ i ] == data_in_a[ i ]);
+        }
+
+        delete[] validator;
+
+
+        auto standard_deviation = 1.870828693387;
+        auto perc = 0.001;
+        for (auto i = 0; i < output_size; i++) {
+            data_in_output[ i ] = i;
+            data_in_a[ i ] = i;
+        }
+
+        auto calc_sd = true;
+        DISPATCHER(FDD, basic::ApplyScale, a, scale_center, output, &calc_sd)
+
+        data_in_output = (double *) output.GetData();
+        REQUIRE(output_size == 30);
+        REQUIRE(output.GetNCol() == 6);
+        REQUIRE(output.GetNRow() == 5);
+        for (auto i = 0; i < row; i++) {
+            start_idx = i * col;
+            for (auto j = 0; j < col; j++) {
+                auto val_1 = data_in_a[ start_idx + j ] / standard_deviation;
+                auto val_2 = data_in_output[ start_idx + j ];
+                if (val_1 != 0) {
+                    auto val_3 = abs(( val_2 - val_1 )) / val_1;
+                    REQUIRE(val_3 < perc);
+                } else {
+                    REQUIRE(val_2 == 0);
+                }
+            }
+        }
+
+        for (auto i = 0; i < output_size; i++) {
+            data_in_output[ i ] = i;
+            data_in_a[ i ] = i;
+        }
+
+        calc_sd = false;
+        DISPATCHER(FDD, basic::ApplyScale, a, scale_center, output, &calc_sd)
+        data_in_output = (double *) output.GetData();
+        REQUIRE(output_size == 30);
+        REQUIRE(output.GetNCol() == 6);
+        REQUIRE(output.GetNRow() == 5);
+        for (auto i = 0; i < output_size; i++) {
+            REQUIRE(data_in_output[ i ] == data_in_a[ i ]);
+        }
+
     }
 
 }

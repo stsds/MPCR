@@ -178,3 +178,22 @@ paste("Data size should be 80 byte + 13 metadata")
 obj <- new(DataType,10,"double")
 size <- object.size(obj)
 size
+
+paste("---------------------------------------------------------------")
+paste("Testing Default Print of MPR Object")
+obj
+
+
+paste("---------------------------------------------------------------")
+paste("Testing Scale")
+
+temp_scale<- new(DataType,50,"float")
+temp_scale$ToMatrix(5,10)
+for (val in 0:49){
+  temp_scale[[val]] <- val
+}
+
+temp_scale$PrintValues()
+temp_center_scale <- new(DataType,10,"double")
+z<- scale(temp_scale,FALSE,temp_center_scale)
+z$PrintValues()

@@ -284,17 +284,17 @@ RScale(DataType *apInput, DataType *apCenter, DataType *apScale) {
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
     output_precision = GetOutputPrecision(output_precision, precision_c);
 
-    auto pOutput = new DataType(apInput->GetSize(), output_precision);
+    auto pOutput = new DataType(output_precision);
     auto operation_comb = GetOperationPrecision(precision_a, precision_b,
                                                 output_precision);
 
     DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, *apCenter,
                *pOutput)
 
-    operation_comb = GetOperationPrecision(precision_a, precision_c,
+    operation_comb = GetOperationPrecision(output_precision, precision_c,
                                            output_precision);
 
-    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, *apScale, *pOutput)
+    DISPATCHER(operation_comb, basic::ApplyScale, *pOutput, *apScale, *pOutput)
     return pOutput;
 
 }
@@ -306,16 +306,19 @@ RScale(DataType *apInput, bool aCenter, DataType *apScale) {
     auto precision_b = apScale->GetPrecision();
 
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
-    auto pOutput = new DataType(apInput->GetSize(), output_precision);
+    auto pOutput = new DataType(output_precision);
 
-    auto operation_comb = GetOperationPrecision(precision_a, precision_b,
+    auto operation_comb = GetOperationPrecision(precision_a, precision_a,
                                                 output_precision);
     DataType dummy_center(precision_b);
 
     DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, dummy_center,
                *pOutput, &aCenter)
 
-    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, *apScale, *pOutput)
+    operation_comb = GetOperationPrecision(output_precision, precision_b,
+                                           output_precision);
+
+    DISPATCHER(operation_comb, basic::ApplyScale, *pOutput, *apScale, *pOutput)
 
     return pOutput;
 
@@ -328,7 +331,7 @@ RScale(DataType *apInput, DataType *apCenter, bool aScale) {
     auto precision_b = apCenter->GetPrecision();
 
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
-    auto pOutput = new DataType(apInput->GetSize(), output_precision);
+    auto pOutput = new DataType(output_precision);
 
     auto operation_comb = GetOperationPrecision(precision_a, precision_b,
                                                 output_precision);
@@ -337,7 +340,9 @@ RScale(DataType *apInput, DataType *apCenter, bool aScale) {
     DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, *apCenter,
                *pOutput)
 
-    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, dummy_scale,
+    operation_comb = GetOperationPrecision(output_precision, precision_b,
+                                           output_precision);
+    DISPATCHER(operation_comb, basic::ApplyScale, *pOutput, dummy_scale,
                *pOutput, &aScale)
 
     return pOutput;
@@ -347,7 +352,7 @@ RScale(DataType *apInput, DataType *apCenter, bool aScale) {
 DataType *
 RScale(DataType *apInput, bool aCenter, bool aScale) {
     auto precision_a = apInput->GetPrecision();
-    auto pOutput = new DataType(apInput->GetSize(), precision_a);
+    auto pOutput = new DataType(precision_a);
 
     auto operation_comb = GetOperationPrecision(precision_a, precision_a,
                                                 precision_a);
@@ -356,7 +361,7 @@ RScale(DataType *apInput, bool aCenter, bool aScale) {
     DISPATCHER(operation_comb, basic::ApplyCenter, *apInput, dummy,
                *pOutput, &aCenter)
 
-    DISPATCHER(operation_comb, basic::ApplyScale, *apInput, dummy,
+    DISPATCHER(operation_comb, basic::ApplyScale, *pOutput, dummy,
                *pOutput, &aScale)
 
     return pOutput;
@@ -366,4 +371,64 @@ RScale(DataType *apInput, bool aCenter, bool aScale) {
 DataType *
 RScale(DataType *apInput) {
     return RScale(apInput, true, true);
+}
+
+
+DataType *
+RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
+    auto flag_center = false;
+    auto flag_scale = false;
+    auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+        a);
+    if (!temp_mpr->IsDataType()) {
+        MPR_API_EXCEPTION(
+            "Undefined Object . Make Sure You're Using MPR Object",
+            -1);
+    }
+
+    if (TYPEOF(b) == LGLSXP) {
+        flag_center = true;
+    }
+    if (TYPEOF(c) == LGLSXP) {
+        flag_scale = true;
+    }
+
+    if (flag_center && flag_scale) {
+        bool center = Rcpp::as <bool>(b);
+        bool scale = Rcpp::as <bool>(c);
+        return RScale(temp_mpr, center, scale);
+
+    } else if (flag_center) {
+        bool center = Rcpp::as <bool>(b);
+        auto temp_scale = (DataType *) Rcpp::internal::as_module_object_internal(
+            c);
+        if (!temp_scale->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RScale(temp_mpr, center, temp_scale);
+    } else if (flag_scale) {
+        bool scale = Rcpp::as <bool>(c);
+        auto temp_center = (DataType *) Rcpp::internal::as_module_object_internal(
+            b);
+        if (!temp_center->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RScale(temp_mpr, temp_center, scale);
+    } else {
+        auto temp_scale = (DataType *) Rcpp::internal::as_module_object_internal(
+            c);
+        auto temp_center = (DataType *) Rcpp::internal::as_module_object_internal(
+            b);
+        if (!temp_center->IsDataType() || !temp_scale->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RScale(temp_mpr, temp_center, temp_scale);
+    }
+
 }
