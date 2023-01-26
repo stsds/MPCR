@@ -2,7 +2,7 @@
 library(MPR)
 
 paste("Create a Vector of 50 element with 32-Bit Precision")
-x <- new(DataType,50,"float")
+x <- new(MPR,50,"float")
 
 
 paste("Element at Index 5")
@@ -44,7 +44,7 @@ x$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("Create a Vector of 10 element as INT")
-y <- new(DataType,10,"int")
+y <- new(MPR,10,"int")
 
 paste("Element at Index 5")
 y[[5]]
@@ -104,7 +104,7 @@ x$Size
 
 paste("---------------------------------------------------------------")
 paste("Replicate 1 2 3 (3 Times)")
-temp_rep <-new (DataType,3,"float")
+temp_rep <-new (MPR,3,"float")
 temp_rep[[0]] <- 1
 temp_rep[[1]] <- 2
 temp_rep[[2]] <- 3
@@ -126,12 +126,12 @@ diag$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("CBind")
-temp_bind <-new (DataType,1,"float")
+temp_bind <-new (MPR,1,"float")
 temp_bind[[0]] <- 22
 replicated <- rep(temp_bind,30)
 replicated$ToMatrix(5,6)
 
-xx <-new (DataType,30,"float")
+xx <-new (MPR,30,"float")
 xx$ToMatrix(5,6)
 
 paste("size should be 60")
@@ -161,7 +161,7 @@ cbind_temp$PrintValues()
 paste("---------------------------------------------------------------")
 paste("Sweep values should be 3 for all elements 1.5 * 2")
 
-yy <- new(DataType,10,"double")
+yy <- new(MPR,10,"double")
 temp_bind[[0]] <- 2
 temp_sweep <- sweep(yy,temp_bind,1,"+")
 is.double(temp_sweep)
@@ -169,13 +169,13 @@ is.double(temp_sweep)
 paste("---------------------------------------------------------------")
 paste("Object size Vector of float 10 Element Float")
 paste("Data size should be 40 byte + 13 metadata")
-obj <- new(DataType,10,"float")
+obj <- new(MPR,10,"float")
 size <- object.size(obj)
 size
 
 paste("Object size Vector of float 10 Element Double")
 paste("Data size should be 80 byte + 13 metadata")
-obj <- new(DataType,10,"double")
+obj <- new(MPR,10,"double")
 size <- object.size(obj)
 size
 
@@ -187,13 +187,13 @@ obj
 paste("---------------------------------------------------------------")
 paste("Testing Scale")
 
-temp_scale<- new(DataType,50,"float")
+temp_scale<- new(MPR,50,"float")
 temp_scale$ToMatrix(5,10)
 for (val in 0:49){
   temp_scale[[val]] <- val
 }
 
 temp_scale$PrintValues()
-temp_center_scale <- new(DataType,10,"double")
+temp_center_scale <- new(MPR,10,"double")
 z<- scale(temp_scale,FALSE,temp_center_scale)
 z$PrintValues()

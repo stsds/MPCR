@@ -257,8 +257,8 @@ RSweep(DataType *apInput, DataType *apStats, int aMargin,
  * true if NAN,-NAN else Otherwise
  *
  */
-bool
-RIsNa(DataType *apInput, size_t aIdx);
+SEXP
+RIsNa(DataType *apInput, long aIdx);
 
 /**
  * @brief
@@ -477,5 +477,6 @@ RScale(DataType *apInput);
  */
 DataType *
 RScaleDispatcher(SEXP a, SEXP b, SEXP c);
+
 
 #endif //MPR_RBASICUTILITIES_HPP

@@ -205,8 +205,43 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType &
+    DataType *
     operator =(const DataType &aDataType);
+
+
+    DataType *
+    operator +(const DataType &aInput);
+//
+//    DataType *
+//    operator -(SEXP aInput);
+//
+//    DataType *
+//    operator *(SEXP aInput);
+//
+//    DataType *
+//    operator /(SEXP aInput);
+//
+//    DataType *
+//    operator ^(SEXP aInput);
+//
+//    SEXP
+//    operator >(SEXP aInput);
+//
+//    SEXP
+//    operator >=(SEXP aInput);
+//
+//    SEXP
+//    operator <(SEXP aInput);
+//
+//    SEXP
+//    operator <=(SEXP aInput);
+//
+//    SEXP
+//    operator ==(SEXP aInput);
+//
+//    SEXP
+//    operator !=(SEXP aInput);
+//
 
     /**
      * @brief
@@ -268,7 +303,7 @@ public:
      * Value with idx=aIndex in vector
      */
     double
-    GetVal(int aIndex);
+    GetVal(size_t aIndex);
 
     /**
      * @brief
@@ -295,7 +330,7 @@ public:
      * Value used to set the vector[idx] with
      */
     void
-    SetVal(int aIndex, double aVal);
+    SetVal(size_t aIndex, double aVal);
 
     /**
      * @brief
@@ -471,6 +506,9 @@ public:
     bool
     IsNA(const size_t &aIndex);
 
+    std::vector <int> *
+    IsNA(Dimensions *&apDimensions);
+
     /**
      * @brief
      * Get total size of Memory used by MPR Object
@@ -537,9 +575,19 @@ public:
      */
     inline
     const bool
-    IsDataType() {
-        return ( this->mMagicNumber == 911 ) ? true : false;
+    IsDataType() const {
+        return ( this->mMagicNumber == 911 );
     }
+
+
+    void
+    ConvertPrecision(const mpr::precision::Precision &aPrecision);
+
+    std::vector <double> *
+    ConvertToNumericVector();
+
+    Rcpp::NumericMatrix *
+    ConvertToRMatrix();
 
 
 private:
@@ -557,7 +605,7 @@ private:
      */
     template <typename T>
     void
-    GetValue(int aIndex, double *&aOutput);
+    GetValue(size_t aIndex, double *&aOutput);
 
     /**
      * @brief
@@ -571,7 +619,7 @@ private:
      */
     template <typename T>
     void
-    SetValue(int aIndex, double &aVal);
+    SetValue(size_t aIndex, double &aVal);
 
     /**
      * @brief
@@ -617,6 +665,11 @@ private:
     void
     CheckNA(const size_t &aIndex, bool &aFlag);
 
+    template <typename T>
+    void
+    CheckNA(std::vector <int> &aOutput, Dimensions *&apDimensions);
+
+
     /**
      * @brief
      * Get total size of Memory used by Data in MPR Object
@@ -637,6 +690,18 @@ private:
     void
     SetMagicNumber();
 
+    template <typename T>
+    void
+    ConvertPrecisionDispatcher(const mpr::precision::Precision &aPrecision);
+
+    template <typename T>
+    void
+    ConvertToVector(std::vector <double> &aOutput);
+
+    template <typename T>
+    void
+    ConvertToRMatrixDispatcher(Rcpp::NumericMatrix &aOutput);
+
     /** Buffer Holding the Data **/
     char *mpData;
     /** Dimensions object that describe the Vector as a Matrix **/
@@ -649,6 +714,9 @@ private:
     bool mMatrix;
     /** Magic Number to check if object is DataType **/
     int mMagicNumber;
+
+
 };
+
 
 #endif //MPR_DATATYPE_HPP

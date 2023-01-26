@@ -2,6 +2,7 @@
 #include <operations/BasicOperations.hpp>
 #include <utilities/MPRDispatcher.hpp>
 #include <adapters/RBasicUtilities.hpp>
+#include <adapters/RHelpers.hpp>
 
 
 using namespace mpr::operations;
@@ -167,9 +168,24 @@ RSweep(DataType *apInput, DataType *apStats, int aMargin,
 }
 
 
-bool
-RIsNa(DataType *apInput, size_t aIdx) {
-    return apInput->IsNA(aIdx);
+SEXP
+RIsNa(DataType *apInput, long aIdx) {
+
+    if (aIdx < 0) {
+        Dimensions *pDim = nullptr;
+        auto pOutput = apInput->IsNA(pDim);
+        if (pDim != nullptr) {
+            auto matrix= ToLogicalMatrix(*pOutput,pDim);
+            delete pDim;
+            return matrix;
+        }
+        auto vec= ToLogicalVector(*pOutput);
+        delete pOutput;
+        return vec;
+    } else {
+        return Rcpp::wrap(apInput->IsNA(aIdx));
+    }
+
 }
 
 

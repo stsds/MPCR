@@ -3,7 +3,7 @@
 #define MPR_BASICOPERATIONS_HPP
 
 #include <data-units/DataType.hpp>
-#include <operations/BasicOperationsHelper.hpp>
+#include <operations/helpers/BasicOperationsHelper.hpp>
 
 
 namespace mpr {

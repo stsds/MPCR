@@ -1,6 +1,7 @@
 
 #include <data-units/DataType.hpp>
 #include <adapters/RBasicUtilities.hpp>
+#include <adapters/RBinaryOperations.hpp>
 
 
 /** Expose C++ class to R to be able to use Wrap and As
@@ -8,11 +9,42 @@
  **/
 RCPP_EXPOSED_CLASS(DataType)
 
+
+
+// [[Rcpp::export]]
+DataType *
+Plus(DataType &aInputA, DataType &aInputB) {
+
+    Rcpp::Rcout<<"hereeeeeeeeeeeee"<<std::endl;
+    //    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
+//        auto val = Rcpp::as <double>(aInput);
+//        return RPerformPlus(this, val, "");
+//
+//    } else {
+//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+//            aInput);
+//        if (!temp_mpr->IsDataType()) {
+//            MPR_API_EXCEPTION(
+//                "Undefined Object . Make Sure You're Using MPR Object",
+//                -1);
+////        }
+//        DataType temp=aInput;
+//        return RPerformPlus(this, aInput );
+//    }
+    return &aInputA;
+}
+
+
 /** Expose C++ Object With the Given functions **/
-RCPP_MODULE(DataTypeTest) {
+RCPP_MODULE(MPR) {
     /** MPR Class **/
     using namespace Rcpp;
-    class_ <DataType>("DataType")
+//
+//    DataType *
+//    (*xAdd)(DataType &, DataType &) =&operator+;
+
+    /** Basic Utilities **/
+    class_ <DataType>("MPR")
         .constructor <size_t, std::string>()
         .property("IsMatrix", &DataType::IsMatrix)
         .property("Size", &DataType::GetSize)
@@ -20,19 +52,28 @@ RCPP_MODULE(DataTypeTest) {
         .property("Col", &DataType::GetNCol)
         .method("PrintValues", &DataType::Print)
         .method("[[", &DataType::GetVal)
-        .method("[", &DataType::GetValMatrix)
         .method("[[<-", &DataType::SetVal)
-        .method("[<-", &DataType::SetValMatrix)
         .method("ToMatrix", &DataType::ToMatrix)
         .method("ToVector", &DataType::ToVector)
-        .method("show", &RGetType);
-
-    /** Basic Utilities **/
+        .method("show", &RGetType)
+        .method("=", &DataType::operator =)
+//        .method(">", &DataType::operator >)
+//        .method(">=", &DataType::operator >=)
+//        .method("<", &DataType::operator <)
+//        .method("<=", &DataType::operator <=)
+//        .method("==", &DataType::operator ==)
+//        .method("!=", &DataType::operator !=)
+//        .method("operator+",&DataType::operator+)
+//        .method("-", &DataType::operator -)
+//        .method("*", &DataType::operator *)
+//        .method("/", &DataType::operator /)
+//        .method("^", &DataType::operator ^)
+        ;
 
     function("cbind", &RCBind);
     function("rbind", &RRBind);
     function("diag", &RGetDiagonal);
-    function("is.na", &RIsNa);
+    function("is.na", &RIsNa, List::create(_[ "MPR" ], _[ "Index" ] = -1));
     function("is.float", &RIsFloat);
     function("is.double", &RIsDouble);
     function("is.sfloat", &RIsSFloat);
@@ -56,6 +97,21 @@ RCPP_MODULE(DataTypeTest) {
     function("getVal", &RGetElementMatrix);
     function("RConcatenate", &RConcatenate);
     function("scale", &RScaleDispatcher);
+    function("Plus", &RPerformPlusDispatcher);
+//    function("`+`",&RPerformPlusDispatcher);
+//    function("ToNumericVector", &RToNumericVector);
+//    function("ToNumericMatrix", &RToNumericMatrix);
+//    function("ChangePrecision", &RChangePercision);
+//    function("Add", &RPerformPlusDispatcher,
+//             List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
+//    function("Multiply", &RPerformMltDispatcher,
+//             List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
+//    function("Subtract", &RPerformMinusDispatcher,
+//             List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
+//    function("Divide", &RPerformDivDispatcher,
+//             List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
+//    function("Power", &RPerformPowDispatcher,
+//             List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
 
 
 }
