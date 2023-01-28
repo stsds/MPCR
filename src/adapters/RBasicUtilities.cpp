@@ -2,6 +2,7 @@
 #include <operations/BasicOperations.hpp>
 #include <utilities/MPRDispatcher.hpp>
 #include <adapters/RBasicUtilities.hpp>
+#include <adapters/RHelpers.hpp>
 
 
 using namespace mpr::operations;
@@ -61,7 +62,15 @@ RIsDouble(DataType *apInput) {
 
 
 DataType *
-RReplicate(DataType *apInput, size_t aSize) {
+RReplicate(DataType *apInput, size_t aSize,size_t aLength) {
+    if(aLength==0){
+        aSize=aSize*apInput->GetSize();
+    }else{
+        aSize=aLength;
+    }
+    if(aSize==0){
+        MPR_API_EXCEPTION("Replicate size cannot equal to Zero",-1);
+    }
     auto precision = apInput->GetPrecision();
     auto pOutput = new DataType(precision);
     SIMPLE_DISPATCH(precision, basic::Replicate, *apInput, *pOutput, aSize)
@@ -167,9 +176,24 @@ RSweep(DataType *apInput, DataType *apStats, int aMargin,
 }
 
 
-bool
-RIsNa(DataType *apInput, size_t aIdx) {
-    return apInput->IsNA(aIdx);
+SEXP
+RIsNa(DataType *apInput, long aIdx) {
+
+    if (aIdx < 0) {
+        Dimensions *pDim = nullptr;
+        auto pOutput = apInput->IsNA(pDim);
+        if (pDim != nullptr) {
+            auto matrix= ToLogicalMatrix(*pOutput,pDim);
+            delete pDim;
+            return matrix;
+        }
+        auto vec= ToLogicalVector(*pOutput);
+        delete pOutput;
+        return vec;
+    } else {
+        return Rcpp::wrap(apInput->IsNA(aIdx));
+    }
+
 }
 
 

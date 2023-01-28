@@ -85,18 +85,21 @@ RIsDouble(DataType *apInput);
 /**
  * @brief
  * R Adapter for Replicating value(s) number of times
+ * in-case aLength =0 the output size will be size*input size ,else size=aLength
  *
  * @param[in] apInput
  * MPR object to replicate
  * @param[in] aSize
  * Size of output vector
+ * @param[in] aLength
+ * Length of Output Value
  *
  * @returns
  * MPR Vector Holding Replicated Data
  *
  */
 DataType *
-RReplicate(DataType *apInput, size_t aSize);
+RReplicate(DataType *apInput, size_t aSize,size_t aLength);
 
 /**
  * @brief
@@ -257,8 +260,8 @@ RSweep(DataType *apInput, DataType *apStats, int aMargin,
  * true if NAN,-NAN else Otherwise
  *
  */
-bool
-RIsNa(DataType *apInput, size_t aIdx);
+SEXP
+RIsNa(DataType *apInput, long aIdx);
 
 /**
  * @brief
@@ -477,5 +480,6 @@ RScale(DataType *apInput);
  */
 DataType *
 RScaleDispatcher(SEXP a, SEXP b, SEXP c);
+
 
 #endif //MPR_RBASICUTILITIES_HPP
