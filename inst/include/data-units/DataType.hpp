@@ -205,43 +205,151 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType *
+    DataType &
     operator =(const DataType &aDataType);
 
-
+    /**
+     * @brief
+     * R-Adapter for Performing Plus Operation on MPR Object
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * MPR Object
+     *
+     */
     DataType *
-    operator +(const DataType &aInput);
-//
-//    DataType *
-//    operator -(SEXP aInput);
-//
-//    DataType *
-//    operator *(SEXP aInput);
-//
-//    DataType *
-//    operator /(SEXP aInput);
-//
-//    DataType *
-//    operator ^(SEXP aInput);
-//
-//    SEXP
-//    operator >(SEXP aInput);
-//
-//    SEXP
-//    operator >=(SEXP aInput);
-//
-//    SEXP
-//    operator <(SEXP aInput);
-//
-//    SEXP
-//    operator <=(SEXP aInput);
-//
-//    SEXP
-//    operator ==(SEXP aInput);
-//
-//    SEXP
-//    operator !=(SEXP aInput);
-//
+    PerformPlusDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Performing Minus Operation on MPR Object
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * MPR Object
+     *
+     */
+    DataType *
+    PerformMinusDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Performing Multiply Operation on MPR Object
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * MPR Object
+     *
+     */
+    DataType *
+    PerformMultDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Performing Division Operation on MPR Object
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * MPR Object
+     *
+     */
+    DataType *
+    PerformDivDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Performing Power Operation on MPR Object
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * MPR Object
+     *
+     */
+    DataType *
+    PerformPowDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Checking Whether MPR Object is Greater than aObj
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * R-Vector/Matrix of Bool Values
+     *
+     */
+    SEXP
+    GreaterThanDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Checking Whether MPR Object is Greater than or equal aObj
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * R-Vector/Matrix of Bool Values
+     *
+     */
+    SEXP
+    GreaterThanOrEqualDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Checking Whether MPR Object is Less than aObj
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * R-Vector/Matrix of Bool Values
+     *
+     */
+    SEXP
+    LessThanDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Checking Whether MPR Object is Less than or equal aObj
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * R-Vector/Matrix of Bool Values
+     *
+     */
+    SEXP
+    LessThanOrEqualDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Checking Whether MPR Object is Equal to aObj
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * R-Vector/Matrix of Bool Values
+     *
+     */
+    SEXP
+    EqualDispatcher(SEXP aObj);
+
+    /**
+     * @brief
+     * R-Adapter for Checking Whether MPR Object is Not Equal to aObj
+     *
+     * @param[in] aObj
+     * MPR Object or Numerical Value
+     * @returns
+     * R-Vector/Matrix of Bool Values
+     *
+     */
+    SEXP
+    NotEqualDispatcher(SEXP aObj);
 
     /**
      * @brief
@@ -506,6 +614,17 @@ public:
     bool
     IsNA(const size_t &aIndex);
 
+    /**
+     * @brief
+     * Check Whether MPR Elements are NA or Not
+     *
+     * @param[in] apDimensions
+     * Dimensions to set incase MPR Object is a Matrix.
+     *
+     * @returns
+     * true if NAN,-NAN else Otherwise
+     *
+     */
     std::vector <int> *
     IsNA(Dimensions *&apDimensions);
 
@@ -580,15 +699,38 @@ public:
     }
 
 
+    /**
+     * @brief
+     * Convert MPR Object Precision
+     *
+     * @param[in] aPrecision
+     * Required MPR Precision
+     *
+     */
     void
     ConvertPrecision(const mpr::precision::Precision &aPrecision);
 
+    /**
+     * @brief
+     * Convert MPR Values to R-Numeric Vector (vector double will be wrapped to
+     * match R-Numeric Vector)
+     *
+     * @returns
+     * Vector of Double Values
+     */
     std::vector <double> *
     ConvertToNumericVector();
 
+    /**
+     * @brief
+     * Convert MPR Values to R-Numeric Matrix
+     *
+     * @returns
+     * R- Numeric Matrix
+     *
+     */
     Rcpp::NumericMatrix *
     ConvertToRMatrix();
-
 
 private:
 
@@ -665,10 +807,19 @@ private:
     void
     CheckNA(const size_t &aIndex, bool &aFlag);
 
+    /**
+     * @brief
+     * Check Whether Elements in MPR Objects are NA
+     *
+     * @param[in] aOutput
+     * Logical Output Int Vector 1/TRUE 0/FALSE
+     * @param[out] apDimensions
+     * Dimensions to set incase MPR Object is Matrix
+     *
+     */
     template <typename T>
     void
     CheckNA(std::vector <int> &aOutput, Dimensions *&apDimensions);
-
 
     /**
      * @brief
@@ -690,17 +841,43 @@ private:
     void
     SetMagicNumber();
 
+    /**
+     * @brief
+     * Convert MPR Object Precision
+     *
+     * @param[in] aPrecision
+     * Required MPR Precision
+     *
+     */
     template <typename T>
     void
     ConvertPrecisionDispatcher(const mpr::precision::Precision &aPrecision);
 
+    /**
+     * @brief
+     * Convert MPR Values to R-Numeric Vector (vector double will be wrapped to
+     * match R-Numeric Vector)
+     *
+     * @param[in] aOutput
+     * Vector of Double Values
+     *
+     */
     template <typename T>
     void
     ConvertToVector(std::vector <double> &aOutput);
 
+    /**
+     * @brief
+     * Convert MPR Values to R-Numeric Matrix
+     *
+     * @param[in] aOutput
+     * R- Numeric Matrix
+     *
+     */
     template <typename T>
     void
     ConvertToRMatrixDispatcher(Rcpp::NumericMatrix &aOutput);
+
 
     /** Buffer Holding the Data **/
     char *mpData;

@@ -62,7 +62,15 @@ RIsDouble(DataType *apInput) {
 
 
 DataType *
-RReplicate(DataType *apInput, size_t aSize) {
+RReplicate(DataType *apInput, size_t aSize,size_t aLength) {
+    if(aLength==0){
+        aSize=aSize*apInput->GetSize();
+    }else{
+        aSize=aLength;
+    }
+    if(aSize==0){
+        MPR_API_EXCEPTION("Replicate size cannot equal to Zero",-1);
+    }
     auto precision = apInput->GetPrecision();
     auto pOutput = new DataType(precision);
     SIMPLE_DISPATCH(precision, basic::Replicate, *apInput, *pOutput, aSize)

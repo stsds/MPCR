@@ -333,7 +333,7 @@ DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
 }
 
 
-DataType *
+DataType &
 DataType::operator =(const DataType &aDataType) {
     this->mSize = aDataType.mSize;
     this->mPrecision = aDataType.mPrecision;
@@ -349,7 +349,7 @@ DataType::operator =(const DataType &aDataType) {
         SIMPLE_DISPATCH(this->mPrecision, GetCopyOfData, aDataType.mpData,
                         this->mpData)
     }
-    return this;
+    return *this;
 }
 
 
@@ -532,219 +532,218 @@ DataType::IsNA(Dimensions *&apDimensions) {
 
 
 DataType *
-DataType::operator +(const DataType &aInput) {
+DataType::PerformPlusDispatcher(SEXP aObj) {
 
-    Rcpp::Rcout<<"hereeeeeeeeeeeee"<<std::endl;
-    //    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RPerformPlus(this, val, "");
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-////        }
-//        DataType temp=aInput;
-//        return RPerformPlus(this, aInput );
-//    }
-        return new DataType(50,FLOAT);
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformPlus(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformPlus(this, temp_mpr);
+    }
+
 }
-//
-//DataType *
-//DataType::operator ^(SEXP aInput) {
-//
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RPerformPow(this, val, "");
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RPerformPow(this, temp_mpr);
-//    }
-//}
-//
-//
-//DataType *
-//DataType::operator /(SEXP aInput) {
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RPerformDiv(this, val, "");
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RPerformDiv(this, temp_mpr);
-//    }
-//}
-//
-//
-//DataType *
-//DataType::operator *(SEXP aInput) {
-//
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RPerformMult(this, val, "");
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RPerformMult(this, temp_mpr);
-//    }
-//}
-//
-//
-//DataType *
-//DataType::operator -(SEXP aInput) {
-//
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RPerformMinus(this, val, "");
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RPerformMinus(this, temp_mpr);
-//    }
-//}
-//
-//
-//SEXP
-//DataType::operator >(SEXP aInput) {
-//
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RGreaterThan(this, val);
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RGreaterThan(this, temp_mpr);
-//    }
-//}
-//
-//
-//SEXP
-//DataType::operator >=(SEXP aInput) {
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RGreaterThanOrEqual(this, val);
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RGreaterThanOrEqual(this, temp_mpr);
-//    }
-//}
-//
-//
-//SEXP
-//DataType::operator <(SEXP aInput) {
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RLessThan(this, val);
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RLessThan(this, temp_mpr);
-//    }
-//}
-//
-//
-//SEXP
-//DataType::operator <=(SEXP aInput) {
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RLessThanOrEqual(this, val);
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RLessThanOrEqual(this, temp_mpr);
-//    }
-//}
-//
-//
-//SEXP
-//DataType::operator ==(SEXP aInput) {
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return REqual(this, val);
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return REqual(this, temp_mpr);
-//    }
-//}
-//
-//
-//SEXP
-//DataType::operator !=(SEXP aInput) {
-//    if (TYPEOF(aInput) == REALSXP || TYPEOF(aInput) == INTSXP) {
-//        auto val = Rcpp::as <double>(aInput);
-//        return RNotEqual(this, val);
-//
-//    } else {
-//        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
-//            aInput);
-//        if (!temp_mpr->IsDataType()) {
-//            MPR_API_EXCEPTION(
-//                "Undefined Object . Make Sure You're Using MPR Object",
-//                -1);
-//        }
-//        return RNotEqual(this, temp_mpr);
-//    }
-//}
+
+
+DataType *
+DataType::PerformPowDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformPow(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformPow(this, temp_mpr);
+    }
+}
+
+
+DataType *
+DataType::PerformDivDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformDiv(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformDiv(this, temp_mpr);
+    }
+}
+
+
+DataType *
+DataType::PerformMultDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformMult(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformMult(this, temp_mpr);
+    }
+}
+
+
+DataType *
+DataType::PerformMinusDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformMinus(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformMinus(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::GreaterThanDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RGreaterThan(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RGreaterThan(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::GreaterThanOrEqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RGreaterThanOrEqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RGreaterThanOrEqual(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::LessThanDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RLessThan(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RLessThan(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::LessThanOrEqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RLessThanOrEqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RLessThanOrEqual(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::EqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return REqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return REqual(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::NotEqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RNotEqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RNotEqual(this, temp_mpr);
+    }
+}
 
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,

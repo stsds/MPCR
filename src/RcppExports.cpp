@@ -13,7 +13,6 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 
 RcppExport SEXP _rcpp_module_boot_MPR();
-RcppExport DataType* Plus(DataType &aInputA, DataType &aInputB);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rcpp_module_boot_MPR", (DL_FUNC) &_rcpp_module_boot_MPR, 0},

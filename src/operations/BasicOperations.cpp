@@ -105,7 +105,7 @@ basic::GetDiagonal(DataType &aVec, DataType &aOutput,
         pOutput_data[ i ] = pData[ ( i * col ) + i ];
     }
 
-    aOutput.SetSize(col);
+    aOutput.SetSize(count);
     aOutput.SetData((char *) pOutput_data);
 
 }
