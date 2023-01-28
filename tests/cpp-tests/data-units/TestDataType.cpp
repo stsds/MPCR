@@ -8,7 +8,7 @@ using namespace std;
 using namespace mpr::precision;
 
 
-template<typename T>
+template <typename T>
 void
 CheckValues(DataType *apData, char *apValidator) {
 
@@ -16,17 +16,17 @@ CheckValues(DataType *apData, char *apValidator) {
     T *temp_validate = (T *) apValidator;
     auto size = apData->GetSize();
     for (auto i = 0; i < size; i++) {
-        REQUIRE(temp_data[i] == temp_validate[i]);
+        REQUIRE(temp_data[ i ] == temp_validate[ i ]);
     }
 }
 
 
-template<typename T>
+template <typename T>
 void
 InitValidator(char *&apData, size_t aSize) {
     T *temp = new T[aSize];
     for (auto i = 0; i < aSize; i++) {
-        temp[i] = (T) 1.5;
+        temp[ i ] = (T) 1.5;
     }
     apData = (char *) temp;
 }
@@ -68,7 +68,7 @@ TEST_DATA_TYPE() {
         auto data = (double *) validator;
         auto size = a.GetSize();
         for (auto i = 0; i < size; i++) {
-            REQUIRE(data[i] == a.GetVal(i));
+            REQUIRE(data[ i ] == a.GetVal(i));
         }
 
         for (auto i = 0; i < size; i++) {
@@ -106,6 +106,80 @@ TEST_DATA_TYPE() {
         temp.ClearUp();
         REQUIRE(temp.GetData() == nullptr);
         REQUIRE(temp.GetDimensions() == nullptr);
+
+    }SECTION("Test Precision Conversion") {
+
+        cout << "Testing Precision Conversion ..." << endl;
+
+        DataType a(35, "float");
+        auto pData_in_a = (float *) a.GetData();
+        auto size_a = a.GetSize();
+
+        for (auto i = 0; i < size_a; i++) {
+            pData_in_a[ i ] = i;
+        }
+
+        a.ConvertPrecision(DOUBLE);
+        REQUIRE(a.GetSize() == size_a);
+        REQUIRE(a.GetPrecision() == DOUBLE);
+
+        auto pData_in_a_new = (double *) a.GetData();
+        for (auto i = 0; i < size_a; i++) {
+            REQUIRE(pData_in_a_new[ i ] == i);
+            pData_in_a_new[ i ] = 1.5;
+        }
+
+        a.ConvertPrecision(INT);
+
+        REQUIRE(a.GetSize() == size_a);
+        REQUIRE(a.GetPrecision() == INT);
+
+        auto pData_in_a_new_int = (int *) a.GetData();
+        for (auto i = 0; i < size_a; i++) {
+            REQUIRE(pData_in_a_new_int[ i ] == 1);
+
+        }
+
+    }SECTION("Converter") {
+
+        cout << "Testing NumericVector Conversion ..." << endl;
+
+        DataType a(50, FLOAT);
+        auto pData_in_a = (float *) a.GetData();
+        auto size_a = a.GetSize();
+
+        for (auto i = 0; i < size_a; i++) {
+            pData_in_a[ i ] = i;
+        }
+
+        size_t i = 0;
+        auto pOutput_vector = a.ConvertToNumericVector();
+        for (auto x: *pOutput_vector) {
+            REQUIRE(x == i);
+            i++;
+        }
+
+        delete pOutput_vector;
+
+//        cout << "Testing NumericMatrix Conversion ..." << endl;
+//        a.ToMatrix(5,10);
+//        auto pOutput_matrix=a.ConvertToRMatrix();
+//        auto nrows=pOutput_matrix->rows();
+//        auto ncols=pOutput_matrix->cols();
+//        REQUIRE(nrows==5);
+//        REQUIRE(ncols==10);
+//
+//        int validator=0;
+//
+//        for(auto i=0;i<nrows;i++){
+//            for(auto j=0;j<ncols;j++){
+//                REQUIRE(pOutput_matrix->at(i,j)==validator);
+//                validator++;
+//            }
+//        }
+//
+//
+//        delete pOutput_matrix;
 
     }
 

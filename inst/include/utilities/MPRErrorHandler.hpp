@@ -44,7 +44,7 @@ public:
         ss << std::left << std::setfill(' ') << std::setw(10)
            << apFunctionName << std::endl;
 
-        if (aErrorCode != 0) {
+        if (aErrorCode != 0 && aIsError) {
             ss << std::left << std::setfill(' ') << std::setw(10)
                << "Error Code" << ": ";
             ss << std::left << std::setfill(' ') << std::setw(10)

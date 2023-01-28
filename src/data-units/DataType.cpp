@@ -1,6 +1,7 @@
 
 #include <data-units/DataType.hpp>
 #include <utilities/MPRDispatcher.hpp>
+#include <adapters/RBinaryOperations.hpp>
 #include <Rcpp.h>
 
 
@@ -173,7 +174,7 @@ DataType::GetSize() const {
 
 template <typename T>
 void
-DataType::GetValue(int aIndex, double *&aOutput) {
+DataType::GetValue(size_t aIndex, double *&aOutput) {
     double *temp = new double;
     *temp = (double) (((T *) this->mpData )[ aIndex ] );
     delete aOutput;
@@ -182,7 +183,7 @@ DataType::GetValue(int aIndex, double *&aOutput) {
 
 
 double
-DataType::GetVal(int aIndex) {
+DataType::GetVal(size_t aIndex) {
     if (aIndex >= this->mSize) {
         MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
@@ -194,7 +195,7 @@ DataType::GetVal(int aIndex) {
 
 template <typename T>
 void
-DataType::SetValue(int aIndex, double &aVal) {
+DataType::SetValue(size_t aIndex, double &aVal) {
 
     T *data = (T *) this->mpData;
     data[ aIndex ] = (T) aVal;
@@ -202,7 +203,7 @@ DataType::SetValue(int aIndex, double &aVal) {
 
 
 void
-DataType::SetVal(int aIndex, double aVal) {
+DataType::SetVal(size_t aIndex, double aVal) {
     if (aIndex >= this->mSize) {
         MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
@@ -409,6 +410,348 @@ void DataType::SetMagicNumber() {
 }
 
 
+template <typename T>
+void
+DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
+
+    auto data = (T *) this->mpData;
+    auto size = this->mSize;
+
+    if (size == 0) {
+        return;
+    }
+    switch (aPrecision) {
+        case INT: {
+            auto temp = new int[size];
+            std::copy(data, data + size, temp);
+            this->SetData((char *) temp);
+            break;
+        }
+        case FLOAT: {
+            auto temp = new float[size];
+            std::copy(data, data + size, temp);
+            this->SetData((char *) temp);
+            break;
+        }
+        case DOUBLE: {
+            auto temp = new double[size];
+            std::copy(data, data + size, temp);
+            this->SetData((char *) temp);
+            break;
+        }
+        default: {
+            MPR_API_EXCEPTION("Invalid Precision : Not Supported", -1);
+        }
+    }
+
+    this->mPrecision = aPrecision;
+}
+
+
+void
+DataType::ConvertPrecision(const mpr::precision::Precision &aPrecision) {
+    SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher, aPrecision)
+}
+
+
+template <typename T>
+void
+DataType::ConvertToVector(std::vector <double> &aOutput) {
+    auto pData = (T *) this->mpData;
+    aOutput.clear();
+    aOutput.resize(this->mSize);
+    aOutput.assign(pData, pData + this->mSize);
+}
+
+
+std::vector <double> *
+DataType::ConvertToNumericVector() {
+    auto pOutput = new std::vector <double>();
+    SIMPLE_DISPATCH(this->mPrecision, ConvertToVector, *pOutput)
+    return pOutput;
+}
+
+
+Rcpp::NumericMatrix *
+DataType::ConvertToRMatrix() {
+    if (!this->mMatrix) {
+        MPR_API_EXCEPTION("Invalid Cannot Convert, Not a Matrix", -1);
+    }
+
+    auto pOutput = new Rcpp::NumericMatrix(this->mpDimensions->GetNRow(),
+                                           this->mpDimensions->GetNCol());
+
+    SIMPLE_DISPATCH(this->mPrecision, ConvertToRMatrixDispatcher, *pOutput)
+    return pOutput;
+
+}
+
+
+template <typename T>
+void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix &aOutput) {
+
+    auto pData = (T *) this->mpData;
+    size_t itr_vec = 0;
+
+    for (auto i = 0; i < this->mpDimensions->GetNRow(); i++) {
+        auto row = aOutput.row(i);
+        for (auto itr = row.begin(); itr != row.end(); itr++) {
+            *itr = pData[ itr_vec ];
+            itr_vec++;
+        }
+    }
+
+}
+
+
+template <typename T>
+void DataType::CheckNA(std::vector <int> &aOutput, Dimensions *&apDimensions) {
+    auto pData = (T *) this->mpData;
+    aOutput.clear();
+    aOutput.resize(this->mSize);
+    if (this->mMatrix) {
+        delete apDimensions;
+        apDimensions = new Dimensions(this->mpDimensions->GetNRow(),
+                                      this->mpDimensions->GetNCol());
+
+    }
+
+    for (auto i = 0; i < this->mSize; i++) {
+        aOutput[ i ] = std::isnan(pData[ i ]);
+    }
+
+}
+
+
+std::vector <int> *
+DataType::IsNA(Dimensions *&apDimensions) {
+    auto pOutput = new std::vector <int>();
+    SIMPLE_DISPATCH(this->mPrecision, CheckNA, *pOutput, apDimensions)
+    return pOutput;
+}
+
+
+DataType *
+DataType::PerformPlusDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformPlus(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformPlus(this, temp_mpr);
+    }
+
+}
+
+
+DataType *
+DataType::PerformPowDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformPow(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformPow(this, temp_mpr);
+    }
+}
+
+
+DataType *
+DataType::PerformDivDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformDiv(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformDiv(this, temp_mpr);
+    }
+}
+
+
+DataType *
+DataType::PerformMultDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformMult(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformMult(this, temp_mpr);
+    }
+}
+
+
+DataType *
+DataType::PerformMinusDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RPerformMinus(this, val, "");
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RPerformMinus(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::GreaterThanDispatcher(SEXP aObj) {
+
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RGreaterThan(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RGreaterThan(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::GreaterThanOrEqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RGreaterThanOrEqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RGreaterThanOrEqual(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::LessThanDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RLessThan(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RLessThan(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::LessThanOrEqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RLessThanOrEqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RLessThanOrEqual(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::EqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return REqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return REqual(this, temp_mpr);
+    }
+}
+
+
+SEXP
+DataType::NotEqualDispatcher(SEXP aObj) {
+    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+        auto val = Rcpp::as <double>(aObj);
+        return RNotEqual(this, val);
+
+    } else {
+        auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
+            aObj);
+        if (!temp_mpr->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+        return RNotEqual(this, temp_mpr);
+    }
+}
+
+
+SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,
+                   Dimensions *&apDimensions)
+
+SIMPLE_INSTANTIATE(void, DataType::ConvertPrecisionDispatcher,
+                   const Precision &aPrecision)
+
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 
 SIMPLE_INSTANTIATE(void, DataType::Init)
@@ -418,8 +761,14 @@ SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, const char *apSrc,
                    char *&apDest)
 
-SIMPLE_INSTANTIATE(void, DataType::GetValue, int aIndex, double *&aOutput)
+SIMPLE_INSTANTIATE(void, DataType::GetValue, size_t aIndex, double *&aOutput)
 
-SIMPLE_INSTANTIATE(void, DataType::SetValue, int aIndex, double &aVal)
+SIMPLE_INSTANTIATE(void, DataType::SetValue, size_t aIndex, double &aVal)
 
 SIMPLE_INSTANTIATE(void, DataType::GetDataSize, size_t &aDataSize)
+
+SIMPLE_INSTANTIATE(void, DataType::ConvertToVector,
+                   std::vector <double> &aOutput)
+
+SIMPLE_INSTANTIATE(void, DataType::ConvertToRMatrixDispatcher,
+                   Rcpp::NumericMatrix &aOutput)

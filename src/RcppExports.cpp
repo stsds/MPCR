@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 
+
 using namespace Rcpp;
 
 #ifdef RCPP_USE_GLOBAL_ROSTREAM
@@ -11,11 +12,11 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 
-RcppExport SEXP _rcpp_module_boot_DataTypeTest();
+RcppExport SEXP _rcpp_module_boot_MPR();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rcpp_module_boot_DataTypeTest", (DL_FUNC) &_rcpp_module_boot_DataTypeTest, 0},
-    {NULL, NULL, 0}
+    {"_rcpp_module_boot_MPR", (DL_FUNC) &_rcpp_module_boot_MPR, 0},
+    {NULL, NULL,                                                0}
 };
 
 RcppExport void R_init_MPR(DllInfo *dll) {

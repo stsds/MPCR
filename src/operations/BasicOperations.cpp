@@ -96,14 +96,16 @@ basic::GetDiagonal(DataType &aVec, DataType &aOutput,
     aOutput.ClearUp();
     T *pOutput_data;
     T *pData = (T *) aVec.GetData();
-    auto col = pDims->GetNCol();
-    pOutput_data = new T[col];
+    auto count = std::min(pDims->GetNCol(),pDims->GetNRow());
+    pOutput_data = new T[count];
 
-    for (auto i = 0; i < col; i++) {
+    auto col=pDims->GetNCol();
+
+    for (auto i = 0; i < count; i++) {
         pOutput_data[ i ] = pData[ ( i * col ) + i ];
     }
 
-    aOutput.SetSize(col);
+    aOutput.SetSize(count);
     aOutput.SetData((char *) pOutput_data);
 
 }
@@ -119,8 +121,8 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
     auto col = aVec.GetNCol();
 
     if (!aVec.IsMatrix()) {
-      aOutput.SetSize(aVec.GetSize());
-    }else{
+        aOutput.SetSize(aVec.GetSize());
+    } else {
         aOutput.ToMatrix(row, col);
     }
 
@@ -140,10 +142,10 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
     }
 
     if (aMargin == 1) {
-        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, col, row - 1)
+        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, stat_size, row - 1)
 
     } else {
-        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, row, 0)
+        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, stat_size, 0)
     }
     aOutput.SetData((char *) pOutput_data);
 }
@@ -401,7 +403,7 @@ basic::ApplyCenter(DataType &aInputA, DataType &aCenter, DataType &aOutput,
                 accum = std::accumulate(pData_input + start_idx,
                                         pData_input + start_idx + col,
                                         accum, nansum);
-                accum=accum/col;
+                accum = accum / col;
                 for (auto j = 0; j < col; j++) {
                     pOutput[ start_idx + j ] =
                         pData_input[ start_idx + j ] - accum;
