@@ -254,7 +254,10 @@ z$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("Testing Diagonal on non Sqaure Matrix")
+paste("Matrix")
 x$ToMatrix(5,10)
+x$PrintValues()
+paste("Diagonal")
 z<- diag(x)
 z$PrintValues()
 

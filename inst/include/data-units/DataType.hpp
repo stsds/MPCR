@@ -126,7 +126,7 @@ typedef struct Dimensions {
 
 
 /** DataType Class creates an array of (16/32/64)-Bit Precision that you can access throw
- * R as C++ object
+ * R as C++ object. Can Be represented as Matrix with Column Major representation.
  **/
 class DataType {
 
@@ -442,12 +442,12 @@ public:
 
     /**
      * @brief
-     * Set Values in the Vector according to Index (0-based Indexing)
+     * Set Values in the Matrix according to Row,col (0-based Indexing)
      *
      * @param[in] aRow
      * Row Index
      * @param[in] aCol
-     * Col Index
+     * Column Index
      * @param[in] aVal
      * Value used to set the vector[idx] with
      */
@@ -747,7 +747,7 @@ private:
      */
     template <typename T>
     void
-    GetValue(size_t aIndex, double *&aOutput);
+    GetValue(size_t aIndex, double &aOutput);
 
     /**
      * @brief
@@ -876,7 +876,7 @@ private:
      */
     template <typename T>
     void
-    ConvertToRMatrixDispatcher(Rcpp::NumericMatrix &aOutput);
+    ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput);
 
 
     /** Buffer Holding the Data **/

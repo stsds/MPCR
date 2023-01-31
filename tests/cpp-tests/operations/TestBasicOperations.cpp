@@ -36,6 +36,7 @@ TEST_BASIC_OPERATION() {
         auto validator = new float[size];
         int val = 1;
         auto col = a.GetNCol();
+        auto row = a.GetNRow();
         for (auto i = 0; i < size; i++) {
             validator[ i ] = val;
             val++;
@@ -47,8 +48,13 @@ TEST_BASIC_OPERATION() {
         DISPATCHER(FFF, basic::Sweep, a, b, c, margin, "+")
 
         auto temp_out = (float *) c.GetData();
-        for (auto i = 0; i < size; i++) {
-            REQUIRE(validator[ i ] == temp_out[ i ]);
+        auto itr = 0;
+        for (auto i = 0; i < row; i++) {
+            for (auto j = 0; j < col; j++) {
+                auto idx = ( j * row ) + i;
+                REQUIRE(validator[ itr ] == temp_out[ idx ]);
+                itr++;
+            }
         }
 
         delete[] validator;
@@ -98,13 +104,11 @@ TEST_BASIC_OPERATION() {
 
         auto validator = new double[size_in_a];
         auto counter = 0;
-        for (auto i = 0; i < 5; i++) {
-            for (auto j = 0; j < 5; j++) {
-                validator[ ( j * 5 ) + i ] = counter;
-                counter++;
-                if (counter == 3) {
-                    counter = 0;
-                }
+        for (auto i = 0; i < size_in_a; i++) {
+            validator[ i ] = counter;
+            counter++;
+            if (counter == 3) {
+                counter = 0;
             }
         }
 
@@ -143,8 +147,15 @@ TEST_BASIC_OPERATION() {
         DISPATCHER(FDD, basic::Sweep, a, b, result, margin, "*")
 
         auto temp_out = (double *) result.GetData();
-        for (auto i = 0; i < size_in_a; i++) {
-            REQUIRE(validator[ i ] == temp_out[ i ]);
+        auto col = a.GetNCol();
+        auto row = a.GetNRow();
+        auto counter = 0;
+        for (auto i = 0; i < row; i++) {
+            for (auto j = 0; j < col; j++) {
+                auto idx = ( j * row ) + i;
+                REQUIRE(validator[ counter ] == temp_out[ idx ]);
+                counter++;
+            }
         }
 
         delete[] validator;
@@ -243,14 +254,13 @@ TEST_BASIC_OPERATION() {
 
         auto data_in_a = (float *) a.GetData();
         auto data_in_b = (float *) b.GetData();
+        auto size_a = a.GetSize();
 
         size_t counter = 0;
-        for (auto i = 0; i < 6; ++i) {
-            for (auto j = 0; j < 4; j++) {
-                data_in_a[ ( i * 4 ) + j ] = counter;
-                data_in_b[ ( i * 4 ) + j ] = counter;
-                counter++;
-            }
+        for (auto i = 0; i < size_a; i++) {
+            data_in_a[ i ] = counter;
+            data_in_b[ i ] = counter;
+            counter++;
         }
 
 
@@ -260,21 +270,19 @@ TEST_BASIC_OPERATION() {
 
         auto size = c.GetSize();
         auto temp_data = (float *) test.GetData();
-        auto temp_data_in = (float *) c.GetData();
+        auto temp_data_in_c = (float *) c.GetData();
         REQUIRE(size == ( 6 * 8 ));
 
         counter = 0;
-        for (auto i = 0; i < 6; ++i) {
-            for (auto j = 0; j < 4; j++) {
-                temp_data[ ( i * 8 ) + j ] = counter;
-                temp_data[ (( i * 8 ) + j ) + 4 ] = counter;
-                counter++;
+
+        for (auto i = 0; i < size; ++i) {
+            REQUIRE(counter == temp_data_in_c[ i ]);
+            counter++;
+            if (counter == 24) {
+                counter = 0;
             }
         }
 
-        for (auto i = 0; i < size; ++i) {
-            REQUIRE(temp_data[ i ] == temp_data_in[ i ]);
-        }
     }SECTION("Testing CBind Different Precision") {
         DataType a(6, 4, FLOAT);
         DataType b(6, 4, DOUBLE);
@@ -282,48 +290,31 @@ TEST_BASIC_OPERATION() {
 
         auto data_in_a = (float *) a.GetData();
         auto data_in_b = (double *) b.GetData();
+        auto size_a = a.GetSize();
 
         size_t counter = 0;
-
-        for (auto i = 0; i < 6; ++i) {
-            for (auto j = 0; j < 4; j++) {
-                data_in_a[ ( i * 4 ) + j ] = counter;
-                data_in_b[ ( i * 4 ) + j ] = counter;
-                counter++;
-            }
+        for (auto i = 0; i < size_a; i++) {
+            data_in_a[ i ] = counter;
+            data_in_b[ i ] = counter;
+            counter++;
         }
 
         DISPATCHER(FDD, basic::ColumnBind, a, b, c)
 
         DataType test(6, 8, DOUBLE);
         auto temp_data = (double *) test.GetData();
-        auto temp_data_in = (double *) c.GetData();
+        auto temp_data_in_c = (double *) c.GetData();
         auto size = c.GetSize();
         REQUIRE(size == ( 6 * 8 ));
 
         counter = 0;
-        for (auto i = 0; i < 6; ++i) {
-            for (auto j = 0; j < 4; j++) {
-                temp_data[ ( i * 8 ) + j ] = counter;
-                temp_data[ (( i * 8 ) + j ) + 4 ] = counter;
-                counter++;
+        for (auto i = 0; i < size; ++i) {
+            REQUIRE(counter == temp_data_in_c[ i ]);
+            counter++;
+            if (counter == 24) {
+                counter = 0;
             }
         }
-
-        for (auto i = 0; i < size; ++i) {
-            REQUIRE(temp_data[ i ] == temp_data_in[ i ]);
-        }
-
-    }SECTION("Testing CBind With Wrong Dimensions") {
-        /** TODO: try and catch not working with invalid argument **/
-//        DataType a(6, 4, FLOAT);
-//        DataType b(3, 4, DOUBLE);
-//        DataType c(DOUBLE);
-//        try {
-//            DISPATCHER(FDD, basic::ColumnBind, a, b, c)
-//        } catch (invalid_argument const &e) {
-//            REQUIRE(e.what() =="");
-//        }
 
     }SECTION("Testing RBind Same Precision") {
         cout << "Testing RBind ..." << endl;
@@ -335,9 +326,24 @@ TEST_BASIC_OPERATION() {
         auto data_in_a = (float *) a.GetData();
         auto data_in_b = (float *) b.GetData();
 
-        for (auto i = 0; i < a.GetSize(); i++) {
-            data_in_a[ i ] = i;
-            data_in_b[ i ] = i;
+        auto counter = 0;
+        auto row = a.GetNRow();
+        auto col = a.GetNCol();
+
+        for (auto i = 0; i < row; i++) {
+            for (auto j = 0; j < col; j++) {
+                auto idx = ( j * row ) + i;
+                data_in_a[ idx ] = counter;
+                counter++;
+            }
+        }
+
+        for (auto i = 0; i < row; i++) {
+            for (auto j = 0; j < col; j++) {
+                auto idx = ( j * row ) + i;
+                data_in_b[ idx ] = counter;
+                counter++;
+            }
         }
 
 
@@ -348,14 +354,16 @@ TEST_BASIC_OPERATION() {
         auto temp_data_in = (float *) c.GetData();
         auto size = c.GetSize();
         REQUIRE(size == ( 12 * 4 ));
+        row = c.GetNRow();
+        col = c.GetNCol();
 
-        for (auto i = 0; i < a.GetSize(); i++) {
-            temp_data[ i ] = i;
-            temp_data[ i + a.GetSize() ] = i;
-        }
-
-        for (auto i = 0; i < size; ++i) {
-            REQUIRE(temp_data[ i ] == temp_data_in[ i ]);
+        counter = 0;
+        for (auto i = 0; i < row; i++) {
+            for (auto j = 0; j < col; j++) {
+                auto idx = ( j * row ) + i;
+                REQUIRE(temp_data_in[ idx ] == counter);
+                counter++;
+            }
         }
 
     }SECTION("Testing RBind Different Precision") {
@@ -375,16 +383,6 @@ TEST_BASIC_OPERATION() {
             REQUIRE(temp_data[ i ] == temp_data_in[ i ]);
         }
 
-    }SECTION("Testing RBind With Wrong Dimensions") {
-        /** TODO: try and catch not working with invalid argument **/
-//        DataType a(6, 4, FLOAT);
-//        DataType b(6, 3, DOUBLE);
-//        DataType c(DOUBLE);
-//        try {
-//            DISPATCHER(FDD, basic::RowBind, a, b, c)
-//        } catch (invalid_argument const &e) {
-//            REQUIRE(e.what() == "");
-//        }
     }SECTION("Testing Replicate") {
         cout << "Testing Replicate ..." << endl;
         DataType a(5, FLOAT);
@@ -444,17 +442,18 @@ TEST_BASIC_OPERATION() {
         auto size_in_b = b.GetSize();
         auto col = b.GetNCol();
         auto row = b.GetNRow();
+        auto count = 0;
 
-
-        for (auto i = 0; i < size_in_b; i++) {
-            data_in_b[ i ] = i;
+        for (auto i = 0; i < row; i++) {
+            for (auto j = 0; j < col; j++) {
+                auto idx = ( j * row ) + i;
+                data_in_b[ idx ] = count;
+                count++;
+            }
         }
 
-        for (auto i = 2; i < row - 1; i++) {
-            auto start_idx = i * col;
-            data_in_b[ start_idx + 2 ] = 0;
-            data_in_b[ start_idx + 2 ] = data_in_b[ start_idx + 2 ] / zero;
-        }
+        b.SetValMatrix(2, 2, NAN);
+        b.SetValMatrix(3, 2, NAN);
 
         SIMPLE_DISPATCH(FLOAT, basic::NAExclude, b)
 
@@ -465,6 +464,7 @@ TEST_BASIC_OPERATION() {
         size = b.GetSize();
         REQUIRE(size == ( 5 * 6 ) - ( 12 ));
         bool flag;
+
 
         for (auto i = 0; i < size; i++) {
             flag = ( data_in_b[ i ] >= 24 || data_in_b[ i ] <= 11 );
@@ -617,16 +617,22 @@ TEST_BASIC_OPERATION() {
         double zero = 0;
         a.SetVal(3, zero);
         a.SetVal(3, zero / zero);
+        auto counter = 0;
         for (auto i = 0; i < row; i++) {
             accum = 0;
-            start_idx = i * col;
+            counter = 0;
+
             for (auto j = 0; j < col; j++) {
-                if (!isnan(data_in_a[ start_idx + j ])) {
-                    accum += data_in_a[ start_idx + j ];
+                start_idx = ( j * row ) + i;
+                if (!isnan(data_in_a[ start_idx ])) {
+                    accum += data_in_a[ start_idx ];
+                    counter++;
                 }
             }
-            validator[ i ] = accum / col;
+
+            validator[ i ] = accum / counter;
         }
+
         DISPATCHER(FDD, basic::ApplyCenter, a, scale_center, output, &calc_mean)
 
         data_in_output = (double *) output.GetData();
@@ -635,11 +641,11 @@ TEST_BASIC_OPERATION() {
         REQUIRE(output.GetNRow() == 5);
 
         for (auto i = 0; i < row; i++) {
-            start_idx = i * col;
             for (auto j = 0; j < col; j++) {
-                if (!isnan(data_in_a[ start_idx + j ])) {
-                    REQUIRE(data_in_output[ start_idx + j ] ==
-                            data_in_a[ start_idx + j ] - validator[ i ]);
+                start_idx = ( j * row ) + i;
+                if (!isnan(data_in_a[ start_idx ])) {
+                    REQUIRE(data_in_output[ start_idx ] ==
+                            data_in_a[ start_idx ] - validator[ i ]);
                 }
             }
         }
@@ -664,10 +670,22 @@ TEST_BASIC_OPERATION() {
 
         auto standard_deviation = 1.870828693387;
         auto perc = 0.001;
-        for (auto i = 0; i < output_size; i++) {
-            data_in_output[ i ] = i;
-            data_in_a[ i ] = i;
+        row = output.GetNRow();
+        col = output.GetNCol();
+        counter = 0;
+        for (auto i = 0; i < row; i++) {
+            for (auto j = 0; j < col; j++) {
+                auto idx = ( j * row ) + i;
+                data_in_output[ idx ] = counter;
+                data_in_a[ idx ] = counter;
+                counter++;
+            }
         }
+
+//        for (auto i = 0; i < output_size; i++) {
+//            data_in_output[ i ] = i;
+//            data_in_a[ i ] = i;
+//        }
 
         auto calc_sd = true;
         DISPATCHER(FDD, basic::ApplyScale, a, scale_center, output, &calc_sd)
@@ -676,11 +694,12 @@ TEST_BASIC_OPERATION() {
         REQUIRE(output_size == 30);
         REQUIRE(output.GetNCol() == 6);
         REQUIRE(output.GetNRow() == 5);
+
         for (auto i = 0; i < row; i++) {
-            start_idx = i * col;
             for (auto j = 0; j < col; j++) {
-                auto val_1 = data_in_a[ start_idx + j ] / standard_deviation;
-                auto val_2 = data_in_output[ start_idx + j ];
+                start_idx = ( j * row ) + i;
+                auto val_1 = data_in_a[ start_idx ] / standard_deviation;
+                auto val_2 = data_in_output[ start_idx ];
                 if (val_1 != 0) {
                     auto val_3 = abs(( val_2 - val_1 )) / val_1;
                     REQUIRE(val_3 < perc);

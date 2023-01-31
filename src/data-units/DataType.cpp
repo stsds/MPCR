@@ -107,26 +107,37 @@ DataType::PrintVal() {
         ss << "Number of Columns : " << cols << std::endl;
         ss << "---------------------" << std::endl;
         size_t start_idx;
-        size_t print_col = ( cols > 13 ) ? 13 : cols;
+        size_t print_col = ( cols > 16 ) ? 16 : cols;
         size_t print_rows = ( rows > 100 ) ? 100 : rows;
 
         for (auto i = 0; i < print_rows; i++) {
-            start_idx = i * cols;
             ss << " [\t";
             for (auto j = 0; j < print_col; j++) {
-                ss << temp[ start_idx + j ] << "\t";
+                start_idx = ( j * rows ) + i;
+                ss << temp[ start_idx ] << "\t";
             }
             ss << "]" << std::endl;
             if (ss.gcount() > stream_size) {
+#ifdef RUNNING_CPP
+                std::cout << std::string(ss.str());
+#endif
+
+#ifndef RUNNING_CPP
                 Rcpp::Rcout << std::string(ss.str());
+#endif
                 ss.clear();
             }
         }
         if (print_rows * print_col != this->mSize) {
             ss << "Note Only Matrix with size 100*13 is printed" << std::endl;
         }
-        Rcpp::Rcout << std::string(ss.str());
+#ifdef RUNNING_CPP
+        std::cout << std::string(ss.str());
+#endif
 
+#ifndef RUNNING_CPP
+        Rcpp::Rcout << std::string(ss.str());
+#endif
 
     } else {
         ss << "Vector Size : " << mSize << std::endl;
@@ -136,13 +147,25 @@ DataType::PrintVal() {
             ss << temp[ i ] << "\t";
             if (i % 100 == 0) {
                 if (ss.gcount() > stream_size) {
+#ifdef RUNNING_CPP
+                    std::cout << std::string(ss.str());
+#endif
+
+#ifndef RUNNING_CPP
                     Rcpp::Rcout << std::string(ss.str());
+#endif
                     ss.clear();
                 }
             }
         }
         ss << "]" << std::endl;
+#ifdef RUNNING_CPP
+        std::cout << std::string(ss.str());
+#endif
+
+#ifndef RUNNING_CPP
         Rcpp::Rcout << std::string(ss.str());
+#endif
     }
 
 }
@@ -174,11 +197,8 @@ DataType::GetSize() const {
 
 template <typename T>
 void
-DataType::GetValue(size_t aIndex, double *&aOutput) {
-    double *temp = new double;
-    *temp = (double) (((T *) this->mpData )[ aIndex ] );
-    delete aOutput;
-    aOutput = temp;
+DataType::GetValue(size_t aIndex, double &aOutput) {
+    aOutput = (double) (((T *) this->mpData )[ aIndex ] );
 }
 
 
@@ -187,9 +207,9 @@ DataType::GetVal(size_t aIndex) {
     if (aIndex >= this->mSize) {
         MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
-    double *temp = nullptr;
+    double temp;
     SIMPLE_DISPATCH(mPrecision, GetValue, aIndex, temp)
-    return *temp;
+    return temp;
 }
 
 
@@ -248,11 +268,12 @@ DataType::GetMatrixIndex(size_t aRow, size_t aCol) {
     if (!this->mMatrix) {
         MPR_API_EXCEPTION("Not a Matrix Fault.", -1);
     }
-    if (aRow > mpDimensions->GetNRow() || aCol > mpDimensions->GetNCol() ||
+    if (aRow >= mpDimensions->GetNRow() || aCol >= mpDimensions->GetNCol() ||
         aRow < 0 || aCol < 0) {
         MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
-    return ( aRow * mpDimensions->GetNCol()) + aCol;
+
+    return ( aCol * mpDimensions->GetNRow()) + aRow;
 }
 
 
@@ -477,29 +498,20 @@ DataType::ConvertToRMatrix() {
     if (!this->mMatrix) {
         MPR_API_EXCEPTION("Invalid Cannot Convert, Not a Matrix", -1);
     }
+    Rcpp::NumericMatrix *pOutput = nullptr;
 
-    auto pOutput = new Rcpp::NumericMatrix(this->mpDimensions->GetNRow(),
-                                           this->mpDimensions->GetNCol());
-
-    SIMPLE_DISPATCH(this->mPrecision, ConvertToRMatrixDispatcher, *pOutput)
+    SIMPLE_DISPATCH(this->mPrecision, ConvertToRMatrixDispatcher, pOutput)
     return pOutput;
 
 }
 
 
 template <typename T>
-void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix &aOutput) {
+void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput) {
 
-    auto pData = (T *) this->mpData;
-    size_t itr_vec = 0;
-
-    for (auto i = 0; i < this->mpDimensions->GetNRow(); i++) {
-        auto row = aOutput.row(i);
-        for (auto itr = row.begin(); itr != row.end(); itr++) {
-            *itr = pData[ itr_vec ];
-            itr_vec++;
-        }
-    }
+    auto pData = (T *) mpData;
+    aOutput = new Rcpp::NumericMatrix(this->mpDimensions->GetNRow(),
+                                      this->mpDimensions->GetNCol(), pData);
 
 }
 
@@ -761,7 +773,7 @@ SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, const char *apSrc,
                    char *&apDest)
 
-SIMPLE_INSTANTIATE(void, DataType::GetValue, size_t aIndex, double *&aOutput)
+SIMPLE_INSTANTIATE(void, DataType::GetValue, size_t aIndex, double &aOutput)
 
 SIMPLE_INSTANTIATE(void, DataType::SetValue, size_t aIndex, double &aVal)
 
@@ -771,4 +783,4 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertToVector,
                    std::vector <double> &aOutput)
 
 SIMPLE_INSTANTIATE(void, DataType::ConvertToRMatrixDispatcher,
-                   Rcpp::NumericMatrix &aOutput)
+                   Rcpp::NumericMatrix *&aOutput)
