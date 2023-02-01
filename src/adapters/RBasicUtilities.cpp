@@ -62,14 +62,14 @@ RIsDouble(DataType *apInput) {
 
 
 DataType *
-RReplicate(DataType *apInput, size_t aSize,size_t aLength) {
-    if(aLength==0){
-        aSize=aSize*apInput->GetSize();
-    }else{
-        aSize=aLength;
+RReplicate(DataType *apInput, size_t aSize, size_t aLength) {
+    if (aLength == 0) {
+        aSize = aSize * apInput->GetSize();
+    } else {
+        aSize = aLength;
     }
-    if(aSize==0){
-        MPR_API_EXCEPTION("Replicate size cannot equal to Zero",-1);
+    if (aSize == 0) {
+        MPR_API_EXCEPTION("Replicate size cannot equal to Zero", -1);
     }
     auto precision = apInput->GetPrecision();
     auto pOutput = new DataType(precision);
@@ -183,11 +183,11 @@ RIsNa(DataType *apInput, long aIdx) {
         Dimensions *pDim = nullptr;
         auto pOutput = apInput->IsNA(pDim);
         if (pDim != nullptr) {
-            auto matrix= ToLogicalMatrix(*pOutput,pDim);
+            auto matrix = ToLogicalMatrix(*pOutput, pDim);
             delete pDim;
             return matrix;
         }
-        auto vec= ToLogicalVector(*pOutput);
+        auto vec = ToLogicalVector(*pOutput);
         delete pOutput;
         return vec;
     } else {
