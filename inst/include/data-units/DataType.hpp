@@ -732,6 +732,27 @@ public:
     Rcpp::NumericMatrix *
     ConvertToRMatrix();
 
+
+    /**
+     * @brief
+     * Set MPR Object Dimensions according to given input
+     *
+     * @param[in] aInput
+     * MPR Object
+     *
+     */
+    inline
+    void
+    SetDimensions(DataType &aInput){
+        this->mSize=aInput.mSize;
+        if(aInput.mMatrix){
+           this->SetDimensions(aInput.GetNRow(),aInput.GetNCol());
+        }
+    }
+
+    void
+    Transpose();
+
 private:
 
     /**
@@ -877,6 +898,10 @@ private:
     template <typename T>
     void
     ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput);
+
+    template<typename T>
+    void
+    TransposeDispatcher();
 
 
     /** Buffer Holding the Data **/

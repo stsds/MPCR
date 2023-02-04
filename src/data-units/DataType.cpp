@@ -758,6 +758,36 @@ DataType::NotEqualDispatcher(SEXP aObj) {
 }
 
 
+void
+DataType::Transpose() {
+    SIMPLE_DISPATCH(this->mPrecision,DataType::TransposeDispatcher)
+}
+
+template<typename T>
+void
+DataType::TransposeDispatcher() {
+
+    auto pData=(T*)this->mpData;
+    auto pOutput=new T[this->mSize];
+    auto col=this->GetNCol();
+    auto row=this->GetNRow();
+
+    size_t counter=0;
+    size_t idx;
+
+    for(auto i=0;i<row;i++){
+        for(auto j=0;j<col;j++){
+            idx=(j*row)+i;
+            pOutput[counter]=pData[idx];
+        }
+    }
+
+    this->SetData((char*)pOutput);
+    this->SetDimensions(col,row);
+
+}
+
+
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,
                    Dimensions *&apDimensions)
 
@@ -784,3 +814,5 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertToVector,
 
 SIMPLE_INSTANTIATE(void, DataType::ConvertToRMatrixDispatcher,
                    Rcpp::NumericMatrix *&aOutput)
+
+SIMPLE_INSTANTIATE(void,DataType::TransposeDispatcher)
