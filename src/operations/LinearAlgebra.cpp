@@ -11,20 +11,28 @@ using namespace mpr::operations;
 template <typename T>
 void
 linear::CrossProduct(DataType &aInputA, DataType &aInputB,
-                     DataType &aOutput) {
+                     DataType &aOutput,const bool &aTranspose) {
 
     auto pData_a = (T *) aInputA.GetData();
     auto pData_b = (T *) aInputB.GetData();
 
     auto row_a = aInputA.GetNRow();
     auto col_a = aInputA.GetNCol();
+    size_t row_b ;
+    size_t col_b ;
 
-    auto row_b = aInputB.GetNRow();
-    auto col_b = aInputB.GetNCol();
+    if(aTranspose){
+        row_b=col_a;
+        col_b=row_a;
+    }else{
+        row_b=aInputB.GetNRow();
+        col_b=aInputB.GetNCol();
+    }
 
     if (col_a != row_b) {
         MPR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
     }
+
     auto output_size = row_a * col_b;
     aOutput.ClearUp();
     aOutput.SetSize(output_size);
@@ -32,9 +40,13 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB,
 
     auto pData_out = new T[output_size];
 
-    blas::gemm(LAYOUT, blas::Op::NoTrans, blas::Op::NoTrans,
-               row_a, col_b, col_a, 1, pData_a, row_a, pData_b, row_b, 0,
-               pData_out, row_a);
+    if(aTranspose){
+        blas::gemm(LAYOUT, blas::Op::NoTrans, blas::Op::NoTrans,
+                   row_a, col_b, col_a, 1, pData_a, row_a, pData_b, row_b, 0,
+                   pData_out, row_a);
+    }else{
+//        blas::syrk(LAYOUT)
+    }
 
     aOutput.SetData((char *) pData_out);
 
@@ -77,7 +89,7 @@ void linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 
 
 SIMPLE_INSTANTIATE(void, linear::CrossProduct, DataType &aInputA,
-                   DataType &aInputB, DataType &aOutput)
+                   DataType &aInputB, DataType &aOutput,const bool &aTranspose)
 
 SIMPLE_INSTANTIATE(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
 

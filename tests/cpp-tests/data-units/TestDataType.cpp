@@ -161,26 +161,6 @@ TEST_DATA_TYPE() {
 
         delete pOutput_vector;
 
-//        cout << "Testing NumericMatrix Conversion ..." << endl;
-//        a.ToMatrix(5,10);
-//        auto pOutput_matrix=a.ConvertToRMatrix();
-//        auto nrows=pOutput_matrix->rows();
-//        auto ncols=pOutput_matrix->cols();
-//        REQUIRE(nrows==5);
-//        REQUIRE(ncols==10);
-//
-//        int validator=0;
-//
-//        for(auto i=0;i<nrows;i++){
-//            for(auto j=0;j<ncols;j++){
-//                REQUIRE(pOutput_matrix->at(i,j)==validator);
-//                validator++;
-//            }
-//        }
-//
-//
-//        delete pOutput_matrix;
-
     }
 
 

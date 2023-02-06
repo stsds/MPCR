@@ -15,7 +15,7 @@ namespace mpr {
             template <typename T>
             void
             CrossProduct(DataType &aInputA, DataType &aInputB,
-                         DataType &aOutput);
+                         DataType &aOutput,const bool &aTranspose=false);
 
             template<typename T>
             void

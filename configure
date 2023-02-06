@@ -32,4 +32,4 @@ cd bin/
 make clean
 make all -j 4
 
-cp "${ABSOLUE_PATH}/bin/src/libmpr_rcpp.so" "${ABSOLUE_PATH}/src/MPR.so" || echo "Failed: libmpr_rcpp.so -> src"
+cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MPR.so" || echo "Failed: libmpr.so -> src"

@@ -274,4 +274,3 @@ paste("Replicate (50, len=10) output =10")
 paste("---------------------------------------------------------------")
 z <- rep(x,len=10)
 z$PrintValues()
-
