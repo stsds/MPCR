@@ -1,7 +1,7 @@
 
-
 #include <blas.hh>
 #include <utilities/MPRDispatcher.hpp>
+#include <operations/helpers/LinearAlgebraHelper.hpp>
 #include <operations/LinearAlgebra.hpp>
 
 
@@ -10,24 +10,40 @@ using namespace mpr::operations;
 
 template <typename T>
 void
-linear::CrossProduct(DataType &aInputA, DataType &aInputB,
-                     DataType &aOutput,const bool &aTranspose) {
+linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
+                     const bool &aTransposeA, const bool &aTransposeB) {
 
     auto pData_a = (T *) aInputA.GetData();
     auto pData_b = (T *) aInputB.GetData();
 
     auto row_a = aInputA.GetNRow();
     auto col_a = aInputA.GetNCol();
-    size_t row_b ;
-    size_t col_b ;
+    auto transpose_a = aTransposeA ? blas::Op::Trans : blas::Op::NoTrans;
+    auto transpose_b = aTransposeB ? blas::Op::Trans : blas::Op::NoTrans;
+    auto is_one_input = aInputB.GetSize() == 0;
+    size_t row_b;
+    size_t col_b;
 
-    if(aTranspose){
-        row_b=col_a;
-        col_b=row_a;
-    }else{
-        row_b=aInputB.GetNRow();
-        col_b=aInputB.GetNCol();
+    // cross(x,y) -> x y
+    // cross(x) -> t(x) x
+    // tcross(x,y) -> x t(y)
+    // tcross(x) -> x t(x)
+
+    if (is_one_input) {
+        row_b = row_a;
+        col_b = col_a;
+    } else {
+        row_b = aInputB.GetNRow();
+        col_b = aInputB.GetNCol();
     }
+
+    if (aTransposeA) {
+        std::swap(row_a, col_a);
+    }
+    if (aTransposeB) {
+        std::swap(row_b, col_b);
+    }
+
 
     if (col_a != row_b) {
         MPR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
@@ -40,21 +56,29 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB,
 
     auto pData_out = new T[output_size];
 
-    if(aTranspose){
-        blas::gemm(LAYOUT, blas::Op::NoTrans, blas::Op::NoTrans,
+    if (!is_one_input) {
+        blas::gemm(LAYOUT, blas::Op::NoTrans, transpose_b,
                    row_a, col_b, col_a, 1, pData_a, row_a, pData_b, row_b, 0,
                    pData_out, row_a);
-    }else{
-//        blas::syrk(LAYOUT)
+    } else {
+        blas::syrk(LAYOUT, blas::Uplo::Lower, transpose_a, row_a, row_a,
+                   1, pData_a, row_a, 0, pData_out, row_a);
+
+
     }
 
     aOutput.SetData((char *) pData_out);
+
+    if (is_one_input) {
+        Symmetrize <T>(aOutput, true);
+    }
 
 }
 
 
 template <typename T>
-void linear::IsSymmetric(DataType &aInput, bool &aOutput) {
+void
+linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 
     aOutput = false;
     auto pData = (T *) aInput.GetData();
@@ -88,8 +112,623 @@ void linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 }
 
 
-SIMPLE_INSTANTIATE(void, linear::CrossProduct, DataType &aInputA,
-                   DataType &aInputB, DataType &aOutput,const bool &aTranspose)
+template <typename T>
+void
+linear::Cholesky(DataType &aInputA, DataType &aOutput) {
 
-SIMPLE_INSTANTIATE(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
+    auto row = aInputA.GetNRow();
+    auto col = aInputA.GetNCol();
+
+    if (row != col) {
+        MPR_API_EXCEPTION(
+            "Cannot Apply Cholesky Decomposition on non-square Matrix", -1);
+    }
+
+    auto pOutput = new T[row * col];
+    auto pData = (T *) aInputA.GetData();
+    memcpy(pOutput, pData, ( row * col * sizeof(T)));
+
+    auto rc = lapack::potrf(lapack::Uplo::Upper, row, pOutput, row);
+    if (rc != 0) {
+        MPR_API_EXCEPTION(
+            "Error While Applying Cholesky Decomposition", rc);
+    }
+
+
+    for (auto j = 0; j < row; j++) {
+        for (auto i = j + 1; i < row; i++)
+            pOutput[ i + row * j ] = 0.0;
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetDimensions(aInputA);
+    aOutput.SetData((char *) pOutput);
+}
+
+
+template <typename T>
+void
+linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
+
+    auto pData = (T *) aInputA.GetData();
+    auto col = aInputA.GetNCol();
+
+    if (aNCol > col) {
+        MPR_API_EXCEPTION(
+            "Size Cannot exceed the Number of Cols of Input", -1);
+    }
+
+    T *pOutput = nullptr;
+    aOutput.ClearUp();
+    if (aNCol == col) {
+        aOutput = aInputA;
+        aOutput.SetDimensions(aNCol, aNCol);
+        pOutput = (T *) aOutput.GetData();
+    } else {
+        auto new_size = aNCol * aNCol;
+        aOutput.SetSize(new_size);
+        aOutput.SetDimensions(aNCol, aNCol);
+        auto pTemp_data = new T[new_size];
+        size_t idx;
+        for (auto i = 0; i < aNCol; i++) {
+            for (auto j = 0; j < aNCol; j++) {
+                idx = j + ( i * aNCol );
+                pTemp_data[ idx ] = pData[ j + ( col * i ) ];
+            }
+        }
+        pOutput = pTemp_data;
+    }
+
+    auto rc = lapack::potri(lapack::Uplo::Upper, aNCol, pOutput,
+                            aOutput.GetNRow());
+    if (rc != 0) {
+        MPR_API_EXCEPTION(
+            "Error While Applying Cholesky Decomposition", rc);
+    }
+
+
+    aOutput.SetData((char *) pOutput);
+    Symmetrize <T>(aOutput, false);
+
+}
+
+
+template <typename T>
+void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
+                   const bool &aSingle) {
+
+    auto rows_a = aInputA.GetNRow();
+    auto cols_a = aInputA.GetNCol();
+
+    if (rows_a != cols_a) {
+        MPR_API_EXCEPTION("Cannot Solve This Matrix , Must be a Square Matrix",
+                          -1);
+    }
+
+    auto rows_b = rows_a;
+    auto cols_b = rows_b;
+
+    if (!aSingle) {
+        rows_b = aInputB.GetNRow();
+        cols_b = aInputB.GetNCol();
+    }
+
+    if (cols_a != rows_b) {
+        MPR_API_EXCEPTION("Dimensions must be compatible", -1);
+    }
+
+    auto pIpiv = new int64_t[cols_a];
+    aOutput.ClearUp();
+    auto rc = 0;
+    if (!aSingle) {
+        DataType dump = aInputA;
+        aOutput = aInputB;
+        auto pData_dump = (T *) dump.GetData();
+        auto pData_in_out = (T *) aOutput.GetData();
+
+        rc = lapack::gesv(cols_a, cols_b, pData_dump, rows_a, pIpiv,
+                          pData_in_out, rows_b);
+    } else {
+        aOutput = aInputA;
+        auto pData_in_out = (T *) aOutput.GetData();
+
+        rc = lapack::getrf(rows_a, cols_a, pData_in_out, rows_a, pIpiv);
+
+        if (rc != 0) {
+            delete[] pIpiv;
+            MPR_API_EXCEPTION("Error While Solving", rc);
+        }
+
+        rc = lapack::getri(cols_a, pData_in_out, rows_a, pIpiv);
+
+
+        if (rc != 0) {
+            delete[] pIpiv;
+            MPR_API_EXCEPTION("Error While Solving", rc);
+        }
+
+    }
+
+    if (rc != 0) {
+        delete[] pIpiv;
+        MPR_API_EXCEPTION("Error While Solving", rc);
+    }
+
+
+    aOutput.SetSize(cols_a * cols_b);
+    aOutput.SetDimensions(cols_a, cols_b);
+
+    delete[] pIpiv;
+}
+
+
+template <typename T>
+void
+linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
+                  const size_t &aCol, const bool &aUpperTri,
+                  const bool &aTranspose) {
+    if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
+        MPR_API_EXCEPTION(
+            "Inputs Must Be Matrices", -1);
+    }
+    auto row_a = aInputA.GetNRow();
+    auto row_b = aInputB.GetNRow();
+    auto col_b = aInputB.GetNCol();
+    auto which_triangle = blas::Uplo::Lower;
+    auto transpose = blas::Op::NoTrans;
+
+    if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
+        MPR_API_EXCEPTION(
+            "Given Number of Columns is Greater than Columns of B", -1);
+    }
+    if (aUpperTri) {
+        which_triangle = blas::Uplo::Upper;
+    }
+
+    if (aTranspose) {
+        transpose = blas::Op::Trans;
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetSize(col_b * aCol);
+    aOutput.SetDimensions(aCol, col_b);
+
+    auto pData = (T *) aInputA.GetData();
+    auto pData_b = (T *) aInputB.GetData();
+    auto pData_in_out = new T[col_b * aCol];
+
+    for (auto i = 0; i < col_b; i++) {
+        memcpy(( pData_in_out + ( aCol * i )), pData_b + ( row_b * i ),
+               ( sizeof(T) * aCol ));
+    }
+
+
+    blas::trsm(LAYOUT, blas::Side::Left, which_triangle, transpose,
+               blas::Diag::NonUnit, row_b, col_b, 1, pData, row_a, pData_in_out,
+               row_b);
+
+    aOutput.SetData((char *) pData_in_out);
+
+
+}
+
+
+template <typename T>
+void
+linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
+            DataType &aOutputV, const size_t &aNu,
+            const size_t &aNv) {
+
+
+    //s ,u ,vt
+    auto row = aInputA.GetNRow();
+    auto col = aInputA.GetNCol();
+    auto pData = (T *) aInputA.GetData();
+
+    auto min_dim = std::min(row, col);
+    auto pOutput_s = new T[min_dim];
+    T *pOutput_u = nullptr;
+    T *pOutput_vt = nullptr;
+
+    aOutputS.ClearUp();
+    aOutputU.ClearUp();
+    aOutputV.ClearUp();
+
+    aOutputS.SetSize(min_dim);
+
+
+    if (aNu || aNv) {
+        if (aNu > min_dim || aNv > min_dim) {
+
+            pOutput_u = new T[row * row];
+            aOutputU.SetSize(row * row);
+            aOutputU.SetDimensions(row, row);
+
+            pOutput_vt = new T[col * col];
+            aOutputV.SetSize(col * col);
+            aOutputV.SetDimensions(col, col);
+
+
+        } else {
+            if (aNu == min_dim) {
+                pOutput_u = new T[row * aNu];
+                aOutputU.SetSize(row * aNu);
+                aOutputU.SetDimensions(row, aNu);
+            } else {
+                pOutput_u = new T[row * min_dim];
+                aOutputU.SetSize(row * min_dim);
+                aOutputU.SetDimensions(row, min_dim);
+            }
+
+            if (aNv == min_dim) {
+                pOutput_vt = new T[col * aNv];
+                aOutputV.SetSize(col * aNv);
+                aOutputV.SetDimensions(aNv, col);
+            } else {
+                pOutput_vt = new T[col * min_dim];
+                aOutputV.SetSize(col * min_dim);
+                aOutputV.SetDimensions(min_dim, col);
+            }
+
+        }
+    } else {
+        delete[] pOutput_u;
+        pOutput_u = nullptr;
+        delete[] pOutput_vt;
+        pOutput_vt = nullptr;
+
+        aOutputU.ClearUp();
+        aOutputV.ClearUp();
+    }
+
+    auto pTemp_data = new T[row * col];
+    memcpy((void *) pTemp_data, (void *) pData, ( row * col ) * sizeof(T));
+
+    lapack::Job job;
+    int ldvt;
+    if (aNu == 0 && aNv == 0) {
+        job = lapack::Job::NoVec;
+        ldvt = 1;
+    } else if (aNu <= min_dim && aNv <= min_dim) {
+        job = lapack::Job::SomeVec;
+        ldvt = min_dim;
+    } else {
+        job = lapack::Job::AllVec;
+        ldvt = aNv;
+    }
+
+    auto rc = lapack::gesdd(job, row, col, pTemp_data, row, pOutput_s,
+                            pOutput_u, row, pOutput_vt, ldvt);
+
+    if (rc != 0) {
+        delete[] pOutput_vt;
+        delete[] pOutput_u;
+        delete[] pOutput_s;
+        delete[] pTemp_data;
+        MPR_API_EXCEPTION("Error While Getting SVD", rc);
+    }
+
+//    if (aNv) {
+//        if (aNv != min_dim && aNv != col) {
+//            float *vtf = FLOAT(vt);
+//            float_len_t top = aNv > min_dim ? col : min_dim;
+//            for (auto j = 0; j < col; j++) {
+//                for (auto i = 0; i < aNv; i++)
+//                    vtf[ i + aNv * j ] = vt_data[ i + top * j ];
+//            }
+//        }
+
+    aOutputS.SetData((char *) pOutput_s);
+    aOutputV.SetData((char *) pOutput_vt);
+    aOutputU.SetData((char *) pOutput_u);
+    aOutputV.Transpose();
+
+}
+
+
+template <typename T>
+void linear::Eigen(DataType &aInput, DataType &aOutputValues,
+                   DataType *apOutputVectors) {
+
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+
+    if (row != col) {
+        MPR_API_EXCEPTION("Cannot Perform Eigen on non square Matrix", -1);
+    }
+
+
+    auto jobz = lapack::Job::NoVec;
+    if (apOutputVectors != nullptr) {
+        jobz = lapack::Job::Vec;
+    }
+
+    DataType dump = aInput;
+    T dump_val = 0;
+    auto pData = (T *) dump.GetData();
+    int64_t num_found = 0;
+
+    auto pValues = new T[col];
+    auto pVectors = new T[col * col];
+    auto pIsuppz = new int64_t[2 * col];
+
+
+    auto rc = lapack::syevr(jobz, lapack::Range::All, lapack::Uplo::Upper, col,
+                            pData, row, 0, 0, 0, 0, 0, &num_found, pValues,
+                            pVectors, row, pIsuppz);
+
+    if (rc != 0) {
+        delete[] pIsuppz;
+        delete[] pValues;
+        delete[] pVectors;
+        MPR_API_EXCEPTION("Error While Performing Eigen", rc);
+    }
+
+    if (apOutputVectors) {
+        apOutputVectors->ClearUp();
+        apOutputVectors->SetSize(col * col);
+        apOutputVectors->SetDimensions(col, col);
+        apOutputVectors->SetData((char *) pVectors);
+    } else {
+        delete[] pVectors;
+    }
+
+    delete[] pIsuppz;
+    aOutputValues.ClearUp();
+    aOutputValues.SetSize(col);
+    aOutputValues.SetData((char *) pValues);
+
+
+}
+
+
+template <typename T>
+void
+linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
+
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+    aOutput.ClearUp();
+    aOutput.SetSize(1);
+
+    auto pOutput = new T[1];
+
+    if (row == 0 || col == 0) {
+        pOutput[ 0 ] = 0.0f;
+    } else if (aType == "O" || aType == "1") {
+        pOutput[ 0 ] = NormMACS <T>(aInput);
+    } else if (aType == "I") {
+        pOutput[ 0 ] = NormMARS <T>(aInput);
+    } else if (aType == "F") {
+        pOutput[ 0 ] = NormEuclidean <T>(aInput);
+    } else if (aType == "M") {
+        pOutput[ 0 ] = NormMaxMod <T>(aInput);
+    } else {
+        delete[] pOutput;
+        MPR_API_EXCEPTION("Argument must be one of 'M','1','O','I','F' or 'E' ",
+                          -1);
+    }
+
+    aOutput.SetData((char *) pOutput);
+}
+
+
+template <typename T>
+void
+linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
+                        DataType &aOutputQraux, DataType &aOutputPivot) {
+
+    auto col = aInputA.GetNCol();
+    auto row = aInputA.GetNRow();
+    auto min_dim = std::min(col, row);
+    auto pData = (T *) aInputA.GetData();
+
+    auto pQr_in_out = new T[row * col];
+    auto pQraux = new T[min_dim];
+    auto pJpvt = new int64_t[col];
+    memset(pJpvt, 0.0f, col * sizeof(int64_t));
+    memcpy((void *) pQr_in_out, (void *) pData,
+           ( aInputA.GetSize()) * sizeof(T));
+
+
+    auto rc = lapack::geqp3(row, col, pQr_in_out, row, pJpvt, pQraux);
+
+    if (rc != 0) {
+        delete[] pQr_in_out;
+        delete[] pJpvt;
+        delete[] pQraux;
+        MPR_API_EXCEPTION("Error While Performing QR Decomposition", rc);
+    }
+
+
+    aOutputQr.ClearUp();
+    aOutputPivot.ClearUp();
+    aOutputQraux.ClearUp();
+
+    aOutputQr.SetSize(row * col);
+    aOutputQr.SetDimensions(row, col);
+    aOutputQr.SetData((char *) pQr_in_out);
+
+    aOutputQraux.SetSize(min_dim);
+    aOutputQraux.SetData((char *) pQraux);
+
+    auto pTemp_pvt = new T[col];
+
+    std::copy(pTemp_pvt, pTemp_pvt + col, pJpvt);
+    delete[] pJpvt;
+
+    aOutputPivot.SetSize(col);
+    aOutputPivot.SetData((char *) pTemp_pvt);
+
+
+}
+
+
+template <typename T>
+void
+linear::QRDecompositionR(DataType &aInputA, DataType &aOutput,
+                         const bool &aComplete) {
+
+    auto col = aInputA.GetNCol();
+    auto row = aInputA.GetNRow();
+    auto output_nrows = aComplete ? row : std::min(row, col);
+    auto output_size = output_nrows * col;
+    auto pOutput_data = new T[output_size];
+    auto pData = (T *) aInputA.GetData();
+
+    memset(pOutput_data, 0, output_size * sizeof(T));
+
+    for (auto j = 0; j < col; j++) {
+        for (auto i = 0; i <= j && i < output_nrows; i++)
+            pOutput_data[ i + output_nrows * j ] = pData[ i + row * j ];
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetSize(output_size);
+    aOutput.SetDimensions(output_nrows, col);
+    aOutput.SetData((char *) pOutput_data);
+
+}
+
+
+template <typename T>
+void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
+                              DataType &aOutput,
+                              const bool &aComplete) {
+
+
+    auto side = lapack::Side::Left;
+    auto transpose = lapack::Op::NoTrans;
+
+    auto row = aInputA.GetNRow();
+    auto col = aInputA.GetNCol();
+    auto pQr_data = (T *) aInputA.GetData();
+    auto pQraux = (T *) aInputB.GetData();
+
+    auto output_nrhs = aComplete ? row : std::min(row, col);
+    auto output_size = row * output_nrhs;
+    auto pOutput_data = new T[output_size];
+
+    memset(pOutput_data, 0, output_size * sizeof(T));
+
+    for (auto i = 0; i < output_size; i += row + 1)
+        pOutput_data[ i ] = 1.0f;
+
+    auto rc = lapack::ormrq(side, transpose, row, output_nrhs, col, pQr_data,
+                            row, pQraux,
+                            pOutput_data, row);
+    if (rc != 0) {
+        delete[] pOutput_data;
+        MPR_API_EXCEPTION("Error While Performing QR.Q", rc);
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetSize(output_size);
+    aOutput.SetDimensions(row, output_nrhs);
+    aOutput.SetData((char *) pOutput_data);
+
+}
+
+
+template <typename T>
+void
+linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
+                            const std::string &aNorm, const bool &aTriangle) {
+
+    auto row = aInput.GetNRow();
+    auto col = aInput.GetNCol();
+    auto pData = (T *) aInput.GetData();
+    lapack::Norm norm = aNorm == "I" ? lapack::Norm::Inf : lapack::Norm::One;
+    auto pRcond = new T[1];
+
+    if (aTriangle) {
+        auto rc = lapack::trcon(norm, lapack::Uplo::Upper,
+                                lapack::Diag::NonUnit, row,
+                                pData, col, pRcond);
+
+        if (rc != 0) {
+            delete[] pRcond;
+            MPR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
+        }
+
+    } else {
+
+        auto pIpiv = new int64_t[row];
+        auto pTemp_data = new T[row * col];
+        T xnorm;
+        memcpy((void *) pTemp_data, (void *) pData, ( row * col ) * sizeof(T));
+
+        if (norm == lapack::Norm::One) {
+            xnorm = NormMACS <T>(aInput);
+        } else if (norm == lapack::Norm::Inf) {
+            xnorm = NormMARS <T>(aInput);
+        }
+        auto rc = lapack::getrf(row, col, pTemp_data, col, pIpiv);
+        if (rc != 0) {
+            delete[] pRcond;
+            delete[] pIpiv;
+            delete[] pTemp_data;
+            MPR_API_EXCEPTION("Error While Performing rcond getrf", rc);
+        }
+
+        lapack::gecon(norm, row, pTemp_data, col, xnorm, pRcond);
+        if (rc != 0) {
+            delete[] pRcond;
+            delete[] pIpiv;
+            delete[] pTemp_data;
+            MPR_API_EXCEPTION("Error While Performing rcond gecon", rc);
+        }
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetSize(1);
+    aOutput.SetData((char *) pRcond);
+
+
+}
+
+
+FLOATING_POINT_INST(void, linear::CrossProduct, DataType &aInputA,
+                    DataType &aInputB, DataType &aOutput,
+                    const bool &aTransposeA, const bool &aTransposeB)
+
+FLOATING_POINT_INST(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
+
+FLOATING_POINT_INST(void, linear::Cholesky, DataType &aInputA,
+                    DataType &aOutput)
+
+FLOATING_POINT_INST(void, linear::CholeskyInv, DataType &aInputA,
+                    DataType &aOutput, const size_t &aNCol)
+
+FLOATING_POINT_INST(void, linear::Solve, DataType &aInputA, DataType &aInputB,
+                    DataType &aOutput, const bool &aSingle)
+
+FLOATING_POINT_INST(void, linear::BackSolve, DataType &aInputA,
+                    DataType &aInputB, DataType &aOutput, const size_t &aCol,
+                    const bool &aUpperTri, const bool &aTranspose)
+
+FLOATING_POINT_INST(void, linear::Eigen, DataType &aInput,
+                    DataType &aOutputValues, DataType *apOutputVectors)
+
+FLOATING_POINT_INST(void, linear::Norm, DataType &aInput,
+                    const std::string &aType, DataType &aOutput)
+
+FLOATING_POINT_INST(void, linear::ReciprocalCondition, DataType &aInput,
+                    DataType &aOutput, const std::string &aNorm,
+                    const bool &aTriangle)
+
+FLOATING_POINT_INST(void, linear::SVD, DataType &aInputA, DataType &aOutputS,
+                    DataType &aOutputU, DataType &aOutputV, const size_t &aNu,
+                    const size_t &aNv)
+
+FLOATING_POINT_INST(void, linear::QRDecompositionQ, DataType &aInputA,
+                    DataType &aInputB, DataType &aOutput, const bool &aComplete)
+
+FLOATING_POINT_INST(void, linear::QRDecomposition, DataType &aInputA,
+                    DataType &aOutputQr, DataType &aOutputQraux,
+                    DataType &aOutputPivot)
+
+FLOATING_POINT_INST(void, linear::QRDecompositionR, DataType &aInputA,
+                    DataType &aOutput, const bool &aComplete)
+
 

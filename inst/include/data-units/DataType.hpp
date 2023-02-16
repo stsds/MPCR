@@ -145,6 +145,17 @@ public:
 
     /**
      * @brief
+     * DataType Constructor from a vector
+     *
+     * @param[in] aValues
+     * Vector of values
+     * @param[in] aPrecision
+     * Precision to Describe the Values (as a Precision ENUM object)
+     */
+    DataType(std::vector<double> &aValues, mpr::precision::Precision aPrecision);
+
+    /**
+     * @brief
      * DataType Copy Constructor
      *
      * @param[in] aDataType
@@ -812,7 +823,7 @@ private:
      */
     template <typename T>
     void
-    Init();
+    Init(std::vector<double> *aValues= nullptr);
 
     /**
      * @brief

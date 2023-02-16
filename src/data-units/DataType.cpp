@@ -17,6 +17,15 @@ DataType::DataType(size_t aSize, Precision aPrecision) {
     SIMPLE_DISPATCH(this->mPrecision, Init)
 }
 
+DataType::DataType(std::vector <double> &aValues,
+                   mpr::precision::Precision aPrecision) {
+    this->SetMagicNumber();
+    this->mPrecision = GetInputPrecision(aPrecision);
+    this->mSize = aValues.size();
+    this->mpDimensions = nullptr;
+    this->mMatrix = false;
+    SIMPLE_DISPATCH(this->mPrecision, Init,&aValues)
+}
 
 DataType::DataType(size_t aSize, int aPrecision) {
     this->SetMagicNumber();
@@ -84,10 +93,15 @@ DataType::~DataType() {
 
 template <typename T>
 void
-DataType::Init() {
+DataType::Init(std::vector<double> *aValues) {
+    bool flag=aValues== nullptr;
     T *temp = new T[mSize];
     for (auto i = 0; i < mSize; i++) {
-        temp[ i ] = (T) 1.5;
+        if(flag){
+            temp[ i ] = (T) 1.5;
+        }else{
+            temp[ i ] = (T) aValues->at(i);
+        }
     }
     this->mpData = (char *) temp;
 
@@ -760,6 +774,9 @@ DataType::NotEqualDispatcher(SEXP aObj) {
 
 void
 DataType::Transpose() {
+    if(!this->mMatrix){
+        MPR_API_EXCEPTION("Cannot Transpose a Vector",-1);
+    }
     SIMPLE_DISPATCH(this->mPrecision,DataType::TransposeDispatcher)
 }
 
@@ -779,6 +796,7 @@ DataType::TransposeDispatcher() {
         for(auto j=0;j<col;j++){
             idx=(j*row)+i;
             pOutput[counter]=pData[idx];
+            counter++;
         }
     }
 
@@ -796,7 +814,7 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertPrecisionDispatcher,
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 
-SIMPLE_INSTANTIATE(void, DataType::Init)
+SIMPLE_INSTANTIATE(void, DataType::Init,std::vector<double> *aValues)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 

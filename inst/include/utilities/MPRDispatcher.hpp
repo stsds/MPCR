@@ -154,5 +154,9 @@ using namespace mpr::precision;
         template RETURNTYPE __FUN__<float,int,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
 
 
+#define FLOATING_POINT_INST(RETURNTYPE, __FUN__, ...) \
+        template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+
 
 #endif //MPR_MPRDISPATCHER_HPP

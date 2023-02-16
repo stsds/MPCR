@@ -16,16 +16,18 @@
 #                              under this path
 
 
-#If environment variable R_HOME is specified, it has same effect as R_ROOT_PATH
-
-
-if (NOT R_ROOT_PATH AND DEFINED ENV{R_HOME})
-    set(R_ROOT_PATH $ENV{R_HOME})
+if (NOT R_ROOT_PATH)
+    execute_process(COMMAND R RHOME OUTPUT_VARIABLE R_HOME)
+    string(REGEX REPLACE "\n" "" R_HOME "${R_HOME}")
+    set(R_ROOT_PATH "${R_HOME}")
+    message("R Home Path :  " ${R_ROOT_PATH})
 endif ()
 
 
-if (NOT R_LIB_PATH AND DEFINED ENV{R_LIB_PATH})
-    set(R_LIB_PATH $ENV{R_LIB_PATH})
+if (NOT R_LIB_PATH)
+    execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE R_LIB_PATH)
+    set(R_LIB_PATH ${R_LIB_PATH})
+    message("R Lib Path :  " ${R_LIB_PATH})
 endif ()
 
 
@@ -143,5 +145,4 @@ find_package_handle_standard_args(R DEFAULT_MSG
         R_INCLUDE R_LIBRARIES)
 
 include_directories(${R_INCLUDE})
-mark_as_advanced(R_INCLUDE R_INCLUDE_DIRS RCPP_INCLUDE_DIRS R_LIBRARIES R_LIB RCPP_LIB
-        )
+mark_as_advanced(R_INCLUDE R_INCLUDE_DIRS RCPP_INCLUDE_DIRS R_LIBRARIES R_LIB RCPP_LIB)
