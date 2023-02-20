@@ -227,38 +227,235 @@ TEST_LINEAR_ALGEBRA() {
         vector <double> values = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
                                   0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
                                   0, 0, 0, 1, 1, 1};
-        DataType a(values, DOUBLE);
+        DataType a(values, FLOAT);
         a.ToMatrix(9, 4);
         a.Print();
 
 
-        vector<float>validate_values = {3.464102e+00, 1.732051e+00, 1.732051e+00, 1.922963e-16};
+        vector <float> validate_values = {3.464102e+00, 1.732051e+00,
+                                          1.732051e+00, 1.922963e-16};
 
-        DataType d(DOUBLE);
-        DataType u(DOUBLE);
-        DataType v(DOUBLE);
+        DataType d(FLOAT);
+        DataType u(FLOAT);
+        DataType v(FLOAT);
 
-        SIMPLE_DISPATCH(DOUBLE, linear::SVD, a,d,u,v,a.GetNCol(),a.GetNCol())
-        REQUIRE(d.GetSize()==4);
-        auto err=0.001;
-//        for(auto i=0;i<v.GetSize();i++){
-////            float val= fabs((float)d.GetVal(i)-(float)values[i])/(float)values[i];
-////            REQUIRE(val<err);
-//            cout<<v.GetVal(i)<<endl;
-//        }
-d.Print();
-        cout<<"-------------------"<<endl;
-        u.Print();
-        cout<<"-------------------"<<endl;
-            v.Print();
+        SIMPLE_DISPATCH(FLOAT, linear::SVD, a, d, u, v, a.GetNCol(),
+                        a.GetNCol())
+        REQUIRE(d.GetSize() == 4);
+        auto err = 0.001;
+////        for(auto i=0;i<v.GetSize();i++){
+//////            float val= fabs((float)d.GetVal(i)-(float)values[i])/(float)values[i];
+//////            REQUIRE(val<err);
+////            cout<<v.GetVal(i)<<endl;
+////        }
+//        d.Print();
+//        cout << "-------------------" << endl;
+//        u.Print();
+//        cout << "-------------------" << endl;
+//        v.Print();
 
-//
-//        cout<<"---------------------"<<endl;
-//        for(auto i=0;i<validate_values.size();i++){
-//            cout<<validate_values[i]<<endl;
-//        }
+////
+////        cout<<"---------------------"<<endl;
+////        for(auto i=0;i<validate_values.size();i++){
+////            cout<<validate_values[i]<<endl;
+////        }
+    }SECTION("Eigen") {
+        cout << "Testing Eigen ..." << endl;
+
+        vector <double> values = {1, -1, -1, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(2, 2);
+//        a.Print();
+
+        DataType vals(FLOAT);
+        DataType vec(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Eigen, a, vals, &vec)
+//        vals.Print();
+//        vec.Print();
+        REQUIRE(vals.GetSize() == 2);
+        REQUIRE(vals.GetVal(0) == 2);
+        REQUIRE(vals.GetVal(1) == 0);
+
+        REQUIRE(vec.GetSize() == 4);
+        REQUIRE(vec.GetNCol() == 2);
+        REQUIRE(vec.GetNRow() == 2);
 
 
+        vector <float> validate_values = {-0.7071068, 0.7071068, -0.7071068,
+                                          -0.7071068};
+        auto err = 0.001;
+        for (auto i = 0; i < vec.GetSize(); i++) {
+            auto val =
+                fabs((float) vec.GetVal(i) - (float) validate_values[ i ]) /
+                (float) validate_values[ i ];
+            REQUIRE(val <= err);
+        }
+    }SECTION("Norm") {
+        cout << "Testing Norm ..." << endl;
+
+        vector <double> values = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5,
+                                  6, 7, 8, 9, 10};
+        DataType a(values, FLOAT);
+        a.ToMatrix(10, 2);
+
+        DataType norm_val(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "O", norm_val)
+        REQUIRE(norm_val.GetSize() == 1);
+        REQUIRE(norm_val.GetVal(0) == 55);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "I", norm_val)
+        REQUIRE(norm_val.GetSize() == 1);
+        REQUIRE(norm_val.GetVal(0) == 11);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "M", norm_val)
+        REQUIRE(norm_val.GetSize() == 1);
+        REQUIRE(norm_val.GetVal(0) == 10);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "F", norm_val)
+        REQUIRE(norm_val.GetSize() == 1);
+        auto val = fabs(norm_val.GetVal(0) - 19.87461) / 19.87461;
+        REQUIRE(val <= 0.001);
+    }SECTION("QR Decomposition") {
+        cout << "Testing QR Decomposition ..." << endl;
+        vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+
+        DataType qraux(FLOAT);
+        DataType pivot(FLOAT);
+        DataType qr(FLOAT);
+        size_t rank = 0;
+
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecomposition, a, qr, qraux, pivot,
+                        rank)
+
+        vector <float> validate_vals = {-7.48331, 0.42179, 0.63269, -4.81070,
+                                        1.96396, 0.85977, -3.7417, 0, 0};
+
+
+        REQUIRE(qr.IsMatrix());
+        REQUIRE(qr.GetNCol() == 3);
+        REQUIRE(qr.GetNRow() == 3);
+
+        auto err = 0.001;
+        for (auto i = 0; i < qr.GetSize(); i++) {
+
+            if (validate_vals[ i ] != 0) {
+                auto val =
+                    fabs(qr.GetVal(i) - validate_vals[ i ]) /
+                    validate_vals[ i ];
+                REQUIRE(val <= err);
+            } else {
+                REQUIRE(qr.GetVal(i) <= 1e-07);
+            }
+
+        }
+
+        REQUIRE(rank == 2);
+
+        validate_vals.clear();
+        validate_vals = {1.2673, 1.1500, 0.0000};
+        REQUIRE(qraux.GetSize() == 3);
+
+        for (auto i = 0; i < 2; i++) {
+            auto val =
+                fabs(qraux.GetVal(i) - validate_vals[ i ]) / validate_vals[ i ];
+            REQUIRE(val <= err);
+        }
+
+        REQUIRE(qraux.GetVal(2) == 0);
+
+        validate_vals.clear();
+        validate_vals = {2, 3, 1};
+        for (auto i = 0; i < pivot.GetSize(); i++) {
+            REQUIRE(pivot.GetVal(i) == validate_vals[ i ]);
+        }
+
+    }SECTION("Test QR.R") {
+
+        cout << "Testing QR Auxiliaries ..." << endl;
+        cout << "Testing QR.R ..." << endl;
+
+
+        vector <double> values = {-7.48331, 0.42179, 0.63269, -4.81070, 1.96396,
+                                  0.85977, -3.7417, 0, 0};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+        DataType r(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionR, a, r, true)
+
+        vector <float> validate_vals = {-7.4833, 0, 0, -4.8107, 1.9640, 0,
+                                        -3.7417, 0, 0};
+        auto error = 0.001;
+        for (auto i = 0; i < r.GetSize(); i++) {
+            if (validate_vals[ i ] != 0) {
+                auto val =
+                    fabs(r.GetVal(i) - validate_vals[ i ]) / validate_vals[ i ];
+                REQUIRE(val <= error);
+            }
+        }
+
+    }SECTION("Test QR.Q") {
+
+        cout << "Testing QR.Q ..." << endl;
+
+        vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+
+        DataType qraux(FLOAT);
+        DataType pivot(FLOAT);
+        DataType qr(FLOAT);
+        size_t rank = 0;
+
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecomposition, a, qr, qraux, pivot,
+                        rank)
+
+
+        DataType qr_q(FLOAT);
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionQ, qr, qraux, qr_q, FALSE)
+
+//        qr_q.Print();
+
+
+    }SECTION("Testing R Cond") {
+
+        cout << "Testing R Cond ..." << endl;
+
+        vector <double> values = {100, 2, 3, 3, 2, 1, 300, 3, 3, 400, 5, 6, 4,
+                                  44, 56, 1223};
+        DataType a(values, FLOAT);
+        a.ToMatrix(4, 4);
+
+        DataType b(FLOAT);
+
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", false)
+        auto val = fabs(b.GetVal(0) - 0.079608) / 0.079608;
+        REQUIRE(val <= 0.001);
+
+        b.ClearUp();
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", false)
+        val = fabs(b.GetVal(0) - 0.074096) / 0.074096;
+        REQUIRE(val <= 0.001);
+
+        b.ClearUp();
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", true)
+        val = fabs(b.GetVal(0) - 1.3189e-05) / 1.3189e-05;
+        b.Print();
+//        REQUIRE(val <= 0.001);
+
+        b.ClearUp();
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", true)
+        b.Print();
+        val = fabs(b.GetVal(0) - 1.334e-05) / 1.334e-05;
+//        REQUIRE(val <= 0.001);
     }
 }
 

@@ -764,6 +764,7 @@ public:
     void
     Transpose();
 
+
 private:
 
     /**

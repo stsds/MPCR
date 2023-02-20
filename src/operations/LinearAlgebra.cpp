@@ -317,7 +317,7 @@ template <typename T>
 void
 linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
             DataType &aOutputV, const size_t &aNu,
-            const size_t &aNv) {
+            const size_t &aNv, const bool &aTranspose) {
 
 
     //s ,u ,vt
@@ -336,50 +336,19 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
 
     aOutputS.SetSize(min_dim);
 
-
-    if (aNu || aNv) {
-        if (aNu > min_dim || aNv > min_dim) {
-
-            pOutput_u = new T[row * row];
-            aOutputU.SetSize(row * row);
-            aOutputU.SetDimensions(row, row);
-
-            pOutput_vt = new T[col * col];
-            aOutputV.SetSize(col * col);
-            aOutputV.SetDimensions(col, col);
-
-
-        } else {
-            if (aNu == min_dim) {
-                pOutput_u = new T[row * aNu];
-                aOutputU.SetSize(row * aNu);
-                aOutputU.SetDimensions(row, aNu);
-            } else {
-                pOutput_u = new T[row * min_dim];
-                aOutputU.SetSize(row * min_dim);
-                aOutputU.SetDimensions(row, min_dim);
-            }
-
-            if (aNv == min_dim) {
-                pOutput_vt = new T[col * aNv];
-                aOutputV.SetSize(col * aNv);
-                aOutputV.SetDimensions(aNv, col);
-            } else {
-                pOutput_vt = new T[col * min_dim];
-                aOutputV.SetSize(col * min_dim);
-                aOutputV.SetDimensions(min_dim, col);
-            }
-
-        }
-    } else {
-        delete[] pOutput_u;
-        pOutput_u = nullptr;
-        delete[] pOutput_vt;
-        pOutput_vt = nullptr;
-
-        aOutputU.ClearUp();
-        aOutputV.ClearUp();
+    if (aNu) {
+        pOutput_u = new T[row * aNu];
+        aOutputU.SetSize(row * aNu);
+        aOutputU.SetDimensions(row, aNu);
     }
+
+    if (aNv) {
+        pOutput_vt = new T[col * aNv];
+        aOutputV.SetSize(col * aNv);
+        /** Will be transposed at the end in case of svd **/
+        aOutputV.SetDimensions(aNv, col);
+    }
+
 
     auto pTemp_data = new T[row * col];
     memcpy((void *) pTemp_data, (void *) pData, ( row * col ) * sizeof(T));
@@ -408,20 +377,13 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
         MPR_API_EXCEPTION("Error While Getting SVD", rc);
     }
 
-//    if (aNv) {
-//        if (aNv != min_dim && aNv != col) {
-//            float *vtf = FLOAT(vt);
-//            float_len_t top = aNv > min_dim ? col : min_dim;
-//            for (auto j = 0; j < col; j++) {
-//                for (auto i = 0; i < aNv; i++)
-//                    vtf[ i + aNv * j ] = vt_data[ i + top * j ];
-//            }
-//        }
 
     aOutputS.SetData((char *) pOutput_s);
     aOutputV.SetData((char *) pOutput_vt);
     aOutputU.SetData((char *) pOutput_u);
-    aOutputV.Transpose();
+    if (aTranspose) {
+        aOutputV.Transpose();
+    }
 
 }
 
@@ -469,11 +431,13 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         apOutputVectors->SetSize(col * col);
         apOutputVectors->SetDimensions(col, col);
         apOutputVectors->SetData((char *) pVectors);
+        ReverseMatrix <T>(*apOutputVectors);
     } else {
         delete[] pVectors;
     }
 
     delete[] pIsuppz;
+    std::reverse(pValues, pValues + col);
     aOutputValues.ClearUp();
     aOutputValues.SetSize(col);
     aOutputValues.SetData((char *) pValues);
@@ -516,7 +480,8 @@ linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
 template <typename T>
 void
 linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
-                        DataType &aOutputQraux, DataType &aOutputPivot) {
+                        DataType &aOutputQraux, DataType &aOutputPivot,
+                        size_t &aRank, const double &aTolerance) {
 
     auto col = aInputA.GetNCol();
     auto row = aInputA.GetNRow();
@@ -526,9 +491,12 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     auto pQr_in_out = new T[row * col];
     auto pQraux = new T[min_dim];
     auto pJpvt = new int64_t[col];
-    memset(pJpvt, 0.0f, col * sizeof(int64_t));
+
+    memset(pJpvt, 0, col * sizeof(int64_t));
+
     memcpy((void *) pQr_in_out, (void *) pData,
            ( aInputA.GetSize()) * sizeof(T));
+
 
 
     auto rc = lapack::geqp3(row, col, pQr_in_out, row, pJpvt, pQraux);
@@ -554,11 +522,14 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
 
     auto pTemp_pvt = new T[col];
 
-    std::copy(pTemp_pvt, pTemp_pvt + col, pJpvt);
+
+    std::copy(pJpvt, pJpvt + col, pTemp_pvt);
     delete[] pJpvt;
 
     aOutputPivot.SetSize(col);
     aOutputPivot.SetData((char *) pTemp_pvt);
+
+    GetRank <T>(aOutputQr, aTolerance, aRank);
 
 
 }
@@ -663,6 +634,7 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
         } else if (norm == lapack::Norm::Inf) {
             xnorm = NormMARS <T>(aInput);
         }
+
         auto rc = lapack::getrf(row, col, pTemp_data, col, pIpiv);
         if (rc != 0) {
             delete[] pRcond;
@@ -670,21 +642,60 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             delete[] pTemp_data;
             MPR_API_EXCEPTION("Error While Performing rcond getrf", rc);
         }
+        delete[] pIpiv;
 
         lapack::gecon(norm, row, pTemp_data, col, xnorm, pRcond);
+
+        std::cout<<std::endl;
         if (rc != 0) {
             delete[] pRcond;
             delete[] pIpiv;
             delete[] pTemp_data;
             MPR_API_EXCEPTION("Error While Performing rcond gecon", rc);
         }
+
+        delete[] pTemp_data;
     }
+
 
     aOutput.ClearUp();
     aOutput.SetSize(1);
     aOutput.SetData((char *) pRcond);
 
 
+}
+
+
+template <typename T>
+void
+linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
+                          DataType &aInputC, DataType &aOutput,
+                          const bool &aTranspose) {
+
+    auto side = lapack::Side::Left;
+    auto transpose = aTranspose ? lapack::Op::Trans : lapack::Op::NoTrans;
+
+    auto row = aInputA.GetNRow();
+    auto col = aInputA.GetNCol();
+    auto pQr_data = (T *) aInputA.GetData();
+    auto pQraux = (T *) aInputB.GetData();
+
+    auto output_nrhs = aInputC.GetNCol();
+    auto output_size = row * output_nrhs;
+    auto pOutput_data = new T[output_size];
+
+    auto rc = lapack::ormrq(side, transpose, row, output_nrhs, col, pQr_data,
+                            row, pQraux,
+                            pOutput_data, row);
+    if (rc != 0) {
+        delete[] pOutput_data;
+        MPR_API_EXCEPTION("Error While Performing QR.QY", rc);
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetSize(output_size);
+    aOutput.SetDimensions(row, output_nrhs);
+    aOutput.SetData((char *) pOutput_data);
 }
 
 
@@ -719,16 +730,21 @@ FLOATING_POINT_INST(void, linear::ReciprocalCondition, DataType &aInput,
 
 FLOATING_POINT_INST(void, linear::SVD, DataType &aInputA, DataType &aOutputS,
                     DataType &aOutputU, DataType &aOutputV, const size_t &aNu,
-                    const size_t &aNv)
+                    const size_t &aNv, const bool &aTranspose)
 
 FLOATING_POINT_INST(void, linear::QRDecompositionQ, DataType &aInputA,
                     DataType &aInputB, DataType &aOutput, const bool &aComplete)
 
 FLOATING_POINT_INST(void, linear::QRDecomposition, DataType &aInputA,
                     DataType &aOutputQr, DataType &aOutputQraux,
-                    DataType &aOutputPivot)
+                    DataType &aOutputPivot, size_t &aRank,
+                    const double &aTolerance)
 
 FLOATING_POINT_INST(void, linear::QRDecompositionR, DataType &aInputA,
                     DataType &aOutput, const bool &aComplete)
+
+FLOATING_POINT_INST(void, linear::QRDecompositionQY, DataType &aInputA,
+                    DataType &aInputB, DataType &aInputC, DataType &aOutput,
+                    const bool &aTranspose)
 
 

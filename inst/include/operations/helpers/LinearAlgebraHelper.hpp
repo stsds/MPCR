@@ -144,4 +144,40 @@ Symmetrize(DataType &aInput, const bool &aToUpperTriangle) {
 }
 
 
+template <typename T>
+void ReverseMatrix(DataType &aInput) {
+    auto pData = (T *) aInput.GetData();
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+
+    auto last = col - 1;
+
+    for (auto j = 0; j < col / 2; j++) {
+        for (auto i = 0; i < row; i++) {
+            std::swap(pData[ i + row * j ], pData[ i + row * last ]);
+        }
+        last--;
+    }
+}
+
+template<typename T>
+void GetRank(DataType &aInput,const double aTolerance,size_t &aRank){
+
+   auto min_val = fabsf((T) aTolerance*aInput.GetVal(0));
+   auto row=aInput.GetNRow();
+   auto col=aInput.GetNCol();
+    auto   min_dim = std::min(row,col);
+
+    for (auto i=1; i<min_dim; i++)
+    {
+        if (fabsf((T)aInput.GetVal(i + row*i)) < min_val){
+            aRank=i;
+            return;
+        }
+    }
+
+    aRank=min_val;
+}
+
+
 #endif //MPR_LINEARALGEBRAHELPER_HPP

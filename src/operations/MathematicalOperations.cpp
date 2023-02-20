@@ -161,6 +161,49 @@ math::PerformInverseTrigOperation(DataType &aInputA, DataType &aOutput,
 }
 
 
+template <typename T>
+void
+math::Round(DataType &aInputA, DataType &aOutput, const int &aDecimalPoint) {
+
+    auto pData = (T *) aInputA.GetData();
+    auto size = aInputA.GetSize();
+    auto pOutput = new T[size];
+    auto mult_val = std::pow(10, aDecimalPoint);
+
+    for (auto i = 0; i < size; i++) {
+        auto val_temp = pData[ i ] * mult_val;
+        val_temp = std::round(val_temp);
+        pOutput[ i ] = val_temp / mult_val;
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetDimensions(aInputA);
+    aOutput.SetData((char *) pOutput);
+}
+
+
+template <typename T>
+void math::Gamma(DataType &aInputA, DataType &aOutput, const bool &aLGamma) {
+
+    auto pData = (T *) aInputA.GetData();
+    auto size = aInputA.GetSize();
+    auto pOutput = new T[size];
+    if (aLGamma) {
+        for (auto i = 0; i < size; i++) {
+            pOutput[i] = std::lgamma(pData[ i ]);
+        }
+    } else {
+        for (auto i = 0; i < size; i++) {
+            pOutput[i] = std::tgamma(pData[ i ]);
+        }
+    }
+
+    aOutput.ClearUp();
+    aOutput.SetDimensions(aInputA);
+    aOutput.SetData((char *) pOutput);
+}
+
+
 SIMPLE_INSTANTIATE(void, math::Exponential, DataType &aInputA,
                    DataType &aOutput,
                    bool aFlag)
@@ -184,3 +227,9 @@ SIMPLE_INSTANTIATE(void, math::PerformTrigOperation, DataType &aInputA,
                    DataType &aOutput, std::string aFun)
 
 SIMPLE_INSTANTIATE(void, math::SquareRoot, DataType &aInputA, DataType &aOutput)
+
+SIMPLE_INSTANTIATE(void, math::Round, DataType &aInputA, DataType &aOutput,
+                   const int &aDecimalPoint)
+
+SIMPLE_INSTANTIATE(void, math::Gamma, DataType &aInputA, DataType &aOutput,
+                   const bool &aLGamma)

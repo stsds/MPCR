@@ -451,6 +451,8 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
 
     auto data = (T *) this->mpData;
     auto size = this->mSize;
+    this->mPrecision = aPrecision;
+
 
     if (size == 0) {
         return;
@@ -479,12 +481,14 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
         }
     }
 
-    this->mPrecision = aPrecision;
 }
 
 
 void
 DataType::ConvertPrecision(const mpr::precision::Precision &aPrecision) {
+    if(mPrecision==aPrecision){
+        return;
+    }
     SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher, aPrecision)
 }
 
@@ -804,6 +808,9 @@ DataType::TransposeDispatcher() {
     this->SetDimensions(col,row);
 
 }
+
+
+
 
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,
