@@ -764,6 +764,9 @@ public:
     void
     Transpose();
 
+    void
+    SetValues(std::vector<double> &aValues);
+
 
 private:
 

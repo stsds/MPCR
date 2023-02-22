@@ -68,7 +68,7 @@ void math::Exponential(DataType &aInputA, DataType &aOutput, bool aFlag) {
 
 
 template <typename T>
-void math::IsFinite(DataType &aInputA, std::vector <bool> &aOutput) {
+void math::IsFinite(DataType &aInputA, std::vector <int> &aOutput) {
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
@@ -209,7 +209,7 @@ SIMPLE_INSTANTIATE(void, math::Exponential, DataType &aInputA,
                    bool aFlag)
 
 SIMPLE_INSTANTIATE(void, math::IsFinite, DataType &aInputA,
-                   std::vector <bool> &aOutput)
+                   std::vector <int> &aOutput)
 
 SIMPLE_INSTANTIATE(void, math::IsInFinite, DataType &aInputA,
                    std::vector <int> &aOutput)

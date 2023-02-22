@@ -160,23 +160,23 @@ void ReverseMatrix(DataType &aInput) {
     }
 }
 
-template<typename T>
-void GetRank(DataType &aInput,const double aTolerance,size_t &aRank){
 
-   auto min_val = fabsf((T) aTolerance*aInput.GetVal(0));
-   auto row=aInput.GetNRow();
-   auto col=aInput.GetNCol();
-    auto   min_dim = std::min(row,col);
+template <typename T>
+void GetRank(DataType &aInput, const double aTolerance, size_t &aRank) {
 
-    for (auto i=1; i<min_dim; i++)
-    {
-        if (fabsf((T)aInput.GetVal(i + row*i)) < min_val){
-            aRank=i;
+    auto min_val = fabsf((T) aTolerance * aInput.GetVal(0));
+    auto row = aInput.GetNRow();
+    auto col = aInput.GetNCol();
+    auto min_dim = std::min(row, col);
+
+    for (auto i = 1; i < min_dim; i++) {
+        if (fabsf((T) aInput.GetVal(i + row * i)) < min_val) {
+            aRank = i;
             return;
         }
     }
 
-    aRank=min_val;
+    aRank = min_dim;
 }
 
 

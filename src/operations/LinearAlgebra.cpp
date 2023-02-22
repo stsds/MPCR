@@ -6,6 +6,7 @@
 
 
 using namespace mpr::operations;
+using namespace std;
 
 
 template <typename T>
@@ -24,9 +25,11 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     size_t row_b;
     size_t col_b;
 
+
     // cross(x,y) -> x y
-    // cross(x) -> t(x) x
     // tcross(x,y) -> x t(y)
+
+    // cross(x) -> t(x) x
     // tcross(x) -> x t(x)
 
     if (is_one_input) {
@@ -37,13 +40,15 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         col_b = aInputB.GetNCol();
     }
 
+    size_t lda = row_a;
+    size_t ldb = row_b;
+
     if (aTransposeA) {
         std::swap(row_a, col_a);
     }
     if (aTransposeB) {
         std::swap(row_b, col_b);
     }
-
 
     if (col_a != row_b) {
         MPR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
@@ -57,14 +62,13 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto pData_out = new T[output_size];
 
     if (!is_one_input) {
-        blas::gemm(LAYOUT, blas::Op::NoTrans, transpose_b,
-                   row_a, col_b, col_a, 1, pData_a, row_a, pData_b, row_b, 0,
+        blas::gemm(LAYOUT, transpose_a, transpose_b,
+                   row_a, col_b, col_a, 1, pData_a, lda, pData_b, ldb,
+                   0,
                    pData_out, row_a);
     } else {
-        blas::syrk(LAYOUT, blas::Uplo::Lower, transpose_a, row_a, row_a,
+        blas::syrk(LAYOUT, blas::Uplo::Lower, transpose_a, row_a, col_a,
                    1, pData_a, row_a, 0, pData_out, row_a);
-
-
     }
 
     aOutput.SetData((char *) pData_out);
@@ -498,7 +502,6 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
            ( aInputA.GetSize()) * sizeof(T));
 
 
-
     auto rc = lapack::geqp3(row, col, pQr_in_out, row, pJpvt, pQraux);
 
     if (rc != 0) {
@@ -567,10 +570,6 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
                               DataType &aOutput,
                               const bool &aComplete) {
 
-
-    auto side = lapack::Side::Left;
-    auto transpose = lapack::Op::NoTrans;
-
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
     auto pQr_data = (T *) aInputA.GetData();
@@ -582,12 +581,15 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
 
     memset(pOutput_data, 0, output_size * sizeof(T));
 
-    for (auto i = 0; i < output_size; i += row + 1)
+    for (auto i = 0; i < output_size; i += row + 1) {
         pOutput_data[ i ] = 1.0f;
+    }
 
-    auto rc = lapack::ormrq(side, transpose, row, output_nrhs, col, pQr_data,
-                            row, pQraux,
-                            pOutput_data, row);
+
+    memcpy((void*)pOutput_data, (void*)pQr_data, ( output_size * sizeof(T)));
+
+    auto rc = lapack::orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
+
     if (rc != 0) {
         delete[] pOutput_data;
         MPR_API_EXCEPTION("Error While Performing QR.Q", rc);
@@ -613,7 +615,7 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
     auto pRcond = new T[1];
 
     if (aTriangle) {
-        auto rc = lapack::trcon(norm, lapack::Uplo::Upper,
+        auto rc = lapack::trcon(norm, lapack::Uplo::Lower,
                                 lapack::Diag::NonUnit, row,
                                 pData, col, pRcond);
 
@@ -646,7 +648,6 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
 
         lapack::gecon(norm, row, pTemp_data, col, xnorm, pRcond);
 
-        std::cout<<std::endl;
         if (rc != 0) {
             delete[] pRcond;
             delete[] pIpiv;

@@ -248,14 +248,14 @@ TEST_MATH_OPERATIONS() {
         vector <double> values = {-1.333, 2.25, -3.111111, 4.555};
         DataType a(values, FLOAT);
         a.SetVal(2, NAN);
-        vector <bool> output;
+        vector <int> output;
 
         SIMPLE_DISPATCH(FLOAT, math::IsFinite, a, output)
         REQUIRE(output.size() == 4);
-        REQUIRE(output[ 2 ] == false);
+        REQUIRE(output[ 2 ] == 0);
         for (auto i = 0; i < output.size(); i++) {
             if (i != 2) {
-                REQUIRE(output[ i ] == true);
+                REQUIRE(output[ i ] == 1);
             }
         }
 

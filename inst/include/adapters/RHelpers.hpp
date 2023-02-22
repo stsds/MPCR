@@ -8,7 +8,6 @@
 
 using namespace Rcpp;
 
-
 /**
  * @brief
  * Change Vector of INT Values to R-Logical Matrix

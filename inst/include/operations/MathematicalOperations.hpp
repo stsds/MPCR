@@ -76,7 +76,7 @@ namespace mpr {
 
             template <typename T>
             void
-            IsFinite(DataType &aInputA, std::vector <bool> &aOutput);
+            IsFinite(DataType &aInputA, std::vector <int> &aOutput);
 
             /**
              * @brief

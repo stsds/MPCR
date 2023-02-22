@@ -810,6 +810,13 @@ DataType::TransposeDispatcher() {
 }
 
 
+void DataType::SetValues(std::vector <double> &aValues) {
+    this->SetMagicNumber();
+    this->mSize = aValues.size();
+    this->mpDimensions = nullptr;
+    this->mMatrix = false;
+    SIMPLE_DISPATCH(this->mPrecision, Init,&aValues)
+}
 
 
 

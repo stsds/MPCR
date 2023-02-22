@@ -4,6 +4,7 @@
 #include <libraries/catch/catch.hpp>
 #include <utilities/MPRDispatcher.hpp>
 #include <operations/LinearAlgebra.hpp>
+#include <operations/MathematicalOperations.hpp>
 
 
 using namespace std;
@@ -14,24 +15,97 @@ using namespace mpr::operations;
 void
 TEST_LINEAR_ALGEBRA() {
     SECTION("Test CrossProduct") {
-        DataType a(5, 10, FLOAT);
-        DataType b(10, 5, FLOAT);
-        DataType output(FLOAT);
+        vector <double> values = {3.12393, -1.16854, -0.304408, -2.15901,
+                                  -1.16854, 1.86968, 1.04094, 1.35925,
+                                  -0.304408, 1.04094, 4.43374, 1.21072,
+                                  -2.15901, 1.35925, 1.21072, 5.57265};
 
-        for (auto i = 0; i < a.GetSize(); i++) {
-            a.SetVal(i, i + 1);
+        DataType a(values, DOUBLE);
+        a.ToMatrix(4, 4);
+
+        DataType b(values, DOUBLE);
+        b.ToMatrix(4, 4);
+        DataType output(DOUBLE);
+
+        vector <double> validate_vals = {15.878412787064, -9.08673783542,
+                                         -6.13095182416, -20.73289403456,
+                                         -9.08673783542, 7.7923056801,
+                                         8.56286609912, 13.8991634747,
+                                         -6.13095182416, 8.56286609912,
+                                         22.300113620064, 14.18705411188,
+                                         -20.73289403456, 13.8991634747,
+                                         14.18705411188, 39.0291556835};
+
+        SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,
+                        false)
+        REQUIRE(output.GetNRow() == 4);
+        REQUIRE(output.GetNCol() == 4);
+
+        auto error = 0.001;
+        for (auto i = 0; i < validate_vals.size(); i++) {
+            auto val =
+                fabs((float) output.GetVal(i) - (float) validate_vals[ i ]) /
+                (float) validate_vals[ i ];
+            REQUIRE(val <= error);
+        }
+
+        values.clear();
+        values = {5, 11, 143, 10, 123, 132};
+        a.ClearUp();
+        a.SetValues(values);
+        a.ToMatrix(3, 2);
+
+
+        values.clear();
+        values = {2, 3, 5, 6, 8, 11, 13, 14, 20, 30};
+        b.ClearUp();
+        b.SetValues(values);
+        b.ToMatrix(5, 2);
+
+        output.ClearUp();
+
+        SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,
+                        true)
+
+        REQUIRE(output.GetNRow() == 3);
+        REQUIRE(output.GetNCol() == 5);
+
+        validate_vals.clear();
+        validate_vals = {120, 1375, 1738, 145, 1632,
+                         2145, 165, 1777, 2563, 230,
+                         2525, 3498, 340, 3778, 5104};
+
+        for (auto i = 0; i < validate_vals.size(); i++) {
+            auto val =
+                fabs((float) output.GetVal(i) - (float) validate_vals[ i ]) /
+                (float) validate_vals[ i ];
+            REQUIRE(val <= error);
+        }
+
+        values.clear();
+        values = {2, 3, 5, 6, 8, 11, 13, 14, 20, 30};
+
+        DataType c(values, FLOAT);
+        c.ToMatrix(5, 2);
+
+        DataType d(0, FLOAT);
+
+        output.ClearUp();
+        output.ConvertPrecision(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, c, d, output, false,
+                        true)
+
+        validate_vals.clear();
+        validate_vals = {125, 149, 164, 232, 346, 149, 178, 197, 278, 414, 164,
+                         197, 221, 310, 460, 232, 278, 310, 436, 648, 346, 414,
+                         460, 648, 964};
+
+        for (auto i = 0; i < output.GetSize(); i++) {
+            REQUIRE(output.GetVal(i) == validate_vals[ i ]);
         }
 
 
-        for (auto i = 0; i < b.GetSize(); i++) {
-            b.SetVal(i, i + 1);
-        }
-
-//        SIMPLE_DISPATCH(FLOAT,linear::CrossProduct,a,b,output)
-//        REQUIRE(output.GetNRow()==5);
-//        REQUIRE(output.GetNCol()==5);
-
-//        output.Print();
     }SECTION("Test Symmetric") {
         cout << "Testing Matrix Is Symmetric ..." << endl;
         vector <double> values = {2, 3, 6, 3, 4, 5, 6, 5, 9};
@@ -47,6 +121,7 @@ TEST_LINEAR_ALGEBRA() {
         for (auto i = 0; i < values.size(); i++) {
             a.SetVal(i, values[ i ]);
         }
+
 
         isSymmetric = true;
         SIMPLE_DISPATCH(FLOAT, linear::IsSymmetric, a, isSymmetric)
@@ -229,8 +304,6 @@ TEST_LINEAR_ALGEBRA() {
                                   0, 0, 0, 1, 1, 1};
         DataType a(values, FLOAT);
         a.ToMatrix(9, 4);
-        a.Print();
-
 
         vector <float> validate_values = {3.464102e+00, 1.732051e+00,
                                           1.732051e+00, 1.922963e-16};
@@ -243,36 +316,64 @@ TEST_LINEAR_ALGEBRA() {
                         a.GetNCol())
         REQUIRE(d.GetSize() == 4);
         auto err = 0.001;
-////        for(auto i=0;i<v.GetSize();i++){
-//////            float val= fabs((float)d.GetVal(i)-(float)values[i])/(float)values[i];
-//////            REQUIRE(val<err);
-////            cout<<v.GetVal(i)<<endl;
-////        }
-//        d.Print();
-//        cout << "-------------------" << endl;
-//        u.Print();
-//        cout << "-------------------" << endl;
-//        v.Print();
 
-////
-////        cout<<"---------------------"<<endl;
-////        for(auto i=0;i<validate_values.size();i++){
-////            cout<<validate_values[i]<<endl;
-////        }
+        DataType dd(9, 4, FLOAT);
+
+
+        for (auto i = 0; i < dd.GetSize(); i++) {
+            dd.SetVal(i, 0);
+        }
+
+        for (auto i = 0; i < 4; i++) {
+            dd.SetValMatrix(i, i, d.GetVal(i));
+        }
+
+        vector <double> temp_vals(81, 0);
+        DataType uu(temp_vals, FLOAT);
+        uu.ToMatrix(9, 9);
+
+        for (auto i = 0; i < u.GetSize(); i++) {
+            uu.SetVal(i, u.GetVal(i));
+        }
+
+        DataType vv = v;
+        vv.Transpose();
+
+
+        DataType temp_one(FLOAT);
+        DataType temp_two(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, uu, dd, temp_one, false,
+                        false)
+
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, temp_one, vv, temp_two,
+                        false,
+                        false)
+
+        DataType temp_three(FLOAT);
+        SIMPLE_DISPATCH(FLOAT, math::Round, temp_two, temp_three, 1);
+
+        SIMPLE_DISPATCH(FLOAT, math::PerformRoundOperation, temp_three,
+                        temp_two, "abs");
+
+        for (auto i = 0; i < a.GetSize(); i++) {
+            REQUIRE(temp_two.GetVal(i) == a.GetVal(i));
+        }
+
+
     }SECTION("Eigen") {
         cout << "Testing Eigen ..." << endl;
 
         vector <double> values = {1, -1, -1, 1};
         DataType a(values, FLOAT);
         a.ToMatrix(2, 2);
-//        a.Print();
+
 
         DataType vals(FLOAT);
         DataType vec(FLOAT);
 
         SIMPLE_DISPATCH(FLOAT, linear::Eigen, a, vals, &vec)
-//        vals.Print();
-//        vec.Print();
+
         REQUIRE(vals.GetSize() == 2);
         REQUIRE(vals.GetVal(0) == 2);
         REQUIRE(vals.GetVal(1) == 0);
@@ -402,23 +503,40 @@ TEST_LINEAR_ALGEBRA() {
 
         cout << "Testing QR.Q ..." << endl;
 
-        vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
-        DataType a(values, FLOAT);
+        vector <double> values = {1, 2, 3, 2, 5, 6, 3, 3, 3};
+        DataType a(values, DOUBLE);
         a.ToMatrix(3, 3);
 
-        DataType qraux(FLOAT);
-        DataType pivot(FLOAT);
-        DataType qr(FLOAT);
+
+        DataType qraux(DOUBLE);
+        DataType pivot(DOUBLE);
+        DataType qr(DOUBLE);
         size_t rank = 0;
 
-        SIMPLE_DISPATCH(FLOAT, linear::QRDecomposition, a, qr, qraux, pivot,
+        SIMPLE_DISPATCH(DOUBLE, linear::QRDecomposition, a, qr, qraux, pivot,
                         rank)
 
 
-        DataType qr_q(FLOAT);
-        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionQ, qr, qraux, qr_q, FALSE)
+        DataType r(DOUBLE);
+        SIMPLE_DISPATCH(DOUBLE, linear::QRDecompositionR, qr, r, true)
 
-//        qr_q.Print();
+        DataType q(DOUBLE);
+        SIMPLE_DISPATCH(DOUBLE, linear::QRDecompositionQ, qr, qraux, q, true)
+
+        DataType output(DOUBLE);
+        SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, q, r, output, false,
+                        false)
+
+
+        DataType output_temp(DOUBLE);
+        SIMPLE_DISPATCH(DOUBLE, math::Round, output, output_temp, 1);
+
+        values.clear();
+        values = {2, 5, 6, 3, 3, 3, 1, 2, 3};
+
+        for (auto i = 0; i < output.GetSize(); i++) {
+            REQUIRE(output_temp.GetVal(i) == values[ i ]);
+        }
 
 
     }SECTION("Testing R Cond") {
@@ -447,15 +565,15 @@ TEST_LINEAR_ALGEBRA() {
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", true)
         val = fabs(b.GetVal(0) - 1.3189e-05) / 1.3189e-05;
-        b.Print();
-//        REQUIRE(val <= 0.001);
+
+        REQUIRE(val <= 0.001);
 
         b.ClearUp();
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", true)
-        b.Print();
+
         val = fabs(b.GetVal(0) - 1.334e-05) / 1.334e-05;
-//        REQUIRE(val <= 0.001);
+        REQUIRE(val <= 0.001);
     }
 }
 
