@@ -456,3 +456,4 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
     }
 
 }
+

@@ -68,7 +68,7 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                    pData_out, row_a);
     } else {
         blas::syrk(LAYOUT, blas::Uplo::Lower, transpose_a, row_a, col_a,
-                   1, pData_a, row_a, 0, pData_out, row_a);
+                   1, pData_a, lda, 0, pData_out, row_a);
     }
 
     aOutput.SetData((char *) pData_out);
@@ -485,7 +485,7 @@ template <typename T>
 void
 linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                         DataType &aOutputQraux, DataType &aOutputPivot,
-                        size_t &aRank, const double &aTolerance) {
+                        DataType &aRank, const double &aTolerance) {
 
     auto col = aInputA.GetNCol();
     auto row = aInputA.GetNRow();
@@ -532,8 +532,12 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     aOutputPivot.SetSize(col);
     aOutputPivot.SetData((char *) pTemp_pvt);
 
-    GetRank <T>(aOutputQr, aTolerance, aRank);
+    auto pRank=new T[1];
+    GetRank <T>(aOutputQr, aTolerance, *pRank);
 
+    aRank.ClearUp();
+    aRank.SetSize(1);
+    aRank.SetData((char*)pRank);
 
 }
 
@@ -586,7 +590,8 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
     }
 
 
-    memcpy((void*)pOutput_data, (void*)pQr_data, ( output_size * sizeof(T)));
+    memcpy((void *) pOutput_data, (void *) pQr_data,
+           ( output_size * sizeof(T)));
 
     auto rc = lapack::orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
 
@@ -612,6 +617,10 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
     auto col = aInput.GetNCol();
     auto pData = (T *) aInput.GetData();
     lapack::Norm norm = aNorm == "I" ? lapack::Norm::Inf : lapack::Norm::One;
+
+    if (row != col) {
+        MPR_API_EXCEPTION("Wrong Dimensions for rcond", -1);
+    }
     auto pRcond = new T[1];
 
     if (aTriangle) {
@@ -673,9 +682,6 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
                           DataType &aInputC, DataType &aOutput,
                           const bool &aTranspose) {
 
-    auto side = lapack::Side::Left;
-    auto transpose = aTranspose ? lapack::Op::Trans : lapack::Op::NoTrans;
-
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
     auto pQr_data = (T *) aInputA.GetData();
@@ -685,9 +691,11 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     auto output_size = row * output_nrhs;
     auto pOutput_data = new T[output_size];
 
-    auto rc = lapack::ormrq(side, transpose, row, output_nrhs, col, pQr_data,
-                            row, pQraux,
-                            pOutput_data, row);
+    memcpy((void *) pOutput_data, (void *) pQr_data,
+           ( output_size * sizeof(T)));
+
+    auto rc = lapack::orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
+
     if (rc != 0) {
         delete[] pOutput_data;
         MPR_API_EXCEPTION("Error While Performing QR.QY", rc);
@@ -738,7 +746,7 @@ FLOATING_POINT_INST(void, linear::QRDecompositionQ, DataType &aInputA,
 
 FLOATING_POINT_INST(void, linear::QRDecomposition, DataType &aInputA,
                     DataType &aOutputQr, DataType &aOutputQraux,
-                    DataType &aOutputPivot, size_t &aRank,
+                    DataType &aOutputPivot, DataType &aRank,
                     const double &aTolerance)
 
 FLOATING_POINT_INST(void, linear::QRDecompositionR, DataType &aInputA,

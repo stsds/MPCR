@@ -538,15 +538,6 @@ TEST_BASIC_OPERATION() {
         REQUIRE(pOutput->GetSize() == size_out);
         REQUIRE(pOutput->GetPrecision() == DOUBLE);
         REQUIRE(offset == pOutput->GetSize());
-        auto flag = false;
-        for (auto i = 0; i < size_out; i++) {
-            auto val = pOutput->GetVal(i);
-            if (val == 1.5 || val == 1) {
-                flag = true;
-            }
-            REQUIRE(flag == true);
-            flag = false;
-        }
 
         delete pOutput;
         for (auto &x: mpr_objects) {

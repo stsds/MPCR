@@ -482,4 +482,5 @@ DataType *
 RScaleDispatcher(SEXP a, SEXP b, SEXP c);
 
 
+
 #endif //MPR_RBASICUTILITIES_HPP

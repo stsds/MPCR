@@ -633,7 +633,7 @@ if (BLA_VENDOR MATCHES "Intel" OR BLA_VENDOR STREQUAL "All")
                             ${BLAS_mkl_SEARCH_SYMBOL}
                             ""
                             "${SEARCH_LIBS}"
-                            "${CMAKE_THREAD_LIBS_INIT};${BLAS_mkl_LM};${BLAS_mkl_LDL}"
+                            "${CMAKE_THREAD_LIBS_INIT};${BLAS_mkl_LM};${BLAS_mkl_LDL};-lmkl_rt"
                             "${BLAS_mkl_MKLROOT}"
                             "${BLAS_mkl_LIB_PATH_SUFFIXES}"
                     )

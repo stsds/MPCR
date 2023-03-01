@@ -100,7 +100,7 @@ void math::IsInFinite(DataType &aInputA, std::vector <int> &aOutput) {
 
 
 template <typename T>
-void math::Log(DataType &aInputA, DataType &aOutput, int aBase) {
+void math::Log(DataType &aInputA, DataType &aOutput, double aBase) {
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
@@ -114,7 +114,14 @@ void math::Log(DataType &aInputA, DataType &aOutput, int aBase) {
         for (auto i = 0; i < size; i++) {
             pOutput[ i ] = std::log2(pData[ i ]);
         }
-    } else {
+    }else if(aBase==1){
+
+        auto val= 1.0/ log(std::exp(1));
+
+        for (auto i = 0; i < size; i++) {
+            pOutput[ i ] = std::log(pData[ i])*val;
+        }
+    }else {
         delete[] pOutput;
         MPR_API_EXCEPTION("Unknown Log Base", aBase);
     }
@@ -215,7 +222,7 @@ SIMPLE_INSTANTIATE(void, math::IsInFinite, DataType &aInputA,
                    std::vector <int> &aOutput)
 
 SIMPLE_INSTANTIATE(void, math::Log, DataType &aInputA, DataType &aOutput,
-                   int aBase)
+                   double aBase)
 
 SIMPLE_INSTANTIATE(void, math::PerformInverseTrigOperation, DataType &aInputA,
                    DataType &aOutput, std::string aFun)

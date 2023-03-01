@@ -36,7 +36,7 @@ using namespace mpr::precision;
 #define SIMPLE_DISPATCH(PRECISION, __FUN__, ...)                               \
           switch(PRECISION){                                                   \
               case INT: {                                                      \
-              __FUN__<int>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;              \
+              __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;            \
               break;                                                           \
               }                                                                \
               case FLOAT: {                                                    \

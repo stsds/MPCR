@@ -58,7 +58,7 @@ RTruncate(DataType *aInput) {
 
 
 DataType *
-RRound(DataType *aInput, int aDecimalPlaces) {
+RRound(DataType *aInput, const int &aDecimalPlaces) {
     auto precision = aInput->GetPrecision();
     auto pOutput = new DataType(precision);
     SIMPLE_DISPATCH(precision, math::Round, *aInput, *pOutput, aDecimalPlaces)
@@ -133,7 +133,7 @@ RIsInFinite(DataType *aInput) {
 SEXP
 RIsNan(DataType *aInput) {
     std::vector <int> output;
-    Dimensions *pDim=nullptr;
+    Dimensions *pDim = nullptr;
     aInput->IsNA(pDim);
     if (aInput->IsMatrix()) {
         return ToLogicalMatrix(output, pDim);

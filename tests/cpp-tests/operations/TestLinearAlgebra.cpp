@@ -105,6 +105,9 @@ TEST_LINEAR_ALGEBRA() {
             REQUIRE(output.GetVal(i) == validate_vals[ i ]);
         }
 
+    vector<double> temp_values_new={1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+                                    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+                                    0, 0, 0, 1, 1, 1};
 
     }SECTION("Test Symmetric") {
         cout << "Testing Matrix Is Symmetric ..." << endl;
@@ -427,7 +430,7 @@ TEST_LINEAR_ALGEBRA() {
         DataType qraux(FLOAT);
         DataType pivot(FLOAT);
         DataType qr(FLOAT);
-        size_t rank = 0;
+        DataType rank(FLOAT);
 
         SIMPLE_DISPATCH(FLOAT, linear::QRDecomposition, a, qr, qraux, pivot,
                         rank)
@@ -454,7 +457,7 @@ TEST_LINEAR_ALGEBRA() {
 
         }
 
-        REQUIRE(rank == 2);
+        REQUIRE(rank.GetVal(0) == 2);
 
         validate_vals.clear();
         validate_vals = {1.2673, 1.1500, 0.0000};
@@ -511,7 +514,7 @@ TEST_LINEAR_ALGEBRA() {
         DataType qraux(DOUBLE);
         DataType pivot(DOUBLE);
         DataType qr(DOUBLE);
-        size_t rank = 0;
+        DataType rank (DOUBLE);
 
         SIMPLE_DISPATCH(DOUBLE, linear::QRDecomposition, a, qr, qraux, pivot,
                         rank)
@@ -576,6 +579,7 @@ TEST_LINEAR_ALGEBRA() {
         REQUIRE(val <= 0.001);
     }
 }
+
 
 
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {

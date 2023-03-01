@@ -1,2 +1,2 @@
-x <- .libPaths()
+x <- .libPaths("new")
 cat(x)

@@ -25,9 +25,13 @@ endif ()
 
 
 if (NOT R_LIB_PATH)
-    execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE R_LIB_PATH)
-    set(R_LIB_PATH ${R_LIB_PATH})
-    message("R Lib Path :  " ${R_LIB_PATH})
+    if($ENV{R_LIB_PATH})
+        set(R_LIB_PATH $ENV{R_LIB_PATH})
+        else()
+            execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE R_LIB_PATH)
+            set(R_LIB_PATH ${R_LIB_PATH})
+            message("R Lib Path :  " ${R_LIB_PATH})
+        endif()
 endif ()
 
 

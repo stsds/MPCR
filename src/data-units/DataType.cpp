@@ -68,7 +68,7 @@ DataType::DataType(mpr::precision::Precision aPrecision) {
 }
 
 
-DataType::DataType(DataType &aDataType) {
+DataType::DataType(const DataType &aDataType) {
     this->SetMagicNumber();
     this->mpData = nullptr;
     this->mpDimensions = nullptr;
@@ -94,7 +94,7 @@ DataType::~DataType() {
 template <typename T>
 void
 DataType::Init(std::vector<double> *aValues) {
-    bool flag=aValues== nullptr;
+    bool flag= (aValues== nullptr);
     T *temp = new T[mSize];
     for (auto i = 0; i < mSize; i++) {
         if(flag){
@@ -218,10 +218,10 @@ DataType::GetValue(size_t aIndex, double &aOutput) {
 
 double
 DataType::GetVal(size_t aIndex) {
+    double temp;
     if (aIndex >= this->mSize) {
         MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
-    double temp;
     SIMPLE_DISPATCH(mPrecision, GetValue, aIndex, temp)
     return temp;
 }
@@ -811,10 +811,15 @@ DataType::TransposeDispatcher() {
 
 
 void DataType::SetValues(std::vector <double> &aValues) {
-    this->SetMagicNumber();
     this->mSize = aValues.size();
-    this->mpDimensions = nullptr;
-    this->mMatrix = false;
+    if(this->mMatrix){
+        delete this->mpDimensions;
+        this->mpDimensions= nullptr;
+        this->mMatrix= false;
+    }
+    delete[] this->mpData;
+    this->mpData= nullptr;
+
     SIMPLE_DISPATCH(this->mPrecision, Init,&aValues)
 }
 

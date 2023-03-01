@@ -36,6 +36,7 @@ namespace mpr {
             CrossProduct(DataType &aInputA, DataType &aInputB,
                          DataType &aOutput, const bool &aTransposeA,
                          const bool &aTransposeB);
+
             /**
              * @brief
              * Check if a Matrix Is Symmetric
@@ -99,6 +100,27 @@ namespace mpr {
             Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const bool &aSingle);
 
+
+            /**
+             * @brief
+             * Solves a system of linear equations where the coefficient matrix
+             * is upper or lower triangular.
+             * Solve aInputA aOutput = aInputB
+             *
+             * @param[in] aInputA
+             * MPR Matrix
+             * @param[in] aInputB
+             * MPR Matrix
+             * @param[out] aOutput
+             * The solution of the triangular system
+             * @param[in] aCol
+             * The number of columns of aInputA and rows of aInputB to use.
+             * @param[in] aUpperTri
+             * logical; if true (default), the upper triangular part of aInputA
+             * is used. Otherwise, the lower one.
+             * @param[in] aTranspose
+             * logical; if true, solve  for t(aInputA) %*% aOutput == aInputB.
+             */
 
             template <typename T>
             void
@@ -167,31 +189,130 @@ namespace mpr {
             void
             QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                             DataType &aOutputQraux, DataType &aOutputPivot,
-                            size_t &aRank, const double &aTolerance = 1e-07);
+                            DataType &aRank, const double &aTolerance = 1e-07);
 
-
+            /**
+             * @brief
+             * returns R. This may be pivoted,
+             * The number of rows of R is either nrow(aInputA) or ncol(aInputA)
+             * (and may depend on whether complete is TRUE or FALSE).
+             *
+             * @param[in] aInputA
+             * MPR Matrix
+             * @param[out] aOutput
+             * returns R. This may be pivoted. As MPR Object.
+             * @param[in] aComplete
+             * logical expression . Indicates whether an arbitrary
+             * orthogonal completion of the Q or X matrices is to be made,
+             * or whether the  matrix is to be completed by binding zero-value
+             * rows beneath the square upper triangle.
+             *
+             */
             template <typename T>
             void
             QRDecompositionR(DataType &aInputA, DataType &aOutput,
                              const bool &aComplete);
 
+            /**
+             * @brief
+             * Returns part or all of Q, the order-nrow(X) orthogonal (unitary)
+             * transformation represented by qr. If complete is TRUE, Q has
+             * nrow(X) columns. If complete is FALSE, Q has ncol(X) columns.
+             *
+             * @param[in] aInputA
+             * MPR Matrix QR
+             * @param[in] aInputB
+             * MPR Object Representing QRAUX
+             * @param[out] aOutput
+             * returns Q. As MPR Object.
+             * @param[in] aComplete
+             * logical expression . Indicates whether an arbitrary
+             * orthogonal completion of the Q or X matrices is to be made,
+             * or whether the  matrix is to be completed by binding zero-value
+             * rows beneath the square upper triangle.
+             *
+             */
             template <typename T>
             void
             QRDecompositionQ(DataType &aInputA, DataType &aInputB,
                              DataType &aOutput, const bool &aComplete);
 
+            /**
+             * @brief
+             * Returns part or all of Q, the order-nrow(X) orthogonal (unitary)
+             * transformation represented by qr. If complete is TRUE, Q has
+             * nrow(X) columns. If complete is FALSE, Q has ncol(X) columns.
+             * and each column of Q is multiplied by the corresponding value in Dvec.
+             * @param[in] aInputA
+             * MPR Matrix
+             * @param[in] aInputB
+             * MPR Object Representing QRAUX
+             * @param[in] aInputC
+             * MPR Object Representing DVec
+             * @param[out] aOutput
+             * returns Q. As MPR Object.
+             * @param[in] aComplete
+             * logical expression . Indicates whether an arbitrary
+             * orthogonal completion of the Q or X matrices is to be made,
+             * or whether the  matrix is to be completed by binding zero-value
+             * rows beneath the square upper triangle.
+             *
+             */
             template <typename T>
             void
             QRDecompositionQY(DataType &aInputA, DataType &aInputB,
                               DataType &aInputC, DataType &aOutput,
                               const bool &aTranspose);
 
+            /**
+             * @brief
+             * Compute the singular-value decomposition of a rectangular matrix.
+             *
+             * @param[in] aInputA
+             * MPR Matrix
+             * @param[out] aOutputS
+             * an MPR Object containing the singular values of aInputA,
+             * of length min(n, p).
+             * @param[out] aOutputU
+             * a MPR Matrix whose columns contain the left singular vectors of
+             * aInputA, present if nu > 0. Dimension c(m, nu).
+             * @param[out] aOutputV
+             * a MPR Matrix whose columns contain the right singular vectors of
+             * aInputA, present if nv > 0. Dimension c(n, nv).
+             * @param[in] aNu
+             * the number of left singular vectors to be computed.
+             * This must between 0 and m = nrow(aInputA).
+             * @param[in] aNv
+             * the number of right singular vectors to be computed.
+             * This must be between 0 and n = ncol(aInputA).
+             * @param[in] aTranspose
+             * Bool if true, aOutputV will contain V ,otherwise VT
+             *
+             */
             template <typename T>
             void
             SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
                 DataType &aOutputV, const size_t &aNu,
                 const size_t &aNv, const bool &aTranspose = true);
 
+            /**
+             * @brief
+             * Estimate the reciprocal of the condition number of a matrix.
+             *
+             * @param[in] aInput
+             * MPR Matrix
+             * @param[out] aOutput
+             * MPR Vector containing one element which is an estimate of the
+             * reciprocal condition number of aInput.
+             * @param[in] aNorm
+             * character string indicating the type of norm to be used in the
+             * estimate. The default is "O" for the 1-norm ("O" is equivalent to "1").
+             * For sparse matrices,  when useInv=TRUE, norm can be any of the kinds allowed for norm;
+             * otherwise, the other possible value is "I" for the infinity norm.
+             * @param[in] aTriangle
+             * Bool if true,Only the lower triangle will be used.
+             *
+             */
             template <typename T>
             void
             ReciprocalCondition(DataType &aInput, DataType &aOutput,

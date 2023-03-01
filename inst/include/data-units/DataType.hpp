@@ -134,6 +134,12 @@ public:
 
     /**
      * @brief
+     * DataType default constructor
+     */
+    DataType() = default;
+
+    /**
+     * @brief
      * DataType Constructor
      *
      * @param[in] aSize
@@ -152,7 +158,8 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(std::vector<double> &aValues, mpr::precision::Precision aPrecision);
+    DataType(std::vector <double> &aValues,
+             mpr::precision::Precision aPrecision);
 
     /**
      * @brief
@@ -161,7 +168,7 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType(DataType &aDataType);
+    DataType(const DataType &aDataType);
 
     /**
      * @brief
@@ -754,18 +761,32 @@ public:
      */
     inline
     void
-    SetDimensions(DataType &aInput){
-        this->mSize=aInput.mSize;
-        if(aInput.mMatrix){
-           this->SetDimensions(aInput.GetNRow(),aInput.GetNCol());
+    SetDimensions(DataType &aInput) {
+        this->mSize = aInput.mSize;
+        if (aInput.mMatrix) {
+            this->SetDimensions(aInput.GetNRow(), aInput.GetNCol());
         }
     }
 
+
+    /**
+     * @brief
+     * Transpose MPR Matrix
+     *
+     */
     void
     Transpose();
 
+    /**
+     * @brief
+     * Set and cast values in the data vector according to Vector of double values
+     *
+     * @param[in] aValues
+     * vector of double values
+     *
+     */
     void
-    SetValues(std::vector<double> &aValues);
+    SetValues(std::vector <double> &aValues);
 
 
 private:
@@ -827,7 +848,7 @@ private:
      */
     template <typename T>
     void
-    Init(std::vector<double> *aValues= nullptr);
+    Init(std::vector <double> *aValues = nullptr);
 
     /**
      * @brief
@@ -914,7 +935,12 @@ private:
     void
     ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput);
 
-    template<typename T>
+    /**
+     * @brief
+     * Dispatcher for transposing data matrix according to precision
+     *
+     */
+    template <typename T>
     void
     TransposeDispatcher();
 

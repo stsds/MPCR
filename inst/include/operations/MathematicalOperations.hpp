@@ -106,7 +106,7 @@ namespace mpr {
              */
             template <typename T>
             void
-            Log(DataType &aInputA, DataType &aOutput, int aBase = 10);
+            Log(DataType &aInputA, DataType &aOutput, double aBase = 10);
 
             /**
              * @brief

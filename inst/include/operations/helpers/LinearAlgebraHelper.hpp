@@ -162,7 +162,7 @@ void ReverseMatrix(DataType &aInput) {
 
 
 template <typename T>
-void GetRank(DataType &aInput, const double aTolerance, size_t &aRank) {
+void GetRank(DataType &aInput, const double aTolerance, T &aRank) {
 
     auto min_val = fabsf((T) aTolerance * aInput.GetVal(0));
     auto row = aInput.GetNRow();
