@@ -11,18 +11,16 @@ A vector/matrix of floats should use about half as much memory as a matrix of do
 
 ## Installation
 
+### Requirements:
+- Rcpp
+- Blas/lapack
 
-To install the R package, run:
-
-```r
-install.package("MPR")
-```
 To install the R package from source ,run:
 
 ```shell
-R CMD build MPR
-R CMD install <"Tar file name">
+./InstallScript.sh
 ```
+
 
 ## Testing
 
