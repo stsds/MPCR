@@ -1,2 +1,2 @@
-x <- .libPaths("new")
+x <-find.package("Rcpp")
 cat(x)

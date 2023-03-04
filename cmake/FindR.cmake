@@ -25,13 +25,13 @@ endif ()
 
 
 if (NOT R_LIB_PATH)
-    if($ENV{R_LIB_PATH})
+    if ($ENV{R_LIB_PATH})
         set(R_LIB_PATH $ENV{R_LIB_PATH})
-        else()
-            execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE R_LIB_PATH)
-            set(R_LIB_PATH ${R_LIB_PATH})
-            message("R Lib Path :  " ${R_LIB_PATH})
-        endif()
+    else ()
+        execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE R_LIB_PATH)
+        set(R_LIB_PATH ${R_LIB_PATH})
+        message("R Lib Path :  " ${R_LIB_PATH})
+    endif ()
 endif ()
 
 
@@ -88,7 +88,7 @@ if (R_LIB_PATH)
             REQUIRED
             NAMES "Rcpp.so"
             PATHS ${R_LIB_PATH}
-            PATH_SUFFIXES "Rcpp/libs" "Rcpp/lib64" "Rcpp/bin"
+            PATH_SUFFIXES "/libs" "/lib64" "/bin"
             NO_DEFAULT_PATH
     )
 
@@ -98,7 +98,7 @@ if (R_LIB_PATH)
             REQUIRED
             NAMES "Rcpp.h"
             PATHS ${R_LIB_PATH}
-            PATH_SUFFIXES "Rcpp/include"
+            PATH_SUFFIXES "/include"
             NO_DEFAULT_PATH
     )
 

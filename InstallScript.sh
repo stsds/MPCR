@@ -7,7 +7,7 @@ if
 then
   echo "R Library Path : " $R_Lib
   else
-    echo "Error Getting R Library Path, Make sure .libPaths() in R works fine or set ENV R_LIB_PATH manually. "
+    echo "Error Getting Rcpp installation Path , Make sure Rcpp is installed. "
 fi
 
 export R_LIB_PATH=$R_Lib:$R_LIB_PATH
