@@ -11,14 +11,18 @@ project(MPR VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(OpenMP REQUIRED)
 
-message(${CMAKE_INSTALL_PREFIX})
+if (OpenMP_FOUND)
+    message("OpenMp Found")
+endif ()
 
 # definitions
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    message(${CMAKE_INSTALL_PREFIX})
     set(CMAKE_INSTALL_PREFIX "/usr")
 endif ()
+
+message("Install Prefix : " ${CMAKE_INSTALL_PREFIX})
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -33,16 +37,25 @@ if (${R_FOUND})
     add_definitions(-DUSING_R)
 endif ()
 
+#adding blas and lapack
+#add_definitions(-DMKL_ILP64)
+#add_definitions(-DBLAS_ILP64)
+#add_definitions(-DLAPACK_ILP64)
+
+include(ImportBlasPP)
+include(ImportLapack)
+include(ImportLapackPP)
+
+
 # For Error Handling Class
-if(${RUNNING_CPP})
+if (${RUNNING_CPP})
     add_definitions(-DRUNNING_CPP)
-endif()
+endif ()
 
 
 # Add Include DIRS
 include_directories(${CMAKE_SOURCE_DIR}/inst/include)
 include_directories(${CMAKE_SOURCE_DIR}/prerequisites)
-
 
 
 # Options

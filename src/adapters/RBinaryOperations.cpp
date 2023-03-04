@@ -1,7 +1,7 @@
 
+#include <adapters/RHelpers.hpp>
 #include <adapters/RBinaryOperations.hpp>
 #include <utilities/MPRDispatcher.hpp>
-#include <adapters/RHelpers.hpp>
 
 
 using namespace mpr::precision;

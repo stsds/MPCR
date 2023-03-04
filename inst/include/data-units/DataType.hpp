@@ -126,11 +126,17 @@ typedef struct Dimensions {
 
 
 /** DataType Class creates an array of (16/32/64)-Bit Precision that you can access throw
- * R as C++ object
+ * R as C++ object. Can Be represented as Matrix with Column Major representation.
  **/
 class DataType {
 
 public:
+
+    /**
+     * @brief
+     * DataType default constructor
+     */
+    DataType() = default;
 
     /**
      * @brief
@@ -145,12 +151,24 @@ public:
 
     /**
      * @brief
+     * DataType Constructor from a vector
+     *
+     * @param[in] aValues
+     * Vector of values
+     * @param[in] aPrecision
+     * Precision to Describe the Values (as a Precision ENUM object)
+     */
+    DataType(std::vector <double> &aValues,
+             mpr::precision::Precision aPrecision);
+
+    /**
+     * @brief
      * DataType Copy Constructor
      *
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType(DataType &aDataType);
+    DataType(const DataType &aDataType);
 
     /**
      * @brief
@@ -442,12 +460,12 @@ public:
 
     /**
      * @brief
-     * Set Values in the Vector according to Index (0-based Indexing)
+     * Set Values in the Matrix according to Row,col (0-based Indexing)
      *
      * @param[in] aRow
      * Row Index
      * @param[in] aCol
-     * Col Index
+     * Column Index
      * @param[in] aVal
      * Value used to set the vector[idx] with
      */
@@ -732,6 +750,45 @@ public:
     Rcpp::NumericMatrix *
     ConvertToRMatrix();
 
+
+    /**
+     * @brief
+     * Set MPR Object Dimensions according to given input
+     *
+     * @param[in] aInput
+     * MPR Object
+     *
+     */
+    inline
+    void
+    SetDimensions(DataType &aInput) {
+        this->mSize = aInput.mSize;
+        if (aInput.mMatrix) {
+            this->SetDimensions(aInput.GetNRow(), aInput.GetNCol());
+        }
+    }
+
+
+    /**
+     * @brief
+     * Transpose MPR Matrix
+     *
+     */
+    void
+    Transpose();
+
+    /**
+     * @brief
+     * Set and cast values in the data vector according to Vector of double values
+     *
+     * @param[in] aValues
+     * vector of double values
+     *
+     */
+    void
+    SetValues(std::vector <double> &aValues);
+
+
 private:
 
     /**
@@ -747,7 +804,7 @@ private:
      */
     template <typename T>
     void
-    GetValue(size_t aIndex, double *&aOutput);
+    GetValue(size_t aIndex, double &aOutput);
 
     /**
      * @brief
@@ -791,7 +848,7 @@ private:
      */
     template <typename T>
     void
-    Init();
+    Init(std::vector <double> *aValues = nullptr);
 
     /**
      * @brief
@@ -876,7 +933,16 @@ private:
      */
     template <typename T>
     void
-    ConvertToRMatrixDispatcher(Rcpp::NumericMatrix &aOutput);
+    ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput);
+
+    /**
+     * @brief
+     * Dispatcher for transposing data matrix according to precision
+     *
+     */
+    template <typename T>
+    void
+    TransposeDispatcher();
 
 
     /** Buffer Holding the Data **/

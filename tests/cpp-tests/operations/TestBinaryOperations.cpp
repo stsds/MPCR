@@ -130,7 +130,7 @@ TEST_BINARY_OPERATION() {
         for (auto i = 0; i < matrix_col; i++) {
             auto start_idx = 0;
             for (auto j = 0; j < matrix_row; j++) {
-                start_idx = i + ( j * matrix_col );
+                start_idx = (i*matrix_row)+j;
                 pValidator[ start_idx ] = counter;
                 counter++;
             }

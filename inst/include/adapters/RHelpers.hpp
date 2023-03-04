@@ -8,7 +8,6 @@
 
 using namespace Rcpp;
 
-
 /**
  * @brief
  * Change Vector of INT Values to R-Logical Matrix
@@ -20,7 +19,7 @@ using namespace Rcpp;
  * Dimensions to set R-Matrix With.
  *
  */
-Rcpp::LogicalMatrix &
+Rcpp::LogicalMatrix
 ToLogicalMatrix(std::vector <int> &aInput, Dimensions *apDim);
 
 /**
@@ -32,7 +31,7 @@ ToLogicalMatrix(std::vector <int> &aInput, Dimensions *apDim);
  * MPR Object
  *
  */
-Rcpp::LogicalVector &
+Rcpp::LogicalVector
 ToLogicalVector(std::vector <int> &aInput);
 
 

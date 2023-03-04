@@ -254,7 +254,10 @@ z$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("Testing Diagonal on non Sqaure Matrix")
+paste("Matrix")
 x$ToMatrix(5,10)
+x$PrintValues()
+paste("Diagonal")
 z<- diag(x)
 z$PrintValues()
 
@@ -271,4 +274,3 @@ paste("Replicate (50, len=10) output =10")
 paste("---------------------------------------------------------------")
 z <- rep(x,len=10)
 z$PrintValues()
-

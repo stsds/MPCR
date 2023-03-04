@@ -96,13 +96,13 @@ basic::GetDiagonal(DataType &aVec, DataType &aOutput,
     aOutput.ClearUp();
     T *pOutput_data;
     T *pData = (T *) aVec.GetData();
-    auto count = std::min(pDims->GetNCol(),pDims->GetNRow());
+    auto count = std::min(pDims->GetNCol(), pDims->GetNRow());
     pOutput_data = new T[count];
 
-    auto col=pDims->GetNCol();
+    auto row = pDims->GetNRow();
 
     for (auto i = 0; i < count; i++) {
-        pOutput_data[ i ] = pData[ ( i * col ) + i ];
+        pOutput_data[ i ] = pData[ ( i * row ) + i ];
     }
 
     aOutput.SetSize(count);
@@ -117,13 +117,13 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
              const int &aMargin, const std::string &aFun) {
 
     aOutput.ClearUp();
-    auto row = aVec.GetNRow();
-    auto col = aVec.GetNCol();
+    auto rows = aVec.GetNRow();
+    auto cols = aVec.GetNCol();
 
     if (!aVec.IsMatrix()) {
         aOutput.SetSize(aVec.GetSize());
     } else {
-        aOutput.ToMatrix(row, col);
+        aOutput.ToMatrix(rows, cols);
     }
 
     T *pInput_data = (T *) aVec.GetData();
@@ -136,17 +136,20 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
     auto stat_size = aStats.GetSize();
     pOutput_data = new Y[size];
 
-    if (aMargin == 1 && row % stat_size ||
-        aMargin != 1 && col % stat_size) {
+    if (aMargin == 1 && rows % stat_size ||
+        aMargin != 1 && cols % stat_size) {
         MPR_API_WARN("STATS does not recycle exactly across MARGIN", -1);
     }
 
     if (aMargin == 1) {
-        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, stat_size, row - 1)
+        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, stat_size, 0)
 
     } else {
-        RUN_OP(pInput_data, pSweep_data, pOutput_data, aFun, stat_size, 0)
+        size_t counter = 0;
+        RUN_OP_COL(pInput_data, pSweep_data, pOutput_data, aFun, stat_size,
+                   counter)
     }
+
     aOutput.SetData((char *) pOutput_data);
 }
 
@@ -200,31 +203,23 @@ basic::ColumnBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
     if (dim_one->GetNRow() != dim_two->GetNRow()) {
         MPR_API_EXCEPTION("Cannot Bind ... Different Row Size", -1);
     }
+
     size_t num_rows = dim_one->GetNRow();
     size_t num_cols = dim_one->GetNCol() + dim_two->GetNCol();
-    size_t num_cols_in_1 = dim_one->GetNCol();
-    size_t num_cols_in_2 = dim_two->GetNCol();
+
     T *pData_one = (T *) aInputA.GetData();
     X *pData_two = (X *) aInputB.GetData();
     Y *pData_out = new Y[new_size];
-    size_t offset;
-    size_t offset_one;
-    size_t offset_two;
-    for (auto i = 0; i < num_rows; ++i) {
-        offset_one = i * num_cols_in_1;
-        offset_two = i * num_cols_in_2;
-        offset = i * num_cols;
-        std::copy(pData_one + offset_one,
-                  pData_one + offset_one + num_cols_in_1,
-                  pData_out + offset);
-        offset += num_cols_in_1;
-        std::copy(pData_two + offset_two,
-                  pData_two + offset_two + num_cols_in_2,
-                  pData_out + offset);
-    }
+
+    std::copy(pData_one, pData_one + aInputA.GetSize(), pData_out);
+    std::copy(pData_two, pData_two + aInputB.GetSize(),
+              pData_out + aInputA.GetSize());
+
     aOutput.ClearUp();
     aOutput.ToMatrix(num_rows, num_cols);
     aOutput.SetData((char *) pData_out);
+
+
 }
 
 
@@ -238,19 +233,32 @@ basic::RowBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
     auto dim_one = aInputA.GetDimensions();
     auto dim_two = aInputB.GetDimensions();
     if (dim_one->GetNCol() != dim_two->GetNCol()) {
-        MPR_API_EXCEPTION("Cannot Bind ... Different Row Size", -1);
+        MPR_API_EXCEPTION("Cannot Bind ... Different Column Size", -1);
     }
-    size_t num_rows = dim_one->GetNRow() + dim_two->GetNRow();
-    size_t num_cols = dim_one->GetNCol();
 
+    size_t num_cols = dim_one->GetNCol();
+    size_t num_rows_in_1 = dim_one->GetNRow();
+    size_t num_rows_in_2 = dim_two->GetNRow();
+    size_t num_rows = num_rows_in_1 + num_rows_in_2;
     T *pData_one = (T *) aInputA.GetData();
     X *pData_two = (X *) aInputB.GetData();
     Y *pData_out = new Y[new_size];
+    size_t offset;
+    size_t offset_one;
+    size_t offset_two;
 
-    /** Check if indexing needs +1 **/
-    std::copy(pData_one, pData_one + aInputA.GetSize(), pData_out);
-    std::copy(pData_two, pData_two + aInputB.GetSize(),
-              pData_out + aInputA.GetSize());
+    for (auto i = 0; i < num_cols; ++i) {
+        offset_one = i * num_rows_in_1;
+        offset_two = i * num_rows_in_2;
+        offset = i * num_rows;
+        std::copy(pData_one + offset_one,
+                  pData_one + offset_one + num_rows_in_1,
+                  pData_out + offset);
+        offset += num_rows_in_1;
+        std::copy(pData_two + offset_two,
+                  pData_two + offset_two + num_rows_in_2,
+                  pData_out + offset);
+    }
 
     aOutput.ClearUp();
     aOutput.ToMatrix(num_rows, num_cols);
@@ -328,29 +336,41 @@ basic::NAExclude(DataType &aInputA) {
     auto counter = size;
     if (aInputA.IsMatrix()) {
 
-        std::vector <size_t> row_idx;
+        std::unordered_set <size_t> row_idx;
+        std::vector <size_t> row_idx_na;
         auto rows = aInputA.GetNRow();
         auto cols = aInputA.GetNCol();
-        for (auto i = 0; i < rows; i++) {
-            for (auto j = 0; j < cols; j++) {
-                if (std::isnan(pData[ ( i * cols ) + j ])) {
-                    counter -= cols;
-                    goto cont;
+        for (auto i = 0; i < cols; i++) {
+            for (auto j = 0; j < rows; j++) {
+                if (std::isnan(pData[ ( i * rows ) + j ])) {
+                    row_idx_na.push_back(j);
+                } else {
+                    row_idx.insert(j);
                 }
             }
-            row_idx.push_back(i);
-            cont:
-            continue;
         }
+
+        for (auto &x: row_idx_na) {
+            row_idx.erase(x);
+        }
+
+        counter = row_idx.size() * cols;
         T *pOutput = new T[counter];
         aInputA.SetSize(counter);
-        aInputA.SetDimensions(row_idx.size(), cols);
+        auto row_size_new = row_idx.size();
+        aInputA.SetDimensions(row_size_new, cols);
         counter = 0;
-        for (auto i = 0; i < row_idx.size(); i++) {
-            auto start_idx = row_idx[ i ] * cols;
-            memcpy((char *) pOutput + counter, (char *) pData + start_idx,
-                   cols * sizeof(T));
-            counter += cols;
+        size_t idx;
+
+
+        for (auto i = 0; i < cols; i++) {
+            for (auto j = 0; j < rows; j++) {
+                idx = ( i * rows ) + j;
+                if (row_idx.find(j) != row_idx.end()) {
+                    pOutput[ counter ] = pData[ idx ];
+                    counter++;
+                }
+            }
         }
 
         aInputA.SetData((char *) pOutput);
@@ -390,25 +410,32 @@ basic::ApplyCenter(DataType &aInputA, DataType &aCenter, DataType &aOutput,
     aOutput.SetSize(size);
     aOutput.SetDimensions(row, col);
     auto pOutput = new Y[size];
+    size_t start_idx;
 
     if (apCenter != nullptr) {
         if (*apCenter) {
-            auto nansum = [](const double a, const T b) {
-                return a + ( std::isnan(b) ? 0 : b );
-            };
+
             double accum;
+            size_t counter;
             for (auto i = 0; i < row; i++) {
                 accum = 0;
-                auto start_idx = i * col;
-                accum = std::accumulate(pData_input + start_idx,
-                                        pData_input + start_idx + col,
-                                        accum, nansum);
-                accum = accum / col;
+                counter = 0;
                 for (auto j = 0; j < col; j++) {
-                    pOutput[ start_idx + j ] =
-                        pData_input[ start_idx + j ] - accum;
+                    start_idx = ( j * row ) + i;
+                    auto element = pData_input[ start_idx ];
+                    if (!std::isnan(element)) {
+                        accum += element;
+                        counter++;
+                    }
+
+                }
+                accum = accum / counter;
+                for (auto j = 0; j < col; j++) {
+                    start_idx = ( j * row ) + i;
+                    pOutput[ start_idx ] = pData_input[ start_idx ] - accum;
                 }
             }
+
         } else {
             //no centering is done
             std::copy(pData_input, pData_input + size, pOutput);
@@ -442,34 +469,42 @@ basic::ApplyScale(DataType &aInputA, DataType &aScale, DataType &aOutput,
 
     if (apScale != nullptr) {
         if (*apScale) {
-            double accum;
-            double mean;
             auto col_size = aInputA.GetNCol();
             auto row_size = aInputA.GetNRow();
-            auto nansum = [](const double a, const T b) {
-                return a + ( std::isnan(b) ? 0 : b );
-            };
+            size_t counter;
+            size_t start_idx;
+            double mean;
+            double accum;
+            double variance;
+            double stdev;
+
             for (auto i = 0; i < row_size; i++) {
                 accum = 0;
-                auto start_idx = i * col_size;
-                accum = std::accumulate(pData_input + start_idx,
-                                        pData_input + start_idx + col_size,
-                                        accum, nansum);
-                mean = accum / col_size;
+                counter = 0;
+                variance = 0.0;
+                for (auto j = 0; j < col_size; j++) {
+                    start_idx = ( j * row_size ) + i;
+                    auto element = pData_input[ start_idx ];
+                    if (!std::isnan(element)) {
+                        accum += element;
+                        counter++;
+                    }
+                }
+                mean = accum / counter;
+                for (auto j = 0; j < col_size; j++) {
+                    start_idx = ( j * row_size ) + i;
+                    auto element = pData_input[ start_idx ];
+                    if (!std::isnan(element)) {
+                        variance += ( element - mean ) * ( element - mean );
+                    }
+                }
 
-                double variance = 0.0;
-                std::for_each(pData_input + start_idx,
-                              pData_input + start_idx + col_size,
-                              [&](const T d) {
-                                  if (!std::isnan(d)) {
-                                      variance += ( d - mean ) * ( d - mean );
-                                  }
-                              });
 
-                double stdev = sqrt(variance / ( col_size - 1 ));
+                stdev = sqrt(variance / ( col_size - 1 ));
 
                 for (auto j = 0; j < col_size; j++) {
-                    pOutput[ start_idx + j ] = pOutput[ start_idx + j ] / stdev;
+                    start_idx = ( j * row_size ) + i;
+                    pOutput[ start_idx ] = pOutput[ start_idx ] / stdev;
                 }
             }
         }

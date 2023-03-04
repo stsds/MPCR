@@ -27,31 +27,19 @@ binary::PerformOperation(DataType &aInputA, DataType &aInputB,
     auto pInput_data_a = (T *) aInputA.GetData();
     auto pInput_data_b = (X *) aInputB.GetData();
     auto pOutput_data = new Y[size_a];
-    auto is_matrix = false;
-
 
     if (aInputA.IsMatrix()) {
         aOutput.SetDimensions(aInputA.GetNRow(), aInputA.GetNCol());
-        is_matrix = true;
 
     } else if (aInputB.IsMatrix()) {
         aOutput.SetDimensions(aInputB.GetNRow(), aInputB.GetNCol());
-        is_matrix = true;
     }
 
     size_t idx = 0;
     size_t size = size_a;
-    auto row = aInputA.GetNRow();
-    auto col = aInputA.GetNCol();
 
-    if (is_matrix) {
-        RUN_BINARY_OP(pInput_data_a, pInput_data_b, pOutput_data, aFun, size_b,
-                      idx)
-
-    } else {
-        RUN_OP(pInput_data_a, pInput_data_b, pOutput_data, aFun, size_b,
-               0)
-    }
+    RUN_OP(pInput_data_a, pInput_data_b, pOutput_data, aFun, size_b,
+           0)
 
     aOutput.SetData((char *) pOutput_data);
 
@@ -115,23 +103,14 @@ binary::PerformCompareOperation(DataType &aInputA, DataType &aInputB,
         is_matrix = true;
     }
 
-
     size_t idx = 0;
-    size_t size = size_in_a;
-    auto row = aInputA.GetNRow();
-    auto col = aInputA.GetNCol();
 
-
-    if (is_matrix) {
-        RUN_COMPARE_OP(pData_in_a, pData_in_b, aOutput, aFun, size_in_b, idx)
-    } else {
-        RUN_COMPARE_OP_SIMPLE(pData_in_a, pData_in_b, aOutput, aFun, size_in_b,
-                              size_in_a)
-    }
+    RUN_COMPARE_OP_SIMPLE(pData_in_a, pData_in_b, aOutput, aFun, size_in_b,
+                          size_in_a)
 
     if (!is_matrix) {
         delete apDimensions;
-        apDimensions= nullptr;
+        apDimensions = nullptr;
     }
 }
 
@@ -226,56 +205,28 @@ binary::PerformEqualityOperation(DataType &aInputA, DataType &aInputB,
     }
 
 
-    size_t idx = 0;
     size_t size = size_in_a;
-    auto row = aInputA.GetNRow();
-    auto col = aInputA.GetNCol();
     auto epsilon = std::numeric_limits <Y>::epsilon();
 
-
-    if (is_matrix) {
-
-        for (auto i = 0; i < col; i++) {
-            size_t start_idx = 0;
-            for (auto j = 0; j < row; j++) {
-                start_idx = i + ( j * col );
-
-                auto element_a = pData_in_a[ start_idx ];
-                auto element_b = pData_in_b[ idx % size_in_b ];
-
-                if (isnan(element_a) || isnan(element_b)) {
-                    aOutput[ start_idx ] = INT_MIN;
-                } else {
-                    auto error = fabs((Y) ( element_a - element_b ));
-                    if (error < epsilon) {
-                        aOutput[ start_idx ] = !aIsNotEqual;
-                    } else {
-                        aOutput[ start_idx ] = aIsNotEqual;
-                    }
-                }
-                idx++;
-            }
-        }
-    } else {
-        for (auto i = 0; i < size; i++) {
-            auto element_a = pData_in_a[ i ];
-            auto element_b = pData_in_b[ i % size_in_b ];
-            if (isnan(element_a) || isnan(element_b)) {
-                aOutput[ i ] = INT_MIN;
+    for (auto i = 0; i < size; i++) {
+        auto element_a = pData_in_a[ i ];
+        auto element_b = pData_in_b[ i % size_in_b ];
+        if (isnan(element_a) || isnan(element_b)) {
+            aOutput[ i ] = INT_MIN;
+        } else {
+            auto error = fabs((Y) ( element_a - element_b ));
+            if (error < epsilon) {
+                aOutput[ i ] = !aIsNotEqual;
             } else {
-                auto error = fabs((Y) ( element_a - element_b ));
-                if (error < epsilon) {
-                    aOutput[ i ] = !aIsNotEqual;
-                } else {
-                    aOutput[ i ] = aIsNotEqual;
-                }
+                aOutput[ i ] = aIsNotEqual;
             }
         }
     }
 
+
     if (!is_matrix) {
         delete apDimensions;
-        apDimensions= nullptr;
+        apDimensions = nullptr;
     }
 }
 

@@ -61,7 +61,7 @@ TEST_DISPATCHER() {
 
     float temp_float_a = 10.332;
     SIMPLE_DISPATCH(precision, TestSimpleDispatch, temp_float_a, b, rc)
-    REQUIRE(rc == true);
+    REQUIRE(rc == false);
 
     float temp_float_b = 10.332;
     rc = false;
