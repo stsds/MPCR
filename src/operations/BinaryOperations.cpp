@@ -19,14 +19,15 @@ binary::PerformOperation(DataType &aInputA, DataType &aInputB,
 
     auto size_a = aInputA.GetSize();
     auto size_b = aInputB.GetSize();
+    auto size_out = std::max(size_a, size_b);
     binary::CheckDimensions(aInputA, aInputB);
 
     aOutput.ClearUp();
-    aOutput.SetSize(size_a);
+    aOutput.SetSize(size_out);
 
     auto pInput_data_a = (T *) aInputA.GetData();
     auto pInput_data_b = (X *) aInputB.GetData();
-    auto pOutput_data = new Y[size_a];
+    auto pOutput_data = new Y[size_out];
 
     if (aInputA.IsMatrix()) {
         aOutput.SetDimensions(aInputA.GetNRow(), aInputA.GetNCol());
@@ -35,11 +36,9 @@ binary::PerformOperation(DataType &aInputA, DataType &aInputB,
         aOutput.SetDimensions(aInputB.GetNRow(), aInputB.GetNCol());
     }
 
-    size_t idx = 0;
-    size_t size = size_a;
 
-    RUN_OP(pInput_data_a, pInput_data_b, pOutput_data, aFun, size_b,
-           0)
+    RUN_BINARY_OP(pInput_data_a, pInput_data_b, pOutput_data, aFun, size_a,
+                  size_b, size_out)
 
     aOutput.SetData((char *) pOutput_data);
 
@@ -79,13 +78,14 @@ binary::PerformCompareOperation(DataType &aInputA, DataType &aInputB,
     binary::CheckDimensions(aInputA, aInputB);
     auto size_in_a = aInputA.GetSize();
     auto size_in_b = aInputB.GetSize();
+    auto size_out = std::max(size_in_a, size_in_b);
 
     auto pData_in_a = (T *) aInputA.GetData();
     auto pData_in_b = (X *) aInputB.GetData();
 
 
     aOutput.clear();
-    aOutput.resize(size_in_a);
+    aOutput.resize(size_out);
 
     if (!apDimensions) {
         delete apDimensions;
@@ -106,7 +106,7 @@ binary::PerformCompareOperation(DataType &aInputA, DataType &aInputB,
     size_t idx = 0;
 
     RUN_COMPARE_OP_SIMPLE(pData_in_a, pData_in_b, aOutput, aFun, size_in_b,
-                          size_in_a)
+                          size_in_a, size_out)
 
     if (!is_matrix) {
         delete apDimensions;
@@ -180,13 +180,14 @@ binary::PerformEqualityOperation(DataType &aInputA, DataType &aInputB,
     binary::CheckDimensions(aInputA, aInputB);
     auto size_in_a = aInputA.GetSize();
     auto size_in_b = aInputB.GetSize();
+    auto size_out = std::max(size_in_a, size_in_b);
 
     auto pData_in_a = (T *) aInputA.GetData();
     auto pData_in_b = (X *) aInputB.GetData();
 
 
     aOutput.clear();
-    aOutput.resize(size_in_a);
+    aOutput.resize(size_out);
 
     if (!apDimensions) {
         delete apDimensions;
@@ -205,11 +206,10 @@ binary::PerformEqualityOperation(DataType &aInputA, DataType &aInputB,
     }
 
 
-    size_t size = size_in_a;
     auto epsilon = std::numeric_limits <Y>::epsilon();
 
-    for (auto i = 0; i < size; i++) {
-        auto element_a = pData_in_a[ i ];
+    for (auto i = 0; i < size_out; i++) {
+        auto element_a = pData_in_a[ i % size_in_a ];
         auto element_b = pData_in_b[ i % size_in_b ];
         if (isnan(element_a) || isnan(element_b)) {
             aOutput[ i ] = INT_MIN;

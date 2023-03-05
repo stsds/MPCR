@@ -9,8 +9,33 @@
 /************************** Operations *******************************/
 
 
+
+#define BINARY_OPERATION(dataA, dataB, dataOut, FUN, sizeA, sizeB,sizeOut)     \
+           for(auto i=0;i<sizeOut;i++){                                        \
+                dataOut[i]=dataA[i%sizeA] FUN dataB[i % sizeB];                \
+            }                                                                  \
+
+
+#define RUN_BINARY_OP(dataA, dataB, dataOut, FUN, sizeA,sizeB,sizeOut)         \
+         if(FUN=="+")  {                                                       \
+              BINARY_OPERATION(dataA,dataB,dataOut,+,sizeA,sizeB,sizeOut)      \
+         }else if(FUN=="-")  {                                                 \
+           BINARY_OPERATION(dataA,dataB,dataOut,-,sizeA,sizeB,sizeOut)         \
+         }else if(FUN=="*")  {                                                 \
+           BINARY_OPERATION(dataA,dataB,dataOut,*,sizeA,sizeB,sizeOut)         \
+         }else if(FUN=="/")  {                                                 \
+           BINARY_OPERATION(dataA,dataB,dataOut,/,sizeA,sizeB,sizeOut)         \
+         }else if(FUN=="^")  {                                                 \
+           for(auto i=0;i<sizeOut;i++){                                        \
+                dataOut[i]=std::pow(dataA[i%sizeA],dataB[i%sizeB]);            \
+            }                                                                  \
+         }else {                                                               \
+             MPR_API_EXCEPTION("Operation Not Supported", -1);                 \
+         }                                                                     \
+
+
 /**
- * This Variadic functions iterate over a row major matrix and do operation
+ * This Variadic functions iterate over a col major matrix and do operation
  * using one element only
  **/
 #define BINARY_OP_SINGLE(dataA, dataB, dataOut, FUN, size) \
@@ -50,12 +75,12 @@
           }                                                                    \
 
 
-#define COMPARE_OP(dataA, dataB, dataOut, FUN, sizeB, sizeA)                   \
-         for (auto i = 0; i < sizeA; i++) {                                    \
-            if(isnan(dataA[i]) || isnan(dataB[i]) ){                           \
+#define COMPARE_OP(dataA, dataB, dataOut, FUN, sizeB, sizeA, sizeOut)          \
+         for (auto i = 0; i < sizeOut; i++) {                                  \
+            if(isnan(dataA[ i % sizeA ]) || isnan(dataB[ i % sizeB ]) ){       \
                 dataOut[i]=INT_MIN;                                            \
             }else{                                                             \
-                dataOut[ i ] =dataA[ i ] FUN dataB[ i % sizeB ];               \
+                dataOut[ i ] =dataA[ i % sizeA ] FUN dataB[ i % sizeB ];       \
             }                                                                  \
             idx++;                                                             \
          }                                                                     \
@@ -79,15 +104,15 @@
          }                                                                     \
 
 
-#define RUN_COMPARE_OP_SIMPLE(dataA, dataB, dataOut, FUN, sizeB, sizeA)        \
+#define RUN_COMPARE_OP_SIMPLE(dataA, dataB, dataOut, FUN, sizeB, sizeA, sizeOut)\
          if(FUN==">")  {                                                       \
-            COMPARE_OP(dataA,dataB,dataOut,>,sizeB,sizeA)                      \
+            COMPARE_OP(dataA,dataB,dataOut,>,sizeB,sizeA,sizeOut)              \
          }else if(FUN=="<")  {                                                 \
-            COMPARE_OP(dataA,dataB,dataOut,<,sizeB,sizeA)                      \
+            COMPARE_OP(dataA,dataB,dataOut,<,sizeB,sizeA,sizeOut)              \
          }else if(FUN==">=")  {                                                \
-            COMPARE_OP(dataA,dataB,dataOut,>=,sizeB,sizeA)                     \
+            COMPARE_OP(dataA,dataB,dataOut,>=,sizeB,sizeA,sizeOut)             \
          }else if(FUN=="<=")  {                                                \
-            COMPARE_OP(dataA,dataB,dataOut,<=,sizeB,sizeA)                     \
+            COMPARE_OP(dataA,dataB,dataOut,<=,sizeB,sizeA,sizeOut)             \
          }else {                                                               \
              MPR_API_EXCEPTION("Compare Operation Not Supported", -1);         \
          }                                                                     \

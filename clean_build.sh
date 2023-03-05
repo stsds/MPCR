@@ -1,7 +1,7 @@
 #!/bin/bash
 
 verbose=
-num_proc=-j
+num_proc="-j $(nproc)"
 
 while getopts "vj:h" opt; do
   case $opt in

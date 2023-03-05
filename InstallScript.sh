@@ -6,8 +6,8 @@ if
   R_Lib=$(Rscript $ABSOLUE_PATH/cmake/FindRLibraryPath.R)
 then
   echo "R Library Path : " $R_Lib
-  else
-    echo "Error Getting Rcpp installation Path , Make sure Rcpp is installed. "
+else
+  echo "Error Getting Rcpp installation Path , Make sure Rcpp is installed. "
 fi
 
 export R_LIB_PATH=$R_Lib:$R_LIB_PATH
@@ -17,5 +17,11 @@ if
   R CMD check .
 then
   R CMD build .
-  Rscript $ABSOLUE_PATH/tests/R-tests/InstallPackage.R
+  if
+    Rscript $ABSOLUE_PATH/tests/R-tests/InstallPackage.R
+  then
+    echo "Package installed successfully !"
+  else
+    echo "error while installing package"
+  fi
 fi

@@ -41,6 +41,7 @@ TEST_BINARY_OPERATION() {
 
         DISPATCHER(FFF, binary::PerformOperation, a, b, output, "+")
 
+
         auto pData_out = (float *) output.GetData();
         auto size = output.GetSize();
         REQUIRE(size == 50);
@@ -50,14 +51,16 @@ TEST_BINARY_OPERATION() {
                     pData_in_a[ i ] + pData_in_b[ i % size_in_b ]);
         }
 
+
         DISPATCHER(FFF, binary::PerformOperation, b, a, output, "+")
+
         pData_out = (float *) output.GetData();
         size = output.GetSize();
-        REQUIRE(size == 30);
+        REQUIRE(size == 50);
 
         for (auto i = 0; i < size; i++) {
             REQUIRE(pData_out[ i ] ==
-                    pData_in_a[ i ] + pData_in_b[ i ]);
+                    pData_in_a[ i ] + pData_in_b[ i % size_in_b ]);
         }
 
         DataType d(50, FLOAT);
@@ -130,7 +133,7 @@ TEST_BINARY_OPERATION() {
         for (auto i = 0; i < matrix_col; i++) {
             auto start_idx = 0;
             for (auto j = 0; j < matrix_row; j++) {
-                start_idx = (i*matrix_row)+j;
+                start_idx = ( i * matrix_row ) + j;
                 pValidator[ start_idx ] = counter;
                 counter++;
             }
@@ -224,6 +227,59 @@ TEST_BINARY_OPERATION() {
             REQUIRE(x == 0);
         }
         REQUIRE(pTemp_dims == nullptr);
+
+    }SECTION("Test Size Recycle") {
+        DataType a(10, FLOAT);
+        DataType b(50, FLOAT);
+        DataType output(FLOAT);
+
+        auto size_a = a.GetSize();
+        auto size_b = b.GetSize();
+
+        for (auto i = 0; i < size_a; i++) {
+            a.SetVal(i, i + 1);
+        }
+
+        for (auto i = 0; i < size_b; i++) {
+            b.SetVal(i, i + 1);
+        }
+
+        DISPATCHER(FFF, binary::PerformOperation, a, b, output, "*")
+
+        auto size_out = output.GetSize();
+        REQUIRE(size_out == 50);
+
+        for (auto i = 0; i < size_out; i++) {
+            REQUIRE(output.GetVal(i) ==
+                    a.GetVal(i % size_a) * b.GetVal(i % size_b));
+        }
+
+        vector <int> output_operations;
+        Dimensions *temp = nullptr;
+
+        DISPATCHER(FFF, binary::PerformCompareOperation, a, b,
+                   output_operations, ">", temp)
+
+        REQUIRE(output_operations.size() == 50);
+        REQUIRE(temp == nullptr);
+        auto i = 0;
+        for (auto &x: output_operations) {
+            REQUIRE(x == ( a.GetVal(i % size_a) > b.GetVal(i % size_b)));
+            i++;
+        }
+
+        output_operations.clear();
+
+        DISPATCHER(FFF, binary::PerformEqualityOperation, a, b,
+                   output_operations, false, temp)
+
+        REQUIRE(output_operations.size() == 50);
+        REQUIRE(temp == nullptr);
+        i = 0;
+        for (auto &x: output_operations) {
+            REQUIRE(x == ( a.GetVal(i % size_a) == b.GetVal(i % size_b)));
+            i++;
+        }
 
     }
 }

@@ -60,9 +60,9 @@ y$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("Get Min Value set First element with -1")
-x[[0]] <- -1
+x[[1]] <- -1
 min <- min(x)
-min[[0]]
+min[[1]]
 
 paste("Get Min Value Idx Should be 0")
 min_idx <- which.min(x)
@@ -71,7 +71,7 @@ min_idx
 paste("---------------------------------------------------------------")
 paste("Get Max Value set First element with 10.55")
 max <- max(x)
-max[[0]]
+max[[1]]
 
 paste("Get Min Value Idx Should be 5")
 max_idx <- which.max(x)
@@ -104,9 +104,9 @@ x$Size
 paste("---------------------------------------------------------------")
 paste("Replicate 1 2 3 (3 Times)")
 temp_rep <- new(MPR, 3, "float")
-temp_rep[[0]] <- 1
-temp_rep[[1]] <- 2
-temp_rep[[2]] <- 3
+temp_rep[[1]] <- 1
+temp_rep[[2]] <- 2
+temp_rep[[3]] <- 3
 
 replicated <- rep(temp_rep, 9)
 replicated$ToMatrix(3, 3)
@@ -126,7 +126,7 @@ diag$PrintValues()
 paste("---------------------------------------------------------------")
 paste("CBind")
 temp_bind <- new(MPR, 1, "float")
-temp_bind[[0]] <- 22
+temp_bind[[1]] <- 22
 replicated <- rep(temp_bind, 30)
 replicated$ToMatrix(5, 6)
 
@@ -161,7 +161,7 @@ paste("---------------------------------------------------------------")
 paste("Sweep values should be 3 for all elements 1.5 * 2")
 
 yy <- new(MPR, 10, "double")
-temp_bind[[0]] <- 2
+temp_bind[[1]] <- 2
 temp_sweep <- sweep(yy, temp_bind, 1, "+")
 is.double(temp_sweep)
 
@@ -188,7 +188,7 @@ paste("Testing Scale")
 
 temp_scale <- new(MPR, 50, "float")
 temp_scale$ToMatrix(5, 10)
-for (val in 0:49) {
+for (val in 1:50) {
   temp_scale[[val]] <- val
 }
 
@@ -203,11 +203,14 @@ paste("Testing Binary Operations")
 
 
 x <- new(MPR, 50, "double")
-y <- new(MPR, 50, "float")
+y <- new(MPR, 30, "float")
 
 
-for (val in 0:49) {
+for (val in 1:50) {
   x[[val]] <- val
+}
+
+for (val in 1:30) {
   y[[val]] <- val
 }
 
@@ -274,3 +277,101 @@ paste("Replicate (50, len=10) output =10")
 paste("---------------------------------------------------------------")
 z <- rep(x,len=10)
 z$PrintValues()
+
+paste("---------------------------------------------- Linear Algebra --------------------------------------------------------")
+values <- c(3.12393, -1.16854, -0.304408, -2.15901,
+            -1.16854, 1.86968, 1.04094, 1.35925, -0.304408,
+            1.04094, 4.43374, 1.21072, -2.15901, 1.35925, 1.21072, 5.57265)
+
+
+eigen_temp<- c(1, -1, -1, 1)
+x <- new(MPR, 16, "float")
+y <- new(MPR, 16, "float")
+z <- new(MPR,4,"float")
+
+
+
+for (val in 1:16) {
+  x[[val]] <- values[[val]]
+  y[[val]] <- values[[val]]
+
+}
+
+for (val in 1:4) {
+  z[[val]] <- eigen_temp[[val]]
+}
+x$ToMatrix(4,4)
+y$ToMatrix(4,4)
+paste("X and Y values")
+x$PrintValues()
+y$PrintValues()
+
+cat("----------------------- CrossProduct C=XY --------------------\n")
+crossproduct <- crossprod(x,y)
+crossproduct$PrintValues()
+cat("----------------------- CrossProduct C=t(X)X --------------------\n")
+crossproduct <- crossprod(x)
+crossproduct$PrintValues()
+cat("----------------------- %*% C=XY --------------------\n")
+crossproduct <- x %*% y
+crossproduct$PrintValues()
+cat("----------------------- Eigen --------------------\n")
+z$ToMatrix(2,2)
+z$PrintValues()
+eigen_result<-eigen(z,FALSE)
+eigen_result
+valss<-eigen_result[[1]]
+vecc<-eigen_result[[2]]
+
+valss$PrintValues()
+vecc$PrintValues()
+cat("----------------------- QR Decomposition --------------------\n")
+qr_vals <- c(1, 2, 3, 2, 4, 6, 3, 3, 3)
+qr_input <-new(MPR,9,"float")
+qr_input$ToMatrix(3,3)
+
+
+for (val in 1:9) {
+  qr_input[[val]] <-  qr_vals[[val]]
+}
+cat("----------------------- QR Decomposition Input--------------------\n")
+qr_input
+qr_input$PrintValues()
+
+cat("----------------------- QR Decomposition Output--------------------\n")
+qr_out <-qr(qr_input)
+qr_out
+
+
+qr_q <- qr.Q(qr_out)
+qr_q
+qr_out[[1]]$PrintValues()
+qr_out[[2]]$PrintValues()
+qr_out[[3]]$PrintValues()
+qr_out[[4]]$PrintValues()
+
+cat("----------------------- SVD --------------------\n")
+svd_vals <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+              0, 0, 0, 1, 1, 1)
+
+svd_input <-new(MPR,9*4,"float")
+svd_input$ToMatrix(9,4)
+
+for (val in 1:36) {
+  svd_input[[val]] <- svd_vals[[val]]
+}
+cat("----------------------- SVD Input--------------------\n")
+svd_input$PrintValues()
+
+svd_output <- svd(svd_input)
+cat("----------------------- SVD Output--------------------\n")
+svd_output
+svd_output$d$PrintValues()
+svd_output[[2]]$PrintValues()
+svd_output[[3]]$PrintValues()
+
+cat("------------------------------- RCond ------------------------------------------\n")
+#
+rcond_out <- rcond(svd_input,"O",FALSE)
+rcond_out$PrintValues()
