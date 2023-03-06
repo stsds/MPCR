@@ -5,7 +5,7 @@ ABSOLUE_PATH=$(dirname $(realpath "$0"))
 if
   R_Lib=$(Rscript $ABSOLUE_PATH/cmake/FindRLibraryPath.R)
 then
-  echo "R Library Path : " $R_Lib
+  echo "Rcpp Library Path : " $R_Lib
 else
   echo "Error Getting Rcpp installation Path , Make sure Rcpp is installed. "
 fi
