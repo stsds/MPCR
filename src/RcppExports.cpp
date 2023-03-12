@@ -16,6 +16,7 @@ RcppExport SEXP _rcpp_module_boot_MPR();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rcpp_module_boot_MPR", (DL_FUNC) &_rcpp_module_boot_MPR, 0},
+    {"_rcpp_module_boot_MPRTile", (DL_FUNC) &_rcpp_module_boot_MPRTile, 0},
     {NULL, NULL,                                                0}
 };
 

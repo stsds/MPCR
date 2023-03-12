@@ -7,9 +7,6 @@
 #include <operations/LinearAlgebra.hpp>
 
 
-RCPP_EXPOSED_WRAP(DataType)
-
-
 /**
  * @brief
  * Calculate CrossProduct of 2 MPR Matrices

@@ -17,6 +17,30 @@ DataType::DataType(size_t aSize, Precision aPrecision) {
     SIMPLE_DISPATCH(this->mPrecision, Init)
 }
 
+
+DataType::DataType(std::vector <double> aValues, std::string aPrecision) {
+
+    this->SetMagicNumber();
+    this->mPrecision = GetInputPrecision(aPrecision);
+    this->mSize = aValues.size();
+    this->mpDimensions = nullptr;
+    this->mMatrix = false;
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+
+}
+
+
+DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
+                   const size_t &aCol, const std::string &aPrecision) {
+    this->SetMagicNumber();
+    this->mPrecision = GetInputPrecision(aPrecision);
+    this->mSize = aValues.size();
+    this->mpDimensions = new Dimensions(aRow, aCol);
+    this->mMatrix = true;
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+}
+
+
 DataType::DataType(std::vector <double> &aValues,
                    mpr::precision::Precision aPrecision) {
     this->SetMagicNumber();
@@ -24,8 +48,9 @@ DataType::DataType(std::vector <double> &aValues,
     this->mSize = aValues.size();
     this->mpDimensions = nullptr;
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init,&aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
 }
+
 
 DataType::DataType(size_t aSize, int aPrecision) {
     this->SetMagicNumber();
@@ -93,18 +118,48 @@ DataType::~DataType() {
 
 template <typename T>
 void
-DataType::Init(std::vector<double> *aValues) {
-    bool flag= (aValues== nullptr);
+DataType::Init(std::vector <double> *aValues) {
+    bool flag = ( aValues == nullptr );
     T *temp = new T[mSize];
     for (auto i = 0; i < mSize; i++) {
-        if(flag){
+        if (flag) {
             temp[ i ] = (T) 1.5;
-        }else{
+        } else {
             temp[ i ] = (T) aValues->at(i);
         }
     }
     this->mpData = (char *) temp;
 
+}
+
+
+std::string
+DataType::PrintRow(const size_t &aRowIdx) {
+
+    if (aRowIdx > this->GetNRow()) {
+        MPR_API_EXCEPTION("Segmentation fault index out of Bound", -1);
+    }
+    std::stringstream ss;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::PrintRowsDispatcher, aRowIdx,
+                    ss)
+    return ss.str();
+
+}
+
+
+template <typename T>
+void
+DataType::PrintRowsDispatcher(const size_t &aRowIdx,
+                              std::stringstream &aRowAsString) {
+
+    auto pData = (T *) this->mpData;
+    auto col = GetNCol();
+    auto row = GetNRow();
+    size_t idx = 0;
+    for (auto i = 0; i < col; i++) {
+        idx = ( i * row ) + aRowIdx;
+        aRowAsString << pData[ idx ] << "\t";
+    }
 }
 
 
@@ -117,6 +172,8 @@ DataType::PrintVal() {
     if (this->mMatrix) {
         auto rows = this->mpDimensions->GetNRow();
         auto cols = this->mpDimensions->GetNCol();
+        ss << "Precision  : " << GetPrecisionAsString(this->mPrecision)
+           << "  Precision " << std::endl;
         ss << "Number of Rows : " << rows << std::endl;
         ss << "Number of Columns : " << cols << std::endl;
         ss << "---------------------" << std::endl;
@@ -486,7 +543,7 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
 
 void
 DataType::ConvertPrecision(const mpr::precision::Precision &aPrecision) {
-    if(mPrecision==aPrecision){
+    if (mPrecision == aPrecision) {
         return;
     }
     SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher, aPrecision)
@@ -778,51 +835,51 @@ DataType::NotEqualDispatcher(SEXP aObj) {
 
 void
 DataType::Transpose() {
-    if(!this->mMatrix){
-        MPR_API_EXCEPTION("Cannot Transpose a Vector",-1);
+    if (!this->mMatrix) {
+        MPR_API_EXCEPTION("Cannot Transpose a Vector", -1);
     }
-    SIMPLE_DISPATCH(this->mPrecision,DataType::TransposeDispatcher)
+    SIMPLE_DISPATCH(this->mPrecision, DataType::TransposeDispatcher)
 }
 
-template<typename T>
+
+template <typename T>
 void
 DataType::TransposeDispatcher() {
 
-    auto pData=(T*)this->mpData;
-    auto pOutput=new T[this->mSize];
-    auto col=this->GetNCol();
-    auto row=this->GetNRow();
+    auto pData = (T *) this->mpData;
+    auto pOutput = new T[this->mSize];
+    auto col = this->GetNCol();
+    auto row = this->GetNRow();
 
-    size_t counter=0;
+    size_t counter = 0;
     size_t idx;
 
-    for(auto i=0;i<row;i++){
-        for(auto j=0;j<col;j++){
-            idx=(j*row)+i;
-            pOutput[counter]=pData[idx];
+    for (auto i = 0; i < row; i++) {
+        for (auto j = 0; j < col; j++) {
+            idx = ( j * row ) + i;
+            pOutput[ counter ] = pData[ idx ];
             counter++;
         }
     }
 
-    this->SetData((char*)pOutput);
-    this->SetDimensions(col,row);
+    this->SetData((char *) pOutput);
+    this->SetDimensions(col, row);
 
 }
 
 
 void DataType::SetValues(std::vector <double> &aValues) {
     this->mSize = aValues.size();
-    if(this->mMatrix){
+    if (this->mMatrix) {
         delete this->mpDimensions;
-        this->mpDimensions= nullptr;
-        this->mMatrix= false;
+        this->mpDimensions = nullptr;
+        this->mMatrix = false;
     }
     delete[] this->mpData;
-    this->mpData= nullptr;
+    this->mpData = nullptr;
 
-    SIMPLE_DISPATCH(this->mPrecision, Init,&aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
 }
-
 
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,
@@ -833,7 +890,7 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertPrecisionDispatcher,
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 
-SIMPLE_INSTANTIATE(void, DataType::Init,std::vector<double> *aValues)
+SIMPLE_INSTANTIATE(void, DataType::Init, std::vector <double> *aValues)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 
@@ -852,4 +909,7 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertToVector,
 SIMPLE_INSTANTIATE(void, DataType::ConvertToRMatrixDispatcher,
                    Rcpp::NumericMatrix *&aOutput)
 
-SIMPLE_INSTANTIATE(void,DataType::TransposeDispatcher)
+SIMPLE_INSTANTIATE(void, DataType::TransposeDispatcher)
+
+SIMPLE_INSTANTIATE(void, DataType::PrintRowsDispatcher, const size_t &aRowIdx,
+                   std::stringstream &aRowAsString)
