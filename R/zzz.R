@@ -282,7 +282,7 @@
       ret <- MPR.qr.R(qr$qr, complete)
       ret
     }else {
-      ret <- base::qr.R(qr$qr, complete)
+      ret <- base::qr.R(qr, complete)
     }
   })
 
