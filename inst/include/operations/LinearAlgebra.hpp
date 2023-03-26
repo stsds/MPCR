@@ -29,13 +29,17 @@ namespace mpr {
              * bool to indicate whether aInputA should be Transposed or not
              * @param[in] aTransposeB
              * bool to indicate whether aInputB should be Transposed or not
+             * @param[in] aSymmetrize
+             * if true and routine syrk is used, the upper matrix will be copied
+             * to the lower matrix
              *
              */
             template <typename T>
             void
             CrossProduct(DataType &aInputA, DataType &aInputB,
                          DataType &aOutput, const bool &aTransposeA,
-                         const bool &aTransposeB);
+                         const bool &aTransposeB,
+                         const bool &aSymmetrize = true);
 
             /**
              * @brief
@@ -63,7 +67,8 @@ namespace mpr {
              */
             template <typename T>
             void
-            Cholesky(DataType &aInputA, DataType &aOutput);
+            Cholesky(DataType &aInputA, DataType &aOutput,
+                     const bool &aUpperTriangle = true);
 
             /**
              * @brief

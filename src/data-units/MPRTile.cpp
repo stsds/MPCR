@@ -9,30 +9,18 @@ MPRTile::MPRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol,
                  const std::vector <std::string> &aPrecisions) {
 
 
-    this->mSize = aRow * aCol;
-
-    if (mSize == 0) {
-        MPR_API_EXCEPTION(
-            "Cannot initialize a Matrix with Dimension equal to 0", -1);
-    }
+    AssignDimensions(aRow, aCol, aTileRow, aTileCol);
 
     if (aValues.size() != mSize) {
         MPR_API_EXCEPTION(
             "Values don't cover all the matrix , revisit your data", -1);
     }
 
-    this->mTileSize = aTileRow * aTileCol;
+
     auto row = aRow / aTileRow;
     auto col = aCol / aTileCol;
     auto required_tiles = mSize / mTileSize;
 
-    if (mSize % mTileSize != 0) {
-        MPR_API_EXCEPTION("Tiles should cover the whole Matrix Dimensions", -1);
-    }
-
-    if (required_tiles % row != 0 || required_tiles % col != 0) {
-        MPR_API_EXCEPTION("Tiles should cover the whole Matrix Dimensions", -1);
-    }
 
     if (required_tiles != aPrecisions.size()) {
         MPR_API_EXCEPTION(
@@ -40,10 +28,8 @@ MPRTile::MPRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol,
             -1);
     }
 
-    this->mpDimensions = new Dimensions(aRow, aCol);
-    this->mpTilesDimensions = new Dimensions(row, col);
-    this->mpTileInnerDimensions = new Dimensions(aTileRow, aTileCol);
     this->SetMagicNumber();
+
     this->mTiles.clear();
     this->mTiles.resize(required_tiles);
 
@@ -63,14 +49,26 @@ MPRTile::MPRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol,
 
 }
 
+
 MPRTile::MPRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol) {
+
+    AssignDimensions(aRow, aCol, aTileRow, aTileCol);
+    auto required_tiles = mSize / mTileSize;
+
+    this->SetMagicNumber();
+    this->mTiles.clear();
+    this->mTiles.assign(required_tiles, nullptr);
+}
+
+
+void MPRTile::AssignDimensions(const size_t &aRow, const size_t &aCol,
+                               const size_t &aTileRow, const size_t &aTileCol) {
     this->mSize = aRow * aCol;
 
     if (mSize == 0) {
         MPR_API_EXCEPTION(
             "Cannot initialize a Matrix with Dimension equal to 0", -1);
     }
-
 
 
     this->mTileSize = aTileRow * aTileCol;
@@ -90,9 +88,6 @@ MPRTile::MPRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol) {
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mpTilesDimensions = new Dimensions(row, col);
     this->mpTileInnerDimensions = new Dimensions(aTileRow, aTileCol);
-    this->SetMagicNumber();
-    this->mTiles.clear();
-    this->mTiles.assign(required_tiles, nullptr);
 }
 
 
@@ -222,8 +217,8 @@ MPRTile::PrintTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
 bool
 MPRTile::CheckIndex(const size_t &aRowIdx, const size_t &aColIdx,
                     const Dimensions &aDimensions) {
-    return aRowIdx > aDimensions.GetNRow() ||
-           aColIdx > aDimensions.GetNCol() || aRowIdx < 0 ||
+    return aRowIdx >= aDimensions.GetNRow() ||
+           aColIdx >= aDimensions.GetNCol() || aRowIdx < 0 ||
            aColIdx < 0;
 }
 
@@ -281,6 +276,10 @@ MPRTile::Print() {
             for (auto z = 0; z < cols_tile; z++) {
                 auto tile_idx = GetIndexColumnMajor(std::make_pair(i, z),
                                                     rows_tile);
+                if (mTiles[ tile_idx ] == nullptr) {
+                    MPR_API_EXCEPTION(
+                        "Cannot print the Matrix, Some values are null", -1);
+                }
                 ss << mTiles[ tile_idx ]->PrintRow(j);
             }
             ss << "]" << std::endl;
@@ -310,16 +309,143 @@ MPRTile::Print() {
 
 
 void
-MPRTile::InsertTile(DataType &aTile, const size_t &aTileRowIdx,
+MPRTile::SetDimensions(MPRTile &aMPRTile) {
+    delete this->mpTilesDimensions;
+    delete this->mpTileInnerDimensions;
+    delete this->mpDimensions;
+
+    this->mpTilesDimensions = nullptr;
+    this->mpTileInnerDimensions = nullptr;
+    this->mpDimensions = nullptr;
+
+
+    this->mpTilesDimensions = new Dimensions(
+        aMPRTile.mpTilesDimensions->GetNRow(),
+        aMPRTile.mpTilesDimensions->GetNCol());
+
+
+    this->mpTileInnerDimensions = new Dimensions(
+        aMPRTile.mpTileInnerDimensions->GetNRow(),
+        aMPRTile.mpTileInnerDimensions->GetNCol());
+
+    this->mpDimensions = new Dimensions(
+        aMPRTile.mpDimensions->GetNRow(),
+        aMPRTile.mpDimensions->GetNCol());
+
+    this->mTileSize = aMPRTile.mTileSize;
+    this->mSize = aMPRTile.mSize;
+
+}
+
+
+DataType *
+MPRTile::GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
+
+    auto idx_1D = GetIndexColumnMajor(std::make_pair(aTileRowIdx, aTileColIdx),
+                                      this->mpTilesDimensions->GetNRow());
+
+    if (idx_1D >= mTiles.size()) {
+        MPR_API_EXCEPTION("Index Out of bound cannot Get tile", -1);
+    }
+    return mTiles[ idx_1D ];
+}
+
+
+void
+MPRTile::InsertTile(DataType *apTile, const size_t &aTileRowIdx,
                     const size_t &aTileColIdx) {
-    auto tileIdx = GetTileIndex(std::make_pair(aTileRowIdx, aTileColIdx));
-    auto idx_1D = GetIndexColumnMajor(tileIdx, tileIdx.first);
-    if (idx_1D > mTiles.size()) {
+    std::cout << "i: " << aTileRowIdx << "    j: " << aTileColIdx << std::endl;
+    auto idx_1D = GetIndexColumnMajor(std::make_pair(aTileRowIdx, aTileColIdx),
+                                      this->mpTilesDimensions->GetNRow());
+    if (idx_1D >= mTiles.size()) {
         MPR_API_EXCEPTION("Index Out of bound cannot Insert tile", -1);
     }
-    if (mTiles[ idx_1D ] != &aTile) {
+    if (mTiles[ idx_1D ] != apTile) {
         delete mTiles[ idx_1D ];
-        mTiles[ idx_1D ] = &aTile;
+        mTiles[ idx_1D ] = apTile;
+    }
+}
+
+
+void
+MPRTile::FillWithZeros() {
+
+    auto rows = this->mpTileInnerDimensions->GetNRow();
+    auto cols = this->mpTileInnerDimensions->GetNCol();
+
+    for (auto i = 0; i < mTiles.size(); i++) {
+        if (mTiles[ i ] == nullptr) {
+            auto temp_tile = new DataType(FLOAT);
+            auto temp_data = new float[rows * cols];
+            memset(temp_data, 0, sizeof(float) * rows * cols);
+            temp_tile->SetSize(rows * cols);
+            temp_tile->SetDimensions(rows, cols);
+            temp_tile->SetData((char *) temp_data);
+            mTiles[ i ] = temp_tile;
+
+        }
+    }
+}
+
+
+MPRTile &
+MPRTile::operator =(const MPRTile &aMPRTile) {
+    this->mSize = aMPRTile.mSize;
+    this->mMagicNumber = aMPRTile.mMagicNumber;
+    this->mTileSize = aMPRTile.mTileSize;
+
+    this->mpTilesDimensions = new Dimensions(
+        aMPRTile.mpTilesDimensions->GetNRow(),
+        aMPRTile.mpTilesDimensions->GetNCol());
+
+    this->mpTileInnerDimensions = new Dimensions(
+        aMPRTile.mpTileInnerDimensions->GetNRow(),
+        aMPRTile.mpTileInnerDimensions->GetNCol());
+
+
+    this->mpDimensions = new Dimensions(
+        aMPRTile.mpDimensions->GetNRow(),
+        aMPRTile.mpDimensions->GetNCol());
+
+
+    this->mTiles.resize(aMPRTile.mTiles.size());
+    auto i = 0;
+    for (auto &x: aMPRTile.mTiles) {
+        auto temp_tile = new DataType(*x);
+        this->mTiles[ i ] = temp_tile;
+        i++;
+    }
+
+    return *this;
+}
+
+
+MPRTile::
+MPRTile(const MPRTile &aMPRTile) {
+    this->mSize = aMPRTile.mSize;
+    this->mMagicNumber = aMPRTile.mMagicNumber;
+    this->mTileSize = aMPRTile.mTileSize;
+
+    this->mpTilesDimensions = new Dimensions(
+        aMPRTile.mpTilesDimensions->GetNRow(),
+        aMPRTile.mpTilesDimensions->GetNCol());
+
+    this->mpTileInnerDimensions = new Dimensions(
+        aMPRTile.mpTileInnerDimensions->GetNRow(),
+        aMPRTile.mpTileInnerDimensions->GetNCol());
+
+
+    this->mpDimensions = new Dimensions(
+        aMPRTile.mpDimensions->GetNRow(),
+        aMPRTile.mpDimensions->GetNCol());
+
+
+    this->mTiles.resize(aMPRTile.mTiles.size());
+    auto i = 0;
+    for (auto &x: aMPRTile.mTiles) {
+        auto temp_tile = new DataType(*x);
+        this->mTiles[ i ] = temp_tile;
+        i++;
     }
 }
 

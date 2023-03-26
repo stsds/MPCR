@@ -6,6 +6,7 @@
 #include <data-units/DataType.hpp>
 
 
+/** Pair describing a Matrix Index using row,col **/
 typedef std::pair <size_t, size_t> MatrixIndex;
 
 class MPRTile {
@@ -39,7 +40,7 @@ public:
     /**
      * @brief
      * MPR-Tile Constructor , Creates an Empty MPRTile Object with the right
-     * Dimensions
+     * Dimensions (All Tiles pointers are Null)
      *
      * @param[in] aRow
      * Number of Global rows
@@ -52,6 +53,30 @@ public:
      *
      */
     MPRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol);
+
+    /**
+     * @brief
+     * MPR-Tile Equal Operator
+     *
+     * @param[in] aMPRTile
+     * MPRTile Object.
+     *
+     * @returns
+     * Deep Copy of MPRTile Object provided.
+     *
+     */
+    MPRTile &
+    operator =(const MPRTile &aMPRTile);
+
+    /**
+     * @brief
+     * MPR-Tile Copy Constructor
+     *
+     * @param[in] aMPRTile
+     * MPRTile Object.
+     *
+     */
+    MPRTile(const MPRTile &aMPRTile);
 
 
     /**
@@ -158,6 +183,36 @@ public:
     size_t
     GetTileNCol() const {
         return this->mpTileInnerDimensions->GetNCol();
+    }
+
+
+    /**
+     * @brief
+     * Get Number of Tiles per Col
+     *
+     * @returns
+     * Number of Tiles per Col
+     *
+     */
+    inline
+    size_t
+    GetTilePerCol() const {
+        return this->mpTilesDimensions->GetNCol();
+    }
+
+
+    /**
+     * @brief
+     * Get Number of Tiles per Row
+     *
+     * @returns
+     * Number of Tiles per Row
+     *
+     */
+    inline
+    size_t
+    GetTilePerRow() const {
+        return this->mpTilesDimensions->GetNRow();
     }
 
 
@@ -277,7 +332,6 @@ public:
     void
     GetType();
 
-
     /**
      * @brief
      * Prints the Metadata and the values of the MPRTile Object
@@ -292,7 +346,7 @@ public:
      * this function doesn't check whether the internal dimensions of the tile
      * is the same as the Dimensions used to created the Tiled Matrix
      *
-     * @param[in] aTile
+     * @param[in] apTile
      * MPR Tile to insert
      * @param[in] aTileRowIdx
      * Row Idx of the Tile
@@ -300,9 +354,66 @@ public:
      * Col Idx of the Tile
      */
     void
-    InsertTile(DataType &aTile, const size_t &aTileRowIdx,
+    InsertTile(DataType *apTile, const size_t &aTileRowIdx,
                const size_t &aTileColIdx);
 
+
+    /**
+     * @brief
+     * Get a Tile from the MPR Tiles using Tile Row idx and Tile Col idx.
+     *
+     * @param[in] aTileRowIdx
+     * Row Idx of the Tile
+     * @param[in] aTileColIdx
+     * Col Idx of the Tile
+     *
+     * @returns
+     * MPR object describing the Tile at IDx (aTileRowIdx,aTileColIdx)
+     */
+    DataType *
+    GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx);
+
+    /**
+     * @brief
+     * Copies the MPRTile Dimensions and sizes metadata from another MPRTile obj
+     *
+     * @param[in] aMPRTile
+     * MPRTile Object.
+     */
+    void
+    SetDimensions(MPRTile &aMPRTile);
+
+
+    /**
+     * @brief
+     * Convert a 2D Index into 1D Index Column Major, Given the leading Dimension
+     * used for the conversion
+     *
+     * @param[in] aIdx
+     * pair of idx [Row,Col]
+     * @param[in] aLeadingDim
+     * Leading Dimension to use for conversion to a 1D idx
+     *
+     * @returns
+     * Idx in a 1D Form
+     *
+     */
+    inline
+    size_t
+    GetIndexColumnMajor(const MatrixIndex &aIdx,
+                        const size_t &aLeadingDim) {
+        return ( aIdx.second * aLeadingDim ) + aIdx.first;
+    }
+
+
+    /**
+     * @brief
+     * Fills the Null Tiles with Zeros according to the MPRTile Metadata and
+     * Dimensions.
+     *
+     */
+    void
+    FillWithZeros();
 
 private:
 
@@ -356,28 +467,6 @@ private:
 
     /**
      * @brief
-     * Convert a 2D Index into 1D Index Column Major, Given the leading Dimension
-     * used for the conversion
-     *
-     * @param[in] aIdx
-     * pair of idx [Row,Col]
-     * @param[in] aLeadingDim
-     * Leading Dimension to use for conversion to a 1D idx
-     *
-     * @returns
-     * Idx in a 1D Form
-     *
-     */
-    inline
-    size_t
-    GetIndexColumnMajor(const MatrixIndex &aIdx,
-                        const size_t &aLeadingDim) {
-        return ( aIdx.second * aLeadingDim ) + aIdx.first;
-    }
-
-
-    /**
-     * @brief
      * Set Magic Number To Check For MPRTile Object.
      *
      */
@@ -427,6 +516,25 @@ private:
     CheckIndex(const size_t &aRowIdx, const size_t &aColIdx,
                const Dimensions &aDimensions);
 
+    /**
+     * @brief
+     * Checks if a MPRTile object can be created from the given dimensions, if
+     * yes , The function will set all the metadata required for the MPRTile
+     * object.
+     *
+     * @param[in] aRow
+     * Number of Rows of Global Matrix
+     * @param[in] aCol
+     * Number of Cols of Global Matrix
+     * @param[in] aTileRow
+     * Number of Rows of Each Tile Matrix
+     * @param[in] aTileCol
+     * Number of Cols of Each Tile Matrix
+     *
+     */
+    void
+    AssignDimensions(const size_t &aRow, const size_t &aCol,
+                     const size_t &aTileRow, const size_t &aTileCol);
 
 private:
 

@@ -72,6 +72,17 @@ public:
     void
     DePromote();
 
+    inline
+    void
+    ResetPromoter(const size_t &aCount){
+        mPrecisions.clear();
+        mDataHolders.clear();
+
+        mPrecisions.resize(aCount);
+        mDataHolders.resize(aCount);
+        mCounter = 0;
+    }
+
 
 private:
     /** vector of precisions of MPR objects before any promotion **/

@@ -12,7 +12,8 @@ using namespace std;
 template <typename T>
 void
 linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
-                     const bool &aTransposeA, const bool &aTransposeB) {
+                     const bool &aTransposeA, const bool &aTransposeB,
+                     const bool &aSymmetrize) {
 
     auto pData_a = (T *) aInputA.GetData();
     auto pData_b = (T *) aInputB.GetData();
@@ -60,6 +61,7 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     aOutput.SetDimensions(row_a, col_b);
 
     auto pData_out = new T[output_size];
+    memset(pData_out, 0, sizeof(T) * output_size);
 
     if (!is_one_input) {
         blas::gemm(LAYOUT, transpose_a, transpose_b,
@@ -73,7 +75,7 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     aOutput.SetData((char *) pData_out);
 
-    if (is_one_input) {
+    if (is_one_input && aSymmetrize) {
         Symmetrize <T>(aOutput, true);
     }
 
@@ -118,10 +120,13 @@ linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 
 template <typename T>
 void
-linear::Cholesky(DataType &aInputA, DataType &aOutput) {
+linear::Cholesky(DataType &aInputA, DataType &aOutput,
+                 const bool &aUpperTriangle) {
 
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
+    auto triangle = aUpperTriangle ? lapack::Uplo::Upper : lapack::Uplo::Lower;
+
 
     if (row != col) {
         MPR_API_EXCEPTION(
@@ -132,21 +137,30 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput) {
     auto pData = (T *) aInputA.GetData();
     memcpy(pOutput, pData, ( row * col * sizeof(T)));
 
-    auto rc = lapack::potrf(lapack::Uplo::Upper, row, pOutput, row);
+    auto rc = lapack::potrf(triangle, row, pOutput, row);
     if (rc != 0) {
         MPR_API_EXCEPTION(
             "Error While Applying Cholesky Decomposition", rc);
     }
 
 
-    for (auto j = 0; j < row; j++) {
-        for (auto i = j + 1; i < row; i++)
-            pOutput[ i + row * j ] = 0.0;
+    if (aUpperTriangle) {
+        for (auto j = 0; j < row; j++) {
+            for (auto i = j + 1; i < row; i++)
+                pOutput[ i + row * j ] = 0.0;
+        }
+    } else {
+        for (auto i = 0; i < row; i++) {
+            for (auto j = i + 1; j < row; j++) {
+                pOutput[ i + row * j ] = 0.0;
+            }
+        }
     }
 
     aOutput.ClearUp();
     aOutput.SetDimensions(aInputA);
     aOutput.SetData((char *) pOutput);
+
 }
 
 
@@ -532,12 +546,12 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     aOutputPivot.SetSize(col);
     aOutputPivot.SetData((char *) pTemp_pvt);
 
-    auto pRank=new T[1];
+    auto pRank = new T[1];
     GetRank <T>(aOutputQr, aTolerance, *pRank);
 
     aRank.ClearUp();
     aRank.SetSize(1);
-    aRank.SetData((char*)pRank);
+    aRank.SetData((char *) pRank);
 
 }
 
@@ -710,12 +724,13 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
 
 FLOATING_POINT_INST(void, linear::CrossProduct, DataType &aInputA,
                     DataType &aInputB, DataType &aOutput,
-                    const bool &aTransposeA, const bool &aTransposeB)
+                    const bool &aTransposeA, const bool &aTransposeB,
+                    const bool &aSymmetrize)
 
 FLOATING_POINT_INST(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
 
 FLOATING_POINT_INST(void, linear::Cholesky, DataType &aInputA,
-                    DataType &aOutput)
+                    DataType &aOutput, const bool &aUpperTriangle)
 
 FLOATING_POINT_INST(void, linear::CholeskyInv, DataType &aInputA,
                     DataType &aOutput, const size_t &aNCol)
