@@ -71,6 +71,7 @@ typedef struct Dimensions {
      * @returns
      * Number of Rows in a Matrix
      */
+    inline
     size_t
     GetNRow() const {
         return this->mRow;
@@ -84,6 +85,7 @@ typedef struct Dimensions {
      * @returns
      * Number of Columns in a Matrix
      */
+    inline
     size_t
     GetNCol() const {
         return this->mCol;
@@ -160,6 +162,35 @@ public:
      */
     DataType(std::vector <double> &aValues,
              mpr::precision::Precision aPrecision);
+
+
+    /**
+     * @brief
+     * DataType Constructor from a vector
+     *
+     * @param[in] aValues
+     * Vector of values
+     * @param[in] aPrecision
+     * Precision to Describe the Values (as a string Precision)
+     */
+    DataType(std::vector <double> aValues, std::string aPrecision);
+
+
+    /**
+     * @brief
+     * DataType Matrix Constructor from a vector of values.
+     *
+     * @param[in] aValues
+     * Vector of values
+     * @param[in] aRow
+     * Number of Rows.
+     * @param[in] aCol
+     * Number of Cols.
+     * @param[in] aPrecision
+     * Precision to Describe the Values (as a Precision ENUM object)
+     */
+    DataType(std::vector <double> &aValues, const size_t &aRow,
+             const size_t &aCol, const std::string &aPrecision);
 
     /**
      * @brief
@@ -788,6 +819,25 @@ public:
     void
     SetValues(std::vector <double> &aValues);
 
+    /**
+     * @brief
+     * Print a whole Row (given) in case of Matrix .
+     * used for printing MPR Tile
+     *
+     * @param[in] aRowIdx
+     * Row Idx to Print
+     *
+     * @returns
+     * string holding values in the given row without brackets, only spacing is
+     * applied.
+     *
+     */
+    std::string
+    PrintRow(const size_t &aRowIdx);
+
+    void
+    FillTriangle(const double &aValue, const bool &aUpperTriangle = true);
+
 
 private:
 
@@ -943,6 +993,27 @@ private:
     template <typename T>
     void
     TransposeDispatcher();
+
+
+    /**
+     * @brief
+     * Dispatcher for printing one Row of the Matrix
+     *
+     * @param[in] aRowIdx
+     * Row Idx to Print
+     * @param[in,out] aRowAsString
+     * string stream to print data into.
+     *
+     */
+    template <typename T>
+    void
+    PrintRowsDispatcher(const size_t &aRowIdx, std::stringstream &aRowAsString);
+
+
+    template <typename T>
+    void
+    FillTriangleDispatcher(const double &aValue,
+                           const bool &aUpperTriangle = true);
 
 
     /** Buffer Holding the Data **/

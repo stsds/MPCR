@@ -3,6 +3,8 @@
 cmake_minimum_required(VERSION 3.20)
 cmake_policy(SET CMP0048 NEW)
 
+set(CMAKE_CXX_COMPILER g++)
+
 # Project Name and Version
 project(MPR VERSION 1.0.0)
 

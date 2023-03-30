@@ -310,6 +310,7 @@ basic::GetAsStr(DataType &aVec, std::string &aType) {
     if (aVec.IsMatrix()) {
         ss << "Matrix Of Dimensions :";
         auto dim = aVec.GetDimensions();
+        ss<<std::endl;
         ss << "Number of Rows = " << dim->GetNRow() << std::endl;
         ss << "Number of Column = " << dim->GetNCol() << std::endl;
     } else {

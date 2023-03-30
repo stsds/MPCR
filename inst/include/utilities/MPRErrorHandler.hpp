@@ -29,25 +29,25 @@ public:
         ss << apMessage << std::endl;
 
 #ifdef RUNNING_CPP
-        ss << std::left << std::setfill(' ') << std::setw(10)
+        ss << std::left << std::setfill(' ') << std::setw(14)
            << "File" << ": ";
-        ss << std::left << std::setfill(' ') << std::setw(10)
+        ss << std::left << std::setfill(' ') << std::setw(14)
            << apFileName << std::endl;
 
-        ss << std::left << std::setfill(' ') << std::setw(10)
+        ss << std::left << std::setfill(' ') << std::setw(14)
            << "Line" << ": ";
-        ss << std::left << std::setfill(' ') << std::setw(10)
+        ss << std::left << std::setfill(' ') << std::setw(14)
            << aLineNumber << std::endl;
 #endif
-        ss << std::left << std::setfill(' ') << std::setw(10)
+        ss << std::left << std::setfill(' ') << std::setw(14)
            << "Function" << ": ";
-        ss << std::left << std::setfill(' ') << std::setw(10)
+        ss << std::left << std::setfill(' ') << std::setw(14)
            << apFunctionName << std::endl;
 
         if (aErrorCode != 0 && aIsError) {
-            ss << std::left << std::setfill(' ') << std::setw(10)
+            ss << std::left << std::setfill(' ') << std::setw(14)
                << "Error Code" << ": ";
-            ss << std::left << std::setfill(' ') << std::setw(10)
+            ss << std::left << std::setfill(' ') << std::setw(14)
                << aErrorCode << std::endl;
         }
 

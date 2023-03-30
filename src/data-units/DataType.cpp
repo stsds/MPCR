@@ -17,6 +17,30 @@ DataType::DataType(size_t aSize, Precision aPrecision) {
     SIMPLE_DISPATCH(this->mPrecision, Init)
 }
 
+
+DataType::DataType(std::vector <double> aValues, std::string aPrecision) {
+
+    this->SetMagicNumber();
+    this->mPrecision = GetInputPrecision(aPrecision);
+    this->mSize = aValues.size();
+    this->mpDimensions = nullptr;
+    this->mMatrix = false;
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+
+}
+
+
+DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
+                   const size_t &aCol, const std::string &aPrecision) {
+    this->SetMagicNumber();
+    this->mPrecision = GetInputPrecision(aPrecision);
+    this->mSize = aValues.size();
+    this->mpDimensions = new Dimensions(aRow, aCol);
+    this->mMatrix = true;
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+}
+
+
 DataType::DataType(std::vector <double> &aValues,
                    mpr::precision::Precision aPrecision) {
     this->SetMagicNumber();
@@ -24,8 +48,9 @@ DataType::DataType(std::vector <double> &aValues,
     this->mSize = aValues.size();
     this->mpDimensions = nullptr;
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init,&aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
 }
+
 
 DataType::DataType(size_t aSize, int aPrecision) {
     this->SetMagicNumber();
@@ -93,18 +118,51 @@ DataType::~DataType() {
 
 template <typename T>
 void
-DataType::Init(std::vector<double> *aValues) {
-    bool flag= (aValues== nullptr);
+DataType::Init(std::vector <double> *aValues) {
+    bool flag = ( aValues == nullptr );
     T *temp = new T[mSize];
     for (auto i = 0; i < mSize; i++) {
-        if(flag){
+        if (flag) {
             temp[ i ] = (T) 1.5;
-        }else{
+        } else {
             temp[ i ] = (T) aValues->at(i);
         }
     }
     this->mpData = (char *) temp;
 
+}
+
+
+std::string
+DataType::PrintRow(const size_t &aRowIdx) {
+
+    if (aRowIdx > this->GetNRow()) {
+        MPR_API_EXCEPTION("Segmentation fault index out of Bound", -1);
+    }
+    std::stringstream ss;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::PrintRowsDispatcher, aRowIdx,
+                    ss)
+    return ss.str();
+
+}
+
+
+template <typename T>
+void
+DataType::PrintRowsDispatcher(const size_t &aRowIdx,
+                              std::stringstream &aRowAsString) {
+
+    auto pData = (T *) this->mpData;
+    auto col = GetNCol();
+    auto row = GetNRow();
+    size_t idx = 0;
+    auto temp_col = col > 16 ? 16 : col;
+
+    for (auto i = 0; i < temp_col; i++) {
+        idx = ( i * row ) + aRowIdx;
+        aRowAsString << std::setfill(' ') <<  std::setw(14)
+                     << std::setprecision(7) << pData[ idx ] << "\t";
+    }
 }
 
 
@@ -114,9 +172,12 @@ DataType::PrintVal() {
     std::stringstream ss;
     auto stream_size = 10000;
     T *temp = (T *) this->mpData;
+
     if (this->mMatrix) {
         auto rows = this->mpDimensions->GetNRow();
         auto cols = this->mpDimensions->GetNCol();
+        ss << "Precision  : " << GetPrecisionAsString(this->mPrecision)
+           << "  Precision " << std::endl;
         ss << "Number of Rows : " << rows << std::endl;
         ss << "Number of Columns : " << cols << std::endl;
         ss << "---------------------" << std::endl;
@@ -128,9 +189,10 @@ DataType::PrintVal() {
             ss << " [\t";
             for (auto j = 0; j < print_col; j++) {
                 start_idx = ( j * rows ) + i;
-                ss << temp[ start_idx ] << "\t";
+                ss << std::setfill(' ') <<   std::setw(14) << std::setprecision(7)
+                   << temp[ start_idx ] << "\t";
             }
-            ss << "]" << std::endl;
+            ss << std::setfill(' ') <<   std::setw(14) << "]" << std::endl;
             if (ss.gcount() > stream_size) {
 #ifdef RUNNING_CPP
                 std::cout << std::string(ss.str());
@@ -142,8 +204,9 @@ DataType::PrintVal() {
                 ss.clear();
             }
         }
-        if (print_rows * print_col != this->mSize) {
-            ss << "Note Only Matrix with size 100*13 is printed" << std::endl;
+        if (print_rows * print_col!= this->mSize) {
+            ss << "Note Only Matrix with size 100*13 is printed" <<
+               std::endl;
         }
 #ifdef RUNNING_CPP
         std::cout << std::string(ss.str());
@@ -154,11 +217,14 @@ DataType::PrintVal() {
 #endif
 
     } else {
-        ss << "Vector Size : " << mSize << std::endl;
-        ss << "---------------------" << std::endl;
+        ss << "Vector Size : " << mSize <<
+           std::endl;
+        ss << "---------------------" <<
+           std::endl;
         ss << " [\t";
         for (auto i = 0; i < mSize; i++) {
-            ss << temp[ i ] << "\t";
+            ss << std::setfill(' ') <<   std::setw(14) << std::setprecision(7)
+               << temp[ i ] << "\t";
             if (i % 100 == 0) {
                 if (ss.gcount() > stream_size) {
 #ifdef RUNNING_CPP
@@ -172,7 +238,7 @@ DataType::PrintVal() {
                 }
             }
         }
-        ss << "]" << std::endl;
+        ss << std::setfill(' ') <<   std::setw(14) << "]" << std::endl;
 #ifdef RUNNING_CPP
         std::cout << std::string(ss.str());
 #endif
@@ -486,7 +552,7 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
 
 void
 DataType::ConvertPrecision(const mpr::precision::Precision &aPrecision) {
-    if(mPrecision==aPrecision){
+    if (mPrecision == aPrecision) {
         return;
     }
     SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher, aPrecision)
@@ -778,52 +844,85 @@ DataType::NotEqualDispatcher(SEXP aObj) {
 
 void
 DataType::Transpose() {
-    if(!this->mMatrix){
-        MPR_API_EXCEPTION("Cannot Transpose a Vector",-1);
+    if (!this->mMatrix) {
+        MPR_API_EXCEPTION("Cannot Transpose a Vector", -1);
     }
-    SIMPLE_DISPATCH(this->mPrecision,DataType::TransposeDispatcher)
+    SIMPLE_DISPATCH(this->mPrecision, DataType::TransposeDispatcher)
 }
 
-template<typename T>
+
+template <typename T>
 void
 DataType::TransposeDispatcher() {
 
-    auto pData=(T*)this->mpData;
-    auto pOutput=new T[this->mSize];
-    auto col=this->GetNCol();
-    auto row=this->GetNRow();
+    auto pData = (T *) this->mpData;
+    auto pOutput = new T[this->mSize];
+    auto col = this->GetNCol();
+    auto row = this->GetNRow();
 
-    size_t counter=0;
+    size_t counter = 0;
     size_t idx;
 
-    for(auto i=0;i<row;i++){
-        for(auto j=0;j<col;j++){
-            idx=(j*row)+i;
-            pOutput[counter]=pData[idx];
+    for (auto i = 0; i < row; i++) {
+        for (auto j = 0; j < col; j++) {
+            idx = ( j * row ) + i;
+            pOutput[ counter ] = pData[ idx ];
             counter++;
         }
     }
 
-    this->SetData((char*)pOutput);
-    this->SetDimensions(col,row);
+    this->SetData((char *) pOutput);
+    this->SetDimensions(col, row);
 
 }
 
 
 void DataType::SetValues(std::vector <double> &aValues) {
     this->mSize = aValues.size();
-    if(this->mMatrix){
+    if (this->mMatrix) {
         delete this->mpDimensions;
-        this->mpDimensions= nullptr;
-        this->mMatrix= false;
+        this->mpDimensions = nullptr;
+        this->mMatrix = false;
     }
     delete[] this->mpData;
-    this->mpData= nullptr;
+    this->mpData = nullptr;
 
-    SIMPLE_DISPATCH(this->mPrecision, Init,&aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
 }
 
 
+void DataType::FillTriangle(const double &aValue, const bool &aUpperTriangle) {
+    SIMPLE_DISPATCH(this->mPrecision, DataType::FillTriangleDispatcher, aValue,
+                    aUpperTriangle)
+}
+
+
+template <typename T>
+void DataType::FillTriangleDispatcher(const double &aValue,
+                                      const bool &aUpperTriangle) {
+
+    auto row = this->GetNRow();
+    auto col = this->GetNCol();
+    auto pData = (T *) this->mpData;
+
+    if (!aUpperTriangle) {
+        for (auto j = 0; j < col; j++) {
+            for (auto i = j + 1; i < row; i++)
+                pData[ i + row * j ] = aValue;
+        }
+    } else {
+        for (auto i = 0; i < row; i++) {
+            for (auto j = i + 1; j < col; j++) {
+                pData[ i + row * j ] = aValue;
+            }
+        }
+    }
+
+}
+
+
+SIMPLE_INSTANTIATE(void, DataType::FillTriangleDispatcher, const double &aValue,
+                   const bool &aUpperTriangle)
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,
                    Dimensions *&apDimensions)
@@ -833,7 +932,7 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertPrecisionDispatcher,
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 
-SIMPLE_INSTANTIATE(void, DataType::Init,std::vector<double> *aValues)
+SIMPLE_INSTANTIATE(void, DataType::Init, std::vector <double> *aValues)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 
@@ -852,4 +951,7 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertToVector,
 SIMPLE_INSTANTIATE(void, DataType::ConvertToRMatrixDispatcher,
                    Rcpp::NumericMatrix *&aOutput)
 
-SIMPLE_INSTANTIATE(void,DataType::TransposeDispatcher)
+SIMPLE_INSTANTIATE(void, DataType::TransposeDispatcher)
+
+SIMPLE_INSTANTIATE(void, DataType::PrintRowsDispatcher, const size_t &aRowIdx,
+                   std::stringstream &aRowAsString)
