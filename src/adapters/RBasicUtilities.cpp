@@ -457,3 +457,13 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
 
 }
 
+DataType *
+RConvertToMPR(std::vector <double> &aValues, const size_t &aRow,
+              const size_t &aCol, const std::string &aPrecision){
+    if(aRow==0 || aCol==0){
+        return new DataType(aValues,aPrecision);
+    }else{
+        return new DataType(aValues,aRow,aCol,aPrecision);
+    }
+}
+

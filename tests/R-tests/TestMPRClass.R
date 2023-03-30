@@ -375,3 +375,13 @@ cat("------------------------------- RCond -------------------------------------
 #
 rcond_out <- rcond(svd_input,"O",FALSE)
 rcond_out$PrintValues()
+
+
+
+cat("--------------------------------------------------------------------------\n")
+cat("------------------  as.MPR Function ------------------------\n")
+convertedMPR <- as.MPR(1:24,precision="float")
+convertedMPR$PrintValues()
+cat("--------------------------------------------------------------------------\n")
+convertedMPR <- as.MPR(1:24,nrow=4,ncol=6,precision="float")
+convertedMPR$PrintValues()

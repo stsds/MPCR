@@ -11,14 +11,15 @@
 /** Expose C++ class to R to be able to use Wrap and As
  *  Allows C++ to Send and Receive Class object from R
  **/
-//RCPP_EXPOSED_CLASS(DataType)
-RCPP_EXPOSED_AS(DataType)
+RCPP_EXPOSED_CLASS(DataType)
 
 /** Expose C++ Object With the Given functions **/
 RCPP_MODULE(MPR) {
 
+
     /** MPR Class **/
     using namespace Rcpp;
+
 
     /** Basic Utilities **/
     class_ <DataType>("MPR")
@@ -157,6 +158,10 @@ RCPP_MODULE(MPR) {
     function("MPR.t", &RTranspose);
     function("MPR.qr.qy", &RQRDecompositionQy);
     function("MPR.qr.qty", &RQRDecompositionQty);
+
+    function("as.MPR", &RConvertToMPR,
+             List::create(_[ "data" ], _[ "nrow" ] = 0, _[ "ncol" ] = 0,
+                          _[ "precision" ]));
 
 
 }

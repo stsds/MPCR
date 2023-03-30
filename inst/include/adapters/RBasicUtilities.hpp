@@ -99,7 +99,7 @@ RIsDouble(DataType *apInput);
  *
  */
 DataType *
-RReplicate(DataType *apInput, size_t aSize,size_t aLength);
+RReplicate(DataType *apInput, size_t aSize, size_t aLength);
 
 /**
  * @brief
@@ -481,6 +481,27 @@ RScale(DataType *apInput);
 DataType *
 RScaleDispatcher(SEXP a, SEXP b, SEXP c);
 
+/**
+ * @brief
+ *  Converts R vector or Matrix to MPR object.
+ *  if aRow or aCol = zero , MPR vector will be created , else MPR Matrix.
+ *
+ * @param[in] aValues
+ * R vector/Matrix holding values to create MPR object from.
+ * @param[in] aRow
+ * Number of Rows in case of creating an MPR Matrix .
+ * @param[in] aCol
+ * Number of Cols in case of creating an MPR Matrix .
+ * @param[in] aPrecision
+ * Required Precision of the created MPR Object.
+ *
+ * @returns
+ * New MPR Object constructed from the given inputs
+ *
+ */
+DataType *
+RConvertToMPR(std::vector <double> &aValues, const size_t &aRow,
+              const size_t &aCol, const std::string &aPrecision);
 
 
 #endif //MPR_RBASICUTILITIES_HPP

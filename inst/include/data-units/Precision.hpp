@@ -183,6 +183,25 @@ namespace mpr {
         }
 
 
+        inline
+        std::string
+        GetPrecisionAsString(const Precision &aPrecision) {
+
+            if (aPrecision == INT) {
+                return "16-Bit";
+            } else if (aPrecision == FLOAT) {
+                return "32-Bit";
+            } else if (aPrecision == DOUBLE) {
+                return "64-Bit";
+            } else {
+                MPR_API_EXCEPTION(
+                    "Error in Initialization : Unknown Type Value",
+                    (int) aPrecision);
+            }
+            return "Unknown Type";
+        }
+
+
     }
 
 }
