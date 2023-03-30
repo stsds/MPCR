@@ -835,6 +835,9 @@ public:
     std::string
     PrintRow(const size_t &aRowIdx);
 
+    void
+    FillTriangle(const double &aValue, const bool &aUpperTriangle = true);
+
 
 private:
 
@@ -1005,6 +1008,12 @@ private:
     template <typename T>
     void
     PrintRowsDispatcher(const size_t &aRowIdx, std::stringstream &aRowAsString);
+
+
+    template <typename T>
+    void
+    FillTriangleDispatcher(const double &aValue,
+                           const bool &aUpperTriangle = true);
 
 
     /** Buffer Holding the Data **/

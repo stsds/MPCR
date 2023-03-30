@@ -1,5 +1,6 @@
 
 #include <data-units/MPRTile.hpp>
+#include <operations/TileLinearAlgebra.hpp>
 
 /** Expose C++ class to R to be able to use Wrap and As
  *  Allows C++ to Send and Receive Class object from R
@@ -16,7 +17,7 @@ RCPP_MODULE(MPRTile) {
     using namespace Rcpp;
     class_ <MPRTile>("MPRTile")
         .constructor <size_t, size_t, size_t, size_t,
-        std::vector <double>, std::vector <std::string> >()
+            std::vector <double>, std::vector <std::string> >()
         .property("Row", &MPRTile::GetNRow)
         .property("Col", &MPRTile::GetNCol)
         .property("Size", &MPRTile::GetMatrixSize)
@@ -25,9 +26,16 @@ RCPP_MODULE(MPRTile) {
         .property("TileSize", &MPRTile::GetTileSize)
         .method("PrintTile", &MPRTile::PrintTile)
         .method("ChangeTilePrecision", pChangePrecision)
-        .method("MPRTile.SetVal",&MPRTile::SetVal)
-        .method("MPRTile.GetVal",&MPRTile::GetVal)
-        .method("show",&MPRTile::GetType)
-        .method("MPRTile.print",&MPRTile::Print);
+        .method("MPRTile.SetVal", &MPRTile::SetVal)
+        .method("MPRTile.GetVal", &MPRTile::GetVal)
+        .method("show", &MPRTile::GetType)
+        .method("MPRTile.print", &MPRTile::Print);
+
+
+    function("MPRTile.crossprod", &mpr::operations::linear::TileGemm,
+             List::create(_[ "x" ], _[ "y" ]));
+
+    function("MPRTile.chol", &mpr::operations::linear::TileCholesky,
+             List::create(_[ "x" ], _[ "overwrite_input" ]=true));
 
 }

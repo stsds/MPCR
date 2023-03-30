@@ -41,6 +41,10 @@
   setMethod("print", c(x = "Rcpp_MPRTile"), function(x, ...) {
     x$MPRTile.print()
   })
+  #-------------------------- MPRTile Linear Algebra ------------------------------
+  setMethod("%*%", c(x = "Rcpp_MPRTile", y = "Rcpp_MPRTile"), MPRTile.crossprod)
+  setMethod("chol", c(x = "Rcpp_MPRTile"), MPRTile.chol)
+
   #--------------------------------------------------------------------------------
   setMethod("[", signature(x = "Rcpp_MPR"), function(x, i, j, drop = TRUE) {
     if (missing(j)) {
@@ -241,7 +245,9 @@
     ret <- MPR.tcrossprod(x, y)
     ret
   })
+
   setMethod("%*%", signature(x = "Rcpp_MPR", y = "Rcpp_MPR"), MPR.crossprod)
+
   setMethod("isSymmetric", signature(object = "Rcpp_MPR"), function(object, ...) {
     ret <- MPR.isSymmetric(object)
     ret
@@ -275,30 +281,43 @@
   })
   setMethod("qr.R", c(qr = "ANY"), function(qr, complete = FALSE) {
 
-    if (class(qr[[1]]) == "Rcpp_MPR") {
-      if (missing(complete)) {
-        complete = FALSE
+    if (class((qr) == "list")) {
+      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPR") {
+        if (missing(complete)) {
+          complete = FALSE
+        }
+        ret <- MPR.qr.R(qr$qr, complete)
+        ret
+      }else {
+        ret <- base::qr.R(qr, complete)
+        ret
       }
-      ret <- MPR.qr.R(qr$qr, complete)
-      ret
+
     }else {
       ret <- base::qr.R(qr, complete)
+      ret
     }
   })
 
   setMethod("qr.Q", c(qr = "ANY"), function(qr, complete = FALSE, Dvec) {
 
-    if (class(qr[[1]]) == "Rcpp_MPR") {
-      if (missing(Dvec)) {
-        Dvec = NULL
-      }
-      if (missing(complete)) {
-        complete = FALSE
-      }
-      ret <- MPR.qr.Q(qr$qr, qr$qraux, complete, Dvec)
-      ret
+    if (class(qr) == "list") {
+      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPR") {
+        if (missing(Dvec)) {
+          Dvec = NULL
+        }
+        if (missing(complete)) {
+          complete = FALSE
+        }
+        ret <- MPR.qr.Q(qr$qr, qr$qraux, complete, Dvec)
+        ret
 
-    }else {
+      }else {
+        ret <- base::qr.Q(qr, complete, Dvec)
+        ret
+      }
+    }
+    else {
       ret <- base::qr.Q(qr, complete, Dvec)
       ret
     }

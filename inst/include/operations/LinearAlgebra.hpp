@@ -29,13 +29,18 @@ namespace mpr {
              * bool to indicate whether aInputA should be Transposed or not
              * @param[in] aTransposeB
              * bool to indicate whether aInputB should be Transposed or not
+             * @param[in] aSymmetrize
+             * if true and routine syrk is used, the upper matrix will be copied
+             * to the lower matrix
              *
              */
             template <typename T>
             void
             CrossProduct(DataType &aInputA, DataType &aInputB,
                          DataType &aOutput, const bool &aTransposeA,
-                         const bool &aTransposeB);
+                         const bool &aTransposeB,
+                         const bool &aSymmetrize = true,
+                         const double &aAlpha = 1, const double &aBeta = 0);
 
             /**
              * @brief
@@ -63,7 +68,8 @@ namespace mpr {
              */
             template <typename T>
             void
-            Cholesky(DataType &aInputA, DataType &aOutput);
+            Cholesky(DataType &aInputA, DataType &aOutput,
+                     const bool &aUpperTriangle = true);
 
             /**
              * @brief
@@ -126,7 +132,7 @@ namespace mpr {
             void
             BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                       const size_t &aCol, const bool &aUpperTri,
-                      const bool &aTranspose);
+                      const bool &aTranspose,const char &aSide='L');
 
             /**
              * @brief
