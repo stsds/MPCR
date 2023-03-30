@@ -290,6 +290,7 @@
         ret
       }else {
         ret <- base::qr.R(qr, complete)
+        ret
       }
 
     }else {
