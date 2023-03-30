@@ -291,9 +291,10 @@
       }else {
         ret <- base::qr.R(qr, complete)
       }
-    }
-    else {
+
+    }else {
       ret <- base::qr.R(qr, complete)
+      ret
     }
   })
 
