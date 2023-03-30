@@ -9,7 +9,7 @@ using namespace mpr::operations;
 
 
 MPRTile *
-linear::TileCholesky(MPRTile &aMatrix) {
+linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
 
     auto tiles_per_row = aMatrix.GetTilePerRow();
     auto tiles_per_col = aMatrix.GetTilePerCol();
@@ -20,104 +20,99 @@ linear::TileCholesky(MPRTile &aMatrix) {
             -1);
     }
 
-    auto pOutput = new MPRTile(aMatrix.GetNRow(), aMatrix.GetNCol(),
-                               aMatrix.GetTileNRow(), aMatrix.GetTileNCol());
-
-    MPRTile temp_input(aMatrix);
+    MPRTile *pOutput = nullptr;
+    if (aOverWriteInput) {
+        pOutput = &aMatrix;
+    } else {
+        pOutput = new MPRTile(aMatrix);
+    }
 
     Promoter prom(2);
 
-
     for (auto k = 0; k < tiles_per_row; k++) {
 
-        auto pTemp_tile = new DataType(FLOAT);
-        auto pTile_matrix_a = temp_input.GetTile(k, k);
+        auto pTemp_tile_out = new DataType(FLOAT);
+        auto pTile_matrix_a = pOutput->GetTile(k, k);
 
         prom.ResetPromoter(2);
-        prom.Insert(*pTemp_tile);
+        prom.Insert(*pTemp_tile_out);
         prom.Insert(*pTile_matrix_a);
         prom.Promote();
 
-        SIMPLE_DISPATCH(pTemp_tile->GetPrecision(), linear::Cholesky,
-                        *pTile_matrix_a, *pTemp_tile, false)
-
+        SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(), linear::Cholesky,
+                        *pTile_matrix_a, *pTemp_tile_out, false)
 
         prom.DePromote();
-        std::cout << "tile k,k " << k << "  " << k << std::endl;
-        pOutput->InsertTile(pTemp_tile, k, k);
+
+        pOutput->InsertTile(pTemp_tile_out, k, k);
 
         for (auto i = k + 1; i < tiles_per_row; i++) {
 
-            auto pTemp_tile_two = new DataType(FLOAT);
-            pTile_matrix_a = temp_input.GetTile(i, k);
+            auto pTemp_tile_out_two = new DataType(FLOAT);
+            auto pTemp_tile_a = pOutput->GetTile(i, k);
+            auto pTemp_tile_b = pOutput->GetTile(k, k);
 
             prom.ResetPromoter(3);
-            prom.Insert(*pTemp_tile);
-            prom.Insert(*pTemp_tile_two);
-            prom.Insert(*pTile_matrix_a);
+            prom.Insert(*pTemp_tile_b);
+            prom.Insert(*pTemp_tile_out_two);
+            prom.Insert(*pTemp_tile_a);
+
             prom.Promote();
 
-            SIMPLE_DISPATCH(pTemp_tile_two->GetPrecision(), linear::BackSolve,
-                            *pTemp_tile, *pTile_matrix_a, *pTemp_tile_two,
-                            pTemp_tile->GetNCol(), false, false)
-
+            SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(),
+                            linear::BackSolve,
+                            *pTemp_tile_b, *pTemp_tile_a,
+                            *pTemp_tile_out_two,
+                            pTemp_tile_b->GetNCol(), false, true, 'R')
 
             prom.DePromote();
-            std::cout << "tile i,k " << i << "  " << k << std::endl;
-            pOutput->InsertTile(pTemp_tile_two, i, k);
+
+            pOutput->InsertTile(pTemp_tile_out_two, i, k);
 
         }
 
         for (auto j = k + 1; j < tiles_per_row; j++) {
 
             pTile_matrix_a = pOutput->GetTile(j, k);
-            auto pTemp_tile_two = new DataType(pTile_matrix_a->GetPrecision());
+            auto pTemp_tile_out_two = pOutput->GetTile(j, j);
             DataType dump(pTile_matrix_a->GetPrecision());
 
             prom.ResetPromoter(2);
             prom.Insert(*pTile_matrix_a);
-            prom.Insert(*pTemp_tile_two);
+            prom.Insert(*pTemp_tile_out_two);
             prom.Promote();
 
-            SIMPLE_DISPATCH(pTemp_tile_two->GetPrecision(),
+            SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(),
                             linear::CrossProduct, *pTile_matrix_a, dump,
-                            *pTemp_tile_two, false, false, false)
+                            *pTemp_tile_out_two, false, false, false, -1, 1)
 
             prom.DePromote();
-            std::cout << "tile j,j " << j << "  " << j << std::endl;
-            temp_input.InsertTile(pTemp_tile_two, j, j);
+            pOutput->InsertTile(pTemp_tile_out_two, j, j);
 
-            for (auto i = j + 1; j < tiles_per_row; j++) {
+            for (auto i = j + 1; i < tiles_per_row; i++) {
 
-                if (i >= tiles_per_row) {
-                    break;
-                }
-
-                auto pTemp_tile_three = new DataType(
-                    pTile_matrix_a->GetPrecision());
                 auto pTile_matrix_a_two = pOutput->GetTile(i, k);
+                auto pTemp_tile_out_temp = pOutput->GetTile(i, j);
 
                 prom.ResetPromoter(3);
-                prom.Insert(*pTemp_tile_three);
+                prom.Insert(*pTemp_tile_out_temp);
                 prom.Insert(*pTile_matrix_a_two);
                 prom.Insert(*pTile_matrix_a);
+
                 prom.Promote();
 
-                SIMPLE_DISPATCH(pTemp_tile_three->GetPrecision(),
+
+                SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(),
                                 linear::CrossProduct, *pTile_matrix_a_two,
-                                *pTile_matrix_a, *pTemp_tile_three, false,
-                                false)
+                                *pTile_matrix_a, *pTemp_tile_out_temp,
+                                false, true, true, -1, 1)
 
                 prom.DePromote();
-                std::cout << "tile i,j " << i << "  " << j << std::endl;
-                temp_input.InsertTile(pTemp_tile_three, i, j);
-
+                pOutput->InsertTile(pTemp_tile_out_temp, i, j);
             }
-
         }
-
     }
-    pOutput->FillWithZeros();
+    pOutput->FillSquareTriangle(0, true);
 
     return pOutput;
 }
@@ -131,6 +126,7 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB) {
     auto tile_per_row_b = aInputB.GetTilePerRow();
     auto tile_per_col_b = aInputB.GetTilePerCol();
 
+
     if (tile_per_col_a != tile_per_row_b) {
         MPR_API_EXCEPTION(
             "Cannot perform Matrix multiplication, Tiles Per Col A != Tiles Per Row B",
@@ -142,70 +138,34 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB) {
     auto pOutput = new MPRTile(aInputA.GetNRow(), aInputB.GetNCol(),
                                internal.GetNRow(), internal.GetNCol());
 
-    Promoter prom(4);
-
 
     for (auto i = 0; i < tile_per_row_a; i++) {
         for (auto j = 0; j < tile_per_col_b; j++) {
+
             auto pTile_c = new DataType(FLOAT);
+            Promoter prom(3);
+
             for (auto k = 0; k < tile_per_col_a; k++) {
-                auto pTile_temp = new DataType(FLOAT);
-                auto pTile_a = aInputA.GetTile(i, k);
-                auto pTile_b = aInputB.GetTile(k, j);
-                prom.Insert(*pTile_temp);
+                auto *pTile_a = aInputA.GetTile(i, k);
+                auto *pTile_b = aInputB.GetTile(k, j);
+
                 prom.Insert(*pTile_a);
                 prom.Insert(*pTile_b);
                 prom.Insert(*pTile_c);
                 prom.Promote();
 
                 SIMPLE_DISPATCH(pTile_c->GetPrecision(), linear::CrossProduct,
-                                *pTile_a, *pTile_b, *pTile_temp, false, false)
-
-
-                SIMPLE_DISPATCH(pTile_c->GetPrecision(), linear::AddTiles,
-                                *pTile_temp, *pTile_c)
+                                *pTile_a, *pTile_b, *pTile_c, false, false,
+                                true, 1, 1)
 
                 prom.DePromote();
-                delete pTile_temp;
-                prom.ResetPromoter(4);
+                prom.ResetPromoter(3);
 
             }
+
             pOutput->InsertTile(pTile_c, i, j);
         }
     }
 
     return pOutput;
 }
-
-
-template <typename T>
-void
-linear::AddTiles(DataType &aInputA, DataType &aInputB) {
-
-    auto size_a = aInputA.GetSize();
-
-    if (aInputB.GetSize() == 0) {
-        aInputB.SetSize(size_a);
-        auto data = new T[size_a];
-        memset((void *) data, 0, size_a * sizeof(T));
-        aInputB.SetData((char *) data);
-        aInputB.SetDimensions(aInputA);
-    }
-
-    auto size_b = aInputB.GetSize();
-    if (size_a != size_b) {
-        MPR_API_EXCEPTION("Cannot add two tiles, not the same size", -1);
-    }
-
-    auto data_a = (T *) aInputA.GetData();
-    auto data_b = (T *) aInputB.GetData();
-
-    for (auto i = 0; i < size_a; i++) {
-        data_b[ i ] += data_a[ i ];
-    }
-}
-
-
-FLOATING_POINT_INST(void, linear::AddTiles, DataType &aInputA,
-                    DataType &aInputB)
-

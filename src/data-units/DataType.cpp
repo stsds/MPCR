@@ -156,9 +156,12 @@ DataType::PrintRowsDispatcher(const size_t &aRowIdx,
     auto col = GetNCol();
     auto row = GetNRow();
     size_t idx = 0;
-    for (auto i = 0; i < col; i++) {
+    auto temp_col = col > 16 ? 16 : col;
+
+    for (auto i = 0; i < temp_col; i++) {
         idx = ( i * row ) + aRowIdx;
-        aRowAsString << pData[ idx ] << "\t";
+        aRowAsString << std::setfill(' ') <<  std::setw(14)
+                     << std::setprecision(7) << pData[ idx ] << "\t";
     }
 }
 
@@ -169,6 +172,7 @@ DataType::PrintVal() {
     std::stringstream ss;
     auto stream_size = 10000;
     T *temp = (T *) this->mpData;
+
     if (this->mMatrix) {
         auto rows = this->mpDimensions->GetNRow();
         auto cols = this->mpDimensions->GetNCol();
@@ -185,9 +189,10 @@ DataType::PrintVal() {
             ss << " [\t";
             for (auto j = 0; j < print_col; j++) {
                 start_idx = ( j * rows ) + i;
-                ss << temp[ start_idx ] << "\t";
+                ss << std::setfill(' ') <<   std::setw(14) << std::setprecision(7)
+                   << temp[ start_idx ] << "\t";
             }
-            ss << "]" << std::endl;
+            ss << std::setfill(' ') <<   std::setw(14) << "]" << std::endl;
             if (ss.gcount() > stream_size) {
 #ifdef RUNNING_CPP
                 std::cout << std::string(ss.str());
@@ -199,8 +204,9 @@ DataType::PrintVal() {
                 ss.clear();
             }
         }
-        if (print_rows * print_col != this->mSize) {
-            ss << "Note Only Matrix with size 100*13 is printed" << std::endl;
+        if (print_rows * print_col!= this->mSize) {
+            ss << "Note Only Matrix with size 100*13 is printed" <<
+               std::endl;
         }
 #ifdef RUNNING_CPP
         std::cout << std::string(ss.str());
@@ -211,11 +217,14 @@ DataType::PrintVal() {
 #endif
 
     } else {
-        ss << "Vector Size : " << mSize << std::endl;
-        ss << "---------------------" << std::endl;
+        ss << "Vector Size : " << mSize <<
+           std::endl;
+        ss << "---------------------" <<
+           std::endl;
         ss << " [\t";
         for (auto i = 0; i < mSize; i++) {
-            ss << temp[ i ] << "\t";
+            ss << std::setfill(' ') <<   std::setw(14) << std::setprecision(7)
+               << temp[ i ] << "\t";
             if (i % 100 == 0) {
                 if (ss.gcount() > stream_size) {
 #ifdef RUNNING_CPP
@@ -229,7 +238,7 @@ DataType::PrintVal() {
                 }
             }
         }
-        ss << "]" << std::endl;
+        ss << std::setfill(' ') <<   std::setw(14) << "]" << std::endl;
 #ifdef RUNNING_CPP
         std::cout << std::string(ss.str());
 #endif
@@ -881,6 +890,39 @@ void DataType::SetValues(std::vector <double> &aValues) {
     SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
 }
 
+
+void DataType::FillTriangle(const double &aValue, const bool &aUpperTriangle) {
+    SIMPLE_DISPATCH(this->mPrecision, DataType::FillTriangleDispatcher, aValue,
+                    aUpperTriangle)
+}
+
+
+template <typename T>
+void DataType::FillTriangleDispatcher(const double &aValue,
+                                      const bool &aUpperTriangle) {
+
+    auto row = this->GetNRow();
+    auto col = this->GetNCol();
+    auto pData = (T *) this->mpData;
+
+    if (!aUpperTriangle) {
+        for (auto j = 0; j < col; j++) {
+            for (auto i = j + 1; i < row; i++)
+                pData[ i + row * j ] = aValue;
+        }
+    } else {
+        for (auto i = 0; i < row; i++) {
+            for (auto j = i + 1; j < col; j++) {
+                pData[ i + row * j ] = aValue;
+            }
+        }
+    }
+
+}
+
+
+SIMPLE_INSTANTIATE(void, DataType::FillTriangleDispatcher, const double &aValue,
+                   const bool &aUpperTriangle)
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,
                    Dimensions *&apDimensions)

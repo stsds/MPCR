@@ -282,7 +282,7 @@ MPRTile::Print() {
                 }
                 ss << mTiles[ tile_idx ]->PrintRow(j);
             }
-            ss << "]" << std::endl;
+            ss << std::setfill(' ') << std::setw(14) << "]" << std::endl;
             if (ss.gcount() > stream_size) {
 #ifdef RUNNING_CPP
                 std::cout << std::string(ss.str());
@@ -354,7 +354,6 @@ MPRTile::GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
 void
 MPRTile::InsertTile(DataType *apTile, const size_t &aTileRowIdx,
                     const size_t &aTileColIdx) {
-    std::cout << "i: " << aTileRowIdx << "    j: " << aTileColIdx << std::endl;
     auto idx_1D = GetIndexColumnMajor(std::make_pair(aTileRowIdx, aTileColIdx),
                                       this->mpTilesDimensions->GetNRow());
     if (idx_1D >= mTiles.size()) {
@@ -447,6 +446,53 @@ MPRTile(const MPRTile &aMPRTile) {
         this->mTiles[ i ] = temp_tile;
         i++;
     }
+}
+
+
+void
+MPRTile::FillSquareTriangle(const double &aValue, const bool &aUpperTriangle,
+                            const Precision &aPrecision) {
+    auto row = mpTileInnerDimensions->GetNRow();
+    auto col = mpTileInnerDimensions->GetNCol();
+    auto size = row * col;
+
+    auto rows_tile = mpTilesDimensions->GetNRow();
+    auto cols_tile = mpTilesDimensions->GetNCol();
+
+    std::vector <double> values(size, aValue);
+
+    if (aUpperTriangle) {
+
+        for (auto i = 0; i < rows_tile; i++) {
+
+            auto temp_tile = GetTile(i, i);
+            temp_tile->FillTriangle(aValue, true);
+
+            for (auto j = i + 1; j < cols_tile; j++) {
+                auto temp_new_tile = new DataType(values, aPrecision);
+                temp_new_tile->SetDimensions(row, col);
+                InsertTile(temp_new_tile, i, j);
+            }
+
+        }
+
+
+    } else {
+
+        for (auto i = 0; i < cols_tile; i++) {
+
+            auto temp_tile = GetTile(i, i);
+            temp_tile->FillTriangle(aValue, false);
+
+            for (auto j = i + 1; j < rows_tile; j++) {
+                auto temp_new_tile = new DataType(values, aPrecision);
+                temp_new_tile->SetDimensions(row, col);
+                InsertTile(temp_new_tile, j, i);
+            }
+
+        }
+    }
+
 }
 
 

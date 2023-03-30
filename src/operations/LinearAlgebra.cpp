@@ -13,7 +13,8 @@ template <typename T>
 void
 linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                      const bool &aTransposeA, const bool &aTransposeB,
-                     const bool &aSymmetrize) {
+                     const bool &aSymmetrize, const double &aAlpha,
+                     const double &aBeta) {
 
     auto pData_a = (T *) aInputA.GetData();
     auto pData_b = (T *) aInputB.GetData();
@@ -55,22 +56,33 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         MPR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
     }
 
-    auto output_size = row_a * col_b;
-    aOutput.ClearUp();
-    aOutput.SetSize(output_size);
-    aOutput.SetDimensions(row_a, col_b);
+    T *pData_out = nullptr;
 
-    auto pData_out = new T[output_size];
-    memset(pData_out, 0, sizeof(T) * output_size);
+    if (aOutput.GetSize() != 0) {
+        pData_out = (T *) aOutput.GetData();
+
+        if (aOutput.GetNRow() != row_a || aOutput.GetNCol() != col_b) {
+            MPR_API_EXCEPTION("Wrong Output Matrix Dimensions", -1);
+        }
+
+    } else {
+
+        auto output_size = row_a * col_b;
+        pData_out = new T[output_size];
+        memset(pData_out, 0, sizeof(T) * output_size);
+        aOutput.ClearUp();
+        aOutput.SetSize(output_size);
+        aOutput.SetDimensions(row_a, col_b);
+    }
+
 
     if (!is_one_input) {
         blas::gemm(LAYOUT, transpose_a, transpose_b,
-                   row_a, col_b, col_a, 1, pData_a, lda, pData_b, ldb,
-                   0,
-                   pData_out, row_a);
+                   row_a, col_b, col_a, aAlpha, pData_a, lda, pData_b, ldb,
+                   aBeta, pData_out, row_a);
     } else {
         blas::syrk(LAYOUT, blas::Uplo::Lower, transpose_a, row_a, col_a,
-                   1, pData_a, lda, 0, pData_out, row_a);
+                   aAlpha, pData_a, lda, aBeta, pData_out, row_a);
     }
 
     aOutput.SetData((char *) pData_out);
@@ -144,22 +156,10 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
     }
 
 
-    if (aUpperTriangle) {
-        for (auto j = 0; j < row; j++) {
-            for (auto i = j + 1; i < row; i++)
-                pOutput[ i + row * j ] = 0.0;
-        }
-    } else {
-        for (auto i = 0; i < row; i++) {
-            for (auto j = i + 1; j < row; j++) {
-                pOutput[ i + row * j ] = 0.0;
-            }
-        }
-    }
-
     aOutput.ClearUp();
     aOutput.SetDimensions(aInputA);
     aOutput.SetData((char *) pOutput);
+    aOutput.FillTriangle(0, !aUpperTriangle);
 
 }
 
@@ -284,7 +284,7 @@ template <typename T>
 void
 linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const size_t &aCol, const bool &aUpperTri,
-                  const bool &aTranspose) {
+                  const bool &aTranspose, const char &aSide) {
     if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
         MPR_API_EXCEPTION(
             "Inputs Must Be Matrices", -1);
@@ -294,6 +294,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto col_b = aInputB.GetNCol();
     auto which_triangle = blas::Uplo::Lower;
     auto transpose = blas::Op::NoTrans;
+    auto side = aSide == 'L' ? blas::Side::Left : blas::Side::Right;
 
     if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
         MPR_API_EXCEPTION(
@@ -320,8 +321,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                ( sizeof(T) * aCol ));
     }
 
-
-    blas::trsm(LAYOUT, blas::Side::Left, which_triangle, transpose,
+    blas::trsm(LAYOUT, side, which_triangle, transpose,
                blas::Diag::NonUnit, row_b, col_b, 1, pData, row_a, pData_in_out,
                row_b);
 
@@ -725,7 +725,8 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
 FLOATING_POINT_INST(void, linear::CrossProduct, DataType &aInputA,
                     DataType &aInputB, DataType &aOutput,
                     const bool &aTransposeA, const bool &aTransposeB,
-                    const bool &aSymmetrize)
+                    const bool &aSymmetrize, const double &aAlpha,
+                    const double &aBeta)
 
 FLOATING_POINT_INST(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
 
@@ -740,7 +741,8 @@ FLOATING_POINT_INST(void, linear::Solve, DataType &aInputA, DataType &aInputB,
 
 FLOATING_POINT_INST(void, linear::BackSolve, DataType &aInputA,
                     DataType &aInputB, DataType &aOutput, const size_t &aCol,
-                    const bool &aUpperTri, const bool &aTranspose)
+                    const bool &aUpperTri, const bool &aTranspose,
+                    const char &aSide)
 
 FLOATING_POINT_INST(void, linear::Eigen, DataType &aInput,
                     DataType &aOutputValues, DataType *apOutputVectors)

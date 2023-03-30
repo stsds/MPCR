@@ -39,7 +39,8 @@ namespace mpr {
             CrossProduct(DataType &aInputA, DataType &aInputB,
                          DataType &aOutput, const bool &aTransposeA,
                          const bool &aTransposeB,
-                         const bool &aSymmetrize = true);
+                         const bool &aSymmetrize = true,
+                         const double &aAlpha = 1, const double &aBeta = 0);
 
             /**
              * @brief
@@ -131,7 +132,7 @@ namespace mpr {
             void
             BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                       const size_t &aCol, const bool &aUpperTri,
-                      const bool &aTranspose);
+                      const bool &aTranspose,const char &aSide='L');
 
             /**
              * @brief

@@ -415,6 +415,10 @@ public:
     void
     FillWithZeros();
 
+    void
+    FillSquareTriangle(const double &aValue, const bool &aUpperTriangle = true,
+                 const mpr::precision::Precision &aPrecision = mpr::precision::FLOAT);
+
 private:
 
     /**

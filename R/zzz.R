@@ -41,6 +41,10 @@
   setMethod("print", c(x = "Rcpp_MPRTile"), function(x, ...) {
     x$MPRTile.print()
   })
+  #-------------------------- MPRTile Linear Algebra ------------------------------
+  setMethod("%*%", c(x = "Rcpp_MPRTile", y = "Rcpp_MPRTile"), MPRTile.crossprod)
+  setMethod("chol", c(x = "Rcpp_MPRTile"), MPRTile.chol)
+
   #--------------------------------------------------------------------------------
   setMethod("[", signature(x = "Rcpp_MPR"), function(x, i, j, drop = TRUE) {
     if (missing(j)) {
@@ -241,7 +245,9 @@
     ret <- MPR.tcrossprod(x, y)
     ret
   })
+
   setMethod("%*%", signature(x = "Rcpp_MPR", y = "Rcpp_MPR"), MPR.crossprod)
+
   setMethod("isSymmetric", signature(object = "Rcpp_MPR"), function(object, ...) {
     ret <- MPR.isSymmetric(object)
     ret
