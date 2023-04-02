@@ -415,9 +415,25 @@ public:
     void
     FillWithZeros();
 
+    /**
+     * @brief
+     * Fills Upper or Lower Triangle with a given value and precision
+     * New Tiles will be created ,replacing the old tiles
+     * Note:
+     * the Input must be a square Matrix
+     *
+     * @param[in] aValue
+     * value to use for filling the triangle
+     * @param[in] aUpperTriangle
+     * bool to indicate whether to fill the upper or the lower triangle
+     * if true, the upper triangle will be accessed ;otherwise, the lower
+     * @param[in] aPrecision
+     * Default precision to use for filling the triangle
+     *
+     */
     void
     FillSquareTriangle(const double &aValue, const bool &aUpperTriangle = true,
-                 const mpr::precision::Precision &aPrecision = mpr::precision::FLOAT);
+                       const mpr::precision::Precision &aPrecision = mpr::precision::FLOAT);
 
 private:
 

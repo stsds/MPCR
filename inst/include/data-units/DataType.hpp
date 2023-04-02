@@ -835,6 +835,19 @@ public:
     std::string
     PrintRow(const size_t &aRowIdx);
 
+    /**
+     * @brief
+     * Fills Upper or Lower Triangle with a given value
+     * Note:
+     * the Input must be a square Matrix
+     *
+     * @param[in] aValue
+     * value to use for filling the triangle
+     * @param[in] aUpperTriangle
+     * bool to indicate whether to fill the upper or the lower triangle
+     * if true, the upper triangle will be accessed ;otherwise, the lower
+     *
+     */
     void
     FillTriangle(const double &aValue, const bool &aUpperTriangle = true);
 
@@ -1010,6 +1023,19 @@ private:
     PrintRowsDispatcher(const size_t &aRowIdx, std::stringstream &aRowAsString);
 
 
+    /**
+     * @brief
+     * Dispatcher for Filling the Upper or Lower Triangle with a given value
+     * Note:
+     * the Input must be a square Matrix
+     *
+     * @param[in] aValue
+     * value to use for filling the triangle
+     * @param[in] aUpperTriangle
+     * bool to indicate whether to fill the upper or the lower triangle
+     * if true, the upper triangle will be accessed ;otherwise, the lower
+     *
+     */
     template <typename T>
     void
     FillTriangleDispatcher(const double &aValue,
