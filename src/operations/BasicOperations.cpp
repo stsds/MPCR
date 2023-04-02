@@ -59,7 +59,7 @@ basic::GetType(DataType &aVec, std::string &aType) {
     ss << "MPR Object : ";
 
     precision::Precision temp = aVec.GetPrecision();
-    if (temp == precision::INT) {
+    if (temp == precision::HALF) {
         ss << "16-Bit Precision";
     } else if (temp == precision::FLOAT) {
         ss << "32-Bit Precision";
@@ -280,7 +280,7 @@ basic::IsFloat(DataType &aInput) {
 
 bool
 basic::IsSFloat(DataType &aInput) {
-    return ( aInput.GetPrecision() == INT );
+    return ( aInput.GetPrecision() == HALF );
 }
 
 

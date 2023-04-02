@@ -255,7 +255,7 @@ RConcatenate(Rcpp::ListOf <SEXP> aList) {
     mpr_objects.resize(mpr_list_size);
     size_t i = 0;
     size_t size_out = 0;
-    auto precision_out = INT;
+    auto precision_out = HALF;
 
     for (auto itr = aList.begin(); itr < aList.end(); ++itr) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -276,14 +276,14 @@ RConcatenate(Rcpp::ListOf <SEXP> aList) {
     }
     /** Add Dummy Object **/
     if (list_size != mpr_list_size) {
-        DataType dummy(0, INT);
+        DataType dummy(0, HALF);
         mpr_objects[ i ] = &dummy;
     }
 
     auto pOutput = new DataType(size_out, precision_out);
-    auto operation_precision = INT;
-    auto precision_one = INT;
-    auto precision_two = INT;
+    auto operation_precision = HALF;
+    auto precision_one = HALF;
+    auto precision_two = HALF;
     size_t offset = 0;
 
     for (auto j = 0; j < mpr_list_size; j += 2) {

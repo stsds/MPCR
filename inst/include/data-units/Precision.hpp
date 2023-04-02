@@ -2,7 +2,7 @@
 #ifndef MPR_PRECISION_HPP
 #define MPR_PRECISION_HPP
 
-
+#include <utilities/FloatingPointHandler.hpp>
 #include <utilities/MPRErrorHandler.hpp>
 
 
@@ -14,7 +14,7 @@ namespace mpr {
          **/
         enum Precision : int {
             /** 16-Bit Precision (Will be replaced with sfloat later on) **/
-            INT = 1,
+            HALF = 1,
             /** 32-Bit Precision **/
             FLOAT = 2,
             /** 64-Bit Precision **/
@@ -137,6 +137,12 @@ namespace mpr {
         Precision
         GetInputPrecision(const int &aPrecision) {
             if (aPrecision > 0 && aPrecision < 4) {
+                if (aPrecision == 0 && !USING_HALF) {
+                    MPR_API_WARN(
+                        "Your Compiler doesn't support 16-Bit ,32-Bit will be used",
+                        1);
+                    return FLOAT;
+                }
                 return static_cast<Precision>(aPrecision);
             } else {
                 MPR_API_EXCEPTION(
@@ -170,8 +176,15 @@ namespace mpr {
                 return FLOAT;
             } else if (aPrecision == "double") {
                 return DOUBLE;
-            } else if (aPrecision == "int") {
-                return INT;
+            } else if (aPrecision == "half") {
+                if constexpr(!USING_HALF) {
+                    MPR_API_WARN(
+                        "Your Compiler doesn't support 16-Bit ,32-Bit will be used",
+                        1);
+                    return FLOAT;
+                } else {
+                    return HALF;
+                }
             } else {
                 auto msg = "Error in Initialization : Unknown Type Value" +
                            std::string(aPrecision);
@@ -187,7 +200,7 @@ namespace mpr {
         std::string
         GetPrecisionAsString(const Precision &aPrecision) {
 
-            if (aPrecision == INT) {
+            if (aPrecision == HALF) {
                 return "16-Bit";
             } else if (aPrecision == FLOAT) {
                 return "32-Bit";

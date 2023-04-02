@@ -10,7 +10,7 @@ using namespace Rcpp;
 
 /**
  * @brief
- * Change Vector of INT Values to R-Logical Matrix
+ * Change Vector of HALF Values to R-Logical Matrix
  *  1/TRUE  0/FALSE  INT_MIN=NA
  *
  * @param[in,out] aInput
@@ -24,7 +24,7 @@ ToLogicalMatrix(std::vector <int> &aInput, Dimensions *apDim);
 
 /**
  * @brief
- * Change Vector of INT Values to R-Logical Vector
+ * Change Vector of HALF Values to R-Logical Vector
  *  1/TRUE  0/FALSE  INT_MIN=NA
  *
  * @param[in,out] aInput

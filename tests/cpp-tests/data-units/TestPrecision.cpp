@@ -18,7 +18,7 @@ TEST_PRECISION() {
 
     /** Testing Input Generator**/
     Precision temp = GetInputPrecision(1);
-    REQUIRE(temp == INT);
+    REQUIRE(temp == HALF);
 
     temp = GetInputPrecision(2);
     REQUIRE(temp == FLOAT);
@@ -26,8 +26,12 @@ TEST_PRECISION() {
     temp = GetInputPrecision(3);
     REQUIRE(temp == DOUBLE);
 
-    temp = GetInputPrecision("int");
-    REQUIRE(temp == INT);
+    temp = GetInputPrecision("half");
+    if (USING_HALF) {
+        REQUIRE(temp == HALF);
+    } else {
+        REQUIRE(temp == FLOAT);
+    }
 
     temp = GetInputPrecision("FLOAT");
     REQUIRE(temp == FLOAT);
@@ -35,8 +39,8 @@ TEST_PRECISION() {
     temp = GetInputPrecision("doUble");
     REQUIRE(temp == DOUBLE);
 
-    temp = GetInputPrecision(INT);
-    REQUIRE(temp == INT);
+    temp = GetInputPrecision(HALF);
+    REQUIRE(temp == HALF);
 
     temp = GetInputPrecision(FLOAT);
     REQUIRE(temp == FLOAT);
@@ -45,10 +49,10 @@ TEST_PRECISION() {
     REQUIRE(temp == DOUBLE);
 
     /** Testing Output and Operation Generator**/
-    Precision a = INT;
-    Precision b = INT;
+    Precision a = HALF;
+    Precision b = HALF;
     temp = GetOutputPrecision(a, b);
-    REQUIRE(temp == INT);
+    REQUIRE(temp == HALF);
     temp = GetOperationPrecision(a, b, temp);
     REQUIRE(temp == SSS);
 
@@ -69,7 +73,7 @@ TEST_PRECISION() {
     /****************************************************/
 
     a = FLOAT;
-    b = INT;
+    b = HALF;
     temp = GetOutputPrecision(a, b);
     REQUIRE(temp == FLOAT);
     temp = GetOperationPrecision(a, b, temp);
@@ -81,7 +85,7 @@ TEST_PRECISION() {
 
     /****************************************************/
 
-    a = INT;
+    a = HALF;
     b = DOUBLE;
     temp = GetOutputPrecision(a, b);
     REQUIRE(temp == DOUBLE);

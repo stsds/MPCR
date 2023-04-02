@@ -35,7 +35,7 @@ using namespace mpr::precision;
 /** Dispatcher for one template arguments **/
 #define SIMPLE_DISPATCH(PRECISION, __FUN__, ...)                               \
           switch(PRECISION){                                                   \
-              case INT: {                                                      \
+              case HALF: {                                                      \
               __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;            \
               break;                                                           \
               }                                                                \
@@ -57,19 +57,19 @@ using namespace mpr::precision;
 #define DISPATCHER(PRECISION, __FUN__, ...)                                    \
           switch(PRECISION){                                                   \
                case FSF: {                                                     \
-               __FUN__<float,int,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));  \
+               __FUN__<float,float16,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));  \
                break;                                                          \
                }                                                               \
                case SFF: {                                                     \
-               __FUN__<int,float,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+               __FUN__<float16,float,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
                break;                                                          \
                }                                                               \
                case DSD: {                                                     \
-               __FUN__<double,int,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
+               __FUN__<double,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
                }                                                               \
                case SDD: {                                                     \
-               __FUN__<int,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
+               __FUN__<float16,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
                }                                                               \
                case DFD: {                                                     \
@@ -81,7 +81,7 @@ using namespace mpr::precision;
                break;                                                          \
                }                                                               \
                case SSS: {                                                     \
-               __FUN__<int,int,int>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));      \
+               __FUN__<float16,float16,float16>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));      \
                break;                                                          \
                }                                                               \
                case FFF: {                                                     \
@@ -93,11 +93,11 @@ using namespace mpr::precision;
                break;                                                          \
                }                                                               \
                case SSD: {                                                     \
-               __FUN__<int,int,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));   \
+               __FUN__<float16,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));   \
                break;                                                          \
                }                                                               \
                case SSF: {                                                     \
-               __FUN__<int,int,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));    \
+               __FUN__<float16,float16,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));    \
                break;                                                          \
                }                                                               \
                case FFD: {                                                     \
@@ -105,11 +105,11 @@ using namespace mpr::precision;
                break;                                                          \
                }                                                               \
                case SFD: {                                                     \
-               __FUN__<int,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
+               __FUN__<float16,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
                break;                                                          \
                }                                                               \
                case FSD: {                                                     \
-               __FUN__<float,int,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
+               __FUN__<float,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
                break;                                                          \
                }                                                               \
                default : {                                                     \
@@ -122,7 +122,7 @@ using namespace mpr::precision;
  * (One template argument)
  **/
 #define SIMPLE_INSTANTIATE(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<int> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
@@ -130,7 +130,7 @@ using namespace mpr::precision;
  *  type (One template argument)
  **/
 #define SIMPLE_INSTANTIATE_WITH_RETURN(__FUN__, ...) \
-        template int __FUN__<int> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template float16 __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template float __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template double __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
@@ -138,20 +138,20 @@ using namespace mpr::precision;
  * (Three template argument)
  **/
 #define INSTANTIATE(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<float,int,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<int,float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<double,int,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<int,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<double,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<double,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<float,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<int,int,int> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,float16,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float,float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<double,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<int,int,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<int,int,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<float16,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<float,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<int,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float,int,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<float16,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
 
 
 #define FLOATING_POINT_INST(RETURNTYPE, __FUN__, ...) \

@@ -42,14 +42,15 @@ paste("Print all Elements in The Vector")
 x$PrintValues()
 
 paste("---------------------------------------------------------------")
-paste("Create a Vector of 10 element as INT")
-y <- new(MPR, 10, "int")
+paste("Create a Vector of 10 element as HALF")
+paste("If Compiler doesn't support 16-bit floating point ,32-bit will be created and a warning msg will appear")
+y <- new(MPR, 10, "half")
 
 paste("Element at Index 5")
 y[[5]]
 paste("Set Element at Index 5 to 10.55")
 y[[5]] <- 10.55
-paste("Element at Index 5 Should be 10 Because it's an int")
+paste("Element at Index 5 Should be 10.55 if your compiler doesn;t support 16 bit")
 y[[5]]
 
 paste("Vector Size")
@@ -246,7 +247,7 @@ z$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("Testing IS Na Operations")
-z<- is.na(z)
+z <- is.na(z)
 z
 
 paste("---------------------------------------------------------------")
@@ -258,10 +259,10 @@ z$PrintValues()
 paste("---------------------------------------------------------------")
 paste("Testing Diagonal on non Sqaure Matrix")
 paste("Matrix")
-x$ToMatrix(5,10)
+x$ToMatrix(5, 10)
 x$PrintValues()
 paste("Diagonal")
-z<- diag(x)
+z <- diag(x)
 z$PrintValues()
 
 
@@ -269,13 +270,13 @@ paste("---------------------------------------------------------------")
 paste("Testing Replicate")
 paste("Replicate (50, count=2) output =100")
 paste("---------------------------------------------------------------")
-x <- new(MPR,50,"float")
-z <- rep(x,count=2)
+x <- new(MPR, 50, "float")
+z <- rep(x, count = 2)
 z$PrintValues()
 
 paste("Replicate (50, len=10) output =10")
 paste("---------------------------------------------------------------")
-z <- rep(x,len=10)
+z <- rep(x, len = 10)
 z$PrintValues()
 
 paste("---------------------------------------------- Linear Algebra --------------------------------------------------------")
@@ -284,11 +285,10 @@ values <- c(3.12393, -1.16854, -0.304408, -2.15901,
             1.04094, 4.43374, 1.21072, -2.15901, 1.35925, 1.21072, 5.57265)
 
 
-eigen_temp<- c(1, -1, -1, 1)
+eigen_temp <- c(1, -1, -1, 1)
 x <- new(MPR, 16, "float")
 y <- new(MPR, 16, "float")
-z <- new(MPR,4,"float")
-
+z <- new(MPR, 4, "float")
 
 
 for (val in 1:16) {
@@ -300,14 +300,14 @@ for (val in 1:16) {
 for (val in 1:4) {
   z[[val]] <- eigen_temp[[val]]
 }
-x$ToMatrix(4,4)
-y$ToMatrix(4,4)
+x$ToMatrix(4, 4)
+y$ToMatrix(4, 4)
 paste("X and Y values")
 x$PrintValues()
 y$PrintValues()
 
 cat("----------------------- CrossProduct C=XY --------------------\n")
-crossproduct <- crossprod(x,y)
+crossproduct <- crossprod(x, y)
 crossproduct$PrintValues()
 cat("----------------------- CrossProduct C=t(X)X --------------------\n")
 crossproduct <- crossprod(x)
@@ -316,30 +316,30 @@ cat("----------------------- %*% C=XY --------------------\n")
 crossproduct <- x %*% y
 crossproduct$PrintValues()
 cat("----------------------- Eigen --------------------\n")
-z$ToMatrix(2,2)
+z$ToMatrix(2, 2)
 z$PrintValues()
-eigen_result<-eigen(z,FALSE)
+eigen_result <- eigen(z, FALSE)
 eigen_result
-valss<-eigen_result[[1]]
-vecc<-eigen_result[[2]]
+valss <- eigen_result[[1]]
+vecc <- eigen_result[[2]]
 
 valss$PrintValues()
 vecc$PrintValues()
 cat("----------------------- QR Decomposition --------------------\n")
 qr_vals <- c(1, 2, 3, 2, 4, 6, 3, 3, 3)
-qr_input <-new(MPR,9,"float")
-qr_input$ToMatrix(3,3)
+qr_input <- new(MPR, 9, "float")
+qr_input$ToMatrix(3, 3)
 
 
 for (val in 1:9) {
-  qr_input[[val]] <-  qr_vals[[val]]
+  qr_input[[val]] <- qr_vals[[val]]
 }
 cat("----------------------- QR Decomposition Input--------------------\n")
 qr_input
 qr_input$PrintValues()
 
 cat("----------------------- QR Decomposition Output--------------------\n")
-qr_out <-qr(qr_input)
+qr_out <- qr(qr_input)
 qr_out
 
 
@@ -355,8 +355,8 @@ svd_vals <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 1, 1, 1)
 
-svd_input <-new(MPR,9*4,"float")
-svd_input$ToMatrix(9,4)
+svd_input <- new(MPR, 9 * 4, "float")
+svd_input$ToMatrix(9, 4)
 
 for (val in 1:36) {
   svd_input[[val]] <- svd_vals[[val]]
@@ -373,17 +373,16 @@ svd_output[[3]]$PrintValues()
 
 cat("------------------------------- RCond ------------------------------------------\n")
 #
-rcond_out <- rcond(svd_input,"O",FALSE)
+rcond_out <- rcond(svd_input, "O", FALSE)
 rcond_out$PrintValues()
-
 
 
 cat("--------------------------------------------------------------------------\n")
 cat("------------------  as.MPR Function ------------------------\n")
-convertedMPR <- as.MPR(1:24,precision="float")
+convertedMPR <- as.MPR(1:24, precision = "float")
 convertedMPR$PrintValues()
 cat("--------------------------------------------------------------------------\n")
-convertedMPR <- as.MPR(1:24,nrow=4,ncol=6,precision="float")
+convertedMPR <- as.MPR(1:24, nrow = 4, ncol = 6, precision = "float")
 convertedMPR$PrintValues()
 
 
