@@ -110,6 +110,25 @@ DataType::DataType(const DataType &aDataType) {
 }
 
 
+DataType::DataType(DataType &aDataType,
+                   const mpr::precision::Precision &aPrecision) {
+    this->SetMagicNumber();
+    this->mpData = nullptr;
+    this->mpDimensions = nullptr;
+    this->mSize = aDataType.mSize;
+    this->mPrecision = aPrecision;
+    this->mMatrix = aDataType.mMatrix;
+    if (this->mMatrix) {
+        this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
+    }
+    if (this->mSize != 0) {
+        auto precision = GetOperationPrecision(HALF, aDataType.mPrecision,
+                                               this->mPrecision);
+        DISPATCHER(precision, DataType::GetCopyOfData, aDataType, *this)
+    }
+}
+
+
 DataType::~DataType() {
     delete[] mpData;
     delete mpDimensions;
@@ -436,6 +455,19 @@ DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
 
     memcpy((char *) pOutput, (char *) data, size * sizeof(T));
     apDest = (char *) pOutput;
+}
+
+
+template <typename T, typename X, typename Y>
+void
+DataType::GetCopyOfData(DataType &aSrc, DataType &aDestination) {
+    X *data = (X *) aSrc.GetData();
+    auto size = aDestination.mSize;
+    Y *pOutput = new Y[size];
+
+    std::copy(data, data + size, pOutput);
+    aDestination.SetData((char *) pOutput);
+
 }
 
 
@@ -960,3 +992,6 @@ SIMPLE_INSTANTIATE(void, DataType::TransposeDispatcher)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintRowsDispatcher, const size_t &aRowIdx,
                    std::stringstream &aRowAsString)
+
+INSTANTIATE(void, DataType::GetCopyOfData, DataType &aSrc,
+            DataType &aDestination)
