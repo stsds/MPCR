@@ -229,7 +229,7 @@ TEST_BASIC_OPERATION() {
         cout << "Testing Type Checks ..." << endl;
         DataType a(FLOAT);
         DataType b(DOUBLE);
-        DataType c(INT);
+        DataType c(HALF);
 
         REQUIRE(basic::IsSFloat(a) == false);
         REQUIRE(basic::IsFloat(a) == true);
@@ -493,7 +493,7 @@ TEST_BASIC_OPERATION() {
         REQUIRE(size % 2 == 0);
         mpr_objects.resize(size);
 
-        vector <Precision> precisions{INT, FLOAT, DOUBLE};
+        vector <Precision> precisions{HALF, FLOAT, DOUBLE};
 
         for (auto i = 0; i < size; i++) {
             auto temp_mpr = new DataType(30, precisions[ i % 3 ]);
@@ -501,7 +501,7 @@ TEST_BASIC_OPERATION() {
         }
 
         size_t size_out = 0;
-        auto precision_out = INT;
+        auto precision_out = HALF;
 
         for (auto i = 0; i < size; i++) {
             size_out += mpr_objects[ i ]->GetSize();
@@ -516,9 +516,9 @@ TEST_BASIC_OPERATION() {
         for (auto i = 0; i < size_out; i++) {
             data_out[ i ] = 0;
         }
-        auto operation_precision = INT;
-        auto precision_one = INT;
-        auto precision_two = INT;
+        auto operation_precision = HALF;
+        auto precision_one = HALF;
+        auto precision_two = HALF;
         size_t offset = 0;
 
 

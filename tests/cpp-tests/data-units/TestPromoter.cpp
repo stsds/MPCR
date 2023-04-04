@@ -10,7 +10,7 @@ TEST_PROMOTE(){
 
     std::cout<<"Testing Promoter ..."<<std::endl;
     DataType a(FLOAT);
-    DataType b(INT);
+    DataType b(HALF);
     DataType c(DOUBLE);
 
     Promoter p(3);
@@ -27,7 +27,7 @@ TEST_PROMOTE(){
     p.DePromote();
 
     REQUIRE(a.GetPrecision()==DOUBLE);
-    REQUIRE(b.GetPrecision()==INT);
+    REQUIRE(b.GetPrecision()==HALF);
     REQUIRE(c.GetPrecision()==DOUBLE);
 
 

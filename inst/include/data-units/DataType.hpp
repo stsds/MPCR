@@ -203,6 +203,15 @@ public:
 
     /**
      * @brief
+     * DataType Copy Constructor with a given Precision
+     *
+     * @param[in] aDataType
+     * DataType object to copy its content
+     */
+    DataType(DataType &aDataType,const mpr::precision::Precision &aPrecision);
+
+    /**
+     * @brief
      * DataType Constructor
      *
      * @param[in] aSize
@@ -904,6 +913,21 @@ private:
     template <typename T>
     void
     GetCopyOfData(const char *apSrc, char *&apDest);
+
+    /**
+     * @brief
+     * Copies Data From Src buffer to Dest Buffer
+     *
+     * @params[in] aSrc
+     * Buffer to copy from
+     * @params[out] aDest
+     * Buffer to copy to
+     *
+     */
+    template <typename T,typename X,typename Y>
+    void
+    GetCopyOfData(DataType &aSrc,DataType &aDestination);
+
 
     /**
      * @brief

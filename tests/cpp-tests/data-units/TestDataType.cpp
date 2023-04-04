@@ -101,7 +101,7 @@ TEST_DATA_TYPE() {
 
     SECTION("Test Clear Up") {
         DataType temp(30, 1);
-        REQUIRE(temp.GetPrecision() == INT);
+        REQUIRE(temp.GetPrecision() == HALF);
 
         temp.ClearUp();
         REQUIRE(temp.GetData() == nullptr);
@@ -129,10 +129,10 @@ TEST_DATA_TYPE() {
             pData_in_a_new[ i ] = 1.5;
         }
 
-        a.ConvertPrecision(INT);
+        a.ConvertPrecision(HALF);
 
         REQUIRE(a.GetSize() == size_a);
-        REQUIRE(a.GetPrecision() == INT);
+        REQUIRE(a.GetPrecision() == HALF);
 
         auto pData_in_a_new_int = (int *) a.GetData();
         for (auto i = 0; i < size_a; i++) {

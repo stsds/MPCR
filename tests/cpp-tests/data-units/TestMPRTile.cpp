@@ -157,7 +157,7 @@ TEST_MPR_TILE() {
 
         precisions.resize(precision_size);
         for (auto i = 0; i < precision_size; i++) {
-            precisions[ i ] = "int";
+            precisions[ i ] = "half";
         }
         MPRTile a(10, 12, 2, 4, data, precisions);
 

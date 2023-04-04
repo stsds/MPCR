@@ -110,6 +110,25 @@ DataType::DataType(const DataType &aDataType) {
 }
 
 
+DataType::DataType(DataType &aDataType,
+                   const mpr::precision::Precision &aPrecision) {
+    this->SetMagicNumber();
+    this->mpData = nullptr;
+    this->mpDimensions = nullptr;
+    this->mSize = aDataType.mSize;
+    this->mPrecision = aPrecision;
+    this->mMatrix = aDataType.mMatrix;
+    if (this->mMatrix) {
+        this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
+    }
+    if (this->mSize != 0) {
+        auto precision = GetOperationPrecision(HALF, aDataType.mPrecision,
+                                               this->mPrecision);
+        DISPATCHER(precision, DataType::GetCopyOfData, aDataType, *this)
+    }
+}
+
+
 DataType::~DataType() {
     delete[] mpData;
     delete mpDimensions;
@@ -160,7 +179,7 @@ DataType::PrintRowsDispatcher(const size_t &aRowIdx,
 
     for (auto i = 0; i < temp_col; i++) {
         idx = ( i * row ) + aRowIdx;
-        aRowAsString << std::setfill(' ') <<  std::setw(14)
+        aRowAsString << std::setfill(' ') << std::setw(14)
                      << std::setprecision(7) << pData[ idx ] << "\t";
     }
 }
@@ -189,10 +208,10 @@ DataType::PrintVal() {
             ss << " [\t";
             for (auto j = 0; j < print_col; j++) {
                 start_idx = ( j * rows ) + i;
-                ss << std::setfill(' ') <<   std::setw(14) << std::setprecision(7)
+                ss << std::setfill(' ') << std::setw(14) << std::setprecision(7)
                    << temp[ start_idx ] << "\t";
             }
-            ss << std::setfill(' ') <<   std::setw(14) << "]" << std::endl;
+            ss << std::setfill(' ') << std::setw(14) << "]" << std::endl;
             if (ss.gcount() > stream_size) {
 #ifdef RUNNING_CPP
                 std::cout << std::string(ss.str());
@@ -204,7 +223,7 @@ DataType::PrintVal() {
                 ss.clear();
             }
         }
-        if (print_rows * print_col!= this->mSize) {
+        if (print_rows * print_col != this->mSize) {
             ss << "Note Only Matrix with size 100*13 is printed" <<
                std::endl;
         }
@@ -221,10 +240,15 @@ DataType::PrintVal() {
            std::endl;
         ss << "---------------------" <<
            std::endl;
-        ss << " [\t";
+        auto counter_rows = 0;
         for (auto i = 0; i < mSize; i++) {
-            ss << std::setfill(' ') <<   std::setw(14) << std::setprecision(7)
-               << temp[ i ] << "\t";
+            if (i % 7 == 0) {
+                ss << std::endl;
+                ss << "[ " << counter_rows + 1 << " ]" << "\t";
+                counter_rows += 7;
+            }
+            ss << std::setfill(' ') << std::setw(14) << std::setprecision(7)
+               << temp[ i ];
             if (i % 100 == 0) {
                 if (ss.gcount() > stream_size) {
 #ifdef RUNNING_CPP
@@ -238,7 +262,7 @@ DataType::PrintVal() {
                 }
             }
         }
-        ss << std::setfill(' ') <<   std::setw(14) << "]" << std::endl;
+        ss << std::endl;
 #ifdef RUNNING_CPP
         std::cout << std::string(ss.str());
 #endif
@@ -434,6 +458,19 @@ DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
 }
 
 
+template <typename T, typename X, typename Y>
+void
+DataType::GetCopyOfData(DataType &aSrc, DataType &aDestination) {
+    X *data = (X *) aSrc.GetData();
+    auto size = aDestination.mSize;
+    Y *pOutput = new Y[size];
+
+    std::copy(data, data + size, pOutput);
+    aDestination.SetData((char *) pOutput);
+
+}
+
+
 DataType &
 DataType::operator =(const DataType &aDataType) {
     this->mSize = aDataType.mSize;
@@ -524,8 +561,8 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
         return;
     }
     switch (aPrecision) {
-        case INT: {
-            auto temp = new int[size];
+        case HALF: {
+            auto temp = new float16[size];
             std::copy(data, data + size, temp);
             this->SetData((char *) temp);
             break;
@@ -955,3 +992,6 @@ SIMPLE_INSTANTIATE(void, DataType::TransposeDispatcher)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintRowsDispatcher, const size_t &aRowIdx,
                    std::stringstream &aRowAsString)
+
+INSTANTIATE(void, DataType::GetCopyOfData, DataType &aSrc,
+            DataType &aDestination)

@@ -50,7 +50,7 @@ TEST_DISPATCHER() {
     bool rc = false;
     int a = 5;
     int b = 10;
-    Precision precision = INT;
+    Precision precision = HALF;
     SIMPLE_DISPATCH(precision, TestSimpleDispatch, a, b, rc)
     REQUIRE(rc == false);
 

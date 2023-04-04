@@ -29,7 +29,7 @@ void
 Promoter::DePromote() {
 
     for (auto i = 0; i < mCounter; i++) {
-        if (mPrecisions[ i ] == mpr::precision::INT) {
+        if (mPrecisions[ i ] == mpr::precision::HALF) {
             mDataHolders[ i ]->ConvertPrecision(mPrecisions[ i ]);
         }
     }
