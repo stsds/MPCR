@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo "-------------------------Here---------------------"
 ABSOLUE_PATH=$(dirname $(realpath "$0"))
 BUILDING_EXAMPLES="OFF"
 BUILDING_TESTS="OFF"

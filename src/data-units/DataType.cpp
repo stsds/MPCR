@@ -122,8 +122,8 @@ DataType::DataType(DataType &aDataType,
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     }
     if (this->mSize != 0) {
-        auto precision = GetOperationPrecision(HALF, aDataType.mPrecision,
-                                               this->mPrecision);
+        auto precision = GetOperationPrecision(aDataType.mPrecision, this->mPrecision,
+                                               DOUBLE);
         DISPATCHER(precision, DataType::GetCopyOfData, aDataType, *this)
     }
 }
@@ -461,9 +461,9 @@ DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
 template <typename T, typename X, typename Y>
 void
 DataType::GetCopyOfData(DataType &aSrc, DataType &aDestination) {
-    X *data = (X *) aSrc.GetData();
+    T *data = (T *) aSrc.GetData();
     auto size = aDestination.mSize;
-    Y *pOutput = new Y[size];
+    X *pOutput = new X[size];
 
     std::copy(data, data + size, pOutput);
     aDestination.SetData((char *) pOutput);

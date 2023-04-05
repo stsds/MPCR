@@ -34,3 +34,50 @@ Promoter::DePromote() {
         }
     }
 }
+
+
+DataType *
+Promoter::GetPromotedTile(DataType *&apTile,
+                          const Precision &aPrecisionRequired) {
+
+    if (apTile->GetPrecision() == aPrecisionRequired) {
+        return apTile;
+    }
+
+    if (mTileMap.find(apTile) != mTileMap.end()) {
+        auto temp_tiles = mTileMap[ apTile ];
+        for (auto &tile: temp_tiles) {
+            if (tile->GetPrecision() == aPrecisionRequired) {
+                return tile;
+            }
+        }
+
+    }
+
+    auto pTemp_tile = new DataType(*apTile, aPrecisionRequired);
+    mTileMap[ apTile ].push_back(pTemp_tile);
+    return pTemp_tile;
+
+}
+
+
+void
+Promoter::ResetPromoter(const size_t &aCount) {
+    mPrecisions.clear();
+    mDataHolders.clear();
+
+    mPrecisions.resize(aCount);
+    mDataHolders.resize(aCount);
+    mCounter = 0;
+
+    if (!mTileMap.empty()) {
+        for (auto &vec_tiles: mTileMap) {
+            for (auto &tile: vec_tiles.second) {
+                delete tile;
+            }
+            vec_tiles.second.clear();
+        }
+    }
+    mTileMap.clear();
+}
+

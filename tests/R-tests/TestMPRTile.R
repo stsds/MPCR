@@ -82,11 +82,15 @@ a <- matrix(c(3.12393, -1.16854, -0.304408, -2.15901,
               -0.304408, 1.04094, 4.43374, 1.21072,
               -2.15901, 1.35925, 1.21072, 5.57265), 4,4)
 
+zeros <- replicate(16,0)
+
 b <- c("float", "double", "float", "float")
 c <- c("float", "float", "double", "float")
 
+
 mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
 mat_b <- new(MPRTile, 4,4, 2, 2, a, c)
+mat_c <- new(MPRTile, 4,4, 2, 2, zeros, c)
 
-mat_c <- mat_a %*% mat_b
+mat_c <- MPR.gemm(mat_a,mat_b,mat_c,1,1)
 print(mat_c)

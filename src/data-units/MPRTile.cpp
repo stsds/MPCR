@@ -338,7 +338,7 @@ MPRTile::SetDimensions(MPRTile &aMPRTile) {
 }
 
 
-DataType *
+DataType *&
 MPRTile::GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
 
     auto idx_1D = GetIndexColumnMajor(std::make_pair(aTileRowIdx, aTileColIdx),

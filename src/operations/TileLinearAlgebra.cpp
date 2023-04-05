@@ -28,88 +28,110 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
     }
 
     Promoter prom(2);
+    Promoter dep_promoter(1);
 
     for (auto k = 0; k < tiles_per_row; k++) {
 
-        auto pTemp_tile_out = new DataType(FLOAT);
-        auto pTile_matrix_a = pOutput->GetTile(k, k);
+        auto pTile_matrix_a_potrf = pOutput->GetTile(k, k);
+        auto pTile_potrf_out = new DataType(
+            pTile_matrix_a_potrf->GetPrecision());
 
         prom.ResetPromoter(2);
-        prom.Insert(*pTemp_tile_out);
-        prom.Insert(*pTile_matrix_a);
+        prom.Insert(*pTile_matrix_a_potrf);
+        prom.Insert(*pTile_potrf_out);
         prom.Promote();
 
-        SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(), linear::Cholesky,
-                        *pTile_matrix_a, *pTemp_tile_out, false)
+        /** potrf **/
+        SIMPLE_DISPATCH(pTile_potrf_out->GetPrecision(), linear::Cholesky,
+                        *pTile_matrix_a_potrf, *pTile_potrf_out, false)
 
-        prom.DePromote();
+        prom.ResetPromoter(2);
 
-        pOutput->InsertTile(pTemp_tile_out, k, k);
+        pOutput->InsertTile(pTile_potrf_out, k, k);
 
+#pragma omp parallel for
         for (auto i = k + 1; i < tiles_per_row; i++) {
 
-            auto pTemp_tile_out_two = new DataType(FLOAT);
-            auto pTemp_tile_a = pOutput->GetTile(i, k);
-            auto pTemp_tile_b = pOutput->GetTile(k, k);
+            Promoter temp_promoter(2);
 
-            prom.ResetPromoter(3);
-            prom.Insert(*pTemp_tile_b);
-            prom.Insert(*pTemp_tile_out_two);
-            prom.Insert(*pTemp_tile_a);
+            auto pTemp_tile_a = pOutput->GetTile(k, k);
+            auto pTemp_tile_b = pOutput->GetTile(i, k);
+            auto pTile_trsm_out = new DataType(
+                pTemp_tile_b->GetPrecision());
 
-            prom.Promote();
+            temp_promoter.Insert(*pTile_trsm_out);
+            temp_promoter.Insert(*pTemp_tile_b);
 
-            SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(),
-                            linear::BackSolve,
-                            *pTemp_tile_b, *pTemp_tile_a,
-                            *pTemp_tile_out_two,
-                            pTemp_tile_b->GetNCol(), false, true, 'R')
+            temp_promoter.Promote();
+            auto pTile_a_promoted = dep_promoter.GetPromotedTile(pTemp_tile_a,
+                                                                 pTemp_tile_b->GetPrecision());
 
-            prom.DePromote();
 
-            pOutput->InsertTile(pTemp_tile_out_two, i, k);
+            /** trsm **/
+            SIMPLE_DISPATCH(pTemp_tile_b->GetPrecision(), linear::BackSolve,
+                            *pTile_a_promoted, *pTemp_tile_b,
+                            *pTile_trsm_out, pTile_a_promoted->GetNCol(),
+                            false,
+                            true, 'R')
+
+            temp_promoter.DePromote();
+            pOutput->InsertTile(pTile_trsm_out, i, k);
 
         }
-
+        dep_promoter.ResetPromoter(1);
         for (auto j = k + 1; j < tiles_per_row; j++) {
 
-            pTile_matrix_a = pOutput->GetTile(j, k);
+            auto pTile_matrix_a = pOutput->GetTile(j, k);
             auto pTemp_tile_out_two = pOutput->GetTile(j, j);
-            DataType dump(pTile_matrix_a->GetPrecision());
 
-            prom.ResetPromoter(2);
-            prom.Insert(*pTile_matrix_a);
+            prom.ResetPromoter(1);
             prom.Insert(*pTemp_tile_out_two);
             prom.Promote();
 
-            SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(),
-                            linear::CrossProduct, *pTile_matrix_a, dump,
+            DataType dump(pTemp_tile_out_two->GetPrecision());
+
+
+            auto pTile_a_promoted = dep_promoter.GetPromotedTile(pTile_matrix_a,
+                                                                 pTemp_tile_out_two->GetPrecision());
+
+
+
+
+            /** syrk **/
+            SIMPLE_DISPATCH(pTile_a_promoted->GetPrecision(),
+                            linear::CrossProduct, *pTile_a_promoted, dump,
                             *pTemp_tile_out_two, false, false, false, -1, 1)
 
             prom.DePromote();
             pOutput->InsertTile(pTemp_tile_out_two, j, j);
 
+#pragma omp parallel for
             for (auto i = j + 1; i < tiles_per_row; i++) {
 
-                auto pTile_matrix_a_two = pOutput->GetTile(i, k);
-                auto pTemp_tile_out_temp = pOutput->GetTile(i, j);
+                auto pTemp_tile_a = pOutput->GetTile(i, k);
+                auto pTemp_tile_b = pOutput->GetTile(j, k);
+                auto pTile_gemm_out = pOutput->GetTile(i, j);
 
-                prom.ResetPromoter(3);
-                prom.Insert(*pTemp_tile_out_temp);
-                prom.Insert(*pTile_matrix_a_two);
-                prom.Insert(*pTile_matrix_a);
+                Promoter temp_promoter(1);
+                temp_promoter.ResetPromoter(1);
+                temp_promoter.Insert(*pTile_gemm_out);
+                temp_promoter.Promote();
 
-                prom.Promote();
+                auto pTile_a_promoted_gemm = dep_promoter.GetPromotedTile(
+                    pTemp_tile_a, pTile_gemm_out->GetPrecision());
+                auto pTile_b_promoted = dep_promoter.GetPromotedTile(
+                    pTemp_tile_b, pTile_gemm_out->GetPrecision());
 
-
-                SIMPLE_DISPATCH(pTemp_tile_out->GetPrecision(),
-                                linear::CrossProduct, *pTile_matrix_a_two,
-                                *pTile_matrix_a, *pTemp_tile_out_temp,
+                /** gemm **/
+                SIMPLE_DISPATCH(pTile_gemm_out->GetPrecision(),
+                                linear::CrossProduct, *pTile_a_promoted_gemm,
+                                *pTile_b_promoted, *pTile_gemm_out,
                                 false, true, true, -1, 1)
 
-                prom.DePromote();
-                pOutput->InsertTile(pTemp_tile_out_temp, i, j);
+                temp_promoter.DePromote();
+                pOutput->InsertTile(pTile_gemm_out, i, j);
             }
+            dep_promoter.ResetPromoter(1);
         }
     }
     pOutput->FillSquareTriangle(0, true);
@@ -119,7 +141,8 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
 
 
 MPRTile *
-linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB) {
+linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
+                 const double &aAlpha, const double &aBeta) {
     auto tile_per_row_a = aInputA.GetTilePerRow();
     auto tile_per_col_a = aInputA.GetTilePerCol();
 
@@ -127,44 +150,51 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB) {
     auto tile_per_col_b = aInputB.GetTilePerCol();
 
 
-    if (tile_per_col_a != tile_per_row_b) {
+    auto tile_per_row_c = aInputC.GetTilePerRow();
+    auto tile_per_col_c = aInputC.GetTilePerCol();
+
+
+    if (tile_per_col_a != tile_per_row_b || tile_per_row_a != tile_per_row_c ||
+        tile_per_col_b != tile_per_col_c) {
         MPR_API_EXCEPTION(
             "Cannot perform Matrix multiplication, Tiles Per Col A != Tiles Per Row B",
             -1);
     }
 
-    Dimensions internal(aInputA.GetTileNRow(), aInputB.GetTileNCol());
 
-    auto pOutput = new MPRTile(aInputA.GetNRow(), aInputB.GetNCol(),
-                               internal.GetNRow(), internal.GetNCol());
+    auto pOutput = &aInputC;
+    Promoter dep_promoter(1);
+    Promoter prom(1);
 
 
     for (auto i = 0; i < tile_per_row_a; i++) {
         for (auto j = 0; j < tile_per_col_b; j++) {
 
-            auto pTile_c = new DataType(FLOAT);
-            Promoter prom(3);
+            auto pTile_c = pOutput->GetTile(i, j);
+            prom.ResetPromoter(1);
+            prom.Insert(*pTile_c);
+            prom.Promote();
 
             for (auto k = 0; k < tile_per_col_a; k++) {
+                Promoter temp_dep_prom(1);
                 auto *pTile_a = aInputA.GetTile(i, k);
                 auto *pTile_b = aInputB.GetTile(k, j);
 
-                prom.Insert(*pTile_a);
-                prom.Insert(*pTile_b);
-                prom.Insert(*pTile_c);
-                prom.Promote();
+                auto pTile_a_promoted = dep_promoter.GetPromotedTile(pTile_a,
+                                                                     pTile_c->GetPrecision());
+                auto pTile_b_promoted = temp_dep_prom.GetPromotedTile(pTile_b,
+                                                                     pTile_c->GetPrecision());
+
 
                 SIMPLE_DISPATCH(pTile_c->GetPrecision(), linear::CrossProduct,
-                                *pTile_a, *pTile_b, *pTile_c, false, false,
-                                true, 1, 1)
-
-                prom.DePromote();
-                prom.ResetPromoter(3);
+                                *pTile_a_promoted, *pTile_b_promoted, *pTile_c, false, false,
+                                true, aAlpha, aBeta)
 
             }
-
+            prom.DePromote();
             pOutput->InsertTile(pTile_c, i, j);
         }
+        dep_promoter.ResetPromoter(1);
     }
 
     return pOutput;

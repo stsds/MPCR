@@ -21,7 +21,7 @@ namespace mpr {
              *
              */
             MPRTile *
-            TileCholesky(MPRTile &aMatrix,const bool &aOverWriteInput=true);
+            TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput = true);
 
             /**
              * @brief
@@ -38,7 +38,8 @@ namespace mpr {
              *
              */
             MPRTile *
-            TileGemm(MPRTile &aInputA, MPRTile &aInputB);
+            TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
+                     const double &aAlpha = 1, const double &aBeta = 1);
 
         }
     }

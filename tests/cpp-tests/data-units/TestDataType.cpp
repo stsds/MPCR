@@ -161,6 +161,17 @@ TEST_DATA_TYPE() {
 
         delete pOutput_vector;
 
+    }SECTION("Test Copy Constructor for different precision"){
+        vector<double> vals(50,5);
+        DataType a(vals,DOUBLE);
+        DataType b(a,FLOAT);
+
+        REQUIRE(b.GetPrecision()==FLOAT);
+        REQUIRE(b.GetSize()==50);
+
+        for(auto i=0;i<b.GetSize();i++){
+            REQUIRE(b.GetVal(i)==5);
+        }
     }
 
 

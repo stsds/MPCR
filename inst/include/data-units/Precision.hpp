@@ -106,7 +106,7 @@ namespace mpr {
         Precision
         GetOperationPrecision(const Precision &aPrecisionA,
                               const Precision &aPrecisionB,
-                              Precision &aPrecisionC) {
+                              const Precision &aPrecisionC) {
 
             /** this formula is used instead of writing many if/else cases **/
 
