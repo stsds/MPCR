@@ -30,7 +30,16 @@ public:
      * Default De-Constructor
      *
      */
-    ~Promoter() = default;
+    ~Promoter() {
+        if(!mTileMap.empty()){
+            for(auto &vec_tiles:mTileMap){
+                for(auto &tile:vec_tiles.second){
+                    delete tile;
+                }
+                vec_tiles.second.clear();
+            }
+        }
+    }
 
 
     /**
@@ -72,16 +81,17 @@ public:
     void
     DePromote();
 
-    inline
-    void
-    ResetPromoter(const size_t &aCount){
-        mPrecisions.clear();
-        mDataHolders.clear();
 
-        mPrecisions.resize(aCount);
-        mDataHolders.resize(aCount);
-        mCounter = 0;
-    }
+    void
+    ResetPromoter(const size_t &aCount);
+
+
+    DataType *
+    GetPromotedTile(DataType *&apTile, const Precision &aPrecisionRequired);
+
+
+
+
 
 
 private:
@@ -91,6 +101,7 @@ private:
     std::vector <DataType *> mDataHolders;
     /** Number of object currently inserted in the promoter **/
     int mCounter;
+    std::unordered_map <DataType *, std::vector <DataType *>> mTileMap;
 };
 
 

@@ -32,10 +32,11 @@ RCPP_MODULE(MPRTile) {
         .method("MPRTile.print", &MPRTile::Print);
 
 
-    function("MPRTile.crossprod", &mpr::operations::linear::TileGemm,
-             List::create(_[ "x" ], _[ "y" ]));
+    function("MPR.gemm", &mpr::operations::linear::TileGemm,
+             List::create(_[ "a" ], _[ "b" ], _[ "c" ], _[ "alpha" ] = 1,
+                          _[ "beta" ] = 0));
 
     function("MPRTile.chol", &mpr::operations::linear::TileCholesky,
-             List::create(_[ "x" ], _[ "overwrite_input" ]=true));
+             List::create(_[ "x" ], _[ "overwrite_input" ] = true));
 
 }

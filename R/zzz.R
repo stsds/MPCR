@@ -42,7 +42,6 @@
     x$MPRTile.print()
   })
   #-------------------------- MPRTile Linear Algebra ------------------------------
-  setMethod("%*%", c(x = "Rcpp_MPRTile", y = "Rcpp_MPRTile"), MPRTile.crossprod)
   setMethod("chol", c(x = "Rcpp_MPRTile"), MPRTile.chol)
 
   #--------------------------------------------------------------------------------

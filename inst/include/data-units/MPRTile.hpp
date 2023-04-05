@@ -370,7 +370,7 @@ public:
      * @returns
      * MPR object describing the Tile at IDx (aTileRowIdx,aTileColIdx)
      */
-    DataType *
+    DataType *&
     GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx);
 
     /**

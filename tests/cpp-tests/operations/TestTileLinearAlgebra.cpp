@@ -19,23 +19,18 @@ TEST_TILE_LINEAR_ALGEBRA() {
                                   -0.304408, 1.04094, 4.43374, 1.21072,
                                   -2.15901, 1.35925, 1.21072, 5.57265};
         vector <string> precision_a = {"float", "double", "float", "float"};
-        vector <string> precision_b = {"float", "float", "double", "float"};
+        vector <string> precision_b = {"float", "float", "double", "double"};
 
 
         MPRTile a(4, 4, 2, 2, values, precision_a);
         MPRTile b(4, 4, 2, 2, values, precision_b);
+
+        vector <double> zeros(16, 0);
+
+        MPRTile c(4, 4, 2, 2, zeros, precision_b);
+
         auto counter = 0;
-
-        for (auto i = 0; i < a.GetNCol(); i++) {
-            for (auto j = 0; j < a.GetNRow(); j++) {
-                a.SetVal(j, i, values[ counter ]);
-                b.SetVal(j, i, values[ counter ]);
-                counter++;
-            }
-        }
-
-
-        auto pMatrix_c = mpr::operations::linear::TileGemm(a, b);
+        auto pMatrix_c = mpr::operations::linear::TileGemm(a, b, c);
 
         REQUIRE(pMatrix_c->GetNRow() == 4);
         REQUIRE(pMatrix_c->GetNCol() == 4);
@@ -44,9 +39,7 @@ TEST_TILE_LINEAR_ALGEBRA() {
         REQUIRE(pMatrix_c->GetTilePerCol() == 2);
         REQUIRE(pMatrix_c->GetTilePerRow() == 2);
 
-
         auto error = 0.01;
-
 
         vector <double> validate_vals = {15.878412787064, -9.08673783542,
                                          -6.13095182416, -20.73289403456,
@@ -57,9 +50,6 @@ TEST_TILE_LINEAR_ALGEBRA() {
                                          -20.73289403456, 13.8991634747,
                                          14.18705411188, 39.0291556835};
 
-
-        DataType temp_print(validate_vals, FLOAT);
-        temp_print.SetDimensions(4, 4);
 
         counter = 0;
         for (auto i = 0; i < pMatrix_c->GetNCol(); i++) {
@@ -73,7 +63,6 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }
 
-        delete pMatrix_c;
 
     }SECTION("Tile Cholesky decomposition") {
 
@@ -134,9 +123,15 @@ TEST_TILE_LINEAR_ALGEBRA() {
                                   0.06, 0.23, 0.03, -0.29, 1.71, -0.10,
                                   0.23, 0.07, 0.18, -0.08, -0.10, 0.36};
 
-        vector <string> precision_a = {"float", "double", "float", "float",
-                                       "double", "double", "float", "float",
-                                       "double"};
+        vector <string> precision_a = {"float", "double", "float",
+                                       "float", "double", "half",
+                                       "float", "float", "double"};
+
+        /**
+         *  F  F  F
+         *  D  D  F
+         *  F  H  D
+         */
 
 
         MPRTile a(6, 6, 2, 2, values, precision_a);
