@@ -284,7 +284,7 @@ template <typename T>
 void
 linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const size_t &aCol, const bool &aUpperTri,
-                  const bool &aTranspose, const char &aSide) {
+                  const bool &aTranspose, const char &aSide,const double &aAlpha) {
     if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
         MPR_API_EXCEPTION(
             "Inputs Must Be Matrices", -1);
@@ -322,7 +322,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     }
 
     blas::trsm(LAYOUT, side, which_triangle, transpose,
-               blas::Diag::NonUnit, row_b, col_b, 1, pData, row_a, pData_in_out,
+               blas::Diag::NonUnit, row_b, col_b, aAlpha, pData, row_a, pData_in_out,
                row_b);
 
     aOutput.SetData((char *) pData_in_out);
@@ -742,7 +742,7 @@ FLOATING_POINT_INST(void, linear::Solve, DataType &aInputA, DataType &aInputB,
 FLOATING_POINT_INST(void, linear::BackSolve, DataType &aInputA,
                     DataType &aInputB, DataType &aOutput, const size_t &aCol,
                     const bool &aUpperTri, const bool &aTranspose,
-                    const char &aSide)
+                    const char &aSide,const double &aAlpha)
 
 FLOATING_POINT_INST(void, linear::Eigen, DataType &aInput,
                     DataType &aOutputValues, DataType *apOutputVectors)

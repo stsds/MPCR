@@ -496,6 +496,32 @@ MPRTile::FillSquareTriangle(const double &aValue, const bool &aUpperTriangle,
 }
 
 
+double
+MPRTile::Product() {
+    double prod;
+    prod = 1;
+    for (auto &tile: mTiles) {
+        if (tile != nullptr) {
+            prod *= tile->Product();
+        }
+    }
+    return prod;
+}
+
+
+double
+MPRTile::Sum() {
+    double sum;
+    sum = 0;
+    for (auto &tile: mTiles) {
+        if (tile != nullptr) {
+            sum += tile->Sum();
+        }
+    }
+    return sum;
+}
+
+
 SIMPLE_INSTANTIATE(void, MPRTile::AssignValuesToTile, DataType &aTile,
                    const size_t &aTileRowIdx, const size_t &aTileColIdx,
                    const std::vector <double> &aValues)

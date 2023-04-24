@@ -6,6 +6,7 @@
 
 
 using namespace std;
+using namespace mpr::operations;
 
 
 void
@@ -174,6 +175,307 @@ TEST_TILE_LINEAR_ALGEBRA() {
                 REQUIRE(temp_error_perc <= error);
             }
         }
+
+    }SECTION("Test Tile trsm") {
+        vector <double> values = {3.12393, -1.16854, -0.304408, -2.15901,
+                                  -1.16854, 1.86968, 1.04094, 1.35925,
+                                  -0.304408, 1.04094, 4.43374, 1.21072,
+                                  -2.15901, 1.35925, 1.21072, 5.57265};
+
+        vector <string> precision_a = {"float", "double", "float", "float"};
+        vector <string> precision_b = {"float", "float", "double", "double"};
+
+        SECTION("Left Upper NoTranspose ") {
+            cout << "Testing Tile trsm ..." << endl;
+            cout<<"Testing Trsm Left Upper NoTranspose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), true, false, 'L', 1);
+
+
+            linear::TileTrsm(a, b, 'L', true, false, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol() == b.GetNCol());
+            REQUIRE(test_val.GetNRow() == b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc <= error);
+                    }
+                }
+            }
+        }SECTION("Left Upper Transpose") {
+            cout<<"Testing Trsm Left Upper Transpose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), true, true, 'L', 1);
+
+
+            linear::TileTrsm(a, b, 'L', true, true, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol() == b.GetNCol());
+            REQUIRE(test_val.GetNRow() == b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc <= error);
+                    }
+                }
+            }
+        }SECTION("Left Lower NoTranspose"){
+            cout<<"Testing Trsm Left Lower NoTranspose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), false, false, 'L', 1);
+
+
+            linear::TileTrsm(a, b, 'L', false, false, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol()==b.GetNCol());
+            REQUIRE(test_val.GetNRow()==b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc<=error);
+                    }
+                }
+            }
+        }SECTION("Left Lower Transpose"){
+            cout<<"Testing Trsm Left Lower Transpose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), false, true, 'L', 1);
+
+
+            linear::TileTrsm(a, b, 'L', false, true, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol()==b.GetNCol());
+            REQUIRE(test_val.GetNRow()==b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc<=error);
+                    }
+                }
+            }
+        }SECTION("Right Upper NoTranspose"){
+            cout<<"Testing Trsm Right Upper NoTranspose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), true, false, 'R', 1);
+
+
+            linear::TileTrsm(a, b, 'R', true, false, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol()==b.GetNCol());
+            REQUIRE(test_val.GetNRow()==b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc<=error);
+                    }
+                }
+            }
+        }SECTION("Right Upper Transpose"){
+            cout<<"Testing Trsm Right Upper Transpose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), true, true, 'R', 1);
+
+
+            linear::TileTrsm(a, b, 'R', true, true, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol()==b.GetNCol());
+            REQUIRE(test_val.GetNRow()==b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc<=error);
+                    }
+                }
+            }
+        }SECTION("Right Lower NoTranspose"){
+            cout<<"Testing Trsm Right Lower NoTranspose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), false, false, 'R', 1);
+
+
+            linear::TileTrsm(a, b, 'R', false, false, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol()==b.GetNCol());
+            REQUIRE(test_val.GetNRow()==b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc<=error);
+                    }
+                }
+            }
+        }SECTION("Right Lower Transpose"){
+            cout<<"Testing Trsm Right Lower Transpose ..."<<endl;
+            MPRTile a(4, 4, 2, 2, values, precision_a);
+            MPRTile b(4, 4, 2, 2, values, precision_b);
+
+            DataType test_a(values, FLOAT);
+            test_a.SetDimensions(4, 4);
+            DataType test_b(values, FLOAT);
+            test_b.SetDimensions(4, 4);
+
+            DataType test_val(FLOAT);
+            SIMPLE_DISPATCH(FLOAT, linear::BackSolve, test_a, test_b, test_val,
+                            test_a.GetNCol(), false, true, 'R', 1);
+
+
+            linear::TileTrsm(a, b, 'R', false, true, 1);
+
+            auto error = 0.001;
+
+            REQUIRE(test_val.GetNCol()==b.GetNCol());
+            REQUIRE(test_val.GetNRow()==b.GetNRow());
+
+            for (auto i = 0; i < b.GetNRow(); i++) {
+                for (auto j = 0; j < b.GetNCol(); j++) {
+                    auto val_tile = b.GetVal(i, j);
+                    auto val_normal = test_val.GetValMatrix(i, j);
+                    if (val_normal == 0) {
+                        REQUIRE(val_tile <= error);
+                    } else {
+                        auto perc =
+                            fabs((double) val_tile - (double) val_normal) /
+                            (double) val_normal;
+                        REQUIRE(perc<=error);
+                    }
+                }
+            }
+        }
+
 
     }
 }

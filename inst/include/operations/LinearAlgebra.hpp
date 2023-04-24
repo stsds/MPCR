@@ -132,7 +132,7 @@ namespace mpr {
             void
             BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                       const size_t &aCol, const bool &aUpperTri,
-                      const bool &aTranspose,const char &aSide='L');
+                      const bool &aTranspose,const char &aSide='L',const double &aAlpha=1);
 
             /**
              * @brief

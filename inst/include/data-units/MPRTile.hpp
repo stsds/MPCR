@@ -435,6 +435,28 @@ public:
     FillSquareTriangle(const double &aValue, const bool &aUpperTriangle = true,
                        const mpr::precision::Precision &aPrecision = mpr::precision::FLOAT);
 
+    /**
+     * @brief
+     * Returns the sum of all elements in all tiles in MPRTile Object
+     *
+     * @returns
+     * Sum of all elements
+     *
+     */
+    double
+    Sum();
+
+    /**
+     * @brief
+     * Returns the product of all elements in all tiles in MPRTile Object
+     *
+     * @returns
+     * Product of all elements
+     *
+     */
+    double
+    Product();
+
 private:
 
     /**
@@ -555,6 +577,7 @@ private:
     void
     AssignDimensions(const size_t &aRow, const size_t &aCol,
                      const size_t &aTileRow, const size_t &aTileCol);
+
 
 private:
 

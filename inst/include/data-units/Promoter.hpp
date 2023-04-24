@@ -101,6 +101,9 @@ private:
     std::vector <DataType *> mDataHolders;
     /** Number of object currently inserted in the promoter **/
     int mCounter;
+    /** Hashtable to keep track of copies of tile, so that if a tile with the
+     * required precision is available, there will be no need to create a new copy
+     **/
     std::unordered_map <DataType *, std::vector <DataType *>> mTileMap;
 };
 

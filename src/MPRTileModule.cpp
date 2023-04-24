@@ -29,14 +29,21 @@ RCPP_MODULE(MPRTile) {
         .method("MPRTile.SetVal", &MPRTile::SetVal)
         .method("MPRTile.GetVal", &MPRTile::GetVal)
         .method("show", &MPRTile::GetType)
-        .method("MPRTile.print", &MPRTile::Print);
+        .method("MPRTile.print", &MPRTile::Print)
+        .method("Sum", &MPRTile::Sum)
+        .method("Prod", &MPRTile::Product);
 
 
-    function("MPR.gemm", &mpr::operations::linear::TileGemm,
+    function("MPRTile.gemm", &mpr::operations::linear::TileGemm,
              List::create(_[ "a" ], _[ "b" ], _[ "c" ], _[ "alpha" ] = 1,
                           _[ "beta" ] = 0));
 
     function("MPRTile.chol", &mpr::operations::linear::TileCholesky,
              List::create(_[ "x" ], _[ "overwrite_input" ] = true));
+
+    function("MPRTile.trsm", &mpr::operations::linear::TileTrsm,
+             List::create(_[ "a" ], _[ "b" ], _[ "side" ],
+                          _[ "upper_triangle" ], _[ "transpose" ],
+                          _[ "alpha" ]));
 
 }

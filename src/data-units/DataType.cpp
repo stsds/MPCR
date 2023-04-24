@@ -122,7 +122,8 @@ DataType::DataType(DataType &aDataType,
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     }
     if (this->mSize != 0) {
-        auto precision = GetOperationPrecision(aDataType.mPrecision, this->mPrecision,
+        auto precision = GetOperationPrecision(aDataType.mPrecision,
+                                               this->mPrecision,
                                                DOUBLE);
         DISPATCHER(precision, DataType::GetCopyOfData, aDataType, *this)
     }
@@ -957,6 +958,112 @@ void DataType::FillTriangleDispatcher(const double &aValue,
 
 }
 
+
+double
+DataType::Sum() {
+    double sum;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::SumDispatcher, sum)
+    return sum;
+}
+
+
+template <typename T>
+void
+DataType::SumDispatcher(double &aResult) {
+    aResult = 0;
+    auto pData = (T *) this->mpData;
+    for (auto i = 0; i < this->mSize; i++) {
+        aResult += pData[ i ];
+    }
+}
+
+
+double
+DataType::Product() {
+    double prod;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::ProductDispatcher, prod)
+    return prod;
+}
+
+
+template <typename T>
+void
+DataType::ProductDispatcher(double &aResult) {
+    aResult = 1;
+    auto pData = (T *) this->mpData;
+    for (auto i = 0; i < this->mSize; i++) {
+        aResult *= pData[ i ];
+    }
+}
+
+
+double DataType::Determinant() {
+    if (!this->mMatrix) {
+        MPR_API_EXCEPTION("Cannot calculate determinant for a vector", -1);
+    }
+    if (this->GetNRow() != this->GetNCol()) {
+        MPR_API_EXCEPTION(
+            "Cannot calculate determinant for a non-square matrix", -1);
+    }
+    double result;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::DeterminantDispatcher, result)
+    return result;
+}
+
+
+template <typename T>
+void
+DataType::DeterminantDispatcher(double &aResult) {
+
+    double det = 1.0;
+    auto data = (T *) this->mpData;
+    auto size = this->GetNCol();
+    std::vector <double> pData;
+
+    if (size == 2) {
+        aResult = data[ 0 ] * data[ 3 ] - data[ 1 ] * data[ 2 ];
+        return;
+    }
+
+    pData.reserve(this->mSize);
+    std::copy(data, data + this->mSize, pData.begin());
+
+
+    for (int i = 0; i < size; i++) {
+        int max_row = i;
+        for (int j = i + 1; j < size; j++) {
+            if (abs(pData[ j * size + i ]) >
+                abs(pData[ max_row * size + i ])) {
+                max_row = j;
+            }
+        }
+        if (max_row != i) {
+            swap_ranges(pData.begin() + i * size,
+                        pData.begin() + ( i + 1 ) * size,
+                        pData.begin() + max_row * size);
+            det = -det;
+        }
+        det *= pData[ i * size + i ];
+        if (pData[ i * size + i ] == 0) {
+            aResult = 0;
+            return;
+        }
+        for (int j = i + 1; j < size; j++) {
+            double factor = pData[ j * size + i ] / pData[ i * size + i ];
+            for (int k = i + 1; k < size; k++) {
+                pData[ j * size + k ] -= factor * pData[ i * size + k ];
+            }
+        }
+    }
+    aResult = det;
+}
+
+
+SIMPLE_INSTANTIATE(void, DataType::DeterminantDispatcher, double &aResult)
+
+SIMPLE_INSTANTIATE(void, DataType::ProductDispatcher, double &aResult)
+
+SIMPLE_INSTANTIATE(void, DataType::SumDispatcher, double &aResult)
 
 SIMPLE_INSTANTIATE(void, DataType::FillTriangleDispatcher, const double &aValue,
                    const bool &aUpperTriangle)

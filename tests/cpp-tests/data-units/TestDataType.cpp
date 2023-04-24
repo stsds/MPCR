@@ -161,17 +161,59 @@ TEST_DATA_TYPE() {
 
         delete pOutput_vector;
 
-    }SECTION("Test Copy Constructor for different precision"){
-        vector<double> vals(50,5);
-        DataType a(vals,DOUBLE);
-        DataType b(a,FLOAT);
+    }SECTION("Test Copy Constructor for different precision") {
+        vector <double> vals(50, 5);
+        DataType a(vals, DOUBLE);
+        DataType b(a, FLOAT);
 
-        REQUIRE(b.GetPrecision()==FLOAT);
-        REQUIRE(b.GetSize()==50);
+        REQUIRE(b.GetPrecision() == FLOAT);
+        REQUIRE(b.GetSize() == 50);
 
-        for(auto i=0;i<b.GetSize();i++){
-            REQUIRE(b.GetVal(i)==5);
+        for (auto i = 0; i < b.GetSize(); i++) {
+            REQUIRE(b.GetVal(i) == 5);
         }
+    }SECTION("Test Sum and Product") {
+        cout << "Testing MPR Sum ..." << endl;
+        vector <double> values;
+        auto size = 50;
+        values.resize(size);
+        double validate_sum = 0;
+        double validate_prod = 1;
+
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i + 1;
+            validate_sum += values[ i ];
+            validate_prod *= values[ i ];
+        }
+
+
+        DataType a(values, FLOAT);
+        auto sum = a.Sum();
+
+        REQUIRE(sum == validate_sum);
+
+        cout << "Testing MPR Product ..." << endl;
+
+        double prod = a.Product();
+        REQUIRE(prod == validate_prod);
+
+    }SECTION("Testing Determinant") {
+        cout << "Testing MPR Determinant ..." << endl;
+        vector <double> values{1, 1, 1, 1, 1, 1, 2, 3, 2, 1, 1, 2, 3, 2, 1, 2,
+                               1, 0, 2, 1, 1, 1, 1, 2, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(5, 5);
+        REQUIRE(a.GetSize() == 25);
+        REQUIRE(a.Determinant() == 0);
+
+        values = {5, 78, 23, 67, 6, 9, 11, 45, 7, 8, 6, 0, 9, 0, 0, 89};
+        DataType b(values, FLOAT);
+        b.ToMatrix(4, 4);
+        REQUIRE(b.GetSize() == 16);
+        double det_act = 374308.9999999999999;
+        auto det = b.Determinant();
+        auto validate_perc = fabs(det - det_act) / det_act;
+        REQUIRE(validate_perc < 0.001);
     }
 
 
