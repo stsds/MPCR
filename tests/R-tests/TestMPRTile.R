@@ -103,3 +103,18 @@ mat_b <- new(MPRTile, 4,4, 2, 2, a, c)
 
 MPRTile.trsm(a=mat_a,b=mat_b,side='R',upper_triangle=TRUE,transpose=FALSE,alpha=1)
 print(mat_b)
+
+
+cat("----------------------------- Sum and Product ------------------------------------\n")
+
+a <- matrix(c(1:16), 4,4)
+
+mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
+print(mat_a)
+sum <- mat_a$Sum()
+cat("----------------------------- Sum of values from 1 to 16 ------------------------------------\n")
+sum
+prod <- mat_a$Prod()
+cat("----------------------------- Product of values from 1 to 16 ------------------------------------\n")
+prod
+
