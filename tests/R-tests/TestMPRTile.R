@@ -92,5 +92,14 @@ mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
 mat_b <- new(MPRTile, 4,4, 2, 2, a, c)
 mat_c <- new(MPRTile, 4,4, 2, 2, zeros, c)
 
-mat_c <- MPR.gemm(mat_a,mat_b,mat_c,1,1)
+mat_c <- MPRTile.gemm(mat_a,mat_b,mat_c,1,1)
 print(mat_c)
+
+
+cat("----------------------------- Triangular Solve ------------------------------------\n")
+
+mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
+mat_b <- new(MPRTile, 4,4, 2, 2, a, c)
+
+MPRTile.trsm(a=mat_a,b=mat_b,side='R',upper_triangle=TRUE,transpose=FALSE,alpha=1)
+print(mat_b)

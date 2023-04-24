@@ -208,7 +208,7 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType(DataType &aDataType,const mpr::precision::Precision &aPrecision);
+    DataType(DataType &aDataType, const mpr::precision::Precision &aPrecision);
 
     /**
      * @brief
@@ -860,6 +860,38 @@ public:
     void
     FillTriangle(const double &aValue, const bool &aUpperTriangle = true);
 
+    /**
+     * @brief
+     * Returns the sum of all elements in MPR Object
+     *
+     * @returns
+     * Sum of all elements
+     *
+     */
+    double
+    Sum();
+
+    /**
+     * @brief
+     * Returns the product of all elements in MPR Object
+     *
+     * @returns
+     * Product of all elements
+     *
+     */
+    double
+    Product();
+    /**
+     * @brief
+     * Returns the determinant of all elements in MPR Object
+     *
+     * @returns
+     * Determinant of all elements
+     *
+     */
+    double
+    Determinant();
+
 
 private:
 
@@ -924,9 +956,9 @@ private:
      * Buffer to copy to
      *
      */
-    template <typename T,typename X,typename Y>
+    template <typename T, typename X, typename Y>
     void
-    GetCopyOfData(DataType &aSrc,DataType &aDestination);
+    GetCopyOfData(DataType &aSrc, DataType &aDestination);
 
 
     /**
@@ -1046,6 +1078,41 @@ private:
     void
     PrintRowsDispatcher(const size_t &aRowIdx, std::stringstream &aRowAsString);
 
+    /**
+     * @brief
+     * Dispatcher for calculating the sum of all elements in MPR Object
+     *
+     * @param[out] aResult
+     * sum of all elements
+     *
+     */
+    template <typename T>
+    void
+    SumDispatcher(double &aResult);
+
+    /**
+     * @brief
+     * Dispatcher for calculating the product of all elements in MPR Object
+     *
+     * @param[out] aResult
+     * Product of all elements
+     *
+     */
+    template <typename T>
+    void
+    ProductDispatcher(double &aResult);
+
+    /**
+     * @brief
+     * Dispatcher for calculating the determinant of all elements in MPR Object
+     *
+     * @param[out] aResult
+     * determinant of all elements
+     *
+     */
+    template <typename T>
+    void
+    DeterminantDispatcher(double &aResult);
 
     /**
      * @brief

@@ -178,17 +178,36 @@ TEST_MPR_TILE() {
         MPRTile a(6, 6, 3, 2);
         a.FillWithZeros();
 
-        auto nrows=a.GetNRow();
-        auto ncols=a.GetNCol();
+        auto nrows = a.GetNRow();
+        auto ncols = a.GetNCol();
 
-        REQUIRE(nrows==6);
-        REQUIRE(ncols==6);
+        REQUIRE(nrows == 6);
+        REQUIRE(ncols == 6);
 
-        for(auto i=0;i<nrows;i++){
-            for(auto j=0;j<ncols;j++){
-                REQUIRE(a.GetVal(i,j)==0);
+        for (auto i = 0; i < nrows; i++) {
+            for (auto j = 0; j < ncols; j++) {
+                REQUIRE(a.GetVal(i, j) == 0);
             }
         }
+    }SECTION("Test Sum and Product") {
+        vector <double> values;
+        vector <string> precisions(5, "float");
+        auto size = 20;
+        values.resize(size);
+        double validate_prod = 1;
+        auto validate_sum = 0;
+
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i + 1;
+            validate_sum += values[ i ];
+            validate_prod *= values[ i ];
+        }
+
+        MPRTile a(2, 10, 2, 2, values, precisions);
+        auto sum = a.Sum();
+        REQUIRE(sum == validate_sum);
+        auto prod = a.Product();
+        REQUIRE(prod == validate_prod);
     }
 
 

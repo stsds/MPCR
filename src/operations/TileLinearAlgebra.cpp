@@ -183,11 +183,12 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
                 auto pTile_a_promoted = dep_promoter.GetPromotedTile(pTile_a,
                                                                      pTile_c->GetPrecision());
                 auto pTile_b_promoted = temp_dep_prom.GetPromotedTile(pTile_b,
-                                                                     pTile_c->GetPrecision());
+                                                                      pTile_c->GetPrecision());
 
 
                 SIMPLE_DISPATCH(pTile_c->GetPrecision(), linear::CrossProduct,
-                                *pTile_a_promoted, *pTile_b_promoted, *pTile_c, false, false,
+                                *pTile_a_promoted, *pTile_b_promoted, *pTile_c,
+                                false, false,
                                 true, aAlpha, aBeta)
 
             }
@@ -198,4 +199,411 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
     }
 
     return pOutput;
+}
+
+
+void
+linear::TileTrsm(MPRTile &aInputA, MPRTile &aInputB, const char &aSide,
+                 const bool &aUpperTriangle, const bool &aTranspose,
+                 const double &aAlpha) {
+
+
+    auto tiles_per_row_b = aInputB.GetTilePerRow();
+    auto tiles_per_col_b = aInputB.GetTilePerCol();
+    auto alpha = aAlpha;
+
+
+    if (aSide == 'L') {
+        if (aUpperTriangle) {
+            if (!aTranspose) {
+                for (auto k = 0; k < tiles_per_row_b; k++) {
+                    alpha = ( k == 0 ) ? aAlpha : 1;
+                    for (auto n = 0; n < tiles_per_col_b; n++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(tiles_per_row_b - 1 - k,
+                                                       tiles_per_row_b - 1 - k);
+                        auto pTile_b = aInputB.GetTile(tiles_per_row_b - 1 - k,
+                                                       n);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        alpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile,
+                                           tiles_per_row_b - 1 - k, n);
+                    }
+                    for (auto m = k + 1; m < tiles_per_row_b; m++) {
+                        for (auto n = 0; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom(3);
+                            auto pTile_a = aInputA.GetTile(
+                                tiles_per_row_b - 1 - m,
+                                tiles_per_row_b - 1 - k);
+                            auto pTile_b = aInputB.GetTile(
+                                tiles_per_row_b - 1 - k,
+                                n);
+                            auto pTile_c = aInputB.GetTile(
+                                tiles_per_row_b - 1 - m,
+                                n);
+                            temp_prom.Insert(*pTile_a);
+                            temp_prom.Insert(*pTile_b);
+                            temp_prom.Insert(*pTile_c);
+                            temp_prom.Promote();
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a,
+                                            *pTile_b,
+                                            *pTile_c, aTranspose, false, true,
+                                            -1, aAlpha)
+                            temp_prom.DePromote();
+                        }
+                    }
+                }
+            } else {
+                for (auto k = 0; k < tiles_per_row_b; k++) {
+                    alpha = ( k == 0 ) ? aAlpha : 1;
+                    for (auto n = 0; n < tiles_per_col_b; n++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(k, k);
+                        auto pTile_b = aInputB.GetTile(k, n);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        alpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile, k, n);
+                    }
+                    for (auto m = k + 1; m < tiles_per_row_b; m++) {
+                        for (auto n = 0; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom(3);
+                            auto pTile_a = aInputA.GetTile(k, m);
+                            auto pTile_b = aInputB.GetTile(k, n);
+                            auto pTile_c = aInputB.GetTile(m, n);
+
+                            temp_prom.Insert(*pTile_a);
+                            temp_prom.Insert(*pTile_b);
+                            temp_prom.Insert(*pTile_c);
+                            temp_prom.Promote();
+
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a,
+                                            *pTile_b, *pTile_c, aTranspose,
+                                            false, true, -1, alpha)
+                            temp_prom.DePromote();
+                        }
+                    }
+                }
+            }
+        } else {
+            if (!aTranspose) {
+                for (auto k = 0; k < tiles_per_row_b; k++) {
+                    alpha = ( k == 0 ) ? aAlpha : 1;
+                    for (auto n = 0; n < tiles_per_col_b; n++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(k, k);
+                        auto pTile_b = aInputB.GetTile(k, n);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        alpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile, k, n);
+                    }
+                    for (auto m = k + 1; m < tiles_per_row_b; m++) {
+                        for (auto n = 0; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom(3);
+                            auto pTile_a = aInputA.GetTile(m, k);
+                            auto pTile_b = aInputB.GetTile(k, n);
+                            auto pTile_c = aInputB.GetTile(m, n);
+
+                            temp_prom.Insert(*pTile_a);
+                            temp_prom.Insert(*pTile_b);
+                            temp_prom.Insert(*pTile_c);
+                            temp_prom.Promote();
+
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a,
+                                            *pTile_b, *pTile_c, aTranspose,
+                                            false, true, -1, alpha)
+                            temp_prom.DePromote();
+                        }
+                    }
+                }
+            } else {
+                for (auto k = 0; k < tiles_per_row_b; k++) {
+                    alpha = ( k == 0 ) ? aAlpha : 1;
+                    for (auto n = 0; n < tiles_per_col_b; n++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(tiles_per_row_b - 1 - k,
+                                                       tiles_per_row_b - 1 - k);
+                        auto pTile_b = aInputB.GetTile(tiles_per_row_b - 1 - k,
+                                                       n);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        alpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile,
+                                           tiles_per_row_b - 1 - k, n);
+                    }
+                    for (auto m = k + 1; m < tiles_per_row_b; m++) {
+                        for (auto n = 0; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom(3);
+                            auto pTile_a = aInputA.GetTile(
+                                tiles_per_row_b - 1 - k,
+                                tiles_per_row_b - 1 - m);
+                            auto pTile_b = aInputB.GetTile(
+                                tiles_per_row_b - 1 - k,
+                                n);
+                            auto pTile_c = aInputB.GetTile(
+                                tiles_per_row_b - 1 - m,
+                                n);
+                            temp_prom.Insert(*pTile_a);
+                            temp_prom.Insert(*pTile_b);
+                            temp_prom.Insert(*pTile_c);
+                            temp_prom.Promote();
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a,
+                                            *pTile_b,
+                                            *pTile_c, aTranspose, false, true,
+                                            -1, aAlpha)
+                            temp_prom.DePromote();
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+
+        alpha = -1 / aAlpha;
+
+        if (aUpperTriangle) {
+            if (!aTranspose) {
+                for (auto k = 0; k < tiles_per_col_b; k++) {
+                    alpha = ( k == 0 ) ? aAlpha : 1;
+                    for (auto n = 0; n < tiles_per_row_b; n++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(k, k);
+                        auto pTile_b = aInputB.GetTile(n, k);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        alpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile, n, k);
+                    }
+                    for (auto m = 0; m < tiles_per_row_b; m++) {
+                        for (auto n = k + 1; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom(3);
+                            auto pTile_a = aInputB.GetTile(m, k);
+                            auto pTile_b = aInputA.GetTile(k, n);
+                            auto pTile_c = aInputB.GetTile(m, n);
+
+                            temp_prom.Insert(*pTile_a);
+                            temp_prom.Insert(*pTile_b);
+                            temp_prom.Insert(*pTile_c);
+                            temp_prom.Promote();
+
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a,
+                                            *pTile_b, *pTile_c, false,
+                                            aTranspose, true, -1, alpha)
+                            temp_prom.DePromote();
+                        }
+                    }
+                }
+            } else {
+                for (auto k = 0; k < tiles_per_col_b; k++) {
+                    for (auto m = 0; m < tiles_per_row_b; m++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(tiles_per_col_b - 1 - k,
+                                                       tiles_per_col_b - 1 - k);
+                        auto pTile_b = aInputB.GetTile(
+                            m, tiles_per_col_b - 1 - k);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        aAlpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile, m,
+                                           tiles_per_col_b - 1 - k);
+
+
+                        for (auto n = k + 1; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom_2(3);
+                            auto pTile_a_two = aInputB.GetTile(
+                                m, tiles_per_col_b - 1 - k);
+                            auto pTile_b_two = aInputA.GetTile(
+                                tiles_per_col_b - 1 - n,
+                                tiles_per_col_b - 1 - k);
+                            auto pTile_c = aInputB.GetTile(
+                                m, tiles_per_col_b - 1 - n);
+
+                            temp_prom_2.Insert(*pTile_a_two);
+                            temp_prom_2.Insert(*pTile_b_two);
+                            temp_prom_2.Insert(*pTile_c);
+                            temp_prom_2.Promote();
+
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a_two,
+                                            *pTile_b_two, *pTile_c, false,
+                                            aTranspose, true, alpha, 1)
+                            temp_prom_2.DePromote();
+                        }
+                    }
+                }
+            }
+        } else {
+            if (!aTranspose) {
+                for (auto k = 0; k < tiles_per_col_b; k++) {
+                    alpha = ( k == 0 ) ? aAlpha : 1;
+                    for (auto m = 0; m < tiles_per_row_b; m++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(tiles_per_col_b - 1 - k,
+                                                       tiles_per_col_b - 1 - k);
+                        auto pTile_b = aInputB.GetTile(
+                            m, tiles_per_col_b - 1 - k);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        alpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile, m,
+                                           tiles_per_col_b - 1 - k);
+
+
+                        for (auto n = k + 1; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom_2(3);
+                            auto pTile_a_two = aInputB.GetTile(
+                                m, tiles_per_col_b - 1 - k);
+                            auto pTile_b_two = aInputA.GetTile(
+                                tiles_per_col_b - 1 - k,
+                                tiles_per_col_b - 1 - n);
+                            auto pTile_c = aInputB.GetTile(
+                                m, tiles_per_col_b - 1 - n);
+
+                            temp_prom_2.Insert(*pTile_a_two);
+                            temp_prom_2.Insert(*pTile_b_two);
+                            temp_prom_2.Insert(*pTile_c);
+                            temp_prom_2.Promote();
+
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a_two,
+                                            *pTile_b_two, *pTile_c, false,
+                                            aTranspose, true, -1, alpha)
+                            temp_prom_2.DePromote();
+                        }
+                    }
+                }
+            } else {
+                for (auto k = 0; k < tiles_per_col_b; k++) {
+                    for (auto m = 0; m < tiles_per_row_b; m++) {
+                        Promoter temp_prom(3);
+                        auto pTile_a = aInputA.GetTile(k, k);
+                        auto pTile_b = aInputB.GetTile(m, k);
+                        auto pTemp_outTile = new DataType(
+                            pTile_b->GetPrecision());
+
+                        temp_prom.Insert(*pTile_a);
+                        temp_prom.Insert(*pTile_b);
+                        temp_prom.Insert(*pTemp_outTile);
+                        temp_prom.Promote();
+                        SIMPLE_DISPATCH(pTemp_outTile->GetPrecision(),
+                                        linear::BackSolve, *pTile_a, *pTile_b,
+                                        *pTemp_outTile, pTile_a->GetNCol(),
+                                        aUpperTriangle, aTranspose, aSide,
+                                        aAlpha)
+
+                        temp_prom.DePromote();
+                        aInputB.InsertTile(pTemp_outTile, m,k);
+
+
+                        for (auto n = k + 1; n < tiles_per_col_b; n++) {
+
+                            Promoter temp_prom_2(3);
+                            auto pTile_a_two = aInputB.GetTile(m, k);
+                            auto pTile_b_two = aInputA.GetTile(n, k);
+                            auto pTile_c = aInputB.GetTile(m, n);
+
+                            temp_prom_2.Insert(*pTile_a_two);
+                            temp_prom_2.Insert(*pTile_b_two);
+                            temp_prom_2.Insert(*pTile_c);
+                            temp_prom_2.Promote();
+
+                            SIMPLE_DISPATCH(pTile_c->GetPrecision(),
+                                            linear::CrossProduct, *pTile_a_two,
+                                            *pTile_b_two, *pTile_c, false,
+                                            aTranspose, true, alpha, 1)
+                            temp_prom_2.DePromote();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 }

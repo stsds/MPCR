@@ -35,8 +35,8 @@ using namespace mpr::precision;
 /** Dispatcher for one template arguments **/
 #define SIMPLE_DISPATCH(PRECISION, __FUN__, ...)                               \
           switch(PRECISION){                                                   \
-              case HALF: {                                                      \
-              __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;            \
+              case HALF: {                                                     \
+              __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));             \
               break;                                                           \
               }                                                                \
               case FLOAT: {                                                    \
