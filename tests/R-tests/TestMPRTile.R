@@ -92,7 +92,7 @@ mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
 mat_b <- new(MPRTile, 4,4, 2, 2, a, c)
 mat_c <- new(MPRTile, 4,4, 2, 2, zeros, c)
 
-mat_c <- MPRTile.gemm(mat_a,mat_b,mat_c,1,1)
+MPRTile.gemm(a=mat_a,b=mat_b,c=mat_c,transpose_a=FALSE,transpose_b=FALSE,alpha=1,beta=1)
 print(mat_c)
 
 

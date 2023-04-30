@@ -35,7 +35,9 @@ RCPP_MODULE(MPRTile) {
 
 
     function("MPRTile.gemm", &mpr::operations::linear::TileGemm,
-             List::create(_[ "a" ], _[ "b" ], _[ "c" ], _[ "alpha" ] = 1,
+             List::create(_[ "a" ], _[ "b" ], _[ "c" ],
+                          _[ "transpose_a" ] = false,
+                          _[ "transpose_b" ] = false, _[ "alpha" ] = 1,
                           _[ "beta" ] = 0));
 
     function("MPRTile.chol", &mpr::operations::linear::TileCholesky,

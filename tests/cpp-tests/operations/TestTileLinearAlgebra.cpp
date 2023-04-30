@@ -31,14 +31,14 @@ TEST_TILE_LINEAR_ALGEBRA() {
         MPRTile c(4, 4, 2, 2, zeros, precision_b);
 
         auto counter = 0;
-        auto pMatrix_c = mpr::operations::linear::TileGemm(a, b, c);
+        mpr::operations::linear::TileGemm(a, b, c);
 
-        REQUIRE(pMatrix_c->GetNRow() == 4);
-        REQUIRE(pMatrix_c->GetNCol() == 4);
-        REQUIRE(pMatrix_c->GetTileNCol() == 2);
-        REQUIRE(pMatrix_c->GetTileNRow() == 2);
-        REQUIRE(pMatrix_c->GetTilePerCol() == 2);
-        REQUIRE(pMatrix_c->GetTilePerRow() == 2);
+        REQUIRE(c.GetNRow() == 4);
+        REQUIRE(c.GetNCol() == 4);
+        REQUIRE(c.GetTileNCol() == 2);
+        REQUIRE(c.GetTileNRow() == 2);
+        REQUIRE(c.GetTilePerCol() == 2);
+        REQUIRE(c.GetTilePerRow() == 2);
 
         auto error = 0.01;
 
@@ -53,9 +53,9 @@ TEST_TILE_LINEAR_ALGEBRA() {
 
 
         counter = 0;
-        for (auto i = 0; i < pMatrix_c->GetNCol(); i++) {
-            for (auto j = 0; j < pMatrix_c->GetNRow(); j++) {
-                auto val = pMatrix_c->GetVal(j, i);
+        for (auto i = 0; i < c.GetNCol(); i++) {
+            for (auto j = 0; j < c.GetNRow(); j++) {
+                auto val = c.GetVal(j, i);
                 auto temp_error_perc = fabs(val - validate_vals[ counter ]) /
                                        validate_vals[ counter ];
                 REQUIRE(temp_error_perc <= error);

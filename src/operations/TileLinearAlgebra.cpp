@@ -140,38 +140,37 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
 }
 
 
-MPRTile *
+void
 linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
+                 const bool &aTransposeA, const bool &aTransposeB,
                  const double &aAlpha, const double &aBeta) {
+
     auto tile_per_row_a = aInputA.GetTilePerRow();
     auto tile_per_col_a = aInputA.GetTilePerCol();
 
     auto tile_per_row_b = aInputB.GetTilePerRow();
     auto tile_per_col_b = aInputB.GetTilePerCol();
 
-
     auto tile_per_row_c = aInputC.GetTilePerRow();
     auto tile_per_col_c = aInputC.GetTilePerCol();
 
-
     if (tile_per_col_a != tile_per_row_b || tile_per_row_a != tile_per_row_c ||
         tile_per_col_b != tile_per_col_c) {
-        MPR_API_EXCEPTION(
-            "Cannot perform Matrix multiplication, Tiles Per Col A != Tiles Per Row B",
-            -1);
+        auto msg = "Cannot perform Matrix multiplication,"
+                   " Tiles Per Col A != Tiles Per Row B, "
+                   "or C Dimensions doesn't match the operation";
+        MPR_API_EXCEPTION(msg, -1);
     }
 
-
     auto pOutput = &aInputC;
-    Promoter dep_promoter(1);
-    Promoter prom(1);
 
-
+#pragma omp parallel for collapse(2)
     for (auto i = 0; i < tile_per_row_a; i++) {
         for (auto j = 0; j < tile_per_col_b; j++) {
 
+            Promoter dep_promoter(1);
+            Promoter prom(1);
             auto pTile_c = pOutput->GetTile(i, j);
-            prom.ResetPromoter(1);
             prom.Insert(*pTile_c);
             prom.Promote();
 
@@ -185,20 +184,18 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
                 auto pTile_b_promoted = temp_dep_prom.GetPromotedTile(pTile_b,
                                                                       pTile_c->GetPrecision());
 
-
                 SIMPLE_DISPATCH(pTile_c->GetPrecision(), linear::CrossProduct,
                                 *pTile_a_promoted, *pTile_b_promoted, *pTile_c,
-                                false, false,
-                                true, aAlpha, aBeta)
+                                aTransposeA, aTransposeB, true, aAlpha, aBeta)
+
 
             }
             prom.DePromote();
+            dep_promoter.ResetPromoter(1);
             pOutput->InsertTile(pTile_c, i, j);
         }
-        dep_promoter.ResetPromoter(1);
     }
 
-    return pOutput;
 }
 
 
@@ -578,7 +575,7 @@ linear::TileTrsm(MPRTile &aInputA, MPRTile &aInputB, const char &aSide,
                                         aAlpha)
 
                         temp_prom.DePromote();
-                        aInputB.InsertTile(pTemp_outTile, m,k);
+                        aInputB.InsertTile(pTemp_outTile, m, k);
 
 
                         for (auto n = k + 1; n < tiles_per_col_b; n++) {

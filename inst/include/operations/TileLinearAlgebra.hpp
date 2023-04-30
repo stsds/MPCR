@@ -38,16 +38,19 @@ namespace mpr {
              * MPRTile Matrix
              * @param[in,out] aInputC
              * MPRTile Matrix
+             * @param[in] aTransposeA
+             * flag to indicate whether A should be transposed
+             * @param[in] aTransposeB
+             * flag to indicate whether B should be transposed
              * @param[in] aAlpha
              * Factor multiplied to Matrix A
              * @param [in] aBeta
              * Factor multiplied to Matrix C
-             * @returns
-             * MPRTile Matrix
              *
              */
-            MPRTile *
+            void
             TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
+                     const bool &aTransposeA=false, const bool &aTransposeB=false,
                      const double &aAlpha = 1, const double &aBeta = 1);
 
 
