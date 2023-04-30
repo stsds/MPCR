@@ -164,4 +164,16 @@ RCPP_MODULE(MPR) {
                           _[ "precision" ]));
 
 
+    /** Function to expose gemm , trsm , syrk **/
+    function("MPR.gemm", &RGemm,
+             List::create(_[ "a" ], _[ "b" ] = R_NilValue, _[ "c" ],
+                          _[ "transpose_a" ] = false,
+                          _[ "transpose_b" ] = false, _[ "alpha" ] = 1,
+                          _[ "beta" ] = 0));
+
+    function("MPR.trsm", &RTrsm,
+             List::create(_[ "a" ], _[ "b" ], _[ "upper_triangle" ],
+                          _[ "transpose" ] = false, _[ "side" ] = 'L',
+                          _[ "alpha" ] = 1));
+
 }

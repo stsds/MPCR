@@ -10,6 +10,61 @@ using namespace mpr::operations;
 
 
 DataType *
+RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
+      const bool &aTranspose, const char &aSide, const double &aAlpha){
+
+    Promoter pr(2);
+    pr.Insert(*aInputA);
+    pr.Insert(*aInputB);
+    pr.Promote();
+
+    auto precision = aInputA->GetPrecision();
+    auto pOutput = new DataType(precision);
+
+    SIMPLE_DISPATCH(precision, linear::BackSolve, *aInputA, *aInputB, *pOutput,
+                    aInputA->GetNCol(), aUpperTri, aTranspose,aSide,aAlpha)
+
+    pr.DePromote();
+
+    return pOutput;
+}
+
+void
+RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
+      const bool &aTransposeA, const bool &aTransposeB, const double &aAlpha,
+      const double &aBeta) {
+
+    bool aSingle = ((SEXP) aInputB == R_NilValue );
+    Promoter pr(3);
+    DataType *temp_b = nullptr;
+
+    if (aSingle) {
+        DataType dump(0, aInputA->GetPrecision());
+        temp_b = &dump;
+    } else {
+        temp_b = (DataType *) Rcpp::internal::as_module_object_internal(
+            aInputB);
+        if (!temp_b->IsDataType()) {
+            MPR_API_EXCEPTION(
+                "Undefined Object . Make Sure You're Using MPR Object",
+                -1);
+        }
+
+    }
+    pr.Insert(*aInputA);
+    pr.Insert(*temp_b);
+    pr.Insert(*aInputC);
+    pr.Promote();
+
+    auto precision = aInputA->GetPrecision();
+    SIMPLE_DISPATCH(precision, linear::CrossProduct, *aInputA, *temp_b,
+                    *aInputC, aTransposeA, aTransposeB, true, aAlpha, aBeta)
+
+    pr.DePromote();
+}
+
+
+DataType *
 RCrossProduct(DataType *aInputA, SEXP aInputB) {
 
     // cross(x,y) -> x y
@@ -131,10 +186,11 @@ RBackSolve(DataType *aInputA, DataType *aInputB, const long &aCol,
 
 
 DataType *
-RCholesky(DataType *aInputA) {
+RCholesky(DataType *aInputA, const bool &aUpperTriangle) {
     auto precision = aInputA->GetPrecision();
     auto pOutput = new DataType(precision);
-    SIMPLE_DISPATCH(precision, linear::Cholesky, *aInputA, *pOutput)
+    SIMPLE_DISPATCH(precision, linear::Cholesky, *aInputA, *pOutput,
+                    aUpperTriangle)
     return pOutput;
 
 }
@@ -154,7 +210,7 @@ RSolve(DataType *aInputA, SEXP aInputB) {
 
     bool aSingle = ((SEXP) aInputB == R_NilValue );
     Promoter pr(2);
-    DataType* temp_b= nullptr;
+    DataType *temp_b = nullptr;
 
     if (aSingle) {
         DataType dump(0, aInputA->GetPrecision());
@@ -225,9 +281,9 @@ RSVD(DataType *aInputA, const long &aNu, const long &aNv,
 }
 
 
-DataType*
+DataType *
 RTranspose(DataType *aInputA) {
-    auto pOutput=new DataType(*aInputA);
+    auto pOutput = new DataType(*aInputA);
     pOutput->Transpose();
     return pOutput;
 }
@@ -287,7 +343,8 @@ RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle) {
         auto pivot = new DataType(precision);
         auto rank = new DataType(precision);
 
-        SIMPLE_DISPATCH(precision, linear::QRDecomposition, *aInputA, *qr, *qraux,
+        SIMPLE_DISPATCH(precision, linear::QRDecomposition, *aInputA, *qr,
+                        *qraux,
                         *pivot, *rank)
 
         temp_input = RQRDecompositionR(qr, false);
@@ -304,7 +361,8 @@ RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle) {
     }
 
     auto pOutput = new DataType(precision);
-    SIMPLE_DISPATCH(precision, linear::ReciprocalCondition, *temp_input, *pOutput,
+    SIMPLE_DISPATCH(precision, linear::ReciprocalCondition, *temp_input,
+                    *pOutput,
                     aNorm, aTriangle)
 
     if (flag_creation) {

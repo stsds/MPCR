@@ -105,7 +105,7 @@ RBackSolve(DataType *aInputA, DataType *aInputB, const long &aCol,
  *
  */
 DataType *
-RCholesky(DataType *aInputA);
+RCholesky(DataType *aInputA, const bool &aUpperTriangle);
 
 /**
  * @brief
@@ -157,7 +157,7 @@ RSolve(DataType *aInputA, SEXP aInputB);
  * Vectors containing d,u,v or VT if aTranspose = false
  *
  */
-std::vector <DataType >
+std::vector <DataType>
 RSVD(DataType *aInputA, const long &aNu, const long &aNv,
      const bool &aTranspose);
 
@@ -169,7 +169,7 @@ RSVD(DataType *aInputA, const long &aNu, const long &aNv,
  * MPR Matrix A
  *
  */
-DataType*
+DataType *
 RTranspose(DataType *aInputA);
 
 /**
@@ -198,7 +198,7 @@ RNorm(DataType *aInputA, const std::string &aType);
  * vector containing QR,QRaux,Pivot,Rank
  *
  */
-std::vector <DataType >
+std::vector <DataType>
 RQRDecomposition(DataType *aInputA);
 
 /**
@@ -320,6 +320,40 @@ RQRDecompositionQy(DataType *aInputA, DataType *aInputB, DataType *aDvec);
  */
 DataType *
 RQRDecompositionQty(DataType *aInputA, DataType *aInputB, DataType *aDvec);
+
+/**
+ * @brief
+ * Perform Matrix Matrix Multiplication using Gemm/Syrk routines
+ * performs:
+ * C= alphaA *B +betaC
+ *
+ * @param[in] aInputA
+ * MPR Matrix
+ * @param[in] aInputB
+ * MPR Matrix ,if missing syrk routine will be used
+ * @param[in,out] aInputC
+ * MPR Matrix
+ * @param[in] aTransposeA
+ * if true , the transpose of A will be Used
+ * @param[in] aTransposeB
+ * if true , the transpose of B will be Used
+ * @param aAlpha
+ * factor of A
+ * @param aBeta
+ * factor of C
+ *
+ * @returns
+ * MPR Matrix
+ *
+ */
+void
+RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
+      const bool &aTransposeA, const bool &aTransposeB, const double &aAlpha,
+      const double &aBeta);
+
+DataType *
+RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
+      const bool &aTranspose, const char &aSide, const double &aAlpha);
 
 
 #endif //MPR_RLINEARALGEBRA_HPP

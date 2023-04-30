@@ -341,6 +341,9 @@ MPRTile::SetDimensions(MPRTile &aMPRTile) {
 DataType *&
 MPRTile::GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
 
+    if (CheckIndex(aTileRowIdx, aTileColIdx, *this->mpTilesDimensions)) {
+        MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
+    }
     auto idx_1D = GetIndexColumnMajor(std::make_pair(aTileRowIdx, aTileColIdx),
                                       this->mpTilesDimensions->GetNRow());
 
@@ -354,6 +357,11 @@ MPRTile::GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
 void
 MPRTile::InsertTile(DataType *apTile, const size_t &aTileRowIdx,
                     const size_t &aTileColIdx) {
+
+    if (CheckIndex(aTileRowIdx, aTileColIdx, *this->mpTilesDimensions)) {
+        MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
+    }
+
     auto idx_1D = GetIndexColumnMajor(std::make_pair(aTileRowIdx, aTileColIdx),
                                       this->mpTilesDimensions->GetNRow());
     if (idx_1D >= mTiles.size()) {

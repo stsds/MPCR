@@ -46,7 +46,6 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
                         *pTile_matrix_a_potrf, *pTile_potrf_out, false)
 
         prom.ResetPromoter(2);
-
         pOutput->InsertTile(pTile_potrf_out, k, k);
 
 #pragma omp parallel for
@@ -80,7 +79,6 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
         }
         dep_promoter.ResetPromoter(1);
         for (auto j = k + 1; j < tiles_per_row; j++) {
-
             auto pTile_matrix_a = pOutput->GetTile(j, k);
             auto pTemp_tile_out_two = pOutput->GetTile(j, j);
 
@@ -95,8 +93,6 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
                                                                  pTemp_tile_out_two->GetPrecision());
 
 
-
-
             /** syrk **/
             SIMPLE_DISPATCH(pTile_a_promoted->GetPrecision(),
                             linear::CrossProduct, *pTile_a_promoted, dump,
@@ -107,7 +103,6 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
 
 #pragma omp parallel for
             for (auto i = j + 1; i < tiles_per_row; i++) {
-
                 auto pTemp_tile_a = pOutput->GetTile(i, k);
                 auto pTemp_tile_b = pOutput->GetTile(j, k);
                 auto pTile_gemm_out = pOutput->GetTile(i, j);

@@ -225,8 +225,11 @@
               ret
 
             })
-  setMethod("chol", signature(x = "Rcpp_MPR"), function(x, ...) {
-    ret <- MPR.chol(x)
+  setMethod("chol", signature(x = "Rcpp_MPR"), function(x,upper_triangle, ...) {
+    if(missing(upper_triangle)){
+      upper_triangle=TRUE
+    }
+    ret <- MPR.chol(x,upper_triangle)
     ret
   })
   setMethod("chol2inv", c(x = "Rcpp_MPR"), function(x, size) {

@@ -10,6 +10,7 @@ using namespace mpr::precision;
 
 DataType::DataType(size_t aSize, Precision aPrecision) {
     this->SetMagicNumber();
+    this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aSize;
     this->mpDimensions = nullptr;
@@ -21,6 +22,7 @@ DataType::DataType(size_t aSize, Precision aPrecision) {
 DataType::DataType(std::vector <double> aValues, std::string aPrecision) {
 
     this->SetMagicNumber();
+    this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
     this->mpDimensions = nullptr;
@@ -33,6 +35,7 @@ DataType::DataType(std::vector <double> aValues, std::string aPrecision) {
 DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
                    const size_t &aCol, const std::string &aPrecision) {
     this->SetMagicNumber();
+    this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
     this->mpDimensions = new Dimensions(aRow, aCol);
@@ -44,6 +47,7 @@ DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
 DataType::DataType(std::vector <double> &aValues,
                    mpr::precision::Precision aPrecision) {
     this->SetMagicNumber();
+    this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
     this->mpDimensions = nullptr;
@@ -54,6 +58,7 @@ DataType::DataType(std::vector <double> &aValues,
 
 DataType::DataType(size_t aSize, int aPrecision) {
     this->SetMagicNumber();
+    this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = nullptr;
     this->mMatrix = false;
@@ -65,6 +70,7 @@ DataType::DataType(size_t aSize, int aPrecision) {
 DataType::DataType(size_t aSize, const std::string &aPrecision) {
     this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
+    this->mpData = nullptr;
     this->mpDimensions = nullptr;
     this->mMatrix = false;
     this->mSize = aSize;
@@ -75,6 +81,7 @@ DataType::DataType(size_t aSize, const std::string &aPrecision) {
 
 DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
     this->SetMagicNumber();
+    this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
@@ -139,6 +146,9 @@ DataType::~DataType() {
 template <typename T>
 void
 DataType::Init(std::vector <double> *aValues) {
+    if (this->mSize == 0) {
+        return;
+    }
     bool flag = ( aValues == nullptr );
     T *temp = new T[mSize];
     for (auto i = 0; i < mSize; i++) {
