@@ -54,6 +54,6 @@ RCPP_MODULE(MPRTile) {
 
     function("MPRTile.GetTile", &RGetTile,
              List::create(_[ "matrix" ], _[ "row" ], _[ "col" ]));
-    function("MPRTile.InsertTile", &RInsertTile,
+    function("MPRTile.UpdateTile", &RInsertTile,
              List::create(_[ "matrix" ], _[ "tile" ], _[ "row" ], _[ "col" ]));
 }

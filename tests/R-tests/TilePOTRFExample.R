@@ -18,14 +18,14 @@ num_rows_tile <- chol_mat$Row / chol_mat$TileRow
 for (k in 1:num_rows_tile) {
   tile_chol <- MPRTile.GetTile(matrix = chol_mat, row = k, col = k)
   potrf_output <- chol(x = tile_chol, upper_triangle = FALSE)
-  MPRTile.InsertTile(matrix = chol_mat, tile = potrf_output, row = k, col = k)
+  MPRTile.UpdateTile(matrix = chol_mat, tile = potrf_output, row = k, col = k)
 
   if (k < num_rows_tile) {
     for (i in (k + 1):(num_rows_tile)) {
       tile_one <- MPRTile.GetTile(matrix = chol_mat, row = k, col = k)
       tile_two <- MPRTile.GetTile(matrix = chol_mat, row = i, col = k)
       trsm_output <- MPR.trsm(a = tile_one, b = tile_two, upper_triangle = FALSE, transpose = TRUE, side = 'R', alpha = 1)
-      MPRTile.InsertTile(matrix = chol_mat, tile = trsm_output, row = i, col = k)
+      MPRTile.UpdateTile(matrix = chol_mat, tile = trsm_output, row = i, col = k)
     }
 
 
@@ -33,7 +33,7 @@ for (k in 1:num_rows_tile) {
       tile_one <- MPRTile.GetTile(matrix = chol_mat, row = j, col = k)
       tile_two <- MPRTile.GetTile(matrix = chol_mat, row = j, col = j)
       MPR.gemm(a = tile_one, c = tile_two, alpha = -1, beta = 1)
-      MPRTile.InsertTile(matrix = chol_mat, tile = tile_two, row = j, col = j)
+      MPRTile.UpdateTile(matrix = chol_mat, tile = tile_two, row = j, col = j)
 
       if (j < num_rows_tile) {
         for (i in (j + 1):(num_rows_tile)) {
@@ -41,7 +41,7 @@ for (k in 1:num_rows_tile) {
           tile_two <- MPRTile.GetTile(matrix = chol_mat, row = j, col = k)
           tile_three <- MPRTile.GetTile(matrix = chol_mat, row = i, col = j)
           MPR.gemm(a = tile_one, b = tile_two, c = tile_three, transpose_b = TRUE, alpha = -1, beta = 1)
-          MPRTile.InsertTile(matrix = chol_mat, tile = tile_three, row = i, col = j)
+          MPRTile.UpdateTile(matrix = chol_mat, tile = tile_three, row = i, col = j)
         }
       }
     }
