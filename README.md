@@ -21,6 +21,13 @@ To install the R package from source ,run:
 ./InstallScript.sh
 ```
 
+#### To Run the R package:
+- To use the package you will need to add lapackpp and blaspp lib to the LD_LIBRARY_PATH. To do so :
+```shell
+cd MPR/
+source env.sh
+```
+
 
 ## Testing
 
