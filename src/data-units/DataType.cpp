@@ -149,11 +149,15 @@ DataType::Init(std::vector <double> *aValues) {
     if (this->mSize == 0) {
         return;
     }
+    double val = 0;
+#ifdef RUNNING_CPP
+    val = 1.5;
+#endif
     bool flag = ( aValues == nullptr );
     T *temp = new T[mSize];
     for (auto i = 0; i < mSize; i++) {
         if (flag) {
-            temp[ i ] = (T) 1.5;
+            temp[ i ] = (T) val;
         } else {
             temp[ i ] = (T) aValues->at(i);
         }

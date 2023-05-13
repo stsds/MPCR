@@ -1,4 +1,4 @@
-library(MPR)
+library("MPR")
 
 paste("Create a Vector of 50 element with 32-Bit Precision")
 x <- new(MPR, 50, "float")
@@ -80,22 +80,22 @@ max_idx
 
 paste("---------------------------------------------------------------")
 paste("Is Int Should be True")
-is.sfloat(y)
+MPR.is.half(y)
 paste("Is Int Should be False")
 is.double(y)
-is.float(y)
+MPR.is.float(y)
 
 paste("---------------------------------------------------------------")
 paste("Is NA Should be True")
 x[[10]] <- 0
 x[[11]] <- x[[10]] / 0
-is.na(x, 11)
+MPR.is.na(x, 11)
 paste("Is NA Should be False")
-is.na(x, 12)
+MPR.is.na(x, 12)
 
 paste("---------------------------------------------------------------")
 paste("NA replace with 123")
-na.exclude(x, 123)
+na.exclude(x, value=123)
 x[[11]]
 paste("NA omit size should be 49")
 x[[11]] <- x[[10]] / 0
@@ -135,7 +135,7 @@ xx <- new(MPR, 30, "float")
 xx$ToMatrix(5, 6)
 
 paste("size should be 60")
-cbind_temp <- cbind(xx, replicated)
+cbind_temp <- MPR.cbind(xx, replicated)
 cbind_temp$Size
 cbind_temp$IsMatrix
 paste("row should be 5")
@@ -148,7 +148,7 @@ paste("---------------------------------------------------------------")
 paste("RBind")
 
 paste("size should be 60")
-cbind_temp <- rbind(xx, replicated)
+cbind_temp <- MPR.rbind(xx, replicated)
 cbind_temp$Size
 cbind_temp$IsMatrix
 paste("row should be 10")
@@ -163,8 +163,8 @@ paste("Sweep values should be 3 for all elements 1.5 * 2")
 
 yy <- new(MPR, 10, "double")
 temp_bind[[1]] <- 2
-temp_sweep <- sweep(yy, temp_bind, 1, "+")
-is.double(temp_sweep)
+temp_sweep <- sweep(x=yy, stat=temp_bind, margin=1, FUN="+")
+MPR.is.double(temp_sweep)
 
 paste("---------------------------------------------------------------")
 paste("Object size Vector of float 10 Element Float")
@@ -195,7 +195,7 @@ for (val in 1:50) {
 
 temp_scale$PrintValues()
 temp_center_scale <- new(MPR, 10, "double")
-z <- scale(temp_scale, FALSE, temp_center_scale)
+z <- scale(x=temp_scale, center=FALSE, scale=temp_center_scale)
 z$PrintValues()
 
 
@@ -247,7 +247,7 @@ z$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("Testing IS Na Operations")
-z <- is.na(z)
+z <- MPR.is.na(z)
 z
 
 paste("---------------------------------------------------------------")

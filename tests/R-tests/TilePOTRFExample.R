@@ -17,7 +17,7 @@ num_rows_tile <- chol_mat$Row / chol_mat$TileRow
 
 for (k in 1:num_rows_tile) {
   tile_chol <- MPRTile.GetTile(matrix = chol_mat, row = k, col = k)
-  potrf_output <- chol(x = tile_chol, upper_triangle = FALSE)
+  potrf_output <- chol(x = tile_chol, upper_triangle = FALSE) # matrix upper row col
   MPRTile.UpdateTile(matrix = chol_mat, tile = potrf_output, row = k, col = k)
 
   if (k < num_rows_tile) {

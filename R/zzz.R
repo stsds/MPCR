@@ -44,7 +44,9 @@
   #-------------------------- MPRTile Linear Algebra ------------------------------
   setMethod("chol", c(x = "Rcpp_MPRTile"), MPRTile.chol)
 
-  #--------------------------------------------------------------------------------
+
+
+  #------------------------------ MPR Class--------------------------------------------
   setMethod("[", signature(x = "Rcpp_MPR"), function(x, i, j, drop = TRUE) {
     if (missing(j)) {
       i = i - 1
@@ -86,9 +88,53 @@
   # Basic Utilities
   # ----------------
 
-  setMethod("print", c(x = "Rcpp_MPR"), function(x, ...) {
-    MPR.print(x)
-  })
+  #-----------------------------------------------------------------------------------------------#
+  setMethod("abs",c(x="Rcpp_MPR"),MPR.abs)
+  setMethod("sqrt",c(x="Rcpp_MPR"),MPR.sqrt)
+  setMethod("ceiling",c(x="Rcpp_MPR"),MPR.ceiling)
+  setMethod("floor",c(x="Rcpp_MPR"),MPR.floor)
+  setMethod("trunc",c(x="Rcpp_MPR"),MPR.trunc)
+  setMethod("exp",c(x="Rcpp_MPR"),MPR.exp)
+  setMethod("expm1",c(x="Rcpp_MPR"),MPR.expm1)
+  setMethod("gamma",c(x="Rcpp_MPR"),MPR.gamma)
+  setMethod("lgamma",c(x="Rcpp_MPR"),MPR.lgamma)
+  setMethod("is.finite",c(x="Rcpp_MPR"),MPR.is.finite)
+  setMethod("is.infinite",c(x="Rcpp_MPR"),MPR.is.infinite)
+  setMethod("is.nan",c(x="Rcpp_MPR"),MPR.is.nan)
+  setMethod("log10",c(x="Rcpp_MPR"),MPR.log10)
+  setMethod("log2",c(x="Rcpp_MPR"),MPR.log2)
+  setMethod("sin",c(x="Rcpp_MPR"),MPR.sin)
+  setMethod("cos",c(x="Rcpp_MPR"),MPR.cos)
+  setMethod("tan",c(x="Rcpp_MPR"),MPR.tan)
+  setMethod("asin",c(x="Rcpp_MPR"),MPR.asin)
+  setMethod("acos",c(x="Rcpp_MPR"),MPR.acos)
+  setMethod("atan",c(x="Rcpp_MPR"),MPR.atan)
+  setMethod("sinh",c(x="Rcpp_MPR"),MPR.sinh)
+  setMethod("cosh",c(x="Rcpp_MPR"),MPR.cosh)
+  setMethod("tanh",c(x="Rcpp_MPR"),MPR.tanh)
+  setMethod("asinh",c(x="Rcpp_MPR"),MPR.asinh)
+  setMethod("acosh",c(x="Rcpp_MPR"),MPR.acosh)
+  setMethod("atanh",c(x="Rcpp_MPR"),MPR.atanh)
+  setMethod("round",c(x="Rcpp_MPR"),MPR.round)
+  setMethod("log",c(x="Rcpp_MPR"),MPR.log)
+
+  setMethod("diag",c(x="Rcpp_MPR"),MPR.diag)
+  setMethod("min",c(x="Rcpp_MPR"),MPR.min)
+  setMethod("max",c(x="Rcpp_MPR"),MPR.max)
+  setMethod("which.min",c(x="Rcpp_MPR"),MPR.which.min)
+  setMethod("which.max",c(x="Rcpp_MPR"),MPR.which.max)
+  setMethod("nrow",c(x="Rcpp_MPR"),MPR.nrow)
+  setMethod("ncol",c(x="Rcpp_MPR"),MPR.ncol)
+  setMethod("typeof",c(x="Rcpp_MPR"),MPR.typeof)
+  setMethod("na.exclude",signature(object="Rcpp_MPR"),MPR.na.exclude)
+  setMethod("na.omit",c(object="Rcpp_MPR"),MPR.na.omit)
+  setMethod("object.size",c(x="Rcpp_MPR"),MPR.object.size)
+  setMethod("show",c(object="Rcpp_MPR"),MPR.show)
+  setMethod("storage.mode",c(x="Rcpp_MPR"),MPR.storage.mode)
+  setMethod("rep",signature(x="Rcpp_MPR"),MPR.rep)
+  setMethod("sweep",c(x="Rcpp_MPR"),MPR.sweep)
+  setMethod("scale",c(x="Rcpp_MPR"),MPR.scale)
+  setMethod("print", c(x = "Rcpp_MPR"), MPR.print)
 
 
   # Operators

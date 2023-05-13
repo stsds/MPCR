@@ -48,80 +48,81 @@ RCPP_MODULE(MPR) {
         .method("MPR.SetValMatrix", &DataType::SetValMatrix)
         .method("NotEqual", &DataType::NotEqualDispatcher);
 
+    /** Function that are not masked **/
 
-    function("cbind", &RCBind);
-    function("rbind", &RRBind);
-    function("diag", &RGetDiagonal);
-    function("is.na", &RIsNa, List::create(_[ "MPR" ], _[ "Index" ] = -1));
-    function("is.float", &RIsFloat);
-    function("is.double", &RIsDouble);
-    function("is.sfloat", &RIsSFloat);
-    function("min", &RGetMin);
-    function("max", &RGetMax);
-    function("na.omit", &RNaExclude);
-    function("na.exclude", &RNaReplace);
-    function("nrow", &RGetNRow);
-    function("ncol", &RGetNCol);
-    function("object.size", &RObjectSize);
-    function("MPR.print", &RPrint);
-    function("str", &RPrint);
-    function("show", &RGetType);
-    function("rep", &RReplicate,
-             List::create(_[ "MPR" ], _[ "count" ] = 0, _[ "len" ] = 0));
-    function("sweep", &RSweep);
-    function("typeof", &RGetType);
-    function("storage.mode", &RGetType);
-    function("which.min", &RGetMinIdx);
-    function("which.max", &RGetMaxIdx);
-    function("getVal", &RGetElementVector);
-    function("getVal", &RGetElementMatrix);
-    function("RConcatenate", &RConcatenate);
-    function("scale", &RScaleDispatcher);
-    function("ToNumericVector", &RToNumericVector);
-    function("ToNumericMatrix", &RToNumericMatrix);
-    function("ChangePrecision", &RChangePrecision);
-    function("Add", &RPerformPlusDispatcher,
+    function("MPR.is.float", &RIsFloat,List::create(_["x"]));
+    function("MPR.is.double", &RIsDouble,List::create(_["x"]));
+    function("MPR.is.half", &RIsSFloat,List::create(_["x"]));
+    function("MPR.rbind", &RRBind,List::create(_["x"],_["y"]));
+    function("MPR.cbind", &RCBind,List::create(_["x"],_["y"]));
+    function("MPR.is.na", &RIsNa, List::create(_[ "MPR" ], _[ "Index" ] = -1));
+    function("MPR.Concatenate", &RConcatenate);
+    function("MPR.ToNumericVector", &RToNumericVector);
+    function("MPR.ToNumericMatrix", &RToNumericMatrix);
+    function("MPR.ChangePrecision", &RChangePrecision);
+    function("MPR.Add", &RPerformPlusDispatcher,
              List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
-    function("Multiply", &RPerformMltDispatcher,
+    function("MPR.Multiply", &RPerformMltDispatcher,
              List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
-    function("Subtract", &RPerformMinusDispatcher,
+    function("MPR.Subtract", &RPerformMinusDispatcher,
              List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
-    function("Divide", &RPerformDivDispatcher,
+    function("MPR.Divide", &RPerformDivDispatcher,
              List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
-    function("Power", &RPerformPowDispatcher,
+    function("MPR.Power", &RPerformPowDispatcher,
              List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
 
+
+    function("MPR.print", &RPrint,List::create(_["x"]));
+    function("MPR.diag", &RGetDiagonal,List::create(_["x"]));
+    function("MPR.min", &RGetMin,List::create(_["x"]));
+    function("MPR.max", &RGetMax,List::create(_["x"]));
+    function("MPR.na.omit", &RNaExclude,List::create(_["object"]));
+    function("MPR.na.exclude", &RNaReplace,List::create(_["object"],_["value"]));
+    function("MPR.nrow", &RGetNRow,List::create(_["x"]));
+    function("MPR.ncol", &RGetNCol,List::create(_["x"]));
+    function("MPR.object.size", &RObjectSize,List::create(_["x"]));
+    function("MPR.str", &RPrint,List::create(_["object"]));
+    function("MPR.show", &RGetType,List::create(_["object"]));
+    function("MPR.rep", &RReplicate,
+             List::create(_[ "x" ], _[ "count" ] = 0, _[ "len" ] = 0));
+    function("MPR.sweep", &RSweep,List::create(_["x"],_["stat"],_["margin"],_["FUN"]));
+    function("MPR.typeof", &RGetType,List::create(_["x"]));
+    function("MPR.storage.mode", &RGetType,List::create(_["x"]));
+    function("MPR.which.min", &RGetMinIdx,List::create(_["x"]));
+    function("MPR.which.max", &RGetMaxIdx,List::create(_["x"]));
+    function("MPR.scale", &RScaleDispatcher,List::create(_["x"],_["center"],_["scale"]));
 
     /** Math Functions **/
 
-    function("abs", &RAbs);
-    function("sqrt", &RSqrt);
-    function("ceiling", &RCeiling);
-    function("floor", &RFloor);
-    function("trunc", &RTruncate);
-    function("round", &RRound, List::create(_[ "x" ], _[ "digits" ] = 0));
-    function("exp", &RExp);
-    function("exp1m", &RExp1m);
-    function("gamma", &RGamma);
-    function("lgamma", &RLGamma);
-    function("is.finite", &RIsFinite);
-    function("is.infinite", &RIsInFinite);
-    function("is.nan", &RIsNan);
-    function("log", &RLog, List::create(_[ "x" ], _[ "base" ] = 1));
-    function("log10", &RLog10);
-    function("log2", &RLog2);
-    function("sin", &RSin);
-    function("cos", &RCos);
-    function("tan", &RTan);
-    function("asin", &RASin);
-    function("acos", &RACos);
-    function("atan", &RATan);
-    function("sinh", &RSinh);
-    function("cosh", &RCosh);
-    function("tanh", &RTanh);
-    function("asinh", &RASinh);
-    function("acosh", &RACosh);
-    function("atanh", &RATanh);
+    function("MPR.abs", &RAbs,List::create(_["x"]));
+    function("MPR.sqrt", &RSqrt,List::create(_["x"]));
+    function("MPR.ceiling", &RCeiling,List::create(_["x"]));
+    function("MPR.floor", &RFloor,List::create(_["x"]));
+    function("MPR.trunc", &RTruncate,List::create(_["x"]));
+    function("MPR.round", &RRound, List::create(_[ "x" ], _[ "digits" ] = 0));
+    function("MPR.exp", &RExp,List::create(_["x"]));
+    function("MPR.expm1", &RExp1m,List::create(_["x"]));
+    function("MPR.gamma", &RGamma,List::create(_["x"]));
+    function("MPR.lgamma", &RLGamma,List::create(_["x"]));
+    function("MPR.is.finite", &RIsFinite,List::create(_["x"]));
+    function("MPR.is.infinite", &RIsInFinite,List::create(_["x"]));
+    function("MPR.is.nan", &RIsNan,List::create(_["x"]));
+    function("MPR.log", &RLog, List::create(_[ "x" ], _[ "base" ] = 1));
+    function("MPR.log10", &RLog10,List::create(_["x"]));
+    function("MPR.log2", &RLog2,List::create(_["x"]));
+    function("MPR.sin", &RSin,List::create(_["x"]));
+    function("MPR.cos", &RCos,List::create(_["x"]));
+    function("MPR.tan", &RTan,List::create(_["x"]));
+    function("MPR.asin", &RASin,List::create(_["x"]));
+    function("MPR.acos", &RACos,List::create(_["x"]));
+    function("MPR.atan", &RATan,List::create(_["x"]));
+    function("MPR.sinh", &RSinh,List::create(_["x"]));
+    function("MPR.cosh", &RCosh,List::create(_["x"]));
+    function("MPR.tanh", &RTanh,List::create(_["x"]));
+    function("MPR.asinh", &RASinh,List::create(_["x"]));
+    function("MPR.acosh", &RACosh,List::create(_["x"]));
+    function("MPR.atanh", &RATanh,List::create(_["x"]));
+
 
     /** Linear Algebra **/
 
