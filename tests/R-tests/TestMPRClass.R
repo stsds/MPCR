@@ -95,11 +95,11 @@ MPR.is.na(x, 12)
 
 paste("---------------------------------------------------------------")
 paste("NA replace with 123")
-na.exclude(x, value=123)
+MPR.na.exclude(x, value=123)
 x[[11]]
 paste("NA omit size should be 49")
 x[[11]] <- x[[10]] / 0
-na.omit(x)
+MPR.na.omit(x)
 x$Size
 
 paste("---------------------------------------------------------------")
@@ -170,13 +170,13 @@ paste("---------------------------------------------------------------")
 paste("Object size Vector of float 10 Element Float")
 paste("Data size should be 40 byte + 13 metadata")
 obj <- new(MPR, 10, "float")
-size <- object.size(obj)
+size <- MPR.object.size(obj)
 size
 
 paste("Object size Vector of float 10 Element Double")
 paste("Data size should be 80 byte + 13 metadata")
 obj <- new(MPR, 10, "double")
-size <- object.size(obj)
+size <- MPR.object.size(obj)
 size
 
 paste("---------------------------------------------------------------")

@@ -56,6 +56,9 @@ RCPP_MODULE(MPR) {
     function("MPR.rbind", &RRBind,List::create(_["x"],_["y"]));
     function("MPR.cbind", &RCBind,List::create(_["x"],_["y"]));
     function("MPR.is.na", &RIsNa, List::create(_[ "MPR" ], _[ "Index" ] = -1));
+    function("MPR.na.exclude", &RNaReplace,List::create(_["object"],_["value"]));
+    function("MPR.na.omit", &RNaExclude,List::create(_["object"]));
+    function("MPR.object.size", &RObjectSize,List::create(_["x"]));
     function("MPR.Concatenate", &RConcatenate);
     function("MPR.ToNumericVector", &RToNumericVector);
     function("MPR.ToNumericMatrix", &RToNumericMatrix);
@@ -76,11 +79,8 @@ RCPP_MODULE(MPR) {
     function("MPR.diag", &RGetDiagonal,List::create(_["x"]));
     function("MPR.min", &RGetMin,List::create(_["x"]));
     function("MPR.max", &RGetMax,List::create(_["x"]));
-    function("MPR.na.omit", &RNaExclude,List::create(_["object"]));
-    function("MPR.na.exclude", &RNaReplace,List::create(_["object"],_["value"]));
     function("MPR.nrow", &RGetNRow,List::create(_["x"]));
     function("MPR.ncol", &RGetNCol,List::create(_["x"]));
-    function("MPR.object.size", &RObjectSize,List::create(_["x"]));
     function("MPR.str", &RPrint,List::create(_["object"]));
     function("MPR.show", &RGetType,List::create(_["object"]));
     function("MPR.rep", &RReplicate,
