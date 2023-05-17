@@ -23,11 +23,18 @@ if (NOT R_ROOT_PATH)
     message("R Home Path :  " ${R_ROOT_PATH})
 endif ()
 
+if (NOT R_INCLUDE_PATH)
+    execute_process(COMMAND Rscript -e "cat(Sys.getenv('R_INCLUDE_DIR'))" OUTPUT_VARIABLE R_INCLUDE_DIR)
+    string(REGEX REPLACE "\n" "" R_INCLUDE_DIR "${R_INCLUDE_DIR}")
+    set(R_INCLUDE_PATH "${R_INCLUDE_DIR}")
+    message("R Include Path :  " ${R_INCLUDE_PATH})
+endif ()
 
-if (NOT R_LIB_PATH)
-    execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE R_LIB_PATH)
-    set(R_LIB_PATH ${R_LIB_PATH})
-    message("Rcpp Lib Path :  " ${R_LIB_PATH})
+
+if (NOT RCPP_LIB_PATH)
+    execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE RCPP_LIB_PATH)
+    set(RCPP_LIB_PATH ${RCPP_LIB_PATH})
+    message("Rcpp Lib Path :  " ${RCPP_LIB_PATH})
 endif ()
 
 
@@ -40,16 +47,6 @@ if (R_ROOT_PATH)
             NAMES "libR.so"
             PATHS ${R_ROOT_PATH}
             PATH_SUFFIXES "lib" "lib64" "bin"
-            NO_DEFAULT_PATH
-    )
-
-    # find includes
-    find_path(
-            R_INCLUDE_DIRS
-            REQUIRED
-            NAMES "R.h"
-            PATHS ${R_ROOT_PATH}
-            PATH_SUFFIXES "include"
             NO_DEFAULT_PATH
     )
 
@@ -75,15 +72,26 @@ else ()
 
 endif (R_ROOT_PATH)
 
+if (R_INCLUDE_PATH)
+    # find includes
+    find_path(
+            R_INCLUDE_DIRS
+            REQUIRED
+            NAMES "R.h"
+            PATHS ${R_ROOT_PATH}
+            PATH_SUFFIXES "include"
+            NO_DEFAULT_PATH
+    )
+endif ()
 
-if (R_LIB_PATH)
+if (RCPP_LIB_PATH)
 
     #find libs
     find_library(
             RCPP_LIB
             REQUIRED
             NAMES "Rcpp.so"
-            PATHS ${R_LIB_PATH}
+            PATHS ${RCPP_LIB_PATH}
             PATH_SUFFIXES "/libs" "/lib64" "/bin"
             NO_DEFAULT_PATH
     )
@@ -93,7 +101,7 @@ if (R_LIB_PATH)
             RCPP_INCLUDE_DIRS
             REQUIRED
             NAMES "Rcpp.h"
-            PATHS ${R_LIB_PATH}
+            PATHS ${RCPP_LIB_PATH}
             PATH_SUFFIXES "/include"
             NO_DEFAULT_PATH
     )
@@ -118,7 +126,7 @@ else ()
     )
 
 
-endif (R_LIB_PATH)
+endif (RCPP_LIB_PATH)
 
 set(R_LIBRARIES
         ${R_LIBRARIES}
