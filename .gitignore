@@ -6,6 +6,9 @@ Read-and-delete-me
 /bin
 
 
+#dep directory
+/inst/deps
+
 # Clion Build files and settings
 /cmake-build-debug
 /.idea
