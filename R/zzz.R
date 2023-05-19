@@ -10,11 +10,6 @@
 ## a load action, so this does not have to be placed in .onLoad() or evalqOnLoad().
 
 .onLoad <- function(libname, pkgname) {
-  old_path <- Sys.getenv("LD_LIBRARY_PATH")
-  MPR_path <-find.package("MPR")
-  Sys.setenv(LD_LIBRARY_PATH = paste(old_path, paste(MPR_path,"/deps/"), sep = ":"))
-
-
   loadModule("MPR", TRUE, loadNow = TRUE)
   loadModule("MPRTile", TRUE, loadNow = TRUE)
 
