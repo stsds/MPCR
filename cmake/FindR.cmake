@@ -52,25 +52,9 @@ if (R_ROOT_PATH)
 
 
 else ()
-
-    #find libs
-    find_library(
-            R_LIB
-            REQUIRED
-            NAMES "libR.so"
-            PATHS ${LIB_INSTALL_DIR}
-    )
-
-
-    #find includes
-    find_path(
-            R_INCLUDE_DIRS
-            REQUIRED
-            NAMES "R.h"
-            PATHS ${INCLUDE_INSTALL_DIR}
-    )
-
+    error("R is not installed ")
 endif (R_ROOT_PATH)
+
 
 if (R_INCLUDE_PATH)
     # find includes
@@ -78,7 +62,7 @@ if (R_INCLUDE_PATH)
             R_INCLUDE_DIRS
             REQUIRED
             NAMES "R.h"
-            PATHS ${R_ROOT_PATH}
+            PATHS ${R_INCLUDE_PATH}
             PATH_SUFFIXES "include"
             NO_DEFAULT_PATH
     )
@@ -125,8 +109,8 @@ else ()
             PATHS ${INCLUDE_INSTALL_DIR}
     )
 
-
 endif (RCPP_LIB_PATH)
+
 
 set(R_LIBRARIES
         ${R_LIBRARIES}
