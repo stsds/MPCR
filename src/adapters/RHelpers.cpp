@@ -32,3 +32,17 @@ RGetTile(MPRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx){
     auto new_obj=new DataType(*pOutput);
     return new_obj;
 }
+
+MPRTile *
+RCopyMPRTile(MPRTile *aMatrix){
+    auto tile_matrix=new MPRTile(*aMatrix);
+    return tile_matrix;
+}
+
+
+
+DataType*
+RCopyMPR(DataType *aMatrix){
+    auto mat=new DataType(*aMatrix);
+    return mat;
+}

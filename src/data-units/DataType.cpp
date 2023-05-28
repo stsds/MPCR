@@ -681,7 +681,6 @@ DataType::IsNA(Dimensions *&apDimensions) {
 
 DataType *
 DataType::PerformPlusDispatcher(SEXP aObj) {
-
     if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RPerformPlus(this, val, "");

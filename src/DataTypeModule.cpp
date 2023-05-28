@@ -4,6 +4,7 @@
 #include <adapters/RBinaryOperations.hpp>
 #include <adapters/RMathematicalOperations.hpp>
 #include <adapters/RLinearAlgebra.hpp>
+#include <adapters/RHelpers.hpp>
 
 
 
@@ -176,5 +177,8 @@ RCPP_MODULE(MPR) {
              List::create(_[ "a" ], _[ "b" ], _[ "upper_triangle" ],
                           _[ "transpose" ] = false, _[ "side" ] = 'L',
                           _[ "alpha" ] = 1));
+
+
+    function("MPR.copy",&RCopyMPR,List::create(_["x"]));
 
 }

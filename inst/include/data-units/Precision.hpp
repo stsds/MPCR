@@ -172,7 +172,7 @@ namespace mpr {
             std::transform(aPrecision.begin(), aPrecision.end(),
                            aPrecision.begin(), ::tolower);
 
-            if (aPrecision == "float") {
+            if (aPrecision == "float" || aPrecision == "single") {
                 return FLOAT;
             } else if (aPrecision == "double") {
                 return DOUBLE;

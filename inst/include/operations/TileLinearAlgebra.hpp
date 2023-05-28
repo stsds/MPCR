@@ -24,7 +24,8 @@ namespace mpr {
              *
              */
             MPRTile *
-            TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput = true);
+            TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput = true,
+                         const unsigned int &aNumThreads = 8);
 
             /**
              * @brief
@@ -50,7 +51,8 @@ namespace mpr {
              */
             void
             TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
-                     const bool &aTransposeA=false, const bool &aTransposeB=false,
+                     const bool &aTransposeA = false,
+                     const bool &aTransposeB = false,
                      const double &aAlpha = 1, const double &aBeta = 1);
 
 

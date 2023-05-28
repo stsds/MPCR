@@ -95,6 +95,11 @@ mat_c <- new(MPRTile, 4,4, 2, 2, zeros, c)
 MPRTile.gemm(a=mat_a,b=mat_b,c=mat_c,transpose_a=FALSE,transpose_b=FALSE,alpha=1,beta=1)
 print(mat_c)
 
+cat("----------------------------- DeepCopy ------------------------------------\n")
+deep_copy_tile <- MPRTile.copy(mat_c)
+print(deep_copy_tile)
+
+
 
 cat("----------------------------- Triangular Solve ------------------------------------\n")
 

@@ -17,7 +17,7 @@ RCPP_MODULE(MPRTile) {
                                       const std::string &) =&MPRTile::ChangePrecision;
 
     void (MPRTile::*pFillTriangle)(const double &, const bool &,
-                                      const std::string &) =&MPRTile::FillSquareTriangle;
+                                   const std::string &) =&MPRTile::FillSquareTriangle;
 
     using namespace Rcpp;
     class_ <MPRTile>("MPRTile")
@@ -35,11 +35,12 @@ RCPP_MODULE(MPRTile) {
         .method("MPRTile.GetVal", &MPRTile::GetVal)
         .method("show", &MPRTile::GetType)
         .method("MPRTile.print", &MPRTile::Print)
-        .method("FillSquareTriangle",pFillTriangle)
+        .method("FillSquareTriangle", pFillTriangle)
         .method("Sum", &MPRTile::Sum)
         .method("Prod", &MPRTile::Product);
 
-
+    /** MPRTile Functions **/
+    function("MPRTile.copy",&RCopyMPRTile,List::create(_["x"]));
     function("MPRTile.gemm", &mpr::operations::linear::TileGemm,
              List::create(_[ "a" ], _[ "b" ], _[ "c" ],
                           _[ "transpose_a" ] = false,
@@ -47,7 +48,8 @@ RCPP_MODULE(MPRTile) {
                           _[ "beta" ] = 0));
 
     function("MPRTile.chol", &mpr::operations::linear::TileCholesky,
-             List::create(_[ "x" ], _[ "overwrite_input" ] = true));
+             List::create(_[ "x" ], _[ "overwrite_input" ] = true,
+                          _[ "num_threads" ] = 8));
 
     function("MPRTile.trsm", &mpr::operations::linear::TileTrsm,
              List::create(_[ "a" ], _[ "b" ], _[ "side" ],
@@ -58,4 +60,6 @@ RCPP_MODULE(MPRTile) {
              List::create(_[ "matrix" ], _[ "row" ], _[ "col" ]));
     function("MPRTile.UpdateTile", &RInsertTile,
              List::create(_[ "matrix" ], _[ "tile" ], _[ "row" ], _[ "col" ]));
+
+
 }

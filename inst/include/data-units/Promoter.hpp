@@ -25,15 +25,16 @@ public:
         mCounter = 0;
     };
 
+
     /**
      * @brief
      * Default De-Constructor
      *
      */
     ~Promoter() {
-        if(!mTileMap.empty()){
-            for(auto &vec_tiles:mTileMap){
-                for(auto &tile:vec_tiles.second){
+        if (!mTileMap.empty()) {
+            for (auto &vec_tiles: mTileMap) {
+                for (auto &tile: vec_tiles.second) {
                     delete tile;
                 }
                 vec_tiles.second.clear();
@@ -81,17 +82,31 @@ public:
     void
     DePromote();
 
-
+    /**
+     * @brief
+     * Resets and deletes any saved objects and precisions
+     *
+     * @param[in] aCount
+     * New Counter that will be used for initializing the promoter
+     *
+     */
     void
     ResetPromoter(const size_t &aCount);
 
-
+    /**
+     * @brief
+     * used for MPRTile Matrix algorithms.
+     * it returns a the required tile with the required precision and
+     * it keeps track of all the tiles created during the usage so that if a tile
+     * with specific precision is created before , it returns a pointer to that
+     * tile without the need of creating any new copies.
+     *
+     * @param[in] aCount
+     * New Counter that will be used for initializing the promoter
+     *
+     */
     DataType *
     GetPromotedTile(DataType *&apTile, const Precision &aPrecisionRequired);
-
-
-
-
 
 
 private:

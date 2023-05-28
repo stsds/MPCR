@@ -9,7 +9,8 @@ using namespace mpr::operations;
 
 
 MPRTile *
-linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
+linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput,
+                     const unsigned int &aNumThreads) {
 
     auto tiles_per_row = aMatrix.GetTilePerRow();
     auto tiles_per_col = aMatrix.GetTilePerCol();
@@ -48,22 +49,31 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
         prom.ResetPromoter(2);
         pOutput->InsertTile(pTile_potrf_out, k, k);
 
-#pragma omp parallel for
+#pragma omp parallel for num_threads(aNumThreads)
         for (auto i = k + 1; i < tiles_per_row; i++) {
 
             Promoter temp_promoter(2);
 
             auto pTemp_tile_a = pOutput->GetTile(k, k);
             auto pTemp_tile_b = pOutput->GetTile(i, k);
-            auto pTile_trsm_out = new DataType(
-                pTemp_tile_b->GetPrecision());
+            DataType *pTile_trsm_out = nullptr;
+
+#pragma omp critical
+            {
+                pTile_trsm_out = new DataType(pTemp_tile_b->GetPrecision());
+            }
 
             temp_promoter.Insert(*pTile_trsm_out);
             temp_promoter.Insert(*pTemp_tile_b);
-
             temp_promoter.Promote();
-            auto pTile_a_promoted = dep_promoter.GetPromotedTile(pTemp_tile_a,
-                                                                 pTemp_tile_b->GetPrecision());
+
+            DataType *pTile_a_promoted = nullptr;
+
+#pragma omp critical
+            {
+                pTile_a_promoted = dep_promoter.GetPromotedTile(pTemp_tile_a,
+                                                                pTemp_tile_b->GetPrecision());
+            }
 
 
             /** trsm **/
@@ -101,7 +111,7 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
             prom.DePromote();
             pOutput->InsertTile(pTemp_tile_out_two, j, j);
 
-#pragma omp parallel for
+#pragma omp parallel for num_threads(aNumThreads)
             for (auto i = j + 1; i < tiles_per_row; i++) {
                 auto pTemp_tile_a = pOutput->GetTile(i, k);
                 auto pTemp_tile_b = pOutput->GetTile(j, k);
@@ -112,10 +122,17 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput) {
                 temp_promoter.Insert(*pTile_gemm_out);
                 temp_promoter.Promote();
 
-                auto pTile_a_promoted_gemm = dep_promoter.GetPromotedTile(
-                    pTemp_tile_a, pTile_gemm_out->GetPrecision());
-                auto pTile_b_promoted = dep_promoter.GetPromotedTile(
-                    pTemp_tile_b, pTile_gemm_out->GetPrecision());
+                DataType *pTile_a_promoted_gemm = nullptr;
+                DataType *pTile_b_promoted = nullptr;
+#pragma omp critical
+                {
+                    pTile_a_promoted_gemm = dep_promoter.GetPromotedTile(
+                        pTemp_tile_a, pTile_gemm_out->GetPrecision());
+
+                    pTile_b_promoted = dep_promoter.GetPromotedTile(
+                        pTemp_tile_b, pTile_gemm_out->GetPrecision());
+                }
+
 
                 /** gemm **/
                 SIMPLE_DISPATCH(pTile_gemm_out->GetPrecision(),
