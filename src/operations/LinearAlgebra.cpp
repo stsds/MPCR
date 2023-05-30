@@ -16,6 +16,26 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                      const bool &aSymmetrize, const double &aAlpha,
                      const double &aBeta) {
 
+    auto is_one_input = aInputB.GetSize() == 0;
+    auto flag_conv=false;
+
+    if(!aInputB.IsMatrix() && !is_one_input){
+        if(aInputA.IsMatrix()){
+            if(aInputA.GetNCol()==aInputB.GetNCol()){
+                aInputB.SetDimensions(aInputA.GetNCol(),1);
+                flag_conv=true;
+            }
+        }
+    }
+
+    if(!aInputA.IsMatrix() && !is_one_input){
+        if(aInputB.IsMatrix()){
+            if(aInputA.GetNCol()!=aInputB.GetNRow()){
+                aInputA.SetDimensions(aInputA.GetNCol(),1);
+                flag_conv=true;
+            }
+        }
+    }
 
     auto pData_a = (T *) aInputA.GetData();
     auto pData_b = (T *) aInputB.GetData();
@@ -24,21 +44,9 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto col_a = aInputA.GetNCol();
     auto transpose_a = aTransposeA ? blas::Op::Trans : blas::Op::NoTrans;
     auto transpose_b = aTransposeB ? blas::Op::Trans : blas::Op::NoTrans;
-    auto is_one_input = aInputB.GetSize() == 0;
+
     size_t row_b;
     size_t col_b;
-    auto flag_conv=false;
-
-    if(!aInputB.IsMatrix() && !is_one_input){
-        if(aInputA.IsMatrix()){
-            if(aInputA.GetNCol()==aInputB.GetNCol()){
-                aInputB.SetDimensions(aInputA.GetNCol(),1);
-                flag_conv=true;
-            } else{
-                MPR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
-            }
-        }
-    }
 
 
 
