@@ -681,9 +681,17 @@ DataType::IsNA(Dimensions *&apDimensions) {
 
 DataType *
 DataType::PerformPlusDispatcher(SEXP aObj) {
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RPerformPlus(this, val, "");
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RPerformPlus(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -695,16 +703,22 @@ DataType::PerformPlusDispatcher(SEXP aObj) {
         }
         return RPerformPlus(this, temp_mpr);
     }
-
 }
 
 
 DataType *
 DataType::PerformPowDispatcher(SEXP aObj) {
 
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RPerformPow(this, val, "");
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RPerformPow(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -721,9 +735,16 @@ DataType::PerformPowDispatcher(SEXP aObj) {
 
 DataType *
 DataType::PerformDivDispatcher(SEXP aObj) {
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RPerformDiv(this, val, "");
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RPerformDiv(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -741,9 +762,16 @@ DataType::PerformDivDispatcher(SEXP aObj) {
 DataType *
 DataType::PerformMultDispatcher(SEXP aObj) {
 
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RPerformMult(this, val, "");
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RPerformMult(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -761,9 +789,16 @@ DataType::PerformMultDispatcher(SEXP aObj) {
 DataType *
 DataType::PerformMinusDispatcher(SEXP aObj) {
 
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RPerformMinus(this, val, "");
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RPerformMinus(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -781,9 +816,16 @@ DataType::PerformMinusDispatcher(SEXP aObj) {
 SEXP
 DataType::GreaterThanDispatcher(SEXP aObj) {
 
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RGreaterThan(this, val);
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RGreaterThan(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -800,9 +842,16 @@ DataType::GreaterThanDispatcher(SEXP aObj) {
 
 SEXP
 DataType::GreaterThanOrEqualDispatcher(SEXP aObj) {
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RGreaterThanOrEqual(this, val);
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RGreaterThanOrEqual(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -819,9 +868,16 @@ DataType::GreaterThanOrEqualDispatcher(SEXP aObj) {
 
 SEXP
 DataType::LessThanDispatcher(SEXP aObj) {
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RLessThan(this, val);
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RLessThan(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -838,9 +894,16 @@ DataType::LessThanDispatcher(SEXP aObj) {
 
 SEXP
 DataType::LessThanOrEqualDispatcher(SEXP aObj) {
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RLessThanOrEqual(this, val);
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RLessThanOrEqual(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -857,9 +920,16 @@ DataType::LessThanOrEqualDispatcher(SEXP aObj) {
 
 SEXP
 DataType::EqualDispatcher(SEXP aObj) {
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return REqual(this, val);
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return REqual(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -876,9 +946,16 @@ DataType::EqualDispatcher(SEXP aObj) {
 
 SEXP
 DataType::NotEqualDispatcher(SEXP aObj) {
-    if (TYPEOF(aObj) == REALSXP || TYPEOF(aObj) == INTSXP) {
+    if (TYPEOF(aObj) == REALSXP) {
         auto val = Rcpp::as <double>(aObj);
         return RNotEqual(this, val);
+
+    } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
+        auto values = Rcpp::as <std::vector <double>>(aObj);
+        auto temp_mpr = new DataType(0, DOUBLE);
+        temp_mpr->SetSize(values.size());
+        temp_mpr->SetData((char *) values.data());
+        return RNotEqual(this, temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
