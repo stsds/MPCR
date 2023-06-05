@@ -97,4 +97,26 @@ RCopyMPRTile(MPRTile *aMatrix);
 DataType*
 RCopyMPR(DataType *aMatrix);
 
+/**
+ * @brief
+ * R version to Serialize DataType object as a Raw Vector
+ *
+ * @returns
+ * vector of bytes containing DataType object as a stream of bytes
+ *
+ */
+Rcpp::RawVector
+SerializeTile(DataType *aInput);
+
+/**
+ * @brief
+ * R version to DeSerialize Stream of bytes to MPR Object
+ *
+ * @param[in] aInput
+ * vector of bytes containing DataType object as a stream of bytes
+ *
+ */
+DataType *
+DeSerializeTile(Rcpp::RawVector aInput);
+
 #endif //MPR_RHELPERS_HPP

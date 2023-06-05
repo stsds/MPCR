@@ -1149,6 +1149,175 @@ DataType::DeterminantDispatcher(double &aResult) {
 }
 
 
+std::vector <char>
+DataType::Serialize() {
+    size_t size = 1;
+    auto size_val = 0;
+    auto itr = 0;
+    char metadata = 0;
+
+    if (this->mPrecision == mpr::precision::FLOAT) {
+        size_val += sizeof(float);
+
+    } else if (this->mPrecision == mpr::precision::DOUBLE) {
+        size_val += sizeof(double);
+    }
+
+    size += this->mSize * size_val;
+
+    if (this->mMatrix) {
+        size += sizeof(size_t) * 2;
+        metadata |= 0x80;
+    } else {
+        size += sizeof(size_t);
+    }
+
+    metadata |= (( static_cast<int>(this->mPrecision ) & 0x03 ) << 5 );
+
+    std::vector <char> vec;
+    vec.resize(size);
+
+    auto buffer = vec.data();
+    buffer[ 0 ] = metadata;
+
+    if (this->mMatrix) {
+        memcpy(buffer + 1, (char *) &this->mpDimensions->mRow, sizeof(size_t));
+        memcpy(buffer + 1 + sizeof(size_t), (char *) &this->mpDimensions->mCol,
+               sizeof(size_t));
+
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        memcpy(buffer + 1, (char *) &this->mSize, sizeof(size_t));
+        itr = 1 + sizeof(size_t);
+    }
+
+    memcpy(buffer + itr, this->mpData, this->mSize * size_val);
+
+    return vec;
+}
+
+
+DataType *
+DataType::DeSerialize(char *apData) {
+    auto metadata = apData[ 0 ];
+    bool is_matrix = (( metadata & 0x80 ) != 0 );
+    auto temp_precision = static_cast<Precision>((( metadata >> 5 ) & 0x03 ));
+
+    auto itr = 0;
+
+    auto ret = new DataType(temp_precision);
+    ret->ClearUp();
+
+    auto obj_size = sizeof(float);
+    if (temp_precision == DOUBLE) {
+        obj_size = sizeof(double);
+    }
+
+    if (is_matrix) {
+        size_t row = *(size_t *) ( apData + 1 );
+        size_t col = *((size_t *) ( apData + 1 ) + 1 );
+        ret->SetSize(row * col);
+        ret->SetDimensions(row, col);
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        size_t size = *(size_t *) ( apData + 1 );
+        ret->SetSize(size);
+        itr = 1 + sizeof(size_t);
+    }
+
+    auto temp_data = new char[ret->GetSize() * obj_size];
+    memcpy(temp_data, apData + itr, obj_size * ret->GetSize());
+    ret->SetData(temp_data);
+
+    return ret;
+}
+
+
+Rcpp::RawVector
+DataType::RSerialize() {
+    size_t size = 1;
+    auto size_val = 0;
+    auto itr = 0;
+    char metadata = 0;
+
+    if (this->mPrecision == mpr::precision::FLOAT) {
+        size_val += sizeof(float);
+
+    } else if (this->mPrecision == mpr::precision::DOUBLE) {
+        size_val += sizeof(double);
+    }
+
+    size += this->mSize * size_val;
+
+    if (this->mMatrix) {
+        size += sizeof(size_t) * 2;
+        metadata |= 0x80;
+    } else {
+        size += sizeof(size_t);
+    }
+
+    metadata |= (( static_cast<int>(this->mPrecision ) & 0x03 ) << 5 );
+
+    Rcpp::RawVector vec(size);
+
+    auto buffer = vec.begin();
+    vec[ 0 ] = metadata;
+
+    if (this->mMatrix) {
+        memcpy(buffer + 1, (char *) &this->mpDimensions->mRow, sizeof(size_t));
+        memcpy(buffer + 1 + sizeof(size_t), (char *) &this->mpDimensions->mCol,
+               sizeof(size_t));
+
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        memcpy(buffer + 1, (char *) &this->mSize, sizeof(size_t));
+        itr = 1 + sizeof(size_t);
+    }
+
+    memcpy(buffer + itr, this->mpData, this->mSize * size_val);
+
+    return vec;
+}
+
+
+DataType *
+DataType::RDeSerialize(Rcpp::RawVector aInput) {
+    auto metadata = aInput[ 0 ];
+    bool is_matrix = (( metadata & 0x80 ) != 0 );
+    auto temp_precision = static_cast<Precision>((( metadata >> 5 ) & 0x03 ));
+
+    auto itr = 0;
+
+    auto ret = new DataType(temp_precision);
+    ret->ClearUp();
+
+    auto obj_size = sizeof(float);
+    if (temp_precision == DOUBLE) {
+        obj_size = sizeof(double);
+    }
+
+    auto data = aInput.begin();
+
+    if (is_matrix) {
+        size_t row = *(size_t *) ( data + 1 );
+        size_t col = *((size_t *) ( data + 1 ) + 1 );
+        ret->SetSize(row * col);
+        ret->SetDimensions(row, col);
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        size_t size = *(size_t *) ( data + 1 );
+        ret->SetSize(size);
+        itr = 1 + sizeof(size_t);
+    }
+
+    auto temp_data = new char[ret->GetSize() * obj_size];
+    memcpy(temp_data, data + itr, obj_size * ret->GetSize());
+    ret->SetData(temp_data);
+
+    return ret;
+}
+
+
 SIMPLE_INSTANTIATE(void, DataType::DeterminantDispatcher, double &aResult)
 
 SIMPLE_INSTANTIATE(void, DataType::ProductDispatcher, double &aResult)

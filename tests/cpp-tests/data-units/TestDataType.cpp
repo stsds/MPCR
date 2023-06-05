@@ -214,6 +214,76 @@ TEST_DATA_TYPE() {
         auto det = b.Determinant();
         auto validate_perc = fabs(det - det_act) / det_act;
         REQUIRE(validate_perc < 0.001);
+    }SECTION("Testing Serialization") {
+        SECTION("Testing float vec") {
+            cout << "Testing Serialization and De-serialization ..." << endl;
+            vector <double> values;
+            auto size = 50;
+            values.resize(size);
+            for (auto i = 0; i < size; i++) {
+                values[ i ] = i;
+            }
+            DataType a(values, FLOAT);
+            auto temp_val = a.Serialize();
+            auto val = temp_val.data();
+            auto temp_deserialized = DataType::DeSerialize(val);
+            REQUIRE(temp_deserialized->GetSize() == 50);
+            REQUIRE(temp_deserialized->IsMatrix() == false);
+            REQUIRE(temp_deserialized->GetPrecision() == FLOAT);
+            for (auto i = 0; i < size; i++) {
+                REQUIRE(temp_deserialized->GetVal(i) == i);
+            }
+
+            delete temp_deserialized;
+        }SECTION("Testing float matrix") {
+            vector <double> values;
+            auto size = 50;
+            values.resize(size);
+            for (auto i = 0; i < size; i++) {
+                values[ i ] = i;
+            }
+            DataType a(values, FLOAT);
+            a.ToMatrix(5, 10);
+            auto temp_val = a.Serialize();
+            auto val = temp_val.data();
+            auto temp_deserialized = DataType::DeSerialize(val);
+            REQUIRE(temp_deserialized->IsMatrix() == true);
+            REQUIRE(temp_deserialized->GetSize() == 50);
+            REQUIRE(temp_deserialized->GetNRow() == 5);
+            REQUIRE(temp_deserialized->GetNCol() == 10);
+            REQUIRE(temp_deserialized->GetPrecision() == FLOAT);
+            for (auto i = 0; i < size; i++) {
+                REQUIRE(temp_deserialized->GetVal(i) == i);
+            }
+
+            delete temp_deserialized;
+
+        }SECTION("Testing double Matrix") {
+            vector <double> values;
+            auto size = 50;
+            values.resize(size);
+            for (auto i = 0; i < size; i++) {
+                values[ i ] = i;
+            }
+            DataType a(values, DOUBLE);
+            a.ToMatrix(5, 10);
+            auto temp_val = a.Serialize();
+            auto val = temp_val.data();
+            auto temp_deserialized = DataType::DeSerialize(val);
+            REQUIRE(temp_deserialized->IsMatrix() == true);
+            REQUIRE(temp_deserialized->GetSize() == 50);
+            REQUIRE(temp_deserialized->GetNRow() == 5);
+            REQUIRE(temp_deserialized->GetNCol() == 10);
+            REQUIRE(temp_deserialized->GetPrecision() == DOUBLE);
+            for (auto i = 0; i < size; i++) {
+                REQUIRE(temp_deserialized->GetVal(i) == i);
+            }
+
+            delete temp_deserialized;
+
+        }
+
+
     }
 
 
