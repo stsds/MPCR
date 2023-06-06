@@ -119,4 +119,18 @@ SerializeTile(DataType *aInput);
 DataType *
 DeSerializeTile(Rcpp::RawVector aInput);
 
+/**
+ * @brief
+ * R version to Serialize Tile object as a Raw Vector from Tile-Matrix without
+ * copying
+ *
+ * @returns
+ * vector of bytes containing DataType object as a stream of bytes
+ *
+ */
+Rcpp::RawVector
+RGetSerializeTile(MPRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx);
+
+
+
 #endif //MPR_RHELPERS_HPP

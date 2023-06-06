@@ -59,3 +59,11 @@ DataType *
 DeSerializeTile(Rcpp::RawVector aInput) {
     return DataType::RDeSerialize(aInput);
 }
+
+
+Rcpp::RawVector
+RGetSerializeTile(MPRTile *aMatrix, const size_t &aRowIdx,
+                 const size_t &aColIdx) {
+    auto pOutput = aMatrix->GetTile(aRowIdx - 1, aColIdx - 1);
+    return pOutput->RSerialize();
+}

@@ -40,7 +40,7 @@ RCPP_MODULE(MPRTile) {
         .method("Prod", &MPRTile::Product);
 
     /** MPRTile Functions **/
-    function("MPRTile.copy",&RCopyMPRTile,List::create(_["x"]));
+    function("MPRTile.copy", &RCopyMPRTile, List::create(_[ "x" ]));
     function("MPRTile.gemm", &mpr::operations::linear::TileGemm,
              List::create(_[ "a" ], _[ "b" ], _[ "c" ],
                           _[ "transpose_a" ] = false,
@@ -60,6 +60,9 @@ RCPP_MODULE(MPRTile) {
              List::create(_[ "matrix" ], _[ "row" ], _[ "col" ]));
     function("MPRTile.UpdateTile", &RInsertTile,
              List::create(_[ "matrix" ], _[ "tile" ], _[ "row" ], _[ "col" ]));
+
+    function("MPRTile.GetSerializedTile", &RGetSerializeTile,
+             List::create(_[ "matrix" ], _[ "row" ], _[ "col" ]));
 
 
 }

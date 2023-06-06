@@ -14,8 +14,15 @@ b <- c("double", "double", "double", "double",
 
 test_mat <- new(MPRTile, 6, 6, 2, 2, a, b)
 
+# Get Tile return a deep copy of the original tile
 tile_temp <- MPRTile.GetTile(matrix = test_mat, row = 1, col = 1)
 tile_temp$PrintValues()
 serialized <- MPR.Serialize(tile_temp)
 tile_deserialized <- MPR.DeSerialize(serialized)
 tile_deserialized$PrintValues()
+
+# Get Serialized Tile return a serialized version of tile without creating any new copies
+tile_temp_serialized<- MPRTile.GetSerializedTile(matrix = test_mat, row = 1, col = 1)
+tile_deserialized <- MPR.DeSerialize(tile_temp_serialized)
+tile_deserialized$PrintValues()
+
