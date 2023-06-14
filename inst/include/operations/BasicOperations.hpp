@@ -77,7 +77,7 @@ namespace mpr {
              * @param[in] aMargin
              * aMargin = 1 means row; aMargin = otherwise means column.
              * @param[in] aFun
-             * char containing operation (+,-,*,/)
+             * char containing operation (+,-,*,/,^)
              *
              */
             template <typename T, typename X, typename Y>

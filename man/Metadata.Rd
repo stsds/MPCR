@@ -1,0 +1,35 @@
+\name{metadata}
+\alias{metadata}
+\alias{storage.mode,Rcpp_MMPR-method}
+\alias{typeof,Rcpp_MMPR-method}
+\title{Metadata functions}
+\description{
+    Metadata functions.
+}
+\usage{
+\S4method{storage.mode}{Rcpp_MMPR}(x)
+\S4method{typeof}{Rcpp_MMPR}(x)
+\S4method{MMPR.object.size}{Rcpp_MMPR}(x)
+\S4method{MMPR.ChangePrecision}{Rcpp_MMPR}(x,precision)
+
+}
+\arguments{
+  \item{x}{
+    A MMPR vector/matrix.
+  }
+  \item{precision}{
+      string with the required precision.
+    }
+}
+\value{
+  Prints/change metadata about MMPR object
+}
+\examples{
+  \dontrun{
+  library(MMPR)
+
+  x <- as.MMPR(1:20,precision="double")
+  typeof(x)
+  MMPR.ChangePrecision(x,"single")
+  }
+}

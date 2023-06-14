@@ -299,7 +299,7 @@ RNorm(DataType *aInputA, const std::string &aType) {
 
 
 std::vector <DataType>
-RQRDecomposition(DataType *aInputA) {
+RQRDecomposition(DataType *aInputA,const double &aTolerance) {
 
     auto precision = aInputA->GetPrecision();
 
@@ -309,7 +309,7 @@ RQRDecomposition(DataType *aInputA) {
     auto rank = new DataType(precision);
 
     SIMPLE_DISPATCH(precision, linear::QRDecomposition, *aInputA, *qr, *qraux,
-                    *pivot, *rank)
+                    *pivot, *rank,aTolerance)
 
     std::vector <DataType> output;
     output.push_back(*qr);
