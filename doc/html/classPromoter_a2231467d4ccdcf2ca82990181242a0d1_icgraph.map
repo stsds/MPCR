@@ -1,0 +1,6 @@
+<map id="Promoter::GetPromotedTile" name="Promoter::GetPromotedTile">
+<area shape="rect" id="node1" title="used for MPRTile Matrix algorithms. it returns a the required tile with the required precision and it..." alt="" coords="392,46,592,73"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1linear.html#af1c799c1e8cd72a1a65a9f38e6f670e8" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="173,5,344,47"/>
+<area shape="rect" id="node4" href="$namespacempr_1_1operations_1_1linear.html#a4cb805e2ee1afee2111225c3c3531f5b" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="173,71,344,112"/>
+<area shape="rect" id="node3" href="$MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,46,125,73"/>
+</map>

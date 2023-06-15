@@ -1,0 +1,228 @@
+\hypertarget{structDimensions}{}\doxysection{Dimensions Struct Reference}
+\label{structDimensions}\index{Dimensions@{Dimensions}}
+
+
+{\ttfamily \#include $<$Data\+Type.\+hpp$>$}
+
+
+
+Collaboration diagram for Dimensions\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{structDimensions__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structDimensions_a72dfb90e12a56102f9678ef72f5b6a4a}{Dimensions}} ()=default
+\begin{DoxyCompactList}\small\item\em Default Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDimensions_a8df3d426ffb88d3c3951d1710df3621a}{Dimensions}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structDimensions}{Dimensions}} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDimensions_a5e58a51c918e13cb91e98c325d1a0fb3}{Dimensions}} (const \mbox{\hyperlink{structDimensions}{Dimensions}} \&a\+Dimensions)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structDimensions}{Dimensions}} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDimensions}{Dimensions}} \& \mbox{\hyperlink{structDimensions_a0322abbfc37dc7cc31daa4a16dd501b8}{operator=}} (const \mbox{\hyperlink{structDimensions}{Dimensions}} \&a\+Dimensions)=default
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structDimensions}{Dimensions}} Copy Constructor. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structDimensions_a5c66f939316ff3690027904ae99befea}{Get\+N\+Row}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Rows. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{structDimensions_a387bc2434f511b19733f888c12005a15}{Get\+N\+Col}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Columns. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structDimensions_a6e4316f44676499821b3392b3156cf4f}{Set\+N\+Col}} (size\+\_\+t a\+Col)
+\begin{DoxyCompactList}\small\item\em Set Number of Columns. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structDimensions_a4db9418faf8e83644d225ea8d2a36c96}{Set\+N\+Row}} (size\+\_\+t a\+Row)
+\begin{DoxyCompactList}\small\item\em Set Number of Rows. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDimensions_acaddef8658d3ddb1b5f66458d37cdd73}{$\sim$\+Dimensions}} ()=default
+\begin{DoxyCompactList}\small\item\em Default De-\/\+Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{structDimensions_a497ee2fde83fbfa85c73c8a7aa9f40dc}{m\+Col}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structDimensions_a2d9996114c423a63a95aafa0d89170b9}{m\+Row}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{structDimensions}{Dimensions}} struct holding \mbox{\hyperlink{structDimensions}{Dimensions}} for Representing a Vector as a Matrix 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structDimensions_a72dfb90e12a56102f9678ef72f5b6a4a}\label{structDimensions_a72dfb90e12a56102f9678ef72f5b6a4a}} 
+\index{Dimensions@{Dimensions}!Dimensions@{Dimensions}}
+\index{Dimensions@{Dimensions}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{Dimensions()}{Dimensions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Dimensions\+::\+Dimensions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default Constructor. 
+
+\mbox{\Hypertarget{structDimensions_a8df3d426ffb88d3c3951d1710df3621a}\label{structDimensions_a8df3d426ffb88d3c3951d1710df3621a}} 
+\index{Dimensions@{Dimensions}!Dimensions@{Dimensions}}
+\index{Dimensions@{Dimensions}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{Dimensions()}{Dimensions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Dimensions\+::\+Dimensions (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\mbox{\hyperlink{structDimensions}{Dimensions}} Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Rows in a Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Columns in a Matrix \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structDimensions_a5e58a51c918e13cb91e98c325d1a0fb3}\label{structDimensions_a5e58a51c918e13cb91e98c325d1a0fb3}} 
+\index{Dimensions@{Dimensions}!Dimensions@{Dimensions}}
+\index{Dimensions@{Dimensions}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{Dimensions()}{Dimensions()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Dimensions\+::\+Dimensions (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structDimensions}{Dimensions}} \&}]{a\+Dimensions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{structDimensions}{Dimensions}} Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Dimensions} & \mbox{\hyperlink{structDimensions}{Dimensions}} struct object to copy its dimensions \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structDimensions_acaddef8658d3ddb1b5f66458d37cdd73}\label{structDimensions_acaddef8658d3ddb1b5f66458d37cdd73}} 
+\index{Dimensions@{Dimensions}!````~Dimensions@{$\sim$Dimensions}}
+\index{````~Dimensions@{$\sim$Dimensions}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{$\sim$Dimensions()}{~Dimensions()}}
+{\footnotesize\ttfamily Dimensions\+::$\sim$\+Dimensions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Default De-\/\+Constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structDimensions_a387bc2434f511b19733f888c12005a15}\label{structDimensions_a387bc2434f511b19733f888c12005a15}} 
+\index{Dimensions@{Dimensions}!GetNCol@{GetNCol}}
+\index{GetNCol@{GetNCol}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{GetNCol()}{GetNCol()}}
+{\footnotesize\ttfamily size\+\_\+t Dimensions\+::\+Get\+N\+Col (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Columns. 
+
+\begin{DoxyReturn}{Returns}
+Number of Columns in a Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structDimensions_a387bc2434f511b19733f888c12005a15_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structDimensions_a5c66f939316ff3690027904ae99befea}\label{structDimensions_a5c66f939316ff3690027904ae99befea}} 
+\index{Dimensions@{Dimensions}!GetNRow@{GetNRow}}
+\index{GetNRow@{GetNRow}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{GetNRow()}{GetNRow()}}
+{\footnotesize\ttfamily size\+\_\+t Dimensions\+::\+Get\+N\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Rows. 
+
+\begin{DoxyReturn}{Returns}
+Number of Rows in a Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structDimensions_a5c66f939316ff3690027904ae99befea_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structDimensions_a0322abbfc37dc7cc31daa4a16dd501b8}\label{structDimensions_a0322abbfc37dc7cc31daa4a16dd501b8}} 
+\index{Dimensions@{Dimensions}!operator=@{operator=}}
+\index{operator=@{operator=}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDimensions}{Dimensions}}\& Dimensions\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structDimensions}{Dimensions}} \&}]{a\+Dimensions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\mbox{\hyperlink{structDimensions}{Dimensions}} Copy Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Dimensions} & \mbox{\hyperlink{structDimensions}{Dimensions}} struct object to copy its dimensions \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structDimensions_a6e4316f44676499821b3392b3156cf4f}\label{structDimensions_a6e4316f44676499821b3392b3156cf4f}} 
+\index{Dimensions@{Dimensions}!SetNCol@{SetNCol}}
+\index{SetNCol@{SetNCol}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{SetNCol()}{SetNCol()}}
+{\footnotesize\ttfamily void Dimensions\+::\+Set\+N\+Col (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set Number of Columns. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Columns in a Matrix \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structDimensions_a6e4316f44676499821b3392b3156cf4f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{structDimensions_a4db9418faf8e83644d225ea8d2a36c96}\label{structDimensions_a4db9418faf8e83644d225ea8d2a36c96}} 
+\index{Dimensions@{Dimensions}!SetNRow@{SetNRow}}
+\index{SetNRow@{SetNRow}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{SetNRow()}{SetNRow()}}
+{\footnotesize\ttfamily void Dimensions\+::\+Set\+N\+Row (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set Number of Rows. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Rows in a Matrix \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structDimensions_a4db9418faf8e83644d225ea8d2a36c96_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structDimensions_a497ee2fde83fbfa85c73c8a7aa9f40dc}\label{structDimensions_a497ee2fde83fbfa85c73c8a7aa9f40dc}} 
+\index{Dimensions@{Dimensions}!mCol@{mCol}}
+\index{mCol@{mCol}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{mCol}{mCol}}
+{\footnotesize\ttfamily size\+\_\+t Dimensions\+::m\+Col}
+
+size\+\_\+t representing number of Rows in a Matrix \mbox{\Hypertarget{structDimensions_a2d9996114c423a63a95aafa0d89170b9}\label{structDimensions_a2d9996114c423a63a95aafa0d89170b9}} 
+\index{Dimensions@{Dimensions}!mRow@{mRow}}
+\index{mRow@{mRow}!Dimensions@{Dimensions}}
+\doxysubsubsection{\texorpdfstring{mRow}{mRow}}
+{\footnotesize\ttfamily size\+\_\+t Dimensions\+::m\+Row}
+
+size\+\_\+t representing number of Columns in a Matrix 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/data-\/units/\mbox{\hyperlink{DataType_8hpp}{Data\+Type.\+hpp}}\end{DoxyCompactItemize}

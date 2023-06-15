@@ -1,0 +1,6 @@
+<map id="DataType::SetDimensions" name="DataType::SetDimensions">
+<area shape="rect" id="node1" title="Set MPR Object Dimensions according to given input." alt="" coords="5,56,195,83"/>
+<area shape="rect" id="node2" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="265,5,410,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="261,56,413,83"/>
+<area shape="rect" id="node4" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="243,107,432,133"/>
+</map>

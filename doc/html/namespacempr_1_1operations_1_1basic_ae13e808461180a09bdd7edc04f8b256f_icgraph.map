@@ -1,0 +1,5 @@
+<map id="mpr::operations::basic::IsDouble" name="mpr::operations::basic::IsDouble">
+<area shape="rect" id="node1" title="Check if MPR object is 64&#45;bit Precision." alt="" coords="309,5,476,47"/>
+<area shape="rect" id="node2" href="$RBasicUtilities_8hpp.html#a9dc8226f25a27552db03840cd0d14133" title="R Adapter for Checking if MPR object is 64&#45;bit Precision." alt="" coords="173,13,261,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
+</map>

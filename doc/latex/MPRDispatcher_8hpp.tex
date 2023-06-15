@@ -1,0 +1,213 @@
+\hypertarget{MPRDispatcher_8hpp}{}\doxysection{inst/include/utilities/\+M\+P\+R\+Dispatcher.hpp File Reference}
+\label{MPRDispatcher_8hpp}\index{inst/include/utilities/MPRDispatcher.hpp@{inst/include/utilities/MPRDispatcher.hpp}}
+{\ttfamily \#include $<$data-\/units/\+Precision.\+hpp$>$}\newline
+{\ttfamily \#include $<$utilities/\+M\+P\+R\+Error\+Handler.\+hpp$>$}\newline
+Include dependency graph for M\+P\+R\+Dispatcher.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPRDispatcher_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{MPRDispatcher_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{F\+I\+R\+ST}}(...)~\mbox{\hyperlink{MPRDispatcher_8hpp_ad1975363ee03056affe5e9ca85faf14d}{F\+I\+R\+S\+T\+\_\+\+H\+E\+L\+P\+ER}}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+, throwaway)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_ad1975363ee03056affe5e9ca85faf14d}{F\+I\+R\+S\+T\+\_\+\+H\+E\+L\+P\+ER}}(first, ...)~first
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{R\+E\+ST}}(...)~\mbox{\hyperlink{MPRDispatcher_8hpp_a497945f34cfaec5f20d7c4f566c7ad5c}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+ER}}(\mbox{\hyperlink{MPRDispatcher_8hpp_a2aeac663cd6c91c62bf54b9b7d0dcc6b}{N\+UM}}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+), \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a497945f34cfaec5f20d7c4f566c7ad5c}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+ER}}(qty, ...)~\mbox{\hyperlink{MPRDispatcher_8hpp_ab0aff27604f6e7ac803191c7a9ca4b88}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R2}}(qty, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_ab0aff27604f6e7ac803191c7a9ca4b88}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R2}}(qty, ...)~R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R\+\_\+\#\#qty(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a41766055948d11e83a8f26004051d58b}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R\+\_\+\+O\+NE}}(first)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_ab8151b9b8bf10c35d492eb6e77ede16f}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R\+\_\+\+T\+W\+O\+O\+R\+M\+O\+RE}}(first, ...)~, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a2aeac663cd6c91c62bf54b9b7d0dcc6b}{N\+UM}}(...)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a7b767a87908d33d5b4ee4e99c0cd7f90}{S\+E\+L\+E\+C\+T\+\_\+10\+TH}}(a1,  a2,  a3,  a4,  a5,  a6,  a7,  a8,  a9,  a10, ...)~a10
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a568d1821b0b5da3a2047045b7041114c}{S\+I\+M\+P\+L\+E\+\_\+\+D\+I\+S\+P\+A\+T\+CH}}(P\+R\+E\+C\+I\+S\+I\+ON,  \+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+, ...)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a3aef41b948efa77a23bf7206f64a9c0e}{D\+I\+S\+P\+A\+T\+C\+H\+ER}}(P\+R\+E\+C\+I\+S\+I\+ON,  \+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+, ...)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a0c7861c4e96b585df36d77374000d6af}{S\+I\+M\+P\+L\+E\+\_\+\+I\+N\+S\+T\+A\+N\+T\+I\+A\+TE}}(R\+E\+T\+U\+R\+N\+T\+Y\+PE,  \+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+, ...)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a79f68648462b14d1092b34ff36ca2cd6}{S\+I\+M\+P\+L\+E\+\_\+\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+W\+I\+T\+H\+\_\+\+R\+E\+T\+U\+RN}}(\+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+, ...)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a8f0e84a06e26023015c7a2d2a10bb622}{I\+N\+S\+T\+A\+N\+T\+I\+A\+TE}}(R\+E\+T\+U\+R\+N\+T\+Y\+PE,  \+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+, ...)
+\item 
+\#define \mbox{\hyperlink{MPRDispatcher_8hpp_a670c2306c8c07f77b289bb62f80e61f0}{F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST}}(R\+E\+T\+U\+R\+N\+T\+Y\+PE,  \+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+, ...)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{MPRDispatcher_8hpp_a3aef41b948efa77a23bf7206f64a9c0e}\label{MPRDispatcher_8hpp_a3aef41b948efa77a23bf7206f64a9c0e}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!DISPATCHER@{DISPATCHER}}
+\index{DISPATCHER@{DISPATCHER}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{DISPATCHER}{DISPATCHER}}
+{\footnotesize\ttfamily \#define D\+I\+S\+P\+A\+T\+C\+H\+ER(\begin{DoxyParamCaption}\item[{}]{P\+R\+E\+C\+I\+S\+I\+ON,  }\item[{}]{\+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+Dispatcher for three template arguments \mbox{\Hypertarget{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}\label{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!FIRST@{FIRST}}
+\index{FIRST@{FIRST}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{FIRST}{FIRST}}
+{\footnotesize\ttfamily \#define F\+I\+R\+ST(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{MPRDispatcher_8hpp_ad1975363ee03056affe5e9ca85faf14d}{F\+I\+R\+S\+T\+\_\+\+H\+E\+L\+P\+ER}}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+, throwaway)}
+
+Dispatcher to support Dispatching of template functions with Rcpp Only 10 arguments are supported here. It can be expanded to whatever number of arguments needed \mbox{\Hypertarget{MPRDispatcher_8hpp_ad1975363ee03056affe5e9ca85faf14d}\label{MPRDispatcher_8hpp_ad1975363ee03056affe5e9ca85faf14d}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!FIRST\_HELPER@{FIRST\_HELPER}}
+\index{FIRST\_HELPER@{FIRST\_HELPER}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{FIRST\_HELPER}{FIRST\_HELPER}}
+{\footnotesize\ttfamily \#define F\+I\+R\+S\+T\+\_\+\+H\+E\+L\+P\+ER(\begin{DoxyParamCaption}\item[{}]{first,  }\item[{}]{... }\end{DoxyParamCaption})~first}
+
+\mbox{\Hypertarget{MPRDispatcher_8hpp_a670c2306c8c07f77b289bb62f80e61f0}\label{MPRDispatcher_8hpp_a670c2306c8c07f77b289bb62f80e61f0}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}}
+\index{FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{FLOATING\_POINT\_INST}{FLOATING\_POINT\_INST}}
+{\footnotesize\ttfamily \#define F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST(\begin{DoxyParamCaption}\item[{}]{R\+E\+T\+U\+R\+N\+T\+Y\+PE,  }\item[{}]{\+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \textcolor{keyword}{template} RETURNTYPE \_\_FUN\_\_<float> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{MPRDispatcher_8hpp_a8f0e84a06e26023015c7a2d2a10bb622}\label{MPRDispatcher_8hpp_a8f0e84a06e26023015c7a2d2a10bb622}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!INSTANTIATE@{INSTANTIATE}}
+\index{INSTANTIATE@{INSTANTIATE}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{INSTANTIATE}{INSTANTIATE}}
+{\footnotesize\ttfamily \#define I\+N\+S\+T\+A\+N\+T\+I\+A\+TE(\begin{DoxyParamCaption}\item[{}]{R\+E\+T\+U\+R\+N\+T\+Y\+PE,  }\item[{}]{\+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \textcolor{keyword}{template} RETURNTYPE \_\_FUN\_\_<float,float16,float> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float16,float,float> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<double,float16,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float16,double,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<double,float,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float,double,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float16,float16,float16> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float,float,float> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<double,double,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float16,float16,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float16,float16,float> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float,float,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float16,float,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float,float16,double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+
+\end{DoxyCode}
+Instantiators for Template functions with a given return type (Three template argument) \mbox{\Hypertarget{MPRDispatcher_8hpp_a2aeac663cd6c91c62bf54b9b7d0dcc6b}\label{MPRDispatcher_8hpp_a2aeac663cd6c91c62bf54b9b7d0dcc6b}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!NUM@{NUM}}
+\index{NUM@{NUM}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{NUM}{NUM}}
+{\footnotesize\ttfamily \#define N\+UM(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{MPRDispatcher_8hpp_a7b767a87908d33d5b4ee4e99c0cd7f90}{SELECT\_10TH}}(\_\_VA\_ARGS\_\_, TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE,\(\backslash\)}
+\DoxyCodeLine{                TWOORMORE, TWOORMORE, TWOORMORE, TWOORMORE, ONE, throwaway)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}\label{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!REST@{REST}}
+\index{REST@{REST}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{REST}{REST}}
+{\footnotesize\ttfamily \#define R\+E\+ST(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{MPRDispatcher_8hpp_a497945f34cfaec5f20d7c4f566c7ad5c}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+ER}}(\mbox{\hyperlink{MPRDispatcher_8hpp_a2aeac663cd6c91c62bf54b9b7d0dcc6b}{N\+UM}}(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+), \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+if there\textquotesingle{}s only one argument, expands to nothing. if there is more than one argument, expands to a comma followed by everything but the first argument. only supports up to 9 arguments but can be trivially expanded. \mbox{\Hypertarget{MPRDispatcher_8hpp_a497945f34cfaec5f20d7c4f566c7ad5c}\label{MPRDispatcher_8hpp_a497945f34cfaec5f20d7c4f566c7ad5c}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!REST\_HELPER@{REST\_HELPER}}
+\index{REST\_HELPER@{REST\_HELPER}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{REST\_HELPER}{REST\_HELPER}}
+{\footnotesize\ttfamily \#define R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+ER(\begin{DoxyParamCaption}\item[{}]{qty,  }\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{MPRDispatcher_8hpp_ab0aff27604f6e7ac803191c7a9ca4b88}{R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R2}}(qty, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+\mbox{\Hypertarget{MPRDispatcher_8hpp_ab0aff27604f6e7ac803191c7a9ca4b88}\label{MPRDispatcher_8hpp_ab0aff27604f6e7ac803191c7a9ca4b88}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!REST\_HELPER2@{REST\_HELPER2}}
+\index{REST\_HELPER2@{REST\_HELPER2}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{REST\_HELPER2}{REST\_HELPER2}}
+{\footnotesize\ttfamily \#define R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R2(\begin{DoxyParamCaption}\item[{}]{qty,  }\item[{}]{... }\end{DoxyParamCaption})~R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R\+\_\+\#\#qty(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+\mbox{\Hypertarget{MPRDispatcher_8hpp_a41766055948d11e83a8f26004051d58b}\label{MPRDispatcher_8hpp_a41766055948d11e83a8f26004051d58b}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!REST\_HELPER\_ONE@{REST\_HELPER\_ONE}}
+\index{REST\_HELPER\_ONE@{REST\_HELPER\_ONE}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{REST\_HELPER\_ONE}{REST\_HELPER\_ONE}}
+{\footnotesize\ttfamily \#define R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R\+\_\+\+O\+NE(\begin{DoxyParamCaption}\item[{}]{first }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{MPRDispatcher_8hpp_ab8151b9b8bf10c35d492eb6e77ede16f}\label{MPRDispatcher_8hpp_ab8151b9b8bf10c35d492eb6e77ede16f}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!REST\_HELPER\_TWOORMORE@{REST\_HELPER\_TWOORMORE}}
+\index{REST\_HELPER\_TWOORMORE@{REST\_HELPER\_TWOORMORE}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{REST\_HELPER\_TWOORMORE}{REST\_HELPER\_TWOORMORE}}
+{\footnotesize\ttfamily \#define R\+E\+S\+T\+\_\+\+H\+E\+L\+P\+E\+R\+\_\+\+T\+W\+O\+O\+R\+M\+O\+RE(\begin{DoxyParamCaption}\item[{}]{first,  }\item[{}]{... }\end{DoxyParamCaption})~, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+}
+
+\mbox{\Hypertarget{MPRDispatcher_8hpp_a7b767a87908d33d5b4ee4e99c0cd7f90}\label{MPRDispatcher_8hpp_a7b767a87908d33d5b4ee4e99c0cd7f90}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!SELECT\_10TH@{SELECT\_10TH}}
+\index{SELECT\_10TH@{SELECT\_10TH}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{SELECT\_10TH}{SELECT\_10TH}}
+{\footnotesize\ttfamily \#define S\+E\+L\+E\+C\+T\+\_\+10\+TH(\begin{DoxyParamCaption}\item[{}]{a1,  }\item[{}]{a2,  }\item[{}]{a3,  }\item[{}]{a4,  }\item[{}]{a5,  }\item[{}]{a6,  }\item[{}]{a7,  }\item[{}]{a8,  }\item[{}]{a9,  }\item[{}]{a10,  }\item[{}]{... }\end{DoxyParamCaption})~a10}
+
+\mbox{\Hypertarget{MPRDispatcher_8hpp_a568d1821b0b5da3a2047045b7041114c}\label{MPRDispatcher_8hpp_a568d1821b0b5da3a2047045b7041114c}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!SIMPLE\_DISPATCH@{SIMPLE\_DISPATCH}}
+\index{SIMPLE\_DISPATCH@{SIMPLE\_DISPATCH}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{SIMPLE\_DISPATCH}{SIMPLE\_DISPATCH}}
+{\footnotesize\ttfamily \#define S\+I\+M\+P\+L\+E\+\_\+\+D\+I\+S\+P\+A\+T\+CH(\begin{DoxyParamCaption}\item[{}]{P\+R\+E\+C\+I\+S\+I\+ON,  }\item[{}]{\+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{          \textcolor{keywordflow}{switch}(PRECISION)\{                                                   \(\backslash\)}
+\DoxyCodeLine{              case \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258a9b3bc55f138824fe334f7e4335259f21}{HALF}}: \{                                                     \(\backslash\)}
+\DoxyCodeLine{              \_\_FUN\_\_<float>(\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_));             \(\backslash\)}
+\DoxyCodeLine{              break;                                                           \(\backslash\)}
+\DoxyCodeLine{              \}                                                                \(\backslash\)}
+\DoxyCodeLine{              case \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258a02d8e8d571eed0fb0ab09a8f9e483906}{FLOAT}}: \{                                                    \(\backslash\)}
+\DoxyCodeLine{               \_\_FUN\_\_<float>(\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_))  ;          \(\backslash\)}
+\DoxyCodeLine{               break;                                                          \(\backslash\)}
+\DoxyCodeLine{               \}                                                               \(\backslash\)}
+\DoxyCodeLine{               case \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258aedcdee476a01d32d40e9dbbc90f82955}{DOUBLE}}: \{                                                  \(\backslash\)}
+\DoxyCodeLine{               \_\_FUN\_\_<double>(\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_))  ;         \(\backslash\)}
+\DoxyCodeLine{               break;                                                          \(\backslash\)}
+\DoxyCodeLine{               \}                                                               \(\backslash\)}
+\DoxyCodeLine{               default : \{                                                     \(\backslash\)}
+\DoxyCodeLine{                MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"C++ Error : Type Undefined Dispatcher"},     \(\backslash\)}
+\DoxyCodeLine{                                 (\textcolor{keywordtype}{int})PRECISION);                              \(\backslash\)}
+\DoxyCodeLine{               \}                                                               \(\backslash\)}
+\DoxyCodeLine{          \};                                                                   \(\backslash\)}
+
+\end{DoxyCode}
+Dispatcher for one template arguments \mbox{\Hypertarget{MPRDispatcher_8hpp_a0c7861c4e96b585df36d77374000d6af}\label{MPRDispatcher_8hpp_a0c7861c4e96b585df36d77374000d6af}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!SIMPLE\_INSTANTIATE@{SIMPLE\_INSTANTIATE}}
+\index{SIMPLE\_INSTANTIATE@{SIMPLE\_INSTANTIATE}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{SIMPLE\_INSTANTIATE}{SIMPLE\_INSTANTIATE}}
+{\footnotesize\ttfamily \#define S\+I\+M\+P\+L\+E\+\_\+\+I\+N\+S\+T\+A\+N\+T\+I\+A\+TE(\begin{DoxyParamCaption}\item[{}]{R\+E\+T\+U\+R\+N\+T\+Y\+PE,  }\item[{}]{\+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \textcolor{keyword}{template} RETURNTYPE \_\_FUN\_\_<float16> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<float> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template RETURNTYPE \_\_FUN\_\_<double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+
+\end{DoxyCode}
+Instantiators for Template functions with a given return type (One template argument) \mbox{\Hypertarget{MPRDispatcher_8hpp_a79f68648462b14d1092b34ff36ca2cd6}\label{MPRDispatcher_8hpp_a79f68648462b14d1092b34ff36ca2cd6}} 
+\index{MPRDispatcher.hpp@{MPRDispatcher.hpp}!SIMPLE\_INSTANTIATE\_WITH\_RETURN@{SIMPLE\_INSTANTIATE\_WITH\_RETURN}}
+\index{SIMPLE\_INSTANTIATE\_WITH\_RETURN@{SIMPLE\_INSTANTIATE\_WITH\_RETURN}!MPRDispatcher.hpp@{MPRDispatcher.hpp}}
+\doxysubsubsection{\texorpdfstring{SIMPLE\_INSTANTIATE\_WITH\_RETURN}{SIMPLE\_INSTANTIATE\_WITH\_RETURN}}
+{\footnotesize\ttfamily \#define S\+I\+M\+P\+L\+E\+\_\+\+I\+N\+S\+T\+A\+N\+T\+I\+A\+T\+E\+\_\+\+W\+I\+T\+H\+\_\+\+R\+E\+T\+U\+RN(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+F\+U\+N\+\_\+\+\_\+,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        \textcolor{keyword}{template} \mbox{\hyperlink{FloatingPointHandler_8hpp_af5ec8c643063544e697d3e6281ccb6b8}{float16}} \_\_FUN\_\_<float16> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+\DoxyCodeLine{        template \textcolor{keywordtype}{float} \_\_FUN\_\_<float> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ;\(\backslash\)}
+\DoxyCodeLine{        template \textcolor{keywordtype}{double} \_\_FUN\_\_<double> (\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)) ; \(\backslash\)}
+
+\end{DoxyCode}
+Instantiators for Template functions with return type the same as dispatching type (One template argument) 

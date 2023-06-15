@@ -1,0 +1,12 @@
+<map id="DataType::ToVector" name="DataType::ToVector">
+<area shape="rect" id="node1" title="Changes a Matrix to a Vector." alt="" coords="611,57,757,83"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1linear.html#a3ace62895c405f9faa575c2da78fdef3" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="392,125,563,167"/>
+<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,57,125,83"/>
+<area shape="rect" id="node3" href="$RLinearAlgebra_8hpp.html#aad63789b8f3ae6a2aa763dd0b87d5112" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="201,133,317,159"/>
+<area shape="rect" id="node5" href="$RLinearAlgebra_8hpp.html#ae0412e03a33a5694770a7be74cb56628" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="221,31,296,58"/>
+<area shape="rect" id="node6" href="$RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="197,82,320,109"/>
+<area shape="rect" id="node7" href="$namespacempr_1_1operations_1_1linear.html#af1c799c1e8cd72a1a65a9f38e6f670e8" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="173,249,344,291"/>
+<area shape="rect" id="node9" href="$namespacempr_1_1operations_1_1linear.html#a4cb805e2ee1afee2111225c3c3531f5b" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="173,315,344,356"/>
+<area shape="rect" id="node10" href="$namespacempr_1_1operations_1_1linear.html#abd6448d4de9c6dd0b6bfcb9f85cc02ad" title="Solves a triangular matrix equation performs: op(A)*X=alpha*B X*op(A)=alpha*B." alt="" coords="173,184,344,225"/>
+<area shape="rect" id="node8" href="$MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,257,125,283"/>
+</map>

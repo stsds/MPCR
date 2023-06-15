@@ -1,0 +1,6 @@
+<map id="mpr::operations::linear::QRDecompositionR" name="mpr::operations::linear::QRDecompositionR">
+<area shape="rect" id="node1" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="500,5,671,47"/>
+<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a899353c985867c62dea2222e958e90ce" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="295,13,452,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
+<area shape="rect" id="node4" href="$RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="173,38,247,65"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="RReplicate" name="RReplicate">
+<area shape="rect" id="node1" title="R Adapter for Replicating value(s) number of times in&#45;case aLength =0 the output size will be size*in..." alt="" coords="5,56,97,83"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="145,5,319,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="369,45,510,72"/>
+<area shape="rect" id="node4" href="$namespacempr_1_1operations_1_1basic.html#a2e9fd5b4f92f795ad95099f647052f18" title="Replicate value(s) number of times." alt="" coords="149,118,315,159"/>
+<area shape="rect" id="node5" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="368,96,511,123"/>
+<area shape="rect" id="node6" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="367,147,512,173"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="368,197,511,224"/>
+<area shape="rect" id="node8" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="370,248,509,275"/>
+</map>

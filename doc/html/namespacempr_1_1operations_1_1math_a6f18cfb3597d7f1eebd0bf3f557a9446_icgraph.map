@@ -1,0 +1,6 @@
+<map id="mpr::operations::math::Exponential" name="mpr::operations::math::Exponential">
+<area shape="rect" id="node1" title="Perform exp operation on a given MPR Object." alt="" coords="297,23,464,65"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#a7686e33bd491b34c8410d4c75bedb5d7" title="Perform exp(x) operation on MPR Object." alt="" coords="184,5,239,32"/>
+<area shape="rect" id="node4" href="$RMathematicalOperations_8hpp.html#a6abb67fff27f11ddda4d35b71387f58c" title="Perform exp (x) &#45;1 operation on MPR Object." alt="" coords="173,56,249,83"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,31,125,57"/>
+</map>

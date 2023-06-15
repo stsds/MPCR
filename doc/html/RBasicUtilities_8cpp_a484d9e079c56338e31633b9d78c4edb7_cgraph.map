@@ -1,0 +1,8 @@
+<map id="RIsNa" name="RIsNa">
+<area shape="rect" id="node1" title="R Adapter for Checking Whether Element at index is NAN or Not." alt="" coords="5,56,65,83"/>
+<area shape="rect" id="node2" href="$classDataType.html#a5de3c1c9fd14b20f4dc1ff3a11678e2f" title="Check Whether Element at index is NAN or Not." alt="" coords="115,5,236,32"/>
+<area shape="rect" id="node3" href="$RHelpers_8cpp.html#a794e6be5a797f5a81191f56d445b995d" title="Change Vector of HALF Values to R&#45;Logical Matrix 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="113,56,237,83"/>
+<area shape="rect" id="node6" href="$RHelpers_8cpp.html#ab9b2086f45ef148c54dc8619062b41e5" title="Change Vector of HALF Values to R&#45;Logical Vector 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="114,107,237,133"/>
+<area shape="rect" id="node4" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="289,31,450,57"/>
+<area shape="rect" id="node5" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="285,81,453,108"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="RNorm" name="RNorm">
+<area shape="rect" id="node1" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="173,5,240,32"/>
+<area shape="rect" id="node2" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+</map>

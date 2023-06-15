@@ -1,0 +1,1031 @@
+\hypertarget{RMathematicalOperations_8cpp}{}\doxysection{src/adapters/\+R\+Mathematical\+Operations.cpp File Reference}
+\label{RMathematicalOperations_8cpp}\index{src/adapters/RMathematicalOperations.cpp@{src/adapters/RMathematicalOperations.cpp}}
+{\ttfamily \#include $<$adapters/\+R\+Mathematical\+Operations.\+hpp$>$}\newline
+{\ttfamily \#include $<$adapters/\+R\+Helpers.\+hpp$>$}\newline
+{\ttfamily \#include $<$utilities/\+M\+P\+R\+Dispatcher.\+hpp$>$}\newline
+Include dependency graph for R\+Mathematical\+Operations.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a2cd84acde0e87fa7f45c971895d5b60e}{R\+Abs}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Abs operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a0325abd2c8ea64620c876f7dbdafbd58}{R\+Sqrt}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Sqrt operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a5749ccfacb07bbf0c41d501d532421bb}{R\+Ceiling}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Ceil operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a9e4bbf22184e94a051e59bf89e01c252}{R\+Floor}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Floor operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_ad961e07ba920050e5be87265c9b48ed7}{R\+Truncate}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Truncate operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_ad150a6c45f903d66aac6ec8db33b2d74}{R\+Round}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, const int \&a\+Decimal\+Places)
+\begin{DoxyCompactList}\small\item\em Perform Round operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a7686e33bd491b34c8410d4c75bedb5d7}{R\+Exp}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform exp(x) operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a6abb67fff27f11ddda4d35b71387f58c}{R\+Exp1m}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform exp (x) -\/1 operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a2325ceeac662bb5862dd7013d2454e55}{R\+Gamma}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform tgamma operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_ac17afa949d5c2bce786d07adcf3cacd1}{R\+L\+Gamma}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform lgamma operation on M\+PR Object. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{RMathematicalOperations_8cpp_a447dc7c733928c018505bad211d8e283}{R\+Is\+Finite}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Check if elements is finite or not. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{RMathematicalOperations_8cpp_a5e249c17bf45b0c779b5cb6013e1342d}{R\+Is\+In\+Finite}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Check if elements is infinite or not. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{RMathematicalOperations_8cpp_a212e93dc2403e3f653b84596ade1066e}{R\+Is\+Nan}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Check if elements is N\+AN or not. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_abff793eeba9137ca37ca788779fc1033}{R\+Log}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, int a\+Base)
+\begin{DoxyCompactList}\small\item\em Perform Log operation on M\+PR Object default 1. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_aeccb650f7361e8bef41486700806d30c}{R\+Log10}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Log Base 10 operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a7e072d391b4d162f0ae507dc7ffd59ec}{R\+Log2}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Log Base 2 operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a6c1f897b31b845014633a3c5400295a7}{R\+Sin}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Sin operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a3dbb043b30e5351a55ae05edcd8e1037}{R\+Cos}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Cos operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_ae8e8504567d74a1d945c0b84dd0dd1a0}{R\+Tan}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Tan operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a471ddc80e34fbb5254aa212a7095f339}{R\+A\+Sin}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform a\+Sin operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_ac46823be0629632bdea176d9b2ee45d7}{R\+A\+Cos}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform a\+Cos operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a047bf67f7bb16397feaa8779f41143fb}{R\+A\+Tan}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform a\+Tan operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_ae485c972fc1e580d2645c53dd5240a19}{R\+Sinh}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Sinh operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a08d409ce90c5bf80a156b1b91269e327}{R\+Cosh}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Cosh operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_aff4362b93c6289bb186d9b3f3f28de91}{R\+Tanh}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform Tanh operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_ad83cae7af974e98128a17eab4289393a}{R\+A\+Sinh}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform a\+Sinh operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a90bd742b9fc7c38cbe99287038079dbb}{R\+A\+Cosh}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform a\+Cosh operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RMathematicalOperations_8cpp_a476be2a7fb5ae4f6392e61638fdfc861}{R\+A\+Tanh}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Perform a\+Tanh operation on M\+PR Object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a2cd84acde0e87fa7f45c971895d5b60e}\label{RMathematicalOperations_8cpp_a2cd84acde0e87fa7f45c971895d5b60e}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RAbs@{RAbs}}
+\index{RAbs@{RAbs}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RAbs()}{RAbs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Abs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Abs operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a2cd84acde0e87fa7f45c971895d5b60e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{RMathematicalOperations_8cpp_a2cd84acde0e87fa7f45c971895d5b60e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_ac46823be0629632bdea176d9b2ee45d7}\label{RMathematicalOperations_8cpp_ac46823be0629632bdea176d9b2ee45d7}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RACos@{RACos}}
+\index{RACos@{RACos}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RACos()}{RACos()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+A\+Cos (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform a\+Cos operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_ac46823be0629632bdea176d9b2ee45d7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{RMathematicalOperations_8cpp_ac46823be0629632bdea176d9b2ee45d7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a90bd742b9fc7c38cbe99287038079dbb}\label{RMathematicalOperations_8cpp_a90bd742b9fc7c38cbe99287038079dbb}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RACosh@{RACosh}}
+\index{RACosh@{RACosh}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RACosh()}{RACosh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+A\+Cosh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform a\+Cosh operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a90bd742b9fc7c38cbe99287038079dbb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{RMathematicalOperations_8cpp_a90bd742b9fc7c38cbe99287038079dbb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a471ddc80e34fbb5254aa212a7095f339}\label{RMathematicalOperations_8cpp_a471ddc80e34fbb5254aa212a7095f339}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RASin@{RASin}}
+\index{RASin@{RASin}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RASin()}{RASin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+A\+Sin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform a\+Sin operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a471ddc80e34fbb5254aa212a7095f339_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{RMathematicalOperations_8cpp_a471ddc80e34fbb5254aa212a7095f339_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_ad83cae7af974e98128a17eab4289393a}\label{RMathematicalOperations_8cpp_ad83cae7af974e98128a17eab4289393a}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RASinh@{RASinh}}
+\index{RASinh@{RASinh}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RASinh()}{RASinh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+A\+Sinh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform a\+Sinh operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_ad83cae7af974e98128a17eab4289393a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{RMathematicalOperations_8cpp_ad83cae7af974e98128a17eab4289393a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a047bf67f7bb16397feaa8779f41143fb}\label{RMathematicalOperations_8cpp_a047bf67f7bb16397feaa8779f41143fb}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RATan@{RATan}}
+\index{RATan@{RATan}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RATan()}{RATan()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+A\+Tan (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform a\+Tan operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a047bf67f7bb16397feaa8779f41143fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{RMathematicalOperations_8cpp_a047bf67f7bb16397feaa8779f41143fb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a476be2a7fb5ae4f6392e61638fdfc861}\label{RMathematicalOperations_8cpp_a476be2a7fb5ae4f6392e61638fdfc861}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RATanh@{RATanh}}
+\index{RATanh@{RATanh}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RATanh()}{RATanh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+A\+Tanh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform a\+Tanh operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a476be2a7fb5ae4f6392e61638fdfc861_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{RMathematicalOperations_8cpp_a476be2a7fb5ae4f6392e61638fdfc861_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a5749ccfacb07bbf0c41d501d532421bb}\label{RMathematicalOperations_8cpp_a5749ccfacb07bbf0c41d501d532421bb}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RCeiling@{RCeiling}}
+\index{RCeiling@{RCeiling}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RCeiling()}{RCeiling()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Ceiling (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Ceil operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a5749ccfacb07bbf0c41d501d532421bb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{RMathematicalOperations_8cpp_a5749ccfacb07bbf0c41d501d532421bb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a3dbb043b30e5351a55ae05edcd8e1037}\label{RMathematicalOperations_8cpp_a3dbb043b30e5351a55ae05edcd8e1037}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RCos@{RCos}}
+\index{RCos@{RCos}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RCos()}{RCos()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Cos (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Cos operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a3dbb043b30e5351a55ae05edcd8e1037_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{RMathematicalOperations_8cpp_a3dbb043b30e5351a55ae05edcd8e1037_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a08d409ce90c5bf80a156b1b91269e327}\label{RMathematicalOperations_8cpp_a08d409ce90c5bf80a156b1b91269e327}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RCosh@{RCosh}}
+\index{RCosh@{RCosh}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RCosh()}{RCosh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Cosh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Cosh operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a08d409ce90c5bf80a156b1b91269e327_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{RMathematicalOperations_8cpp_a08d409ce90c5bf80a156b1b91269e327_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a7686e33bd491b34c8410d4c75bedb5d7}\label{RMathematicalOperations_8cpp_a7686e33bd491b34c8410d4c75bedb5d7}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RExp@{RExp}}
+\index{RExp@{RExp}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RExp()}{RExp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Exp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform exp(x) operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a7686e33bd491b34c8410d4c75bedb5d7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{RMathematicalOperations_8cpp_a7686e33bd491b34c8410d4c75bedb5d7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a6abb67fff27f11ddda4d35b71387f58c}\label{RMathematicalOperations_8cpp_a6abb67fff27f11ddda4d35b71387f58c}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RExp1m@{RExp1m}}
+\index{RExp1m@{RExp1m}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RExp1m()}{RExp1m()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Exp1m (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform exp (x) -\/1 operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a6abb67fff27f11ddda4d35b71387f58c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{RMathematicalOperations_8cpp_a6abb67fff27f11ddda4d35b71387f58c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a9e4bbf22184e94a051e59bf89e01c252}\label{RMathematicalOperations_8cpp_a9e4bbf22184e94a051e59bf89e01c252}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RFloor@{RFloor}}
+\index{RFloor@{RFloor}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RFloor()}{RFloor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Floor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Floor operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a9e4bbf22184e94a051e59bf89e01c252_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{RMathematicalOperations_8cpp_a9e4bbf22184e94a051e59bf89e01c252_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a2325ceeac662bb5862dd7013d2454e55}\label{RMathematicalOperations_8cpp_a2325ceeac662bb5862dd7013d2454e55}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RGamma@{RGamma}}
+\index{RGamma@{RGamma}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RGamma()}{RGamma()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Gamma (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform tgamma operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a2325ceeac662bb5862dd7013d2454e55_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{RMathematicalOperations_8cpp_a2325ceeac662bb5862dd7013d2454e55_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a447dc7c733928c018505bad211d8e283}\label{RMathematicalOperations_8cpp_a447dc7c733928c018505bad211d8e283}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RIsFinite@{RIsFinite}}
+\index{RIsFinite@{RIsFinite}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RIsFinite()}{RIsFinite()}}
+{\footnotesize\ttfamily S\+E\+XP R\+Is\+Finite (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Check if elements is finite or not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Logical Vector/\+Matrix according to Input True if finite ,false otherwise. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a447dc7c733928c018505bad211d8e283_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{RMathematicalOperations_8cpp_a447dc7c733928c018505bad211d8e283_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a5e249c17bf45b0c779b5cb6013e1342d}\label{RMathematicalOperations_8cpp_a5e249c17bf45b0c779b5cb6013e1342d}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RIsInFinite@{RIsInFinite}}
+\index{RIsInFinite@{RIsInFinite}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RIsInFinite()}{RIsInFinite()}}
+{\footnotesize\ttfamily S\+E\+XP R\+Is\+In\+Finite (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Check if elements is infinite or not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Logical Vector/\+Matrix according to Input True if infinite ,false finite , and N\+AN. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a5e249c17bf45b0c779b5cb6013e1342d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{RMathematicalOperations_8cpp_a5e249c17bf45b0c779b5cb6013e1342d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a212e93dc2403e3f653b84596ade1066e}\label{RMathematicalOperations_8cpp_a212e93dc2403e3f653b84596ade1066e}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RIsNan@{RIsNan}}
+\index{RIsNan@{RIsNan}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RIsNan()}{RIsNan()}}
+{\footnotesize\ttfamily S\+E\+XP R\+Is\+Nan (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Check if elements is N\+AN or not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Logical Vector/\+Matrix according to Input True if N\+AN ,false Otherwise. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a212e93dc2403e3f653b84596ade1066e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{RMathematicalOperations_8cpp_a212e93dc2403e3f653b84596ade1066e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_ac17afa949d5c2bce786d07adcf3cacd1}\label{RMathematicalOperations_8cpp_ac17afa949d5c2bce786d07adcf3cacd1}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RLGamma@{RLGamma}}
+\index{RLGamma@{RLGamma}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RLGamma()}{RLGamma()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+L\+Gamma (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform lgamma operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_ac17afa949d5c2bce786d07adcf3cacd1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{RMathematicalOperations_8cpp_ac17afa949d5c2bce786d07adcf3cacd1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_abff793eeba9137ca37ca788779fc1033}\label{RMathematicalOperations_8cpp_abff793eeba9137ca37ca788779fc1033}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RLog@{RLog}}
+\index{RLog@{RLog}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RLog()}{RLog()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Log (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input,  }\item[{int}]{a\+Base }\end{DoxyParamCaption})}
+
+
+
+Perform Log operation on M\+PR Object default 1. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Base} & 1 \+:log-\/$>$exp(1) 2\+: log2 10\+: log10 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_abff793eeba9137ca37ca788779fc1033_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{RMathematicalOperations_8cpp_abff793eeba9137ca37ca788779fc1033_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_aeccb650f7361e8bef41486700806d30c}\label{RMathematicalOperations_8cpp_aeccb650f7361e8bef41486700806d30c}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RLog10@{RLog10}}
+\index{RLog10@{RLog10}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RLog10()}{RLog10()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Log10 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Log Base 10 operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_aeccb650f7361e8bef41486700806d30c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{RMathematicalOperations_8cpp_aeccb650f7361e8bef41486700806d30c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a7e072d391b4d162f0ae507dc7ffd59ec}\label{RMathematicalOperations_8cpp_a7e072d391b4d162f0ae507dc7ffd59ec}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RLog2@{RLog2}}
+\index{RLog2@{RLog2}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RLog2()}{RLog2()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Log2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Log Base 2 operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a7e072d391b4d162f0ae507dc7ffd59ec_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{RMathematicalOperations_8cpp_a7e072d391b4d162f0ae507dc7ffd59ec_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_ad150a6c45f903d66aac6ec8db33b2d74}\label{RMathematicalOperations_8cpp_ad150a6c45f903d66aac6ec8db33b2d74}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RRound@{RRound}}
+\index{RRound@{RRound}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RRound()}{RRound()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Round (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input,  }\item[{const int \&}]{a\+Decimal\+Places }\end{DoxyParamCaption})}
+
+
+
+Perform Round operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Decimal\+Places} & number of decimal places used for rounding. default will remove all decimal points \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_ad150a6c45f903d66aac6ec8db33b2d74_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{RMathematicalOperations_8cpp_ad150a6c45f903d66aac6ec8db33b2d74_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a6c1f897b31b845014633a3c5400295a7}\label{RMathematicalOperations_8cpp_a6c1f897b31b845014633a3c5400295a7}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RSin@{RSin}}
+\index{RSin@{RSin}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RSin()}{RSin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Sin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Sin operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a6c1f897b31b845014633a3c5400295a7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{RMathematicalOperations_8cpp_a6c1f897b31b845014633a3c5400295a7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_ae485c972fc1e580d2645c53dd5240a19}\label{RMathematicalOperations_8cpp_ae485c972fc1e580d2645c53dd5240a19}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RSinh@{RSinh}}
+\index{RSinh@{RSinh}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RSinh()}{RSinh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Sinh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Sinh operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_ae485c972fc1e580d2645c53dd5240a19_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{RMathematicalOperations_8cpp_ae485c972fc1e580d2645c53dd5240a19_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_a0325abd2c8ea64620c876f7dbdafbd58}\label{RMathematicalOperations_8cpp_a0325abd2c8ea64620c876f7dbdafbd58}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RSqrt@{RSqrt}}
+\index{RSqrt@{RSqrt}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RSqrt()}{RSqrt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Sqrt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Sqrt operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_a0325abd2c8ea64620c876f7dbdafbd58_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{RMathematicalOperations_8cpp_a0325abd2c8ea64620c876f7dbdafbd58_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_ae8e8504567d74a1d945c0b84dd0dd1a0}\label{RMathematicalOperations_8cpp_ae8e8504567d74a1d945c0b84dd0dd1a0}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RTan@{RTan}}
+\index{RTan@{RTan}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RTan()}{RTan()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Tan (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Tan operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_ae8e8504567d74a1d945c0b84dd0dd1a0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{RMathematicalOperations_8cpp_ae8e8504567d74a1d945c0b84dd0dd1a0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_aff4362b93c6289bb186d9b3f3f28de91}\label{RMathematicalOperations_8cpp_aff4362b93c6289bb186d9b3f3f28de91}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RTanh@{RTanh}}
+\index{RTanh@{RTanh}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RTanh()}{RTanh()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Tanh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Tanh operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_aff4362b93c6289bb186d9b3f3f28de91_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{RMathematicalOperations_8cpp_aff4362b93c6289bb186d9b3f3f28de91_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RMathematicalOperations_8cpp_ad961e07ba920050e5be87265c9b48ed7}\label{RMathematicalOperations_8cpp_ad961e07ba920050e5be87265c9b48ed7}} 
+\index{RMathematicalOperations.cpp@{RMathematicalOperations.cpp}!RTruncate@{RTruncate}}
+\index{RTruncate@{RTruncate}!RMathematicalOperations.cpp@{RMathematicalOperations.cpp}}
+\doxysubsubsection{\texorpdfstring{RTruncate()}{RTruncate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Truncate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Perform Truncate operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object can be a vector or a Matrix according to the given inputs 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RMathematicalOperations_8cpp_ad961e07ba920050e5be87265c9b48ed7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{RMathematicalOperations_8cpp_ad961e07ba920050e5be87265c9b48ed7_icgraph}
+\end{center}
+\end{figure}

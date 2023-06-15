@@ -1,0 +1,6 @@
+<map id="mpr::operations::binary::CheckDimensions" name="mpr::operations::binary::CheckDimensions">
+<area shape="rect" id="node1" title="Function to check whether the input MPR objects Dimensions match the required Dimensions ,..." alt="" coords="5,49,180,90"/>
+<area shape="rect" id="node2" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="228,5,380,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="233,56,375,83"/>
+<area shape="rect" id="node4" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="232,107,376,133"/>
+</map>

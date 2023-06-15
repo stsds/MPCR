@@ -1,0 +1,748 @@
+\hypertarget{RLinearAlgebra_8hpp}{}\doxysection{inst/include/adapters/\+R\+Linear\+Algebra.hpp File Reference}
+\label{RLinearAlgebra_8hpp}\index{inst/include/adapters/RLinearAlgebra.hpp@{inst/include/adapters/RLinearAlgebra.hpp}}
+{\ttfamily \#include $<$operations/\+Linear\+Algebra.\+hpp$>$}\newline
+Include dependency graph for R\+Linear\+Algebra.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_aad63789b8f3ae6a2aa763dd0b87d5112}{R\+Cross\+Product}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, S\+E\+XP \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}})
+\begin{DoxyCompactList}\small\item\em Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% y , t(x) \%$\ast$\% x. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a471b6761be43bb48d2f031d619a99700}{R\+T\+Cross\+Product}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, S\+E\+XP \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}})
+\begin{DoxyCompactList}\small\item\em Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% t(y) , x \%$\ast$\% t(x) \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classDataType}{Data\+Type}} $>$ \mbox{\hyperlink{RLinearAlgebra_8hpp_ae29d6ee560390e9403f2cf52e5489799}{R\+Eigen}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const bool \&a\+Only\+Values)
+\begin{DoxyCompactList}\small\item\em Calculate Eigen Values and (optionally) Eigen Vectors. if(a\+Only\+Values)= true , only the values will be calculated. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{RLinearAlgebra_8hpp_a3444363bdbdf1b7b1ef5ed9fdee158ab}{R\+Is\+Symmetric}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}})
+\begin{DoxyCompactList}\small\item\em Check if a Matrix Is Symmetric. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a4795dfedd631c690066b70114ef258c4}{R\+Back\+Solve}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, const long \&a\+Col, const bool \&a\+Upper\+Triangle, const bool \&a\+Transpose)
+\begin{DoxyCompactList}\small\item\em Solves a system of linear equations where the coefficient matrix is upper or lower triangular. Solve a\+InputA a\+Output = a\+InputB. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a53e99e6d030fb35f6e7baab60810f861}{R\+Cholesky}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const bool \&a\+Upper\+Triangle)
+\begin{DoxyCompactList}\small\item\em Calculate Cholesky decomposition. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a40e5e74b11c2b637753a89cb07acaef3}{R\+Cholesky\+Inv}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const size\+\_\+t \&a\+Size)
+\begin{DoxyCompactList}\small\item\em Invert a symmetric, positive definite square matrix from its Cholesky decomposition. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a8eeed7fcd31e59e45d07ec2bc76a3c54}{R\+Solve}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, S\+E\+XP \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}})
+\begin{DoxyCompactList}\small\item\em Solves the equation AX=B. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classDataType}{Data\+Type}} $>$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a5595028cb926cb8d01b50c8f6eb6bdd2}{R\+S\+VD}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const long \&a\+Nu, const long \&a\+Nv, const bool \&a\+Transpose)
+\begin{DoxyCompactList}\small\item\em Compute the singular-\/value decomposition of a rectangular matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a34474f8f633d9660b4cdc9fee95d28c8}{R\+Transpose}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}})
+\begin{DoxyCompactList}\small\item\em Transpose a given M\+PR Matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a4e72a89d4403f0c0c1cef7e0e57b12eb}{R\+Norm}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const std\+::string \&a\+Type)
+\begin{DoxyCompactList}\small\item\em Computes a matrix norm of a\+Input. The norm can be the one (\char`\"{}\+O\char`\"{}) norm, the infinity (\char`\"{}\+I\char`\"{}) norm, the Frobenius (\char`\"{}\+F\char`\"{}) norm, or the maximum modulus (\char`\"{}\+M\char`\"{}) among elements of a matrix. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classDataType}{Data\+Type}} $>$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a2bf1d3be5fd2f6701dc704d8ed4787eb}{R\+Q\+R\+Decomposition}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const double \&a\+Tolerance)
+\begin{DoxyCompactList}\small\item\em Computes the QR decomposition of a matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a8d4a9dc85f82d4e225cdced198536698}{R\+R\+Cond}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const std\+::string \&\mbox{\hyperlink{LinearAlgebra_8cpp_ad35e7bb2ad3a18c735dba2a03e92c7f4}{a\+Norm}}, const bool \&a\+Triangle)
+\begin{DoxyCompactList}\small\item\em Estimate the reciprocal of the condition number of a matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a899353c985867c62dea2222e958e90ce}{R\+Q\+R\+DecompositionR}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const bool \&a\+Complete)
+\begin{DoxyCompactList}\small\item\em returns R. This may be pivoted, The number of rows of R is either nrow(a\+Input\+A) or ncol(a\+Input\+A) (and may depend on whether complete is T\+R\+UE or F\+A\+L\+SE). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_a6194ff200d27724ba756cbd8000288dc}{R\+Q\+R\+DecompositionQ}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, const bool \&a\+Complete, S\+E\+XP a\+Dvec)
+\begin{DoxyCompactList}\small\item\em Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. and each column of Q is multiplied by the corresponding value in Dvec. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_aeba50fab8381884d7466d4c3972cfb4e}{R\+Q\+R\+Decomposition\+Qy}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$a\+Dvec)
+\begin{DoxyCompactList}\small\item\em Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. and each column of Q is multiplied by the corresponding value in Dvec. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_afa6d5fc8536e496a04fc2c1340cba569}{R\+Q\+R\+Decomposition\+Qty}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$a\+Dvec)
+\begin{DoxyCompactList}\small\item\em Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. and each column of Q is multiplied by the corresponding value in Dvec. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{RLinearAlgebra_8hpp_ae0412e03a33a5694770a7be74cb56628}{R\+Gemm}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, S\+E\+XP \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$a\+InputC, const bool \&a\+TransposeA, const bool \&a\+TransposeB, const double \&a\+Alpha, const double \&a\+Beta)
+\begin{DoxyCompactList}\small\item\em Perform Matrix Matrix Multiplication using Gemm/\+Syrk routines performs\+: C= alphaA $\ast$B +betaC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8hpp_ad9707037cdca328d5ffa3542400576ce}{R\+Trsm}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, const bool \&a\+Upper\+Tri, const bool \&a\+Transpose, const char \&a\+Side, const double \&a\+Alpha)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a4795dfedd631c690066b70114ef258c4}\label{RLinearAlgebra_8hpp_a4795dfedd631c690066b70114ef258c4}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RBackSolve@{RBackSolve}}
+\index{RBackSolve@{RBackSolve}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RBackSolve()}{RBackSolve()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Back\+Solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputB,  }\item[{const long \&}]{a\+Col,  }\item[{const bool \&}]{a\+Upper\+Triangle,  }\item[{const bool \&}]{a\+Transpose }\end{DoxyParamCaption})}
+
+
+
+Solves a system of linear equations where the coefficient matrix is upper or lower triangular. Solve a\+InputA a\+Output = a\+InputB. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & The number of columns of a\+InputA and rows of a\+InputB to use. default ncol(a\+Input\+A) \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Upper\+Triangle} & logical; if true (default), the upper triangular part of a\+InputA is used. Otherwise, the lower one. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Transpose} & logical; if true, solve for t(a\+Input\+A) \%$\ast$\% a\+Output == a\+InputB. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The solution of the triangular system 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a4795dfedd631c690066b70114ef258c4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{RLinearAlgebra_8hpp_a4795dfedd631c690066b70114ef258c4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a53e99e6d030fb35f6e7baab60810f861}\label{RLinearAlgebra_8hpp_a53e99e6d030fb35f6e7baab60810f861}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RCholesky@{RCholesky}}
+\index{RCholesky@{RCholesky}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RCholesky()}{RCholesky()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Cholesky (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const bool \&}]{a\+Upper\+Triangle }\end{DoxyParamCaption})}
+
+
+
+Calculate Cholesky decomposition. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix containing decomposition result 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a53e99e6d030fb35f6e7baab60810f861_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{RLinearAlgebra_8hpp_a53e99e6d030fb35f6e7baab60810f861_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a40e5e74b11c2b637753a89cb07acaef3}\label{RLinearAlgebra_8hpp_a40e5e74b11c2b637753a89cb07acaef3}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RCholeskyInv@{RCholeskyInv}}
+\index{RCholeskyInv@{RCholeskyInv}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RCholeskyInv()}{RCholeskyInv()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Cholesky\+Inv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const size\+\_\+t \&}]{a\+Size }\end{DoxyParamCaption})}
+
+
+
+Invert a symmetric, positive definite square matrix from its Cholesky decomposition. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix containing Cholesky decomposition. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a40e5e74b11c2b637753a89cb07acaef3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{RLinearAlgebra_8hpp_a40e5e74b11c2b637753a89cb07acaef3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_aad63789b8f3ae6a2aa763dd0b87d5112}\label{RLinearAlgebra_8hpp_aad63789b8f3ae6a2aa763dd0b87d5112}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RCrossProduct@{RCrossProduct}}
+\index{RCrossProduct@{RCrossProduct}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RCrossProduct()}{RCrossProduct()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Cross\+Product (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{S\+E\+XP}]{a\+InputB }\end{DoxyParamCaption})}
+
+
+
+Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% y , t(x) \%$\ast$\% x. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix, if Null t(a\+Input\+A) \%$\ast$\% a\+InputA ,otherwise a\+InputA \%$\ast$\% a\+InputB \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_aad63789b8f3ae6a2aa763dd0b87d5112_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{RLinearAlgebra_8hpp_aad63789b8f3ae6a2aa763dd0b87d5112_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_ae29d6ee560390e9403f2cf52e5489799}\label{RLinearAlgebra_8hpp_ae29d6ee560390e9403f2cf52e5489799}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!REigen@{REigen}}
+\index{REigen@{REigen}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{REigen()}{REigen()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classDataType}{Data\+Type}}$>$ R\+Eigen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const bool \&}]{a\+Only\+Values }\end{DoxyParamCaption})}
+
+
+
+Calculate Eigen Values and (optionally) Eigen Vectors. if(a\+Only\+Values)= true , only the values will be calculated. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Square Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Only\+Values} & bool True, Only values will be returned ,otherwise values and vectors. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of M\+PR objects, First element Values ,and second element Vectors. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_ae29d6ee560390e9403f2cf52e5489799_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{RLinearAlgebra_8hpp_ae29d6ee560390e9403f2cf52e5489799_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_ae0412e03a33a5694770a7be74cb56628}\label{RLinearAlgebra_8hpp_ae0412e03a33a5694770a7be74cb56628}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RGemm@{RGemm}}
+\index{RGemm@{RGemm}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RGemm()}{RGemm()}}
+{\footnotesize\ttfamily void R\+Gemm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{S\+E\+XP}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputC,  }\item[{const bool \&}]{a\+TransposeA,  }\item[{const bool \&}]{a\+TransposeB,  }\item[{const double \&}]{a\+Alpha,  }\item[{const double \&}]{a\+Beta }\end{DoxyParamCaption})}
+
+
+
+Perform Matrix Matrix Multiplication using Gemm/\+Syrk routines performs\+: C= alphaA $\ast$B +betaC. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix ,if missing syrk routine will be used \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em a\+InputC} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+TransposeA} & if true , the transpose of A will be Used \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+TransposeB} & if true , the transpose of B will be Used \\
+\hline
+ & {\em a\+Alpha} & factor of A \\
+\hline
+ & {\em a\+Beta} & factor of C\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_ae0412e03a33a5694770a7be74cb56628_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{RLinearAlgebra_8hpp_ae0412e03a33a5694770a7be74cb56628_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a3444363bdbdf1b7b1ef5ed9fdee158ab}\label{RLinearAlgebra_8hpp_a3444363bdbdf1b7b1ef5ed9fdee158ab}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RIsSymmetric@{RIsSymmetric}}
+\index{RIsSymmetric@{RIsSymmetric}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RIsSymmetric()}{RIsSymmetric()}}
+{\footnotesize\ttfamily bool R\+Is\+Symmetric (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA }\end{DoxyParamCaption})}
+
+
+
+Check if a Matrix Is Symmetric. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if symmetric ,false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{RLinearAlgebra_8hpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a4e72a89d4403f0c0c1cef7e0e57b12eb}\label{RLinearAlgebra_8hpp_a4e72a89d4403f0c0c1cef7e0e57b12eb}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RNorm@{RNorm}}
+\index{RNorm@{RNorm}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RNorm()}{RNorm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Norm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const std\+::string \&}]{a\+Type }\end{DoxyParamCaption})}
+
+
+
+Computes a matrix norm of a\+Input. The norm can be the one (\char`\"{}\+O\char`\"{}) norm, the infinity (\char`\"{}\+I\char`\"{}) norm, the Frobenius (\char`\"{}\+F\char`\"{}) norm, or the maximum modulus (\char`\"{}\+M\char`\"{}) among elements of a matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Type} & Type of Norm ( O , 1 , I , F, M) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Norm Value 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{RLinearAlgebra_8hpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a2bf1d3be5fd2f6701dc704d8ed4787eb}\label{RLinearAlgebra_8hpp_a2bf1d3be5fd2f6701dc704d8ed4787eb}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RQRDecomposition@{RQRDecomposition}}
+\index{RQRDecomposition@{RQRDecomposition}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RQRDecomposition()}{RQRDecomposition()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classDataType}{Data\+Type}}$>$ R\+Q\+R\+Decomposition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const double \&}]{a\+Tolerance }\end{DoxyParamCaption})}
+
+
+
+Computes the QR decomposition of a matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tolerance} & the tolerance for detecting linear dependencies in the columns of a\+InputA \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector containing QR,Q\+Raux,Pivot,Rank 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{RLinearAlgebra_8hpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a6194ff200d27724ba756cbd8000288dc}\label{RLinearAlgebra_8hpp_a6194ff200d27724ba756cbd8000288dc}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RQRDecompositionQ@{RQRDecompositionQ}}
+\index{RQRDecompositionQ@{RQRDecompositionQ}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RQRDecompositionQ()}{RQRDecompositionQ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Q\+R\+DecompositionQ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputB,  }\item[{const bool \&}]{a\+Complete,  }\item[{S\+E\+XP}]{a\+Dvec }\end{DoxyParamCaption})}
+
+
+
+Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. and each column of Q is multiplied by the corresponding value in Dvec. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix QR \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Object Representing Q\+R\+A\+UX \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+PR Object Representing D\+Vec ,if null Q\+R\+DecompositionQ will be called. otherwise Q\+R\+Decomposition\+QY \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns Q. As M\+PR Object. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a6194ff200d27724ba756cbd8000288dc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=325pt]{RLinearAlgebra_8hpp_a6194ff200d27724ba756cbd8000288dc_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_afa6d5fc8536e496a04fc2c1340cba569}\label{RLinearAlgebra_8hpp_afa6d5fc8536e496a04fc2c1340cba569}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RQRDecompositionQty@{RQRDecompositionQty}}
+\index{RQRDecompositionQty@{RQRDecompositionQty}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RQRDecompositionQty()}{RQRDecompositionQty()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Q\+R\+Decomposition\+Qty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Dvec }\end{DoxyParamCaption})}
+
+
+
+Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. and each column of Q is multiplied by the corresponding value in Dvec. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix QR \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Object Representing Q\+R\+A\+UX \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+PR Object Representing D\+Vec , Q\+R\+Decomposition\+QY with flag transpose =true wil be called \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns Q. As M\+PR Object. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_afa6d5fc8536e496a04fc2c1340cba569_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{RLinearAlgebra_8hpp_afa6d5fc8536e496a04fc2c1340cba569_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_aeba50fab8381884d7466d4c3972cfb4e}\label{RLinearAlgebra_8hpp_aeba50fab8381884d7466d4c3972cfb4e}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RQRDecompositionQy@{RQRDecompositionQy}}
+\index{RQRDecompositionQy@{RQRDecompositionQy}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RQRDecompositionQy()}{RQRDecompositionQy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Q\+R\+Decomposition\+Qy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Dvec }\end{DoxyParamCaption})}
+
+
+
+Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. and each column of Q is multiplied by the corresponding value in Dvec. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix QR \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Object Representing Q\+R\+A\+UX \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+PR Object Representing D\+Vec , Q\+R\+Decomposition\+QY with flag transpose =false wil be called \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns Q. As M\+PR Object. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_aeba50fab8381884d7466d4c3972cfb4e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{RLinearAlgebra_8hpp_aeba50fab8381884d7466d4c3972cfb4e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a899353c985867c62dea2222e958e90ce}\label{RLinearAlgebra_8hpp_a899353c985867c62dea2222e958e90ce}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RQRDecompositionR@{RQRDecompositionR}}
+\index{RQRDecompositionR@{RQRDecompositionR}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RQRDecompositionR()}{RQRDecompositionR()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Q\+R\+DecompositionR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const bool \&}]{a\+Complete }\end{DoxyParamCaption})}
+
+
+
+returns R. This may be pivoted, The number of rows of R is either nrow(a\+Input\+A) or ncol(a\+Input\+A) (and may depend on whether complete is T\+R\+UE or F\+A\+L\+SE). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns R. This may be pivoted. As M\+PR Object. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a899353c985867c62dea2222e958e90ce_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a899353c985867c62dea2222e958e90ce_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a8d4a9dc85f82d4e225cdced198536698}\label{RLinearAlgebra_8hpp_a8d4a9dc85f82d4e225cdced198536698}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RRCond@{RRCond}}
+\index{RRCond@{RRCond}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RRCond()}{RRCond()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+R\+Cond (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const std\+::string \&}]{a\+Norm,  }\item[{const bool \&}]{a\+Triangle }\end{DoxyParamCaption})}
+
+
+
+Estimate the reciprocal of the condition number of a matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Norm} & character string indicating the type of norm to be used in the estimate. The default is \char`\"{}\+O\char`\"{} for the 1-\/norm (\char`\"{}\+O\char`\"{} is equivalent to \char`\"{}1\char`\"{}). For sparse matrices, when use\+Inv=T\+R\+UE, norm can be any of the kinds allowed for norm; otherwise, the other possible value is \char`\"{}\+I\char`\"{} for the infinity norm. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Triangle} & Bool if true,Only the lower triangle will be used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Vector containing one element which is an estimate of the reciprocal condition number of a\+Input. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a8d4a9dc85f82d4e225cdced198536698_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{RLinearAlgebra_8hpp_a8d4a9dc85f82d4e225cdced198536698_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a8eeed7fcd31e59e45d07ec2bc76a3c54}\label{RLinearAlgebra_8hpp_a8eeed7fcd31e59e45d07ec2bc76a3c54}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RSolve@{RSolve}}
+\index{RSolve@{RSolve}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RSolve()}{RSolve()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Solve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{S\+E\+XP}]{a\+InputB }\end{DoxyParamCaption})}
+
+
+
+Solves the equation AX=B. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix A \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix X, if Null t(\+A) will be used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix B 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{RLinearAlgebra_8hpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a5595028cb926cb8d01b50c8f6eb6bdd2}\label{RLinearAlgebra_8hpp_a5595028cb926cb8d01b50c8f6eb6bdd2}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RSVD@{RSVD}}
+\index{RSVD@{RSVD}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RSVD()}{RSVD()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classDataType}{Data\+Type}}$>$ R\+S\+VD (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{const long \&}]{a\+Nu,  }\item[{const long \&}]{a\+Nv,  }\item[{const bool \&}]{a\+Transpose }\end{DoxyParamCaption})}
+
+
+
+Compute the singular-\/value decomposition of a rectangular matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Nu} & the number of left singular vectors to be computed. This must between 0 and m = nrow(a\+Input\+A). default a\+Nu = nrow(a\+Input\+A). \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Nv} & the number of right singular vectors to be computed. This must be between 0 and n = ncol(x). default a\+Nv = ncol(a\+Input\+A). \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Transpose} & Bool if true, a\+OutputV will contain V ,otherwise VT default true for svd() false for la.\+svd() \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vectors containing d,u,v or VT if a\+Transpose = false 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a5595028cb926cb8d01b50c8f6eb6bdd2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{RLinearAlgebra_8hpp_a5595028cb926cb8d01b50c8f6eb6bdd2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a471b6761be43bb48d2f031d619a99700}\label{RLinearAlgebra_8hpp_a471b6761be43bb48d2f031d619a99700}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RTCrossProduct@{RTCrossProduct}}
+\index{RTCrossProduct@{RTCrossProduct}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RTCrossProduct()}{RTCrossProduct()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+T\+Cross\+Product (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{S\+E\+XP}]{a\+InputB }\end{DoxyParamCaption})}
+
+
+
+Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% t(y) , x \%$\ast$\% t(x) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix, if Null a\+InputA \%$\ast$\% t(a\+Input\+A) ,otherwise a\+InputA \%$\ast$\% t(a\+Input\+B) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_a471b6761be43bb48d2f031d619a99700_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{RLinearAlgebra_8hpp_a471b6761be43bb48d2f031d619a99700_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_a34474f8f633d9660b4cdc9fee95d28c8}\label{RLinearAlgebra_8hpp_a34474f8f633d9660b4cdc9fee95d28c8}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RTranspose@{RTranspose}}
+\index{RTranspose@{RTranspose}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RTranspose()}{RTranspose()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Transpose (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA }\end{DoxyParamCaption})}
+
+
+
+Transpose a given M\+PR Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em a\+InputA} & M\+PR Matrix A \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{RLinearAlgebra_8hpp_a34474f8f633d9660b4cdc9fee95d28c8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RLinearAlgebra_8hpp_ad9707037cdca328d5ffa3542400576ce}\label{RLinearAlgebra_8hpp_ad9707037cdca328d5ffa3542400576ce}} 
+\index{RLinearAlgebra.hpp@{RLinearAlgebra.hpp}!RTrsm@{RTrsm}}
+\index{RTrsm@{RTrsm}!RLinearAlgebra.hpp@{RLinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{RTrsm()}{RTrsm()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Trsm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputB,  }\item[{const bool \&}]{a\+Upper\+Tri,  }\item[{const bool \&}]{a\+Transpose,  }\item[{const char \&}]{a\+Side,  }\item[{const double \&}]{a\+Alpha }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RLinearAlgebra_8hpp_ad9707037cdca328d5ffa3542400576ce_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{RLinearAlgebra_8hpp_ad9707037cdca328d5ffa3542400576ce_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,121 @@
+\hypertarget{BasicOperationsHelper_8hpp}{}\doxysection{inst/include/operations/helpers/\+Basic\+Operations\+Helper.hpp File Reference}
+\label{BasicOperationsHelper_8hpp}\index{inst/include/operations/helpers/BasicOperationsHelper.hpp@{inst/include/operations/helpers/BasicOperationsHelper.hpp}}
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for Basic\+Operations\+Helper.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{BasicOperationsHelper_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{BasicOperationsHelper_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{BasicOperationsHelper_8hpp_a19262bdad8ca6b9493f09766c5b04903}{O\+P\+E\+R\+A\+T\+I\+O\+N\+\_\+\+C\+OL}}(dataA,  dataB,  data\+Out,  F\+UN,  sizeB,  accum)
+\item 
+\#define \mbox{\hyperlink{BasicOperationsHelper_8hpp_aed8aea9b4bfc6ba0133e4625c7070278}{O\+P\+E\+R\+A\+T\+I\+ON}}(dataA,  dataB,  data\+Out,  F\+UN,  sizeB,  accum)
+\item 
+\#define \mbox{\hyperlink{BasicOperationsHelper_8hpp_ab3e8ff7059ea0009a1f0976b599a4ae1}{R\+U\+N\+\_\+\+OP}}(dataA,  dataB,  data\+Out,  F\+UN,  sizeB,  accum)
+\item 
+\#define \mbox{\hyperlink{BasicOperationsHelper_8hpp_a255a809ddca4cb9670a5eb87ffa92698}{R\+U\+N\+\_\+\+O\+P\+\_\+\+C\+OL}}(dataA,  dataB,  data\+Out,  F\+UN,  sizeB,  accum)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{BasicOperationsHelper_8hpp_aed8aea9b4bfc6ba0133e4625c7070278}\label{BasicOperationsHelper_8hpp_aed8aea9b4bfc6ba0133e4625c7070278}} 
+\index{BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}!OPERATION@{OPERATION}}
+\index{OPERATION@{OPERATION}!BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{OPERATION}{OPERATION}}
+{\footnotesize\ttfamily \#define O\+P\+E\+R\+A\+T\+I\+ON(\begin{DoxyParamCaption}\item[{}]{dataA,  }\item[{}]{dataB,  }\item[{}]{data\+Out,  }\item[{}]{F\+UN,  }\item[{}]{sizeB,  }\item[{}]{accum }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{           \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} i=0;i<size;i++)\{                                           \(\backslash\)}
+\DoxyCodeLine{                idx=idx\%sizeB;                                                 \(\backslash\)}
+\DoxyCodeLine{                dataOut[i]=dataA[i] FUN dataB[idx];                            \(\backslash\)}
+\DoxyCodeLine{                idx+=accum + 1 ;                                               \(\backslash\)}
+\DoxyCodeLine{            \}                                                                  \(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{BasicOperationsHelper_8hpp_a19262bdad8ca6b9493f09766c5b04903}\label{BasicOperationsHelper_8hpp_a19262bdad8ca6b9493f09766c5b04903}} 
+\index{BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}!OPERATION\_COL@{OPERATION\_COL}}
+\index{OPERATION\_COL@{OPERATION\_COL}!BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{OPERATION\_COL}{OPERATION\_COL}}
+{\footnotesize\ttfamily \#define O\+P\+E\+R\+A\+T\+I\+O\+N\+\_\+\+C\+OL(\begin{DoxyParamCaption}\item[{}]{dataA,  }\item[{}]{dataB,  }\item[{}]{data\+Out,  }\item[{}]{F\+UN,  }\item[{}]{sizeB,  }\item[{}]{accum }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} i=0;i<rows;i++)\{                                      \(\backslash\)}
+\DoxyCodeLine{                    for(\textcolor{keyword}{auto} j=0;j<cols;j++)\{                                  \(\backslash\)}
+\DoxyCodeLine{                        idx=(j*rows)+i;                                        \(\backslash\)}
+\DoxyCodeLine{                        dataOut[idx]=dataA[idx] FUN dataB[accum\%sizeB];        \(\backslash\)}
+\DoxyCodeLine{                        accum++;                                               \(\backslash\)}
+\DoxyCodeLine{                    \}                                                          \(\backslash\)}
+\DoxyCodeLine{                \}                                                              \(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{BasicOperationsHelper_8hpp_ab3e8ff7059ea0009a1f0976b599a4ae1}\label{BasicOperationsHelper_8hpp_ab3e8ff7059ea0009a1f0976b599a4ae1}} 
+\index{BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}!RUN\_OP@{RUN\_OP}}
+\index{RUN\_OP@{RUN\_OP}!BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{RUN\_OP}{RUN\_OP}}
+{\footnotesize\ttfamily \#define R\+U\+N\+\_\+\+OP(\begin{DoxyParamCaption}\item[{}]{dataA,  }\item[{}]{dataB,  }\item[{}]{data\+Out,  }\item[{}]{F\+UN,  }\item[{}]{sizeB,  }\item[{}]{accum }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{         \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"+"})  \{                                                       \(\backslash\)}
+\DoxyCodeLine{              OPERATION(dataA,dataB,dataOut,+,sizeB,accum)                     \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"-\/"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{           OPERATION(dataA,dataB,dataOut,-\/,sizeB,accum)                        \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"*"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{           OPERATION(dataA,dataB,dataOut,*,sizeB,accum)                        \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"/"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{           OPERATION(dataA,dataB,dataOut,/,sizeB,accum)                        \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"\string^"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{           for(\textcolor{keyword}{auto} i=0;i<size;i++)\{                                           \(\backslash\)}
+\DoxyCodeLine{                idx=idx\%sizeB;                                                 \(\backslash\)}
+\DoxyCodeLine{                dataOut[i]=std::pow(dataA[i],dataB[idx]);                      \(\backslash\)}
+\DoxyCodeLine{                idx+=accum + 1;                                                \(\backslash\)}
+\DoxyCodeLine{            \}                                                                  \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \{                                                               \(\backslash\)}
+\DoxyCodeLine{             MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Operation Not Supported"}, -\/1);                 \(\backslash\)}
+\DoxyCodeLine{         \}                                                                     \(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{BasicOperationsHelper_8hpp_a255a809ddca4cb9670a5eb87ffa92698}\label{BasicOperationsHelper_8hpp_a255a809ddca4cb9670a5eb87ffa92698}} 
+\index{BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}!RUN\_OP\_COL@{RUN\_OP\_COL}}
+\index{RUN\_OP\_COL@{RUN\_OP\_COL}!BasicOperationsHelper.hpp@{BasicOperationsHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{RUN\_OP\_COL}{RUN\_OP\_COL}}
+{\footnotesize\ttfamily \#define R\+U\+N\+\_\+\+O\+P\+\_\+\+C\+OL(\begin{DoxyParamCaption}\item[{}]{dataA,  }\item[{}]{dataB,  }\item[{}]{data\+Out,  }\item[{}]{F\+UN,  }\item[{}]{sizeB,  }\item[{}]{accum }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{         \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"+"})  \{                                                       \(\backslash\)}
+\DoxyCodeLine{              OPERATION\_COL(dataA,dataB,dataOut,+,sizeB,accum)                 \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"-\/"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{           OPERATION\_COL(dataA,dataB,dataOut,-\/,sizeB,accum)                    \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"*"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{           OPERATION\_COL(dataA,dataB,dataOut,*,sizeB,accum)                    \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"/"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{           OPERATION\_COL(dataA,dataB,dataOut,/,sizeB,accum)                    \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"\string^"})  \{                                                 \(\backslash\)}
+\DoxyCodeLine{                for(\textcolor{keyword}{auto} i=0;i<rows;i++)\{                                      \(\backslash\)}
+\DoxyCodeLine{                    for(\textcolor{keyword}{auto} j=0;j<cols;j++)\{                                  \(\backslash\)}
+\DoxyCodeLine{                        idx=(j*rows)+i;                                        \(\backslash\)}
+\DoxyCodeLine{                        dataOut[idx]=std::pow(dataA[idx],dataB[accum\%sizeB]);  \(\backslash\)}
+\DoxyCodeLine{                        accum++;                                               \(\backslash\)}
+\DoxyCodeLine{                    \}                                                          \(\backslash\)}
+\DoxyCodeLine{                \}                                                              \(\backslash\)}
+\DoxyCodeLine{         \}\textcolor{keywordflow}{else} \{                                                               \(\backslash\)}
+\DoxyCodeLine{             MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Operation Not Supported"}, -\/1);                 \(\backslash\)}
+\DoxyCodeLine{         \}                                                                     \(\backslash\)}
+
+\end{DoxyCode}

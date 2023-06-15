@@ -1,0 +1,10 @@
+<map id="RNorm" name="RNorm">
+<area shape="rect" id="node1" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="5,77,72,104"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="120,48,293,75"/>
+<area shape="rect" id="node3" href="$namespacempr_1_1operations_1_1linear.html#a24d3c59542127c302a2fe8e94ef358dd" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="121,99,292,141"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="346,5,489,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="345,56,490,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="341,107,493,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="346,157,489,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="348,208,487,235"/>
+</map>
