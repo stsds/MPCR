@@ -35,7 +35,7 @@
 <area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#ab29d921348d05f1c1744ddccc62292e8" title="R Adapter for Centering and/or Scaling the columns of a numeric matrix." alt="" coords="57,7,124,34"/>
 <area shape="rect" id="node6" href="$RLinearAlgebra_8hpp.html#a4795dfedd631c690066b70114ef258c4" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="41,58,140,85"/>
 <area shape="rect" id="node7" href="$RLinearAlgebra_8hpp.html#ad9707037cdca328d5ffa3542400576ce" title=" " alt="" coords="60,109,121,135"/>
-<area shape="rect" id="node8" href="$namespacempr_1_1operations_1_1linear.html#af1c799c1e8cd72a1a65a9f38e6f670e8" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="5,160,176,201"/>
+<area shape="rect" id="node8" href="$namespacempr_1_1operations_1_1linear.html#ab513f8ae03768c169422a7526c023091" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="5,160,176,201"/>
 <area shape="rect" id="node9" href="$namespacempr_1_1operations_1_1linear.html#abd6448d4de9c6dd0b6bfcb9f85cc02ad" title="Solves a triangular matrix equation performs: op(A)*X=alpha*B X*op(A)=alpha*B." alt="" coords="5,277,176,319"/>
 <area shape="rect" id="node11" href="$RLinearAlgebra_8hpp.html#a53e99e6d030fb35f6e7baab60810f861" title="Calculate Cholesky decomposition." alt="" coords="45,226,136,253"/>
 <area shape="rect" id="node13" href="$RLinearAlgebra_8hpp.html#a40e5e74b11c2b637753a89cb07acaef3" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="35,562,146,589"/>
@@ -44,7 +44,7 @@
 <area shape="rect" id="node19" href="$RLinearAlgebra_8hpp.html#aad63789b8f3ae6a2aa763dd0b87d5112" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="33,461,149,487"/>
 <area shape="rect" id="node20" href="$RLinearAlgebra_8hpp.html#ae0412e03a33a5694770a7be74cb56628" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="53,511,128,538"/>
 <area shape="rect" id="node21" href="$RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="29,343,152,370"/>
-<area shape="rect" id="node22" href="$namespacempr_1_1operations_1_1linear.html#a4cb805e2ee1afee2111225c3c3531f5b" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="5,395,176,436"/>
+<area shape="rect" id="node22" href="$namespacempr_1_1operations_1_1linear.html#ae6cfe175d37fd5765b277e4b60e5706d" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="5,395,176,436"/>
 <area shape="rect" id="node24" href="$RLinearAlgebra_8hpp.html#ae29d6ee560390e9403f2cf52e5489799" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(aOnlyValues)= true , only the values will b..." alt="" coords="57,714,124,741"/>
 <area shape="rect" id="node26" href="$RMathematicalOperations_8hpp.html#a7686e33bd491b34c8410d4c75bedb5d7" title="Perform exp(x) operation on MPR Object." alt="" coords="63,765,118,791"/>
 <area shape="rect" id="node27" href="$RMathematicalOperations_8hpp.html#a6abb67fff27f11ddda4d35b71387f58c" title="Perform exp (x) &#45;1 operation on MPR Object." alt="" coords="53,815,129,842"/>

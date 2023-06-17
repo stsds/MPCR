@@ -6,7 +6,7 @@
 <area shape="rect" id="node6" href="$RLinearAlgebra_8hpp.html#a4795dfedd631c690066b70114ef258c4" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="380,187,479,214"/>
 <area shape="rect" id="node7" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,641,125,667"/>
 <area shape="rect" id="node8" href="$RLinearAlgebra_8hpp.html#ad9707037cdca328d5ffa3542400576ce" title=" " alt="" coords="399,238,460,265"/>
-<area shape="rect" id="node9" href="$namespacempr_1_1operations_1_1linear.html#af1c799c1e8cd72a1a65a9f38e6f670e8" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="344,407,515,448"/>
+<area shape="rect" id="node9" href="$namespacempr_1_1operations_1_1linear.html#ab513f8ae03768c169422a7526c023091" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="344,407,515,448"/>
 <area shape="rect" id="node11" href="$namespacempr_1_1operations_1_1linear.html#a52396f1084725a0832ad645ed6ca9d2c" title="Calculate Cholesky decomposition." alt="" coords="600,403,771,444"/>
 <area shape="rect" id="node13" href="$namespacempr_1_1operations_1_1linear.html#a187996bac02d748f1b40ff5568710e98" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="600,520,771,561"/>
 <area shape="rect" id="node15" href="$namespacempr_1_1operations_1_1linear.html#a3ace62895c405f9faa575c2da78fdef3" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="600,585,771,627"/>
@@ -48,5 +48,5 @@
 <area shape="rect" id="node16" href="$RLinearAlgebra_8hpp.html#aad63789b8f3ae6a2aa763dd0b87d5112" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="177,590,293,617"/>
 <area shape="rect" id="node17" href="$RLinearAlgebra_8hpp.html#ae0412e03a33a5694770a7be74cb56628" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="197,641,272,667"/>
 <area shape="rect" id="node18" href="$RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="173,691,296,718"/>
-<area shape="rect" id="node19" href="$namespacempr_1_1operations_1_1linear.html#a4cb805e2ee1afee2111225c3c3531f5b" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="344,524,515,565"/>
+<area shape="rect" id="node19" href="$namespacempr_1_1operations_1_1linear.html#ae6cfe175d37fd5765b277e4b60e5706d" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="344,524,515,565"/>
 </map>

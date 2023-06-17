@@ -45,7 +45,7 @@ RCPP_MODULE(MMPRTile) {
              List::create(_[ "a" ], _[ "b" ], _[ "c" ],
                           _[ "transpose_a" ] = false,
                           _[ "transpose_b" ] = false, _[ "alpha" ] = 1,
-                          _[ "beta" ] = 0));
+                          _[ "beta" ] = 0,_[ "num_threads" ] = 1));
 
     function("MMPRTile.chol", &mpr::operations::linear::TileCholesky,
              List::create(_[ "x" ], _[ "overwrite_input" ] = true,

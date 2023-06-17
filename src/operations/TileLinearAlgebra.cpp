@@ -155,7 +155,8 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput,
 void
 linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
                  const bool &aTransposeA, const bool &aTransposeB,
-                 const double &aAlpha, const double &aBeta) {
+                 const double &aAlpha, const double &aBeta,
+                 const unsigned int &aNumThreads) {
 
     auto tile_per_row_a = aInputA.GetTilePerRow();
     auto tile_per_col_a = aInputA.GetTilePerCol();
@@ -176,7 +177,7 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
 
     auto pOutput = &aInputC;
 
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for collapse(2) num_threads(aNumThreads)
     for (auto i = 0; i < tile_per_row_a; i++) {
         for (auto j = 0; j < tile_per_col_b; j++) {
 

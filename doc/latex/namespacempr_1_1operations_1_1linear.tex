@@ -31,9 +31,9 @@
 \begin{DoxyCompactList}\small\item\em Compute the singular-\/value decomposition of a rectangular matrix. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_abf0f106b1180d2d6a29fedf46f2049d9}{Reciprocal\+Condition}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const std\+::string \&\mbox{\hyperlink{LinearAlgebra_8cpp_ad35e7bb2ad3a18c735dba2a03e92c7f4}{a\+Norm}}, const bool \&a\+Triangle)
 \begin{DoxyCompactList}\small\item\em Estimate the reciprocal of the condition number of a matrix. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$ \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_af1c799c1e8cd72a1a65a9f38e6f670e8}{Tile\+Cholesky}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&a\+Matrix, const bool \&a\+Over\+Write\+Input=true, const unsigned int \&a\+Num\+Threads=8)
+\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$ \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_ab513f8ae03768c169422a7526c023091}{Tile\+Cholesky}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&a\+Matrix, const bool \&a\+Over\+Write\+Input=true, const unsigned int \&a\+Num\+Threads=1)
 \begin{DoxyCompactList}\small\item\em Calculate Cholesky decomposition for Tiled-\/\+Symmetric Matrix. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a4cb805e2ee1afee2111225c3c3531f5b}{Tile\+Gemm}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&a\+InputC, const bool \&a\+TransposeA=false, const bool \&a\+TransposeB=false, const double \&a\+Alpha=1, const double \&a\+Beta=1)
+void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_ae6cfe175d37fd5765b277e4b60e5706d}{Tile\+Gemm}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&a\+InputC, const bool \&a\+TransposeA=false, const bool \&a\+TransposeB=false, const double \&a\+Alpha=1, const double \&a\+Beta=1, const unsigned int \&a\+Num\+Threads=1)
 \begin{DoxyCompactList}\small\item\em Tiled-\/\+Matrix Multiplication of 2 M\+PR Tile Matrices performs\+: C = alpha A $\ast$ B + beta C. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_abd6448d4de9c6dd0b6bfcb9f85cc02ad}{Tile\+Trsm}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, const char \&a\+Side, const bool \&a\+Upper\+Triangle, const bool \&a\+Transpose, const double \&a\+Alpha)
 \begin{DoxyCompactList}\small\item\em Solves a triangular matrix equation performs\+: op(\+A)$\ast$X=alpha$\ast$B X$\ast$op(A)=alpha$\ast$B. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -66,8 +66,7 @@ Solves a system of linear equations where the coefficient matrix is upper or low
 \mbox{\texttt{ in}}  & {\em a\+Transpose} & logical; if true, solve for t(a\+Input\+A) \%$\ast$\% a\+Output == a\+InputB. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -100,8 +99,7 @@ Calculate Cholesky decomposition.
 \mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Matrix containing decomposition result \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -134,16 +132,14 @@ Invert a symmetric, positive definite square matrix from its Cholesky decomposit
 \mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Matrix \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a187996bac02d748f1b40ff5568710e98_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -176,8 +172,7 @@ Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% t(x) , x \
 \mbox{\texttt{ in}}  & {\em a\+Symmetrize} & if true and routine syrk is used, the upper matrix will be copied to the lower matrix \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -212,16 +207,14 @@ Calculate Eigen Values and (optionally) Eigen Vectors. if(ap\+Output\+Vectors)= 
 \mbox{\texttt{ out}}  & {\em ap\+Output\+Vectors} & Eigen Vectors \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a4b672e8178ecc2b2daad3037d3d0adf0_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -246,16 +239,14 @@ Check if a Matrix Is Symmetric.
 \mbox{\texttt{ out}}  & {\em a\+Output} & true if symmetric ,false otherwise \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a343974f31c6d270cecfa68ff22c3662c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -282,16 +273,14 @@ Computes a matrix norm of a\+Input. The norm can be the one (\char`\"{}\+O\char`
 \mbox{\texttt{ out}}  & {\em a\+Output} & Norm Value \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a24d3c59542127c302a2fe8e94ef358dd_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -324,16 +313,14 @@ Computes the QR decomposition of a matrix.
 \mbox{\texttt{ in}}  & {\em a\+Tolerance} & the tolerance for detecting linear dependencies in the columns of a\+InputA \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_ab4e3dab3fb8b03e35f314c94748872ab_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -362,16 +349,14 @@ Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformatio
 \mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a2177212332d3ccf040827e22b434cfd6_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -402,16 +387,14 @@ Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformatio
 \mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_acca465973a6d07f4b116a504bf0f00ba_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -438,16 +421,14 @@ returns R. This may be pivoted, The number of rows of R is either nrow(a\+Input\
 \mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_ab8ce24fa527bdbdf6440ebbe08c20fcd_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -476,16 +457,14 @@ Estimate the reciprocal of the condition number of a matrix.
 \mbox{\texttt{ in}}  & {\em a\+Triangle} & Bool if true,Only the lower triangle will be used. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_abf0f106b1180d2d6a29fedf46f2049d9_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -514,16 +493,14 @@ Solves the equation AX=B.
 \mbox{\texttt{ in}}  & {\em a\+Single} & if true only a\+InputA will be used and for X t(\+A) will be used. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a843f01038eeb503267760b4a0a4ab609_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -558,27 +535,25 @@ Compute the singular-\/value decomposition of a rectangular matrix.
 \mbox{\texttt{ in}}  & {\em a\+Transpose} & Bool if true, a\+OutputV will contain V ,otherwise VT \\
 \hline
 \end{DoxyParams}
-Will be transposed at the end in case of svdHere is the call graph for this function\+:
-\nopagebreak
+Will be transposed at the end in case of svdHere is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a31dda2dc92c1d7c3cace13cef9a3e68d_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a31dda2dc92c1d7c3cace13cef9a3e68d_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{namespacempr_1_1operations_1_1linear_af1c799c1e8cd72a1a65a9f38e6f670e8}\label{namespacempr_1_1operations_1_1linear_af1c799c1e8cd72a1a65a9f38e6f670e8}} 
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1linear_ab513f8ae03768c169422a7526c023091}\label{namespacempr_1_1operations_1_1linear_ab513f8ae03768c169422a7526c023091}} 
 \index{mpr::operations::linear@{mpr::operations::linear}!TileCholesky@{TileCholesky}}
 \index{TileCholesky@{TileCholesky}!mpr::operations::linear@{mpr::operations::linear}}
 \doxysubsubsection{\texorpdfstring{TileCholesky()}{TileCholesky()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$ mpr\+::operations\+::linear\+::\+Tile\+Cholesky (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+Matrix,  }\item[{const bool \&}]{a\+Over\+Write\+Input = {\ttfamily true},  }\item[{const unsigned int \&}]{a\+Num\+Threads = {\ttfamily 8} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$ mpr\+::operations\+::linear\+::\+Tile\+Cholesky (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+Matrix,  }\item[{const bool \&}]{a\+Over\+Write\+Input = {\ttfamily true},  }\item[{const unsigned int \&}]{a\+Num\+Threads = {\ttfamily 1} }\end{DoxyParamCaption})}
 
 
 
@@ -589,6 +564,8 @@ Calculate Cholesky decomposition for Tiled-\/\+Symmetric Matrix.
 \mbox{\texttt{ in}}  & {\em a\+Matrix} & M\+PR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Over\+Write\+Input} & if true , the input will be overwritten with the output,otherwise a new copy will be created. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Num\+Threads} & int to decide the number of threads used in Open\+MP, default = 1 (sequential) \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -605,7 +582,7 @@ gemmHere is the call graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_af1c799c1e8cd72a1a65a9f38e6f670e8_cgraph}
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_ab513f8ae03768c169422a7526c023091_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:
@@ -613,14 +590,14 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=334pt]{namespacempr_1_1operations_1_1linear_af1c799c1e8cd72a1a65a9f38e6f670e8_icgraph}
+\includegraphics[width=334pt]{namespacempr_1_1operations_1_1linear_ab513f8ae03768c169422a7526c023091_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{namespacempr_1_1operations_1_1linear_a4cb805e2ee1afee2111225c3c3531f5b}\label{namespacempr_1_1operations_1_1linear_a4cb805e2ee1afee2111225c3c3531f5b}} 
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1linear_ae6cfe175d37fd5765b277e4b60e5706d}\label{namespacempr_1_1operations_1_1linear_ae6cfe175d37fd5765b277e4b60e5706d}} 
 \index{mpr::operations::linear@{mpr::operations::linear}!TileGemm@{TileGemm}}
 \index{TileGemm@{TileGemm}!mpr::operations::linear@{mpr::operations::linear}}
 \doxysubsubsection{\texorpdfstring{TileGemm()}{TileGemm()}}
-{\footnotesize\ttfamily void mpr\+::operations\+::linear\+::\+Tile\+Gemm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+InputB,  }\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+InputC,  }\item[{const bool \&}]{a\+TransposeA = {\ttfamily false},  }\item[{const bool \&}]{a\+TransposeB = {\ttfamily false},  }\item[{const double \&}]{a\+Alpha = {\ttfamily 1},  }\item[{const double \&}]{a\+Beta = {\ttfamily 1} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void mpr\+::operations\+::linear\+::\+Tile\+Gemm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+InputB,  }\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} \&}]{a\+InputC,  }\item[{const bool \&}]{a\+TransposeA = {\ttfamily false},  }\item[{const bool \&}]{a\+TransposeB = {\ttfamily false},  }\item[{const double \&}]{a\+Alpha = {\ttfamily 1},  }\item[{const double \&}]{a\+Beta = {\ttfamily 1},  }\item[{const unsigned int \&}]{a\+Num\+Threads = {\ttfamily 1} }\end{DoxyParamCaption})}
 
 
 
@@ -642,13 +619,15 @@ Tiled-\/\+Matrix Multiplication of 2 M\+PR Tile Matrices performs\+: C = alpha A
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Beta} & Factor multiplied to Matrix C \\
 \hline
+\mbox{\texttt{ in}}  & {\em a\+Num\+Threads} & int to decide the number of threads used in Open\+MP, default = 1 (sequential) \\
+\hline
 \end{DoxyParams}
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_a4cb805e2ee1afee2111225c3c3531f5b_cgraph}
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_ae6cfe175d37fd5765b277e4b60e5706d_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:
@@ -656,7 +635,7 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=334pt]{namespacempr_1_1operations_1_1linear_a4cb805e2ee1afee2111225c3c3531f5b_icgraph}
+\includegraphics[width=334pt]{namespacempr_1_1operations_1_1linear_ae6cfe175d37fd5765b277e4b60e5706d_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{namespacempr_1_1operations_1_1linear_abd6448d4de9c6dd0b6bfcb9f85cc02ad}\label{namespacempr_1_1operations_1_1linear_abd6448d4de9c6dd0b6bfcb9f85cc02ad}} 
@@ -684,16 +663,14 @@ Solves a triangular matrix equation performs\+: op(\+A)$\ast$X=alpha$\ast$B X$\a
 \mbox{\texttt{ in}}  & {\em a\+Alpha} & Factor used for A , If alpha is zero, A is not accessed. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{namespacempr_1_1operations_1_1linear_abd6448d4de9c6dd0b6bfcb9f85cc02ad_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

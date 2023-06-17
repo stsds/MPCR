@@ -68,7 +68,7 @@ b <- c("float", "double", "float", "float",
 
 chol_mat <- new(MMPRTile, 6, 6, 2, 2, a, b)
 
-chol_values <-chol(chol_mat,overwrite_input=FALSE)
+chol_values <-chol(chol_mat,overwrite_input=FALSE,num_thread=8)
 print(chol_values)
 cat("----------------------------- Chol with overwrite ------------------------------------\n")
 chol(chol_mat)
@@ -92,7 +92,7 @@ mat_a <- new(MMPRTile, 4,4, 2, 2, a, b)
 mat_b <- new(MMPRTile, 4,4, 2, 2, a, c)
 mat_c <- new(MMPRTile, 4,4, 2, 2, zeros, c)
 
-MMPRTile.gemm(a=mat_a,b=mat_b,c=mat_c,transpose_a=FALSE,transpose_b=FALSE,alpha=1,beta=1)
+MMPRTile.gemm(a=mat_a,b=mat_b,c=mat_c,transpose_a=FALSE,transpose_b=FALSE,alpha=1,beta=1,num_thread=8)
 print(mat_c)
 
 cat("----------------------------- DeepCopy ------------------------------------\n")
