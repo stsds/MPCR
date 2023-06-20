@@ -294,7 +294,7 @@
 
   setMethod("qr.R", c(qr = "ANY"), function(qr, complete = FALSE) {
 
-    if (class((qr) == "list")) {
+    if (class(qr) == "list") {
       if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MMPR") {
         if (missing(complete)) {
           complete = FALSE
@@ -334,6 +334,34 @@
       ret <- base::qr.Q(qr, complete, Dvec)
       ret
     }
+  })
+
+  setMethod("qr.qy", c(qr = "ANY"), function(qr, y) {
+    if (class(qr) == "list") {
+      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MMPR") {
+        ret <- MMPR.qr.qy(qr$qr, qr$qraux,y)
+        ret
+
+      }else {
+        ret <- base::qr.qy(qr, y)
+        ret
+      }
+    }
+
+  })
+
+  setMethod("qr.qty", c(qr = "ANY"), function(qr, y) {
+    if (class(qr) == "list") {
+      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MMPR") {
+        ret <- MMPR.qr.qty(qr$qr, qr$qraux,y)
+        ret
+
+      }else {
+        ret <- base::qr.qty(qr, y)
+        ret
+      }
+    }
+
   })
 
   setMethod("svd", c(x = "Rcpp_MMPR"), function(x, nu, nv) {

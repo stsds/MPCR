@@ -105,9 +105,11 @@ TEST_LINEAR_ALGEBRA() {
             REQUIRE(output.GetVal(i) == validate_vals[ i ]);
         }
 
-    vector<double> temp_values_new={1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
-                                    0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-                                    0, 0, 0, 1, 1, 1};
+        vector <double> temp_values_new = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                                           0, 0, 0,
+                                           0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
+                                           0, 0, 0,
+                                           0, 0, 0, 1, 1, 1};
 
     }SECTION("Test Symmetric") {
         cout << "Testing Matrix Is Symmetric ..." << endl;
@@ -514,7 +516,7 @@ TEST_LINEAR_ALGEBRA() {
         DataType qraux(DOUBLE);
         DataType pivot(DOUBLE);
         DataType qr(DOUBLE);
-        DataType rank (DOUBLE);
+        DataType rank(DOUBLE);
 
         SIMPLE_DISPATCH(DOUBLE, linear::QRDecomposition, a, qr, qraux, pivot,
                         rank)
@@ -580,8 +582,36 @@ TEST_LINEAR_ALGEBRA() {
     }
 }
 
+void
+TEST_SOLVE_BIG_DATA(){
+    double n = 100;
+    vector <double> values_a(n*n);
+    vector <double> values_b(n);
+    srand(time(0));
+    double a = 4.5;
+    double b = 0.5;
 
+
+    for (auto i = 0; i < n*n; i++) {
+        values_a[ i ] = a + ( b - a ) * rand() / RAND_MAX;
+    }
+
+    for (auto i = 0; i < n; i++) {
+        values_b[ i ] = a + ( b - a ) * rand() / RAND_MAX;
+    }
+
+    DataType mat_a(values_a,"float");
+    DataType mat_b(values_b,"float");
+
+    mat_a.SetDimensions(n,n);
+
+    DataType output(FLOAT);
+
+    SIMPLE_DISPATCH(FLOAT, linear::Solve, mat_a, mat_b, output, false)
+    output.Print();
+}
 
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
     TEST_LINEAR_ALGEBRA();
+//    TEST_SOLVE_BIG_DATA();
 }
