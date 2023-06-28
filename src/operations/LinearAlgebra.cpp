@@ -320,9 +320,17 @@ void
 linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const size_t &aCol, const bool &aUpperTri,
                   const bool &aTranspose, const char &aSide,const double &aAlpha) {
-    if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
+
+    bool flag_transform=false;
+    if (!aInputA.IsMatrix()) {
         MPR_API_EXCEPTION(
             "Inputs Must Be Matrices", -1);
+    }
+
+    if(!aInputB.IsMatrix()){
+        aInputB.SetDimensions(aInputB.GetNCol(),1);
+        flag_transform=true;
+
     }
     auto row_a = aInputA.GetNRow();
     auto row_b = aInputB.GetNRow();
@@ -361,6 +369,9 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                row_b);
 
     aOutput.SetData((char *) pData_in_out);
+    if(flag_transform){
+        aInputB.ToVector();
+    }
 
 
 }
