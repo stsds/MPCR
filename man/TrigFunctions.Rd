@@ -4,7 +4,7 @@
 \alias{cos,Rcpp_MMPR-method}
 \alias{tan,Rcpp_MMPR-method}
 \alias{asin,Rcpp_MMPR-method}
-\alias{acos,Rcpp_MMPR-method}
+\alias{acos,Rcpp_MMPR-method}F
 \alias{atan,Rcpp_MMPR-method}
 \title{Trigonometric functions}
 \description{
@@ -25,11 +25,11 @@ Basic trig functions.
 }
 \arguments{
 \item{x}{
-A MMPR Matrix/Vector
+An MMPR object.
 }
 }
 \value{
-A MMPR Matrix/Vector of the same dimensions as the input.
+An MMPR object of the same dimensions as the input.
 }
 \examples{
 \dontrun{

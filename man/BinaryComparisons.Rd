@@ -1,8 +1,8 @@
 \name{comparison}
 \alias{comparison}
-\title{Binary comparison operators for numeric/MMPR matrices/vectors.}
+\title{Binary comparison operators for numeric/MMPR objects.}
 \description{
-    Binary comparison operators for numeric/MMPR matrices/vectors.
+    Binary comparison operators for numeric/MMPR objects.
 }
 \usage{
 
@@ -34,7 +34,7 @@
 }
 \arguments{
   \item{e1,e2}{
-    Numeric/MMPR vectors/matrices.
+    Numeric/MMPR objects.
   }
 }
 \value{

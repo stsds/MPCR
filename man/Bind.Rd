@@ -9,13 +9,13 @@
 \method{MMPR.cbind}{Rcpp_MMPR}(x,y)
 }
 \arguments{
-\item{x}{MMPR matrix/vector}
-\item{y}{MMPR matrix/vector}
+\item{x}{MMPR object.}
+\item{y}{MMPR object.}
 
 
 }
 \value{
-A MMPR matrix of the same type as the highest precision input.
+An MMPR matrix of the same type as the highest precision input.
 }
 \description{
 \code{rbind()} and \code{cbind()} for MMPR objects.
@@ -26,6 +26,5 @@ library(MMPR)
 # create 2 MMPR matrix a,b
 x <- rbind(a,b)
 y <- cbind(a,b)
-
 }
 }

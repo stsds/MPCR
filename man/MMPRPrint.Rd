@@ -9,15 +9,15 @@
 \S4method{show}{Rcpp_MMPR}(object)
 }
 \arguments{
-\item{x, object}{A MMPR vector/matrix.}
+\item{x, object}{An MMPR objects.}
 
 }
 \description{
-show function will print the precision and type of the object, and print will print the meta
-data of the object without printing the values. function (x$PrintValues() should be used to print the values)
+Show function will print the precision and type of the object, and print will print the meta
+data of the object without printing the values. Function \bold{x$PrintValues()} should be used to print the values.
 }
 \details{
-prints metadata about the object and some values.
+Prints metadata about the object and some values.
 }
 \examples{
   \dontrun{

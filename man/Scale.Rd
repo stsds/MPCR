@@ -6,15 +6,15 @@
 \S4method{scale}{Rcpp_MMPR}(x, center, scale)
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
-\item{center, scale}{logical or MMPR objects}
+\item{center, scale}{Logical or MMPR objects.}
 }
 \value{
-A MMPR matrix.
+An MMPR matrix.
 }
 \description{
-Center/scale a MMPR vector/matrix.
+Center or scale an MMPR object.
 }
 \examples{
   \dontrun{

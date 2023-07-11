@@ -22,14 +22,14 @@ exp/log functions.
 }
 \arguments{
 \item{x}{
-A MMPR vector/matrix.
+An MMPR object.
 }
 \item{base}{
-The logarithm base. if base = 1 , exp(1) is assumed , only base 1,2,10 available
+The logarithm base. \bold{if base = 1 , exp(1) is assumed}, only base 1,2,10 available.
 }
 }
 \value{
-A MMPR vector/matrix of the same dimensions as the input.
+An MMPR object of the same dimensions as the input.
 }
 \examples{
 \dontrun{

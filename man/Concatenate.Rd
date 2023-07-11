@@ -7,7 +7,7 @@
 }
 
 \arguments{
-\item{x}{List of MMPR matrix/vector(s).}
+\item{x}{List of MMPR objects.}
 
 
 

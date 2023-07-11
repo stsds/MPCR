@@ -6,21 +6,21 @@
 \S4method{sweep}{Rcpp_MMPR}(x,stat,margin,FUN)
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
 \item{stat}{MMPR vector containing the value(s) that should be used in the operation.}
 
 \item{margin}{1 means row; otherwise means column.}
 
 \item{FUN}{Sweeping function; must be one of \code{"+"}, \code{"-"}, \code{"*"}, \code{"/"}, or
-\code{"^"}}.
+\code{"^"}.}
 
 }
 \value{
-A MMPR Matrix of the same type as the highest precision input.
+An MMPR matrix of the same type as the highest precision input.
 }
 \description{
-Sweep a MMPR vector through a MMPR matrix.
+Sweep an MMPR vector through an MMPR matrix.
 }
 \examples{
 \dontrun{

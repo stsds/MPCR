@@ -6,17 +6,17 @@
 \S4method{chol2inv}{Rcpp_MMPR}(x, size = NCOL(x))
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
 \item{size}{The number of columns to use.}
 
 }
 \value{
-A MMPR vector/matrix.
+An MMPR object.
 }
 \description{
-Return the inverse of the original matrix using the Cholesky factorization of
-a MMPR matrix.
+Return the inverse of the original matrix using the cholesky factorization of
+an MMPR matrix.
 }
 \examples{
   \dontrun{

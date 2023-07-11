@@ -3,17 +3,15 @@
 \title{MMPR S4 Class}
 
 \description{
-MMPR is a Multi-Precision Vector/Matrix.
-You can create a vector/matrix with 3 different precisions (16-bit, 32-bit, 64-bit)
+MMPR is a multi-precision vector/matrix, that enables the creation of vector/matrix with 3 different precisions (16-bit, 32-bit, 64-bit).
 }
 
 \section{Constructor}{
-  \code{\link{new}} creates a new instance of zero values of the \code{MMPR} class.
-    \cr
+  \code{\link{new}} Creates a new instance of zero values of the \code{MMPR} class.
   \code{new(MMPR,size, "precision")}
   \describe{
-  \item{\code{size}}{total number of values to allocate}
-  \item{\code{precision}}{string to indicate the precision of MMPR object ("half","single","double")}
+  \item{\code{size}}{Total number of values to allocate memory for.}
+  \item{\code{precision}}{String to indicate the precision of MMPR object ("half","single", or "double").}
 }
 }
 
@@ -23,10 +21,10 @@ You can create a vector/matrix with 3 different precisions (16-bit, 32-bit, 64-b
   The following accessors can be used to get the values of the slots:
 
   \describe{
-    \item{\code{IsMatrix}}{Boolean to indicate whether the MMPR object is a vector or matrix}
-        \item{\code{Size}}{total number of elements inside the object, (row*col) in the case of matrix , and number of elements in the case of vector}
-        \item{\code{Row}}{Number of rows}
-        \item{\code{Col}}{Number of cols}
+    \item{\code{IsMatrix}}{Boolean to indicate whether the MMPR object is a vector or matrix.}
+        \item{\code{Size}}{Total number of elements inside the object, (row*col) in the case of matrix, and number of elements in the case of vector.}
+        \item{\code{Row}}{Number of rows.}
+        \item{\code{Col}}{Number of cols.}
   }
 }
 
@@ -34,15 +32,15 @@ You can create a vector/matrix with 3 different precisions (16-bit, 32-bit, 64-b
   The following methods are available for objects of class \code{MMPR}:
 
   \subsection{PrintValues}{
-    \code{PrintValues()}: Prints all the values stored in the matrix or vector ,plus meta-data about the object.
+    \code{PrintValues()}: Prints all the values stored in the matrix or vector, plus meta-data about the object.
   }
 
   \subsection{ToMatrix}{
-    \code{ToMatrix(row,col)}: Change the object representation to match the new Dimensions, no memory overhead.
+    \code{ToMatrix(row,col)}: Change the object representation to match the new dimensions, no memory overhead.
   }
 
   \subsection{ToVector}{
-      \code{ToVector()}: Changes the MMPR Matrix to vector , no memory overhead.
+      \code{ToVector()}: Changes the MMPR matrix to vector, no memory overhead.
   }
 }
 
@@ -61,7 +59,6 @@ You can create a vector/matrix with 3 different precisions (16-bit, 32-bit, 64-b
     mmpr_object$ToVector()
 
     mmpr_object
-
   }
 }
 

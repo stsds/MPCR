@@ -13,14 +13,16 @@
 
 }
 \arguments{
-\item{x}{A MMPR matrix.}
+\item{x}{An MMPR matrix.}
+
+\item{qr}{QR decomposition MMPR object.}
 
 \item{tol}{The tolerance for determining numerical column rank.}
 
 
 \item{complete}{Should the complete or truncated factor be returned?}
 
-\item{Dvec}{Vector of diagonals to use when re-constructing Q (default is 1's).}
+\item{Dvec}{Vector of diagonals to use when re-constructing Q (\bold{default is 1's}).}
 
 }
 \value{
@@ -43,10 +45,10 @@ library(MMPR)
 qr_input <-as.MMPR( c(1, 2, 3, 2, 4, 6, 3, 3, 3),3,3,"single")
 qr_out <- qr(qr_input)
 qr_out
-qr_out[[1]]$PrintValues()
-qr_out[[2]]$PrintValues()
-qr_out[[3]]$PrintValues()
-qr_out[[4]]$PrintValues()
+qr_out[["qr"]]$PrintValues()
+qr_out[["qraux"]]$PrintValues()
+qr_out[["pivot"]]$PrintValues()
+qr_out[["rank"]]$PrintValues()
 
 qr_q <- qr.Q(qr_out)
 qr_q

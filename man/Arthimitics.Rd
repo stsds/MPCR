@@ -1,8 +1,8 @@
 \name{arithmetic}
 \alias{arithmetic}
-\title{Binary arithmetic numeric/float matrices.}
+\title{Binary arithmetic numeric/MMPR objects.}
 \description{
-Binary arithmetic for Numeric/MMPR objects
+Binary arithmetic for numeric/MMPR objects.
 }
 \usage{
 \S4method{+}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
@@ -28,11 +28,11 @@ Binary arithmetic for Numeric/MMPR objects
 }
 \arguments{
 \item{e1,e2}{
-Numeric/MMPR vectors/matrices.
+Numeric/MMPR objects.
 }
 }
 \value{
-A MMPR of the same type as the highest precision input.
+An MMPR object of the same type as the highest precision input.
 }
 \examples{
 \dontrun{

@@ -13,11 +13,11 @@ Miscellaneous mathematical functions.
 }
 \arguments{
 \item{x}{
-A MMPR vector/matrix.
+An MMPR object.
 }
 }
 \value{
-A MMPR vector/matrix of the same dimensions as the input.
+An MMPR object of the same dimensions as the input.
 }
 \examples{
 \dontrun{

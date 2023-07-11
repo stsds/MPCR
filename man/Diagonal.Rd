@@ -6,13 +6,13 @@
 \S4method{diag}{Rcpp_MMPR}(x)
 }
 \arguments{
-\item{x}{A MMPR Matrix}
+\item{x}{An MMPR matrix.}
 }
 \value{
-A MMPR vector containing the main diagonal of the matrix
+An MMPR vector containing the main diagonal of the matrix.
 }
 \description{
-Methods for getting the diagonal of a MMPR matrix
+Methods for getting the diagonal of an MMPR matrix.
 }
 \examples{
   \dontrun{

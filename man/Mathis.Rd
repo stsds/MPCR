@@ -16,7 +16,7 @@
 }
 \arguments{
   \item{x}{
-    A float vector/matrix.
+    An MMPR object.
   }
 }
 \value{

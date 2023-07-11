@@ -3,23 +3,22 @@
 \title{MMPRTile S4 Class}
 
 \description{
-MMPRTile is a Mixed-Precision Tile Matrix data-structure with each tile having a specific precision.
+MMPRTile is a mixed-precision tile matrix data-structure with each tile having a specific precision.
 \cr
-Note: All Tiles must have the same size, and the total size must be divided equally on all tiles.
+\bold{Note:} All tiles must have the same size, and the total size must be divided equally on all tiles.
 \cr
 }
 
 \section{Constructor}{
   \code{\link{new}} creates a new instance of Tile-Matrix \code{MMPRTile} class.
-    \cr
   \code{new(MMPRTile,rows,cols,rows_per_tile,cols_per_tile,values,precisions)}
   \describe{
-  \item{\code{rows}}{Number of rows in the Matrix}
-  \item{\code{cols}}{Number of cols in the Matrix}
-  \item{\code{rows_per_tile}}{Number of rows in each tile}
-  \item{\code{cols_per_tile}}{Number of cols in each tile}
-  \item{\code{values}}{R Matrix or vector containing all the values that should be in the Matrix}
-  \item{\code{precisions}}{R Matrix or vector of string ,containing precision type of each tile}
+  \item{\code{rows}}{Number of rows in the matrix.}
+  \item{\code{cols}}{Number of cols in the matrix.}
+  \item{\code{rows_per_tile}}{Number of rows in each tile.}
+  \item{\code{cols_per_tile}}{Number of cols in each tile.}
+  \item{\code{values}}{R matrix or vector containing all the values that should be in the matrix.}
+  \item{\code{precisions}}{R matrix or vector of strings, containing precision type of each tile.}
 }
 }
 
@@ -29,12 +28,12 @@ Note: All Tiles must have the same size, and the total size must be divided equa
   The following accessors can be used to get the values of the slots:
 
   \describe{
-        \item{\code{Size}}{total number of elements inside the Matrix}
-        \item{\code{Row}}{Number of rows}
-        \item{\code{Col}}{Number of cols}
-        \item{\code{TileRow}}{Number of rows in each tile}
-        \item{\code{TileCol}}{Number of cols in each tile}
-        \item{\code{TileSize}}{total number of elements in each tile}
+        \item{\code{Size}}{Total number of elements inside the Matrix.}
+        \item{\code{Row}}{Number of rows.}
+        \item{\code{Col}}{Number of cols.}
+        \item{\code{TileRow}}{Number of rows in each tile.}
+        \item{\code{TileCol}}{Number of cols in each tile.}
+        \item{\code{TileSize}}{Total number of elements in each tile.}
   }
 }
 
@@ -42,33 +41,36 @@ Note: All Tiles must have the same size, and the total size must be divided equa
   The following methods are available for objects of class \code{MMPRTile}:
 
   \subsection{PrintTile}{
+  \cr
     \code{PrintTile(tile_row_idx,tile_col_idx)}: Prints all the values stored inside a specific tile plus meta-data about the tile.
          \cr
      \describe{
-        \item{\code{tile_row_idx}}{Row index of the Tile}
-        \item{\code{tile_col_idx}}{Col index of the Tile}
+        \item{\code{tile_row_idx}}{Row index of the tile.}
+        \item{\code{tile_col_idx}}{Col index of the tile.}
       }
   }
 
   \subsection{ChangeTilePrecision}{
-    \code{ChangeTilePrecision(tile_row_idx,tile_col_idx,precision)}: Change the precision of specific tile ,this function will need to copy all the values to cast them to the new precision
+  \cr
+    \code{ChangeTilePrecision(tile_row_idx,tile_col_idx,precision)}: Change the precision of specific tile, this function will need to copy all the values to cast them to the new precision.
            \cr
          \describe{
-            \item{\code{tile_row_idx}}{Row index of the Tile}
-            \item{\code{tile_col_idx}}{Col index of the Tile}
-            \item{\code{precision}}{required new precision as a string }
+            \item{\code{tile_row_idx}}{Row index of the tile.}
+            \item{\code{tile_col_idx}}{Col index of the tile.}
+            \item{\code{precision}}{Required new precision as a string.}
           }
     }
 
   \subsection{FillSquareTriangle}{
-      \code{FillSquareTriangle(value,upper.tri,precision)}: Fills Upper or Lower Triangle
-       with a given value and precision, New Tiles will be created,
-       replacing the old tiles Note: the Input must be a square Matrix
+  \cr
+      \code{FillSquareTriangle(value,upper.tri,precision)}: Fills upper or lower triangle
+       with a given value and precision, new tiles will be created,
+       replacing the old tiles. \bold{Note:} The input must be a square matrix
           \cr
        \describe{
-                   \item{\code{value}}{Value used during matrix filling}
-                   \item{\code{upper.tri}}{Flag to indicate what triangle to fill. if TRUE, the upper triangle will be filled ,otherwise the lower triangle }
-                   \item{\code{precision}}{the precision of the tiles created during matrix filling ,incase it's not a diagonal tile}
+                   \item{\code{value}}{Value used during matrix filling.}
+                   \item{\code{upper.tri}}{Flag to indicate what triangle to fill. if TRUE, the upper triangle will be filled, otherwise the lower triangle. }
+                   \item{\code{precision}}{The precision of the tiles created during matrix filling, in case it's not a diagonal tile.}
                  }
   }
 
@@ -101,7 +103,6 @@ Note: All Tiles must have the same size, and the total size must be divided equa
    total_size <- tile_mat$Size
    rows_per_tile <- tile_mat$TileRow
    cols_per_tile <- tile_mat$TileCol
-
   }
 }
 

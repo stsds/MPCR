@@ -6,13 +6,13 @@
 \S4method{norm}{Rcpp_MMPR}(x, type = "O")
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
 \item{type}{"O"-ne, "I"-nfinity, "F"-robenius, "M"-ax modulus, and "1" norms.}
 
 }
 \value{
-A single MMPR object.
+An MMPR object.
 }
 \description{
 Compute matrix norm.
@@ -23,6 +23,5 @@ library(MMPR)
 
 x <- as.MMPR(1:20,precision="double")
 norm(x, type="O")
-
 }
 }

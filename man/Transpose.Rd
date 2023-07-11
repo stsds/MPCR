@@ -6,13 +6,13 @@
 \S4method{t}{Rcpp_MMPR}(x)
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 }
 \value{
-A float vector/matrix.
+An MMPR object.
 }
 \description{
-Transpose a MMPR vector/matrix.
+Transpose an MMPR object.
 }
 \examples{
   \dontrun{

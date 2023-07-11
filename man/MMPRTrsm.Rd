@@ -4,7 +4,9 @@
 \title{MMPR TRSM  (Triangular Solve)}
 
 \description{
-            Solves a triangular matrix equation performs:
+            Solves a triangular matrix equation.
+             \cr
+            performs:
             \cr
             op(A)*X=alpha*B
             \cr
@@ -15,16 +17,16 @@
 \S4method{MMPR.trsm}{Rcpp_MMPR}(a,b,upper_triangle,transpose,side = 'L',alpha =1)
    }
  \arguments{
-   \item{a}{MMPR Matrix A}
-   \item{b}{MMPR Matrix B}
+   \item{a}{MMPR Matrix A.}
+   \item{b}{MMPR Matrix B.}
    \item{upper_triangle}{What part of the matrix A is referenced (if TRUE upper triangle is referenced), the opposite triangle
     being assumed to be zero.}
-   \item{transpose}{if TRUE , the transpose of A is used.}
-   \item{side}{'R for Right side , 'L' for Left side}
-   \item{alpha}{Factor used for A , If alpha is zero, A is not accessed.}
+   \item{transpose}{If TRUE, the transpose of A is used.}
+   \item{side}{'R for Right side, 'L' for Left side.}
+   \item{alpha}{Factor used for A, If alpha is zero, A is not accessed.}
  }
  \value{
-   MMPR Matrix
+   MMPR Matrix.
  }
  \examples{
    \dontrun{

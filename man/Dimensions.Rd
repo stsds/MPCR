@@ -10,14 +10,14 @@
 
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
 }
 \value{
-The number of rows/cols in MMPR vector/matrix
+The number of rows/cols in MMPR object.
 }
 \description{
-Dimension information for a MMPR vector/matrix.
+Dimension information for an MMPR object.
 }
 \examples{
   \dontrun{

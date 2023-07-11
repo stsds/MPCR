@@ -11,14 +11,14 @@
 }
 
 \arguments{
-\item{object}{MMPR matrix/vector.}
-\item{index}{specific index in the MMPR matrix/vector to check. if index is not provided all the elements will be checked}
-\item{value}{value to replace all NAN with.}
+\item{object}{MMPR object.}
+\item{index}{Specific index in the MMPR matrix/vector to check. if index is not provided, all the elements will be checked.}
+\item{value}{Value to replace all NAN with.}
 
 
 }
 \value{
-MMPR.is.na will return matrix/vector/bool according to input of the function
+MMPR.is.na will return matrix/vector/bool according to input of the function.
 \cr
 MMPR.na.exclude & MMPR.na.omit will not return anything.
 }

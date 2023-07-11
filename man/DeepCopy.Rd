@@ -1,30 +1,32 @@
-\name{DeepCopy}
-\alias{DeepCopy}
-\title{DeepCopy}
+\name{copy}
+\alias{copy}
+\title{copy}
 
 
-\section{MMPR DeepCopy}{
+\section{MMPR deep copy}{
     \description{
-    Create a copy from MMPR object.
+    Create a copy from MMPR object. Normally equal will create a new pointer of the object, so any change to object object one will affect object two.
     }
 
     \subsection{copy}{
-      \code{MMPR.copy(x)}: Create a new copy of MMPR Matrix/Vector
+    \cr
+      \code{MMPR.copy(x)}: Create a new copy of MMPR object.
       \describe{
-      \item{\code{x}}{MMPR Matrix/Vector }
+      \item{\code{x}}{MMPR object. }
     }}
 
 }
 
-\section{MMPRTile DeepCopy}{
+\section{MMPRTile deep copy}{
     \description{
-     Create a copy from MMPRTile object.
+     Create a copy from MMPRTile object. Normally equal will create a new pointer of the object, so any change to object object one will affect object two.
     }
 
    \subsection{copy}{
-     \code{MMPRTile.copy(x)}: Create a new copy of MMPRTile Matrix
+   \cr
+     \code{MMPRTile.copy(x)}: Create a new copy of MMPRTile matrix.
       \describe{
-         \item{\code{x}}{MMPRTile Matrix }
+         \item{\code{x}}{MMPRTile matrix. }
       }
    }
 }
@@ -36,7 +38,7 @@
    a <- matrix(1:36, 6, 6)
    mmpr_matrix <- as.MMPR(a,nrow=6,ncol=6,precision="single")
 
-   # Normal equal will create a new pointer of the object, so any change in object A
+   # Normal equal '=' will create a new pointer of the object, so any change in object A
    # will affect object B
    temp_mmpr_matrix = mmpr_matrix
    temp_mmpr_matrix[2,2] <- 500
@@ -49,8 +51,5 @@
 
    mmpr_matrix[2,2]           #100
    mmpr_matrix_copy[2,2]      #200
-
-
-
   }
 }

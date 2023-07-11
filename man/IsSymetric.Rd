@@ -6,7 +6,7 @@
 \S4method{isSymmetric}{Rcpp_MMPR}(object, ...)
 }
 \arguments{
-\item{object}{A MMPR matrix.}
+\item{object}{An MMPR matrix.}
 
 \item{...}{Ignored.}
 }
@@ -14,7 +14,7 @@
 A logical value.
 }
 \description{
-Test if a MMPR matrix is symmetric.
+Test if an MMPR matrix is symmetric.
 }
 \examples{
   \dontrun{

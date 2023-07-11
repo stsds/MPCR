@@ -7,7 +7,7 @@
 
 \title{Metadata functions}
 \description{
-    Checks if a MMPR object is of a specific precision.
+    Checks the precision of a given MMPR object.
 }
 \usage{
 
@@ -19,11 +19,11 @@
 }
 \arguments{
   \item{x}{
-    A MMPR vector/matrix.
+    An MMPR object.
   }
 }
 \value{
- Boolean indicating the precision of the object according to the used function
+ Boolean indicating the precision of the object according to the used function.
 }
 \examples{
   \dontrun{

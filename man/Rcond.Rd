@@ -6,15 +6,15 @@
 \S4method{rcond}{Rcpp_MMPR}(x, norm = "O", useInv = FALSE)
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
 \item{norm}{"O"-ne or "I"-nfinity norm.}
 
-\item{useInv}{Should only the lower triangle be used?}
+\item{useInv}{TRUE to use the lower triangle only.}
 
 }
 \value{
-A MMPR Object.
+An MMPR Object.
 }
 \description{
 Compute matrix norm.

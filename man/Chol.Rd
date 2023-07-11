@@ -6,15 +6,15 @@
 \S4method{chol}{Rcpp_MMPR}(x,upper_triangle=TRUE)
 }
 \arguments{
-\item{x}{A MMPR matrix.}
-\item{upper_triangle}{boolean to check on which triangle the cholesky
- decomposition should be applied}
+\item{x}{An MMPR matrix.}
+\item{upper_triangle}{Boolean to check on which triangle the cholesky
+ decomposition should be applied.}
 }
 \value{
-A MMPR matrix.
+An MMPR matrix.
 }
 \description{
-Cholesky factorization for a MMPR positive symmetric matrix.
+Cholesky factorization for an MMPR positive symmetric matrix.
 }
 \examples{
   \dontrun{

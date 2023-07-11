@@ -19,14 +19,14 @@
 }
 \arguments{
   \item{x}{
-    A MMPR vector/matrix.
+    An MMPR object.
   }
   \item{digits}{
     The number of digits to use in rounding.
   }
 }
 \value{
-  A MMPR vector/matrix of the same dimensions as the input.
+  An MMPR object of the same dimensions as the input.
 }
 \examples{
   \dontrun{

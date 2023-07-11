@@ -15,14 +15,14 @@
 }
 \arguments{
   \item{x}{
-    A MMPR vector/matrix.
+    An MMPR object.
   }
   \item{precision}{
-      string with the required precision.
+      String with the required precision.
     }
 }
 \value{
-  Prints/change metadata about MMPR object
+  Prints/change metadata about MMPR object.
 }
 \examples{
   \dontrun{

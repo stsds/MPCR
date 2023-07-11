@@ -5,37 +5,40 @@
 
 \section{MMPR Converter}{
     \description{
-    Convert R Matrix/Vector to MMPR Matrix/Vector.
+    Convert R object to MMPR object.
     }
 
-   \subsection{MMPR Converters}{
-     \code{as.MMPR(data,nrow = 0,ncol = 0,precision)}: Converts R matrix or vector to MMPR matrix or vector
+   \subsection{MMPR converters}{
+   \cr
+     \code{as.MMPR(data,nrow = 0,ncol = 0,precision)}: Converts R object to MMPR object.
       \cr
       \describe{
-         \item{\code{data}}{R Matrix/Vector}
-         \item{\code{nrow}}{Number of Rows of the new MMPR Matrix ,default = zero which means a vector will be created}
-         \item{\code{ncol}}{Number of Cols of the new MMPR Matrix ,default = zero which means a vector will be created}
-         \item{\code{precision}}{String indicating the precision of the new MMPR object (half, single, double).}
+         \item{\code{data}}{R matrix/vector.}
+         \item{\code{nrow}}{Number of rows of the new MMPR matrix, \bold{default = zero} which means a vector will be created.}
+         \item{\code{ncol}}{Number of cols of the new MMPR matrix, \bold{default = zero} which means a vector will be created.}
+         \item{\code{precision}}{String indicating the precision of the new MMPR object (half, single, or double).}
       }
    }
 }
 
 \section{R Converter}{
     \description{
-    Convert MMPR object to R Matrix/Vector.
+    Convert MMPR object to R object.
     }
 
-   \subsection{R Vector Converter}{
-     \code{MMPR.ToNumericVector(x)}: Converts MMPR object to Numeric R vector
+   \subsection{R vector converter}{
+   \cr
+     \code{MMPR.ToNumericVector(x)}: Converts MMPR object to numeric R vector.
       \describe{
-         \item{\code{x}}{MMPR Matrix or Vector}
+         \item{\code{x}}{MMPR object.}
       }
    }
 
-      \subsection{R Matrix Converter}{
-        \code{MMPR.ToNumericMatrix(x)}: Converts MMPR object to Numeric R matrix
+      \subsection{R matrix converter}{
+      \cr
+        \code{MMPR.ToNumericMatrix(x)}: Converts MMPR object to numeric R matrix.
          \describe{
-            \item{\code{x}}{MMPR Matrix or Vector}
+            \item{\code{x}}{MMPR object.}
          }
       }
 }
@@ -43,6 +46,7 @@
 
 \examples{
   \dontrun{
+
    # Example usage of the class and its methods
    a <- matrix(1:36, 6, 6)
    mmpr_matrix <- as.MMPR(a,nrow=6,ncol=6,precision="single")

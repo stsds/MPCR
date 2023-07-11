@@ -9,7 +9,7 @@
 \S4method{svd}{Rcpp_MMPR}(x, nu = min(n, p), nv = min(n, p))
 }
 \arguments{
-\item{x}{A MMPR matrix.}
+\item{x}{An MMPR matrix.}
 
 \item{nu, nv}{The number of left/right singular vectors to return.}
 

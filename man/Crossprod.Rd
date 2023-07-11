@@ -10,22 +10,24 @@
 
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
-\item{y}{Either \code{NULL}, or a MMPR matrix.}
+\item{y}{Either \code{NULL}, or an MMPR matrix.}
 }
 \value{
-A MMPR matrix.
+An MMPR matrix.
 }
 \description{
 This function calculates the cross product of two MMPR matrices.
- It uses BLAS routine \code{gemm()} for A B operations and \code{syrk()}
- for A A^T operations.
+ It uses BLAS routine \code{gemm()} for \bold{A} X \bold{B} operations and \code{syrk()}
+ for \bold{A} X \bold{A^T} operations.
 }
 \details{
- Calculate CrossProduct of 2 MPR Matrices performs:
-  x %*% y  , t(x) %*% x
-  this function uses blas routine \code{gemm()} for A B operations  & \code{syrk()} for A A^T operations
+ Calculate cross product of 2 MMPR matrices performs:
+  \cr
+  x \%*\% y  , t(x) \%*\% x
+  \cr
+  this function uses blas routine \code{gemm()} for \bold{A} X \bold{B} operations  & \code{syrk()} for \bold{A} X \bold{A^T} operations.
 }
 \examples{
     \dontrun{
@@ -36,6 +38,6 @@ This function calculates the cross product of two MMPR matrices.
     z <- crossprod(x)     # t(x) x
     z <- tcrossprod(x)    # x t(x)
     z <- crossprod(x,y)   # x y
-    z <- x %*% y          # x y
+    z <- x \%*\% y          # x y
     }
 }

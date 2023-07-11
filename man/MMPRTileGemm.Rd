@@ -4,28 +4,28 @@
 \title{MMPRTile GEMM  (Matrix-Matrix Multiplication)}
 
 \description{
-   Tiled-Matrix Multiplication of 2 MPR Tile Matrices
+   Tiled-Matrix multiplication of 2 MMPR tile matrices.
    performs:
-   C = alpha A * B + beta C
+   C = \bold{alpha*A} X \bold{B} + \bold{beta*C}
 }
 \usage{
 
 \S4method{MMPRTile.gemm}{Rcpp_MMPRTile}(a,b,c,transpose_a= FALSE,transpose_b=FALSE,alpha=1,beta=0)
    }
  \arguments{
-   \item{a}{MMPR Tile Matrix A}
-   \item{b}{MMPR Tile Matrix B}
-   \item{c}{Input/Output MMPR Tile Matrix C}
-   \item{transpose_a}{Flag to indicate whether transpose matrix A should be used}
-   \item{transpose_b}{Flag to indicate whether transpose matrix B should be used}
+   \item{a}{MMPR tile matrix A.}
+   \item{b}{MMPR tile matrix B.}
+   \item{c}{Input/Output MMPR tile matrix C.}
+   \item{transpose_a}{Flag to indicate whether transpose matrix A should be used.}
+   \item{transpose_b}{Flag to indicate whether transpose matrix B should be used.}
    \item{alpha}{Specifies the scalar alpha.}
    \item{beta}{Specifies the scalar beta.}
     \item{num_threads}{
-       Integer to determine number if thread to run using openmp ,default = 1 (serial with no parallelization)
+       Integer to determine number if thread to run using openmp, \bold{default = 1} (serial with no parallelization).
      }
  }
  \value{
-   MMPR Tile Matrix C
+   MMPR tile matrix C.
  }
  \examples{
    \dontrun{

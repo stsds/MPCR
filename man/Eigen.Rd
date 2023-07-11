@@ -6,7 +6,7 @@
 \S4method{eigen}{Rcpp_MMPR}(x, only.values = FALSE)
 }
 \arguments{
-\item{x}{A MMPR vector/matrix.}
+\item{x}{An MMPR object.}
 
 \item{only.values}{Should only the values (and not the vectors) be returned?}
 
@@ -15,7 +15,7 @@
 A list containing MMPR objects describing the values and optionally vectors.
 }
 \description{
-Solve a system of equations or invert a MMPR matrix, using lapack routine \code{syevr()}
+Solve a system of equations or invert an MMPR matrix, using lapack routine \code{syevr()}
 }
 \examples{
 \dontrun{
