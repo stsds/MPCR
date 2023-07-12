@@ -9,10 +9,10 @@
 \item{x}{An MMPR matrix.}
 }
 \value{
-An MMPR vector containing the main diagonal of the matrix.
+An MMPR vector contains the main diagonal of the matrix.
 }
 \description{
-Methods for getting the diagonal of an MMPR matrix.
+Returns the diagonal of an MMPR matrix.
 }
 \examples{
   \dontrun{

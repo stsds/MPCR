@@ -12,10 +12,10 @@
 
 }
 \value{
-A list containing MMPR objects describing the values and optionally vectors.
+A list contains MMPR objects describing the values and optionally vectors.
 }
 \description{
-Solve a system of equations or invert an MMPR matrix, using lapack routine \code{syevr()}
+Solves a system of equations or invert an MMPR matrix, using lapack routine \code{syevr()}
 }
 \examples{
 \dontrun{

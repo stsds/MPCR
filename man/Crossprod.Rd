@@ -18,16 +18,16 @@
 An MMPR matrix.
 }
 \description{
-This function calculates the cross product of two MMPR matrices.
+Calculates the cross product of two MMPR matrices.
  It uses BLAS routine \code{gemm()} for \bold{A} X \bold{B} operations and \code{syrk()}
  for \bold{A} X \bold{A^T} operations.
 }
 \details{
- Calculate cross product of 2 MMPR matrices performs:
+ Calculates cross product of two MMPR matrices performs:
   \cr
   x \%*\% y  , t(x) \%*\% x
   \cr
-  this function uses blas routine \code{gemm()} for \bold{A} X \bold{B} operations  & \code{syrk()} for \bold{A} X \bold{A^T} operations.
+  This function uses blas routine \code{gemm()} for \bold{A} X \bold{B} operations  & \code{syrk()} for \bold{A} X \bold{A^T} operations.
 }
 \examples{
     \dontrun{

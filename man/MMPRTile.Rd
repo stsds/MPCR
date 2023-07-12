@@ -11,6 +11,7 @@ MMPRTile is a mixed-precision tile matrix data-structure with each tile having a
 
 \section{Constructor}{
   \code{\link{new}} creates a new instance of Tile-Matrix \code{MMPRTile} class.
+  \cr
   \code{new(MMPRTile,rows,cols,rows_per_tile,cols_per_tile,values,precisions)}
   \describe{
   \item{\code{rows}}{Number of rows in the matrix.}
@@ -68,8 +69,8 @@ MMPRTile is a mixed-precision tile matrix data-structure with each tile having a
        replacing the old tiles. \bold{Note:} The input must be a square matrix
           \cr
        \describe{
-                   \item{\code{value}}{Value used during matrix filling.}
-                   \item{\code{upper.tri}}{Flag to indicate what triangle to fill. if TRUE, the upper triangle will be filled, otherwise the lower triangle. }
+                   \item{\code{value}}{ A value used during matrix filling.}
+                   \item{\code{upper.tri}}{A flag to indicate what triangle to fill. if TRUE, the upper triangle will be filled, otherwise the lower triangle. }
                    \item{\code{precision}}{The precision of the tiles created during matrix filling, in case it's not a diagonal tile.}
                  }
   }

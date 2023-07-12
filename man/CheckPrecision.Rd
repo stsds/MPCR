@@ -23,7 +23,7 @@
   }
 }
 \value{
- Boolean indicating the precision of the object according to the used function.
+ Boolean indicates the precision of the object according to the used function.
 }
 \examples{
   \dontrun{

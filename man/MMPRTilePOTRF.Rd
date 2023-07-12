@@ -3,7 +3,7 @@
 \alias{MMPRTile Chol,Rcpp_MMPRTile-method}
 \title{MMPRTile Chol  ( Cholesky decomposition )}
 \description{
-    Calculate cholesky decomposition for positive tiled-symmetric matrix.
+    Tile-based Cholesky decomposition of a positive definite tiled-symmetric matrix.
 }
 \usage{
 
@@ -12,17 +12,17 @@
 }
 \arguments{
   \item{x}{
-    MMPR tile matrix.
+    An MMPR tile matrix.
   }
   \item{overwrite_input}{
-    Flag to determine whether to overwrite the input ( TRUE ), or return a new MMPR tile matrix.
+    A flag to determine whether to overwrite the input ( TRUE ), or return a new MMPR tile matrix.
   }
   \item{num_threads}{
-    Integer to determine number if thread to run using openmp, \bold{default} = 1 (serial with no parallelization).
+    An integer to determine number if thread to run using openmp, \bold{default} = 1 (serial with no parallelization).
   }
 }
 \value{
-  MMPR tile matrix.
+  An MMPR tile matrix.
 }
 \examples{
   \dontrun{

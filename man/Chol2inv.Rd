@@ -15,8 +15,7 @@
 An MMPR object.
 }
 \description{
-Return the inverse of the original matrix using the cholesky factorization of
-an MMPR matrix.
+Performs the inverse of the original matrix using the Cholesky factorization of an MMPR matrix x.
 }
 \examples{
   \dontrun{

@@ -17,7 +17,7 @@
 The number of rows/cols in MMPR object.
 }
 \description{
-Dimension information for an MMPR object.
+Returns the number of rows or cols in MMPR object.
 }
 \examples{
   \dontrun{

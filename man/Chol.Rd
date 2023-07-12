@@ -14,7 +14,7 @@
 An MMPR matrix.
 }
 \description{
-Cholesky factorization for an MMPR positive symmetric matrix.
+Performs the Cholesky factorization of a positive definite MMPR matrix x.
 }
 \examples{
   \dontrun{

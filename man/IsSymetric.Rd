@@ -14,7 +14,7 @@
 A logical value.
 }
 \description{
-Test if an MMPR matrix is symmetric.
+Check if a given MMPR matrix is symmetric.
 }
 \examples{
   \dontrun{

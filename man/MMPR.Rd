@@ -3,7 +3,7 @@
 \title{MMPR S4 Class}
 
 \description{
-MMPR is a multi-precision vector/matrix, that enables the creation of vector/matrix with 3 different precisions (16-bit, 32-bit, 64-bit).
+MMPR is a multi-precision vector/matrix, that enables the creation of vector/matrix with three different precisions (16-bit, 32-bit, and 64-bit).
 }
 
 \section{Constructor}{
@@ -36,7 +36,7 @@ MMPR is a multi-precision vector/matrix, that enables the creation of vector/mat
   }
 
   \subsection{ToMatrix}{
-    \code{ToMatrix(row,col)}: Change the object representation to match the new dimensions, no memory overhead.
+    \code{ToMatrix(row,col)}: Changes the object representation to match the new dimensions, no memory overhead.
   }
 
   \subsection{ToVector}{
