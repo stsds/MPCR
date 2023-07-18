@@ -14,14 +14,18 @@ run_backsolve_benchmark <- function(n, replication, times) {
   diag(U) <- runif(n, 0.1, 1)
 
   # Create a random right-hand side vector of length n
-  b <- rnorm(n)
 
+  b <- matrix(rnorm(n^2), ncol = n)
+  b <- upper.tri(b)
+  diag(b) <- runif(n, 0.1, 1)
 
   mmpr_single_U <- as.MMPR(U, n, n, "single")
   mmpr_double_U <- as.MMPR(U, n, n, "double")
 
-  mmpr_single_b <- as.MMPR(b, precision = "single")
-  mmpr_double_b <- as.MMPR(b, precision = "double")
+
+
+  mmpr_single_b <- as.MMPR(b,n,n, precision = "single")
+  mmpr_double_b <- as.MMPR(b,n,n, precision = "double")
 
 
   cat("\n\n")
@@ -46,14 +50,16 @@ run_forwardsolve_benchmark <- function(n, replication, times) {
   diag(L) <- runif(n, 0.1, 1)
 
   # Create a random right-hand side vector of length n
-  b <- rnorm(n)
+  b <- matrix(rnorm(n^2), ncol = n)
+  b <- upper.tri(b)
+  diag(b) <- runif(n, 0.1, 1)
 
 
   mmpr_single_L <- as.MMPR(L, n, n, "single")
   mmpr_double_L <- as.MMPR(L, n, n, "double")
 
-  mmpr_single_b <- as.MMPR(b, precision = "single")
-  mmpr_double_b <- as.MMPR(b, precision = "double")
+  mmpr_single_b <- as.MMPR(b,n,n, precision = "single")
+  mmpr_double_b <- as.MMPR(b,n,n, precision = "double")
 
   cat("\n\n")
   cat("Running backsolve benchmark \n")
