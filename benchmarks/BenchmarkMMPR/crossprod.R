@@ -2,7 +2,7 @@ library(rbenchmark)
 library(MMPR)
 
 
-run_crossprod_benchmark <- function(row, col, replication, times) {
+run_gemm_benchmark <- function(row, col, replication, times) {
   cat("\n\n\n")
 
   cat("Matrix 1 : ")
@@ -92,7 +92,7 @@ cat(replication)
 cat("times : ")
 cat(times)
 
-run_crossprod_benchmark(row, col, replication, times)
+run_gemm_benchmark(row, col, replication, times)
 
 
 
