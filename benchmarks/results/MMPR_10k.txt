@@ -1,0 +1,105 @@
+Running MMPR benchmark
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Matrix size : 10000*10000
+replication : 50times : 3
+
+
+Running chol benchmark 
+                      test replications elapsed
+2 chol(mmpr_matrix_double)           50  30.172
+4 chol(mmpr_matrix_double)           50  30.399
+6 chol(mmpr_matrix_double)           50  30.463
+1 chol(mmpr_matrix_single)           50  16.229
+3 chol(mmpr_matrix_single)           50  15.670
+5 chol(mmpr_matrix_single)           50  15.855
+Running chol2inv benchmark 
+                        test replications elapsed
+2 chol2inv(mmpr_chol_double)           50  59.908
+4 chol2inv(mmpr_chol_double)           50  62.739
+6 chol2inv(mmpr_chol_double)           50  55.587
+1 chol2inv(mmpr_chol_single)           50  36.035
+3 chol2inv(mmpr_chol_single)           50  30.722
+5 chol2inv(mmpr_chol_single)           50  33.193
+Matrix size : 10000*10000
+replication : 50times : 3
+
+
+Matrix 1 : 10000*10000
+Matrix 2 : 10000*10000
+[1] 10000
+[1] 10000
+[1] 10000
+[1] 10000
+
+
+Running crossprod benchmark with 2 input 
+                                                   test replications elapsed
+2 crossprod(mmpr_matrix_double_1, mmpr_matrix_double_2)           50  51.810
+4 crossprod(mmpr_matrix_double_1, mmpr_matrix_double_2)           50  51.954
+6 crossprod(mmpr_matrix_double_1, mmpr_matrix_double_2)           50  52.337
+1 crossprod(mmpr_matrix_single_1, mmpr_matrix_single_2)           50  30.111
+3 crossprod(mmpr_matrix_single_1, mmpr_matrix_single_2)           50  25.937
+5 crossprod(mmpr_matrix_single_1, mmpr_matrix_single_2)           50  28.584
+
+
+Running tcrossprod benchmark with 2 input 
+                                                    test replications elapsed
+2 tcrossprod(mmpr_matrix_double_1, mmpr_matrix_double_3)           50  51.467
+4 tcrossprod(mmpr_matrix_double_1, mmpr_matrix_double_3)           50  49.217
+6 tcrossprod(mmpr_matrix_double_1, mmpr_matrix_double_3)           50  51.972
+1 tcrossprod(mmpr_matrix_single_1, mmpr_matrix_single_3)           50  25.479
+3 tcrossprod(mmpr_matrix_single_1, mmpr_matrix_single_3)           50  27.889
+5 tcrossprod(mmpr_matrix_single_1, mmpr_matrix_single_3)           50  31.015
+
+
+
+Matrix 3 : 10000*10000
+
+
+
+Running crossprod benchmark with 1 input 
+                             test replications elapsed
+2 crossprod(mmpr_matrix_double_3)           50  46.139
+4 crossprod(mmpr_matrix_double_3)           50  44.853
+6 crossprod(mmpr_matrix_double_3)           50  44.276
+1 crossprod(mmpr_matrix_single_3)           50  23.896
+3 crossprod(mmpr_matrix_single_3)           50  24.949
+5 crossprod(mmpr_matrix_single_3)           50  23.291
+Running tcrossprod benchmark with 1 input 
+                              test replications elapsed
+2 tcrossprod(mmpr_matrix_double_3)           50  45.311
+4 tcrossprod(mmpr_matrix_double_3)           50  45.128
+6 tcrossprod(mmpr_matrix_double_3)           50  46.337
+1 tcrossprod(mmpr_matrix_single_3)           50  22.896
+3 tcrossprod(mmpr_matrix_single_3)           50  23.987
+5 tcrossprod(mmpr_matrix_single_3)           50  25.455
+
+Matrix size : 10000*10000
+replication : 50times : 3
+
+
+Matrix : 10000*10000
+
+Matrix size : 10000*10000
+replication : 50times : 3Matrix : 10000*10000
+
+Matrix size : 10000*10000
+replication : 50times : 3Matrix A : 10000*10000
+
+
+Running qr benchmark 
+Matrix size : 10000*10000
+replication : 50times : 3Matrix A : 10000*10000
+Matrix B : 10000*10000
+
+Matrix size : 10000*10000
+replication : 50times : 3Matrix A : 10000*10000
+Matrix B : 10000
+Matrix size : 10000*10000
+replication : 50times : 3Matrix A : 10000*10000
+
+
+Running svd benchmark 
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

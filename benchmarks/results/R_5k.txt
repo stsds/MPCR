@@ -1,0 +1,86 @@
+Running R benchmark
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Matrix size : 5000*5000
+replication : 50times : 3
+
+
+Running chol benchmark 
+
+          test replications  elapsed
+1 chol(matrix)           50 1318.901
+2 chol(matrix)           50 1317.328
+3 chol(matrix)           50 1320.993
+
+Running chol2inv benchmark 
+                test replications  elapsed
+1 chol2inv(chol_out)           50 1410.114
+2 chol2inv(chol_out)           50 1419.331
+3 chol2inv(chol_out)           50 1434.339
+Matrix size : 5000*5000
+replication : 50times : 3
+
+
+Matrix 1 : 5000*5000
+Matrix 2 : 5000*5000
+
+
+
+Running crossprod benchmark with 2 input 
+                     test replications  elapsed
+1 (matrix_1 %*% matrix_2)           50 5018.608
+2 (matrix_1 %*% matrix_2)           50 5302.597
+3 (matrix_1 %*% matrix_2)           50 5289.568
+Running tcrossprod benchmark with 2 input 
+                            test replications  elapsed
+1 tcrossprod(matrix_1, matrix_3)           50 5375.066
+2 tcrossprod(matrix_1, matrix_3)           50 5454.714
+3 tcrossprod(matrix_1, matrix_3)           50 5453.807
+
+
+
+
+Running crossprod benchmark with 1 input 
+                           test replications  elapsed
+1 crossprod(matrix_3, y = NULL)           50 4275.190
+2 crossprod(matrix_3, y = NULL)           50 4274.385
+3 crossprod(matrix_3, y = NULL)           50 4274.255
+
+Running tcrossprod benchmark with 1 input 
+                            test replications  elapsed
+1 tcrossprod(matrix_3, y = NULL)           50 2563.402
+2 tcrossprod(matrix_3, y = NULL)           50 2639.822
+3 tcrossprod(matrix_3, y = NULL)           50 2638.821
+
+Matrix size : 5000*5000
+replication : 50times : 3
+
+
+Matrix : 5000*5000
+
+           test replications  elapsed
+1 eigen(matrix)           50 24559.76
+2 eigen(matrix)           50 24573.36
+3 eigen(matrix)           50 24636.15
+
+Matrix size : 5000*5000
+replication : 50times : 3Matrix : 5000*5000
+
+           test replications elapsed
+3  norm(A, "F")           50   3.687
+7  norm(A, "F")           50   3.684
+11 norm(A, "F")           50   3.690
+2  norm(A, "I")           50   1.054
+6  norm(A, "I")           50   1.044
+10 norm(A, "I")           50   1.044
+4  norm(A, "M")           50   3.685
+8  norm(A, "M")           50   3.684
+12 norm(A, "M")           50   3.699
+1  norm(A, "O")           50   1.851
+5  norm(A, "O")           50   1.718
+9  norm(A, "O")           50   1.717
+Matrix size : 5000*5000
+replication : 50times : 3Matrix A : 5000*5000
+
+
+Running qr benchmark 

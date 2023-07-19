@@ -31,10 +31,10 @@ done
 
 
 
-export LD_PRELOAD=${BLAS_DIR}/libmkl_rt.so
+export LD_PRELOAD=${BLAS_DIR}/libmkl_rt.so:$LD_PRELOAD
 export LD_PRELOAD=${BLAS_DIR}/libmkl_intel_thread.so:$LD_PRELOAD
 export LD_PRELOAD=${BLAS_DIR}/libmkl_core.so:$LD_PRELOAD
-export LD_PRELOAD=${OPENMP_DIR}/libiomp5.so:$LD_PRELOAD
+export LD_PRELOAD=/opt/ecrc/mkl/2020.0.166/lib/intel64/libiomp5.so:$LD_PRELOAD
 
 
 

@@ -1,0 +1,210 @@
+Running MMPR benchmark
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Matrix size : 1000*1000
+replication : 50times : 3
+
+
+Running chol benchmark 
+                      test replications elapsed
+2 chol(mmpr_matrix_double)           50   0.272
+4 chol(mmpr_matrix_double)           50   0.287
+6 chol(mmpr_matrix_double)           50   0.267
+1 chol(mmpr_matrix_single)           50   0.292
+3 chol(mmpr_matrix_single)           50   0.170
+5 chol(mmpr_matrix_single)           50   0.169
+Running chol2inv benchmark 
+                        test replications elapsed
+2 chol2inv(mmpr_chol_double)           50   0.315
+4 chol2inv(mmpr_chol_double)           50   0.326
+6 chol2inv(mmpr_chol_double)           50   1.135
+1 chol2inv(mmpr_chol_single)           50   0.216
+3 chol2inv(mmpr_chol_single)           50   0.235
+5 chol2inv(mmpr_chol_single)           50   0.419
+Matrix size : 1000*1000
+replication : 50times : 3
+
+
+Matrix 1 : 1000*1000
+Matrix 2 : 1000*1000
+[1] 1000
+[1] 1000
+[1] 1000
+[1] 1000
+
+
+Running crossprod benchmark with 2 input 
+                                                   test replications elapsed
+2 crossprod(mmpr_matrix_double_1, mmpr_matrix_double_2)           50   0.238
+4 crossprod(mmpr_matrix_double_1, mmpr_matrix_double_2)           50   0.230
+6 crossprod(mmpr_matrix_double_1, mmpr_matrix_double_2)           50   0.245
+1 crossprod(mmpr_matrix_single_1, mmpr_matrix_single_2)           50   0.143
+3 crossprod(mmpr_matrix_single_1, mmpr_matrix_single_2)           50   0.127
+5 crossprod(mmpr_matrix_single_1, mmpr_matrix_single_2)           50   0.152
+
+
+Running tcrossprod benchmark with 2 input 
+                                                    test replications elapsed
+2 tcrossprod(mmpr_matrix_double_1, mmpr_matrix_double_3)           50   0.106
+4 tcrossprod(mmpr_matrix_double_1, mmpr_matrix_double_3)           50   0.103
+6 tcrossprod(mmpr_matrix_double_1, mmpr_matrix_double_3)           50   0.104
+1 tcrossprod(mmpr_matrix_single_1, mmpr_matrix_single_3)           50   0.065
+3 tcrossprod(mmpr_matrix_single_1, mmpr_matrix_single_3)           50   0.062
+5 tcrossprod(mmpr_matrix_single_1, mmpr_matrix_single_3)           50   0.063
+
+
+
+Matrix 3 : 1000*1000
+
+
+
+Running crossprod benchmark with 1 input 
+                             test replications elapsed
+2 crossprod(mmpr_matrix_double_3)           50   0.145
+4 crossprod(mmpr_matrix_double_3)           50   0.146
+6 crossprod(mmpr_matrix_double_3)           50   0.149
+1 crossprod(mmpr_matrix_single_3)           50   0.098
+3 crossprod(mmpr_matrix_single_3)           50   0.099
+5 crossprod(mmpr_matrix_single_3)           50   0.099
+Running tcrossprod benchmark with 1 input 
+                              test replications elapsed
+2 tcrossprod(mmpr_matrix_double_3)           50   0.151
+4 tcrossprod(mmpr_matrix_double_3)           50   0.151
+6 tcrossprod(mmpr_matrix_double_3)           50   0.184
+1 tcrossprod(mmpr_matrix_single_3)           50   0.100
+3 tcrossprod(mmpr_matrix_single_3)           50   0.100
+5 tcrossprod(mmpr_matrix_single_3)           50   0.099
+
+Matrix size : 1000*1000
+replication : 50times : 3
+
+
+Matrix : 1000*1000
+
+                test replications elapsed
+2 eigen(mmpr_double)           50   9.604
+4 eigen(mmpr_double)           50   9.764
+6 eigen(mmpr_double)           50  11.175
+1 eigen(mmpr_single)           50  14.043
+3 eigen(mmpr_single)           50  11.130
+5 eigen(mmpr_single)           50  13.151
+
+Matrix size : 1000*1000
+replication : 50times : 3Matrix : 1000*1000
+
+                     test replications elapsed
+7  norm(mmpr_double, "F")           50   0.191
+15 norm(mmpr_double, "F")           50   0.192
+23 norm(mmpr_double, "F")           50   0.192
+6  norm(mmpr_double, "I")           50   0.038
+14 norm(mmpr_double, "I")           50   0.038
+22 norm(mmpr_double, "I")           50   0.038
+8  norm(mmpr_double, "M")           50   0.087
+16 norm(mmpr_double, "M")           50   0.087
+24 norm(mmpr_double, "M")           50   0.087
+5  norm(mmpr_double, "O")           50   0.077
+13 norm(mmpr_double, "O")           50   0.077
+21 norm(mmpr_double, "O")           50   0.076
+3  norm(mmpr_single, "F")           50   0.192
+11 norm(mmpr_single, "F")           50   0.191
+19 norm(mmpr_single, "F")           50   0.192
+2  norm(mmpr_single, "I")           50   0.021
+10 norm(mmpr_single, "I")           50   0.022
+18 norm(mmpr_single, "I")           50   0.022
+4  norm(mmpr_single, "M")           50   0.083
+12 norm(mmpr_single, "M")           50   0.083
+20 norm(mmpr_single, "M")           50   0.083
+1  norm(mmpr_single, "O")           50   0.074
+9  norm(mmpr_single, "O")           50   0.073
+17 norm(mmpr_single, "O")           50   0.073
+Matrix size : 1000*1000
+replication : 50times : 3Matrix A : 1000*1000
+
+
+Running qr benchmark 
+                    test replications elapsed
+2 qr(mmpr_matrix_double)           50   4.702
+4 qr(mmpr_matrix_double)           50   3.386
+6 qr(mmpr_matrix_double)           50   3.300
+1 qr(mmpr_matrix_single)           50   4.012
+3 qr(mmpr_matrix_single)           50   4.158
+5 qr(mmpr_matrix_single)           50   2.269
+[1] "list"
+Running qr.R benchmark 
+             test replications elapsed
+2 qr.R(qr_double)           50   0.078
+4 qr.R(qr_double)           50   0.074
+6 qr.R(qr_double)           50   0.074
+1 qr.R(qr_single)           50   0.053
+3 qr.R(qr_single)           50   0.048
+5 qr.R(qr_single)           50   0.048
+Running qr.Q benchmark 
+             test replications elapsed
+2 qr.Q(qr_double)           50   0.464
+4 qr.Q(qr_double)           50   0.462
+6 qr.Q(qr_double)           50   0.484
+1 qr.Q(qr_single)           50   0.379
+3 qr.Q(qr_single)           50   0.288
+5 qr.Q(qr_single)           50   0.435
+Running qr.qy & qr.qty benchmark 
+                                   test replications elapsed
+1 qr.qty(qr_single, mmpr_random_single)           50   0.276
+3 qr.qty(qr_single, mmpr_random_single)           50   0.338
+5 qr.qty(qr_single, mmpr_random_single)           50   0.375
+2  qr.qy(qr_double, mmpr_random_double)           50   0.523
+4  qr.qy(qr_double, mmpr_random_double)           50   0.563
+6  qr.qy(qr_double, mmpr_random_double)           50   0.478
+Matrix size : 1000*1000
+replication : 50times : 3Matrix A : 1000*1000
+Matrix B : 1000*1000
+
+Running rcond bencmark                   test replications elapsed
+2  rcond(mmpr_double_a)           50   0.550
+6  rcond(mmpr_double_a)           50   0.445
+10 rcond(mmpr_double_a)           50   0.446
+4  rcond(mmpr_double_b)           50   0.468
+8  rcond(mmpr_double_b)           50   0.456
+12 rcond(mmpr_double_b)           50   0.468
+1  rcond(mmpr_single_a)           50   0.483
+5  rcond(mmpr_single_a)           50   0.407
+9  rcond(mmpr_single_a)           50   0.408
+3  rcond(mmpr_single_b)           50   0.404
+7  rcond(mmpr_single_b)           50   0.394
+11 rcond(mmpr_single_b)           50   0.397
+Matrix size : 1000*1000
+replication : 50times : 3Matrix A : 1000*1000
+Matrix B : 1000
+
+
+Running solve benchmark 
+                                               test replications elapsed
+2 solve(mmpr_matrix_double_a, mmpr_matrix_double_b)           50   0.269
+4 solve(mmpr_matrix_double_a, mmpr_matrix_double_b)           50   0.262
+6 solve(mmpr_matrix_double_a, mmpr_matrix_double_b)           50   0.254
+1 solve(mmpr_matrix_single_a, mmpr_matrix_single_b)           50   6.636
+3 solve(mmpr_matrix_single_a, mmpr_matrix_single_b)           50   0.358
+5 solve(mmpr_matrix_single_a, mmpr_matrix_single_b)           50   0.262
+Matrix size : 1000*1000
+replication : 50times : 3Matrix A : 1000*1000
+
+
+Running svd benchmark 
+              test replications elapsed
+2 svd(mmpr_double)           50   7.659
+4 svd(mmpr_double)           50   7.960
+6 svd(mmpr_double)           50  12.261
+1 svd(mmpr_single)           50   6.626
+3 svd(mmpr_single)           50   7.797
+5 svd(mmpr_single)           50   8.945
+
+
+Running La.svd benchmark 
+                 test replications elapsed
+2 La.svd(mmpr_double)           50   8.269
+4 La.svd(mmpr_double)           50   7.845
+6 La.svd(mmpr_double)           50   7.629
+1 La.svd(mmpr_single)           50   8.392
+3 La.svd(mmpr_single)           50   7.426
+5 La.svd(mmpr_single)           50   6.814
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

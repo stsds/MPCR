@@ -1,0 +1,12 @@
+Running MMPR benchmark
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Matrix size : 100000*100000
+replication : 5times : 1
+
+
+Running chol benchmark 
+                      test replications elapsed
+2 chol(mmpr_matrix_double)            5 968.142
+1 chol(mmpr_matrix_single)            5 462.395
+Running chol2inv benchmark 

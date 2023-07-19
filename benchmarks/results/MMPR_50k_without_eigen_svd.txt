@@ -1,0 +1,38 @@
+Running MMPR benchmark
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Matrix size : 50000*50000
+replication : 3times : 1
+
+
+Running chol benchmark 
+                      test replications elapsed
+2 chol(mmpr_matrix_double)            3  95.314
+1 chol(mmpr_matrix_single)            3  46.750
+Running chol2inv benchmark 
+                        test replications elapsed
+2 chol2inv(mmpr_chol_double)            3 245.387
+1 chol2inv(mmpr_chol_single)            3 103.072
+Matrix size : 50000*50000
+replication : 3times : 1
+
+
+Matrix 1 : 50000*50000
+Matrix 2 : 50000*50000
+Matrix size : 50000*50000
+replication : 3times : 1Matrix : 50000*50000
+
+                    test replications elapsed
+7 norm(mmpr_double, "F")            3  27.193
+6 norm(mmpr_double, "I")            3   5.384
+8 norm(mmpr_double, "M")            3  13.815
+5 norm(mmpr_double, "O")            3  10.886
+3 norm(mmpr_single, "F")            3  27.090
+2 norm(mmpr_single, "I")            3   2.407
+4 norm(mmpr_single, "M")            3  10.868
+1 norm(mmpr_single, "O")            3   9.909
+Matrix size : 50000*50000
+replication : 3times : 1Matrix size : 50000*50000
+replication : 3times : 1Matrix size : 50000*50000
+replication : 3times : 1----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
