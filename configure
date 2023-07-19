@@ -9,8 +9,6 @@ TEST_PATH="${ABSOLUE_PATH}/tests/test-files"
 CONFIG_PATH="${ABSOLUE_PATH}/config"
 echo ${ABSOLUE_PATH}
 
-
-
 rm -rf bin/
 mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=RELEASE \
@@ -24,11 +22,10 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -H"${ABSOLUE_PATH}" \
   -B"${ABSOLUE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
+  -DUSE_CUDA=ON \
   -DBUILD_SHARED_LIBS=OFF \
   -DCMAKE_CXX_FLAGS_DEBUG="-fPIC" \
   -DCMAKE_CXX_FLAGS_RELEASE="-fPIC"
-
-
 
 cd bin/
 make clean

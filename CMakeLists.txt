@@ -26,7 +26,17 @@ endif ()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if(APPLE)
+
+# Set cmake path module.
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+include(ImportGFortran)
+include(ImportOpenMP)
+if (OpenMP_FOUND)
+    message("OpenMp Found")
+endif ()
+
+
+if (APPLE)
     set(OpenMP_C "${CMAKE_C_COMPILER}")
     set(OpenMP_C_FLAGS "-Xclang -fopenmp -I/usr/local/Cellar/libomp/16.0.4/include")
     set(OpenMP_C_LIB_NAMES "libomp")
@@ -37,12 +47,39 @@ if(APPLE)
     set(OpenMP_CXX_LIB_NAMES "libomp")
     set(OpenMP_libomp_LIBRARY "omp")
 
-endif()
+endif ()
 
 
-find_package(OpenMP REQUIRED)
-if (OpenMP_FOUND)
-    message("OpenMp Found")
+# Find R and Rcpp using FindR Module
+FIND_PACKAGE(R REQUIRED)
+if (${R_FOUND})
+    message(STATUS "Using R technology")
+    list(APPEND LIBS "R")
+    set(USE_R ON)
+    add_definitions(-DUSING_R)
+endif ()
+
+
+if (USE_CUDA)
+    message("-- Build CUDA Support")
+    add_definitions(-DUSE_CUDA)
+    enable_language(CUDA)
+    include(toolchains/CudaToolchain)
+    set(BLA_VENDOR NVHPC)
+    include(ImportCuSolver)
+    include(ImportBlasPP)
+    unset(BLA_VENDOR)
+    include(ImportLapack)
+    include(ImportLapackPP)
+    set(LIBS
+            LAPACK::LAPACK
+            ${LIBS}
+            )
+else ()
+    message("-- Build Serial Support -- ")
+    include(ImportBlasPP)
+    include(ImportLapack)
+    include(ImportLapackPP)
 endif ()
 
 if (${USE_OMP})
@@ -70,36 +107,12 @@ if (${USE_OMP})
 endif ()
 
 
-
-    # definitions
+# definitions
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "/usr")
 endif ()
 
 message("Install Prefix : " ${CMAKE_INSTALL_PREFIX})
-
-# Set cmake path module.
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-
-# Find R and Rcpp using FindR Module
-FIND_PACKAGE(R REQUIRED)
-if (${R_FOUND})
-    message(STATUS "Using R technology")
-    list(APPEND LIBS "R")
-    set(USE_R ON)
-    add_definitions(-DUSING_R)
-endif ()
-
-#adding blas and lapack
-#add_definitions(-DMKL_ILP64)
-#add_definitions(-DBLAS_ILP64)
-#add_definitions(-DLAPACK_ILP64)
-
-include(ImportBlasPP)
-include(ImportLapack)
-include(ImportLapackPP)
-
 
 # For Error Handling Class
 if (${RUNNING_CPP})

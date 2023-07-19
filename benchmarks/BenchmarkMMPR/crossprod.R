@@ -1,6 +1,31 @@
 library(rbenchmark)
 library(MMPR)
 
+generate_matrix_big <- function(n, m) {
+  # Set the matrix dimensions
+  nrows <- n
+  ncols <- m
+
+  # Set the number of submatrices
+  n_submatrices <- 4
+
+  # Determine the number of rows and columns for each submatrix
+  sub_nrows <- ceiling(nrows / sqrt(n_submatrices))
+  sub_ncols <- ceiling(ncols / sqrt(n_submatrices))
+
+  # Generate random values for each submatrix
+  sub_matrices <- lapply(1:n_submatrices, function(x) {
+    rand_vals <- rnorm(sub_nrows * sub_ncols)
+    matrix(rand_vals, nrow = sub_nrows, ncol = sub_ncols)
+  })
+
+  # Combine the submatrices into a single matrix
+  my_matrix <- do.call(cbind, lapply(split(sub_matrices, rep(1:2, each = 2)), function(x) {
+    do.call(rbind, x)
+  }))
+
+  return(my_matrix)
+}
 
 run_gemm_benchmark <- function(row, col, replication, times) {
   cat("\n\n\n")
@@ -12,8 +37,8 @@ run_gemm_benchmark <- function(row, col, replication, times) {
   cat("Matrix 2 : ")
   cat(paste(col, row, sep = "*"))
   cat("\n")
-  matrix_1 <- matrix(runif(row * col, min = 0.5, max = 2), nrow = row, ncol = col)
-  matrix_2 <- matrix(runif(row * col, min = -3, max = 2), nrow = col, ncol = row)
+  matrix_1 <- generate_matrix_big(row, col)
+  matrix_2 <- generate_matrix_big(row, col)
   print(nrow(matrix_1))
   print(ncol(matrix_1))
   print(nrow(matrix_2))
@@ -45,7 +70,7 @@ run_gemm_benchmark <- function(row, col, replication, times) {
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n\n")
-  matrix_3 <- matrix(runif(row * row, min = -3, max = 2), nrow = row, ncol = row)
+  matrix_3 <- generate_matrix_big(row, row)
 
   mmpr_matrix_single_3 <- as.MMPR(matrix_3, row, row, "single")
   mmpr_matrix_double_3 <- as.MMPR(matrix_3, row, row, "double")

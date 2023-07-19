@@ -1,0 +1,4 @@
+set(LIBS
+        gfortran
+        ${LIBS}
+        )
