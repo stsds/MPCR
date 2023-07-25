@@ -5,12 +5,12 @@
 
 \section{MMPR deep copy}{
     \description{
-    Create a copy from MMPR object. Normally equal will create a new pointer of the object, so any change to object object one will affect object two.
+   Create a copy of an MMPR object. Typically, using 'equal' creates a new pointer for the object, resulting in any modifications made to object one affecting object two as well.
     }
 
     \subsection{copy}{
     \cr
-      \code{MMPR.copy(x)}: Create a new copy of MMPR object.
+      \code{MMPR.copy(x)}: Create a new copy of an MMPR object.
       \describe{
       \item{\code{x}}{MMPR object. }
     }}
@@ -19,12 +19,12 @@
 
 \section{MMPRTile deep copy}{
     \description{
-     Create a copy from MMPRTile object. Normally equal will create a new pointer of the object, so any change to object object one will affect object two.
+    Create a duplicate of an MMPRTile object. Usually, using 'equal' creates a new pointer for the object, causing any modifications made to object one to affect object two as well.
     }
 
    \subsection{copy}{
    \cr
-     \code{MMPRTile.copy(x)}: Create a new copy of MMPRTile matrix.
+     \code{MMPRTile.copy(x)}: Create a new copy of an MMPRTile matrix.
       \describe{
          \item{\code{x}}{MMPRTile matrix. }
       }

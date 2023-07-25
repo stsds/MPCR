@@ -13,10 +13,10 @@
 
 }
 \value{
-MMPR object containing all the values from all objects in the list.
+MMPR object containing values from all objects in the list.
 }
 \description{
-\code{c()} for MMPR objects.
+\code{c()} function for MMPR objects.
 }
 
 \examples{

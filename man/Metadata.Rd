@@ -22,7 +22,7 @@
     }
 }
 \value{
-  Prints/change metadata about MMPR object.
+  Prints/change metadata about an MMPR object.
 }
 \examples{
   \dontrun{

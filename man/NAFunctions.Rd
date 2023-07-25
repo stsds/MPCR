@@ -12,7 +12,7 @@
 
 \arguments{
 \item{object}{MMPR object.}
-\item{index}{Specific index in the MMPR matrix/vector to check. if index is not provided, all the elements will be checked.}
+\item{index}{If a particular index in the MMPR matrix/vector is specified, it will be checked. If no index is provided, all elements will be checked.}
 \item{value}{Value to replace all NAN with.}
 
 

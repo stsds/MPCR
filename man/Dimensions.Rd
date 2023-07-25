@@ -14,10 +14,10 @@
 
 }
 \value{
-The number of rows/cols in MMPR object.
+The number of rows/cols in an MMPR object.
 }
 \description{
-Returns the number of rows or cols in MMPR object.
+Returns the number of rows or cols in an MMPR object.
 }
 \examples{
   \dontrun{

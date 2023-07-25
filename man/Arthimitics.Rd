@@ -32,7 +32,7 @@ Numeric/MMPR objects.
 }
 }
 \value{
-An MMPR object of the same type as the highest precision input.
+An MMPR object, matching the data type of the highest precision input.
 }
 \examples{
 \dontrun{
@@ -41,10 +41,10 @@ s1 <- as.MMPR(1:20,nrow=2,ncol=10,"single")
 s2 <- as.MMPR(21:40,nrow=2,ncol=10,"double")
 
 x <- s1 + s2
-typeof(x) # MMPR matrix 64-bit precision (double)
+typeof(x) # A 64-bit precision (double) MMPR matrix.
 
 s3 <- as.MMPR(1:20,nrow=2,ncol=10,"single")
 x <- s1 + s3
-typeof(x) # MMPR matrix 32-bit precision (single)
+typeof(x) # A 32-bit precision (single) MMPR matrix.
 }
 }

@@ -16,8 +16,8 @@ will be replicated until it matches the output len size.}
 MMPR vector containing the replicated values.
 }
 \description{
-Replicate the given input number of times according to count/len , only one should be set at a time, and in case both
-values are given, only the \bold{len value will have effect}.
+Replicates the given input number of times according to count/len , only one should be set at a time, and in case both
+values are given, only the len value will have effect.
 }
 \examples{
   \dontrun{

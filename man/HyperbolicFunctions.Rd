@@ -8,7 +8,7 @@
 \alias{atanh,Rcpp_MMPR-method}
 \title{Hyperbolic functions}
 \description{
-Hyperbolic functions.
+These functions give the obvious hyperbolic functions. They respectively compute the hyperbolic cosine, sine, tangent, and their inverses, arc-cosine, arc-sine, arc-tangent (or ‘area cosine’, etc).
 }
 \usage{
 \S4method{sinh}{Rcpp_MMPR}(x)

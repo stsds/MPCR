@@ -25,7 +25,7 @@ exp/log functions.
 An MMPR object.
 }
 \item{base}{
-The logarithm base. \bold{if base = 1 , exp(1) is assumed}, only base 1,2, and 10 available.
+The logarithm base. If base = 1, exp(1) is assumed, only base 1,2, and 10 available.
 }
 }
 \value{
