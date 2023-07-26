@@ -36,18 +36,7 @@ if (OpenMP_FOUND)
 endif ()
 
 
-if (APPLE)
-    set(OpenMP_C "${CMAKE_C_COMPILER}")
-    set(OpenMP_C_FLAGS "-Xclang -fopenmp -I/usr/local/Cellar/libomp/16.0.4/include")
-    set(OpenMP_C_LIB_NAMES "libomp")
-    set(OpenMP_libomp_LIBRARY "omp")
-
-    set(OpenMP_CXX "${CMAKE_CXX_COMPILER}")
-    set(OpenMP_CXX_FLAGS "-Xclang -fopenmp -I/usr/local/Cellar/libomp/16.0.4/include")
-    set(OpenMP_CXX_LIB_NAMES "libomp")
-    set(OpenMP_libomp_LIBRARY "omp")
-
-endif ()
+set(BLA_STATIC ON)
 
 
 # Find R and Rcpp using FindR Module

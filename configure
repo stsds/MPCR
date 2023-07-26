@@ -32,6 +32,3 @@ make clean
 make all -j
 
 cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.so -> src"
-#rm -rf "${ABSOLUE_PATH}/inst/deps/"
-#mkdir "${ABSOLUE_PATH}/inst/deps/"
-#find "${ABSOLUE_PATH}/bin/_deps/" -type f -name "*.a" -print0 | xargs -0 cp -t "${ABSOLUE_PATH}/inst/deps/"
