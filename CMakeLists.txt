@@ -35,8 +35,11 @@ if (OpenMP_FOUND)
     message("OpenMp Found")
 endif ()
 
-
-set(BLA_STATIC ON)
+if (${BUILD_SHARED_LIBS})
+    set(BLA_STATIC OFF)
+else ()
+    set(BLA_STATIC ON)
+endif ()
 
 
 # Find R and Rcpp using FindR Module

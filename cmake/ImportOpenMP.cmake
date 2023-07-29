@@ -6,7 +6,7 @@ else ()
     if (APPLE)
         include(${PROJECT_SOURCE_DIR}/cmake/FindOpenMP.cmake)
     else ()
-        find_package(OpenMP QUIET)
+        find_package(OpenMP REQUIRED)
     endif ()
 
     IF (OPENMP_FOUND)
