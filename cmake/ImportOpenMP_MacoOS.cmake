@@ -118,16 +118,15 @@ else ()
         message("Finding OpenMP lib using brew prefix ....")
         execute_process(COMMAND brew --prefix libomp OUTPUT_VARIABLE OMP_PATH)
         string(REGEX REPLACE "\n" "" OMP_PATH "${OMP_PATH}")
-        find_file(_path_to_omp_h omp.h
+        find_library(_path_to_omp_lib omp
                 HINTS ${OMP_PATH}/lib)
 
         if (_path_to_omp_lib)
-            get_filename_component(OpenMP_INCLUDE_DIR ${_path_to_omp_h} DIRECTORY)
+            get_filename_component(OpenMP_LIB_DIR ${_path_to_omp_lib} DIRECTORY)
         else ()
-            set(OpenMP_INCLUDE_DIR "omp_h-NOTFOUND")
+            set(OpenMP_LIB_DIR "omp_lib-NOTFOUND")
         endif ()
     endif ()
-    set(OpenMP_LIB_DIR "omp_lib-NOTFOUND")
 endif ()
 
 function(_OPENMP_FLAG_CANDIDATES LANG)
