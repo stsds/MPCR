@@ -16,15 +16,15 @@ ___
 ## Requirements
 - Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp") in R to install it`.
 - For optimal performance, `MKL` is recommended for building the package,
-in case MKL is not found on the system, the package will automatically download `OpenBLAS` (https://github.com/xianyi/OpenBLAS). Note: Prior to installation, it is essential to set the required environment variables..
-- `Blaspp` (https://github.com/icl-utk-edu/blaspp) (if not found, it will be installed automatically).
-- `Lapackpp` (https://github.com/icl-utk-edu/lapackpp) (if not found, it will be installed automatically).
+in case MKL is not found on the system, the package will automatically download [OpenBLAS](https://github.com/xianyi/OpenBLAS). Note: Prior to installation, it is essential to set the required environment variables..
+- [Blaspp](https://github.com/icl-utk-edu/blaspp) (if not found, it will be installed automatically).
+- [Lapackpp](https://github.com/icl-utk-edu/lapackpp) (if not found, it will be installed automatically).
 
 ___
 
 ## Installation
 To install the package:
-- Clone the MMPR package from [here] (https://github.com/stsds/MMPR).
+- Clone the MMPR package from [here](https://github.com/stsds/MMPR).
 - Checkout to tag `v1.0.0` (Latest stable release).
 - Run `R CMD INSTALL .` from the project root directory.
 ___
@@ -50,7 +50,7 @@ ___
 - Support for three main linear tile-algorithms `potrf, gemm, and trsm`.
 - Support for converters to MMPR-Tile matrix
 
-More details are available in the package [manual](link to manual)
+More details are available in the package [manual](vignettes/MMPR-manual.pdf)
 ___
 
 ## Example
