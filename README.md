@@ -84,18 +84,17 @@ ___
 ## Benchmarking MMPR vs R
 
 ![](benchmarks/graphs/Speedup_of_MMPR_double_precision_to_R_double_precision.png)
-
 **This graph represents the speedup of MMPR double precision object to R double object in three major linear algebra functions.**
 
-![](benchmarks/graphs/speedup_single_to_double.png)
 
+![](benchmarks/graphs/speedup_single_to_double.png)
 **This graph represents the speedup of MMPR single precision object to R double object in three major linear algebra functions.**
 
-![](benchmarks/graphs/Timings_of_different_functions_using_MMPR_objects.png)
 
+![](benchmarks/graphs/Timings_of_different_functions_using_MMPR_objects.png)
 **This graph shows the timing of different functions with different sizes and precisions.**
 
-
+#### Note:
 The speedup of MMPR over R is because MMPR is using MKL blas instead of Rblas, offering parallel computation on the data.
 Normally you can use MKL backend with normal R objects, however, switching blas backends on R is quite complex and needs a lot of modification on the environment itself,
  but in our case MMPR is using MKL without any modification to the environment itself, offering high speed computations with minimal efforts from the user side.
