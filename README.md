@@ -86,6 +86,7 @@ ___
 The speedup of MMPR over R is because MMPR is using MKL blas instead of Rblas, offering parallel computation on the data.
 Normally you can use MKL backend with normal R objects, however, switching blas backends on R is quite complex and needs a lot of modification on the environment itself,
  but in our case MMPR is using MKL without any modification to the environment itself, offering high speed computations with minimal efforts from the user side.
-![](benchmarks/graphs/Speedup of MMPR double precision to R double precision.png)
-![](benchmarks/graphs/Speedup of MMPR single precision to R double precision.png)
-![](benchmarks/graphs/Timings of different functions using MMPR objects.png)
+
+![](https://gitlab.brightskiesinc.com/parallel-programming/MPR/-/blob/devel/benchmarks/graphs/Speedup%20of%20MMPR%20double%20precision%20to%20R%20double%20precision.png)
+![](https://gitlab.brightskiesinc.com/parallel-programming/MPR/-/blob/devel/benchmarks/graphs/Speedup%20of%20MMPR%20single%20precision%20to%20R%20double%20precision.png)
+![](https://gitlab.brightskiesinc.com/parallel-programming/MPR/-/blob/devel/benchmarks/graphs/Timings%20of%20different%20functions%20using%20MMPR%20objects.png)
