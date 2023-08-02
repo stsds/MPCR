@@ -15,7 +15,7 @@
 An MMPR object.
 }
 \description{
-Compute matrix norm.
+Compute norm.
 }
 \examples{
 \dontrun{

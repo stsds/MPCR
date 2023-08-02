@@ -22,7 +22,7 @@
    \item{alpha}{Specifies the scalar alpha.}
    \item{beta}{Specifies the scalar beta.}
     \item{num_threads}{
-      An integer to determine number if thread to run using openmp, \bold{default = 1} (serial with no parallelization).
+      An integer to determine number if thread to run using openmp, default = 1 (serial with no parallelization).
      }
  }
  \value{

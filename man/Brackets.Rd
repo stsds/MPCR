@@ -20,7 +20,7 @@
 }
 \description{
 Extract or replace elements from an MMPR object using the `[`, `[[`, `[<-`, and `[[<-` operators.
-When extracting values, they will be converted to double precision. \bold{However}, if you update a single object, the double value will be cast down to match the precision.
+When extracting values, they will be converted to double precision. However, if you update a single object, the double value will be cast down to match the precision.
 If the MMPR object is a matrix and you access it using the 'i' index, the operation is assumed to be performed in column-major order, or using 'i' and 'j' index.
 }
 \examples{

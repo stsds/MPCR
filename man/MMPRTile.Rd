@@ -3,10 +3,7 @@
 \title{MMPRTile S4 Class}
 
 \description{
-MMPRTile is a mixed-precision tile matrix data-structure with each tile having a specific precision.
-\cr
-\bold{Note:} All tiles must have the same size, and the total size must be divided equally on all tiles.
-\cr
+MMPRTile is a data structure for tile matrices with mixed precision, where each tile possesses a specific precision level.
 }
 
 \section{Constructor}{

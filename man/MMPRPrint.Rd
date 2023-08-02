@@ -13,8 +13,7 @@
 
 }
 \description{
-Show function will print the precision and type of the object, and print will print the meta
-data of the object without printing the values. Function \bold{x$PrintValues()} should be used to print the values.
+Prints the precision and type of the object, and print will print the meta data of the object without printing the values. Function x$PrintValues() should be used to print the values."
 }
 \details{
 Prints metadata about the object and some values.

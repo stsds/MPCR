@@ -8,7 +8,7 @@
 \arguments{
 \item{x}{An MMPR object.}
 
-\item{only.values}{Should only the values (and not the vectors) be returned?}
+\item{only.values}{(TRUE/FALSE)?}
 
 }
 \value{

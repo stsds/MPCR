@@ -19,14 +19,13 @@
  \arguments{
    \item{a}{MMPR Matrix A.}
    \item{b}{MMPR Matrix B.}
-   \item{upper_triangle}{What part of the matrix A is referenced (if TRUE upper triangle is referenced), the opposite triangle
-    being assumed to be zero.}
+   \item{upper_triangle}{If the value is TRUE, the referenced part of matrix A corresponds to the upper triangle, with the opposite triangle assumed to contain zeros.}
    \item{transpose}{If TRUE, the transpose of A is used.}
    \item{side}{'R for Right side, 'L' for Left side.}
    \item{alpha}{Factor used for A, If alpha is zero, A is not accessed.}
  }
  \value{
-   MMPR Matrix.
+   An MMPR Matrix.
  }
  \examples{
    \dontrun{

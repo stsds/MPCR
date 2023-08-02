@@ -9,13 +9,13 @@
 \method{MMPR.cbind}{Rcpp_MMPR}(x,y)
 }
 \arguments{
-\item{x}{MMPR object.}
-\item{y}{MMPR object.}
+\item{x}{An MMPR object.}
+\item{y}{An MMPR object.}
 
 
 }
 \value{
-An MMPR matrix of the same type as the highest precision input.
+An MMPR object, matching the data type of the highest precision input.
 }
 \description{
 \code{rbind()} and \code{cbind()} for MMPR objects.

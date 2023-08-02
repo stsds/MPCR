@@ -3,14 +3,14 @@
 \title{MMPR S4 Class}
 
 \description{
-MMPR is a multi-precision vector/matrix, that enables the creation of vector/matrix with three different precisions (16-bit, 32-bit, and 64-bit).
+MMPR is a multi-precision vector/matrix, that enables the creation of vector/matrix with three different precisions (16-bit (half), 32-bit(single), and 64-bit(double)).
 }
 
 \section{Constructor}{
   \code{\link{new}} Creates a new instance of zero values of the \code{MMPR} class.
   \code{new(MMPR,size, "precision")}
   \describe{
-  \item{\code{size}}{Total number of values to allocate memory for.}
+  \item{\code{size}}{The total number of values for which memory needs to be allocated.}
   \item{\code{precision}}{String to indicate the precision of MMPR object ("half","single", or "double").}
 }
 }
@@ -32,7 +32,7 @@ MMPR is a multi-precision vector/matrix, that enables the creation of vector/mat
   The following methods are available for objects of class \code{MMPR}:
 
   \subsection{PrintValues}{
-    \code{PrintValues()}: Prints all the values stored in the matrix or vector, plus meta-data about the object.
+    \code{PrintValues()}: Prints all the values stored in the matrix or vector, along with metadata about the object.
   }
 
   \subsection{ToMatrix}{

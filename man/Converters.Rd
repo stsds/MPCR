@@ -16,19 +16,19 @@
          \item{\code{data}}{R matrix/vector.}
          \item{\code{nrow}}{Number of rows of the new MMPR matrix, \bold{default = zero} which means a vector will be created.}
          \item{\code{ncol}}{Number of cols of the new MMPR matrix, \bold{default = zero} which means a vector will be created.}
-         \item{\code{precision}}{String indicating the precision of the new MMPR object (half, single, or double).}
+         \item{\code{precision}}{String indicates the precision of the new MMPR object (half, single, or double).}
       }
    }
 }
 
 \section{R Converter}{
     \description{
-    Convert MMPR object to R object.
+    Convert an MMPR object to R object.
     }
 
    \subsection{R vector converter}{
    \cr
-     \code{MMPR.ToNumericVector(x)}: Converts MMPR object to numeric R vector.
+     \code{MMPR.ToNumericVector(x)}: Converts an MMPR object to a numeric R vector.
       \describe{
          \item{\code{x}}{MMPR object.}
       }
@@ -36,7 +36,7 @@
 
       \subsection{R matrix converter}{
       \cr
-        \code{MMPR.ToNumericMatrix(x)}: Converts MMPR object to numeric R matrix.
+        \code{MMPR.ToNumericMatrix(x)}: Converts an MMPR object to a numeric R matrix.
          \describe{
             \item{\code{x}}{MMPR object.}
          }

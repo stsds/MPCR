@@ -4,7 +4,7 @@
 \title{MMPR GEMM  (Matrix-Matrix Multiplication)}
 
 \description{
-   Performs matrix-matrix multiplication of two given MMPR matrices to \bold{performs:}
+   Performs matrix-matrix multiplication of two given MMPR matrices to performs:
    \cr
    C = alpha A * B + beta C
    \cr
@@ -18,9 +18,9 @@
    \item{a}{An MMPR matrix A.}
    \item{b}{An MMPR matrix B, if NULL, the function will perform syrk operation from blas.}
    \item{c}{Input/Output MMPR matrix C.}
-   \item{transpose_a}{A flag to indicate whether transpose matrix A should be used ,if B is NULL and transpose_a =TRUE
+   \item{transpose_a}{A flag to indicate whether transpose matrix A should be used, if B is NULL and transpose_a =TRUE
    \cr
-   The function will perform the following operation :
+   The function will perform the following operation:
    \cr
    \bold{C}=\bold{alphaA^T}X\bold{A}+\bold{betaC}.
    }
@@ -29,7 +29,7 @@
    \item{beta}{Specifies the scalar beta.}
  }
  \value{
-   An MMPR matrix C.
+   An MMPR matrix.
  }
  \examples{
    \dontrun{

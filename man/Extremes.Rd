@@ -6,7 +6,7 @@
 \alias{which.max,Rcpp_MMPR-method}
 \title{Min-Max Functions}
 \description{
-    Min-Max functions for MMPR objects \bold{values and indices}, all NA values are disregarded.
+    Min-Max functions for MMPR objects values and indices, all NA values are disregarded.
 }
 \usage{
 \S4method{min}{Rcpp_MMPR}(x)
