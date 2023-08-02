@@ -1,0 +1,13 @@
+<map id="mpr::operations::binary::PerformOperation" name="mpr::operations::binary::PerformOperation">
+<area shape="rect" id="node1" title="Perform Operation on 2 MPR Objects according to provided Operation aFun." alt="" coords="5,232,180,273"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1binary.html#a433814c06568ac1ef97ca864088bfe6a" title="Function to check whether the input MPR objects Dimensions match the required Dimensions ,..." alt="" coords="235,46,410,88"/>
+<area shape="rect" id="node3" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="465,28,617,55"/>
+<area shape="rect" id="node4" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="471,80,612,107"/>
+<area shape="rect" id="node5" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="469,135,613,162"/>
+<area shape="rect" id="node6" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="251,214,394,240"/>
+<area shape="rect" id="node7" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="250,264,395,291"/>
+<area shape="rect" id="node8" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="250,315,395,342"/>
+<area shape="rect" id="node9" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="251,366,394,392"/>
+<area shape="rect" id="node10" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="228,416,417,443"/>
+<area shape="rect" id="node11" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="253,467,392,494"/>
+</map>

@@ -16,15 +16,18 @@
 #                              under this path
 
 
-if (NOT R_ROOT_PATH)
+if (DEFINED ENV{R_HOME})
+    set(R_ROOT_PATH "$ENV{R_HOME}")
+
+else ()
     execute_process(COMMAND R RHOME OUTPUT_VARIABLE R_HOME)
     string(REGEX REPLACE "\n" "" R_HOME "${R_HOME}")
     set(R_ROOT_PATH "${R_HOME}")
-    message("R Home Path :  " ${R_ROOT_PATH})
+
 endif ()
 
 if (NOT R_INCLUDE_PATH)
-    execute_process(COMMAND Rscript -e "cat(Sys.getenv('R_INCLUDE_DIR'))" OUTPUT_VARIABLE R_INCLUDE_DIR)
+    execute_process(COMMAND ${R_ROOT_PATH}/bin/Rscript -e "cat(Sys.getenv('R_INCLUDE_DIR'))" OUTPUT_VARIABLE R_INCLUDE_DIR)
     string(REGEX REPLACE "\n" "" R_INCLUDE_DIR "${R_INCLUDE_DIR}")
     set(R_INCLUDE_PATH "${R_INCLUDE_DIR}")
     message("R Include Path :  " ${R_INCLUDE_PATH})
@@ -32,24 +35,36 @@ endif ()
 
 
 if (NOT RCPP_LIB_PATH)
-    execute_process(COMMAND Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE RCPP_LIB_PATH)
+    execute_process(COMMAND ${R_ROOT_PATH}/bin/Rscript ${CMAKE_MODULE_PATH}/FindRLibraryPath.R OUTPUT_VARIABLE RCPP_LIB_PATH)
     set(RCPP_LIB_PATH ${RCPP_LIB_PATH})
     message("Rcpp Lib Path :  " ${RCPP_LIB_PATH})
 endif ()
 
+message("R Home Path :  " ${R_ROOT_PATH})
 
 if (R_ROOT_PATH)
 
-    #find libs
-    find_library(
-            R_LIB
-            REQUIRED
-            NAMES "libR.so"
-            PATHS ${R_ROOT_PATH}
-            PATH_SUFFIXES "lib" "lib64" "bin"
-            NO_DEFAULT_PATH
-    )
+    if (APPLE)
+        find_library(
+                R_LIB
+                REQUIRED
+                NAMES "libR.dylib"
+                PATHS ${R_ROOT_PATH}
+                PATH_SUFFIXES "lib" "lib64" "bin"
+                NO_DEFAULT_PATH
+        )
+    else ()
+        #find libs
+        find_library(
+                R_LIB
+                REQUIRED
+                NAMES "libR.so"
+                PATHS ${R_ROOT_PATH}
+                PATH_SUFFIXES "lib" "lib64" "bin"
+                NO_DEFAULT_PATH
+        )
 
+    endif ()
 
 else ()
     error("R is not installed ")

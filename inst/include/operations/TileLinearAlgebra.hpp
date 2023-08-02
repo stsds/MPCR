@@ -19,13 +19,16 @@ namespace mpr {
              * @param[in] aOverWriteInput
              * if true , the input will be overwritten with the output,otherwise
              * a new copy will be created.
+             * @param[in] aNumThreads
+             * int to decide the number of threads used in OpenMP, default = 1
+             * (sequential)
              * @returns
              * MPRTile Matrix containing decomposition result.
              *
              */
             MPRTile *
             TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput = true,
-                         const unsigned int &aNumThreads = 8);
+                         const unsigned int &aNumThreads = 1);
 
             /**
              * @brief
@@ -47,13 +50,17 @@ namespace mpr {
              * Factor multiplied to Matrix A
              * @param [in] aBeta
              * Factor multiplied to Matrix C
+             * @param[in] aNumThreads
+             * int to decide the number of threads used in OpenMP, default = 1
+             * (sequential)
              *
              */
             void
             TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
                      const bool &aTransposeA = false,
                      const bool &aTransposeB = false,
-                     const double &aAlpha = 1, const double &aBeta = 1);
+                     const double &aAlpha = 1, const double &aBeta = 1,
+                     const unsigned int &aNumThreads = 1);
 
 
             /**

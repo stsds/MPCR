@@ -1,0 +1,7 @@
+<map id="DataType::CanBeMatrix" name="DataType::CanBeMatrix">
+<area shape="rect" id="node1" title="Return whether this Dimensions can be used to convert Vector to Matrix." alt="" coords="612,31,787,57"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1basic.html#a46db36a384abd650d7128466773704a5" title="Get Diagonal of a Matrix. if Vector is Being passed to the function its Dimensions Object Must be pas..." alt="" coords="397,23,564,65"/>
+<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a73c3d1eb8c0a8ad34bf1b685b16c2e2f" title="R adapter for Getting Diagonal of a Matrix. MPR Object must be a Matrix." alt="" coords="205,5,317,32"/>
+<area shape="rect" id="node5" href="$RBasicUtilities_8hpp.html#a124b24199018e5d0ef8465b2d8bbb481" title="R adapter for Getting Diagonal of a Matrix. MPR can be a Vector , but dims must be passed." alt="" coords="173,56,349,83"/>
+<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="RQRDecompositionQty" name="RQRDecompositionQty">
+<area shape="rect" id="node1" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="5,128,176,155"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="224,99,397,125"/>
+<area shape="rect" id="node3" href="$namespacempr_1_1operations_1_1linear.html#acca465973a6d07f4b116a504bf0f00ba" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="225,150,396,191"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="469,5,611,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="467,56,613,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="467,107,613,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="464,157,616,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="469,208,611,235"/>
+<area shape="rect" id="node9" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="445,259,635,285"/>
+<area shape="rect" id="node10" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="471,309,609,336"/>
+</map>

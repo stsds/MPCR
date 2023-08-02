@@ -1,0 +1,5 @@
+<map id="mpr::operations::math::IsInFinite" name="mpr::operations::math::IsInFinite">
+<area shape="rect" id="node1" title="Checks if a given MPR Object values are InFinite or not." alt="" coords="312,5,479,47"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#a5e249c17bf45b0c779b5cb6013e1342d" title="Check if elements is infinite or not." alt="" coords="173,13,264,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
+</map>

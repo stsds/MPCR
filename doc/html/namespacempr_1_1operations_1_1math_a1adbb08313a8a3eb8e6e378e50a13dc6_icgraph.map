@@ -1,0 +1,10 @@
+<map id="mpr::operations::math::PerformTrigOperation" name="mpr::operations::math::PerformTrigOperation">
+<area shape="rect" id="node1" title="Perform TrigOperation on MPR Object according to provided Function aFun." alt="" coords="284,125,453,166"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#a3dbb043b30e5351a55ae05edcd8e1037" title="Perform Cos operation on MPR Object." alt="" coords="177,5,232,32"/>
+<area shape="rect" id="node4" href="$RMathematicalOperations_8hpp.html#a08d409ce90c5bf80a156b1b91269e327" title="Perform Cosh operation on MPR Object." alt="" coords="173,56,236,83"/>
+<area shape="rect" id="node5" href="$RMathematicalOperations_8hpp.html#a6c1f897b31b845014633a3c5400295a7" title="Perform Sin operation on MPR Object." alt="" coords="179,107,230,133"/>
+<area shape="rect" id="node6" href="$RMathematicalOperations_8hpp.html#ae485c972fc1e580d2645c53dd5240a19" title="Perform Sinh operation on MPR Object." alt="" coords="175,157,234,184"/>
+<area shape="rect" id="node7" href="$RMathematicalOperations_8hpp.html#ae8e8504567d74a1d945c0b84dd0dd1a0" title="Perform Tan operation on MPR Object." alt="" coords="179,208,231,235"/>
+<area shape="rect" id="node8" href="$RMathematicalOperations_8hpp.html#aff4362b93c6289bb186d9b3f3f28de91" title="Perform Tanh operation on MPR Object." alt="" coords="175,259,235,285"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,132,125,159"/>
+</map>

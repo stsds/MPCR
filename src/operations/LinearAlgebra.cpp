@@ -243,6 +243,8 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     auto rows_a = aInputA.GetNRow();
     auto cols_a = aInputA.GetNCol();
+    bool flag_to_matrix=false;
+
 
     if (rows_a != cols_a) {
         MPR_API_EXCEPTION("Cannot Solve This Matrix , Must be a Square Matrix",
@@ -253,6 +255,10 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto cols_b = rows_b;
 
     if (!aSingle) {
+        if(!aInputB.IsMatrix()){
+            flag_to_matrix=true;
+            aInputB.SetDimensions(aInputB.GetNCol(),1);
+        }
         rows_b = aInputB.GetNRow();
         cols_b = aInputB.GetNCol();
     }
@@ -301,6 +307,9 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     aOutput.SetSize(cols_a * cols_b);
     aOutput.SetDimensions(cols_a, cols_b);
+    if(flag_to_matrix){
+        aInputB.ToVector();
+    }
 
     delete[] pIpiv;
 }
@@ -311,9 +320,17 @@ void
 linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const size_t &aCol, const bool &aUpperTri,
                   const bool &aTranspose, const char &aSide,const double &aAlpha) {
-    if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
+
+    bool flag_transform=false;
+    if (!aInputA.IsMatrix()) {
         MPR_API_EXCEPTION(
             "Inputs Must Be Matrices", -1);
+    }
+
+    if(!aInputB.IsMatrix()){
+        aInputB.SetDimensions(aInputB.GetNCol(),1);
+        flag_transform=true;
+
     }
     auto row_a = aInputA.GetNRow();
     auto row_b = aInputB.GetNRow();
@@ -352,6 +369,9 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                row_b);
 
     aOutput.SetData((char *) pData_in_out);
+    if(flag_transform){
+        aInputB.ToVector();
+    }
 
 
 }

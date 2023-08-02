@@ -1115,7 +1115,7 @@ DataType::DeterminantDispatcher(double &aResult) {
         return;
     }
 
-    pData.reserve(this->mSize);
+    pData.resize(this->mSize);
     std::copy(data, data + this->mSize, pData.begin());
 
 

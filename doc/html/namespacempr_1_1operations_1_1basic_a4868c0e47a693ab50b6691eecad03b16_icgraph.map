@@ -1,0 +1,5 @@
+<map id="mpr::operations::basic::IsFloat" name="mpr::operations::basic::IsFloat">
+<area shape="rect" id="node1" title="Check if MPR object is 32&#45;bit Precision." alt="" coords="296,5,463,47"/>
+<area shape="rect" id="node2" href="$RBasicUtilities_8hpp.html#a9f426ffa4cc3d5a4558c0efbe30544c3" title="R Adapter for Checking if MPR object is 32&#45;bit Precision." alt="" coords="173,13,248,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
+</map>

@@ -191,7 +191,7 @@ RIsNa(DataType *apInput, long aIdx) {
         delete pOutput;
         return vec;
     } else {
-        return Rcpp::wrap(apInput->IsNA(aIdx));
+        return Rcpp::wrap(apInput->IsNA(aIdx-1));
     }
 
 }

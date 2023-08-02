@@ -11,7 +11,7 @@ using namespace mpr::operations;
 
 DataType *
 RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
-      const bool &aTranspose, const char &aSide, const double &aAlpha){
+      const bool &aTranspose, const char &aSide, const double &aAlpha) {
 
     Promoter pr(2);
     pr.Insert(*aInputA);
@@ -22,12 +22,13 @@ RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
     auto pOutput = new DataType(precision);
 
     SIMPLE_DISPATCH(precision, linear::BackSolve, *aInputA, *aInputB, *pOutput,
-                    aInputA->GetNCol(), aUpperTri, aTranspose,aSide,aAlpha)
+                    aInputA->GetNCol(), aUpperTri, aTranspose, aSide, aAlpha)
 
     pr.DePromote();
 
     return pOutput;
 }
+
 
 void
 RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
@@ -299,7 +300,7 @@ RNorm(DataType *aInputA, const std::string &aType) {
 
 
 std::vector <DataType>
-RQRDecomposition(DataType *aInputA) {
+RQRDecomposition(DataType *aInputA, const double &aTolerance) {
 
     auto precision = aInputA->GetPrecision();
 
@@ -309,7 +310,7 @@ RQRDecomposition(DataType *aInputA) {
     auto rank = new DataType(precision);
 
     SIMPLE_DISPATCH(precision, linear::QRDecomposition, *aInputA, *qr, *qraux,
-                    *pivot, *rank)
+                    *pivot, *rank, aTolerance)
 
     std::vector <DataType> output;
     output.push_back(*qr);
@@ -435,6 +436,18 @@ RQRDecompositionQty(DataType *aInputA, DataType *aInputB, DataType *aDvec) {
 
 std::vector <DataType>
 REigen(DataType *aInputA, const bool &aOnlyValues) {
+
+    /**
+     * This if condition is added since MKL eigen routine has a bug with float
+     * affecting the runtime of the function.
+     *
+     * so for this function, any non double matrix will be converted to double to
+     * avoid this timing problem.
+     *
+     **/
+    if (aInputA->GetPrecision() != DOUBLE) {
+        aInputA->ConvertPrecision(DOUBLE);
+    }
 
     auto precision = aInputA->GetPrecision();
     DataType *pVector = nullptr;

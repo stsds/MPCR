@@ -1,0 +1,6 @@
+<map id="mpr::operations::basic::GetDiagonal" name="mpr::operations::basic::GetDiagonal">
+<area shape="rect" id="node1" title="Get Diagonal of a Matrix. if Vector is Being passed to the function its Dimensions Object Must be pas..." alt="" coords="397,23,564,65"/>
+<area shape="rect" id="node2" href="$RBasicUtilities_8hpp.html#a73c3d1eb8c0a8ad34bf1b685b16c2e2f" title="R adapter for Getting Diagonal of a Matrix. MPR Object must be a Matrix." alt="" coords="205,5,317,32"/>
+<area shape="rect" id="node4" href="$RBasicUtilities_8hpp.html#a124b24199018e5d0ef8465b2d8bbb481" title="R adapter for Getting Diagonal of a Matrix. MPR can be a Vector , but dims must be passed." alt="" coords="173,56,349,83"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+</map>

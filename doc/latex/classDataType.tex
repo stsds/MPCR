@@ -1,0 +1,1594 @@
+\hypertarget{classDataType}{}\doxysection{Data\+Type Class Reference}
+\label{classDataType}\index{DataType@{DataType}}
+
+
+{\ttfamily \#include $<$Data\+Type.\+hpp$>$}
+
+
+
+Collaboration diagram for Data\+Type\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{classDataType__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDataType_a556051021c23d1428fffad935aad890b}{Data\+Type}} ()=default
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_aec9fde1ba0448c0f131bc2ece69791bc}{Data\+Type}} (size\+\_\+t a\+Size, \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_a7db8e7fa3150e7b1f4bec0d4780eedd7}{Data\+Type}} (std\+::vector$<$ double $>$ \&a\+Values, \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Constructor from a vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_abc51c5eaf104abfcc58043c3f4093188}{Data\+Type}} (std\+::vector$<$ double $>$ a\+Values, std\+::string a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Constructor from a vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_ac08aa0d4d152a00e84f9da221f659506}{Data\+Type}} (std\+::vector$<$ double $>$ \&a\+Values, const size\+\_\+t \&a\+Row, const size\+\_\+t \&a\+Col, const std\+::string \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Matrix Constructor from a vector of values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_aec88dacc1b232a1837a61190d5fd9458}{Data\+Type}} (const \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Data\+Type)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Copy Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_aad7d91c6d58d2a304f19233cea2eac1a}{Data\+Type}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Data\+Type, const \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Copy Constructor with a given Precision. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_a82368adfaf0fc83ebb37a700da8af804}{Data\+Type}} (size\+\_\+t a\+Size, const std\+::string \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_a99a4bbda394ffd7024f9029d3a4f6831}{Data\+Type}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col, \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_a07360b7a1f3296fba3fa2df13be15df5}{Data\+Type}} (size\+\_\+t a\+Size, int a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_aaae824e8d22c063bc6365879538f060a}{Data\+Type}} (\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} a\+Precision)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Constructor ,Creates Datatype Object with nothing more than a precision initialized. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \& \mbox{\hyperlink{classDataType_a712ee6d0294e6174b8be177c8abaedd1}{operator=}} (const \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Data\+Type)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Copy Operator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classDataType_a58135c1513cac74aa6f13b0cd3304fa9}{Perform\+Plus\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Performing Plus Operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classDataType_a1dce75fb7e4de5fe72a20bc47b080110}{Perform\+Minus\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Performing Minus Operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classDataType_a99e422dec501ae9885302063df31f517}{Perform\+Mult\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Performing Multiply Operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classDataType_a41e8b9ed35074558e5264f5f136d9524}{Perform\+Div\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Performing Division Operation on M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classDataType_a2b0f6830fedc1bb4aaaf7cdb432a8ee5}{Perform\+Pow\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Performing Power Operation on M\+PR Object. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{classDataType_a9682733283d07903083e6d552a193ca3}{Greater\+Than\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Checking Whether M\+PR Object is Greater than a\+Obj. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{classDataType_a6d3077cd8399d5f978e203e4937cb052}{Greater\+Than\+Or\+Equal\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Checking Whether M\+PR Object is Greater than or equal a\+Obj. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{classDataType_a44f2248dbe1c96e5710590ec4eeb8642}{Less\+Than\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Checking Whether M\+PR Object is Less than a\+Obj. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{classDataType_af7522309152f3688a18e1ac7525fb25f}{Less\+Than\+Or\+Equal\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Checking Whether M\+PR Object is Less than or equal a\+Obj. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{classDataType_a88d4b85a0143f28ee2d041832b636954}{Equal\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Checking Whether M\+PR Object is Equal to a\+Obj. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{classDataType_a1a1137b47354835ff643db701d2cb4bc}{Not\+Equal\+Dispatcher}} (S\+E\+XP a\+Obj)
+\begin{DoxyCompactList}\small\item\em R-\/\+Adapter for Checking Whether M\+PR Object is Not Equal to a\+Obj. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType_afdf99866af0d5233b75c90c756af0bfb}{$\sim$\+Data\+Type}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} De-\/\+Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_a40564ccc4c22ef6e8c4b6be15a25f793}{Clear\+Up}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDataType}{Data\+Type}} Clear\+Up Function to Clear all Pointers and data inside except Precision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_aff98a4c9cd36482a11e496eb51d2cd18}{To\+Matrix}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col)
+\begin{DoxyCompactList}\small\item\em Changes a Vector to a Matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_a40e689a5337288e5630e6b0a0e605b46}{To\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Changes a Matrix to a Vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_aa9e253f541e2f0061fadf2798ea4d184}{Print}} ()
+\begin{DoxyCompactList}\small\item\em Prints all data in the Vector. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classDataType_a2150d8ef445e8db1eef0001c6d646da0}{Get\+Val}} (size\+\_\+t a\+Index)
+\begin{DoxyCompactList}\small\item\em Get Values in the Vector according to Index (0-\/based Indexing) \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classDataType_acee49fc11302eec7d48d5fac2f2a2286}{Get\+Val\+Matrix}} (const size\+\_\+t \&a\+Row, const size\+\_\+t \&a\+Col)
+\begin{DoxyCompactList}\small\item\em Get Values in the Matrix according to Index (0-\/based Indexing) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_a5449d084d7fdc883df75347f4b1e36e8}{Set\+Val}} (size\+\_\+t a\+Index, double \mbox{\hyperlink{BinaryOperations_8cpp_afd124dd7cc774a6d6402b5c681c7fc3f}{a\+Val}})
+\begin{DoxyCompactList}\small\item\em Set Values in the Vector according to Index (0-\/based Indexing) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_adb7c5b8e5f43f27afb46e179095f944a}{Set\+Val\+Matrix}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col, double \mbox{\hyperlink{BinaryOperations_8cpp_afd124dd7cc774a6d6402b5c681c7fc3f}{a\+Val}})
+\begin{DoxyCompactList}\small\item\em Set Values in the Matrix according to Row,col (0-\/based Indexing) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} \& \mbox{\hyperlink{classDataType_a0ce6eb097e7558135f9d958485b50fad}{Get\+Precision}} ()
+\begin{DoxyCompactList}\small\item\em Get Precision of the Object. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{classDataType_a45cc38d26accdd88f151365af69d3f52}{Get\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Get Data of Vector. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classDataType_a1212ec3ead86135b62555e6afc1076da}{Get\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Get Size of Vector or Matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_ab66a88e82a8c6f24b1e2b79bb665bf15}{Set\+Size}} (size\+\_\+t a\+Size)
+\begin{DoxyCompactList}\small\item\em Set Size of Vector or Matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_ac0956491062a2114df16dd1bd557d25a}{Set\+Precision}} (\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} a\+Precision)
+\begin{DoxyCompactList}\small\item\em Set Precision of Vector or Matrix (Currently it clears up all data) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDataType_ac4d6e129d94d66a52ac4ad21f60843cb}{Is\+Matrix}} () const
+\begin{DoxyCompactList}\small\item\em bool indicating whether it\textquotesingle{}s a Matrix or Vector \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classDataType_a68b2fa13423bed79444a721963249831}{Get\+Matrix\+Index}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col)
+\begin{DoxyCompactList}\small\item\em Get Index of Matrix in Row-\/\+Wise Representation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_a833001ac9e0685db373f2dc3600df129}{Set\+Data}} (char $\ast$a\+Data)
+\begin{DoxyCompactList}\small\item\em Set Data Buffer. (Clears the Current Buffer) \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classDataType_aa73b26ced781e189d2c6554b4a3a5996}{Get\+N\+Row}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Rows. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classDataType_a2ee1d39ae086769460ffb93b219cd473}{Get\+N\+Col}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Columns. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_a8c90b3a1121a4adb953b402c85199b81}{Set\+Dimensions}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col)
+\begin{DoxyCompactList}\small\item\em Set Matrix \mbox{\hyperlink{structDimensions}{Dimensions}} (throw Error in case the \mbox{\hyperlink{structDimensions}{Dimensions}} can\textquotesingle{}t cover all the data available) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$ \mbox{\hyperlink{classDataType_a9afc2032a007aab9d6f7631aaac432df}{Get\+Dimensions}} () const
+\begin{DoxyCompactList}\small\item\em Get Matrix \mbox{\hyperlink{structDimensions}{Dimensions}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDataType_aa778b29a4b0bd369e94a1b709dc83dbb}{Can\+Be\+Matrix}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col) const
+\begin{DoxyCompactList}\small\item\em Return whether this \mbox{\hyperlink{structDimensions}{Dimensions}} can be used to convert Vector to Matrix. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDataType_a5de3c1c9fd14b20f4dc1ff3a11678e2f}{Is\+NA}} (const size\+\_\+t \&a\+Index)
+\begin{DoxyCompactList}\small\item\em Check Whether Element at index is N\+AN or Not. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ $\ast$ \mbox{\hyperlink{classDataType_aca1b6928683cbc052869c2e09ddfd14c}{Is\+NA}} (\mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$\&ap\+Dimensions)
+\begin{DoxyCompactList}\small\item\em Check Whether M\+PR Elements are NA or Not. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classDataType_a21989e8d529f631b62136d8304bb0138}{Get\+Object\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Get total size of Memory used by M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classDataType_a6a4056c3fc54575745948321625f3f2a}{Get\+Element\+Vector}} (const size\+\_\+t \&a\+Index)
+\begin{DoxyCompactList}\small\item\em Get Element at Idx from M\+PR Vector as M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classDataType_aecf5b1bde9889156d296d16cdd1143d4}{Get\+Element\+Matrix}} (const size\+\_\+t \&a\+Row, const size\+\_\+t \&a\+Col)
+\begin{DoxyCompactList}\small\item\em Get Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+PR Matrix as M\+PR Object. \end{DoxyCompactList}\item 
+const bool \mbox{\hyperlink{classDataType_a4c3c19af2ffa337460947f2d215996a4}{Is\+Data\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Check if a Casted Memory Address is a \mbox{\hyperlink{classDataType}{Data\+Type}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_a8b6e73e25a152857dd3e39a982c6745f}{Convert\+Precision}} (const \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em Convert M\+PR Object Precision. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ $\ast$ \mbox{\hyperlink{classDataType_a74ad8221d457d75eb561b9fcfafea549}{Convert\+To\+Numeric\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Convert M\+PR Values to R-\/\+Numeric Vector (vector double will be wrapped to match R-\/\+Numeric Vector) \end{DoxyCompactList}\item 
+Rcpp\+::\+Numeric\+Matrix $\ast$ \mbox{\hyperlink{classDataType_a065193acb3a756b1af9521d708a47998}{Convert\+To\+R\+Matrix}} ()
+\begin{DoxyCompactList}\small\item\em Convert M\+PR Values to R-\/\+Numeric Matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_acdbd0ea3275837ee91b29609968588b0}{Set\+Dimensions}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Set M\+PR Object \mbox{\hyperlink{structDimensions}{Dimensions}} according to given input. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_aec80bd3dbce793daf24077e58ff4c85d}{Transpose}} ()
+\begin{DoxyCompactList}\small\item\em Transpose M\+PR Matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_aeb8504b46931da2ed87bdc7a83eb1d85}{Set\+Values}} (std\+::vector$<$ double $>$ \&a\+Values)
+\begin{DoxyCompactList}\small\item\em Set and cast values in the data vector according to Vector of double values. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classDataType_abb7521b87a1b93bfafe33c45e4078f3f}{Print\+Row}} (const size\+\_\+t \&a\+Row\+Idx)
+\begin{DoxyCompactList}\small\item\em Print a whole Row (given) in case of Matrix . used for printing M\+PR Tile. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDataType_acfb34852b706a2499a92cf8636b9fd36}{Fill\+Triangle}} (const double \&a\+Value, const bool \&a\+Upper\+Triangle=true)
+\begin{DoxyCompactList}\small\item\em Fills Upper or Lower Triangle with a given value Note\+: the Input must be a square Matrix. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classDataType_a8826ee1aed9f50368f7e3f3b7fe3675a}{Sum}} ()
+\begin{DoxyCompactList}\small\item\em Returns the sum of all elements in M\+PR Object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classDataType_a84730c02c3631c9319213a155b307546}{Product}} ()
+\begin{DoxyCompactList}\small\item\em Returns the product of all elements in M\+PR Object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classDataType_a64e2145351ecccf50200d86432db2208}{Determinant}} ()
+\begin{DoxyCompactList}\small\item\em Returns the determinant of all elements in M\+PR Object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classDataType}{Data\+Type}} Class creates an array of (16/32/64)-\/Bit Precision that you can access throw R as C++ object. Can Be represented as Matrix with Column Major representation. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDataType_a556051021c23d1428fffad935aad890b}\label{classDataType_a556051021c23d1428fffad935aad890b}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [1/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} default constructor. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a556051021c23d1428fffad935aad890b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aec9fde1ba0448c0f131bc2ece69791bc}\label{classDataType_aec9fde1ba0448c0f131bc2ece69791bc}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [2/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Size,  }\item[{\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}}}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Size} & Size of Vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as a Precision E\+N\+UM object) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aec9fde1ba0448c0f131bc2ece69791bc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a7db8e7fa3150e7b1f4bec0d4780eedd7}\label{classDataType_a7db8e7fa3150e7b1f4bec0d4780eedd7}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [3/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$ \&}]{a\+Values,  }\item[{\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}}}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Constructor from a vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Values} & Vector of values \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as a Precision E\+N\+UM object) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a7db8e7fa3150e7b1f4bec0d4780eedd7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_abc51c5eaf104abfcc58043c3f4093188}\label{classDataType_abc51c5eaf104abfcc58043c3f4093188}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [4/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$}]{a\+Values,  }\item[{std\+::string}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Constructor from a vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Values} & Vector of values \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as a string Precision) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_abc51c5eaf104abfcc58043c3f4093188_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_ac08aa0d4d152a00e84f9da221f659506}\label{classDataType_ac08aa0d4d152a00e84f9da221f659506}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [5/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$ \&}]{a\+Values,  }\item[{const size\+\_\+t \&}]{a\+Row,  }\item[{const size\+\_\+t \&}]{a\+Col,  }\item[{const std\+::string \&}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Matrix Constructor from a vector of values. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Values} & Vector of values \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Rows. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Cols. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as a Precision E\+N\+UM object) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_ac08aa0d4d152a00e84f9da221f659506_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aec88dacc1b232a1837a61190d5fd9458}\label{classDataType_aec88dacc1b232a1837a61190d5fd9458}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [6/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Data\+Type }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Copy Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Data\+Type} & \mbox{\hyperlink{classDataType}{Data\+Type}} object to copy its content \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aec88dacc1b232a1837a61190d5fd9458_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aad7d91c6d58d2a304f19233cea2eac1a}\label{classDataType_aad7d91c6d58d2a304f19233cea2eac1a}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [7/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Data\+Type,  }\item[{const \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} \&}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Copy Constructor with a given Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Data\+Type} & \mbox{\hyperlink{classDataType}{Data\+Type}} object to copy its content \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aad7d91c6d58d2a304f19233cea2eac1a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a82368adfaf0fc83ebb37a700da8af804}\label{classDataType_a82368adfaf0fc83ebb37a700da8af804}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [8/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Size,  }\item[{const std\+::string \&}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Size} & Size of Vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as a String) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a82368adfaf0fc83ebb37a700da8af804_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a99a4bbda394ffd7024f9029d3a4f6831}\label{classDataType_a99a4bbda394ffd7024f9029d3a4f6831}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [9/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col,  }\item[{\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}}}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number Of Rows in Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number Of Columns in Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as a Precision E\+N\+UM object) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a99a4bbda394ffd7024f9029d3a4f6831_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a07360b7a1f3296fba3fa2df13be15df5}\label{classDataType_a07360b7a1f3296fba3fa2df13be15df5}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [10/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Size,  }\item[{int}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Size} & Size of Vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as an int) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a07360b7a1f3296fba3fa2df13be15df5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aaae824e8d22c063bc6365879538f060a}\label{classDataType_aaae824e8d22c063bc6365879538f060a}} 
+\index{DataType@{DataType}!DataType@{DataType}}
+\index{DataType@{DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{DataType()}{DataType()}\hspace{0.1cm}{\footnotesize\ttfamily [11/11]}}
+{\footnotesize\ttfamily Data\+Type\+::\+Data\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}}}]{a\+Precision }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Constructor ,Creates Datatype Object with nothing more than a precision initialized. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision to Describe the Values (as a Precision E\+N\+UM object) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aaae824e8d22c063bc6365879538f060a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_afdf99866af0d5233b75c90c756af0bfb}\label{classDataType_afdf99866af0d5233b75c90c756af0bfb}} 
+\index{DataType@{DataType}!````~DataType@{$\sim$DataType}}
+\index{````~DataType@{$\sim$DataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{$\sim$DataType()}{~DataType()}}
+{\footnotesize\ttfamily Data\+Type\+::$\sim$\+Data\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} De-\/\+Constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDataType_aa778b29a4b0bd369e94a1b709dc83dbb}\label{classDataType_aa778b29a4b0bd369e94a1b709dc83dbb}} 
+\index{DataType@{DataType}!CanBeMatrix@{CanBeMatrix}}
+\index{CanBeMatrix@{CanBeMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{CanBeMatrix()}{CanBeMatrix()}}
+{\footnotesize\ttfamily bool Data\+Type\+::\+Can\+Be\+Matrix (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return whether this \mbox{\hyperlink{structDimensions}{Dimensions}} can be used to convert Vector to Matrix. 
+
+\begin{DoxyReturn}{Returns}
+true if the given Row and Col covers all the data in the buffer, false otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aa778b29a4b0bd369e94a1b709dc83dbb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a40564ccc4c22ef6e8c4b6be15a25f793}\label{classDataType_a40564ccc4c22ef6e8c4b6be15a25f793}} 
+\index{DataType@{DataType}!ClearUp@{ClearUp}}
+\index{ClearUp@{ClearUp}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ClearUp()}{ClearUp()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Clear\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Clear\+Up Function to Clear all Pointers and data inside except Precision. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_a40564ccc4c22ef6e8c4b6be15a25f793_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a8b6e73e25a152857dd3e39a982c6745f}\label{classDataType_a8b6e73e25a152857dd3e39a982c6745f}} 
+\index{DataType@{DataType}!ConvertPrecision@{ConvertPrecision}}
+\index{ConvertPrecision@{ConvertPrecision}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ConvertPrecision()}{ConvertPrecision()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Convert\+Precision (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}} \&}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+Convert M\+PR Object Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Required M\+PR Precision \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a8b6e73e25a152857dd3e39a982c6745f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a74ad8221d457d75eb561b9fcfafea549}\label{classDataType_a74ad8221d457d75eb561b9fcfafea549}} 
+\index{DataType@{DataType}!ConvertToNumericVector@{ConvertToNumericVector}}
+\index{ConvertToNumericVector@{ConvertToNumericVector}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ConvertToNumericVector()}{ConvertToNumericVector()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ $\ast$ Data\+Type\+::\+Convert\+To\+Numeric\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Convert M\+PR Values to R-\/\+Numeric Vector (vector double will be wrapped to match R-\/\+Numeric Vector) 
+
+\begin{DoxyReturn}{Returns}
+Vector of Double Values 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a74ad8221d457d75eb561b9fcfafea549_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a065193acb3a756b1af9521d708a47998}\label{classDataType_a065193acb3a756b1af9521d708a47998}} 
+\index{DataType@{DataType}!ConvertToRMatrix@{ConvertToRMatrix}}
+\index{ConvertToRMatrix@{ConvertToRMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ConvertToRMatrix()}{ConvertToRMatrix()}}
+{\footnotesize\ttfamily Rcpp\+::\+Numeric\+Matrix $\ast$ Data\+Type\+::\+Convert\+To\+R\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Convert M\+PR Values to R-\/\+Numeric Matrix. 
+
+\begin{DoxyReturn}{Returns}
+R-\/ Numeric Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a065193acb3a756b1af9521d708a47998_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a64e2145351ecccf50200d86432db2208}\label{classDataType_a64e2145351ecccf50200d86432db2208}} 
+\index{DataType@{DataType}!Determinant@{Determinant}}
+\index{Determinant@{Determinant}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{Determinant()}{Determinant()}}
+{\footnotesize\ttfamily double Data\+Type\+::\+Determinant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the determinant of all elements in M\+PR Object. 
+
+\begin{DoxyReturn}{Returns}
+Determinant of all elements 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDataType_a88d4b85a0143f28ee2d041832b636954}\label{classDataType_a88d4b85a0143f28ee2d041832b636954}} 
+\index{DataType@{DataType}!EqualDispatcher@{EqualDispatcher}}
+\index{EqualDispatcher@{EqualDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{EqualDispatcher()}{EqualDispatcher()}}
+{\footnotesize\ttfamily S\+E\+XP Data\+Type\+::\+Equal\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Checking Whether M\+PR Object is Equal to a\+Obj. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R-\/\+Vector/\+Matrix of Bool Values 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a88d4b85a0143f28ee2d041832b636954_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a88d4b85a0143f28ee2d041832b636954_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_acfb34852b706a2499a92cf8636b9fd36}\label{classDataType_acfb34852b706a2499a92cf8636b9fd36}} 
+\index{DataType@{DataType}!FillTriangle@{FillTriangle}}
+\index{FillTriangle@{FillTriangle}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{FillTriangle()}{FillTriangle()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Fill\+Triangle (\begin{DoxyParamCaption}\item[{const double \&}]{a\+Value,  }\item[{const bool \&}]{a\+Upper\+Triangle = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Fills Upper or Lower Triangle with a given value Note\+: the Input must be a square Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Value} & value to use for filling the triangle \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Upper\+Triangle} & bool to indicate whether to fill the upper or the lower triangle if true, the upper triangle will be accessed ;otherwise, the lower \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_acfb34852b706a2499a92cf8636b9fd36_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a45cc38d26accdd88f151365af69d3f52}\label{classDataType_a45cc38d26accdd88f151365af69d3f52}} 
+\index{DataType@{DataType}!GetData@{GetData}}
+\index{GetData@{GetData}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetData()}{GetData()}}
+{\footnotesize\ttfamily char $\ast$ Data\+Type\+::\+Get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get Data of Vector. 
+
+\begin{DoxyReturn}{Returns}
+Char pointer pointing to vector data (Must be casted according to precision) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_a45cc38d26accdd88f151365af69d3f52_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a9afc2032a007aab9d6f7631aaac432df}\label{classDataType_a9afc2032a007aab9d6f7631aaac432df}} 
+\index{DataType@{DataType}!GetDimensions@{GetDimensions}}
+\index{GetDimensions@{GetDimensions}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetDimensions()}{GetDimensions()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$ Data\+Type\+::\+Get\+Dimensions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get Matrix \mbox{\hyperlink{structDimensions}{Dimensions}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{structDimensions}{Dimensions}} struct containing the \mbox{\hyperlink{structDimensions}{Dimensions}} of the Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a9afc2032a007aab9d6f7631aaac432df_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aecf5b1bde9889156d296d16cdd1143d4}\label{classDataType_aecf5b1bde9889156d296d16cdd1143d4}} 
+\index{DataType@{DataType}!GetElementMatrix@{GetElementMatrix}}
+\index{GetElementMatrix@{GetElementMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetElementMatrix()}{GetElementMatrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ Data\+Type\+::\+Get\+Element\+Matrix (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Row,  }\item[{const size\+\_\+t \&}]{a\+Col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+PR Matrix as M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Row Idx \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Col Idx\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding element at idx 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aecf5b1bde9889156d296d16cdd1143d4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aecf5b1bde9889156d296d16cdd1143d4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a6a4056c3fc54575745948321625f3f2a}\label{classDataType_a6a4056c3fc54575745948321625f3f2a}} 
+\index{DataType@{DataType}!GetElementVector@{GetElementVector}}
+\index{GetElementVector@{GetElementVector}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetElementVector()}{GetElementVector()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ Data\+Type\+::\+Get\+Element\+Vector (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Element at Idx from M\+PR Vector as M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Index} & Index to Get Value from\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding element at idx 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a6a4056c3fc54575745948321625f3f2a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a6a4056c3fc54575745948321625f3f2a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a68b2fa13423bed79444a721963249831}\label{classDataType_a68b2fa13423bed79444a721963249831}} 
+\index{DataType@{DataType}!GetMatrixIndex@{GetMatrixIndex}}
+\index{GetMatrixIndex@{GetMatrixIndex}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetMatrixIndex()}{GetMatrixIndex()}}
+{\footnotesize\ttfamily size\+\_\+t Data\+Type\+::\+Get\+Matrix\+Index (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col }\end{DoxyParamCaption})}
+
+
+
+Get Index of Matrix in Row-\/\+Wise Representation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Index Of Row in Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Index Of Column in Matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index in 1D representation 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a68b2fa13423bed79444a721963249831_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a2ee1d39ae086769460ffb93b219cd473}\label{classDataType_a2ee1d39ae086769460ffb93b219cd473}} 
+\index{DataType@{DataType}!GetNCol@{GetNCol}}
+\index{GetNCol@{GetNCol}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetNCol()}{GetNCol()}}
+{\footnotesize\ttfamily size\+\_\+t Data\+Type\+::\+Get\+N\+Col (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get Number of Columns. 
+
+\begin{DoxyReturn}{Returns}
+Number of Columns in a Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_a2ee1d39ae086769460ffb93b219cd473_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aa73b26ced781e189d2c6554b4a3a5996}\label{classDataType_aa73b26ced781e189d2c6554b4a3a5996}} 
+\index{DataType@{DataType}!GetNRow@{GetNRow}}
+\index{GetNRow@{GetNRow}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetNRow()}{GetNRow()}}
+{\footnotesize\ttfamily size\+\_\+t Data\+Type\+::\+Get\+N\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get Number of Rows. 
+
+\begin{DoxyReturn}{Returns}
+Number of Rows in a Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_aa73b26ced781e189d2c6554b4a3a5996_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a21989e8d529f631b62136d8304bb0138}\label{classDataType_a21989e8d529f631b62136d8304bb0138}} 
+\index{DataType@{DataType}!GetObjectSize@{GetObjectSize}}
+\index{GetObjectSize@{GetObjectSize}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetObjectSize()}{GetObjectSize()}}
+{\footnotesize\ttfamily size\+\_\+t Data\+Type\+::\+Get\+Object\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get total size of Memory used by M\+PR Object. 
+
+\begin{DoxyReturn}{Returns}
+Total size of Memory used by M\+PR Object 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a21989e8d529f631b62136d8304bb0138_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a0ce6eb097e7558135f9d958485b50fad}\label{classDataType_a0ce6eb097e7558135f9d958485b50fad}} 
+\index{DataType@{DataType}!GetPrecision@{GetPrecision}}
+\index{GetPrecision@{GetPrecision}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetPrecision()}{GetPrecision()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{Precision}} \& Data\+Type\+::\+Get\+Precision (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get Precision of the Object. 
+
+\begin{DoxyReturn}{Returns}
+Precision Object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDataType_a1212ec3ead86135b62555e6afc1076da}\label{classDataType_a1212ec3ead86135b62555e6afc1076da}} 
+\index{DataType@{DataType}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily size\+\_\+t Data\+Type\+::\+Get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get Size of Vector or Matrix. 
+
+\begin{DoxyReturn}{Returns}
+Size of Vector or total size of Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_a1212ec3ead86135b62555e6afc1076da_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a2150d8ef445e8db1eef0001c6d646da0}\label{classDataType_a2150d8ef445e8db1eef0001c6d646da0}} 
+\index{DataType@{DataType}!GetVal@{GetVal}}
+\index{GetVal@{GetVal}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetVal()}{GetVal()}}
+{\footnotesize\ttfamily double Data\+Type\+::\+Get\+Val (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Index }\end{DoxyParamCaption})}
+
+
+
+Get Values in the Vector according to Index (0-\/based Indexing) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Index} & Index in vector\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Value with idx=a\+Index in vector 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a2150d8ef445e8db1eef0001c6d646da0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_acee49fc11302eec7d48d5fac2f2a2286}\label{classDataType_acee49fc11302eec7d48d5fac2f2a2286}} 
+\index{DataType@{DataType}!GetValMatrix@{GetValMatrix}}
+\index{GetValMatrix@{GetValMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GetValMatrix()}{GetValMatrix()}}
+{\footnotesize\ttfamily double Data\+Type\+::\+Get\+Val\+Matrix (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Row,  }\item[{const size\+\_\+t \&}]{a\+Col }\end{DoxyParamCaption})}
+
+
+
+Get Values in the Matrix according to Index (0-\/based Indexing) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Row Index \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Col Index\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Value at idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{classDataType_acee49fc11302eec7d48d5fac2f2a2286_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a9682733283d07903083e6d552a193ca3}\label{classDataType_a9682733283d07903083e6d552a193ca3}} 
+\index{DataType@{DataType}!GreaterThanDispatcher@{GreaterThanDispatcher}}
+\index{GreaterThanDispatcher@{GreaterThanDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GreaterThanDispatcher()}{GreaterThanDispatcher()}}
+{\footnotesize\ttfamily S\+E\+XP Data\+Type\+::\+Greater\+Than\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Checking Whether M\+PR Object is Greater than a\+Obj. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R-\/\+Vector/\+Matrix of Bool Values 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a9682733283d07903083e6d552a193ca3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a9682733283d07903083e6d552a193ca3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a6d3077cd8399d5f978e203e4937cb052}\label{classDataType_a6d3077cd8399d5f978e203e4937cb052}} 
+\index{DataType@{DataType}!GreaterThanOrEqualDispatcher@{GreaterThanOrEqualDispatcher}}
+\index{GreaterThanOrEqualDispatcher@{GreaterThanOrEqualDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{GreaterThanOrEqualDispatcher()}{GreaterThanOrEqualDispatcher()}}
+{\footnotesize\ttfamily S\+E\+XP Data\+Type\+::\+Greater\+Than\+Or\+Equal\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Checking Whether M\+PR Object is Greater than or equal a\+Obj. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R-\/\+Vector/\+Matrix of Bool Values 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a6d3077cd8399d5f978e203e4937cb052_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a6d3077cd8399d5f978e203e4937cb052_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a4c3c19af2ffa337460947f2d215996a4}\label{classDataType_a4c3c19af2ffa337460947f2d215996a4}} 
+\index{DataType@{DataType}!IsDataType@{IsDataType}}
+\index{IsDataType@{IsDataType}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{IsDataType()}{IsDataType()}}
+{\footnotesize\ttfamily const bool Data\+Type\+::\+Is\+Data\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if a Casted Memory Address is a \mbox{\hyperlink{classDataType}{Data\+Type}}. 
+
+\begin{DoxyReturn}{Returns}
+true if the casted pointer is a \mbox{\hyperlink{classDataType}{Data\+Type}} Object, False Otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a4c3c19af2ffa337460947f2d215996a4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_ac4d6e129d94d66a52ac4ad21f60843cb}\label{classDataType_ac4d6e129d94d66a52ac4ad21f60843cb}} 
+\index{DataType@{DataType}!IsMatrix@{IsMatrix}}
+\index{IsMatrix@{IsMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{IsMatrix()}{IsMatrix()}}
+{\footnotesize\ttfamily bool Data\+Type\+::\+Is\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+bool indicating whether it\textquotesingle{}s a Matrix or Vector 
+
+\begin{DoxyReturn}{Returns}
+True if it\textquotesingle{}s a Matrix ,False otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_ac4d6e129d94d66a52ac4ad21f60843cb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a5de3c1c9fd14b20f4dc1ff3a11678e2f}\label{classDataType_a5de3c1c9fd14b20f4dc1ff3a11678e2f}} 
+\index{DataType@{DataType}!IsNA@{IsNA}}
+\index{IsNA@{IsNA}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{IsNA()}{IsNA()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Data\+Type\+::\+Is\+NA (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Index }\end{DoxyParamCaption})}
+
+
+
+Check Whether Element at index is N\+AN or Not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Index} & Index of Element to check\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if N\+AN,-\/N\+AN else Otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a5de3c1c9fd14b20f4dc1ff3a11678e2f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aca1b6928683cbc052869c2e09ddfd14c}\label{classDataType_aca1b6928683cbc052869c2e09ddfd14c}} 
+\index{DataType@{DataType}!IsNA@{IsNA}}
+\index{IsNA@{IsNA}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{IsNA()}{IsNA()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ $\ast$ Data\+Type\+::\+Is\+NA (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$\&}]{ap\+Dimensions }\end{DoxyParamCaption})}
+
+
+
+Check Whether M\+PR Elements are NA or Not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Dimensions} & \mbox{\hyperlink{structDimensions}{Dimensions}} to set incase M\+PR Object is a Matrix.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if N\+AN,-\/N\+AN else Otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDataType_a44f2248dbe1c96e5710590ec4eeb8642}\label{classDataType_a44f2248dbe1c96e5710590ec4eeb8642}} 
+\index{DataType@{DataType}!LessThanDispatcher@{LessThanDispatcher}}
+\index{LessThanDispatcher@{LessThanDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{LessThanDispatcher()}{LessThanDispatcher()}}
+{\footnotesize\ttfamily S\+E\+XP Data\+Type\+::\+Less\+Than\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Checking Whether M\+PR Object is Less than a\+Obj. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R-\/\+Vector/\+Matrix of Bool Values 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a44f2248dbe1c96e5710590ec4eeb8642_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a44f2248dbe1c96e5710590ec4eeb8642_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_af7522309152f3688a18e1ac7525fb25f}\label{classDataType_af7522309152f3688a18e1ac7525fb25f}} 
+\index{DataType@{DataType}!LessThanOrEqualDispatcher@{LessThanOrEqualDispatcher}}
+\index{LessThanOrEqualDispatcher@{LessThanOrEqualDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{LessThanOrEqualDispatcher()}{LessThanOrEqualDispatcher()}}
+{\footnotesize\ttfamily S\+E\+XP Data\+Type\+::\+Less\+Than\+Or\+Equal\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Checking Whether M\+PR Object is Less than or equal a\+Obj. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R-\/\+Vector/\+Matrix of Bool Values 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_af7522309152f3688a18e1ac7525fb25f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_af7522309152f3688a18e1ac7525fb25f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a1a1137b47354835ff643db701d2cb4bc}\label{classDataType_a1a1137b47354835ff643db701d2cb4bc}} 
+\index{DataType@{DataType}!NotEqualDispatcher@{NotEqualDispatcher}}
+\index{NotEqualDispatcher@{NotEqualDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{NotEqualDispatcher()}{NotEqualDispatcher()}}
+{\footnotesize\ttfamily S\+E\+XP Data\+Type\+::\+Not\+Equal\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Checking Whether M\+PR Object is Not Equal to a\+Obj. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R-\/\+Vector/\+Matrix of Bool Values 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a1a1137b47354835ff643db701d2cb4bc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a1a1137b47354835ff643db701d2cb4bc_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a712ee6d0294e6174b8be177c8abaedd1}\label{classDataType_a712ee6d0294e6174b8be177c8abaedd1}} 
+\index{DataType@{DataType}!operator=@{operator=}}
+\index{operator=@{operator=}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \& Data\+Type\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Data\+Type }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classDataType}{Data\+Type}} Copy Operator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Data\+Type} & \mbox{\hyperlink{classDataType}{Data\+Type}} object to copy its content \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a712ee6d0294e6174b8be177c8abaedd1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a41e8b9ed35074558e5264f5f136d9524}\label{classDataType_a41e8b9ed35074558e5264f5f136d9524}} 
+\index{DataType@{DataType}!PerformDivDispatcher@{PerformDivDispatcher}}
+\index{PerformDivDispatcher@{PerformDivDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{PerformDivDispatcher()}{PerformDivDispatcher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Data\+Type\+::\+Perform\+Div\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Performing Division Operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a41e8b9ed35074558e5264f5f136d9524_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a41e8b9ed35074558e5264f5f136d9524_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a1dce75fb7e4de5fe72a20bc47b080110}\label{classDataType_a1dce75fb7e4de5fe72a20bc47b080110}} 
+\index{DataType@{DataType}!PerformMinusDispatcher@{PerformMinusDispatcher}}
+\index{PerformMinusDispatcher@{PerformMinusDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{PerformMinusDispatcher()}{PerformMinusDispatcher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Data\+Type\+::\+Perform\+Minus\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Performing Minus Operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a1dce75fb7e4de5fe72a20bc47b080110_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a1dce75fb7e4de5fe72a20bc47b080110_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a99e422dec501ae9885302063df31f517}\label{classDataType_a99e422dec501ae9885302063df31f517}} 
+\index{DataType@{DataType}!PerformMultDispatcher@{PerformMultDispatcher}}
+\index{PerformMultDispatcher@{PerformMultDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{PerformMultDispatcher()}{PerformMultDispatcher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Data\+Type\+::\+Perform\+Mult\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Performing Multiply Operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a99e422dec501ae9885302063df31f517_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a99e422dec501ae9885302063df31f517_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a58135c1513cac74aa6f13b0cd3304fa9}\label{classDataType_a58135c1513cac74aa6f13b0cd3304fa9}} 
+\index{DataType@{DataType}!PerformPlusDispatcher@{PerformPlusDispatcher}}
+\index{PerformPlusDispatcher@{PerformPlusDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{PerformPlusDispatcher()}{PerformPlusDispatcher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Data\+Type\+::\+Perform\+Plus\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Performing Plus Operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a58135c1513cac74aa6f13b0cd3304fa9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a58135c1513cac74aa6f13b0cd3304fa9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a2b0f6830fedc1bb4aaaf7cdb432a8ee5}\label{classDataType_a2b0f6830fedc1bb4aaaf7cdb432a8ee5}} 
+\index{DataType@{DataType}!PerformPowDispatcher@{PerformPowDispatcher}}
+\index{PerformPowDispatcher@{PerformPowDispatcher}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{PerformPowDispatcher()}{PerformPowDispatcher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Data\+Type\+::\+Perform\+Pow\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a\+Obj }\end{DoxyParamCaption})}
+
+
+
+R-\/\+Adapter for Performing Power Operation on M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Obj} & M\+PR Object or Numerical Value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a2b0f6830fedc1bb4aaaf7cdb432a8ee5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a2b0f6830fedc1bb4aaaf7cdb432a8ee5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aa9e253f541e2f0061fadf2798ea4d184}\label{classDataType_aa9e253f541e2f0061fadf2798ea4d184}} 
+\index{DataType@{DataType}!Print@{Print}}
+\index{Print@{Print}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints all data in the Vector. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{classDataType_aa9e253f541e2f0061fadf2798ea4d184_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_abb7521b87a1b93bfafe33c45e4078f3f}\label{classDataType_abb7521b87a1b93bfafe33c45e4078f3f}} 
+\index{DataType@{DataType}!PrintRow@{PrintRow}}
+\index{PrintRow@{PrintRow}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{PrintRow()}{PrintRow()}}
+{\footnotesize\ttfamily std\+::string Data\+Type\+::\+Print\+Row (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Row\+Idx }\end{DoxyParamCaption})}
+
+
+
+Print a whole Row (given) in case of Matrix . used for printing M\+PR Tile. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row\+Idx} & Row Idx to Print\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string holding values in the given row without brackets, only spacing is applied. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDataType_a84730c02c3631c9319213a155b307546}\label{classDataType_a84730c02c3631c9319213a155b307546}} 
+\index{DataType@{DataType}!Product@{Product}}
+\index{Product@{Product}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{Product()}{Product()}}
+{\footnotesize\ttfamily double Data\+Type\+::\+Product (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the product of all elements in M\+PR Object. 
+
+\begin{DoxyReturn}{Returns}
+Product of all elements 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDataType_a833001ac9e0685db373f2dc3600df129}\label{classDataType_a833001ac9e0685db373f2dc3600df129}} 
+\index{DataType@{DataType}!SetData@{SetData}}
+\index{SetData@{SetData}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetData()}{SetData()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Data (\begin{DoxyParamCaption}\item[{char $\ast$}]{a\+Data }\end{DoxyParamCaption})}
+
+
+
+Set Data Buffer. (Clears the Current Buffer) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Data} & Buffer to set Object Buffer With. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_a833001ac9e0685db373f2dc3600df129_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_acdbd0ea3275837ee91b29609968588b0}\label{classDataType_acdbd0ea3275837ee91b29609968588b0}} 
+\index{DataType@{DataType}!SetDimensions@{SetDimensions}}
+\index{SetDimensions@{SetDimensions}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetDimensions()}{SetDimensions()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Dimensions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set M\+PR Object \mbox{\hyperlink{structDimensions}{Dimensions}} according to given input. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Object \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_acdbd0ea3275837ee91b29609968588b0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a8c90b3a1121a4adb953b402c85199b81}\label{classDataType_a8c90b3a1121a4adb953b402c85199b81}} 
+\index{DataType@{DataType}!SetDimensions@{SetDimensions}}
+\index{SetDimensions@{SetDimensions}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetDimensions()}{SetDimensions()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Dimensions (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col }\end{DoxyParamCaption})}
+
+
+
+Set Matrix \mbox{\hyperlink{structDimensions}{Dimensions}} (throw Error in case the \mbox{\hyperlink{structDimensions}{Dimensions}} can\textquotesingle{}t cover all the data available) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number Of Rows in Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number Of Columns in Matrix \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_a8c90b3a1121a4adb953b402c85199b81_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_ac0956491062a2114df16dd1bd557d25a}\label{classDataType_ac0956491062a2114df16dd1bd557d25a}} 
+\index{DataType@{DataType}!SetPrecision@{SetPrecision}}
+\index{SetPrecision@{SetPrecision}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetPrecision()}{SetPrecision()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Precision (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{mpr\+::precision\+::\+Precision}}}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+Set Precision of Vector or Matrix (Currently it clears up all data) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision of Vector or Matrix \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDataType_ab66a88e82a8c6f24b1e2b79bb665bf15}\label{classDataType_ab66a88e82a8c6f24b1e2b79bb665bf15}} 
+\index{DataType@{DataType}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Size }\end{DoxyParamCaption})}
+
+
+
+Set Size of Vector or Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Size} & Size of Matrix or Vector \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classDataType_ab66a88e82a8c6f24b1e2b79bb665bf15_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a5449d084d7fdc883df75347f4b1e36e8}\label{classDataType_a5449d084d7fdc883df75347f4b1e36e8}} 
+\index{DataType@{DataType}!SetVal@{SetVal}}
+\index{SetVal@{SetVal}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetVal()}{SetVal()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Val (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Index,  }\item[{double}]{a\+Val }\end{DoxyParamCaption})}
+
+
+
+Set Values in the Vector according to Index (0-\/based Indexing) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Index} & Index in Vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Val} & Value used to set the vector\mbox{[}idx\mbox{]} with \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=305pt]{classDataType_a5449d084d7fdc883df75347f4b1e36e8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_adb7c5b8e5f43f27afb46e179095f944a}\label{classDataType_adb7c5b8e5f43f27afb46e179095f944a}} 
+\index{DataType@{DataType}!SetValMatrix@{SetValMatrix}}
+\index{SetValMatrix@{SetValMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetValMatrix()}{SetValMatrix()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Val\+Matrix (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col,  }\item[{double}]{a\+Val }\end{DoxyParamCaption})}
+
+
+
+Set Values in the Matrix according to Row,col (0-\/based Indexing) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Row Index \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Column Index \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Val} & Value used to set the vector\mbox{[}idx\mbox{]} with \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{classDataType_adb7c5b8e5f43f27afb46e179095f944a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aeb8504b46931da2ed87bdc7a83eb1d85}\label{classDataType_aeb8504b46931da2ed87bdc7a83eb1d85}} 
+\index{DataType@{DataType}!SetValues@{SetValues}}
+\index{SetValues@{SetValues}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{SetValues()}{SetValues()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Set\+Values (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$ \&}]{a\+Values }\end{DoxyParamCaption})}
+
+
+
+Set and cast values in the data vector according to Vector of double values. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Values} & vector of double values \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDataType_a8826ee1aed9f50368f7e3f3b7fe3675a}\label{classDataType_a8826ee1aed9f50368f7e3f3b7fe3675a}} 
+\index{DataType@{DataType}!Sum@{Sum}}
+\index{Sum@{Sum}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{Sum()}{Sum()}}
+{\footnotesize\ttfamily double Data\+Type\+::\+Sum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the sum of all elements in M\+PR Object. 
+
+\begin{DoxyReturn}{Returns}
+Sum of all elements 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDataType_aff98a4c9cd36482a11e496eb51d2cd18}\label{classDataType_aff98a4c9cd36482a11e496eb51d2cd18}} 
+\index{DataType@{DataType}!ToMatrix@{ToMatrix}}
+\index{ToMatrix@{ToMatrix}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ToMatrix()}{ToMatrix()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+To\+Matrix (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col }\end{DoxyParamCaption})}
+
+
+
+Changes a Vector to a Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number Of Rows in Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number Of Columns in Matrix \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aff98a4c9cd36482a11e496eb51d2cd18_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_a40e689a5337288e5630e6b0a0e605b46}\label{classDataType_a40e689a5337288e5630e6b0a0e605b46}} 
+\index{DataType@{DataType}!ToVector@{ToVector}}
+\index{ToVector@{ToVector}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{ToVector()}{ToVector()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+To\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Changes a Matrix to a Vector. 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_a40e689a5337288e5630e6b0a0e605b46_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classDataType_aec80bd3dbce793daf24077e58ff4c85d}\label{classDataType_aec80bd3dbce793daf24077e58ff4c85d}} 
+\index{DataType@{DataType}!Transpose@{Transpose}}
+\index{Transpose@{Transpose}!DataType@{DataType}}
+\doxysubsubsection{\texorpdfstring{Transpose()}{Transpose()}}
+{\footnotesize\ttfamily void Data\+Type\+::\+Transpose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Transpose M\+PR Matrix. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDataType_aec80bd3dbce793daf24077e58ff4c85d_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/data-\/units/\mbox{\hyperlink{DataType_8hpp}{Data\+Type.\+hpp}}\item 
+src/data-\/units/\mbox{\hyperlink{DataType_8cpp}{Data\+Type.\+cpp}}\end{DoxyCompactItemize}

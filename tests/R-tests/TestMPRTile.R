@@ -1,4 +1,4 @@
-library(MPR)
+library(MMPR)
 
 values <- c(1:24)
 values
@@ -8,9 +8,9 @@ precision <- c("float", "double", "double", "float")
 a <- matrix(values, 6, 4)
 b <- matrix(c("double", "double", "double", "double"), 2, 2)
 
-cat("Creating an MPR TIle Object From a Matrix of Values and a Matrix of precisions")
+cat("Creating an MMPR TIle Object From a Matrix of Values and a Matrix of precisions")
 cat("\n-------------------------------------------------------------------------------\n")
-x <- new(MPRTile, 6, 4, 3, 2, a, b)
+x <- new(MMPRTile, 6, 4, 3, 2, a, b)
 paste("Printing Metadata: ")
 paste("---------------------")
 cat("Number of Rows : ")
@@ -66,9 +66,9 @@ b <- c("float", "double", "float", "float",
        "double", "double", "float", "float",
        "double")
 
-chol_mat <- new(MPRTile, 6, 6, 2, 2, a, b)
+chol_mat <- new(MMPRTile, 6, 6, 2, 2, a, b)
 
-chol_values <-chol(chol_mat,overwrite_input=FALSE)
+chol_values <-chol(chol_mat,overwrite_input=FALSE,num_thread=8)
 print(chol_values)
 cat("----------------------------- Chol with overwrite ------------------------------------\n")
 chol(chol_mat)
@@ -88,25 +88,25 @@ b <- c("float", "double", "float", "float")
 c <- c("float", "float", "double", "float")
 
 
-mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
-mat_b <- new(MPRTile, 4,4, 2, 2, a, c)
-mat_c <- new(MPRTile, 4,4, 2, 2, zeros, c)
+mat_a <- new(MMPRTile, 4,4, 2, 2, a, b)
+mat_b <- new(MMPRTile, 4,4, 2, 2, a, c)
+mat_c <- new(MMPRTile, 4,4, 2, 2, zeros, c)
 
-MPRTile.gemm(a=mat_a,b=mat_b,c=mat_c,transpose_a=FALSE,transpose_b=FALSE,alpha=1,beta=1)
+MMPRTile.gemm(a=mat_a,b=mat_b,c=mat_c,transpose_a=FALSE,transpose_b=FALSE,alpha=1,beta=1,num_thread=8)
 print(mat_c)
 
 cat("----------------------------- DeepCopy ------------------------------------\n")
-deep_copy_tile <- MPRTile.copy(mat_c)
+deep_copy_tile <- MMPRTile.copy(mat_c)
 print(deep_copy_tile)
 
 
 
 cat("----------------------------- Triangular Solve ------------------------------------\n")
 
-mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
-mat_b <- new(MPRTile, 4,4, 2, 2, a, c)
+mat_a <- new(MMPRTile, 4,4, 2, 2, a, b)
+mat_b <- new(MMPRTile, 4,4, 2, 2, a, c)
 
-MPRTile.trsm(a=mat_a,b=mat_b,side='R',upper_triangle=TRUE,transpose=FALSE,alpha=1)
+MMPRTile.trsm(a=mat_a,b=mat_b,side='R',upper_triangle=TRUE,transpose=FALSE,alpha=1)
 print(mat_b)
 
 
@@ -114,7 +114,7 @@ cat("----------------------------- Sum and Product -----------------------------
 
 a <- matrix(c(1:16), 4,4)
 
-mat_a <- new(MPRTile, 4,4, 2, 2, a, b)
+mat_a <- new(MMPRTile, 4,4, 2, 2, a, b)
 print(mat_a)
 sum <- mat_a$Sum()
 cat("----------------------------- Sum of values from 1 to 16 ------------------------------------\n")

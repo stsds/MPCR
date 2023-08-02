@@ -1,0 +1,16 @@
+<map id="DataType::ToMatrix" name="DataType::ToMatrix">
+<area shape="rect" id="node1" title="Changes a Vector to a Matrix." alt="" coords="579,223,725,250"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1basic.html#a20584ed265af06e3f65b5164742d2e78" title="Combine two Matrices by columns." alt="" coords="354,5,521,47"/>
+<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,223,125,250"/>
+<area shape="rect" id="node5" href="$namespacempr_1_1operations_1_1binary.html#a127c3b46a6ef6e24da84d983d7c9ce7f" title="Perform Operation on MPR Object and a Numerical Value according to provided Operation aFun." alt="" coords="344,216,531,257"/>
+<area shape="rect" id="node11" href="$namespacempr_1_1operations_1_1basic.html#a2237dcd8e22009a835229fd5a251ecc0" title="Combine two Matrices by rows." alt="" coords="354,299,521,340"/>
+<area shape="rect" id="node13" href="$namespacempr_1_1operations_1_1basic.html#a3ddb97453c7b1ece513e065f3af4dda4" title="Apply operation (+,&#45;,*,/) to the row or column in Matrix." alt="" coords="354,400,521,441"/>
+<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#ad7b6dfc5eaefb9c0939c2de99d41cfe1" title="R Adapter for Combining two Matrices by columns." alt="" coords="200,17,269,43"/>
+<area shape="rect" id="node6" href="$RBinaryOperations_8hpp.html#a68f13e2c0cc9769fa925dfb7a9331bc5" title="R&#45;Adapter for Performing Div with on MPR object using a Given Value." alt="" coords="182,122,287,149"/>
+<area shape="rect" id="node7" href="$RBinaryOperations_8hpp.html#a770313c42d045067bdc981881f048583" title="R&#45;Adapter for Performing Minus with on MPR object using a Given Value." alt="" coords="173,173,296,199"/>
+<area shape="rect" id="node8" href="$RBinaryOperations_8hpp.html#a813d05ef218f6f3cf6b02f25d59a8c6c" title="R&#45;Adapter for Performing Multiplication on MPR object using a Given Value." alt="" coords="179,223,291,250"/>
+<area shape="rect" id="node9" href="$RBinaryOperations_8hpp.html#a4bb7fad31d6813dd725233de0519c5ee" title="R&#45;Adapter for Performing Plus on MPR object using a Given Value." alt="" coords="179,274,290,301"/>
+<area shape="rect" id="node10" href="$RBinaryOperations_8hpp.html#aa3d1270b230020f8bf544e2855590af9" title="R&#45;Adapter for Performing Power operation on MPR object using a Given Value." alt="" coords="179,325,290,351"/>
+<area shape="rect" id="node12" href="$RBasicUtilities_8hpp.html#a3c7b0f1d0a59864831bb4de0616eada0" title="R Adapter for Combining two Matrices by rows." alt="" coords="200,375,269,402"/>
+<area shape="rect" id="node14" href="$RBasicUtilities_8hpp.html#a3afcc36ebeabc95b6920c095ba15cd1c" title="R Adapter for Applying operation (+,&#45;,*,/) to the row or column in Matrix." alt="" coords="197,426,272,453"/>
+</map>

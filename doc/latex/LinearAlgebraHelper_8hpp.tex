@@ -1,0 +1,150 @@
+\hypertarget{LinearAlgebraHelper_8hpp}{}\doxysection{inst/include/operations/helpers/\+Linear\+Algebra\+Helper.hpp File Reference}
+\label{LinearAlgebraHelper_8hpp}\index{inst/include/operations/helpers/LinearAlgebraHelper.hpp@{inst/include/operations/helpers/LinearAlgebraHelper.hpp}}
+{\ttfamily \#include $<$data-\/units/\+Data\+Type.\+hpp$>$}\newline
+{\ttfamily \#include $<$lapack.\+hh$>$}\newline
+Include dependency graph for Linear\+Algebra\+Helper.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LinearAlgebraHelper_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{LinearAlgebraHelper_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{LinearAlgebraHelper_8hpp_ad51ded0bbd705f02f73fc60c0b721ced}{B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}}~8
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{LinearAlgebraHelper_8hpp_af9d82daa53be9548f2a7db5be04c171e}{Norm\+M\+A\+CS}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{LinearAlgebraHelper_8hpp_a42c05ea8a3e7426b88fc0b5f43c5728d}{Norm\+M\+A\+RS}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{LinearAlgebraHelper_8hpp_a9a7b43c1453a530ae566122730779418}{Norm\+Euclidean}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{LinearAlgebraHelper_8hpp_a556693d2cd1d809a57ac90820bc92d07}{Norm\+Max\+Mod}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{LinearAlgebraHelper_8hpp_a75fa85ebb9800f60acc1a77071aaa89a}{Symmetrize}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, const bool \&a\+To\+Upper\+Triangle)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{LinearAlgebraHelper_8hpp_ac5e8c9345e0d065929f2c6d7dd1af973}{Reverse\+Matrix}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{LinearAlgebraHelper_8hpp_ae948fbee011997a69531e7a5a6c25896}{Get\+Rank}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, const double a\+Tolerance, T \&a\+Rank)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_ad51ded0bbd705f02f73fc60c0b721ced}\label{LinearAlgebraHelper_8hpp_ad51ded0bbd705f02f73fc60c0b721ced}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!BLOCK\_SIZE@{BLOCK\_SIZE}}
+\index{BLOCK\_SIZE@{BLOCK\_SIZE}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{BLOCK\_SIZE}{BLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE~8}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_ae948fbee011997a69531e7a5a6c25896}\label{LinearAlgebraHelper_8hpp_ae948fbee011997a69531e7a5a6c25896}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!GetRank@{GetRank}}
+\index{GetRank@{GetRank}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{GetRank()}{GetRank()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Get\+Rank (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input,  }\item[{const double}]{a\+Tolerance,  }\item[{T \&}]{a\+Rank }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{LinearAlgebraHelper_8hpp_ae948fbee011997a69531e7a5a6c25896_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_a9a7b43c1453a530ae566122730779418}\label{LinearAlgebraHelper_8hpp_a9a7b43c1453a530ae566122730779418}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!NormEuclidean@{NormEuclidean}}
+\index{NormEuclidean@{NormEuclidean}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{NormEuclidean()}{NormEuclidean()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Norm\+Euclidean (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{LinearAlgebraHelper_8hpp_a9a7b43c1453a530ae566122730779418_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_af9d82daa53be9548f2a7db5be04c171e}\label{LinearAlgebraHelper_8hpp_af9d82daa53be9548f2a7db5be04c171e}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!NormMACS@{NormMACS}}
+\index{NormMACS@{NormMACS}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{NormMACS()}{NormMACS()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Norm\+M\+A\+CS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{LinearAlgebraHelper_8hpp_af9d82daa53be9548f2a7db5be04c171e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_a42c05ea8a3e7426b88fc0b5f43c5728d}\label{LinearAlgebraHelper_8hpp_a42c05ea8a3e7426b88fc0b5f43c5728d}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!NormMARS@{NormMARS}}
+\index{NormMARS@{NormMARS}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{NormMARS()}{NormMARS()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Norm\+M\+A\+RS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{LinearAlgebraHelper_8hpp_a42c05ea8a3e7426b88fc0b5f43c5728d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_a556693d2cd1d809a57ac90820bc92d07}\label{LinearAlgebraHelper_8hpp_a556693d2cd1d809a57ac90820bc92d07}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!NormMaxMod@{NormMaxMod}}
+\index{NormMaxMod@{NormMaxMod}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{NormMaxMod()}{NormMaxMod()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Norm\+Max\+Mod (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{LinearAlgebraHelper_8hpp_a556693d2cd1d809a57ac90820bc92d07_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_ac5e8c9345e0d065929f2c6d7dd1af973}\label{LinearAlgebraHelper_8hpp_ac5e8c9345e0d065929f2c6d7dd1af973}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!ReverseMatrix@{ReverseMatrix}}
+\index{ReverseMatrix@{ReverseMatrix}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{ReverseMatrix()}{ReverseMatrix()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Reverse\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{LinearAlgebraHelper_8hpp_ac5e8c9345e0d065929f2c6d7dd1af973_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{LinearAlgebraHelper_8hpp_a75fa85ebb9800f60acc1a77071aaa89a}\label{LinearAlgebraHelper_8hpp_a75fa85ebb9800f60acc1a77071aaa89a}} 
+\index{LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}!Symmetrize@{Symmetrize}}
+\index{Symmetrize@{Symmetrize}!LinearAlgebraHelper.hpp@{LinearAlgebraHelper.hpp}}
+\doxysubsubsection{\texorpdfstring{Symmetrize()}{Symmetrize()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Symmetrize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input,  }\item[{const bool \&}]{a\+To\+Upper\+Triangle }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{LinearAlgebraHelper_8hpp_a75fa85ebb9800f60acc1a77071aaa89a_cgraph}
+\end{center}
+\end{figure}

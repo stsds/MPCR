@@ -1,0 +1,52 @@
+<map id="DataType::GetNCol" name="DataType::GetNCol">
+<area shape="rect" id="node1" title="Get Number of Columns." alt="" coords="856,1245,1001,1271"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1basic.html#aec73a892cfeefa7e37f01fdf98aae897" title="centers the columns of a numeric matrix." alt="" coords="602,71,769,112"/>
+<area shape="rect" id="node4" href="$namespacempr_1_1operations_1_1basic.html#aa84eec1ed73fb2ccce2965a0dd106b7f" title="Scales the columns of a numeric matrix." alt="" coords="602,5,769,47"/>
+<area shape="rect" id="node5" href="$namespacempr_1_1operations_1_1linear.html#a163f68c083e69bfefd30905211520b42" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="600,289,771,331"/>
+<area shape="rect" id="node6" href="$RLinearAlgebra_8hpp.html#a4795dfedd631c690066b70114ef258c4" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="380,187,479,214"/>
+<area shape="rect" id="node7" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,641,125,667"/>
+<area shape="rect" id="node8" href="$RLinearAlgebra_8hpp.html#ad9707037cdca328d5ffa3542400576ce" title=" " alt="" coords="399,238,460,265"/>
+<area shape="rect" id="node9" href="$namespacempr_1_1operations_1_1linear.html#ab513f8ae03768c169422a7526c023091" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="344,407,515,448"/>
+<area shape="rect" id="node11" href="$namespacempr_1_1operations_1_1linear.html#a52396f1084725a0832ad645ed6ca9d2c" title="Calculate Cholesky decomposition." alt="" coords="600,403,771,444"/>
+<area shape="rect" id="node13" href="$namespacempr_1_1operations_1_1linear.html#a187996bac02d748f1b40ff5568710e98" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="600,520,771,561"/>
+<area shape="rect" id="node15" href="$namespacempr_1_1operations_1_1linear.html#a3ace62895c405f9faa575c2da78fdef3" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="600,585,771,627"/>
+<area shape="rect" id="node20" href="$namespacempr_1_1operations_1_1linear.html#a4b672e8178ecc2b2daad3037d3d0adf0" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(apOutputVectors)= nullptr ,..." alt="" coords="600,1179,771,1220"/>
+<area shape="rect" id="node21" href="$LinearAlgebraHelper_8hpp.html#ae948fbee011997a69531e7a5a6c25896" title=" " alt="" coords="646,1245,725,1271"/>
+<area shape="rect" id="node22" href="$namespacempr_1_1operations_1_1linear.html#a343974f31c6d270cecfa68ff22c3662c" title="Check if a Matrix Is Symmetric." alt="" coords="600,1296,771,1337"/>
+<area shape="rect" id="node23" href="$namespacempr_1_1operations_1_1basic.html#af9aae81c56f77c13a14eb1896fd0a12d" title="Remove NA values from Vector." alt="" coords="602,1361,769,1403"/>
+<area shape="rect" id="node24" href="$namespacempr_1_1operations_1_1linear.html#a24d3c59542127c302a2fe8e94ef358dd" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="600,757,771,799"/>
+<area shape="rect" id="node25" href="$namespacempr_1_1operations_1_1linear.html#abf0f106b1180d2d6a29fedf46f2049d9" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="344,793,515,835"/>
+<area shape="rect" id="node26" href="$RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="198,746,271,773"/>
+<area shape="rect" id="node27" href="$LinearAlgebraHelper_8hpp.html#a9a7b43c1453a530ae566122730779418" title=" " alt="" coords="625,1427,746,1454"/>
+<area shape="rect" id="node28" href="$LinearAlgebraHelper_8hpp.html#af9d82daa53be9548f2a7db5be04c171e" title=" " alt="" coords="637,1478,733,1505"/>
+<area shape="rect" id="node29" href="$LinearAlgebraHelper_8hpp.html#a42c05ea8a3e7426b88fc0b5f43c5728d" title=" " alt="" coords="637,1529,733,1555"/>
+<area shape="rect" id="node30" href="$LinearAlgebraHelper_8hpp.html#a556693d2cd1d809a57ac90820bc92d07" title=" " alt="" coords="628,1579,743,1606"/>
+<area shape="rect" id="node31" href="$namespacempr_1_1operations_1_1binary.html#a2f783ba4fe9a7c993ee96d7b8d0c611a" title="Perform Compare Operation on two MPR Object according to provided Operation aFun." alt="" coords="583,1631,788,1672"/>
+<area shape="rect" id="node32" href="$namespacempr_1_1operations_1_1binary.html#a8a795b3df224443191f2defa9392eb55" title="Perform Compare Operation on MPR Object and a Numerical Value according to provided Operation aFun." alt="" coords="563,1696,808,1737"/>
+<area shape="rect" id="node33" href="$namespacempr_1_1operations_1_1binary.html#aa8275ab91726851381b138c943d06272" title="Perform Equality Operation on two MPR Object." alt="" coords="586,1761,785,1803"/>
+<area shape="rect" id="node34" href="$namespacempr_1_1operations_1_1binary.html#a2fd70bd2862438d1c4301ded69579b9c" title="Perform Equality Operation on MPR Object and a Numerical Value." alt="" coords="566,1827,805,1868"/>
+<area shape="rect" id="node35" href="$namespacempr_1_1operations_1_1binary.html#a975173a68126f9f4ddefb1f6d8da3e1b" title="Perform Operation on 2 MPR Objects according to provided Operation aFun." alt="" coords="598,1892,773,1933"/>
+<area shape="rect" id="node36" href="$namespacempr_1_1operations_1_1binary.html#a127c3b46a6ef6e24da84d983d7c9ce7f" title="Perform Operation on MPR Object and a Numerical Value according to provided Operation aFun." alt="" coords="592,1957,779,1999"/>
+<area shape="rect" id="node37" href="$namespacempr_1_1operations_1_1linear.html#ab4e3dab3fb8b03e35f314c94748872ab" title="Computes the QR decomposition of a matrix." alt="" coords="344,859,515,900"/>
+<area shape="rect" id="node38" href="$namespacempr_1_1operations_1_1linear.html#a2177212332d3ccf040827e22b434cfd6" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="600,2023,771,2064"/>
+<area shape="rect" id="node39" href="$namespacempr_1_1operations_1_1linear.html#acca465973a6d07f4b116a504bf0f00ba" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="600,2088,771,2129"/>
+<area shape="rect" id="node40" href="$namespacempr_1_1operations_1_1linear.html#ab8ce24fa527bdbdf6440ebbe08c20fcd" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="600,2153,771,2195"/>
+<area shape="rect" id="node41" href="$LinearAlgebraHelper_8hpp.html#ac5e8c9345e0d065929f2c6d7dd1af973" title=" " alt="" coords="627,2219,744,2246"/>
+<area shape="rect" id="node42" href="$RBasicUtilities_8hpp.html#a4abdc0ba99683c0a4195e7cd842bfb3e" title="R Adapter for Getting Number of Columns." alt="" coords="192,805,277,831"/>
+<area shape="rect" id="node43" href="$RMathematicalOperations_8hpp.html#a447dc7c733928c018505bad211d8e283" title="Check if elements is finite or not." alt="" coords="195,871,274,898"/>
+<area shape="rect" id="node44" href="$RMathematicalOperations_8hpp.html#a5e249c17bf45b0c779b5cb6013e1342d" title="Check if elements is infinite or not." alt="" coords="189,955,280,982"/>
+<area shape="rect" id="node45" href="$RLinearAlgebra_8hpp.html#a5595028cb926cb8d01b50c8f6eb6bdd2" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="400,1077,459,1103"/>
+<area shape="rect" id="node46" href="$classDataType.html#acdbd0ea3275837ee91b29609968588b0" title="Set MPR Object Dimensions according to given input." alt="" coords="591,2270,780,2297"/>
+<area shape="rect" id="node47" href="$namespacempr_1_1operations_1_1linear.html#a843f01038eeb503267760b4a0a4ab609" title="Solves the equation AX=B." alt="" coords="600,2321,771,2363"/>
+<area shape="rect" id="node48" href="$namespacempr_1_1operations_1_1linear.html#a31dda2dc92c1d7c3cace13cef9a3e68d" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="583,1077,788,1103"/>
+<area shape="rect" id="node49" href="$namespacempr_1_1operations_1_1basic.html#a3ddb97453c7b1ece513e065f3af4dda4" title="Apply operation (+,&#45;,*,/) to the row or column in Matrix." alt="" coords="602,2387,769,2428"/>
+<area shape="rect" id="node50" href="$LinearAlgebraHelper_8hpp.html#a75fa85ebb9800f60acc1a77071aaa89a" title=" " alt="" coords="635,2453,736,2479"/>
+<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#ab29d921348d05f1c1744ddccc62292e8" title="R Adapter for Centering and/or Scaling the columns of a numeric matrix." alt="" coords="396,46,463,73"/>
+<area shape="rect" id="node10" href="$namespacempr_1_1operations_1_1linear.html#abd6448d4de9c6dd0b6bfcb9f85cc02ad" title="Solves a triangular matrix equation performs: op(A)*X=alpha*B X*op(A)=alpha*B." alt="" coords="344,289,515,331"/>
+<area shape="rect" id="node12" href="$RLinearAlgebra_8hpp.html#a53e99e6d030fb35f6e7baab60810f861" title="Calculate Cholesky decomposition." alt="" coords="189,405,280,431"/>
+<area shape="rect" id="node14" href="$RLinearAlgebra_8hpp.html#a40e5e74b11c2b637753a89cb07acaef3" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="179,506,290,533"/>
+<area shape="rect" id="node16" href="$RLinearAlgebra_8hpp.html#aad63789b8f3ae6a2aa763dd0b87d5112" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="177,590,293,617"/>
+<area shape="rect" id="node17" href="$RLinearAlgebra_8hpp.html#ae0412e03a33a5694770a7be74cb56628" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="197,641,272,667"/>
+<area shape="rect" id="node18" href="$RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="173,691,296,718"/>
+<area shape="rect" id="node19" href="$namespacempr_1_1operations_1_1linear.html#ae6cfe175d37fd5765b277e4b60e5706d" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="344,524,515,565"/>
+</map>

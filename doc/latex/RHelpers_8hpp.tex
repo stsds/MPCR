@@ -1,0 +1,209 @@
+\hypertarget{RHelpers_8hpp}{}\doxysection{inst/include/adapters/\+R\+Helpers.hpp File Reference}
+\label{RHelpers_8hpp}\index{inst/include/adapters/RHelpers.hpp@{inst/include/adapters/RHelpers.hpp}}
+{\ttfamily \#include $<$data-\/units/\+M\+P\+R\+Tile.\+hpp$>$}\newline
+Include dependency graph for R\+Helpers.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RHelpers_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RHelpers_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Rcpp\+::\+Logical\+Matrix \mbox{\hyperlink{RHelpers_8hpp_a794e6be5a797f5a81191f56d445b995d}{To\+Logical\+Matrix}} (std\+::vector$<$ int $>$ \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, \mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$ap\+Dim)
+\begin{DoxyCompactList}\small\item\em Change Vector of H\+A\+LF Values to R-\/\+Logical Matrix 1/\+T\+R\+UE 0/\+F\+A\+L\+SE I\+N\+T\+\_\+\+M\+IN=NA. \end{DoxyCompactList}\item 
+Rcpp\+::\+Logical\+Vector \mbox{\hyperlink{RHelpers_8hpp_ab9b2086f45ef148c54dc8619062b41e5}{To\+Logical\+Vector}} (std\+::vector$<$ int $>$ \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Change Vector of H\+A\+LF Values to R-\/\+Logical Vector 1/\+T\+R\+UE 0/\+F\+A\+L\+SE I\+N\+T\+\_\+\+M\+IN=NA. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{RHelpers_8hpp_a2d5a5be221e96efcf67c19c40c3b78f5}{R\+Insert\+Tile}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$a\+Matrix, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$a\+Tile, const size\+\_\+t \&a\+Row\+Idx, const size\+\_\+t \&a\+Col\+Idx)
+\begin{DoxyCompactList}\small\item\em Updates a Tile in \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Object, by copying the tile and inserting the new tile to avoid R ownership problem. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RHelpers_8hpp_ade87ad07c3e37a47d01eef7a952a4158}{R\+Get\+Tile}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$a\+Matrix, const size\+\_\+t \&a\+Row\+Idx, const size\+\_\+t \&a\+Col\+Idx)
+\begin{DoxyCompactList}\small\item\em Get a Tile from \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$ \mbox{\hyperlink{RHelpers_8hpp_ad7adf3c8cf4ccb5c2a75cec4af269724}{R\+Copy\+M\+P\+R\+Tile}} (\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$a\+Matrix)
+\begin{DoxyCompactList}\small\item\em Creates a deepcopy of \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RHelpers_8hpp_aad28668708ef1005063ad81c9892ca4d}{R\+Copy\+M\+PR}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$a\+Matrix)
+\begin{DoxyCompactList}\small\item\em Creates a deepcopy of normal M\+PR object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{RHelpers_8hpp_aad28668708ef1005063ad81c9892ca4d}\label{RHelpers_8hpp_aad28668708ef1005063ad81c9892ca4d}} 
+\index{RHelpers.hpp@{RHelpers.hpp}!RCopyMPR@{RCopyMPR}}
+\index{RCopyMPR@{RCopyMPR}!RHelpers.hpp@{RHelpers.hpp}}
+\doxysubsubsection{\texorpdfstring{RCopyMPR()}{RCopyMPR()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Copy\+M\+PR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Matrix }\end{DoxyParamCaption})}
+
+
+
+Creates a deepcopy of normal M\+PR object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Matrix} & M\+PR Object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a new Copy of M\+PR Object 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{RHelpers_8hpp_aad28668708ef1005063ad81c9892ca4d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RHelpers_8hpp_ad7adf3c8cf4ccb5c2a75cec4af269724}\label{RHelpers_8hpp_ad7adf3c8cf4ccb5c2a75cec4af269724}} 
+\index{RHelpers.hpp@{RHelpers.hpp}!RCopyMPRTile@{RCopyMPRTile}}
+\index{RCopyMPRTile@{RCopyMPRTile}!RHelpers.hpp@{RHelpers.hpp}}
+\doxysubsubsection{\texorpdfstring{RCopyMPRTile()}{RCopyMPRTile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}}$\ast$ R\+Copy\+M\+P\+R\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$}]{a\+Matrix }\end{DoxyParamCaption})}
+
+
+
+Creates a deepcopy of \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Matrix} & \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a new Copy of \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{RHelpers_8hpp_ad7adf3c8cf4ccb5c2a75cec4af269724_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RHelpers_8hpp_ade87ad07c3e37a47d01eef7a952a4158}\label{RHelpers_8hpp_ade87ad07c3e37a47d01eef7a952a4158}} 
+\index{RHelpers.hpp@{RHelpers.hpp}!RGetTile@{RGetTile}}
+\index{RGetTile@{RGetTile}!RHelpers.hpp@{RHelpers.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetTile()}{RGetTile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Get\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$}]{a\+Matrix,  }\item[{const size\+\_\+t \&}]{a\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Col\+Idx }\end{DoxyParamCaption})}
+
+
+
+Get a Tile from \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Matrix} & \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Row\+Idx} & Tile Row idx \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col\+Idx} & Tile Col idx\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a copy of the tile at the idx \mbox{[}a\+Row\+Idx,a\+Col\+Idx\mbox{]} to avoid ownership problem in R 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RHelpers_8hpp_ade87ad07c3e37a47d01eef7a952a4158_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{RHelpers_8hpp_ade87ad07c3e37a47d01eef7a952a4158_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RHelpers_8hpp_a2d5a5be221e96efcf67c19c40c3b78f5}\label{RHelpers_8hpp_a2d5a5be221e96efcf67c19c40c3b78f5}} 
+\index{RHelpers.hpp@{RHelpers.hpp}!RInsertTile@{RInsertTile}}
+\index{RInsertTile@{RInsertTile}!RHelpers.hpp@{RHelpers.hpp}}
+\doxysubsubsection{\texorpdfstring{RInsertTile()}{RInsertTile()}}
+{\footnotesize\ttfamily void R\+Insert\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} $\ast$}]{a\+Matrix,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+Tile,  }\item[{const size\+\_\+t \&}]{a\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Col\+Idx }\end{DoxyParamCaption})}
+
+
+
+Updates a Tile in \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Object, by copying the tile and inserting the new tile to avoid R ownership problem. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Matrix} & \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile} & Tile containing new data that needs to be updated. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Row\+Idx} & Tile Row idx \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col\+Idx} & Tile Col idx \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RHelpers_8hpp_a2d5a5be221e96efcf67c19c40c3b78f5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{RHelpers_8hpp_a2d5a5be221e96efcf67c19c40c3b78f5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RHelpers_8hpp_a794e6be5a797f5a81191f56d445b995d}\label{RHelpers_8hpp_a794e6be5a797f5a81191f56d445b995d}} 
+\index{RHelpers.hpp@{RHelpers.hpp}!ToLogicalMatrix@{ToLogicalMatrix}}
+\index{ToLogicalMatrix@{ToLogicalMatrix}!RHelpers.hpp@{RHelpers.hpp}}
+\doxysubsubsection{\texorpdfstring{ToLogicalMatrix()}{ToLogicalMatrix()}}
+{\footnotesize\ttfamily Rcpp\+::\+Logical\+Matrix To\+Logical\+Matrix (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$ \&}]{a\+Input,  }\item[{\mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$}]{ap\+Dim }\end{DoxyParamCaption})}
+
+
+
+Change Vector of H\+A\+LF Values to R-\/\+Logical Matrix 1/\+T\+R\+UE 0/\+F\+A\+L\+SE I\+N\+T\+\_\+\+M\+IN=NA. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em a\+Input} & M\+PR Object \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+Dim} & \mbox{\hyperlink{structDimensions}{Dimensions}} to set R-\/\+Matrix With. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{RHelpers_8hpp_a794e6be5a797f5a81191f56d445b995d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RHelpers_8hpp_a794e6be5a797f5a81191f56d445b995d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RHelpers_8hpp_ab9b2086f45ef148c54dc8619062b41e5}\label{RHelpers_8hpp_ab9b2086f45ef148c54dc8619062b41e5}} 
+\index{RHelpers.hpp@{RHelpers.hpp}!ToLogicalVector@{ToLogicalVector}}
+\index{ToLogicalVector@{ToLogicalVector}!RHelpers.hpp@{RHelpers.hpp}}
+\doxysubsubsection{\texorpdfstring{ToLogicalVector()}{ToLogicalVector()}}
+{\footnotesize\ttfamily Rcpp\+::\+Logical\+Vector To\+Logical\+Vector (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int $>$ \&}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Change Vector of H\+A\+LF Values to R-\/\+Logical Vector 1/\+T\+R\+UE 0/\+F\+A\+L\+SE I\+N\+T\+\_\+\+M\+IN=NA. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em a\+Input} & M\+PR Object \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RHelpers_8hpp_ab9b2086f45ef148c54dc8619062b41e5_icgraph}
+\end{center}
+\end{figure}

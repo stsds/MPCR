@@ -1,0 +1,6 @@
+<map id="GetRank" name="GetRank">
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,84,83"/>
+<area shape="rect" id="node2" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="135,5,281,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="132,56,284,83"/>
+<area shape="rect" id="node4" href="$classDataType.html#a2150d8ef445e8db1eef0001c6d646da0" title="Get Values in the Vector according to Index (0&#45;based Indexing)" alt="" coords="141,107,275,133"/>
+</map>

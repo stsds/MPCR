@@ -1,7 +1,7 @@
-library("MPR")
+library("MMPR")
 
 paste("Create a Vector of 50 element with 32-Bit Precision")
-x <- new(MPR, 50, "float")
+x <- new(MMPR, 50, "float")
 
 
 paste("Element at Index 5")
@@ -44,7 +44,7 @@ x$PrintValues()
 paste("---------------------------------------------------------------")
 paste("Create a Vector of 10 element as HALF")
 paste("If Compiler doesn't support 16-bit floating point ,32-bit will be created and a warning msg will appear")
-y <- new(MPR, 10, "half")
+y <- new(MMPR, 10, "half")
 
 paste("Element at Index 5")
 y[[5]]
@@ -80,31 +80,31 @@ max_idx
 
 paste("---------------------------------------------------------------")
 paste("Is Int Should be True")
-MPR.is.half(y)
+MMPR.is.half(y)
 paste("Is Int Should be False")
 is.double(y)
-MPR.is.float(y)
+MMPR.is.float(y)
 
 paste("---------------------------------------------------------------")
 paste("Is NA Should be True")
 x[[10]] <- 0
 x[[11]] <- x[[10]] / 0
-MPR.is.na(x, 11)
+MMPR.is.na(x, 11)
 paste("Is NA Should be False")
-MPR.is.na(x, 12)
+MMPR.is.na(x, 12)
 
 paste("---------------------------------------------------------------")
 paste("NA replace with 123")
-MPR.na.exclude(x, value=123)
+MMPR.na.exclude(x, value=123)
 x[[11]]
 paste("NA omit size should be 49")
 x[[11]] <- x[[10]] / 0
-MPR.na.omit(x)
+MMPR.na.omit(x)
 x$Size
 
 paste("---------------------------------------------------------------")
 paste("Replicate 1 2 3 (3 Times)")
-temp_rep <- new(MPR, 3, "float")
+temp_rep <- new(MMPR, 3, "float")
 temp_rep[[1]] <- 1
 temp_rep[[2]] <- 2
 temp_rep[[3]] <- 3
@@ -126,16 +126,16 @@ diag$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("CBind")
-temp_bind <- new(MPR, 1, "float")
+temp_bind <- new(MMPR, 1, "float")
 temp_bind[[1]] <- 22
 replicated <- rep(temp_bind, 30)
 replicated$ToMatrix(5, 6)
 
-xx <- new(MPR, 30, "float")
+xx <- new(MMPR, 30, "float")
 xx$ToMatrix(5, 6)
 
 paste("size should be 60")
-cbind_temp <- MPR.cbind(xx, replicated)
+cbind_temp <- MMPR.cbind(xx, replicated)
 cbind_temp$Size
 cbind_temp$IsMatrix
 paste("row should be 5")
@@ -148,7 +148,7 @@ paste("---------------------------------------------------------------")
 paste("RBind")
 
 paste("size should be 60")
-cbind_temp <- MPR.rbind(xx, replicated)
+cbind_temp <- MMPR.rbind(xx, replicated)
 cbind_temp$Size
 cbind_temp$IsMatrix
 paste("row should be 10")
@@ -161,40 +161,40 @@ cbind_temp$PrintValues()
 paste("---------------------------------------------------------------")
 paste("Sweep values should be 3 for all elements 1.5 * 2")
 
-yy <- new(MPR, 10, "double")
+yy <- new(MMPR, 10, "double")
 temp_bind[[1]] <- 2
 temp_sweep <- sweep(x=yy, stat=temp_bind, margin=1, FUN="+")
-MPR.is.double(temp_sweep)
+MMPR.is.double(temp_sweep)
 
 paste("---------------------------------------------------------------")
 paste("Object size Vector of float 10 Element Float")
 paste("Data size should be 40 byte + 13 metadata")
-obj <- new(MPR, 10, "float")
-size <- MPR.object.size(obj)
+obj <- new(MMPR, 10, "float")
+size <- MMPR.object.size(obj)
 size
 
 paste("Object size Vector of float 10 Element Double")
 paste("Data size should be 80 byte + 13 metadata")
-obj <- new(MPR, 10, "double")
-size <- MPR.object.size(obj)
+obj <- new(MMPR, 10, "double")
+size <- MMPR.object.size(obj)
 size
 
 paste("---------------------------------------------------------------")
-paste("Testing Default Print of MPR Object")
+paste("Testing Default Print of MMPR Object")
 obj
 
 
 paste("---------------------------------------------------------------")
 paste("Testing Scale")
 
-temp_scale <- new(MPR, 50, "float")
+temp_scale <- new(MMPR, 50, "float")
 temp_scale$ToMatrix(5, 10)
 for (val in 1:50) {
   temp_scale[[val]] <- val
 }
 
 temp_scale$PrintValues()
-temp_center_scale <- new(MPR, 10, "double")
+temp_center_scale <- new(MMPR, 10, "double")
 z <- scale(x=temp_scale, center=FALSE, scale=temp_center_scale)
 z$PrintValues()
 
@@ -203,8 +203,8 @@ paste("---------------------------------------------------------------")
 paste("Testing Binary Operations")
 
 
-x <- new(MPR, 50, "double")
-y <- new(MPR, 30, "float")
+x <- new(MMPR, 50, "double")
+y <- new(MMPR, 30, "float")
 
 
 for (val in 1:50) {
@@ -247,7 +247,7 @@ z$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("Testing IS Na Operations")
-z <- MPR.is.na(z)
+z <- MMPR.is.na(z)
 z
 
 paste("---------------------------------------------------------------")
@@ -270,7 +270,7 @@ paste("---------------------------------------------------------------")
 paste("Testing Replicate")
 paste("Replicate (50, count=2) output =100")
 paste("---------------------------------------------------------------")
-x <- new(MPR, 50, "float")
+x <- new(MMPR, 50, "float")
 z <- rep(x, count = 2)
 z$PrintValues()
 
@@ -286,9 +286,9 @@ values <- c(3.12393, -1.16854, -0.304408, -2.15901,
 
 
 eigen_temp <- c(1, -1, -1, 1)
-x <- new(MPR, 16, "float")
-y <- new(MPR, 16, "float")
-z <- new(MPR, 4, "float")
+x <- new(MMPR, 16, "float")
+y <- new(MMPR, 16, "float")
+z <- new(MMPR, 4, "float")
 
 
 for (val in 1:16) {
@@ -327,7 +327,7 @@ valss$PrintValues()
 vecc$PrintValues()
 cat("----------------------- QR Decomposition --------------------\n")
 qr_vals <- c(1, 2, 3, 2, 4, 6, 3, 3, 3)
-qr_input <- new(MPR, 9, "float")
+qr_input <- new(MMPR, 9, "float")
 qr_input$ToMatrix(3, 3)
 
 
@@ -355,7 +355,7 @@ svd_vals <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 1, 1, 1)
 
-svd_input <- new(MPR, 9 * 4, "float")
+svd_input <- new(MMPR, 9 * 4, "float")
 svd_input$ToMatrix(9, 4)
 
 for (val in 1:36) {
@@ -378,12 +378,15 @@ rcond_out$PrintValues()
 
 
 cat("--------------------------------------------------------------------------\n")
-cat("------------------  as.MPR Function ------------------------\n")
-convertedMPR <- as.MPR(1:24, precision = "float")
-convertedMPR$PrintValues()
+cat("------------------  as.MMPR Function ------------------------\n")
+convertedMMPR <- as.MMPR(1:24, precision = "float")
+convertedMMPR$PrintValues()
 cat("--------------------------------------------------------------------------\n")
-convertedMPR <- as.MPR(1:24, nrow = 4, ncol = 6, precision = "float")
-convertedMPR$PrintValues()
+convertedMMPR <- as.MMPR(1:24, nrow = 4, ncol = 6, precision = "float")
+convertedMMPR$PrintValues()
+cat("-------------- Test Print --------------------------\n")
+print(convertedMMPR)
+# convertedMMPR
 
 
 

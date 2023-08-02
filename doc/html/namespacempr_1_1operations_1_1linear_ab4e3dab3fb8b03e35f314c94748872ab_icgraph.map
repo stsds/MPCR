@@ -1,0 +1,6 @@
+<map id="mpr::operations::linear::QRDecomposition" name="mpr::operations::linear::QRDecomposition">
+<area shape="rect" id="node1" title="Computes the QR decomposition of a matrix." alt="" coords="369,23,540,65"/>
+<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a2bf1d3be5fd2f6701dc704d8ed4787eb" title="Computes the QR decomposition of a matrix." alt="" coords="173,5,321,32"/>
+<area shape="rect" id="node4" href="$RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="211,56,284,83"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,31,125,57"/>
+</map>

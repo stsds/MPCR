@@ -1,0 +1,7 @@
+<map id="mpr::operations::math::Log" name="mpr::operations::math::Log">
+<area shape="rect" id="node1" title="Perform Log operation on a given MPR Object." alt="" coords="292,56,491,83"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#abff793eeba9137ca37ca788779fc1033" title="Perform Log operation on MPR Object default 1." alt="" coords="181,5,236,32"/>
+<area shape="rect" id="node4" href="$RMathematicalOperations_8hpp.html#aeccb650f7361e8bef41486700806d30c" title="Perform Log Base 10 operation on MPR Object." alt="" coords="173,56,244,83"/>
+<area shape="rect" id="node5" href="$RMathematicalOperations_8hpp.html#a7e072d391b4d162f0ae507dc7ffd59ec" title="Perform Log Base 2 operation on MPR Object." alt="" coords="177,107,240,133"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,56,125,83"/>
+</map>

@@ -1,0 +1,24 @@
+<map id="mpr::operations::linear::TileGemm" name="mpr::operations::linear::TileGemm">
+<area shape="rect" id="node1" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="5,530,176,571"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1linear.html#a3ace62895c405f9faa575c2da78fdef3" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="239,251,409,293"/>
+<area shape="rect" id="node13" href="$classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="243,411,405,437"/>
+<area shape="rect" id="node14" href="$classPromoter.html#a2231467d4ccdcf2ca82990181242a0d1" title="used for MPRTile Matrix algorithms. it returns a the required tile with the required precision and it..." alt="" coords="224,461,424,488"/>
+<area shape="rect" id="node16" href="$classMPRTile.html#a4af744056dc9785b513e4893ae441a6a" title="Get Number of Tiles per Col." alt="" coords="239,563,409,589"/>
+<area shape="rect" id="node18" href="$classMPRTile.html#a526b0b97729e6257adece2bcded6a1a5" title="Get Number of Tiles per Row." alt="" coords="235,613,413,640"/>
+<area shape="rect" id="node20" href="$classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPR Objects to use for Promotion." alt="" coords="261,512,387,539"/>
+<area shape="rect" id="node21" href="$classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="251,664,397,691"/>
+<area shape="rect" id="node22" href="$classPromoter.html#af74bd28863858e4422711e97a3d7a64e" title="Resets and deletes any saved objects and precisions." alt="" coords="231,715,417,741"/>
+<area shape="rect" id="node3" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="495,5,638,32"/>
+<area shape="rect" id="node4" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="494,56,639,83"/>
+<area shape="rect" id="node5" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="494,107,639,133"/>
+<area shape="rect" id="node6" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="491,157,643,184"/>
+<area shape="rect" id="node7" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="496,208,637,235"/>
+<area shape="rect" id="node8" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="495,259,639,285"/>
+<area shape="rect" id="node9" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="495,309,638,336"/>
+<area shape="rect" id="node10" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="472,360,661,387"/>
+<area shape="rect" id="node11" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="497,411,636,437"/>
+<area shape="rect" id="node12" href="$classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="493,461,640,488"/>
+<area shape="rect" id="node15" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="480,512,653,539"/>
+<area shape="rect" id="node17" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="486,563,647,589"/>
+<area shape="rect" id="node19" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="483,613,651,640"/>
+</map>
