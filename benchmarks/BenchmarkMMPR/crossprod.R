@@ -1,6 +1,7 @@
 library(rbenchmark)
 library(MMPR)
 
+
 generate_matrix_big <- function(n, m) {
   # Set the matrix dimensions
   nrows <- n
@@ -27,6 +28,7 @@ generate_matrix_big <- function(n, m) {
   return(my_matrix)
 }
 
+
 run_gemm_benchmark <- function(row, col, replication, times) {
   cat("\n\n\n")
 
@@ -39,6 +41,7 @@ run_gemm_benchmark <- function(row, col, replication, times) {
   cat("\n")
   matrix_1 <- generate_matrix_big(row, col)
   matrix_2 <- generate_matrix_big(row, col)
+
   print(nrow(matrix_1))
   print(ncol(matrix_1))
   print(nrow(matrix_2))
@@ -71,6 +74,7 @@ run_gemm_benchmark <- function(row, col, replication, times) {
 
   cat("\n\n\n")
   matrix_3 <- generate_matrix_big(row, row)
+
 
   mmpr_matrix_single_3 <- as.MMPR(matrix_3, row, row, "single")
   mmpr_matrix_double_3 <- as.MMPR(matrix_3, row, row, "double")

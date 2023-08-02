@@ -3,6 +3,7 @@
 #include <operations/LinearAlgebra.hpp>
 #include <utilities/MPRDispatcher.hpp>
 #include <data-units/Promoter.hpp>
+#include <omp.h>
 
 
 using namespace mpr::operations;
@@ -31,6 +32,8 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput,
     Promoter prom(2);
     Promoter dep_promoter(1);
 
+    omp_set_num_threads(aNumThreads);
+
     for (auto k = 0; k < tiles_per_row; k++) {
 
         auto pTile_matrix_a_potrf = pOutput->GetTile(k, k);
@@ -49,7 +52,7 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput,
         prom.ResetPromoter(2);
         pOutput->InsertTile(pTile_potrf_out, k, k);
 
-#pragma omp parallel for num_threads(aNumThreads)
+#pragma omp parallel for
         for (auto i = k + 1; i < tiles_per_row; i++) {
 
             Promoter temp_promoter(2);
@@ -111,7 +114,7 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput,
             prom.DePromote();
             pOutput->InsertTile(pTemp_tile_out_two, j, j);
 
-#pragma omp parallel for num_threads(aNumThreads)
+#pragma omp parallel for
             for (auto i = j + 1; i < tiles_per_row; i++) {
                 auto pTemp_tile_a = pOutput->GetTile(i, k);
                 auto pTemp_tile_b = pOutput->GetTile(j, k);
@@ -177,7 +180,9 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
 
     auto pOutput = &aInputC;
 
-#pragma omp parallel for collapse(2) num_threads(aNumThreads)
+    omp_set_num_threads(aNumThreads);
+
+#pragma omp parallel for collapse(2)
     for (auto i = 0; i < tile_per_row_a; i++) {
         for (auto j = 0; j < tile_per_col_b; j++) {
 

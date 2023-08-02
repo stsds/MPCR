@@ -12,7 +12,9 @@ run_backsolve_benchmark <- function(n, replication, times) {
   diag(U) <- runif(n, 0.1, 1)
 
   # Create a random right-hand side vector of length n
-  b <- rnorm(n)
+  b <- matrix(rnorm(n^2), ncol = n)
+  b <- upper.tri(b)
+  diag(b) <- runif(n, 0.1, 1)
 
   cat("\n\n")
   cat("Running backsolve benchmark \n")
@@ -35,7 +37,9 @@ run_forwardsolve_benchmark <- function(n, replication, times) {
   diag(L) <- runif(n, 0.1, 1)
 
   # Create a random right-hand side vector of length n
-  b <- rnorm(n)
+  b <- matrix(rnorm(n^2), ncol = n)
+  b <- upper.tri(b)
+  diag(b) <- runif(n, 0.1, 1)
 
   cat("\n\n")
   cat("Running backsolve benchmark \n")

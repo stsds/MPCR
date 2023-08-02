@@ -37,7 +37,7 @@ generate_postive_matrix_alt <- function(n) {
 }
 
 
-run_chol_benchmark <- function(n, tile_size, replication, times,num_threads) {
+run_chol_benchmark <- function(n, tile_size, replication, times, num_threads) {
   matrix <- generate_postive_matrix_alt(n)
   num_tiles <- (n^2) / (tile_size^2)
   tiles_per_row <- n / tile_size
@@ -51,19 +51,18 @@ run_chol_benchmark <- function(n, tile_size, replication, times,num_threads) {
   mmpr_tile_matrix_double <- new(MMPRTile, n, n, tile_size, tile_size, matrix, precision_double)
 
 
-
   cat("\n\n\n")
   cat("Running tile chol benchmark \n")
   print(benchmark(replications = rep(replication, times),
-                  chol(mmpr_tile_matrix_single,overwrite_input=FALSE,num_thread=num_threads),
-                  chol(mmpr_tile_matrix_double,overwrite_input=FALSE,num_thread=num_threads),
+                  chol(mmpr_tile_matrix_single, overwrite_input = FALSE, num_threads = num_threads),
+                  chol(mmpr_tile_matrix_double, overwrite_input = FALSE, num_threads = num_threads),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n\n")
   cat("Running tile chol benchmark with input overwrite \n")
   print(benchmark(replications = rep(1, 1),
-                  chol(mmpr_tile_matrix_single,overwrite_input=TRUE,num_thread=num_threads),
-                  chol(mmpr_tile_matrix_double,overwrite_input=TRUE,num_thread=num_threads),
+                  chol(mmpr_tile_matrix_single, overwrite_input = TRUE, num_threads = num_threads),
+                  chol(mmpr_tile_matrix_double, overwrite_input = TRUE, num_threads = num_threads),
                   columns = c("test", "replications", "elapsed")))
 
 
@@ -102,7 +101,7 @@ cat(threads)
 cat("\n")
 
 
-run_chol_benchmark(mat_size, tile_size, replication, times,threads)
+run_chol_benchmark(mat_size, tile_size, replication, times, threads)
 
 
 

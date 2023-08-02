@@ -3,6 +3,33 @@ library(rbenchmark)
 library(MMPR)
 
 
+generate_matrix_big <- function(n, m) {
+  # Set the matrix dimensions
+  nrows <- n
+  ncols <- m
+
+  # Set the number of submatrices
+  n_submatrices <- 4
+
+  # Determine the number of rows and columns for each submatrix
+  sub_nrows <- ceiling(nrows / sqrt(n_submatrices))
+  sub_ncols <- ceiling(ncols / sqrt(n_submatrices))
+
+  # Generate random values for each submatrix
+  sub_matrices <- lapply(1:n_submatrices, function(x) {
+    rand_vals <- rnorm(sub_nrows * sub_ncols)
+    matrix(rand_vals, nrow = sub_nrows, ncol = sub_ncols)
+  })
+
+  # Combine the submatrices into a single matrix
+  my_matrix <- do.call(cbind, lapply(split(sub_matrices, rep(1:2, each = 2)), function(x) {
+    do.call(rbind, x)
+  }))
+
+  return(my_matrix)
+}
+
+
 run_gemm_benchmark <- function(row, col, tile_row, tile_col, replication, times, threads) {
   cat("\n\n\n")
 
@@ -13,16 +40,20 @@ run_gemm_benchmark <- function(row, col, tile_row, tile_col, replication, times,
   cat("Matrix 2 : ")
   cat(paste(col, row, sep = "*"))
   cat("\n")
-  matrix_1 <- matrix(runif(row * col, min = 0.5, max = 2), nrow = row, ncol = col)
-  matrix_2 <- matrix(runif(row * col, min = -3, max = 2), nrow = col, ncol = row)
+
+  matrix_1 <- generate_matrix_big(row, col)
+  matrix_2 <- generate_matrix_big(col, row)
+
+
   print(nrow(matrix_1))
   print(ncol(matrix_1))
   print(nrow(matrix_2))
   print(ncol(matrix_2))
 
-  num_tiles <- (row * col) / (tile_row * tile_col)
+  num_tiles <- (row / tile_row) * (col / tile_col)
+
   tiles_per_col <- row / tile_row
-  zeros <- replicate(row * col, 0)
+  zeros <- generate_matrix_big(row, col)
 
   precision_single <- matrix(rep("single", times = num_tiles), nrow = tiles_per_col)
   precision_double <- matrix(rep("double", times = num_tiles), nrow = tiles_per_col)
@@ -36,12 +67,12 @@ run_gemm_benchmark <- function(row, col, tile_row, tile_col, replication, times,
   mmpr_tile_matrix_double_3 <- new(MMPRTile, col, col, tile_col, tile_col, zeros, precision_double)
 
   print(benchmark(replications = rep(replication, times),
-                  MMPRTile.gemm(a = mmpr_tile_matrix_single_1, b = mmpr_tile_matrix_single_2, c = mmpr_tile_matrix_single_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_thread = threads),
+                  MMPRTile.gemm(a = mmpr_tile_matrix_single_1, b = mmpr_tile_matrix_single_2, c = mmpr_tile_matrix_single_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_threads = threads),
                   columns = c("test", "replications", "elapsed")))
 
 
   print(benchmark(replications = rep(replication, times),
-                  MMPRTile.gemm(a = mmpr_tile_matrix_double_1, b = mmpr_tile_matrix_double_2, c = mmpr_tile_matrix_double_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_thread = threads),
+                  MMPRTile.gemm(a = mmpr_tile_matrix_double_1, b = mmpr_tile_matrix_double_2, c = mmpr_tile_matrix_double_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_threads = threads),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n")

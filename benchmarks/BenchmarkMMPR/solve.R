@@ -2,7 +2,6 @@ library(rbenchmark)
 library(MMPR)
 
 
-
 generate_matrix_big <- function(n, m) {
   # Set the matrix dimensions
   nrows <- n
@@ -34,6 +33,7 @@ run_solve_benchmark <- function(n, replication, times) {
 
   # Create a random matrix
   set.seed(123)
+
   if (n > 20000) {
     A <- generate_matrix_big(n, n)
   }
