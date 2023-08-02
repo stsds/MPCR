@@ -87,7 +87,7 @@ ___
 
 **This graph represents the speedup of MMPR double precision object to R double object in three major linear algebra functions.**
 
-![](benchmarks/graphs/Speedup_of_MMPR_single_precision_to_R_double_precision.png)
+![](benchmarks/graphs/speedup_single_to_double.png)
 
 **This graph represents the speedup of MMPR single precision object to R double object in three major linear algebra functions.**
 
