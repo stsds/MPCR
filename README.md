@@ -1,27 +1,31 @@
-# MMPR (Multi- and Mixed- Precision Support in R)
+
+# MMPR
+___
 
 MMPR is an advanced package designed to provide R users with a customized data structure.
 This package harnesses the combined strength of C++ and R, empowering users with high-performance computing capabilities.
-Specifically tailored for researchers and data scientists working with multi or mixed precision arithmetic,
+MMPR is an advanced package designed to provide R users with a customized data structure.
+This package harnesses the combined strength of C++ and R, empowering users with high-performance computing capabilities.
+Specifically tailored for researchers and data scientists working with multi or mixed-precision arithmetic,
 MMPR serves as an invaluable tool for achieving efficient and accurate computations.
 
-##### MMPR offers a two main customized data structures for R users.
-- Normal matrix/vector with different precision allocation (16-bit(half-precision), 32-bit(single-precision), and 64-bit(double precision)).
-- Tile-Matrix layout built on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
+##### MMPR provides R users with two primary, tailor-made data structures:
+- Normal matrix/vector with different precision allocation (16-bit (half-precision), 32-bit (single-precision), and 64-bit (double precision)).
+- The Tile-Matrix layout is constructed based on the standard MMPR matrix, enabling the creation of a matrix with multiple tiles, each having a distinct precision.
 ___
 
 ## Requirements
 - Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp") in R to install it`.
 - For optimal performance, `MKL` is recommended for building the package,
-in case MKL is not found on the system, the package will automatically download `openblas`. Note: Before installation, the needed environment variables needs to be set.
-- Blaspp (if not found, it will be installed automatically).
-- Lapackpp (if not found, it will be installed automatically).
+in case MKL is not found on the system, the package will automatically download `OpenBLAS` (https://github.com/xianyi/OpenBLAS). Note: Prior to installation, it is essential to set the required environment variables..
+- `Blaspp` (https://github.com/icl-utk-edu/blaspp) (if not found, it will be installed automatically).
+- `Lapackpp` (https://github.com/icl-utk-edu/lapackpp) (if not found, it will be installed automatically).
 
 ___
 
 ## Installation
 To install the package:
-- Clone the MMPR package from [here](github link need to be added).
+- Clone the MMPR package from [here] (https://github.com/stsds/MMPR).
 - Checkout to tag `v1.0.0` (Latest stable release).
 - Run `R CMD INSTALL .` from the project root directory.
 ___
@@ -41,7 +45,7 @@ ctest -VV
 ___
 
 ## Features
-- Creation of matrix/vector with different precision allocation (16-bit(half-precision), 32-bit(single-precision), and 64-bit(double precision)).
+- Creation of matrix/vector with different precision allocation (16-bit (half-precision), 32-bit (single-precision), and 64-bit (double precision)).
 - Support for all operators, basic utilities, binary operations, casters and converts, mathematical operations, and linear algebra.
 - Tile-Matrix layout build-on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
 - Support for three main linear tile-algorithms `potrf, gemm, and trsm`.
@@ -109,6 +113,3 @@ ___
 The speedup of MMPR over R is because MMPR is using MKL blas instead of Rblas, offering parallel computation on the data.
 Normally you can use MKL backend with normal R objects, however, switching blas backends on R is quite complex and needs a lot of modification on the environment itself,
  but in our case MMPR is using MKL without any modification to the environment itself, offering high speed computations with minimal efforts from the user side.
-
-
-
