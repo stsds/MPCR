@@ -72,10 +72,10 @@ print(chol_matrix)
 x <- new(MMPR, 50, "single")
 
 # converting R object to MMPR object
-y <- as.MMPR(1:24, precision = "single") #vector will be created
+y <- as.MMPR(1:24, precision = "single") # vector will be created
 
 # converting R object to MMPR object
-z <- as.MMPR(1:24, nrow = 4, ncol = 6, precision = "single") #Matrix will be created
+z <- as.MMPR(1:24, nrow = 4, ncol = 6, precision = "single") # Matrix will be created
 ```
 
 More examples are available in [here](link to R examples directory)
@@ -87,6 +87,6 @@ The speedup of MMPR over R is because MMPR is using MKL blas instead of Rblas, o
 Normally you can use MKL backend with normal R objects, however, switching blas backends on R is quite complex and needs a lot of modification on the environment itself,
  but in our case MMPR is using MKL without any modification to the environment itself, offering high speed computations with minimal efforts from the user side.
 
-![](https://gitlab.brightskiesinc.com/parallel-programming/MPR/-/blob/devel/benchmarks/graphs/Speedup%20of%20MMPR%20double%20precision%20to%20R%20double%20precision.png)
-![](https://gitlab.brightskiesinc.com/parallel-programming/MPR/-/blob/devel/benchmarks/graphs/Speedup%20of%20MMPR%20single%20precision%20to%20R%20double%20precision.png)
-![](https://gitlab.brightskiesinc.com/parallel-programming/MPR/-/blob/devel/benchmarks/graphs/Timings%20of%20different%20functions%20using%20MMPR%20objects.png)
+![](benchmarks/graphs/Speedup_of_MMPR_double_precision_to_R_double_precision.png)
+![](benchmarks/graphs/Speedup_of_MMPR_single_precisio_ to_R_double_precision.png)
+![](benchmarks/graphs/Timings_of_different_functions_using_MMPR_objects.png)
