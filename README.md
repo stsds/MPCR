@@ -85,15 +85,15 @@ ___
 
 ![](benchmarks/graphs/Speedup_of_MMPR_double_precision_to_R_double_precision.png)
 
-This graph represents the speedup of MMPR double precision object to R double object in three major linear algebra functions.
+**This graph represents the speedup of MMPR double precision object to R double object in three major linear algebra functions.**
 
-![](benchmarks/graphs/Speedup_of_MMPR_single_precisio_ to_R_double_precision.png)
+![](benchmarks/graphs/Speedup_of_MMPR_single_precision_to_R_double_precision.png)
 
-This graph represents the speedup of MMPR single precision object to R double object in three major linear algebra functions.
+**This graph represents the speedup of MMPR single precision object to R double object in three major linear algebra functions.**
 
 ![](benchmarks/graphs/Timings_of_different_functions_using_MMPR_objects.png)
 
-This graph shows the timing of different functions with different sizes and precisions.
+**This graph shows the timing of different functions with different sizes and precisions.**
 
 
 The speedup of MMPR over R is because MMPR is using MKL blas instead of Rblas, offering parallel computation on the data.
