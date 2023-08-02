@@ -88,7 +88,7 @@ y <- as.MMPR(1:24, precision = "single") # vector will be created
 z <- as.MMPR(1:24, nrow = 4, ncol = 6, precision = "single") # Matrix will be created
 ```
 
-More examples are available in [here](link to R examples directory)
+More examples are available in [here](tests/R-tests)
 ___
 
 ## Benchmarking MMPR vs R
