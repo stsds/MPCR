@@ -44,16 +44,27 @@ message("R Home Path :  " ${R_ROOT_PATH})
 
 if (R_ROOT_PATH)
 
-    #find libs
-    find_library(
-            R_LIB
-            REQUIRED
-            NAMES "libR.so"
-            PATHS ${R_ROOT_PATH}
-            PATH_SUFFIXES "lib" "lib64" "bin"
-            NO_DEFAULT_PATH
-    )
+    if (APPLE)
+        find_library(
+                R_LIB
+                REQUIRED
+                NAMES "libR.dylib"
+                PATHS ${R_ROOT_PATH}
+                PATH_SUFFIXES "lib" "lib64" "bin"
+                NO_DEFAULT_PATH
+        )
+    else ()
+        #find libs
+        find_library(
+                R_LIB
+                REQUIRED
+                NAMES "libR.so"
+                PATHS ${R_ROOT_PATH}
+                PATH_SUFFIXES "lib" "lib64" "bin"
+                NO_DEFAULT_PATH
+        )
 
+    endif ()
 
 else ()
     error("R is not installed ")

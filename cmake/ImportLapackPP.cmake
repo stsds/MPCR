@@ -21,7 +21,7 @@ if (NOT TARGET lapackpp)
         set(build_tests "false")
 
         set(url "https://github.com/icl-utk-edu/lapackpp")
-        set(tag "v2023.01.00")
+        set(tag "v2023.06.00")
         message(STATUS "Fetching LAPACK++ ${tag} from ${url}")
         include(FetchContent)
         FetchContent_Declare(
