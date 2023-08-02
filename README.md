@@ -1,42 +1,91 @@
-# MPR
+# MMPR (Multi- and Mixed- Precision Support in R)
 
-Multi-Precision R-package providing an interface for R using Rcpp Modules to use multiple precisions for floating point number representation and arithmetic.
+MMPR is an advanced package designed to provide R users with a customized data structure.
+This package harnesses the combined strength of C++ and R, empowering users with high-performance computing capabilities.
+Specifically tailored for researchers and data scientists working with multi or mixed precision arithmetic,
+MMPR serves as an invaluable tool for achieving efficient and accurate computations.
 
+##### MMPR offers a two main customized data structures for R users.
+- Normal matrix/vector with different precision allocation (16-bit(half-precision), 32-bit(single-precision), and 64-bit(double precision)).
+- Tile-Matrix layout build-on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
+___
 
-**MPR** is a Multi precision Data Type framework for R.  Base R has no single precision type.  Its "numeric" vectors/matrices are double precision (or possibly integer).
-Floats have half the precision of double precision data,and sfloat has half the precision of float (used on NVIDIA) , for a pretty obvious performance vs accuracy tradeoff.
+## Requirements
+- Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp") in R to install it`.
+- For optimal performance `MKL` is recommended for building the package,
+in case MKL is not found on the system, the package will automatically download `openblas`. Note: Before installation, the needed environment variables needs to be set.
+- Blaspp (if not found, it will be installed automatically).
+- Lapackpp (if not found, it will be installed automatically).
 
-A vector/matrix of floats should use about half as much memory as a matrix of doubles, and your favorite vector/matrix routines will generally compute about twice as fast on them as well.  However, the results will not be as accurate, and are much more prone to roundoff error/mass cancellation issues.  Statisticians have a habit of over-hyping the dangers of roundoff error in this author's opinion.  If your data is [well-conditioned](https://en.wikipedia.org/wiki/Condition_number), then using MPR is fine for many applications, and same goes for sfloat.
-
+___
 
 ## Installation
-
-### Requirements:
-- Rcpp
-- Blas/lapack
-
-To install the R package from source ,run:
-
-```shell
-./InstallScript.sh
-```
-
-#### To Run the R package:
-- To use the package you will need to add lapackpp and blaspp lib to the LD_LIBRARY_PATH. Incase you didn't install them into your system before-hand do so :
-```shell
-cd MPR/
-source env.sh
-```
-
+To install the package:
+- Clone the MMPR package from [here](github link need to be added).
+- Checkout to tag `v1.0.0` (Latest stable release).
+- Run `R CMD INSTALL .` from the project root directory.
+___
 
 ## Testing
+MMPR uses Catch2 library for C++ unit-testing, offering the ability to create an automated CI/CD pipeline for development.
+All the modules contain a group of test cases to ensure the logical and mathematical validity of the added features.
 
-To Test the CPP code ,run:
+To run the package tests:
 
-```shell
-source env.sh  #from project dir
+```bash
 ./config.sh -t
 ./clean_build.sh
-cd bin/tests/cpp-tests/
-./system-tests
+cd bin/
+ctest -VV
 ```
+___
+
+## Features
+- Creation of matrix/vector with different precision allocation (16-bit(half-precision), 32-bit(single-precision), and 64-bit(double precision)).
+- Support for all operators, basic utilities, binary operations, casters and converts, mathematical operations, and linear algebra.
+- Tile-Matrix layout build-on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
+- Support for three main linear tile-algorithms `potrf, gemm, and trsm`.
+- Support for converters to MMPR-Tile matrix
+
+More details are available in the package [manual](link to manual)
+___
+
+## Example
+```R
+# creating MMPRTile matrix and performing tile-potrf
+a <- matrix(c(1.21, 0.18, 0.13, 0.41, 0.06, 0.23,
+              0.18, 0.64, 0.10, -0.16, 0.23, 0.07,
+              0.13, 0.10, 0.36, -0.10, 0.03, 0.18,
+              0.41, -0.16, -0.10, 1.05, -0.29, -0.08,
+              0.06, 0.23, 0.03, -0.29, 1.71, -0.10,
+              0.23, 0.07, 0.18, -0.08, -0.10, 0.36), 6, 6)
+
+b <- c("single","double", "single", "single", "double", "double","single" , "single","double")
+
+chol_mat <- new( MPRTile , 6, 6, 2, 2, a, b)
+chol_matrix <- chol(chol_mat,overwrite_input = FALSE)
+print(chol_matrix)
+```
+
+```R
+# MMPR object creation
+x <- new(MMPR, 50, "single")
+
+# converting R object to MMPR object
+y <- as.MMPR(1:24, precision = "single") #vector will be created
+
+# converting R object to MMPR object
+z <- as.MMPR(1:24, nrow = 4, ncol = 6, precision = "single") #Matrix will be created
+```
+
+More examples are available in [here](link to R examples directory)
+___
+
+## Benchmarking MMPR vs R
+
+The speedup of MMPR over R is because MMPR is using MKL blas instead of Rblas, offering parallel computation on the data.
+Normally you can use MKL backend with normal R objects, however, switching blas backends on R is quite complex and needs a lot of modification on the environment itself,
+ but in our case MMPR is using MKL without any modification to the environment itself, offering high speed computations with minimal efforts from the user side.
+![](benchmarks/graphs/Speedup of MMPR double precision to R double precision.png)
+![](benchmarks/graphs/Speedup of MMPR single precision to R double precision.png)
+![](benchmarks/graphs/Timings of different functions using MMPR objects.png)
