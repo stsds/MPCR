@@ -7,12 +7,12 @@ MMPR serves as an invaluable tool for achieving efficient and accurate computati
 
 ##### MMPR offers a two main customized data structures for R users.
 - Normal matrix/vector with different precision allocation (16-bit(half-precision), 32-bit(single-precision), and 64-bit(double precision)).
-- Tile-Matrix layout build-on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
+- Tile-Matrix layout built on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
 ___
 
 ## Requirements
 - Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp") in R to install it`.
-- For optimal performance `MKL` is recommended for building the package,
+- For optimal performance, `MKL` is recommended for building the package,
 in case MKL is not found on the system, the package will automatically download `openblas`. Note: Before installation, the needed environment variables needs to be set.
 - Blaspp (if not found, it will be installed automatically).
 - Lapackpp (if not found, it will be installed automatically).
@@ -53,17 +53,24 @@ ___
 ## Example
 ```R
 # creating MMPRTile matrix and performing tile-potrf
-a <- matrix(c(1.21, 0.18, 0.13, 0.41, 0.06, 0.23,
+
+# creating an R matrix of double precision values
+R_matrix <- matrix(c(1.21, 0.18, 0.13, 0.41, 0.06, 0.23,
               0.18, 0.64, 0.10, -0.16, 0.23, 0.07,
               0.13, 0.10, 0.36, -0.10, 0.03, 0.18,
               0.41, -0.16, -0.10, 1.05, -0.29, -0.08,
               0.06, 0.23, 0.03, -0.29, 1.71, -0.10,
               0.23, 0.07, 0.18, -0.08, -0.10, 0.36), 6, 6)
 
-b <- c("single","double", "single", "single", "double", "double","single" , "single","double")
+# creating a vector of strings, each string represents the precision of its corresponding tile.
+# column major indexing is assumed
+precision_metadata_vector <- c("single","double", "single", "single", "double", "double","single" , "single","double")
 
-chol_mat <- new( MPRTile , 6, 6, 2, 2, a, b)
-chol_matrix <- chol(chol_mat,overwrite_input = FALSE)
+# MMPR Tile matrix initialization with size 6 x 6 and tile size 2 x 2
+MMPRTile_mat <- new( MPRTile , 6, 6, 2, 2, R_matrix, precision_metadata_vector)
+
+# Perform out of place tile cholesky decomposition
+chol_matrix <- chol(MMPRTile_mat,overwrite_input = FALSE)
 print(chol_matrix)
 ```
 
@@ -83,19 +90,20 @@ ___
 
 ## Benchmarking MMPR vs R
 
-![](benchmarks/graphs/Speedup_of_MMPR_double_precision_to_R_double_precision.png)
-
-**This graph represents the speedup of MMPR double precision object to R double object in three major linear algebra functions.**
-
+**This graph represents the speedup of MMPR single precision object to R double object in three major linear algebra functions.**
 
 ![](benchmarks/graphs/speedup_single_to_double.png)
 
-**This graph represents the speedup of MMPR single precision object to R double object in three major linear algebra functions.**
 
+**This graph represents the speedup of MMPR double precision object to R double object in three major linear algebra functions.**
+
+![](benchmarks/graphs/Speedup_of_MMPR_double_precision_to_R_double_precision.png)
+
+
+**This graph shows the timing of different functions with different sizes and precisions.**
 
 ![](benchmarks/graphs/Timings_of_different_functions_using_MMPR_objects.png)
 
-**This graph shows the timing of different functions with different sizes and precisions.**
 
 #### Note:
 The speedup of MMPR over R is because MMPR is using MKL blas instead of Rblas, offering parallel computation on the data.
