@@ -55,15 +55,15 @@ run_chol_benchmark <- function(n, tile_size, replication, times,num_threads) {
   cat("\n\n\n")
   cat("Running tile chol benchmark \n")
   print(benchmark(replications = rep(replication, times),
-                  chol(mmpr_tile_matrix_single,overwrite_input=FALSE,num_thread=num_threads),
-                  chol(mmpr_tile_matrix_double,overwrite_input=FALSE,num_thread=num_threads),
+                  chol(mmpr_tile_matrix_single,overwrite_input=FALSE,num_threads=num_threads),
+                  chol(mmpr_tile_matrix_double,overwrite_input=FALSE,num_threads=num_threads),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n\n")
   cat("Running tile chol benchmark with input overwrite \n")
   print(benchmark(replications = rep(1, 1),
-                  chol(mmpr_tile_matrix_single,overwrite_input=TRUE,num_thread=num_threads),
-                  chol(mmpr_tile_matrix_double,overwrite_input=TRUE,num_thread=num_threads),
+                  chol(mmpr_tile_matrix_single,overwrite_input=TRUE,num_threads=num_threads),
+                  chol(mmpr_tile_matrix_double,overwrite_input=TRUE,num_threads=num_threads),
                   columns = c("test", "replications", "elapsed")))
 
 

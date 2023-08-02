@@ -10,11 +10,11 @@ ABSOLUE_PATH=$(dirname $(realpath "$0"))
 
 #row=(100 1000 10000 100000)
 #col=(100 1000 10000 100000)
-row=(500)
-col=(500)
-tile_row=(5)
-tile_col=(5)
-num_threads=(8)
+row=(50000)
+col=(50000)
+tile_row=(500)
+tile_col=(500)
+num_threads=(1)
 
 function run_MMPR_benchmark() {
   Rscript ${ABSOLUE_PATH}/tile_gemm.R $1 $2 $3 $4 $5 $6 $7 >>$8

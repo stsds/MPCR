@@ -98,10 +98,10 @@ run_forwardsolve_benchmark <- function(n, replication, times) {
   mmpr_double_b <- as.MMPR(b,n,n, precision = "double")
 
   cat("\n\n")
-  cat("Running backsolve benchmark \n")
+  cat("Running forwardsolve benchmark \n")
   print(benchmark(replications = rep(replication, times),
-                  backsolve(mmpr_single_L, mmpr_single_b),
-                  backsolve(mmpr_double_L, mmpr_double_b),
+                  forwardsolve(mmpr_single_L, mmpr_single_b),
+                  forwardsolve(mmpr_double_L, mmpr_double_b),
                   columns = c("test", "replications", "elapsed")))
 
 

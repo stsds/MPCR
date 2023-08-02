@@ -1,0 +1,93 @@
+Running MMPR benchmark
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Matrix size : 5000*5000
+Tile size : 5*5
+replication : 3times : 1
+threads : 56
+
+
+
+Matrix 1 : 5000*5000
+Matrix 2 : 5000*5000
+[1] 5000
+[1] 5000
+[1] 5000
+[1] 5000
+                                                                                                                                                                                             test
+1 MMPRTile.gemm(a = mmpr_tile_matrix_single_1, b = mmpr_tile_matrix_single_2, c = mmpr_tile_matrix_single_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_thread = threads)
+  replications elapsed
+1            3  29.021
+                                                                                                                                                                                             test
+1 MMPRTile.gemm(a = mmpr_tile_matrix_double_1, b = mmpr_tile_matrix_double_2, c = mmpr_tile_matrix_double_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_thread = threads)
+  replications elapsed
+1            3  28.496
+
+Matrix size : 5000*5000
+Tile size : 5*5
+replication : 3times : 1
+threads : 56
+
+
+
+Running tile chol benchmark 
+                                                                              test
+2 chol(mmpr_tile_matrix_double, overwrite_input = FALSE, num_thread = num_threads)
+1 chol(mmpr_tile_matrix_single, overwrite_input = FALSE, num_thread = num_threads)
+  replications elapsed
+2            3 275.208
+1            3 269.015
+
+
+
+Running tile chol benchmark with input overwrite 
+                                                                             test
+2 chol(mmpr_tile_matrix_double, overwrite_input = TRUE, num_thread = num_threads)
+1 chol(mmpr_tile_matrix_single, overwrite_input = TRUE, num_thread = num_threads)
+  replications elapsed
+2            1  87.286
+1            1  85.401
+Matrix size : 5000*5000
+Tile size A : 5*5
+Tile size B : 1*5
+replication : 3times : 1
+
+Matrix  : 5000*5000
+[1] "Here"
+[1] "Here"
+
+
+Running tile trsm benchmark 
+Running MMPR benchmark
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Matrix size : 5000*5000
+Tile size : 5*5
+replication : 3times : 1
+threads : 56
+
+
+
+Matrix 1 : 5000*5000
+Matrix 2 : 5000*5000
+[1] 5000
+[1] 5000
+[1] 5000
+[1] 5000
+                                                                                                                                                                                              test
+1 MMPRTile.gemm(a = mmpr_tile_matrix_single_1, b = mmpr_tile_matrix_single_2, c = mmpr_tile_matrix_single_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_threads = threads)
+  replications elapsed
+1            3  27.302
+                                                                                                                                                                                              test
+1 MMPRTile.gemm(a = mmpr_tile_matrix_double_1, b = mmpr_tile_matrix_double_2, c = mmpr_tile_matrix_double_3, transpose_a = FALSE, transpose_b = FALSE, alpha = 1, beta = 1, num_threads = threads)
+  replications elapsed
+1            3  29.769
+
+Matrix size : 5000*5000
+Tile size : 5*5
+replication : 3times : 1
+threads : 56
+
+
+
+Running tile chol benchmark 
