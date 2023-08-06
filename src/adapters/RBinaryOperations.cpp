@@ -469,7 +469,7 @@ RPerformPlusDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
             aObj);
         if (!temp_mpr->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RPerformPlus(apInputA, temp_mpr);
@@ -488,7 +488,7 @@ RPerformMinusDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
             aObj);
         if (!temp_mpr->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RPerformMinus(apInputA, temp_mpr);
@@ -507,7 +507,7 @@ RPerformMltDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
             aObj);
         if (!temp_mpr->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RPerformMult(apInputA, temp_mpr);
@@ -526,7 +526,7 @@ RPerformDivDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
             aObj);
         if (!temp_mpr->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RPerformDiv(apInputA, temp_mpr);
@@ -545,7 +545,7 @@ RPerformPowDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
             aObj);
         if (!temp_mpr->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RPerformPow(apInputA, temp_mpr);

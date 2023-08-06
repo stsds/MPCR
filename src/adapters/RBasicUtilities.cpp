@@ -269,7 +269,7 @@ RConcatenate(Rcpp::ListOf <SEXP> aList) {
                                                temp_mpr->GetPrecision());
         } else {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure all Objects are MPR Objects and Vectors",
+                "Undefined Object . Make Sure all Objects are MMPR Objects and Vectors",
                 (int) i);
         }
 
@@ -406,7 +406,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
         a);
     if (!temp_mpr->IsDataType()) {
         MPR_API_EXCEPTION(
-            "Undefined Object . Make Sure You're Using MPR Object",
+            "Undefined Object . Make Sure You're Using MMPR Object",
             -1);
     }
 
@@ -428,7 +428,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
             c);
         if (!temp_scale->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RScale(temp_mpr, center, temp_scale);
@@ -438,7 +438,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
             b);
         if (!temp_center->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RScale(temp_mpr, temp_center, scale);
@@ -449,7 +449,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
             b);
         if (!temp_center->IsDataType() || !temp_scale->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         return RScale(temp_mpr, temp_center, temp_scale);

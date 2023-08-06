@@ -235,7 +235,7 @@ void
 MPRTile::GetType() {
 
     std::stringstream ss;
-    ss << "----------- MPRTile Object ----------" << std::endl;
+    ss << "----------- MMPRTile Object ----------" << std::endl;
     ss << "Number of Rows : " << this->mpDimensions->GetNRow() << std::endl;
     ss << "Number of Cols : " << this->mpDimensions->GetNCol() << std::endl;
     ss << "Number of Tiles : " << this->mSize / this->mTileSize << std::endl;

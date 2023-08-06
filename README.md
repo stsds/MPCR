@@ -27,6 +27,18 @@ To install the package:
 - Run `R CMD INSTALL .` from the project root directory.
 ___
 
+
+## Features
+- Creation of matrix/vector with different precision allocation (16-bit (half-precision), 32-bit (single-precision), and 64-bit (double precision)).
+- Support for all operators, basic utilities, binary operations, casters and converts, mathematical operations, and linear algebra.
+- Tile-Matrix layout build-on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
+- Support for three main linear tile-algorithms `potrf, gemm, and trsm`.
+- Support for converters to MMPR-Tile matrix
+
+More details are available in the package [manual](vignettes/MMPR-manual.pdf)
+___
+
+
 ## Testing
 MMPR uses Catch2 library for C++ unit-testing, offering the ability to create an automated CI/CD pipeline for development.
 All the modules contain a group of test cases to ensure the logical and mathematical validity of the added features.
@@ -41,15 +53,6 @@ ctest -VV
 ```
 ___
 
-## Features
-- Creation of matrix/vector with different precision allocation (16-bit (half-precision), 32-bit (single-precision), and 64-bit (double precision)).
-- Support for all operators, basic utilities, binary operations, casters and converts, mathematical operations, and linear algebra.
-- Tile-Matrix layout build-on normal MMPR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
-- Support for three main linear tile-algorithms `potrf, gemm, and trsm`.
-- Support for converters to MMPR-Tile matrix
-
-More details are available in the package [manual](vignettes/MMPR-manual.pdf)
-___
 
 ## Example
 ```R

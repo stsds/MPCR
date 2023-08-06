@@ -56,7 +56,7 @@ void
 basic::GetType(DataType &aVec, std::string &aType) {
 
     std::stringstream ss;
-    ss << "MPR Object : ";
+    ss << "MMPR Object : ";
 
     precision::Precision temp = aVec.GetPrecision();
     if (temp == precision::HALF) {

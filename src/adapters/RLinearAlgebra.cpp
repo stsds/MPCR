@@ -47,7 +47,7 @@ RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
             aInputB);
         if (!temp_b->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
 
@@ -85,7 +85,7 @@ RCrossProduct(DataType *aInputA, SEXP aInputB) {
             aInputB);
         if (!temp_b->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         pr.Insert(*aInputA);
@@ -127,7 +127,7 @@ RTCrossProduct(DataType *aInputA, SEXP aInputB) {
             aInputB);
         if (!temp_b->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         pr.Insert(*aInputA);
@@ -221,7 +221,7 @@ RSolve(DataType *aInputA, SEXP aInputB) {
             aInputB);
         if (!temp_b->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         pr.Insert(*aInputA);
@@ -398,7 +398,7 @@ RQRDecompositionQ(DataType *aInputA, DataType *aInputB, const bool &aComplete,
             aDvec);
         if (!temp_dvec->IsDataType()) {
             MPR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MPR Object",
+                "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
         SIMPLE_DISPATCH(precision, linear::QRDecompositionQY, *aInputA,
