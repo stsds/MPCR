@@ -1,4 +1,4 @@
-\name{Check precision}
+\name{25-Check precision}
 \alias{Check Precision}
 \alias{MMPR.is.single.mode,Rcpp_MMPR-method}
 \alias{MMPR.is.double,Rcpp_MMPR-method}

@@ -1,4 +1,4 @@
-\name{Transpose}
+\name{24-Transpose}
 \alias{transpose}
 \alias{t,Rcpp_MMPR-method}
 \title{transpose}

@@ -1,4 +1,4 @@
-\name{Metadata}
+\name{26-Metadata}
 \alias{metadata}
 \alias{storage.mode,Rcpp_MMPR-method}
 \alias{typeof,Rcpp_MMPR-method}

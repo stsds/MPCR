@@ -1,4 +1,4 @@
-\name{Round}
+\name{18-Round}
 \alias{round}
 \alias{ceiling,Rcpp_MMPR-method}
 \alias{floor,Rcpp_MMPR-method}

@@ -1,4 +1,4 @@
-\name{NA's}
+\name{16-NA's}
 \alias{NA's}
 \alias{is.na,Rcpp_MMPR-method}
 \alias{na.exclude,Rcpp_MMPR-method}

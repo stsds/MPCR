@@ -1,4 +1,4 @@
-\name{Replicate}
+\name{17-Replicate}
 \alias{replicate}
 \alias{rep,Rcpp_MMPR-method}
 \title{replicate}

@@ -1,4 +1,4 @@
-\name{MMPR GEMM}
+\name{39-MMPR GEMM}
 \alias{MMPR GEMM}
 \alias{MMPR GEMM,Rcpp_MMPR-method}
 \title{MMPR GEMM  (Matrix-Matrix Multiplication)}

@@ -1,4 +1,4 @@
-\name{Symmetric}
+\name{32-Symmetric}
 \alias{isSymmetric}
 \alias{isSymmetric,Rcpp_MMPR-method}
 \title{isSymmetric}

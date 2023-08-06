@@ -1,4 +1,4 @@
-\name{Cholesky decomposition}
+\name{28-Cholesky decomposition}
 \alias{chol}
 \alias{chol,Rcpp_MMPR-method}
 \title{cholesky decomposition}

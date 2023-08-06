@@ -1,4 +1,4 @@
-\name{Eigen decomposition}
+\name{31-Eigen decomposition}
 \alias{eigen}
 \alias{eigen,Rcpp_MMPR-method}
 \title{eigen decomposition}

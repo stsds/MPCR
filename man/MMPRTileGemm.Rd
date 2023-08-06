@@ -1,4 +1,4 @@
-\name{MMPRTile GEMM}
+\name{41-MMPRTile GEMM}
 \alias{MMPRTile GEMM}
 \alias{MMPRTile GEMM,Rcpp_MMPRTile-method}
 \title{MMPRTile GEMM  (Matrix-Matrix Multiplication)}

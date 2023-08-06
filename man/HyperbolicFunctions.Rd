@@ -1,4 +1,4 @@
-\name{Hyperbolic}
+\name{23-Hyperbolic}
 \alias{hyperbolic}
 \alias{sinh,Rcpp_MMPR-method}
 \alias{cosh,Rcpp_MMPR-method}

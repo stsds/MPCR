@@ -1,4 +1,4 @@
-\name{Arithmetic}
+\name{04-Arithmetic}
 \alias{arithmetic}
 \title{Binary arithmetic numeric/MMPR objects.}
 \description{

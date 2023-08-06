@@ -1,4 +1,4 @@
-\name{MMPRTile POTRF}
+\name{42-MMPRTile POTRF}
 \alias{MMPRTile Chol}
 \alias{MMPRTile Chol,Rcpp_MMPRTile-method}
 \title{MMPRTile Chol  ( Cholesky decomposition )}

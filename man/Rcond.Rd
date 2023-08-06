@@ -1,4 +1,4 @@
-\name{Reciprocal condition}
+\name{35-Reciprocal condition}
 \alias{rcond}
 \alias{rcond,Rcpp_MMPR-method}
 \title{reciprocal condition}

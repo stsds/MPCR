@@ -1,4 +1,4 @@
-\name{Solve}
+\name{36-Solve}
 \alias{solve}
 \alias{solve,Rcpp_MMPR-method}
 \title{solve}

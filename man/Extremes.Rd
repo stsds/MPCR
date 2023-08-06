@@ -1,4 +1,4 @@
-\name{Extremes}
+\name{12-Extremes}
 \alias{extremes}
 \alias{min,Rcpp_MMPR-method}
 \alias{max,Rcpp_MMPR-method}

@@ -12,7 +12,7 @@ MMPR serves as an invaluable tool for achieving efficient and accurate computati
 ___
 
 ## Requirements
-- Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp") in R to install it`.
+- Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp")` in R to install it.
 - For optimal performance, `MKL` is recommended for building the package,
 in case MKL is not found on the system, the package will automatically download [OpenBLAS](https://github.com/xianyi/OpenBLAS). Note: Prior to installation, it is essential to set the required environment variables..
 - [Blaspp](https://github.com/icl-utk-edu/blaspp) (if not found, it will be installed automatically).

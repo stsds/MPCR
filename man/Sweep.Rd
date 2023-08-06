@@ -1,4 +1,4 @@
-\name{Sweep}
+\name{20-Sweep}
 \alias{sweep}
 \alias{sweep,Rcpp_MMPR-method}
 \title{sweep}

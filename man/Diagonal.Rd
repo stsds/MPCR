@@ -1,4 +1,4 @@
-\name{Diagonal}
+\name{11-Diagonal}
 \alias{diag}
 \alias{diag,Rcpp_MMPR-method}
 \title{diag}

@@ -1,4 +1,4 @@
-\name{Concatenate}
+\name{09-Concatenate}
 \alias{concatenate}
 \alias{concatenate,Rcpp_MMPR-method}
 \title{concatenate}

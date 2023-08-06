@@ -1,4 +1,4 @@
-\name{MMPR TRSM}
+\name{40-MMPR TRSM}
 \alias{MMPR TRSM}
 \alias{MMPR TRSM,Rcpp_MMPR-method}
 \title{MMPR TRSM  (Triangular Solve)}

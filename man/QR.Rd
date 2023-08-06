@@ -1,4 +1,4 @@
-\name{QR decomposition}
+\name{34-QR decomposition}
 \alias{qr}
 \alias{qr,Rcpp_MMPR-method}
 \alias{qr.Q,ANY-method}

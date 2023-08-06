@@ -1,4 +1,4 @@
-\name{Back/Forward solve}
+\name{38-Back/Forward solve}
 \alias{forwardsolve}
 \alias{backsolve}
 

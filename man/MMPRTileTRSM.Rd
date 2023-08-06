@@ -1,4 +1,4 @@
-\name{MMPRTile TRSM}
+\name{43-MMPRTile TRSM}
 \alias{MMPRTile TRSM}
 \alias{MMPRTile TRSM,Rcpp_MMPRTile-method}
 \title{MMPRTile TRSM  (Triangular Solve)}

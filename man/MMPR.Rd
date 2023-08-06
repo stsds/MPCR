@@ -1,4 +1,4 @@
-\name{MMPR}
+\name{01-MMPR}
 \alias{MMPR}
 \title{MMPR S4 Class}
 

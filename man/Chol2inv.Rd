@@ -1,4 +1,4 @@
-\name{Cholesky inverse}
+\name{29-Cholesky inverse}
 \alias{chol2inv}
 \alias{chol2inv,Rcpp_MMPR-method}
 \title{cholesky inverse}

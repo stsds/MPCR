@@ -1,4 +1,4 @@
-\name{Comparison}
+\name{05-Comparison}
 \alias{comparison}
 \title{Binary comparison operators for numeric/MMPR objects.}
 \description{
