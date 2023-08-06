@@ -1,4 +1,4 @@
-\name{miscmath}
+\name{Miscmath}
 \alias{miscmath}
 \alias{abs,Rcpp_MMPR-method}
 \alias{sqrt,Rcpp_MMPR-method}

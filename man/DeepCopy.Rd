@@ -1,4 +1,4 @@
-\name{copy}
+\name{Copy}
 \alias{copy}
 \title{copy}
 

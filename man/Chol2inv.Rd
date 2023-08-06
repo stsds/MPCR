@@ -1,7 +1,7 @@
-\name{chol2inv}
+\name{Cholesky inverse}
 \alias{chol2inv}
 \alias{chol2inv,Rcpp_MMPR-method}
-\title{chol2inv}
+\title{cholesky inverse}
 \usage{
 \S4method{chol2inv}{Rcpp_MMPR}(x, size = NCOL(x))
 }

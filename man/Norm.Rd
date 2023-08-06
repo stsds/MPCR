@@ -1,4 +1,4 @@
-\name{norm}
+\name{Norm}
 \alias{norm}
 \alias{norm,Rcpp_MMPR,ANY-method}
 \title{norm}

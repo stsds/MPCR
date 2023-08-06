@@ -1,7 +1,7 @@
-\name{rcond}
+\name{Reciprocal condition}
 \alias{rcond}
 \alias{rcond,Rcpp_MMPR-method}
-\title{rcond}
+\title{reciprocal condition}
 \usage{
 \S4method{rcond}{Rcpp_MMPR}(x, norm = "O", useInv = FALSE)
 }

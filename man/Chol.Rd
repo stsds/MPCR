@@ -1,7 +1,7 @@
-\name{chol}
+\name{Cholesky decomposition}
 \alias{chol}
 \alias{chol,Rcpp_MMPR-method}
-\title{chol}
+\title{cholesky decomposition}
 \usage{
 \S4method{chol}{Rcpp_MMPR}(x,upper_triangle=TRUE)
 }

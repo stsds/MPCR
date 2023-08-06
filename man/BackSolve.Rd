@@ -1,8 +1,8 @@
-\name{forwardsolve}
+\name{Back/Forward solve}
 \alias{forwardsolve}
 \alias{backsolve}
 
-\title{back-forwardsolve}
+\title{Back/Forward solve}
 
 \description{
 Solves a system of linear equations where the coefficient matrix is upper or lower triangular. The function solves the equation \bold{\code{A X = B}}, where \code{A} is the coefficient matrix, \code{X} is the solution vector, and \code{B} is the right-hand side vector.

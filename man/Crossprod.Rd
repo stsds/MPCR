@@ -1,4 +1,4 @@
-\name{crossprod}
+\name{Crossprod}
 \alias{crossprod}
 \alias{crossprod,Rcpp_MMPR-method}
 \alias{tcrossprod,Rcpp_MMPR-method}

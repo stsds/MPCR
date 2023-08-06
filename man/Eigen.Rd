@@ -1,7 +1,7 @@
-\name{eigen}
+\name{Eigen decomposition}
 \alias{eigen}
 \alias{eigen,Rcpp_MMPR-method}
-\title{eigen}
+\title{eigen decomposition}
 \usage{
 \S4method{eigen}{Rcpp_MMPR}(x, only.values = FALSE)
 }

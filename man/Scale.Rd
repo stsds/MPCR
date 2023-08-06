@@ -1,4 +1,4 @@
-\name{scale}
+\name{Scale}
 \alias{scale}
 \alias{scale,Rcpp_MMPR-method}
 \title{scale}

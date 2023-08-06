@@ -1,9 +1,9 @@
-\name{qr}
+\name{QR decomposition}
 \alias{qr}
 \alias{qr,Rcpp_MMPR-method}
 \alias{qr.Q,ANY-method}
 \alias{qr.R,ANY-method}
-\title{QR}
+\title{QR decomposition}
 \usage{
 \S4method{qr}{Rcpp_MMPR}(x, tol = 1e-07)
 

@@ -1,4 +1,4 @@
-\name{extract-replace}
+\name{Extract-Replace}
 \alias{extract-replace}
 \alias{[,Rcpp_MMPR}
 \alias{[[,Rcpp_MMPR}

@@ -1,4 +1,4 @@
-\name{bind}
+\name{Bind}
 \alias{bind}
 \alias{rbind.Rcpp_MMPR-method}
 \alias{cbind.Rcpp_MMPR-method}

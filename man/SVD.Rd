@@ -1,4 +1,4 @@
-\name{svd}
+\name{Singular value decomposition}
 \alias{svd}
 \alias{La.svd,Rcpp_MMPR-method}
 \alias{svd,Rcpp_MMPR-method}

@@ -1,8 +1,8 @@
-\name{print-Rcpp_MMPR}
-\alias{print-Rcpp_MMPR}
+\name{Print}
+\alias{print}
 \alias{print,Rcpp_MMPR-method}
 \alias{show,Rcpp_MMPR-method}
-\title{print-Rcpp_MMPR}
+\title{print}
 \usage{
 \S4method{print}{Rcpp_MMPR}(x)
 
