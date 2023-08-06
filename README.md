@@ -3,8 +3,6 @@
 
 MMPR is an advanced package designed to provide R users with a customized data structure.
 This package harnesses the combined strength of C++ and R, empowering users with high-performance computing capabilities.
-MMPR is an advanced package designed to provide R users with a customized data structure.
-This package harnesses the combined strength of C++ and R, empowering users with high-performance computing capabilities.
 Specifically tailored for researchers and data scientists working with multi or mixed-precision arithmetic,
 MMPR serves as an invaluable tool for achieving efficient and accurate computations.
 
