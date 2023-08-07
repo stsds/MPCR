@@ -1,3 +1,10 @@
+
+##########################################################################
+# Copyright (c) 2023, King Abdullah University of Science and Technology
+# All rights reserved.
+# MMPR is an R package provided by the STSDS group at KAUST
+##########################################################################
+
 library(MMPR)
 
 values <- c(1:24)

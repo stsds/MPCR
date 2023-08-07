@@ -1,4 +1,10 @@
 
+##########################################################################
+# Copyright (c) 2023, King Abdullah University of Science and Technology
+# All rights reserved.
+# MMPR is an R package provided by the STSDS group at KAUST
+##########################################################################
+
 # Set minimum cmake version
 cmake_minimum_required(VERSION 3.20)
 cmake_policy(SET CMP0048 NEW)

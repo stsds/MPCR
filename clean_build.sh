@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright (c) 2023, King Abdullah University of Science and Technology
+# All rights reserved.
+
 verbose=
 num_proc="-j $(nproc)"
 
