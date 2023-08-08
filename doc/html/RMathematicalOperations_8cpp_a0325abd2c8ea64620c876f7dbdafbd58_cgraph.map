@@ -1,0 +1,10 @@
+<map id="RSqrt" name="RSqrt">
+<area shape="rect" id="node1" title="Perform Sqrt operation on MPR Object." alt="" coords="5,77,63,104"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="111,48,284,75"/>
+<area shape="rect" id="node3" href="$namespacempr_1_1operations_1_1math.html#ae8de24082e6ee2a2b0739d2a58133fc4" title="Perform Square root operation on a given MPR Object." alt="" coords="114,99,281,141"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="355,5,498,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="354,56,499,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="356,107,497,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="355,157,498,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="332,208,521,235"/>
+</map>

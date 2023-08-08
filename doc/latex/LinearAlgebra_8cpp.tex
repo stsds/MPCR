@@ -1,0 +1,121 @@
+\hypertarget{LinearAlgebra_8cpp}{}\doxysection{src/operations/\+Linear\+Algebra.cpp File Reference}
+\label{LinearAlgebra_8cpp}\index{src/operations/LinearAlgebra.cpp@{src/operations/LinearAlgebra.cpp}}
+{\ttfamily \#include $<$blas.\+hh$>$}\newline
+{\ttfamily \#include $<$utilities/\+M\+P\+R\+Dispatcher.\+hpp$>$}\newline
+{\ttfamily \#include $<$operations/helpers/\+Linear\+Algebra\+Helper.\+hpp$>$}\newline
+{\ttfamily \#include $<$operations/\+Linear\+Algebra.\+hpp$>$}\newline
+Include dependency graph for Linear\+Algebra.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LinearAlgebra_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{LinearAlgebra_8cpp_a233966d30e473fc4d956b5ed0f72a356}{F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST}} (void, linear\+::\+Cross\+Product, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool \&a\+TransposeA, const bool \&a\+TransposeB, const bool \&a\+Symmetrize, const double \&a\+Alpha, const double \&a\+Beta) F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST(void
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{LinearAlgebra_8cpp_af8a373af4919e5a22c63710ede8827f9}{F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST}} (void, linear\+::\+Cholesky\+Inv, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const size\+\_\+t \&a\+N\+Col) F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST(void
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{LinearAlgebra_8cpp_acb68b3a8250481948380224afd8733c6}{F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST}} (void, linear\+::\+Back\+Solve, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const size\+\_\+t \&a\+Col, const bool \&a\+Upper\+Tri, const bool \&a\+Transpose, const char \&a\+Side, const double \&a\+Alpha) F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST(void
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Output\+Vectors \mbox{\hyperlink{LinearAlgebra_8cpp_ac89c8eb83e8237f999c4daad79e1fa96}{F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST}} (void, linear\+::\+Norm, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, const std\+::string \&a\+Type, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}) F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST(void
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string const bool \&a\+Triangle \mbox{\hyperlink{LinearAlgebra_8cpp_a634f68b9fd201c5188d70e1e1fad3363}{F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST}} (void, linear\+::\+S\+VD, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+OutputS, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+OutputU, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+OutputV, const size\+\_\+t \&a\+Nu, const size\+\_\+t \&a\+Nv, const bool \&a\+Transpose) F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST(void
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string const bool \&a\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Complete \mbox{\hyperlink{LinearAlgebra_8cpp_ac066795c7d91c3366371442f655eb7fe}{F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST}} (void, linear\+::\+Q\+R\+Decomposition, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Output\+Qr, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Output\+Qraux, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Output\+Pivot, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Rank, const double \&a\+Tolerance) F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST(void
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \& \mbox{\hyperlink{LinearAlgebra_8cpp_aa8af06c8a8da583cb946a96cbf1570b8}{a\+InputA}}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \& \mbox{\hyperlink{LinearAlgebra_8cpp_a3c9907040c70830bc96bc18d8c3422d8}{a\+Output}}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \& \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \& \mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \& \mbox{\hyperlink{LinearAlgebra_8cpp_a1e31bff9dc24cac34192d5139f03d1fe}{a\+Output\+Values}}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string \& \mbox{\hyperlink{LinearAlgebra_8cpp_ad35e7bb2ad3a18c735dba2a03e92c7f4}{a\+Norm}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{LinearAlgebra_8cpp_acb68b3a8250481948380224afd8733c6}\label{LinearAlgebra_8cpp_acb68b3a8250481948380224afd8733c6}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}}
+\index{FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{FLOATING\_POINT\_INST()}{FLOATING\_POINT\_INST()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST (\begin{DoxyParamCaption}\item[{void}]{,  }\item[{linear\+::\+Back\+Solve}]{,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{const size\+\_\+t \&}]{a\+Col,  }\item[{const bool \&}]{a\+Upper\+Tri,  }\item[{const bool \&}]{a\+Transpose,  }\item[{const char \&}]{a\+Side,  }\item[{const double \&}]{a\+Alpha }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_af8a373af4919e5a22c63710ede8827f9}\label{LinearAlgebra_8cpp_af8a373af4919e5a22c63710ede8827f9}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}}
+\index{FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{FLOATING\_POINT\_INST()}{FLOATING\_POINT\_INST()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST (\begin{DoxyParamCaption}\item[{void}]{,  }\item[{linear\+::\+Cholesky\+Inv}]{,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{const size\+\_\+t \&}]{a\+N\+Col }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_a233966d30e473fc4d956b5ed0f72a356}\label{LinearAlgebra_8cpp_a233966d30e473fc4d956b5ed0f72a356}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}}
+\index{FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{FLOATING\_POINT\_INST()}{FLOATING\_POINT\_INST()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST (\begin{DoxyParamCaption}\item[{void}]{,  }\item[{linear\+::\+Cross\+Product}]{,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{const bool \&}]{a\+TransposeA,  }\item[{const bool \&}]{a\+TransposeB,  }\item[{const bool \&}]{a\+Symmetrize,  }\item[{const double \&}]{a\+Alpha,  }\item[{const double \&}]{a\+Beta }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_ac89c8eb83e8237f999c4daad79e1fa96}\label{LinearAlgebra_8cpp_ac89c8eb83e8237f999c4daad79e1fa96}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}}
+\index{FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{FLOATING\_POINT\_INST()}{FLOATING\_POINT\_INST()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ ap\+Output\+Vectors F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST (\begin{DoxyParamCaption}\item[{void}]{,  }\item[{linear\+::\+Norm}]{,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input,  }\item[{const std\+::string \&}]{a\+Type,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_ac066795c7d91c3366371442f655eb7fe}\label{LinearAlgebra_8cpp_ac066795c7d91c3366371442f655eb7fe}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}}
+\index{FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{FLOATING\_POINT\_INST()}{FLOATING\_POINT\_INST()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string const bool\& a\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Complete F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST (\begin{DoxyParamCaption}\item[{void}]{,  }\item[{linear\+::\+Q\+R\+Decomposition}]{,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output\+Qr,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output\+Qraux,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output\+Pivot,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Rank,  }\item[{const double \&}]{a\+Tolerance }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_a634f68b9fd201c5188d70e1e1fad3363}\label{LinearAlgebra_8cpp_a634f68b9fd201c5188d70e1e1fad3363}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}}
+\index{FLOATING\_POINT\_INST@{FLOATING\_POINT\_INST}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{FLOATING\_POINT\_INST()}{FLOATING\_POINT\_INST()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string const bool\& a\+Triangle F\+L\+O\+A\+T\+I\+N\+G\+\_\+\+P\+O\+I\+N\+T\+\_\+\+I\+N\+ST (\begin{DoxyParamCaption}\item[{void}]{,  }\item[{linear\+::\+S\+VD}]{,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+OutputS,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+OutputU,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+OutputV,  }\item[{const size\+\_\+t \&}]{a\+Nu,  }\item[{const size\+\_\+t \&}]{a\+Nv,  }\item[{const bool \&}]{a\+Transpose }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}\label{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!aInput@{aInput}}
+\index{aInput@{aInput}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{aInput}{aInput}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool \&a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \& a\+Input}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_aa8af06c8a8da583cb946a96cbf1570b8}\label{LinearAlgebra_8cpp_aa8af06c8a8da583cb946a96cbf1570b8}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!aInputA@{aInputA}}
+\index{aInputA@{aInputA}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{aInputA}{aInputA}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string const bool\& a\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Complete \mbox{\hyperlink{classDataType}{Data\+Type}}\& a\+InputA}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}\label{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!aInputB@{aInputB}}
+\index{aInputB@{aInputB}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{aInputB}{aInputB}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string const bool\& a\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}\& a\+InputB}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_ad35e7bb2ad3a18c735dba2a03e92c7f4}\label{LinearAlgebra_8cpp_ad35e7bb2ad3a18c735dba2a03e92c7f4}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!aNorm@{aNorm}}
+\index{aNorm@{aNorm}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{aNorm}{aNorm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string\& a\+Norm}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_a3c9907040c70830bc96bc18d8c3422d8}\label{LinearAlgebra_8cpp_a3c9907040c70830bc96bc18d8c3422d8}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!aOutput@{aOutput}}
+\index{aOutput@{aOutput}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{aOutput}{aOutput}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ ap\+Output\+Vectors \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const std\+::string const bool\& a\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Complete \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}\& a\+Output}
+
+\mbox{\Hypertarget{LinearAlgebra_8cpp_a1e31bff9dc24cac34192d5139f03d1fe}\label{LinearAlgebra_8cpp_a1e31bff9dc24cac34192d5139f03d1fe}} 
+\index{LinearAlgebra.cpp@{LinearAlgebra.cpp}!aOutputValues@{aOutputValues}}
+\index{aOutputValues@{aOutputValues}!LinearAlgebra.cpp@{LinearAlgebra.cpp}}
+\doxysubsubsection{\texorpdfstring{aOutputValues}{aOutputValues}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Upper\+Triangle \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}} const bool\& a\+Single \mbox{\hyperlink{classDataType}{Data\+Type}} \mbox{\hyperlink{classDataType}{Data\+Type}}\& a\+Output\+Values}
+

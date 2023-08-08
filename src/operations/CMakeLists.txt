@@ -1,0 +1,16 @@
+
+##########################################################################
+# Copyright (c) 2023, King Abdullah University of Science and Technology
+# All rights reserved.
+# MMPR is an R package provided by the STSDS group at KAUST
+##########################################################################
+
+set(SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/BasicOperations.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/BinaryOperations.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/LinearAlgebra.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MathematicalOperations.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TileLinearAlgebra.cpp
+
+        ${SOURCES}
+        PARENT_SCOPE)

@@ -1,0 +1,5 @@
+<map id="mpr::operations::math::IsFinite" name="mpr::operations::math::IsFinite">
+<area shape="rect" id="node1" title="Checks if a given MPR Object values are Finite or not." alt="" coords="5,23,172,65"/>
+<area shape="rect" id="node2" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="220,5,365,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="222,56,363,83"/>
+</map>

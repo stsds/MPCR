@@ -1,0 +1,71 @@
+\hypertarget{LinearAlgebra_8hpp}{}\doxysection{inst/include/operations/\+Linear\+Algebra.hpp File Reference}
+\label{LinearAlgebra_8hpp}\index{inst/include/operations/LinearAlgebra.hpp@{inst/include/operations/LinearAlgebra.hpp}}
+{\ttfamily \#include $<$data-\/units/\+Data\+Type.\+hpp$>$}\newline
+Include dependency graph for Linear\+Algebra.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LinearAlgebra_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{LinearAlgebra_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacempr}{mpr}}
+\item 
+ \mbox{\hyperlink{namespacempr_1_1operations}{mpr\+::operations}}
+\item 
+ \mbox{\hyperlink{namespacempr_1_1operations_1_1linear}{mpr\+::operations\+::linear}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{LinearAlgebra_8hpp_a2db9e36a42acd04e82728e3a0c12e0bf}{L\+A\+Y\+O\+UT}}~blas\+::\+Layout\+::\+Col\+Major
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a3ace62895c405f9faa575c2da78fdef3}{mpr\+::operations\+::linear\+::\+Cross\+Product}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool \&a\+TransposeA, const bool \&a\+TransposeB, const bool \&a\+Symmetrize=true, const double \&a\+Alpha=1, const double \&a\+Beta=0)
+\begin{DoxyCompactList}\small\item\em Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% t(x) , x \%$\ast$\% t(y) , x \%$\ast$\% y , t(x) \%$\ast$\% y. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a343974f31c6d270cecfa68ff22c3662c}{mpr\+::operations\+::linear\+::\+Is\+Symmetric}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, bool \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}})
+\begin{DoxyCompactList}\small\item\em Check if a Matrix Is Symmetric. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a52396f1084725a0832ad645ed6ca9d2c}{mpr\+::operations\+::linear\+::\+Cholesky}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool \&a\+Upper\+Triangle=true)
+\begin{DoxyCompactList}\small\item\em Calculate Cholesky decomposition. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a187996bac02d748f1b40ff5568710e98}{mpr\+::operations\+::linear\+::\+Cholesky\+Inv}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const size\+\_\+t \&a\+N\+Col)
+\begin{DoxyCompactList}\small\item\em Invert a symmetric, positive definite square matrix from its Cholesky decomposition. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a843f01038eeb503267760b4a0a4ab609}{mpr\+::operations\+::linear\+::\+Solve}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool \&a\+Single)
+\begin{DoxyCompactList}\small\item\em Solves the equation AX=B. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a163f68c083e69bfefd30905211520b42}{mpr\+::operations\+::linear\+::\+Back\+Solve}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const size\+\_\+t \&a\+Col, const bool \&a\+Upper\+Tri, const bool \&a\+Transpose, const char \&a\+Side=\textquotesingle{}L\textquotesingle{}, const double \&a\+Alpha=1)
+\begin{DoxyCompactList}\small\item\em Solves a system of linear equations where the coefficient matrix is upper or lower triangular. Solve a\+InputA a\+Output = a\+InputB. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a4b672e8178ecc2b2daad3037d3d0adf0}{mpr\+::operations\+::linear\+::\+Eigen}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a1e31bff9dc24cac34192d5139f03d1fe}{a\+Output\+Values}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Output\+Vectors=nullptr)
+\begin{DoxyCompactList}\small\item\em Calculate Eigen Values and (optionally) Eigen Vectors. if(ap\+Output\+Vectors)= nullptr , only the values will be calculated. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a24d3c59542127c302a2fe8e94ef358dd}{mpr\+::operations\+::linear\+::\+Norm}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, const std\+::string \&a\+Type, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}})
+\begin{DoxyCompactList}\small\item\em Computes a matrix norm of a\+Input. The norm can be the one (\char`\"{}\+O\char`\"{}) norm, the infinity (\char`\"{}\+I\char`\"{}) norm, the Frobenius (\char`\"{}\+F\char`\"{}) norm, or the maximum modulus (\char`\"{}\+M\char`\"{}) among elements of a matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_ab4e3dab3fb8b03e35f314c94748872ab}{mpr\+::operations\+::linear\+::\+Q\+R\+Decomposition}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Output\+Qr, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Output\+Qraux, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Output\+Pivot, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Rank, const double \&a\+Tolerance=1e-\/07)
+\begin{DoxyCompactList}\small\item\em Computes the QR decomposition of a matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_ab8ce24fa527bdbdf6440ebbe08c20fcd}{mpr\+::operations\+::linear\+::\+Q\+R\+DecompositionR}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool \&a\+Complete)
+\begin{DoxyCompactList}\small\item\em returns R. This may be pivoted, The number of rows of R is either nrow(a\+Input\+A) or ncol(a\+Input\+A) (and may depend on whether complete is T\+R\+UE or F\+A\+L\+SE). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a2177212332d3ccf040827e22b434cfd6}{mpr\+::operations\+::linear\+::\+Q\+R\+DecompositionQ}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool \&a\+Complete)
+\begin{DoxyCompactList}\small\item\em Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_acca465973a6d07f4b116a504bf0f00ba}{mpr\+::operations\+::linear\+::\+Q\+R\+Decomposition\+QY}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+InputC, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool \&a\+Transpose)
+\begin{DoxyCompactList}\small\item\em Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformation represented by qr. If complete is T\+R\+UE, Q has nrow(\+X) columns. If complete is F\+A\+L\+SE, Q has ncol(\+X) columns. and each column of Q is multiplied by the corresponding value in Dvec. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_a31dda2dc92c1d7c3cace13cef9a3e68d}{mpr\+::operations\+::linear\+::\+S\+VD}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+OutputS, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+OutputU, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+OutputV, const size\+\_\+t \&a\+Nu, const size\+\_\+t \&a\+Nv, const bool \&a\+Transpose=true)
+\begin{DoxyCompactList}\small\item\em Compute the singular-\/value decomposition of a rectangular matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1linear_abf0f106b1180d2d6a29fedf46f2049d9}{mpr\+::operations\+::linear\+::\+Reciprocal\+Condition}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const std\+::string \&\mbox{\hyperlink{LinearAlgebra_8cpp_ad35e7bb2ad3a18c735dba2a03e92c7f4}{a\+Norm}}, const bool \&a\+Triangle)
+\begin{DoxyCompactList}\small\item\em Estimate the reciprocal of the condition number of a matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{LinearAlgebra_8hpp_a2db9e36a42acd04e82728e3a0c12e0bf}\label{LinearAlgebra_8hpp_a2db9e36a42acd04e82728e3a0c12e0bf}} 
+\index{LinearAlgebra.hpp@{LinearAlgebra.hpp}!LAYOUT@{LAYOUT}}
+\index{LAYOUT@{LAYOUT}!LinearAlgebra.hpp@{LinearAlgebra.hpp}}
+\doxysubsubsection{\texorpdfstring{LAYOUT}{LAYOUT}}
+{\footnotesize\ttfamily \#define L\+A\+Y\+O\+UT~blas\+::\+Layout\+::\+Col\+Major}
+

@@ -1,0 +1,4 @@
+<map id="mpr::operations::basic::IsFloat" name="mpr::operations::basic::IsFloat">
+<area shape="rect" id="node1" title="Check if MPR object is 32&#45;bit Precision." alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="220,13,393,39"/>
+</map>

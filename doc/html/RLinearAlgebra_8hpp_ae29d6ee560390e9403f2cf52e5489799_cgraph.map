@@ -1,0 +1,12 @@
+<map id="REigen" name="REigen">
+<area shape="rect" id="node1" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(aOnlyValues)= true , only the values will b..." alt="" coords="5,187,72,213"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1linear.html#a4b672e8178ecc2b2daad3037d3d0adf0" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(apOutputVectors)= nullptr ,..." alt="" coords="121,150,292,191"/>
+<area shape="rect" id="node10" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="120,216,293,243"/>
+<area shape="rect" id="node3" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="365,5,507,32"/>
+<area shape="rect" id="node4" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="363,56,509,83"/>
+<area shape="rect" id="node5" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="363,107,509,133"/>
+<area shape="rect" id="node6" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="360,157,512,184"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="365,208,507,235"/>
+<area shape="rect" id="node8" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="341,259,531,285"/>
+<area shape="rect" id="node9" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="367,309,505,336"/>
+</map>

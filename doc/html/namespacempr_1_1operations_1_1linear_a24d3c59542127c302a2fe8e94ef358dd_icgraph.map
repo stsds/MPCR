@@ -1,0 +1,7 @@
+<map id="mpr::operations::linear::Norm" name="mpr::operations::linear::Norm">
+<area shape="rect" id="node1" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="513,35,684,76"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1linear.html#abf0f106b1180d2d6a29fedf46f2049d9" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="295,5,465,47"/>
+<area shape="rect" id="node5" href="$RLinearAlgebra_8hpp.html#a4e72a89d4403f0c0c1cef7e0e57b12eb" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="177,67,243,94"/>
+<area shape="rect" id="node3" href="$RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="173,15,247,42"/>
+<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,42,125,69"/>
+</map>

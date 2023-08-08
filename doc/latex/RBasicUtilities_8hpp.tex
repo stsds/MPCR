@@ -1,0 +1,1067 @@
+\hypertarget{RBasicUtilities_8hpp}{}\doxysection{inst/include/adapters/\+R\+Basic\+Utilities.hpp File Reference}
+\label{RBasicUtilities_8hpp}\index{inst/include/adapters/RBasicUtilities.hpp@{inst/include/adapters/RBasicUtilities.hpp}}
+{\ttfamily \#include $<$data-\/units/\+Data\+Type.\+hpp$>$}\newline
+Include dependency graph for R\+Basic\+Utilities.\+hpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_ad7b6dfc5eaefb9c0939c2de99d41cfe1}{R\+C\+Bind}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+InputA, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+InputB)
+\begin{DoxyCompactList}\small\item\em R Adapter for Combining two Matrices by columns. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a3c7b0f1d0a59864831bb4de0616eada0}{R\+R\+Bind}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+InputA, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+InputB)
+\begin{DoxyCompactList}\small\item\em R Adapter for Combining two Matrices by rows. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{RBasicUtilities_8hpp_a3f44edf01567cdd98ec608376f489052}{R\+Is\+S\+Float}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+PR object is 16-\/bit Precision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{RBasicUtilities_8hpp_a9f426ffa4cc3d5a4558c0efbe30544c3}{R\+Is\+Float}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+PR object is 32-\/bit Precision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{RBasicUtilities_8hpp_a9dc8226f25a27552db03840cd0d14133}{R\+Is\+Double}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+PR object is 64-\/bit Precision. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a18b9e36fcec82799284d6d990ec68556}{R\+Replicate}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Size, size\+\_\+t a\+Length)
+\begin{DoxyCompactList}\small\item\em R Adapter for Replicating value(s) number of times in-\/case a\+Length =0 the output size will be size$\ast$input size ,else size=a\+Length. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{RBasicUtilities_8hpp_a762e83f23019fe8cf3ca2e8349ae079b}{R\+Na\+Exclude}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Removing NA values from Vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{RBasicUtilities_8hpp_a7662f372439ac68c56ca063631df8f98}{R\+Na\+Replace}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, double a\+Value)
+\begin{DoxyCompactList}\small\item\em R Adapter for Replacing NA values with a given value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f}{R\+Get\+Diagonal}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R adapter for Getting Diagonal of a Matrix. M\+PR Object must be a Matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a124b24199018e5d0ef8465b2d8bbb481}{R\+Get\+Diagonal\+With\+Dims}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Row, size\+\_\+t a\+Col)
+\begin{DoxyCompactList}\small\item\em R adapter for Getting Diagonal of a Matrix. M\+PR can be a Vector , but dims must be passed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{RBasicUtilities_8hpp_a59c4ffb9412ef2d6d55d54532dff8f15}{R\+Get\+Type}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Printing string indicating whether it\textquotesingle{}s 16/32/64 Bit Precision. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_abf9fdb72c6ee34be1237a045f0f1585c}{R\+Get\+Min}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Min Element in Array. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8hpp_ad82f73297bccd29773fc26dc104a7a4c}{R\+Get\+Min\+Idx}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Min Element Index in Array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a3c2a4824829ad094e7b268d08cfb4a42}{R\+Get\+Max}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Max Element in Array. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8hpp_a8baa94866693cb0dc393d2b63175a48f}{R\+Get\+Max\+Idx}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Max Element Index in Array. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a3afcc36ebeabc95b6920c095ba15cd1c}{R\+Sweep}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Stats, int a\+Margin, std\+::string a\+Operation)
+\begin{DoxyCompactList}\small\item\em R Adapter for Applying operation (+,-\/,$\ast$,/) to the row or column in Matrix. \end{DoxyCompactList}\item 
+S\+E\+XP \mbox{\hyperlink{RBasicUtilities_8hpp_a484d9e079c56338e31633b9d78c4edb7}{R\+Is\+Na}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, long a\+Idx)
+\begin{DoxyCompactList}\small\item\em R Adapter for Checking Whether Element at index is N\+AN or Not. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8hpp_addc5061b847e3c154c90ae8ff45d4028}{R\+Object\+Size}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em Get total size of Memory used by M\+PR Object. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8hpp_a8793fefe3c9a5e19e6bcf3cd4a830e23}{R\+Get\+N\+Row}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Number of Rows. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8hpp_a4abdc0ba99683c0a4195e7cd842bfb3e}{R\+Get\+N\+Col}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Number of Columns. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{RBasicUtilities_8hpp_a0fa4d270064a51d382f3341a3d6c489e}{R\+Print}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Printing Information about M\+PR object Dimensions-\/\+Matrix/\+Vector-\/\+Values ,and Precisions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_ac092b8a53065f4638e56046f8a8cebed}{R\+Get\+Element\+Vector}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Index)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Element with Idx from M\+PR Vector as M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a64d2eaeee8515b1e1fbb1207989e61f9}{R\+Get\+Element\+Matrix}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Row\+Idx, size\+\_\+t a\+Col\+Idx)
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+PR Matrix as M\+PR Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_aad67124b9ab2d929ed5ddbee5d6caf84}{R\+Concatenate}} (Rcpp\+::\+List\+Of$<$ S\+E\+XP $>$ a\+List)
+\begin{DoxyCompactList}\small\item\em R Adapter for Concatenating List of M\+PR Vectors into one M\+PR Vector. This Function Casts the S\+E\+XP pointer to Data\+Types pointers , And Check a Magic Number inside the M\+PR Class to determine if its a M\+PR object or Not. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_ab29d921348d05f1c1744ddccc62292e8}{R\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Center, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Scale)
+\begin{DoxyCompactList}\small\item\em R Adapter for Centering and/or Scaling the columns of a numeric matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_ad68c9ec3a68e4c3c01dd8d26d10ddf70}{R\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, bool \mbox{\hyperlink{BasicOperations_8cpp_a968029ffb54719ee07ba757b41f35bcf}{a\+Center}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Scale)
+\begin{DoxyCompactList}\small\item\em R Adapter for Centering and/or Scaling the columns of a numeric matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_aed6da81d22798bc36832db0e83c40c83}{R\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Center, bool a\+Scale)
+\begin{DoxyCompactList}\small\item\em R Adapter for Centering and/or Scaling the columns of a numeric matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a106d38b298f357cdeaeee128d85c6212}{R\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, bool \mbox{\hyperlink{BasicOperations_8cpp_a968029ffb54719ee07ba757b41f35bcf}{a\+Center}}, bool a\+Scale)
+\begin{DoxyCompactList}\small\item\em R Adapter for Centering and/or Scaling the columns of a numeric matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_a8016b4df956fc9fa3a02e608a83b6d40}{R\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
+\begin{DoxyCompactList}\small\item\em R Adapter for Centering and/or Scaling the columns of a numeric matrix. Centering is done using column mean and scaling is done using column standard deviation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_ac8816ef904ce2297cb4066a4a1100708}{R\+Scale\+Dispatcher}} (S\+E\+XP a, S\+E\+XP b, S\+E\+XP c)
+\begin{DoxyCompactList}\small\item\em R Adapter for Dispatching Rscale. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8hpp_adc3681c2844dd76aa56f66162d52cc25}{R\+Convert\+To\+M\+PR}} (std\+::vector$<$ double $>$ \&a\+Values, const size\+\_\+t \&a\+Row, const size\+\_\+t \&a\+Col, const std\+::string \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em Converts R vector or Matrix to M\+PR object. if a\+Row or a\+Col = zero , M\+PR vector will be created , else M\+PR Matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_ad7b6dfc5eaefb9c0939c2de99d41cfe1}\label{RBasicUtilities_8hpp_ad7b6dfc5eaefb9c0939c2de99d41cfe1}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RCBind@{RCBind}}
+\index{RCBind@{RCBind}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RCBind()}{RCBind()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+C\+Bind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+InputB }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Combining two Matrices by columns. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Matrix one \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+InputB} & M\+PR Matrix two\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix holding combined data
+\end{DoxyReturn}
+This File Contains R adapters for C++ functions since R sends and receives pointers to objects. and to assure proper dispatching. Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_ad7b6dfc5eaefb9c0939c2de99d41cfe1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{RBasicUtilities_8hpp_ad7b6dfc5eaefb9c0939c2de99d41cfe1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_aad67124b9ab2d929ed5ddbee5d6caf84}\label{RBasicUtilities_8hpp_aad67124b9ab2d929ed5ddbee5d6caf84}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RConcatenate@{RConcatenate}}
+\index{RConcatenate@{RConcatenate}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RConcatenate()}{RConcatenate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Concatenate (\begin{DoxyParamCaption}\item[{Rcpp\+::\+List\+Of$<$ S\+E\+XP $>$}]{a\+List }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Concatenating List of M\+PR Vectors into one M\+PR Vector. This Function Casts the S\+E\+XP pointer to Data\+Types pointers , And Check a Magic Number inside the M\+PR Class to determine if its a M\+PR object or Not. 
+
+Warning\+: There\textquotesingle{}s a very Small Possibility that the Passed Objects\textquotesingle{} Magic Number is the Same as \mbox{\hyperlink{classDataType}{Data\+Type}} , in this case , The behavior of the function is unexpected. So the User should check whether all Objects are M\+PR Objects or not.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+List} & List Of S\+E\+XP\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Vector containing all values in all lists (Precision = Highest Precision in the List) 
+\end{DoxyReturn}
+This if condition is added because Concatenate take 2 M\+PR object at a time ,so it checks if a\+List is even or odd and if odd, dummy object will be added.
+
+Add Dummy ObjectHere is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_aad67124b9ab2d929ed5ddbee5d6caf84_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{RBasicUtilities_8hpp_aad67124b9ab2d929ed5ddbee5d6caf84_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_adc3681c2844dd76aa56f66162d52cc25}\label{RBasicUtilities_8hpp_adc3681c2844dd76aa56f66162d52cc25}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RConvertToMPR@{RConvertToMPR}}
+\index{RConvertToMPR@{RConvertToMPR}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RConvertToMPR()}{RConvertToMPR()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Convert\+To\+M\+PR (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$ \&}]{a\+Values,  }\item[{const size\+\_\+t \&}]{a\+Row,  }\item[{const size\+\_\+t \&}]{a\+Col,  }\item[{const std\+::string \&}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+Converts R vector or Matrix to M\+PR object. if a\+Row or a\+Col = zero , M\+PR vector will be created , else M\+PR Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Values} & R vector/\+Matrix holding values to create M\+PR object from. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Rows in case of creating an M\+PR Matrix . \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Cols in case of creating an M\+PR Matrix . \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Required Precision of the created M\+PR Object.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New M\+PR Object constructed from the given inputs 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{RBasicUtilities_8hpp_adc3681c2844dd76aa56f66162d52cc25_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f}\label{RBasicUtilities_8hpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetDiagonal@{RGetDiagonal}}
+\index{RGetDiagonal@{RGetDiagonal}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetDiagonal()}{RGetDiagonal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Get\+Diagonal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R adapter for Getting Diagonal of a Matrix. M\+PR Object must be a Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding Diagonals 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{RBasicUtilities_8hpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a124b24199018e5d0ef8465b2d8bbb481}\label{RBasicUtilities_8hpp_a124b24199018e5d0ef8465b2d8bbb481}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetDiagonalWithDims@{RGetDiagonalWithDims}}
+\index{RGetDiagonalWithDims@{RGetDiagonalWithDims}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetDiagonalWithDims()}{RGetDiagonalWithDims()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Get\+Diagonal\+With\+Dims (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col }\end{DoxyParamCaption})}
+
+
+
+R adapter for Getting Diagonal of a Matrix. M\+PR can be a Vector , but dims must be passed. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Row} & Number of Rows \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Cols\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding Diagonals 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a124b24199018e5d0ef8465b2d8bbb481_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a64d2eaeee8515b1e1fbb1207989e61f9}\label{RBasicUtilities_8hpp_a64d2eaeee8515b1e1fbb1207989e61f9}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetElementMatrix@{RGetElementMatrix}}
+\index{RGetElementMatrix@{RGetElementMatrix}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetElementMatrix()}{RGetElementMatrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Get\+Element\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{size\+\_\+t}]{a\+Row\+Idx,  }\item[{size\+\_\+t}]{a\+Col\+Idx }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+PR Matrix as M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Row} & Row Idx \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Col Idx\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding element at idx 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a64d2eaeee8515b1e1fbb1207989e61f9_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_ac092b8a53065f4638e56046f8a8cebed}\label{RBasicUtilities_8hpp_ac092b8a53065f4638e56046f8a8cebed}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetElementVector@{RGetElementVector}}
+\index{RGetElementVector@{RGetElementVector}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetElementVector()}{RGetElementVector()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Get\+Element\+Vector (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{size\+\_\+t}]{a\+Index }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Element with Idx from M\+PR Vector as M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Index} & Index of Data\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding element at idx 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_ac092b8a53065f4638e56046f8a8cebed_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a3c2a4824829ad094e7b268d08cfb4a42}\label{RBasicUtilities_8hpp_a3c2a4824829ad094e7b268d08cfb4a42}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetMax@{RGetMax}}
+\index{RGetMax@{RGetMax}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetMax()}{RGetMax()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Get\+Max (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Max Element in Array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding Maximum Val (Same Precision) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a3c2a4824829ad094e7b268d08cfb4a42_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{RBasicUtilities_8hpp_a3c2a4824829ad094e7b268d08cfb4a42_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a8baa94866693cb0dc393d2b63175a48f}\label{RBasicUtilities_8hpp_a8baa94866693cb0dc393d2b63175a48f}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetMaxIdx@{RGetMaxIdx}}
+\index{RGetMaxIdx@{RGetMaxIdx}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetMaxIdx()}{RGetMaxIdx()}}
+{\footnotesize\ttfamily size\+\_\+t R\+Get\+Max\+Idx (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Max Element Index in Array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of Max Element 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a8baa94866693cb0dc393d2b63175a48f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{RBasicUtilities_8hpp_a8baa94866693cb0dc393d2b63175a48f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_abf9fdb72c6ee34be1237a045f0f1585c}\label{RBasicUtilities_8hpp_abf9fdb72c6ee34be1237a045f0f1585c}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetMin@{RGetMin}}
+\index{RGetMin@{RGetMin}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetMin()}{RGetMin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Get\+Min (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Min Element in Array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object holding Minimum Val (Same Precision) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_abf9fdb72c6ee34be1237a045f0f1585c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{RBasicUtilities_8hpp_abf9fdb72c6ee34be1237a045f0f1585c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_ad82f73297bccd29773fc26dc104a7a4c}\label{RBasicUtilities_8hpp_ad82f73297bccd29773fc26dc104a7a4c}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetMinIdx@{RGetMinIdx}}
+\index{RGetMinIdx@{RGetMinIdx}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetMinIdx()}{RGetMinIdx()}}
+{\footnotesize\ttfamily size\+\_\+t R\+Get\+Min\+Idx (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Min Element Index in Array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of Min Element 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_ad82f73297bccd29773fc26dc104a7a4c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{RBasicUtilities_8hpp_ad82f73297bccd29773fc26dc104a7a4c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a4abdc0ba99683c0a4195e7cd842bfb3e}\label{RBasicUtilities_8hpp_a4abdc0ba99683c0a4195e7cd842bfb3e}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetNCol@{RGetNCol}}
+\index{RGetNCol@{RGetNCol}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetNCol()}{RGetNCol()}}
+{\footnotesize\ttfamily size\+\_\+t R\+Get\+N\+Col (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Number of Columns. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of Rows in a Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{RBasicUtilities_8hpp_a4abdc0ba99683c0a4195e7cd842bfb3e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{RBasicUtilities_8hpp_a4abdc0ba99683c0a4195e7cd842bfb3e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a8793fefe3c9a5e19e6bcf3cd4a830e23}\label{RBasicUtilities_8hpp_a8793fefe3c9a5e19e6bcf3cd4a830e23}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetNRow@{RGetNRow}}
+\index{RGetNRow@{RGetNRow}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetNRow()}{RGetNRow()}}
+{\footnotesize\ttfamily size\+\_\+t R\+Get\+N\+Row (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Getting Number of Rows. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of Rows in a Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{RBasicUtilities_8hpp_a8793fefe3c9a5e19e6bcf3cd4a830e23_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{RBasicUtilities_8hpp_a8793fefe3c9a5e19e6bcf3cd4a830e23_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a59c4ffb9412ef2d6d55d54532dff8f15}\label{RBasicUtilities_8hpp_a59c4ffb9412ef2d6d55d54532dff8f15}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RGetType@{RGetType}}
+\index{RGetType@{RGetType}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RGetType()}{RGetType()}}
+{\footnotesize\ttfamily void R\+Get\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Printing string indicating whether it\textquotesingle{}s 16/32/64 Bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a59c4ffb9412ef2d6d55d54532dff8f15_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{RBasicUtilities_8hpp_a59c4ffb9412ef2d6d55d54532dff8f15_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a9dc8226f25a27552db03840cd0d14133}\label{RBasicUtilities_8hpp_a9dc8226f25a27552db03840cd0d14133}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RIsDouble@{RIsDouble}}
+\index{RIsDouble@{RIsDouble}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RIsDouble()}{RIsDouble()}}
+{\footnotesize\ttfamily bool R\+Is\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Checking if M\+PR object is 64-\/bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the object is holding 64-\/bit precision object, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a9dc8226f25a27552db03840cd0d14133_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{RBasicUtilities_8hpp_a9dc8226f25a27552db03840cd0d14133_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a9f426ffa4cc3d5a4558c0efbe30544c3}\label{RBasicUtilities_8hpp_a9f426ffa4cc3d5a4558c0efbe30544c3}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RIsFloat@{RIsFloat}}
+\index{RIsFloat@{RIsFloat}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RIsFloat()}{RIsFloat()}}
+{\footnotesize\ttfamily bool R\+Is\+Float (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Checking if M\+PR object is 32-\/bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the object is holding 32-\/bit precision object, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a9f426ffa4cc3d5a4558c0efbe30544c3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{RBasicUtilities_8hpp_a9f426ffa4cc3d5a4558c0efbe30544c3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a484d9e079c56338e31633b9d78c4edb7}\label{RBasicUtilities_8hpp_a484d9e079c56338e31633b9d78c4edb7}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RIsNa@{RIsNa}}
+\index{RIsNa@{RIsNa}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RIsNa()}{RIsNa()}}
+{\footnotesize\ttfamily S\+E\+XP R\+Is\+Na (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{long}]{a\+Idx }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Checking Whether Element at index is N\+AN or Not. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Index} & Index of Element to check\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if N\+AN,-\/N\+AN else Otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a484d9e079c56338e31633b9d78c4edb7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{RBasicUtilities_8hpp_a484d9e079c56338e31633b9d78c4edb7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a3f44edf01567cdd98ec608376f489052}\label{RBasicUtilities_8hpp_a3f44edf01567cdd98ec608376f489052}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RIsSFloat@{RIsSFloat}}
+\index{RIsSFloat@{RIsSFloat}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RIsSFloat()}{RIsSFloat()}}
+{\footnotesize\ttfamily bool R\+Is\+S\+Float (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Checking if M\+PR object is 16-\/bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the object is holding 16-\/bit precision object, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a3f44edf01567cdd98ec608376f489052_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{RBasicUtilities_8hpp_a3f44edf01567cdd98ec608376f489052_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a762e83f23019fe8cf3ca2e8349ae079b}\label{RBasicUtilities_8hpp_a762e83f23019fe8cf3ca2e8349ae079b}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RNaExclude@{RNaExclude}}
+\index{RNaExclude@{RNaExclude}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RNaExclude()}{RNaExclude()}}
+{\footnotesize\ttfamily void R\+Na\+Exclude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Removing NA values from Vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em ap\+Input} & M\+PR Object. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a762e83f23019fe8cf3ca2e8349ae079b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{RBasicUtilities_8hpp_a762e83f23019fe8cf3ca2e8349ae079b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a7662f372439ac68c56ca063631df8f98}\label{RBasicUtilities_8hpp_a7662f372439ac68c56ca063631df8f98}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RNaReplace@{RNaReplace}}
+\index{RNaReplace@{RNaReplace}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RNaReplace()}{RNaReplace()}}
+{\footnotesize\ttfamily void R\+Na\+Replace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{double}]{a\+Value }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Replacing NA values with a given value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em ap\+Input} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Value} & Value to use it instead of NA\textquotesingle{}s \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a7662f372439ac68c56ca063631df8f98_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{RBasicUtilities_8hpp_a7662f372439ac68c56ca063631df8f98_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_addc5061b847e3c154c90ae8ff45d4028}\label{RBasicUtilities_8hpp_addc5061b847e3c154c90ae8ff45d4028}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RObjectSize@{RObjectSize}}
+\index{RObjectSize@{RObjectSize}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RObjectSize()}{RObjectSize()}}
+{\footnotesize\ttfamily size\+\_\+t R\+Object\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+Get total size of Memory used by M\+PR Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Total size of Memory used by M\+PR Object 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{RBasicUtilities_8hpp_addc5061b847e3c154c90ae8ff45d4028_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{RBasicUtilities_8hpp_addc5061b847e3c154c90ae8ff45d4028_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a0fa4d270064a51d382f3341a3d6c489e}\label{RBasicUtilities_8hpp_a0fa4d270064a51d382f3341a3d6c489e}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RPrint@{RPrint}}
+\index{RPrint@{RPrint}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RPrint()}{RPrint()}}
+{\footnotesize\ttfamily void R\+Print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Printing Information about M\+PR object Dimensions-\/\+Matrix/\+Vector-\/\+Values ,and Precisions. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a0fa4d270064a51d382f3341a3d6c489e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{RBasicUtilities_8hpp_a0fa4d270064a51d382f3341a3d6c489e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a3c7b0f1d0a59864831bb4de0616eada0}\label{RBasicUtilities_8hpp_a3c7b0f1d0a59864831bb4de0616eada0}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RRBind@{RRBind}}
+\index{RRBind@{RRBind}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RRBind()}{RRBind()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+R\+Bind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+InputB }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Combining two Matrices by rows. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Matrix one \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+InputB} & M\+PR Matrix two\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Matrix holding combined data 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a3c7b0f1d0a59864831bb4de0616eada0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{RBasicUtilities_8hpp_a3c7b0f1d0a59864831bb4de0616eada0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a18b9e36fcec82799284d6d990ec68556}\label{RBasicUtilities_8hpp_a18b9e36fcec82799284d6d990ec68556}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RReplicate@{RReplicate}}
+\index{RReplicate@{RReplicate}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RReplicate()}{RReplicate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Replicate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{size\+\_\+t}]{a\+Size,  }\item[{size\+\_\+t}]{a\+Length }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Replicating value(s) number of times in-\/case a\+Length =0 the output size will be size$\ast$input size ,else size=a\+Length. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object to replicate \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Size} & Size of output vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Length} & Length of Output Value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Vector Holding Replicated Data 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a18b9e36fcec82799284d6d990ec68556_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{RBasicUtilities_8hpp_a18b9e36fcec82799284d6d990ec68556_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a8016b4df956fc9fa3a02e608a83b6d40}\label{RBasicUtilities_8hpp_a8016b4df956fc9fa3a02e608a83b6d40}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RScale@{RScale}}
+\index{RScale@{RScale}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RScale()}{RScale()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Centering and/or Scaling the columns of a numeric matrix. Centering is done using column mean and scaling is done using column standard deviation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object with the same size and shape after centering and/or scaling. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a8016b4df956fc9fa3a02e608a83b6d40_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a106d38b298f357cdeaeee128d85c6212}\label{RBasicUtilities_8hpp_a106d38b298f357cdeaeee128d85c6212}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RScale@{RScale}}
+\index{RScale@{RScale}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RScale()}{RScale()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{bool}]{a\+Center,  }\item[{bool}]{a\+Scale }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Centering and/or Scaling the columns of a numeric matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Center} & bool if true centering is done using column mean ,else no centering is done. \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Scale} & bool if true scaling is done using column standard deviation,else no scaling is done. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object with the same size and shape after centering and/or scaling. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a106d38b298f357cdeaeee128d85c6212_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_ad68c9ec3a68e4c3c01dd8d26d10ddf70}\label{RBasicUtilities_8hpp_ad68c9ec3a68e4c3c01dd8d26d10ddf70}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RScale@{RScale}}
+\index{RScale@{RScale}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RScale()}{RScale()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{bool}]{a\+Center,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Scale }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Centering and/or Scaling the columns of a numeric matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Center} & bool if true centering is done using column mean ,else no centering is done. \\
+\hline
+\mbox{\texttt{ out}}  & {\em ap\+Scale} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object with the same size and shape after centering and/or scaling. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_ad68c9ec3a68e4c3c01dd8d26d10ddf70_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_aed6da81d22798bc36832db0e83c40c83}\label{RBasicUtilities_8hpp_aed6da81d22798bc36832db0e83c40c83}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RScale@{RScale}}
+\index{RScale@{RScale}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RScale()}{RScale()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Center,  }\item[{bool}]{a\+Scale }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Centering and/or Scaling the columns of a numeric matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+Center} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Scale} & bool if true scaling is done using column standard deviation,else no scaling is done. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object with the same size and shape after centering and/or scaling. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_aed6da81d22798bc36832db0e83c40c83_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_ab29d921348d05f1c1744ddccc62292e8}\label{RBasicUtilities_8hpp_ab29d921348d05f1c1744ddccc62292e8}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RScale@{RScale}}
+\index{RScale@{RScale}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RScale()}{RScale()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Center,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Scale }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Centering and/or Scaling the columns of a numeric matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+Center} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\hline
+\mbox{\texttt{ out}}  & {\em ap\+Scale} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object with the same size and shape after centering and/or scaling. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_ab29d921348d05f1c1744ddccc62292e8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_ab29d921348d05f1c1744ddccc62292e8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_ac8816ef904ce2297cb4066a4a1100708}\label{RBasicUtilities_8hpp_ac8816ef904ce2297cb4066a4a1100708}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RScaleDispatcher@{RScaleDispatcher}}
+\index{RScaleDispatcher@{RScaleDispatcher}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RScaleDispatcher()}{RScaleDispatcher()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Scale\+Dispatcher (\begin{DoxyParamCaption}\item[{S\+E\+XP}]{a,  }\item[{S\+E\+XP}]{b,  }\item[{S\+E\+XP}]{c }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Dispatching Rscale. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em S\+E\+XP} & S\+E\+XP Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em S\+E\+XP} & S\+E\+XP Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em S\+E\+XP} & S\+E\+XP Object.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Object with the same size and shape after centering and/or scaling. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_ac8816ef904ce2297cb4066a4a1100708_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{RBasicUtilities_8hpp_ac8816ef904ce2297cb4066a4a1100708_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{RBasicUtilities_8hpp_a3afcc36ebeabc95b6920c095ba15cd1c}\label{RBasicUtilities_8hpp_a3afcc36ebeabc95b6920c095ba15cd1c}} 
+\index{RBasicUtilities.hpp@{RBasicUtilities.hpp}!RSweep@{RSweep}}
+\index{RSweep@{RSweep}!RBasicUtilities.hpp@{RBasicUtilities.hpp}}
+\doxysubsubsection{\texorpdfstring{RSweep()}{RSweep()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Sweep (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Input,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Stats,  }\item[{int}]{a\+Margin,  }\item[{std\+::string}]{a\+Operation }\end{DoxyParamCaption})}
+
+
+
+R Adapter for Applying operation (+,-\/,$\ast$,/) to the row or column in Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+Stats} & the value(s) that should be used in the operation \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Margin} & a\+Margin = 1 means row; a\+Margin = otherwise means column. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Operation} & char containing operation (+,-\/,$\ast$,/)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+PR Vector holding Data After Applying Sweep 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RBasicUtilities_8hpp_a3afcc36ebeabc95b6920c095ba15cd1c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{RBasicUtilities_8hpp_a3afcc36ebeabc95b6920c095ba15cd1c_icgraph}
+\end{center}
+\end{figure}

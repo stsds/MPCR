@@ -1,0 +1,578 @@
+\hypertarget{namespacempr_1_1operations_1_1basic}{}\doxysection{mpr\+::operations\+::basic Namespace Reference}
+\label{namespacempr_1_1operations_1_1basic}\index{mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a18d921c17ac8485365bf40e55ce1bcf9}{Min\+Max}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{BasicOperations_8cpp_ac82ce86cc7dd35d2e9ac3464fbc430a8}{a\+Vec}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, size\+\_\+t \&\mbox{\hyperlink{BasicOperations_8cpp_a3c44c13c34640ec21ea6646e74dcc75e}{a\+Min\+Max\+Idx}}, const bool \&a\+Is\+Max)
+\begin{DoxyCompactList}\small\item\em Get Min/\+Max Element in Array and Idx at which the element is. if only the Index is Needed ,Empty (size =0) M\+PR object should be passed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a2922f93a72a0f285f39980b21f0f260b}{Get\+Type}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{BasicOperations_8cpp_ac82ce86cc7dd35d2e9ac3464fbc430a8}{a\+Vec}}, std\+::string \&a\+Type)
+\begin{DoxyCompactList}\small\item\em Get string indicating whether it\textquotesingle{}s 16/32/64 Bit Precision. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a46db36a384abd650d7128466773704a5}{Get\+Diagonal}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{BasicOperations_8cpp_ac82ce86cc7dd35d2e9ac3464fbc430a8}{a\+Vec}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, \mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$ap\+Dim=nullptr)
+\begin{DoxyCompactList}\small\item\em Get Diagonal of a Matrix. if Vector is Being passed to the function its \mbox{\hyperlink{structDimensions}{Dimensions}} Object Must be passed \& it should match the Vector size. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename X , typename Y $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a3ddb97453c7b1ece513e065f3af4dda4}{Sweep}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{BasicOperations_8cpp_ac82ce86cc7dd35d2e9ac3464fbc430a8}{a\+Vec}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Stats, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const int \&a\+Margin, const std\+::string \&\mbox{\hyperlink{BinaryOperations_8cpp_a021cb26aed2cfeaa91a204536064888f}{a\+Fun}})
+\begin{DoxyCompactList}\small\item\em Apply operation (+,-\/,$\ast$,/) to the row or column in Matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename X , typename Y $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a0931350a5fdf0f4aed767607c7c403c2}{Concatenate}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, size\+\_\+t \&a\+Current\+Idx)
+\begin{DoxyCompactList}\small\item\em Concatenate one or two vector/\+Matrix(Row Bind) to a given vector. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename X , typename Y $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a20584ed265af06e3f65b5164742d2e78}{Column\+Bind}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}})
+\begin{DoxyCompactList}\small\item\em Combine two Matrices by columns. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename X , typename Y $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a2237dcd8e22009a835229fd5a251ecc0}{Row\+Bind}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}})
+\begin{DoxyCompactList}\small\item\em Combine two Matrices by rows. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a968b1b5a794e7d6032318cce6da0ef7e}{Is\+S\+Float}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Check if M\+PR object is 16-\/bit Precision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a4868c0e47a693ab50b6691eecad03b16}{Is\+Float}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Check if M\+PR object is 32-\/bit Precision. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_ae13e808461180a09bdd7edc04f8b256f}{Is\+Double}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Check if M\+PR object is 64-\/bit Precision. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a2e9fd5b4f92f795ad95099f647052f18}{Replicate}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const size\+\_\+t \&a\+Size)
+\begin{DoxyCompactList}\small\item\em Replicate value(s) number of times. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_ad694808357dfa08cd39fe10c2ace239f}{Get\+As\+Str}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{BasicOperations_8cpp_ac82ce86cc7dd35d2e9ac3464fbc430a8}{a\+Vec}}, std\+::string \&a\+Type)
+\begin{DoxyCompactList}\small\item\em Get Information about M\+PR object Dimensions-\/\+Matrix/\+Vector-\/\+Values Precisions. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_af9aae81c56f77c13a14eb1896fd0a12d}{N\+A\+Exclude}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}})
+\begin{DoxyCompactList}\small\item\em Remove NA values from Vector. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_a072bf1f1114bc9de507b2ee667b3e5e0}{N\+A\+Replace}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const double \&a\+Value)
+\begin{DoxyCompactList}\small\item\em Replace NA values with a given value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename X , typename Y $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_aec73a892cfeefa7e37f01fdf98aae897}{Apply\+Center}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{BasicOperations_8cpp_a968029ffb54719ee07ba757b41f35bcf}{a\+Center}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool $\ast$ap\+Center=nullptr)
+\begin{DoxyCompactList}\small\item\em centers the columns of a numeric matrix. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename X , typename Y $>$ }\\void \mbox{\hyperlink{namespacempr_1_1operations_1_1basic_aa84eec1ed73fb2ccce2965a0dd106b7f}{Apply\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} \&a\+Scale, \mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{MathematicalOperations_8cpp_a85b97edf08d7990be4db36a27114c234}{a\+Output}}, const bool $\ast$ap\+Scale=nullptr)
+\begin{DoxyCompactList}\small\item\em Scales the columns of a numeric matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_aec73a892cfeefa7e37f01fdf98aae897}\label{namespacempr_1_1operations_1_1basic_aec73a892cfeefa7e37f01fdf98aae897}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!ApplyCenter@{ApplyCenter}}
+\index{ApplyCenter@{ApplyCenter}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{ApplyCenter()}{ApplyCenter()}}
+{\footnotesize\ttfamily template$<$typename T , typename X , typename Y $>$ \\
+void mpr\+::operations\+::basic\+::\+Apply\+Center (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Center,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{const bool $\ast$}]{ap\+Center = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+centers the columns of a numeric matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Center} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Output Object \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+Center} & bool to indicate whether to center using mean or not. if ap\+Center is not null, a\+Center M\+PR object is ignored. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_aec73a892cfeefa7e37f01fdf98aae897_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_aec73a892cfeefa7e37f01fdf98aae897_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_aa84eec1ed73fb2ccce2965a0dd106b7f}\label{namespacempr_1_1operations_1_1basic_aa84eec1ed73fb2ccce2965a0dd106b7f}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!ApplyScale@{ApplyScale}}
+\index{ApplyScale@{ApplyScale}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{ApplyScale()}{ApplyScale()}}
+{\footnotesize\ttfamily template$<$typename T , typename X , typename Y $>$ \\
+void mpr\+::operations\+::basic\+::\+Apply\+Scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Scale,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{const bool $\ast$}]{ap\+Scale = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Scales the columns of a numeric matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Scale} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Output Object \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+Scale} & bool to indicate whether to scale using standard deviation or not. if ap\+Scale is not null, a\+Scale M\+PR object is ignored. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_aa84eec1ed73fb2ccce2965a0dd106b7f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_aa84eec1ed73fb2ccce2965a0dd106b7f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a20584ed265af06e3f65b5164742d2e78}\label{namespacempr_1_1operations_1_1basic_a20584ed265af06e3f65b5164742d2e78}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!ColumnBind@{ColumnBind}}
+\index{ColumnBind@{ColumnBind}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{ColumnBind()}{ColumnBind()}}
+{\footnotesize\ttfamily template$<$typename T , typename X , typename Y $>$ \\
+void mpr\+::operations\+::basic\+::\+Column\+Bind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output }\end{DoxyParamCaption})}
+
+
+
+Combine two Matrices by columns. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix one \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix two \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Matrix holding combined data \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a20584ed265af06e3f65b5164742d2e78_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a20584ed265af06e3f65b5164742d2e78_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a0931350a5fdf0f4aed767607c7c403c2}\label{namespacempr_1_1operations_1_1basic_a0931350a5fdf0f4aed767607c7c403c2}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!Concatenate@{Concatenate}}
+\index{Concatenate@{Concatenate}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{Concatenate()}{Concatenate()}}
+{\footnotesize\ttfamily template$<$typename T , typename X , typename Y $>$ \\
+void mpr\+::operations\+::basic\+::\+Concatenate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{size\+\_\+t \&}]{a\+Current\+Idx }\end{DoxyParamCaption})}
+
+
+
+Concatenate one or two vector/\+Matrix(Row Bind) to a given vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Vector/\+Matrix one \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Vector/\+Matrix two \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em a\+Output} & M\+PR Vector/\+Matrix holding all concatenated data \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em a\+Current\+Idx} & Index to start inserting from ,and it\textquotesingle{}s updated according to next index that should be used for insertion. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a0931350a5fdf0f4aed767607c7c403c2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a0931350a5fdf0f4aed767607c7c403c2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_ad694808357dfa08cd39fe10c2ace239f}\label{namespacempr_1_1operations_1_1basic_ad694808357dfa08cd39fe10c2ace239f}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!GetAsStr@{GetAsStr}}
+\index{GetAsStr@{GetAsStr}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{GetAsStr()}{GetAsStr()}}
+{\footnotesize\ttfamily void mpr\+::operations\+::basic\+::\+Get\+As\+Str (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Vec,  }\item[{std\+::string \&}]{a\+Type }\end{DoxyParamCaption})}
+
+
+
+Get Information about M\+PR object Dimensions-\/\+Matrix/\+Vector-\/\+Values Precisions. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Vec} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Type} & String that will hold the info. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_ad694808357dfa08cd39fe10c2ace239f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_ad694808357dfa08cd39fe10c2ace239f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a46db36a384abd650d7128466773704a5}\label{namespacempr_1_1operations_1_1basic_a46db36a384abd650d7128466773704a5}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!GetDiagonal@{GetDiagonal}}
+\index{GetDiagonal@{GetDiagonal}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{GetDiagonal()}{GetDiagonal()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void mpr\+::operations\+::basic\+::\+Get\+Diagonal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Vec,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{\mbox{\hyperlink{structDimensions}{Dimensions}} $\ast$}]{ap\+Dim = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Get Diagonal of a Matrix. if Vector is Being passed to the function its \mbox{\hyperlink{structDimensions}{Dimensions}} Object Must be passed \& it should match the Vector size. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Vec} & M\+PR object can be Vector or Matrix \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Vector holding Diagonal values \\
+\hline
+\mbox{\texttt{ in}}  & {\em ap\+Dim} & \mbox{\hyperlink{structDimensions}{Dimensions}} Object in case Vector is used \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a46db36a384abd650d7128466773704a5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a46db36a384abd650d7128466773704a5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a2922f93a72a0f285f39980b21f0f260b}\label{namespacempr_1_1operations_1_1basic_a2922f93a72a0f285f39980b21f0f260b}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!GetType@{GetType}}
+\index{GetType@{GetType}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{GetType()}{GetType()}}
+{\footnotesize\ttfamily void mpr\+::operations\+::basic\+::\+Get\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Vec,  }\item[{std\+::string \&}]{a\+Type }\end{DoxyParamCaption})}
+
+
+
+Get string indicating whether it\textquotesingle{}s 16/32/64 Bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Vec} & M\+PR object can be Vector or Matrix \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Type} & String Holding Precision Type \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a2922f93a72a0f285f39980b21f0f260b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a2922f93a72a0f285f39980b21f0f260b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_ae13e808461180a09bdd7edc04f8b256f}\label{namespacempr_1_1operations_1_1basic_ae13e808461180a09bdd7edc04f8b256f}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!IsDouble@{IsDouble}}
+\index{IsDouble@{IsDouble}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{IsDouble()}{IsDouble()}}
+{\footnotesize\ttfamily bool mpr\+::operations\+::basic\+::\+Is\+Double (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Check if M\+PR object is 64-\/bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the object is holding 64-\/bit precision object, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_ae13e808461180a09bdd7edc04f8b256f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_ae13e808461180a09bdd7edc04f8b256f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a4868c0e47a693ab50b6691eecad03b16}\label{namespacempr_1_1operations_1_1basic_a4868c0e47a693ab50b6691eecad03b16}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!IsFloat@{IsFloat}}
+\index{IsFloat@{IsFloat}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{IsFloat()}{IsFloat()}}
+{\footnotesize\ttfamily bool mpr\+::operations\+::basic\+::\+Is\+Float (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Check if M\+PR object is 32-\/bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the object is holding 32-\/bit precision object, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a4868c0e47a693ab50b6691eecad03b16_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a4868c0e47a693ab50b6691eecad03b16_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a968b1b5a794e7d6032318cce6da0ef7e}\label{namespacempr_1_1operations_1_1basic_a968b1b5a794e7d6032318cce6da0ef7e}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!IsSFloat@{IsSFloat}}
+\index{IsSFloat@{IsSFloat}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{IsSFloat()}{IsSFloat()}}
+{\footnotesize\ttfamily bool mpr\+::operations\+::basic\+::\+Is\+S\+Float (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})}
+
+
+
+Check if M\+PR object is 16-\/bit Precision. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the object is holding 16-\/bit precision object, false otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a968b1b5a794e7d6032318cce6da0ef7e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a968b1b5a794e7d6032318cce6da0ef7e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a18d921c17ac8485365bf40e55ce1bcf9}\label{namespacempr_1_1operations_1_1basic_a18d921c17ac8485365bf40e55ce1bcf9}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!MinMax@{MinMax}}
+\index{MinMax@{MinMax}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{MinMax()}{MinMax()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void mpr\+::operations\+::basic\+::\+Min\+Max (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Vec,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{size\+\_\+t \&}]{a\+Min\+Max\+Idx,  }\item[{const bool \&}]{a\+Is\+Max }\end{DoxyParamCaption})}
+
+
+
+Get Min/\+Max Element in Array and Idx at which the element is. if only the Index is Needed ,Empty (size =0) M\+PR object should be passed. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Vec} & M\+PR object can be Vector or Matrix \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & Min/\+Max Element With the Same input precision as M\+PR object \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Min\+Max\+Idx} & Index at which Min/\+Max Element is \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Is\+Max} & bool indicating whether function should return Min or Max True if Max ,False if Min \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a18d921c17ac8485365bf40e55ce1bcf9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a18d921c17ac8485365bf40e55ce1bcf9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_af9aae81c56f77c13a14eb1896fd0a12d}\label{namespacempr_1_1operations_1_1basic_af9aae81c56f77c13a14eb1896fd0a12d}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!NAExclude@{NAExclude}}
+\index{NAExclude@{NAExclude}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{NAExclude()}{NAExclude()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void mpr\+::operations\+::basic\+::\+N\+A\+Exclude (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA }\end{DoxyParamCaption})}
+
+
+
+Remove NA values from Vector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em a\+InputA} & M\+PR Object. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_af9aae81c56f77c13a14eb1896fd0a12d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_af9aae81c56f77c13a14eb1896fd0a12d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a072bf1f1114bc9de507b2ee667b3e5e0}\label{namespacempr_1_1operations_1_1basic_a072bf1f1114bc9de507b2ee667b3e5e0}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!NAReplace@{NAReplace}}
+\index{NAReplace@{NAReplace}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{NAReplace()}{NAReplace()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void mpr\+::operations\+::basic\+::\+N\+A\+Replace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{const double \&}]{a\+Value }\end{DoxyParamCaption})}
+
+
+
+Replace NA values with a given value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em a\+InputA} & M\+PR Object. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Value} & Value to use it instead of NA\textquotesingle{}s \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a072bf1f1114bc9de507b2ee667b3e5e0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a072bf1f1114bc9de507b2ee667b3e5e0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a2e9fd5b4f92f795ad95099f647052f18}\label{namespacempr_1_1operations_1_1basic_a2e9fd5b4f92f795ad95099f647052f18}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!Replicate@{Replicate}}
+\index{Replicate@{Replicate}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{Replicate()}{Replicate()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void mpr\+::operations\+::basic\+::\+Replicate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{const size\+\_\+t \&}]{a\+Size }\end{DoxyParamCaption})}
+
+
+
+Replicate value(s) number of times. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR object to replicate \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Vector holding replicated Data \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Size} & Size of output vector \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a2e9fd5b4f92f795ad95099f647052f18_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a2e9fd5b4f92f795ad95099f647052f18_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a2237dcd8e22009a835229fd5a251ecc0}\label{namespacempr_1_1operations_1_1basic_a2237dcd8e22009a835229fd5a251ecc0}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!RowBind@{RowBind}}
+\index{RowBind@{RowBind}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{RowBind()}{RowBind()}}
+{\footnotesize\ttfamily template$<$typename T , typename X , typename Y $>$ \\
+void mpr\+::operations\+::basic\+::\+Row\+Bind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+InputB,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output }\end{DoxyParamCaption})}
+
+
+
+Combine two Matrices by rows. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix one \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix two \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Matrix holding combined data \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a2237dcd8e22009a835229fd5a251ecc0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a2237dcd8e22009a835229fd5a251ecc0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacempr_1_1operations_1_1basic_a3ddb97453c7b1ece513e065f3af4dda4}\label{namespacempr_1_1operations_1_1basic_a3ddb97453c7b1ece513e065f3af4dda4}} 
+\index{mpr::operations::basic@{mpr::operations::basic}!Sweep@{Sweep}}
+\index{Sweep@{Sweep}!mpr::operations::basic@{mpr::operations::basic}}
+\doxysubsubsection{\texorpdfstring{Sweep()}{Sweep()}}
+{\footnotesize\ttfamily template$<$typename T , typename X , typename Y $>$ \\
+void mpr\+::operations\+::basic\+::\+Sweep (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Vec,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Stats,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Output,  }\item[{const int \&}]{a\+Margin,  }\item[{const std\+::string \&}]{a\+Fun }\end{DoxyParamCaption})}
+
+
+
+Apply operation (+,-\/,$\ast$,/) to the row or column in Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Vec} & M\+PR Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Stats} & the value(s) that should be used in the operation \\
+\hline
+\mbox{\texttt{ out}}  & {\em a\+Output} & M\+PR Vector holding Data After Applying Sweep \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Margin} & a\+Margin = 1 means row; a\+Margin = otherwise means column. \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Fun} & char containing operation (+,-\/,$\ast$,/,$^\wedge$) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a3ddb97453c7b1ece513e065f3af4dda4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacempr_1_1operations_1_1basic_a3ddb97453c7b1ece513e065f3af4dda4_icgraph}
+\end{center}
+\end{figure}

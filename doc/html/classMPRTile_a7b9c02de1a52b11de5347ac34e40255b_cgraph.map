@@ -1,0 +1,4 @@
+<map id="MPRTile::GetNCol" name="MPRTile::GetNCol">
+<area shape="rect" id="node1" title="Get Number of Cols in Global Matrix." alt="" coords="5,5,141,32"/>
+<area shape="rect" id="node2" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="189,5,351,32"/>
+</map>

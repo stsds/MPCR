@@ -1,0 +1,8 @@
+<map id="mpr::operations::basic::ApplyScale" name="mpr::operations::basic::ApplyScale">
+<area shape="rect" id="node1" title="Scales the columns of a numeric matrix." alt="" coords="5,99,172,141"/>
+<area shape="rect" id="node2" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="223,5,369,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="223,56,369,83"/>
+<area shape="rect" id="node4" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="220,107,372,133"/>
+<area shape="rect" id="node5" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="225,157,367,184"/>
+<area shape="rect" id="node6" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="225,208,367,235"/>
+</map>

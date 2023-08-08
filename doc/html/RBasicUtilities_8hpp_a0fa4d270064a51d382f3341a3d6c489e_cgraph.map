@@ -1,0 +1,11 @@
+<map id="RPrint" name="RPrint">
+<area shape="rect" id="node1" title="R Adapter for Printing Information about MPR object Dimensions&#45;Matrix/Vector&#45;Values ,..." alt="" coords="5,136,67,163"/>
+<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1basic.html#ad694808357dfa08cd39fe10c2ace239f" title="Get Information about MPR object Dimensions&#45;Matrix/Vector&#45;Values Precisions." alt="" coords="115,129,281,170"/>
+<area shape="rect" id="node3" href="$classDataType.html#a9afc2032a007aab9d6f7631aaac432df" title="Get Matrix Dimensions." alt="" coords="329,5,520,32"/>
+<area shape="rect" id="node4" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="341,56,509,83"/>
+<area shape="rect" id="node5" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="354,107,495,133"/>
+<area shape="rect" id="node6" href="$namespacempr_1_1operations_1_1basic.html#a2922f93a72a0f285f39980b21f0f260b" title="Get string indicating whether it&#39;s 16/32/64 Bit Precision." alt="" coords="341,158,508,199"/>
+<area shape="rect" id="node8" href="$classDataType.html#a2150d8ef445e8db1eef0001c6d646da0" title="Get Values in the Vector according to Index (0&#45;based Indexing)" alt="" coords="357,224,492,251"/>
+<area shape="rect" id="node9" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="353,275,497,301"/>
+<area shape="rect" id="node7" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="568,165,741,192"/>
+</map>

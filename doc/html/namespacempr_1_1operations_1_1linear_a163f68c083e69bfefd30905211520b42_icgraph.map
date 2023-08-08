@@ -1,0 +1,9 @@
+<map id="mpr::operations::linear::BackSolve" name="mpr::operations::linear::BackSolve">
+<area shape="rect" id="node1" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="392,78,563,119"/>
+<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a4795dfedd631c690066b70114ef258c4" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="209,5,308,32"/>
+<area shape="rect" id="node4" href="$RLinearAlgebra_8hpp.html#ad9707037cdca328d5ffa3542400576ce" title=" " alt="" coords="228,56,289,83"/>
+<area shape="rect" id="node5" href="$namespacempr_1_1operations_1_1linear.html#ab513f8ae03768c169422a7526c023091" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="173,107,344,149"/>
+<area shape="rect" id="node7" href="$namespacempr_1_1operations_1_1linear.html#abd6448d4de9c6dd0b6bfcb9f85cc02ad" title="Solves a triangular matrix equation performs: op(A)*X=alpha*B X*op(A)=alpha*B." alt="" coords="173,173,344,214"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,31,125,57"/>
+<area shape="rect" id="node6" href="$MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,147,125,173"/>
+</map>

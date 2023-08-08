@@ -1,0 +1,6 @@
+<map id="mpr::operations::math::Gamma" name="mpr::operations::math::Gamma">
+<area shape="rect" id="node1" title="Perform Gamma operation on a given MPR Object." alt="" coords="312,23,479,65"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#a2325ceeac662bb5862dd7013d2454e55" title="Perform tgamma operation on MPR Object." alt="" coords="177,5,260,32"/>
+<area shape="rect" id="node4" href="$RMathematicalOperations_8hpp.html#ac17afa949d5c2bce786d07adcf3cacd1" title="Perform lgamma operation on MPR Object." alt="" coords="173,56,264,83"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,31,125,57"/>
+</map>
