@@ -35,6 +35,6 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 
 cd bin/
 make clean
-make all
+make all -j
 
 cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.so -> src"

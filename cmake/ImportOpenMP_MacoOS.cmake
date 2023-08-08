@@ -1,3 +1,9 @@
+##########################################################################
+# Copyright (c) 2023, King Abdullah University of Science and Technology
+# All rights reserved.
+# MMPR is an R package provided by the STSDS group at KAUST
+##########################################################################
+
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
