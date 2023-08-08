@@ -1,6 +1,7 @@
 # Prerequisites
-Directory containing all Prerequisite libraries used by the project.
+Directory containing all Prerequisite libraries used by the project in [MMPR](https://github.com/stsds/MMPR/tree/master/prerequisites)
 
 ## Catch2
-Folder containing the ```catch.hpp``` header needed to use the Catch2 testing framework used for all the tests of the system.
-**No installation is required.**
+Directory that holds the catch.hpp header necessary for utilizing the Catch2 testing framework,
+ which is employed for conducting all system tests. No installation process is necessary.
+
