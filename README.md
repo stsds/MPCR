@@ -14,7 +14,7 @@ ___
 ## Requirements
 - Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp")` in R to install it.
 - For optimal performance, `MKL` is recommended for building the package,
-in case MKL is not found on the system, the package will automatically download [OpenBLAS](https://github.com/xianyi/OpenBLAS). Note: Prior to installation, it is essential to set the required environment variables..
+in case MKL is not found on the system, the package will automatically download [OpenBLAS](https://github.com/xianyi/OpenBLAS).
 - [Blaspp](https://github.com/icl-utk-edu/blaspp) (if not found, it will be installed automatically).
 - [Lapackpp](https://github.com/icl-utk-edu/lapackpp) (if not found, it will be installed automatically).
 
@@ -93,6 +93,8 @@ More examples are available in [here](tests/R-tests)
 ___
 
 ## Benchmarking MMPR vs R
+
+#### The following benchmark results are conducted on three matrix sizes, `500x500`, `5000x5000`, and `15812x15812`
 
 **This graph represents the speedup of MMPR single precision object to R double object in three major linear algebra functions.**
 

@@ -25,31 +25,52 @@ ToLogicalVector(std::vector <int> &aInput) {
     return vec;
 }
 
+
 void
 RInsertTile(MPRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
-           const size_t &aColIdx){
-    auto new_obj=new DataType(*aTile);
-    aMatrix->InsertTile(new_obj,aRowIdx-1,aColIdx-1);
+            const size_t &aColIdx) {
+    auto new_obj = new DataType(*aTile);
+    aMatrix->InsertTile(new_obj, aRowIdx - 1, aColIdx - 1);
 }
 
 
 DataType *
-RGetTile(MPRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx){
-    auto pOutput=aMatrix->GetTile(aRowIdx-1,aColIdx-1);
-    auto new_obj=new DataType(*pOutput);
+RGetTile(MPRTile *aMatrix, const size_t &aRowIdx, const size_t &aColIdx) {
+    auto pOutput = aMatrix->GetTile(aRowIdx - 1, aColIdx - 1);
+    auto new_obj = new DataType(*pOutput);
     return new_obj;
 }
 
+
 MPRTile *
-RCopyMPRTile(MPRTile *aMatrix){
-    auto tile_matrix=new MPRTile(*aMatrix);
+RCopyMPRTile(MPRTile *aMatrix) {
+    auto tile_matrix = new MPRTile(*aMatrix);
     return tile_matrix;
 }
 
 
-
-DataType*
-RCopyMPR(DataType *aMatrix){
-    auto mat=new DataType(*aMatrix);
+DataType *
+RCopyMPR(DataType *aMatrix) {
+    auto mat = new DataType(*aMatrix);
     return mat;
+}
+
+
+RawVector
+SerializeTile(DataType *aInput) {
+    return aInput->RSerialize();
+}
+
+
+DataType *
+DeSerializeTile(Rcpp::RawVector aInput) {
+    return DataType::RDeSerialize(aInput);
+}
+
+
+Rcpp::RawVector
+RGetSerializeTile(MPRTile *aMatrix, const size_t &aRowIdx,
+                 const size_t &aColIdx) {
+    auto pOutput = aMatrix->GetTile(aRowIdx - 1, aColIdx - 1);
+    return pOutput->RSerialize();
 }

@@ -188,6 +188,7 @@ RCPP_MODULE(MMPR) {
 
 
     function("MMPR.copy",&RCopyMPR,List::create(_["x"]));
-
+    function("MMPR.Serialize",&SerializeTile);
+    function("MMPR.DeSerialize",&DeSerializeTile);
 
 }

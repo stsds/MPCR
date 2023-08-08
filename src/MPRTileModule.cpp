@@ -68,6 +68,8 @@ RCPP_MODULE(MMPRTile) {
     function("MMPRTile.UpdateTile", &RInsertTile,
              List::create(_[ "matrix" ], _[ "tile" ], _[ "row" ], _[ "col" ]));
 
+    function("MMPRTile.GetSerializedTile", &RGetSerializeTile,
+             List::create(_[ "matrix" ], _[ "row" ], _[ "col" ]));
+
 
 }
-

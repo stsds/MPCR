@@ -887,6 +887,7 @@ public:
      */
     double
     Product();
+
     /**
      * @brief
      * Returns the determinant of all elements in MPR Object
@@ -897,6 +898,50 @@ public:
      */
     double
     Determinant();
+
+    /**
+     * @brief
+     * Serialize DataType object as a vector of char
+     *
+     * @returns
+     * vector of bytes containing DataType object as a stream of bytes
+     *
+     */
+    std::vector <char>
+    Serialize();
+
+    /**
+     * @brief
+     * R version to Serialize DataType object as a Raw Vector
+     *
+     * @returns
+     * vector of bytes containing DataType object as a stream of bytes
+     *
+     */
+    Rcpp::RawVector
+    RSerialize();
+
+    /**
+     * @brief
+     * R version to DeSerialize Stream of bytes to MPR Object
+     *
+     * @param[in] aInput
+     * vector of bytes containing DataType object as a stream of bytes
+     *
+     */
+    static DataType *
+    RDeSerialize(Rcpp::RawVector aInput);
+
+    /**
+     * @brief
+     * DeSerialize Stream of bytes to MPR Object
+     *
+     * @param[in] aInput
+     * vector of bytes containing DataType object as a stream of bytes
+     *
+     */
+    static DataType *
+    DeSerialize(char *apData);
 
 
 private:
