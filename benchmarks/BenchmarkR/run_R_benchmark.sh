@@ -23,7 +23,7 @@ function run_R_benchmark() {
   Rscript ${ABSOLUE_PATH}/rcondRblas.R $1 $2 $3 $4 >>$5
   Rscript ${ABSOLUE_PATH}/solveRblas.R $1 $3 $4 >>$5
   Rscript ${ABSOLUE_PATH}/svdRblas.R $1 $3 $4 >>$5
-  #Rscript ${ABSOLUE_PATH}/triangularsolveRblas.R $1 $3 $4 >>$5
+  Rscript ${ABSOLUE_PATH}/triangularsolveRblas.R $1 $3 $4 >>$5
   
 }
 
