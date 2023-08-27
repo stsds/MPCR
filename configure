@@ -6,7 +6,12 @@
 # MMPR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
-ABSOLUE_PATH=$(dirname $(realpath "$0"))
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ABSOLUE_PATH=$(cd "$(dirname "$0")" pwd -P)
+else
+  ABSOLUE_PATH=$(dirname $(realpath "$0"))
+fi
+
 BUILDING_EXAMPLES="OFF"
 BUILDING_TESTS="OFF"
 INSTALL_PATH="/usr/local"
@@ -37,4 +42,8 @@ cd bin/
 make clean
 make all -j
 
-cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.so -> src"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  cp "${ABSOLUE_PATH}/bin/src/libmpr.dylib" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.dylib -> src"
+else
+  cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.so -> src"
+fi

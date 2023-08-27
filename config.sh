@@ -11,8 +11,14 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
+
 PROJECT_SOURCE_DIR=$(dirname "$0")
-ABSOLUE_PATH=$(dirname $(realpath "$0"))
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ABSOLUE_PATH=$(cd "$(dirname "$0")" pwd -P)
+else
+  ABSOLUE_PATH=$(dirname $(realpath "$0"))
+fi
 
 while getopts ":f:c:tevhi:" opt; do
   case $opt in

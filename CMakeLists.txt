@@ -35,7 +35,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+if(NOT APPLE)
 include(ImportGFortran)
+endif()
+
 include(ImportOpenMP)
 if (OpenMP_FOUND)
     message("OpenMp Found")

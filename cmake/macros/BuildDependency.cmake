@@ -13,6 +13,7 @@ macro(BuildDependency raw_name url tag)
     # Configure subproject into <subproject-build-dir>
     execute_process(COMMAND ${CMAKE_COMMAND}
             -DCMAKE_INSTALL_PREFIX=${${name}_installpath}
+            -DNOFORTRAN=1
             #            -DBUILD_SHARED_LIBS=ON
             ${${name}_srcpath}
             WORKING_DIRECTORY
