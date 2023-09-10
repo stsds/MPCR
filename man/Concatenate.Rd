@@ -1,16 +1,14 @@
 \name{09-Concatenate}
 \alias{concatenate}
-\alias{concatenate,Rcpp_MMPR-method}
+\alias{MMPR.Concatenate,Rcpp_MMPR-method}
 \title{concatenate}
 \usage{
-\method{MMPR.Concatenate}{List of MMPR objects}(x)
+\S4method{MMPR.Concatenate}{Rcpp_MMPR}(x)
 }
+
 
 \arguments{
 \item{x}{List of MMPR objects.}
-
-
-
 }
 \value{
 MMPR object containing values from all objects in the list.

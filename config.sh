@@ -15,7 +15,7 @@ NC='\033[0m'
 PROJECT_SOURCE_DIR=$(dirname "$0")
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  ABSOLUE_PATH=$(cd "$(dirname "$0")" pwd -P)
+  ABSOLUE_PATH=$([[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}")
 else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi

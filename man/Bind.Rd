@@ -1,12 +1,12 @@
 \name{10-Bind}
-\alias{bind}
-\alias{rbind.Rcpp_MMPR-method}
-\alias{cbind.Rcpp_MMPR-method}
-\title{rbind}
-\usage{
-\method{MMPR.rbind}{Rcpp_MMPR}(x,y)
 
-\method{MMPR.cbind}{Rcpp_MMPR}(x,y)
+\alias{MMPR.rbind,Rcpp_MMPR-method}
+\alias{MMPR.cbind,Rcpp_MMPR-method}
+\title{bind}
+\usage{
+\S4method{MMPR.rbind}{Rcpp_MMPR}(x,y)
+
+\S4method{MMPR.cbind}{Rcpp_MMPR}(x,y)
 }
 \arguments{
 \item{x}{An MMPR object.}

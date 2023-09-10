@@ -2,9 +2,11 @@
 \alias{Converters}
 \title{Converters}
 
-
+\description{
+ Converters from R to MMPR objects and vice-versa.
+}
 \section{MMPR Converter}{
-    \description{
+    \describe{
     Convert R object to MMPR object.
     }
 
@@ -22,7 +24,7 @@
 }
 
 \section{R Converter}{
-    \description{
+    \describe{
     Convert an MMPR object to R object.
     }
 

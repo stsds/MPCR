@@ -1,13 +1,13 @@
 \name{42-MMPRTile POTRF}
 \alias{MMPRTile Chol}
-\alias{MMPRTile Chol,Rcpp_MMPRTile-method}
+\alias{chol,Rcpp_MMPRTile-method}
 \title{MMPRTile Chol  ( Cholesky decomposition )}
 \description{
     Tile-based Cholesky decomposition of a positive definite tile-based symmetric matrix.
 }
 \usage{
 
-\S4method{chol}{Rcpp_MMPR}(x, overwrite_input = TRUE, num_threads = 1)
+\S4method{chol}{Rcpp_MMPRTile}(x, overwrite_input = TRUE, num_threads = 1)
 
 }
 \arguments{

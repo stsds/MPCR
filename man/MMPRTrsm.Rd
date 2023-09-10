@@ -1,6 +1,6 @@
 \name{40-MMPR TRSM}
 \alias{MMPR TRSM}
-\alias{MMPR TRSM,Rcpp_MMPR-method}
+\alias{MMPR.trsm,Rcpp_MMPR-method}
 \title{MMPR TRSM  (Triangular Solve)}
 
 \description{
@@ -34,4 +34,4 @@
    c <- MMPR.trsm(a,b,upper_triangle=TRUE,transpose=FALSE,side='L',alpha=1)
    print(c)
    }
-
+}

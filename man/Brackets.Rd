@@ -1,20 +1,20 @@
 \name{06-Extract-Replace}
-\alias{extract-replace}
-\alias{[,Rcpp_MMPR}
-\alias{[[,Rcpp_MMPR}
-\alias{[<-,Rcpp_MMPR}
-\alias{[[<-,Rcpp_MMPR}
+\alias{[,Rcpp_MMPR-method}
+\alias{[[,Rcpp_MMPR-method}
+\alias{[<-,Rcpp_MMPR-method}
+\alias{[[<-,Rcpp_MMPR-method}
 \title{Extract or replace elements from an MMPR object.}
 \usage{
-  \method{[}{Rcpp_MMPR}(x, i, j, drop = TRUE)
-  \method{[<-}{Rcpp_MMPR}(x, i, j, ..., value)
-  \method{[[}{Rcpp_MMPR}(x, i, drop = TRUE)
-  \method{[[<-}{Rcpp_MMPR}(x, i, ..., value)
+  \S4method{[}{Rcpp_MMPR}(x, i, j, drop = TRUE)
+  \S4method{[}{Rcpp_MMPR}(x, i, j, ...) <- value
+  \S4method{[[}{Rcpp_MMPR}(x, i, drop = TRUE)
+  \S4method{[[}{Rcpp_MMPR}(x, i, ...) <- value
 }
 \arguments{
   \item{x}{An MMPR object.}
   \item{i}{Row index or indices.}
   \item{j}{Column index or indices.}
+  \item{...}{ignored.}
   \item{drop}{ignored.}
   \item{value}{A value to replace the selected elements with.}
 }

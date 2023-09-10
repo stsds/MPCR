@@ -1,11 +1,11 @@
 Package: MMPR
 Type: Package
-Title: Multi- and Mixed- Precision Support in R
+Title: Multi- And Mixed- Precision Support in R
 Version: 1.0
 Date: 2023-8-07
 Author: David Helmy <david.helmy@brightskiesinc.com>
 Maintainer: Sameh Abdulah <sameh.abdulah@kaust.edu.sa>
 Description: The MMPR package provides a new data-structure support for multi- and mixed- precision for R users. The package supports 16-bit, 32-bit, and 64-bit operations with the ability to perform mixed-precision operations through a newly defined tile-based data structure.
-License: GPL (>= 3) + file LICENSE.md
+License: GPL (>= 3)
 Imports: methods, Rcpp (>= 1.0.9)
 RoxygenNote: 7.2.3

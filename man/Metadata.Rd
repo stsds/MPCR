@@ -2,6 +2,8 @@
 \alias{metadata}
 \alias{storage.mode,Rcpp_MMPR-method}
 \alias{typeof,Rcpp_MMPR-method}
+\alias{MMPR.ChangePrecision,Rcpp_MMPR-method}
+\alias{MMPR.object.size,Rcpp_MMPR-method}
 \title{Metadata functions}
 \description{
     Metadata functions.

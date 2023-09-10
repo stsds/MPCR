@@ -2,9 +2,12 @@
 \alias{copy}
 \title{copy}
 
+\description{
+ Functions for copying MMPR objects.
+}
 
 \section{MMPR deep copy}{
-    \description{
+    \describe{
    Create a copy of an MMPR object. Typically, using 'equal' creates a new pointer for the object, resulting in any modifications made to object one affecting object two as well.
     }
 
@@ -18,7 +21,7 @@
 }
 
 \section{MMPRTile deep copy}{
-    \description{
+    \describe{
     Create a duplicate of an MMPRTile object. Usually, using 'equal' creates a new pointer for the object, causing any modifications made to object one to affect object two as well.
     }
 

@@ -1,13 +1,13 @@
 \name{16-NA's}
 \alias{NA's}
-\alias{is.na,Rcpp_MMPR-method}
-\alias{na.exclude,Rcpp_MMPR-method}
-\alias{na.omit,Rcpp_MMPR-method}
+\alias{MMPR.is.na,Rcpp_MMPR-method}
+\alias{MMPR.na.exclude,Rcpp_MMPR-method}
+\alias{MMPR.na.omit,Rcpp_MMPR-method}
 \title{NA's}
 \usage{
-\method{MMPR.is.na}{Rcpp_MMPR}(object,index=-1)
-\method{MMPR.na.exclude}{Rcpp_MMPR}(object,value)
-\method{MMPR.na.omit}{Rcpp_MMPR}(object)
+\S4method{MMPR.is.na}{Rcpp_MMPR}(object,index=-1)
+\S4method{MMPR.na.exclude}{Rcpp_MMPR}(object,value)
+\S4method{MMPR.na.omit}{Rcpp_MMPR}(object)
 }
 
 \arguments{

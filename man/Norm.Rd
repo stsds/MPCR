@@ -1,6 +1,6 @@
 \name{33-Norm}
 \alias{norm}
-\alias{norm,Rcpp_MMPR,ANY-method}
+\alias{norm,Rcpp_MMPR-method}
 \title{norm}
 \usage{
 \S4method{norm}{Rcpp_MMPR}(x, type = "O")
