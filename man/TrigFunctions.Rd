@@ -4,7 +4,7 @@
 \alias{cos,Rcpp_MMPR-method}
 \alias{tan,Rcpp_MMPR-method}
 \alias{asin,Rcpp_MMPR-method}
-\alias{acos,Rcpp_MMPR-method}F
+\alias{acos,Rcpp_MMPR-method}
 \alias{atan,Rcpp_MMPR-method}
 \title{Trigonometric functions}
 \description{

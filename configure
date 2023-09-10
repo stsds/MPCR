@@ -6,7 +6,16 @@
 # MMPR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
-ABSOLUE_PATH=$(dirname $(realpath "$0"))
+
+COMPILE_FLAGS="-fPIC"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
+  COMPILE_FLAGS="-fPIC -Wno-unused-command-line-argument -Wno-absolute-value -Wno-deprecated-non-prototype"
+else
+  ABSOLUE_PATH=$(dirname $(realpath "$0"))
+fi
+
 BUILDING_EXAMPLES="OFF"
 BUILDING_TESTS="OFF"
 INSTALL_PATH="/usr/local"
@@ -30,11 +39,17 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -DRUNNING_CPP=OFF \
   -DUSE_CUDA=OFF \
   -DBUILD_SHARED_LIBS=OFF \
-  -DCMAKE_CXX_FLAGS_DEBUG="-fPIC" \
-  -DCMAKE_CXX_FLAGS_RELEASE="-fPIC"
+  -DCMAKE_CXX_FLAGS_DEBUG="$COMPILE_FLAGS"\
+  -DCMAKE_CXX_FLAGS_RELEASE="$COMPILE_FLAGS"
 
 cd bin/
 make clean
 make all -j
 
-cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.so -> src"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  cp "${ABSOLUE_PATH}/bin/src/libmpr.dylib" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.dylib -> src"
+else
+  cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.so -> src"
+fi
+
+rm -rf "${ABSOLUE_PATH}/bin/"

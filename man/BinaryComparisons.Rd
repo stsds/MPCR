@@ -1,5 +1,20 @@
 \name{05-Comparison}
 \alias{comparison}
+
+\alias{<,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{<=,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{==,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{!=,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{>,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{>=,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{<,Rcpp_MMPR,BaseLinAlg-method}
+\alias{<=,Rcpp_MMPR,BaseLinAlg-method}
+\alias{==,Rcpp_MMPR,BaseLinAlg-method}
+\alias{!=,Rcpp_MMPR,BaseLinAlg-method}
+\alias{>,Rcpp_MMPR,BaseLinAlg-method}
+\alias{>=,Rcpp_MMPR,BaseLinAlg-method}
+
+
 \title{Binary comparison operators for numeric/MMPR objects.}
 \description{
     Binary comparison operators for numeric/MMPR objects.

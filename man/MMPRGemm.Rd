@@ -1,6 +1,6 @@
 \name{39-MMPR GEMM}
 \alias{MMPR GEMM}
-\alias{MMPR GEMM,Rcpp_MMPR-method}
+\alias{MMPR.gemm,Rcpp_MMPR-method}
 \title{MMPR GEMM  (Matrix-Matrix Multiplication)}
 
 \description{
@@ -39,4 +39,5 @@
    MMPR.gemm(a,b,c,transpose_a=false,transpose_b=TRUE,alpha=1,beta=1)
    print(c)
    }
+ }
 

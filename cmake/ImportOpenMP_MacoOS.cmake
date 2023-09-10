@@ -135,13 +135,16 @@ else ()
     endif ()
 endif ()
 
+message("OpenMP Lib Path : " ${OpenMP_LIB_DIR})
+message("OpenMP Headers Path : " ${OpenMP_INCLUDE_DIR})
+
 function(_OPENMP_FLAG_CANDIDATES LANG)
     if (NOT OpenMP_${LANG}_FLAG)
         unset(OpenMP_FLAG_CANDIDATES)
 
         set(OMP_FLAG_GNU "-fopenmp")
         set(OMP_FLAG_Clang "-fopenmp=libomp" "-fopenmp=libiomp5" "-fopenmp")
-        set(OMP_FLAG_AppleClang "-Xclang -fopenmp")
+        set(OMP_FLAG_AppleClang "-Xclang -fopenmp -lomp")
         set(OMP_FLAG_HP "+Oopenmp")
         if (WIN32)
             set(OMP_FLAG_Intel "-Qopenmp")

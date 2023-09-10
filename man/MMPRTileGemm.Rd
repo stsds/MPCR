@@ -1,6 +1,6 @@
 \name{41-MMPRTile GEMM}
 \alias{MMPRTile GEMM}
-\alias{MMPRTile GEMM,Rcpp_MMPRTile-method}
+\alias{MMPRTile.gemm,Rcpp_MMPRTile-method}
 \title{MMPRTile GEMM  (Matrix-Matrix Multiplication)}
 
 \description{
@@ -11,7 +11,7 @@
 }
 \usage{
 
-\S4method{MMPRTile.gemm}{Rcpp_MMPRTile}(a,b,c,transpose_a= FALSE,transpose_b=FALSE,alpha=1,beta=0)
+\S4method{MMPRTile.gemm}{Rcpp_MMPRTile}(a,b,c,transpose_a= FALSE,transpose_b=FALSE,alpha=1,beta=0,num_threads=1)
    }
  \arguments{
    \item{a}{An MMPR tile matrix A.}
@@ -36,4 +36,4 @@
    MMPRTile.gemm(a,b,c,transpose_a=false,transpose_b=TRUE,alpha=1,beta=1,num_threads = 8)
    print(c)
    }
-
+}

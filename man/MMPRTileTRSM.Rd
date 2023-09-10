@@ -1,6 +1,7 @@
 \name{43-MMPRTile TRSM}
-\alias{MMPRTile TRSM}
-\alias{MMPRTile TRSM,Rcpp_MMPRTile-method}
+
+
+\alias{MMPRTile.trsm,Rcpp_MMPRTile-method}
 \title{MMPRTile TRSM  (Triangular Solve)}
 
 \description{
@@ -28,6 +29,7 @@
  \value{
    An MMPR Tile Matrix B ->(X).
  }
+
  \examples{
    \dontrun{
    library(MMPR)
@@ -36,4 +38,4 @@
    MMPRTile.trsm(a,b,side='L',upper_triangle=TRUE,transpose=FALSE,alpha=1)
    print(b)
    }
-
+}

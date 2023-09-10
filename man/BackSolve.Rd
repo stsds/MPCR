@@ -1,6 +1,6 @@
 \name{38-Back/Forward solve}
-\alias{forwardsolve}
-\alias{backsolve}
+\alias{forwardsolve,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{backsolve,Rcpp_MMPR,Rcpp_MMPR-method}
 
 \title{Back/Forward solve}
 

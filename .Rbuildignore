@@ -5,10 +5,11 @@
 ^.RData*
 ^.Rhistory*
 .gitignore
-src/Makevars.win
-.git
+./src/Makevars.win
+./.git
 .travis.yml
 ^doc$
 ^Meta$
-bin/
-cmake-build-debug/
+./bin/
+./cmake-build-debug/
+./..Rcheck/

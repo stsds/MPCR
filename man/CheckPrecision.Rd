@@ -1,6 +1,6 @@
 \name{25-Check precision}
 \alias{Check Precision}
-\alias{MMPR.is.single.mode,Rcpp_MMPR-method}
+\alias{MMPR.is.single,Rcpp_MMPR-method}
 \alias{MMPR.is.double,Rcpp_MMPR-method}
 \alias{MMPR.is.half,Rcpp_MMPR-method}
 \alias{MMPR.is.float,Rcpp_MMPR-method}

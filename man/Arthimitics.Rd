@@ -1,9 +1,23 @@
 \name{04-Arithmetic}
 \alias{arithmetic}
+
+\alias{+,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{-,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{*,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{/,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{^,Rcpp_MMPR,Rcpp_MMPR-method}
+\alias{+,Rcpp_MMPR,BaseLinAlg-method}
+\alias{*,Rcpp_MMPR,BaseLinAlg-method}
+\alias{-,Rcpp_MMPR,BaseLinAlg-method}
+\alias{/,Rcpp_MMPR,BaseLinAlg-method}
+\alias{^,Rcpp_MMPR,BaseLinAlg-method}
+
+
 \title{Binary arithmetic numeric/MMPR objects.}
 \description{
 Binary arithmetic for numeric/MMPR objects.
 }
+
 \usage{
 \S4method{+}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
 
