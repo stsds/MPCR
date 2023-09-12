@@ -1,29 +1,29 @@
 \name{10-Bind}
 
-\alias{MMPR.rbind,Rcpp_MMPR-method}
-\alias{MMPR.cbind,Rcpp_MMPR-method}
+\alias{MPCR.rbind,Rcpp_MPCR-method}
+\alias{MPCR.cbind,Rcpp_MPCR-method}
 \title{bind}
 \usage{
-\S4method{MMPR.rbind}{Rcpp_MMPR}(x,y)
+\S4method{MPCR.rbind}{Rcpp_MPCR}(x,y)
 
-\S4method{MMPR.cbind}{Rcpp_MMPR}(x,y)
+\S4method{MPCR.cbind}{Rcpp_MPCR}(x,y)
 }
 \arguments{
-\item{x}{An MMPR object.}
-\item{y}{An MMPR object.}
+\item{x}{An MPCR object.}
+\item{y}{An MPCR object.}
 
 
 }
 \value{
-An MMPR object, matching the data type of the highest precision input.
+An MPCR object, matching the data type of the highest precision input.
 }
 \description{
-\code{rbind()} and \code{cbind()} for MMPR objects.
+\code{rbind()} and \code{cbind()} for MPCR objects.
 }
 \examples{
   \dontrun{
-library(MMPR)
-# create 2 MMPR matrix a,b
+library(MPCR)
+# create 2 MPCR matrix a,b
 x <- rbind(a,b)
 y <- cbind(a,b)
 }

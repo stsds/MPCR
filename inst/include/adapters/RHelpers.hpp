@@ -2,14 +2,14 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
-#ifndef MPR_RHELPERS_HPP
-#define MPR_RHELPERS_HPP
+#ifndef MPCR_RHELPERS_HPP
+#define MPCR_RHELPERS_HPP
 
 
-#include <data-units/MPRTile.hpp>
+#include <data-units/MPCRTile.hpp>
 
 
 using namespace Rcpp;
@@ -20,7 +20,7 @@ using namespace Rcpp;
  *  1/TRUE  0/FALSE  INT_MIN=NA
  *
  * @param[in,out] aInput
- * MPR Object
+ * MPCR Object
  * @param[in] apDim
  * Dimensions to set R-Matrix With.
  *
@@ -34,7 +34,7 @@ ToLogicalMatrix(std::vector <int> &aInput, Dimensions *apDim);
  *  1/TRUE  0/FALSE  INT_MIN=NA
  *
  * @param[in,out] aInput
- * MPR Object
+ * MPCR Object
  *
  */
 Rcpp::LogicalVector
@@ -42,11 +42,11 @@ ToLogicalVector(std::vector <int> &aInput);
 
 /**
  * @brief
- * Updates a Tile in MPRTile Object, by copying the tile and inserting the new
+ * Updates a Tile in MPCRTile Object, by copying the tile and inserting the new
  * tile to avoid R ownership problem.
  *
  * @param[in] aMatrix
- * MPRTile Matrix
+ * MPCRTile Matrix
  * @param[in] aTile
  * Tile containing new data that needs to be updated.
  * @param[in] aRowIdx
@@ -56,14 +56,14 @@ ToLogicalVector(std::vector <int> &aInput);
  *
  */
 void
-RInsertTile(MPRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
+RInsertTile(MPCRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
            const size_t &aColIdx);
 /**
  * @brief
- * Get a Tile from MPRTile Object
+ * Get a Tile from MPCRTile Object
  *
  * @param[in] aMatrix
- * MPRTile Matrix
+ * MPCRTile Matrix
  * @param[in] aRowIdx
  * Tile Row idx
  * @param[in] aColIdx
@@ -75,30 +75,30 @@ RInsertTile(MPRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
  *  in R
  */
 DataType *
-RGetTile(MPRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx);
+RGetTile(MPCRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx);
 
 /**
  * @brief
- * Creates a deepcopy of MPRTile Matrix
+ * Creates a deepcopy of MPCRTile Matrix
  *
  * @param[in] aMatrix
- * MPRTile Matrix
+ * MPCRTile Matrix
  *
  * @returns
- *  a new Copy of MPRTile Matrix
+ *  a new Copy of MPCRTile Matrix
  */
-MPRTile *
-RCopyMPRTile(MPRTile *aMatrix);
+MPCRTile *
+RCopyMPCRTile(MPCRTile *aMatrix);
 
 /**
  * @brief
- * Creates a deepcopy of normal MPR object
+ * Creates a deepcopy of normal MPCR object
  *
  * @param[in] aMatrix
- * MPR Object
+ * MPCR Object
  *
  * @returns
- *  a new Copy of MPR Object
+ *  a new Copy of MPCR Object
  */
 DataType*
 RCopyMPR(DataType *aMatrix);
@@ -116,7 +116,7 @@ SerializeTile(DataType *aInput);
 
 /**
  * @brief
- * R version to DeSerialize Stream of bytes to MPR Object
+ * R version to DeSerialize Stream of bytes to MPCR Object
  *
  * @param[in] aInput
  * vector of bytes containing DataType object as a stream of bytes
@@ -135,8 +135,8 @@ DeSerializeTile(Rcpp::RawVector aInput);
  *
  */
 Rcpp::RawVector
-RGetSerializeTile(MPRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx);
+RGetSerializeTile(MPCRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx);
 
 
 
-#endif //MPR_RHELPERS_HPP
+#endif //MPCR_RHELPERS_HPP

@@ -2,7 +2,7 @@
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
 # All rights reserved.
-# MMPR is an R package provided by the STSDS group at KAUST
+# MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
 # Set minimum cmake version
@@ -12,7 +12,7 @@ cmake_policy(SET CMP0048 NEW)
 set(CMAKE_CXX_COMPILER g++)
 
 # Project Name and Version
-project(MPR VERSION 1.0.0)
+project(MPCR VERSION 1.0.0)
 
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "" OR ${CMAKE_BUILD_TYPE} STREQUAL "NOMODE")
@@ -88,7 +88,7 @@ if (${USE_OMP})
     get_directory_property(CMAKE_PARENT_DIR PARENT_DIRECTORY)
     if (NOT CMAKE_PARENT_DIR)
         if (${USE_INTEL} STREQUAL "YES" OR ${USE_INTEL} STREQUAL "ON")
-            message(STATUS "Building MMPR using INTEL compiler")
+            message(STATUS "Building MPCR using INTEL compiler")
 
             set(CMAKE_C_COMPILER icc)
             set(CMAKE_CXX_COMPILER icpc)
@@ -103,7 +103,7 @@ if (${USE_OMP})
             set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fopenmp -g -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
             set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopenmp -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
 
-            message(STATUS "Building MMPR using GCC/G++ compiler")
+            message(STATUS "Building MPCR using GCC/G++ compiler")
         endif ()
     endif ()
 endif ()
@@ -128,16 +128,16 @@ include_directories(${CMAKE_SOURCE_DIR}/prerequisites)
 
 
 # Options
-option(MPR_BUILD_TESTS "Option to enable building tests" OFF)
+option(MPCR_BUILD_TESTS "Option to enable building tests" OFF)
 
 # Add src Directory to expose added libraries
 add_subdirectory(src)
 
 message("Installation path : ${CMAKE_INSTALL_PREFIX}")
-message("Building MPR tests : ${MPR_BUILD_TESTS}")
+message("Building MPCR tests : ${MPCR_BUILD_TESTS}")
 
 
-if (MPR_BUILD_TESTS)
+if (MPCR_BUILD_TESTS)
     add_subdirectory(tests/cpp-tests)
     # Add the system test.
     include(CTest)

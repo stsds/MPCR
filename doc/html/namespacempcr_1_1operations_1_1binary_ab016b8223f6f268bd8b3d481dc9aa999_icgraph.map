@@ -1,0 +1,7 @@
+<map id="mpcr::operations::binary::PerformCompareOperationSingle" name="mpcr::operations::binary::PerformCompareOperationSingle">
+<area shape="rect" id="node1" title="Perform Compare Operation on MPCR Object and a Numerical Value according to provided Operation aFun." alt="" coords="216,74,461,115"/>
+<area shape="rect" id="node2" href="$RBinaryOperations_8hpp.html#ae518afce82de15edde9941cf0327ed0c" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than a Given Value." alt="" coords="31,5,143,32"/>
+<area shape="rect" id="node3" href="$RBinaryOperations_8hpp.html#ab3c207a837f79415ceafee5961a12e31" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than or Equal a Given Value." alt="" coords="5,56,168,83"/>
+<area shape="rect" id="node4" href="$RBinaryOperations_8hpp.html#a3bbc9ffc67dd3e05d96f59904b2b72d1" title="R&#45;Adapter for Checking Whether MPCR Object is Less than a Given Value." alt="" coords="41,107,133,133"/>
+<area shape="rect" id="node5" href="$RBinaryOperations_8hpp.html#a66b6fd9d5afe044f222170ee6271f9dc" title="R&#45;Adapter for Checking Whether MPCR Object is Less than or Equal a Given Value." alt="" coords="15,157,158,184"/>
+</map>

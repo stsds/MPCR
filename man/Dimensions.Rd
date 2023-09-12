@@ -1,29 +1,29 @@
 \name{07-Dimensions}
 \alias{dimensions}
-\alias{nrow,Rcpp_MMPR-method}
-\alias{ncol,Rcpp_MMPR-method}
+\alias{nrow,Rcpp_MPCR-method}
+\alias{ncol,Rcpp_MPCR-method}
 \title{dimensions}
 \usage{
-\S4method{nrow}{Rcpp_MMPR}(x)
+\S4method{nrow}{Rcpp_MPCR}(x)
 
-\S4method{ncol}{Rcpp_MMPR}(x)
+\S4method{ncol}{Rcpp_MPCR}(x)
 
 }
 \arguments{
-\item{x}{An MMPR object.}
+\item{x}{An MPCR object.}
 
 }
 \value{
-The number of rows/cols in an MMPR object.
+The number of rows/cols in an MPCR object.
 }
 \description{
-Returns the number of rows or cols in an MMPR object.
+Returns the number of rows or cols in an MPCR object.
 }
 \examples{
   \dontrun{
-    library(MMPR)
-    x <- as.MMPR(1:16,4,4,"single")
-    y <- as.MMPR(1:20,4,5,"double")
+    library(MPCR)
+    x <- as.MPCR(1:16,4,4,"single")
+    y <- as.MPCR(1:20,4,5,"double")
     rows_x <- nrow(x)
     cols_y <- ncol(y)
     }

@@ -2,38 +2,38 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <operations/TileLinearAlgebra.hpp>
 #include <operations/LinearAlgebra.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 #include <data-units/Promoter.hpp>
 #include <omp.h>
 
 
-using namespace mpr::operations;
+using namespace mpcr::operations;
 
 
-MPRTile *
-linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput,
+MPCRTile *
+linear::TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput,
                      const unsigned int &aNumThreads) {
 
     auto tiles_per_row = aMatrix.GetTilePerRow();
     auto tiles_per_col = aMatrix.GetTilePerCol();
 
     if (tiles_per_row != tiles_per_col) {
-        MPR_API_EXCEPTION(
-            "Cannot perform Cholesky decomposition on non square tiled MPRTile object",
+        MPCR_API_EXCEPTION(
+            "Cannot perform Cholesky decomposition on non square tiled MPCRTile object",
             -1);
     }
 
-    MPRTile *pOutput = nullptr;
+    MPCRTile *pOutput = nullptr;
     if (aOverWriteInput) {
         pOutput = &aMatrix;
     } else {
-        pOutput = new MPRTile(aMatrix);
+        pOutput = new MPCRTile(aMatrix);
     }
 
     Promoter prom(2);
@@ -163,7 +163,7 @@ linear::TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput,
 
 
 void
-linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
+linear::TileGemm(MPCRTile &aInputA, MPCRTile &aInputB, MPCRTile &aInputC,
                  const bool &aTransposeA, const bool &aTransposeB,
                  const double &aAlpha, const double &aBeta,
                  const unsigned int &aNumThreads) {
@@ -182,7 +182,7 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
         auto msg = "Cannot perform Matrix multiplication,"
                    " Tiles Per Col A != Tiles Per Row B, "
                    "or C Dimensions doesn't match the operation";
-        MPR_API_EXCEPTION(msg, -1);
+        MPCR_API_EXCEPTION(msg, -1);
     }
 
     auto pOutput = &aInputC;
@@ -225,7 +225,7 @@ linear::TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
 
 
 void
-linear::TileTrsm(MPRTile &aInputA, MPRTile &aInputB, const char &aSide,
+linear::TileTrsm(MPCRTile &aInputA, MPCRTile &aInputB, const char &aSide,
                  const bool &aUpperTriangle, const bool &aTranspose,
                  const double &aAlpha) {
 

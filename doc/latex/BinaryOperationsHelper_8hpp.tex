@@ -1,14 +1,16 @@
 \hypertarget{BinaryOperationsHelper_8hpp}{}\doxysection{inst/include/operations/helpers/\+Binary\+Operations\+Helper.hpp File Reference}
 \label{BinaryOperationsHelper_8hpp}\index{inst/include/operations/helpers/BinaryOperationsHelper.hpp@{inst/include/operations/helpers/BinaryOperationsHelper.hpp}}
 {\ttfamily \#include $<$limits.\+h$>$}\newline
-Include dependency graph for Binary\+Operations\+Helper.\+hpp\+:\nopagebreak
+Include dependency graph for Binary\+Operations\+Helper.\+hpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=276pt]{BinaryOperationsHelper_8hpp__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -63,7 +65,9 @@ This Variadic functions iterate over a col major matrix and do operation using o
 \DoxyCodeLine{            \}                                                                  \(\backslash\)}
 
 \end{DoxyCode}
-\mbox{\Hypertarget{BinaryOperationsHelper_8hpp_a05b6e7d13c4114e61e21117d3182e94c}\label{BinaryOperationsHelper_8hpp_a05b6e7d13c4114e61e21117d3182e94c}} 
+Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.
+
+M\+P\+CR is an R package provided by the S\+T\+S\+DS group at K\+A\+U\+ST \mbox{\Hypertarget{BinaryOperationsHelper_8hpp_a05b6e7d13c4114e61e21117d3182e94c}\label{BinaryOperationsHelper_8hpp_a05b6e7d13c4114e61e21117d3182e94c}} 
 \index{BinaryOperationsHelper.hpp@{BinaryOperationsHelper.hpp}!COMPARE\_OP@{COMPARE\_OP}}
 \index{COMPARE\_OP@{COMPARE\_OP}!BinaryOperationsHelper.hpp@{BinaryOperationsHelper.hpp}}
 \doxysubsubsection{\texorpdfstring{COMPARE\_OP}{COMPARE\_OP}}
@@ -119,7 +123,7 @@ This Variadic functions iterate over a row major matrix and do operation using o
 \DoxyCodeLine{                dataOut[i]=std::pow(dataA[i\%sizeA],dataB[i\%sizeB]);            \(\backslash\)}
 \DoxyCodeLine{            \}                                                                  \(\backslash\)}
 \DoxyCodeLine{         \}\textcolor{keywordflow}{else} \{                                                               \(\backslash\)}
-\DoxyCodeLine{             MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Operation Not Supported"}, -\/1);                 \(\backslash\)}
+\DoxyCodeLine{             MPCR\_API\_EXCEPTION(\textcolor{stringliteral}{"Operation Not Supported"}, -\/1);                 \(\backslash\)}
 \DoxyCodeLine{         \}                                                                     \(\backslash\)}
 
 \end{DoxyCode}
@@ -144,7 +148,7 @@ This Variadic functions iterate over a row major matrix and do operation using o
 \DoxyCodeLine{                dataOut[i]=std::pow(dataA[i], dataB);                          \(\backslash\)}
 \DoxyCodeLine{            \}                                                                  \(\backslash\)}
 \DoxyCodeLine{         \}\textcolor{keywordflow}{else} \{                                                               \(\backslash\)}
-\DoxyCodeLine{             MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Operation Not Supported"}, -\/1);                 \(\backslash\)}
+\DoxyCodeLine{             MPCR\_API\_EXCEPTION(\textcolor{stringliteral}{"Operation Not Supported"}, -\/1);                 \(\backslash\)}
 \DoxyCodeLine{         \}                                                                     \(\backslash\)}
 
 \end{DoxyCode}
@@ -165,7 +169,7 @@ This Variadic functions iterate over a row major matrix and do operation using o
 \DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"<="})  \{                                                \(\backslash\)}
 \DoxyCodeLine{            COMPARE\_OP(dataA,dataB,dataOut,<=,sizeB,sizeA,sizeOut)             \(\backslash\)}
 \DoxyCodeLine{         \}\textcolor{keywordflow}{else} \{                                                               \(\backslash\)}
-\DoxyCodeLine{             MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Compare Operation Not Supported"}, -\/1);         \(\backslash\)}
+\DoxyCodeLine{             MPCR\_API\_EXCEPTION(\textcolor{stringliteral}{"Compare Operation Not Supported"}, -\/1);         \(\backslash\)}
 \DoxyCodeLine{         \}                                                                     \(\backslash\)}
 
 \end{DoxyCode}
@@ -186,7 +190,7 @@ This Variadic functions iterate over a row major matrix and do operation using o
 \DoxyCodeLine{         \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(FUN==\textcolor{stringliteral}{"<="})  \{                                                \(\backslash\)}
 \DoxyCodeLine{            COMPARE\_OP\_SINGLE(dataA,dataB,dataOut,<=,sizeA)                    \(\backslash\)}
 \DoxyCodeLine{         \}\textcolor{keywordflow}{else} \{                                                               \(\backslash\)}
-\DoxyCodeLine{             MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Compare Operation Not Supported"}, -\/1);         \(\backslash\)}
+\DoxyCodeLine{             MPCR\_API\_EXCEPTION(\textcolor{stringliteral}{"Compare Operation Not Supported"}, -\/1);         \(\backslash\)}
 \DoxyCodeLine{         \}                                                                     \(\backslash\)}
 
 \end{DoxyCode}

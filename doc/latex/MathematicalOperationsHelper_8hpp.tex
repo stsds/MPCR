@@ -1,14 +1,16 @@
 \hypertarget{MathematicalOperationsHelper_8hpp}{}\doxysection{inst/include/operations/helpers/\+Mathematical\+Operations\+Helper.hpp File Reference}
 \label{MathematicalOperationsHelper_8hpp}\index{inst/include/operations/helpers/MathematicalOperationsHelper.hpp@{inst/include/operations/helpers/MathematicalOperationsHelper.hpp}}
-{\ttfamily \#include $<$utilities/\+M\+P\+R\+Dispatcher.\+hpp$>$}\newline
-Include dependency graph for Mathematical\+Operations\+Helper.\+hpp\+:\nopagebreak
+{\ttfamily \#include $<$utilities/\+M\+P\+C\+R\+Dispatcher.\+hpp$>$}\newline
+Include dependency graph for Mathematical\+Operations\+Helper.\+hpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{MathematicalOperationsHelper_8hpp__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -50,7 +52,7 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \DoxyCodeLine{        \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\mbox{\hyperlink{BasicOperationsHelper_8hpp_aed8aea9b4bfc6ba0133e4625c7070278}{OPERATION}}==\textcolor{stringliteral}{"atanh"})\{                                          \(\backslash\)}
 \DoxyCodeLine{        RUN\_OP(\mbox{\hyperlink{DataType_8cpp_ae63188ba4baf2bf83ebdd2f407df67c5}{aOutput}},aSize,std::atanh,\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{aInput}})                                \(\backslash\)}
 \DoxyCodeLine{        \}\textcolor{keywordflow}{else}\{                                                                 \(\backslash\)}
-\DoxyCodeLine{        MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Unknown Inverse Trig Operation"}, -\/1);               \(\backslash\)}
+\DoxyCodeLine{        MPCR\_API\_EXCEPTION(\textcolor{stringliteral}{"Unknown Inverse Trig Operation"}, -\/1);               \(\backslash\)}
 \DoxyCodeLine{        \}                                                                      \(\backslash\)}
 
 \end{DoxyCode}
@@ -71,7 +73,7 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \DoxyCodeLine{        \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\mbox{\hyperlink{BasicOperationsHelper_8hpp_aed8aea9b4bfc6ba0133e4625c7070278}{OPERATION}}==\textcolor{stringliteral}{"trunc"})\{                                          \(\backslash\)}
 \DoxyCodeLine{        RUN\_OP(\mbox{\hyperlink{DataType_8cpp_ae63188ba4baf2bf83ebdd2f407df67c5}{aOutput}},aSize,std::trunc,\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{aInput}})                                \(\backslash\)}
 \DoxyCodeLine{        \}\textcolor{keywordflow}{else}\{                                                                 \(\backslash\)}
-\DoxyCodeLine{        MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Unknown Round Operation"}, -\/1);                      \(\backslash\)}
+\DoxyCodeLine{        MPCR\_API\_EXCEPTION(\textcolor{stringliteral}{"Unknown Round Operation"}, -\/1);                      \(\backslash\)}
 \DoxyCodeLine{        \}                                                                      \(\backslash\)}
 
 \end{DoxyCode}
@@ -96,7 +98,7 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \DoxyCodeLine{        \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\mbox{\hyperlink{BasicOperationsHelper_8hpp_aed8aea9b4bfc6ba0133e4625c7070278}{OPERATION}}==\textcolor{stringliteral}{"tanh"})\{                                           \(\backslash\)}
 \DoxyCodeLine{        RUN\_OP(\mbox{\hyperlink{DataType_8cpp_ae63188ba4baf2bf83ebdd2f407df67c5}{aOutput}},aSize,std::tanh,\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{aInput}})                                 \(\backslash\)}
 \DoxyCodeLine{        \}\textcolor{keywordflow}{else}\{                                                                 \(\backslash\)}
-\DoxyCodeLine{        MPR\_API\_EXCEPTION(\textcolor{stringliteral}{"Unknown Trig Operation"}, -\/1);                       \(\backslash\)}
+\DoxyCodeLine{        MPCR\_API\_EXCEPTION(\textcolor{stringliteral}{"Unknown Trig Operation"}, -\/1);                       \(\backslash\)}
 \DoxyCodeLine{        \}                                                                      \(\backslash\)}
 
 \end{DoxyCode}
@@ -109,7 +111,10 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{        \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} i=0;i<size;i++)\{                                              \(\backslash\)}
-\DoxyCodeLine{            aOutput[i]=\_\_FUN\_\_(\mbox{\hyperlink{MPRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)[i]);        \(\backslash\)}
+\DoxyCodeLine{            aOutput[i]=\_\_FUN\_\_(\mbox{\hyperlink{MPCRDispatcher_8hpp_a95dfc80599f592f262b6d72516d365a9}{FIRST}}(\_\_VA\_ARGS\_\_)\mbox{\hyperlink{MPCRDispatcher_8hpp_a1ca078cc5836ad29afe7ea13c181431a}{REST}}(\_\_VA\_ARGS\_\_)[i]);        \(\backslash\)}
 \DoxyCodeLine{        \}                                                                      \(\backslash\)}
 
 \end{DoxyCode}
+Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.
+
+M\+P\+CR is an R package provided by the S\+T\+S\+DS group at K\+A\+U\+ST 

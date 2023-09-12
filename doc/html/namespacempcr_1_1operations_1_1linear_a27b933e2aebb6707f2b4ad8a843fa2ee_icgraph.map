@@ -1,0 +1,5 @@
+<map id="mpcr::operations::linear::QRDecompositionQ" name="mpcr::operations::linear::QRDecompositionQ">
+<area shape="rect" id="node1" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="380,5,557,47"/>
+<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a6194ff200d27724ba756cbd8000288dc" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="173,13,332,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,13,125,39"/>
+</map>

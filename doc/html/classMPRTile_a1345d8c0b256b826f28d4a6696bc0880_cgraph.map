@@ -1,5 +1,0 @@
-<map id="MPRTile::GetVal" name="MPRTile::GetVal">
-<area shape="rect" id="node1" title="Get the value at [aRowIdx,aColIdx]." alt="" coords="5,31,131,57"/>
-<area shape="rect" id="node2" href="$classMPRTile.html#addf7def3a02072651e69c28d7c4e19ce" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="179,5,407,32"/>
-<area shape="rect" id="node3" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="209,56,377,83"/>
-</map>

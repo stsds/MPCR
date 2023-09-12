@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['half_689',['HALF',['../namespacempr_1_1precision.html#a9d4312ee29651a68510757fe1a2ae258a9b3bc55f138824fe334f7e4335259f21',1,'mpr::precision']]]
+  ['half_703',['HALF',['../namespacempcr_1_1precision.html#afe2f4e3f46878624d55561ba84a10df7a2e4c1e9ab23eebc7546363a04d6a84bc',1,'mpcr::precision']]]
 ];

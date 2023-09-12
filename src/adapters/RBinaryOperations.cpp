@@ -2,17 +2,17 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <adapters/RHelpers.hpp>
 #include <adapters/RBinaryOperations.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
-using namespace mpr::precision;
-using namespace mpr::operations::binary;
+using namespace mpcr::precision;
+using namespace mpcr::operations::binary;
 
 
 /************************** COMPARISONS ****************************/
@@ -475,7 +475,7 @@ RPerformPlusDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -494,7 +494,7 @@ RPerformMinusDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -513,7 +513,7 @@ RPerformMltDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -532,7 +532,7 @@ RPerformDivDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -551,7 +551,7 @@ RPerformPowDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }

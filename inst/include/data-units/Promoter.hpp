@@ -2,17 +2,17 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_PROMOTER_HPP
-#define MPR_PROMOTER_HPP
+#ifndef MPCR_PROMOTER_HPP
+#define MPCR_PROMOTER_HPP
 
 #include <data-units/DataType.hpp>
 
 
-using namespace mpr::precision;
+using namespace mpcr::precision;
 
 class Promoter {
 
@@ -23,7 +23,7 @@ public:
      * Constructor
      *
      * @param[in] aCount
-     * Number of MPR objects that will be used for Promotion Process
+     * Number of MPCR objects that will be used for Promotion Process
      *
      */
     Promoter(int aCount) {
@@ -52,10 +52,10 @@ public:
 
     /**
      * @brief
-     * Insert MPR Objects to use for Promotion
+     * Insert MPCR Objects to use for Promotion
      *
      * @param[in] aInput
-     * MPR Object to insert
+     * MPCR Object to insert
      *
      */
     inline
@@ -69,7 +69,7 @@ public:
 
     /**
      * @brief
-     * Promote all the inserted MPR Objects according to the Highest Object
+     * Promote all the inserted MPCR Objects according to the Highest Object
      * Precision
      *
      */
@@ -79,10 +79,10 @@ public:
     /**
      * @brief
      * De-Promotes the Half Precision (ONLY) objects that were promoted.
-     * can be extended to de-promote all MPR objects to their original Precision.
+     * can be extended to de-promote all MPCR objects to their original Precision.
      *
      * Note:
-     * No MPR Object pointer should be changed in any process in between Promotion
+     * No MPCR Object pointer should be changed in any process in between Promotion
      * and De-Promotion.
      *
      */
@@ -102,7 +102,7 @@ public:
 
     /**
      * @brief
-     * used for MPRTile Matrix algorithms.
+     * used for MPCRTile Matrix algorithms.
      * it returns a the required tile with the required precision and
      * it keeps track of all the tiles created during the usage so that if a tile
      * with specific precision is created before , it returns a pointer to that
@@ -117,9 +117,9 @@ public:
 
 
 private:
-    /** vector of precisions of MPR objects before any promotion **/
+    /** vector of precisions of MPCR objects before any promotion **/
     std::vector <Precision> mPrecisions;
-    /** vector of pointers to the original MPR objects **/
+    /** vector of pointers to the original MPCR objects **/
     std::vector <DataType *> mDataHolders;
     /** Number of object currently inserted in the promoter **/
     int mCounter;
@@ -130,4 +130,4 @@ private:
 };
 
 
-#endif //MPR_PROMOTER_HPP
+#endif //MPCR_PROMOTER_HPP

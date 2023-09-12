@@ -1,20 +1,20 @@
 library(rbenchmark)
-library(MMPR)
+library(MPCR)
 
 
 run_transpose_benchmark <- function(m, n, replication, times) {
 
   A <- matrix(rnorm(n * m), ncol = n)
 
-  mmpr_single <- as.MMPR(A, m, n, "single")
-  mmpr_double <- as.MMPR(A, m, n, "double")
+  MPCR_single <- as.MPCR(A, m, n, "single")
+  MPCR_double <- as.MPCR(A, m, n, "double")
 
   cat("\n\n\n")
   cat("Running transpose \n")
 
   print(benchmark(replications = rep(replication, times),
-                  t(mmpr_single),
-                  t(mmpr_double),
+                  t(MPCR_single),
+                  t(MPCR_double),
                   t(A),
                   columns = c("test", "replications", "elapsed")))
 

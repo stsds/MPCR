@@ -1,5 +1,0 @@
-<map id="mpr::operations::linear::CholeskyInv" name="mpr::operations::linear::CholeskyInv">
-<area shape="rect" id="node1" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="332,5,503,47"/>
-<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a40e5e74b11c2b637753a89cb07acaef3" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="173,13,284,39"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
-</map>

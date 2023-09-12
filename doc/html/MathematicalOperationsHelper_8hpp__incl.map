@@ -1,9 +1,9 @@
 <map id="inst/include/operations/helpers/MathematicalOperationsHelper.hpp" name="inst/include/operations/helpers/MathematicalOperationsHelper.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="192,5,431,61"/>
-<area shape="rect" id="node2" href="$MPRDispatcher_8hpp.html" title=" " alt="" coords="211,109,412,136"/>
-<area shape="rect" id="node3" href="$Precision_8hpp.html" title=" " alt="" coords="159,184,338,211"/>
-<area shape="rect" id="node5" href="$MPRErrorHandler_8hpp.html" title=" " alt="" coords="269,259,482,285"/>
+<area shape="rect" id="node1" title=" " alt="" coords="196,5,435,61"/>
+<area shape="rect" id="node2" href="$MPCRDispatcher_8hpp.html" title=" " alt="" coords="210,109,421,136"/>
+<area shape="rect" id="node3" href="$Precision_8hpp.html" title=" " alt="" coords="163,184,342,211"/>
+<area shape="rect" id="node5" href="$MPCRErrorHandler_8hpp.html" title=" " alt="" coords="268,259,491,285"/>
 <area shape="rect" id="node4" href="$FloatingPointHandler_8hpp.html" title=" " alt="" coords="5,259,244,285"/>
-<area shape="rect" id="node6" title=" " alt="" coords="295,333,362,360"/>
-<area shape="rect" id="node7" title=" " alt="" coords="386,333,461,360"/>
+<area shape="rect" id="node6" title=" " alt="" coords="298,333,365,360"/>
+<area shape="rect" id="node7" title=" " alt="" coords="389,333,463,360"/>
 </map>

@@ -1,15 +1,15 @@
 <map id="DataType::GetDimensions" name="DataType::GetDimensions">
-<area shape="rect" id="node1" title="Get Matrix Dimensions." alt="" coords="612,163,803,190"/>
-<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1basic.html#a20584ed265af06e3f65b5164742d2e78" title="Combine two Matrices by columns." alt="" coords="397,5,564,47"/>
-<area shape="rect" id="node5" href="$classDataType.html#aec88dacc1b232a1837a61190d5fd9458" title="DataType Copy Constructor." alt="" coords="405,71,557,98"/>
-<area shape="rect" id="node6" href="$namespacempr_1_1operations_1_1basic.html#ad694808357dfa08cd39fe10c2ace239f" title="Get Information about MPR object Dimensions&#45;Matrix/Vector&#45;Values Precisions." alt="" coords="397,123,564,164"/>
-<area shape="rect" id="node8" href="$namespacempr_1_1operations_1_1basic.html#a46db36a384abd650d7128466773704a5" title="Get Diagonal of a Matrix. if Vector is Being passed to the function its Dimensions Object Must be pas..." alt="" coords="397,188,564,229"/>
-<area shape="rect" id="node11" href="$classDataType.html#a712ee6d0294e6174b8be177c8abaedd1" title="DataType Copy Operator." alt="" coords="402,254,559,281"/>
-<area shape="rect" id="node12" href="$namespacempr_1_1operations_1_1basic.html#a2237dcd8e22009a835229fd5a251ecc0" title="Combine two Matrices by rows." alt="" coords="397,305,564,347"/>
+<area shape="rect" id="node1" title="Get Matrix Dimensions." alt="" coords="620,163,811,190"/>
+<area shape="rect" id="node2" href="$namespacempcr_1_1operations_1_1basic.html#ab357e9a92b1f0f265c27960a68d313df" title="Combine two Matrices by columns." alt="" coords="397,5,572,47"/>
+<area shape="rect" id="node5" href="$classDataType.html#aec88dacc1b232a1837a61190d5fd9458" title="DataType Copy Constructor." alt="" coords="409,71,561,98"/>
+<area shape="rect" id="node6" href="$namespacempcr_1_1operations_1_1basic.html#a3098c1674365a992248234aa66c91da8" title="Get Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values Precisions." alt="" coords="397,123,572,164"/>
+<area shape="rect" id="node8" href="$namespacempcr_1_1operations_1_1basic.html#a08de5e5873abcb44e7af5844ce51d34b" title="Get Diagonal of a Matrix. if Vector is Being passed to the function its Dimensions Object Must be pas..." alt="" coords="397,188,572,229"/>
+<area shape="rect" id="node11" href="$classDataType.html#a712ee6d0294e6174b8be177c8abaedd1" title="DataType Copy Operator." alt="" coords="406,254,563,281"/>
+<area shape="rect" id="node12" href="$namespacempcr_1_1operations_1_1basic.html#a4cdead886d05155c21bd7a4c01073803" title="Combine two Matrices by rows." alt="" coords="397,305,572,347"/>
 <area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#ad7b6dfc5eaefb9c0939c2de99d41cfe1" title="R Adapter for Combining two Matrices by columns." alt="" coords="227,46,296,73"/>
-<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,155,125,182"/>
-<area shape="rect" id="node7" href="$RBasicUtilities_8hpp.html#a0fa4d270064a51d382f3341a3d6c489e" title="R Adapter for Printing Information about MPR object Dimensions&#45;Matrix/Vector&#45;Values ,..." alt="" coords="231,130,292,157"/>
-<area shape="rect" id="node9" href="$RBasicUtilities_8hpp.html#a73c3d1eb8c0a8ad34bf1b685b16c2e2f" title="R adapter for Getting Diagonal of a Matrix. MPR Object must be a Matrix." alt="" coords="205,181,317,207"/>
-<area shape="rect" id="node10" href="$RBasicUtilities_8hpp.html#a124b24199018e5d0ef8465b2d8bbb481" title="R adapter for Getting Diagonal of a Matrix. MPR can be a Vector , but dims must be passed." alt="" coords="173,231,349,258"/>
+<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,155,125,182"/>
+<area shape="rect" id="node7" href="$RBasicUtilities_8hpp.html#a0fa4d270064a51d382f3341a3d6c489e" title="R Adapter for Printing Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values ,..." alt="" coords="231,130,292,157"/>
+<area shape="rect" id="node9" href="$RBasicUtilities_8hpp.html#a73c3d1eb8c0a8ad34bf1b685b16c2e2f" title="R adapter for Getting Diagonal of a Matrix. MPCR Object must be a Matrix." alt="" coords="205,181,317,207"/>
+<area shape="rect" id="node10" href="$RBasicUtilities_8hpp.html#a124b24199018e5d0ef8465b2d8bbb481" title="R adapter for Getting Diagonal of a Matrix. MPCR can be a Vector , but dims must be passed." alt="" coords="173,231,349,258"/>
 <area shape="rect" id="node13" href="$RBasicUtilities_8hpp.html#a3c7b0f1d0a59864831bb4de0616eada0" title="R Adapter for Combining two Matrices by rows." alt="" coords="227,297,296,323"/>
 </map>

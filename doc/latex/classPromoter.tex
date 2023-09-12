@@ -6,7 +6,8 @@
 
 
 
-Collaboration diagram for Promoter\+:\nopagebreak
+Collaboration diagram for Promoter\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,15 +22,15 @@ Collaboration diagram for Promoter\+:\nopagebreak
 \mbox{\hyperlink{classPromoter_a7e8c5cb673ec47b894ea50f1270cfb33}{$\sim$\+Promoter}} ()
 \begin{DoxyCompactList}\small\item\em Default De-\/\+Constructor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classPromoter_ab4a02bcb7f4bc62a271f30cdb8b76440}{Insert}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
-\begin{DoxyCompactList}\small\item\em Insert M\+PR Objects to use for Promotion. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Insert M\+P\+CR Objects to use for Promotion. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classPromoter_a5741a6019a38181104e3959c22a03cd5}{Promote}} ()
-\begin{DoxyCompactList}\small\item\em Promote all the inserted M\+PR Objects according to the Highest Object Precision. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Promote all the inserted M\+P\+CR Objects according to the Highest Object Precision. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classPromoter_a2207b7ba503499c23f20b330fde1b486}{De\+Promote}} ()
-\begin{DoxyCompactList}\small\item\em De-\/\+Promotes the Half Precision (O\+N\+LY) objects that were promoted. can be extended to de-\/promote all M\+PR objects to their original Precision. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em De-\/\+Promotes the Half Precision (O\+N\+LY) objects that were promoted. can be extended to de-\/promote all M\+P\+CR objects to their original Precision. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classPromoter_af74bd28863858e4422711e97a3d7a64e}{Reset\+Promoter}} (const size\+\_\+t \&a\+Count)
 \begin{DoxyCompactList}\small\item\em Resets and deletes any saved objects and precisions. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classPromoter_a2231467d4ccdcf2ca82990181242a0d1}{Get\+Promoted\+Tile}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\&ap\+Tile, const \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{Precision}} \&a\+Precision\+Required)
-\begin{DoxyCompactList}\small\item\em used for \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix algorithms. it returns a the required tile with the required precision and it keeps track of all the tiles created during the usage so that if a tile with specific precision is created before , it returns a pointer to that tile without the need of creating any new copies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classPromoter_a2231467d4ccdcf2ca82990181242a0d1}{Get\+Promoted\+Tile}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\&ap\+Tile, const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{Precision}} \&a\+Precision\+Required)
+\begin{DoxyCompactList}\small\item\em used for \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Matrix algorithms. it returns a the required tile with the required precision and it keeps track of all the tiles created during the usage so that if a tile with specific precision is created before , it returns a pointer to that tile without the need of creating any new copies. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -45,7 +46,7 @@ Constructor.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Count} & Number of M\+PR objects that will be used for Promotion Process \\
+\mbox{\texttt{ in}}  & {\em a\+Count} & Number of M\+P\+CR objects that will be used for Promotion Process \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classPromoter_a7e8c5cb673ec47b894ea50f1270cfb33}\label{classPromoter_a7e8c5cb673ec47b894ea50f1270cfb33}} 
@@ -69,9 +70,9 @@ Default De-\/\+Constructor.
 
 
 
-De-\/\+Promotes the Half Precision (O\+N\+LY) objects that were promoted. can be extended to de-\/promote all M\+PR objects to their original Precision. 
+De-\/\+Promotes the Half Precision (O\+N\+LY) objects that were promoted. can be extended to de-\/promote all M\+P\+CR objects to their original Precision. 
 
-Note\+: No M\+PR Object pointer should be changed in any process in between Promotion and De-\/\+Promotion. Here is the caller graph for this function\+:
+Note\+: No M\+P\+CR Object pointer should be changed in any process in between Promotion and De-\/\+Promotion. Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -83,18 +84,19 @@ Note\+: No M\+PR Object pointer should be changed in any process in between Prom
 \index{Promoter@{Promoter}!GetPromotedTile@{GetPromotedTile}}
 \index{GetPromotedTile@{GetPromotedTile}!Promoter@{Promoter}}
 \doxysubsubsection{\texorpdfstring{GetPromotedTile()}{GetPromotedTile()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Promoter\+::\+Get\+Promoted\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\&}]{ap\+Tile,  }\item[{const \mbox{\hyperlink{namespacempr_1_1precision_a9d4312ee29651a68510757fe1a2ae258}{Precision}} \&}]{a\+Precision\+Required }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Promoter\+::\+Get\+Promoted\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\&}]{ap\+Tile,  }\item[{const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{Precision}} \&}]{a\+Precision\+Required }\end{DoxyParamCaption})}
 
 
 
-used for \mbox{\hyperlink{classMPRTile}{M\+P\+R\+Tile}} Matrix algorithms. it returns a the required tile with the required precision and it keeps track of all the tiles created during the usage so that if a tile with specific precision is created before , it returns a pointer to that tile without the need of creating any new copies. 
+used for \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Matrix algorithms. it returns a the required tile with the required precision and it keeps track of all the tiles created during the usage so that if a tile with specific precision is created before , it returns a pointer to that tile without the need of creating any new copies. 
 
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em a\+Count} & New Counter that will be used for initializing the promoter \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -117,14 +119,15 @@ Here is the caller graph for this function\+:
 
 
 
-Insert M\+PR Objects to use for Promotion. 
+Insert M\+P\+CR Objects to use for Promotion. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Object to insert \\
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+P\+CR Object to insert \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -147,9 +150,11 @@ Here is the caller graph for this function\+:
 
 
 
-Promote all the inserted M\+PR Objects according to the Highest Object Precision. 
+Promote all the inserted M\+P\+CR Objects according to the Highest Object Precision. 
 
-Here is the caller graph for this function\+:
+Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.
+
+M\+P\+CR is an R package provided by the S\+T\+S\+DS group at K\+A\+U\+ST Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}

@@ -2,12 +2,12 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_BINARYOPERATIONSHELPER_HPP
-#define MPR_BINARYOPERATIONSHELPER_HPP
+#ifndef MPCR_BINARYOPERATIONSHELPER_HPP
+#define MPCR_BINARYOPERATIONSHELPER_HPP
 
 #include <limits.h>
 
@@ -36,7 +36,7 @@
                 dataOut[i]=std::pow(dataA[i%sizeA],dataB[i%sizeB]);            \
             }                                                                  \
          }else {                                                               \
-             MPR_API_EXCEPTION("Operation Not Supported", -1);                 \
+             MPCR_API_EXCEPTION("Operation Not Supported", -1);                 \
          }                                                                     \
 
 
@@ -63,7 +63,7 @@
                 dataOut[i]=std::pow(dataA[i], dataB);                          \
             }                                                                  \
          }else {                                                               \
-             MPR_API_EXCEPTION("Operation Not Supported", -1);                 \
+             MPCR_API_EXCEPTION("Operation Not Supported", -1);                 \
          }                                                                     \
 
 
@@ -106,7 +106,7 @@
          }else if(FUN=="<=")  {                                                \
             COMPARE_OP_SINGLE(dataA,dataB,dataOut,<=,sizeA)                    \
          }else {                                                               \
-             MPR_API_EXCEPTION("Compare Operation Not Supported", -1);         \
+             MPCR_API_EXCEPTION("Compare Operation Not Supported", -1);         \
          }                                                                     \
 
 
@@ -120,7 +120,7 @@
          }else if(FUN=="<=")  {                                                \
             COMPARE_OP(dataA,dataB,dataOut,<=,sizeB,sizeA,sizeOut)             \
          }else {                                                               \
-             MPR_API_EXCEPTION("Compare Operation Not Supported", -1);         \
+             MPCR_API_EXCEPTION("Compare Operation Not Supported", -1);         \
          }                                                                     \
 
-#endif //MPR_BINARYOPERATIONSHELPER_HPP
+#endif //MPCR_BINARYOPERATIONSHELPER_HPP

@@ -2,14 +2,14 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_MATHEMATICALOPERATIONSHELPER_HPP
-#define MPR_MATHEMATICALOPERATIONSHELPER_HPP
+#ifndef MPCR_MATHEMATICALOPERATIONSHELPER_HPP
+#define MPCR_MATHEMATICALOPERATIONSHELPER_HPP
 
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
 #define RUN_OP(aOutput, size, __FUN__, ...)\
@@ -33,7 +33,7 @@
         }else if(OPERATION=="tanh"){                                           \
         RUN_OP(aOutput,aSize,std::tanh,aInput)                                 \
         }else{                                                                 \
-        MPR_API_EXCEPTION("Unknown Trig Operation", -1);                       \
+        MPCR_API_EXCEPTION("Unknown Trig Operation", -1);                       \
         }                                                                      \
 
 
@@ -51,7 +51,7 @@
         }else if(OPERATION=="atanh"){                                          \
         RUN_OP(aOutput,aSize,std::atanh,aInput)                                \
         }else{                                                                 \
-        MPR_API_EXCEPTION("Unknown Inverse Trig Operation", -1);               \
+        MPCR_API_EXCEPTION("Unknown Inverse Trig Operation", -1);               \
         }                                                                      \
 
 
@@ -65,8 +65,8 @@
         }else if(OPERATION=="trunc"){                                          \
         RUN_OP(aOutput,aSize,std::trunc,aInput)                                \
         }else{                                                                 \
-        MPR_API_EXCEPTION("Unknown Round Operation", -1);                      \
+        MPCR_API_EXCEPTION("Unknown Round Operation", -1);                      \
         }                                                                      \
 
 
-#endif //MPR_MATHEMATICALOPERATIONSHELPER_HPP
+#endif //MPCR_MATHEMATICALOPERATIONSHELPER_HPP

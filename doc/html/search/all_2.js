@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['backsolve_18',['BackSolve',['../namespacempr_1_1operations_1_1linear.html#a163f68c083e69bfefd30905211520b42',1,'mpr::operations::linear']]],
+  ['backsolve_18',['BackSolve',['../namespacempcr_1_1operations_1_1linear.html#a9f4c43dc1b2e4c0abfd93e6991bb256a',1,'mpcr::operations::linear']]],
   ['basicoperations_2ecpp_19',['BasicOperations.cpp',['../BasicOperations_8cpp.html',1,'']]],
   ['basicoperations_2ehpp_20',['BasicOperations.hpp',['../BasicOperations_8hpp.html',1,'']]],
   ['basicoperationshelper_2ehpp_21',['BasicOperationsHelper.hpp',['../BasicOperationsHelper_8hpp.html',1,'']]],

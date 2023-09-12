@@ -2,7 +2,7 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
@@ -17,15 +17,15 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 
-RcppExport SEXP _rcpp_module_boot_MMPR();
+RcppExport SEXP _rcpp_module_boot_MPCR();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rcpp_module_boot_MMPR", (DL_FUNC) &_rcpp_module_boot_MMPR, 0},
-    {"_rcpp_module_boot_MMPRTile", (DL_FUNC) &_rcpp_module_boot_MMPRTile, 0},
+    {"_rcpp_module_boot_MPCR", (DL_FUNC) &_rcpp_module_boot_MMPR, 0},
+    {"_rcpp_module_boot_MPCRTile", (DL_FUNC) &_rcpp_module_boot_MMPCRTile, 0},
     {NULL, NULL,                                                0}
 };
 
-RcppExport void R_init_MMPR(DllInfo *dll) {
+RcppExport void R_init_MPCR(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

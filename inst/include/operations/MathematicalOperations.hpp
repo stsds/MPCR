@@ -2,30 +2,30 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_MATHEMATICALOPERATIONS_HPP
-#define MPR_MATHEMATICALOPERATIONS_HPP
+#ifndef MPCR_MATHEMATICALOPERATIONS_HPP
+#define MPCR_MATHEMATICALOPERATIONS_HPP
 
 #include <data-units/DataType.hpp>
 
 
-namespace mpr {
+namespace mpcr {
     namespace operations {
         namespace math {
 
 
             /**
              * @brief
-             * Perform Operation on MPR Object according to provided Function
+             * Perform Operation on MPCR Object according to provided Function
              * aFun.
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              * @param[in] aFun
              * string indicating which operation to perform
              * currently supported ( abs , ceil , floor , trunc)
@@ -41,12 +41,12 @@ namespace mpr {
 
             /**
              * @brief
-             * Perform Square root operation on a given MPR Object
+             * Perform Square root operation on a given MPCR Object
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              *
              */
             template <typename T>
@@ -55,12 +55,12 @@ namespace mpr {
 
             /**
              * @brief
-             * Perform exp operation on a given MPR Object
+             * Perform exp operation on a given MPCR Object
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              * @param[in] aFlag
              * if true each output value will be subtracted by 1.
              *
@@ -72,10 +72,10 @@ namespace mpr {
 
             /**
              * @brief
-             * Checks if a given MPR Object values are Finite or not.
+             * Checks if a given MPCR Object values are Finite or not.
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
              * bool vector . true if finite ,false otherwise
              *
@@ -87,10 +87,10 @@ namespace mpr {
 
             /**
              * @brief
-             * Checks if a given MPR Object values are InFinite or not.
+             * Checks if a given MPCR Object values are InFinite or not.
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
              * int vector . 0 if finite, 1 if infinite ,INT_MIN if NAN
              *
@@ -101,12 +101,12 @@ namespace mpr {
 
             /**
              * @brief
-             * Perform Log operation on a given MPR Object
+             * Perform Log operation on a given MPCR Object
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              * @param[in] aBase
              * 10 for Log base 10 and 2 for log base 2 ,else it will throw error.
              *
@@ -117,13 +117,13 @@ namespace mpr {
 
             /**
              * @brief
-             * Perform TrigOperation on MPR Object according to provided
+             * Perform TrigOperation on MPCR Object according to provided
              * Function aFun.
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              * @param[in] aFun
              * string indicating which operation to perform
              * currently supported (cos,sin,tan,cosh,sinh,tanh)
@@ -136,13 +136,13 @@ namespace mpr {
 
             /**
              * @brief
-             * Perform Inverse TrigOperation on MPR Object according to provided
+             * Perform Inverse TrigOperation on MPCR Object according to provided
              * Function aFun.
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              * @param[in] aFun
              * string indicating which operation to perform
              * currently supported (acos,asin,atan,acosh,asinh,atanh)
@@ -155,12 +155,12 @@ namespace mpr {
 
             /**
              * @brief
-             * Rounds a given MPR Object to a given Number of decimal places.
+             * Rounds a given MPCR Object to a given Number of decimal places.
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              * @param[in] aDecimalPoint
              * Number of decimal points to use for rounding.
              *
@@ -172,12 +172,12 @@ namespace mpr {
 
             /**
              * @brief
-             * Perform Gamma operation on a given MPR Object
+             * Perform Gamma operation on a given MPCR Object
              *
              * @param[in] aInputA
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Object can be a vector or a Matrix according to the given inputs
+             * MPCR Object can be a vector or a Matrix according to the given inputs
              * @param[in] aLGamma
              * If true lgamma will be used ,otherwise tgamma .
              *
@@ -193,4 +193,4 @@ namespace mpr {
 }
 
 
-#endif //MPR_MATHEMATICALOPERATIONS_HPP
+#endif //MPCR_MATHEMATICALOPERATIONS_HPP

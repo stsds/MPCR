@@ -1,10 +1,10 @@
 <map id="RLGamma" name="RLGamma">
-<area shape="rect" id="node1" title="Perform lgamma operation on MPR Object." alt="" coords="5,136,96,163"/>
-<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1math.html#aa3e460cbeefdad7f8e61103bdba3cf77" title="Perform Gamma operation on a given MPR Object." alt="" coords="147,99,314,141"/>
-<area shape="rect" id="node8" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="144,165,317,192"/>
-<area shape="rect" id="node3" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="389,5,531,32"/>
-<area shape="rect" id="node4" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="387,56,533,83"/>
-<area shape="rect" id="node5" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="389,107,531,133"/>
-<area shape="rect" id="node6" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="389,157,531,184"/>
-<area shape="rect" id="node7" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="365,208,555,235"/>
+<area shape="rect" id="node1" title="Perform lgamma operation on MPCR Object." alt="" coords="5,136,96,163"/>
+<area shape="rect" id="node2" href="$namespacempcr_1_1operations_1_1math.html#a14b11d8e76b982362a60be3e8a8f7602" title="Perform Gamma operation on a given MPCR Object." alt="" coords="144,99,319,141"/>
+<area shape="rect" id="node8" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="145,165,318,192"/>
+<area shape="rect" id="node3" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="390,5,533,32"/>
+<area shape="rect" id="node4" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="389,56,534,83"/>
+<area shape="rect" id="node5" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="391,107,532,133"/>
+<area shape="rect" id="node6" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="390,157,533,184"/>
+<area shape="rect" id="node7" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="367,208,556,235"/>
 </map>

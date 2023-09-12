@@ -1,7 +1,0 @@
-<map id="MPRTile::Print" name="MPRTile::Print">
-<area shape="rect" id="node1" title="Prints the Metadata and the values of the MPRTile Object." alt="" coords="5,81,117,108"/>
-<area shape="rect" id="node2" href="$classMPRTile.html#addf7def3a02072651e69c28d7c4e19ce" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="165,5,393,32"/>
-<area shape="rect" id="node3" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="445,81,606,108"/>
-<area shape="rect" id="node4" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="441,144,609,171"/>
-<area shape="rect" id="node5" href="$classMPRTile.html#a5c449c011281b9c32d538dcaf3fb55a0" title="Prints the Metadata of the MPRTile Object." alt="" coords="212,107,347,133"/>
-</map>

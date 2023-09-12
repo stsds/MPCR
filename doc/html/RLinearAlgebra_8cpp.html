@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MMPR: src/adapters/RLinearAlgebra.cpp File Reference</title>
+<title>MPCR: src/adapters/RLinearAlgebra.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">MMPR
+   <div id="projectname">MPCR
    </div>
   </td>
  </tr>
@@ -74,26 +74,26 @@ $(function() {
 <div class="textblock"><code>#include &lt;<a class="el" href="RLinearAlgebra_8hpp_source.html">adapters/RLinearAlgebra.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="RHelpers_8hpp_source.html">adapters/RHelpers.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Promoter_8hpp_source.html">data-units/Promoter.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="MPRDispatcher_8hpp_source.html">utilities/MPRDispatcher.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="MPCRDispatcher_8hpp_source.html">utilities/MPCRDispatcher.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for RLinearAlgebra.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp__incl.png" border="0" usemap="#src_2adapters_2RLinearAlgebra_8cpp" alt=""/></div>
 <map name="src_2adapters_2RLinearAlgebra_8cpp" id="src_2adapters_2RLinearAlgebra_8cpp">
-<area shape="rect" title=" " alt="" coords="332,5,564,32"/>
-<area shape="rect" href="RLinearAlgebra_8hpp.html" title=" " alt="" coords="27,80,237,107"/>
-<area shape="rect" href="RHelpers_8hpp.html" title=" " alt="" coords="263,80,433,107"/>
-<area shape="rect" href="Promoter_8hpp.html" title=" " alt="" coords="440,155,619,181"/>
-<area shape="rect" href="MPRDispatcher_8hpp.html" title=" " alt="" coords="547,229,749,256"/>
+<area shape="rect" title=" " alt="" coords="339,5,571,32"/>
+<area shape="rect" href="RLinearAlgebra_8hpp.html" title=" " alt="" coords="31,80,241,107"/>
+<area shape="rect" href="RHelpers_8hpp.html" title=" " alt="" coords="268,80,439,107"/>
+<area shape="rect" href="Promoter_8hpp.html" title=" " alt="" coords="448,155,627,181"/>
+<area shape="rect" href="MPCRDispatcher_8hpp.html" title=" " alt="" coords="551,229,761,256"/>
 <area shape="rect" href="LinearAlgebra_8hpp.html" title=" " alt="" coords="5,155,219,181"/>
-<area shape="rect" href="DataType_8hpp.html" title=" " alt="" coords="245,229,427,256"/>
-<area shape="rect" title=" " alt="" coords="305,304,367,331"/>
-<area shape="rect" href="Precision_8hpp.html" title=" " alt="" coords="419,304,597,331"/>
-<area shape="rect" href="FloatingPointHandler_8hpp.html" title=" " alt="" coords="278,379,517,405"/>
-<area shape="rect" href="MPRErrorHandler_8hpp.html" title=" " alt="" coords="541,379,755,405"/>
-<area shape="rect" title=" " alt="" coords="567,453,633,480"/>
-<area shape="rect" title=" " alt="" coords="657,453,732,480"/>
-<area shape="rect" href="MPRTile_8hpp.html" title=" " alt="" coords="243,155,415,181"/>
+<area shape="rect" href="DataType_8hpp.html" title=" " alt="" coords="249,229,431,256"/>
+<area shape="rect" title=" " alt="" coords="309,304,371,331"/>
+<area shape="rect" href="Precision_8hpp.html" title=" " alt="" coords="425,304,604,331"/>
+<area shape="rect" href="FloatingPointHandler_8hpp.html" title=" " alt="" coords="282,379,521,405"/>
+<area shape="rect" href="MPCRErrorHandler_8hpp.html" title=" " alt="" coords="545,379,767,405"/>
+<area shape="rect" title=" " alt="" coords="575,453,641,480"/>
+<area shape="rect" title=" " alt="" coords="665,453,740,480"/>
+<area shape="rect" href="MPCRTile_8hpp.html" title=" " alt="" coords="243,155,424,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -105,10 +105,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae0412e03a33a5694770a7be74cb56628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC.  <a href="RLinearAlgebra_8cpp.html#ae0412e03a33a5694770a7be74cb56628">More...</a><br /></td></tr>
 <tr class="separator:ae0412e03a33a5694770a7be74cb56628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad63789b8f3ae6a2aa763dd0b87d5112"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RLinearAlgebra_8cpp.html#aad63789b8f3ae6a2aa763dd0b87d5112">RCrossProduct</a> (<a class="el" href="classDataType.html">DataType</a> *<a class="el" href="MathematicalOperations_8cpp.html#ac5a8b6d5d0c66319ea2bd9dd9a1234b0">aInputA</a>, SEXP <a class="el" href="LinearAlgebra_8cpp.html#af29c585d74852408757764cc58b8b6fd">aInputB</a>)</td></tr>
-<tr class="memdesc:aad63789b8f3ae6a2aa763dd0b87d5112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x.  <a href="RLinearAlgebra_8cpp.html#aad63789b8f3ae6a2aa763dd0b87d5112">More...</a><br /></td></tr>
+<tr class="memdesc:aad63789b8f3ae6a2aa763dd0b87d5112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate CrossProduct of 2 MPCR Matrices performs: x %*% y , t(x) %*% x.  <a href="RLinearAlgebra_8cpp.html#aad63789b8f3ae6a2aa763dd0b87d5112">More...</a><br /></td></tr>
 <tr class="separator:aad63789b8f3ae6a2aa763dd0b87d5112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a471b6761be43bb48d2f031d619a99700"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RLinearAlgebra_8cpp.html#a471b6761be43bb48d2f031d619a99700">RTCrossProduct</a> (<a class="el" href="classDataType.html">DataType</a> *<a class="el" href="MathematicalOperations_8cpp.html#ac5a8b6d5d0c66319ea2bd9dd9a1234b0">aInputA</a>, SEXP <a class="el" href="LinearAlgebra_8cpp.html#af29c585d74852408757764cc58b8b6fd">aInputB</a>)</td></tr>
-<tr class="memdesc:a471b6761be43bb48d2f031d619a99700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)  <a href="RLinearAlgebra_8cpp.html#a471b6761be43bb48d2f031d619a99700">More...</a><br /></td></tr>
+<tr class="memdesc:a471b6761be43bb48d2f031d619a99700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(y) , x %*% t(x)  <a href="RLinearAlgebra_8cpp.html#a471b6761be43bb48d2f031d619a99700">More...</a><br /></td></tr>
 <tr class="separator:a471b6761be43bb48d2f031d619a99700"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3444363bdbdf1b7b1ef5ed9fdee158ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RLinearAlgebra_8cpp.html#a3444363bdbdf1b7b1ef5ed9fdee158ab">RIsSymmetric</a> (<a class="el" href="classDataType.html">DataType</a> *<a class="el" href="MathematicalOperations_8cpp.html#ac5a8b6d5d0c66319ea2bd9dd9a1234b0">aInputA</a>)</td></tr>
 <tr class="memdesc:a3444363bdbdf1b7b1ef5ed9fdee158ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a Matrix Is Symmetric.  <a href="RLinearAlgebra_8cpp.html#a3444363bdbdf1b7b1ef5ed9fdee158ab">More...</a><br /></td></tr>
@@ -129,7 +129,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5595028cb926cb8d01b50c8f6eb6bdd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the singular-value decomposition of a rectangular matrix.  <a href="RLinearAlgebra_8cpp.html#a5595028cb926cb8d01b50c8f6eb6bdd2">More...</a><br /></td></tr>
 <tr class="separator:a5595028cb926cb8d01b50c8f6eb6bdd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34474f8f633d9660b4cdc9fee95d28c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RLinearAlgebra_8cpp.html#a34474f8f633d9660b4cdc9fee95d28c8">RTranspose</a> (<a class="el" href="classDataType.html">DataType</a> *<a class="el" href="MathematicalOperations_8cpp.html#ac5a8b6d5d0c66319ea2bd9dd9a1234b0">aInputA</a>)</td></tr>
-<tr class="memdesc:a34474f8f633d9660b4cdc9fee95d28c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transpose a given MPR Matrix.  <a href="RLinearAlgebra_8cpp.html#a34474f8f633d9660b4cdc9fee95d28c8">More...</a><br /></td></tr>
+<tr class="memdesc:a34474f8f633d9660b4cdc9fee95d28c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transpose a given MPCR Matrix.  <a href="RLinearAlgebra_8cpp.html#a34474f8f633d9660b4cdc9fee95d28c8">More...</a><br /></td></tr>
 <tr class="separator:a34474f8f633d9660b4cdc9fee95d28c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e72a89d4403f0c0c1cef7e0e57b12eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RLinearAlgebra_8cpp.html#a4e72a89d4403f0c0c1cef7e0e57b12eb">RNorm</a> (<a class="el" href="classDataType.html">DataType</a> *<a class="el" href="MathematicalOperations_8cpp.html#ac5a8b6d5d0c66319ea2bd9dd9a1234b0">aInputA</a>, const std::string &amp;aType)</td></tr>
 <tr class="memdesc:a4e72a89d4403f0c0c1cef7e0e57b12eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a matrix norm of aInput. The norm can be the one ("O") norm, the infinity ("I") norm, the Frobenius ("F") norm, or the maximum modulus ("M") among elements of a matrix.  <a href="RLinearAlgebra_8cpp.html#a4e72a89d4403f0c0c1cef7e0e57b12eb">More...</a><br /></td></tr>
@@ -204,8 +204,8 @@ Functions</h2></td></tr>
 <p>Solves a system of linear equations where the coefficient matrix is upper or lower triangular. Solve aInputA aOutput = aInputB. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aCol</td><td>The number of columns of aInputA and rows of aInputB to use. default ncol(aInputA) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aUpperTriangle</td><td>logical; if true (default), the upper triangular part of aInputA is used. Otherwise, the lower one. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aTranspose</td><td>logical; if true, solve for t(aInputA) %*% aOutput == aInputB. </td></tr>
@@ -218,20 +218,21 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_cgraph" id="RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_cgraph">
-<area shape="rect" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="5,313,104,340"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a163f68c083e69bfefd30905211520b42" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="152,201,323,242"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="393,5,538,32"/>
-<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="156,288,319,315"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="379,411,552,437"/>
-<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPR Objects to use for Promotion." alt="" coords="174,389,301,416"/>
-<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="165,440,310,467"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="394,56,537,83"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="393,107,538,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="389,157,541,184"/>
-<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="393,208,537,235"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="394,259,537,285"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="371,309,560,336"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="396,360,535,387"/>
+<area shape="rect" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="5,364,104,391"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a9f4c43dc1b2e4c0abfd93e6991bb256a" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="152,226,329,267"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="399,5,545,32"/>
+<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="159,339,322,365"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="385,461,559,488"/>
+<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPCR Objects to use for Promotion." alt="" coords="177,440,304,467"/>
+<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPCR Objects according to the Highest Object Precision." alt="" coords="168,491,313,517"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="401,56,543,83"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="399,107,545,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="396,157,548,184"/>
+<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="400,208,544,235"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="401,259,543,285"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="377,309,567,336"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="403,360,541,387"/>
+<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="399,411,545,437"/>
 </map>
 </div>
 <div class="dynheader">
@@ -240,7 +241,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_icgraph" id="RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_icgraph">
 <area shape="rect" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="173,5,272,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -275,26 +276,26 @@ Here is the caller graph for this function:</div>
 <p>Calculate Cholesky decomposition. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPCR Matrix </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>MPR Matrix containing decomposition result </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MPCR Matrix containing decomposition result </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_cgraph" id="RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_cgraph">
 <area shape="rect" title="Calculate Cholesky decomposition." alt="" coords="5,187,96,213"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a52396f1084725a0832ad645ed6ca9d2c" title="Calculate Cholesky decomposition." alt="" coords="145,150,316,191"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="144,216,317,243"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="389,5,531,32"/>
-<area shape="rect" href="classDataType.html#acfb34852b706a2499a92cf8636b9fd36" title="Fills Upper or Lower Triangle with a given value Note: the Input must be a square Matrix." alt="" coords="379,56,541,83"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="387,107,533,133"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="387,157,533,184"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="384,208,536,235"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="389,259,531,285"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="365,309,555,336"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a9b4a2fb4286fd0d4e519b8361da69411" title="Calculate Cholesky decomposition." alt="" coords="144,150,321,191"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="146,216,319,243"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="393,5,535,32"/>
+<area shape="rect" href="classDataType.html#acfb34852b706a2499a92cf8636b9fd36" title="Fills Upper or Lower Triangle with a given value Note: the Input must be a square Matrix." alt="" coords="383,56,545,83"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="391,107,537,133"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="391,157,537,184"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="388,208,540,235"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="393,259,535,285"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="369,309,559,336"/>
 </map>
 </div>
 <div class="dynheader">
@@ -303,7 +304,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_icgraph" id="RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_icgraph">
 <area shape="rect" title="Calculate Cholesky decomposition." alt="" coords="173,5,264,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -338,26 +339,26 @@ Here is the caller graph for this function:</div>
 <p>Invert a symmetric, positive definite square matrix from its Cholesky decomposition. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPR Matrix containing Cholesky decomposition. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPCR Matrix containing Cholesky decomposition. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>MPR Matrix </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MPCR Matrix </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_cgraph" id="RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_cgraph">
 <area shape="rect" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="5,187,116,213"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a187996bac02d748f1b40ff5568710e98" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="165,150,336,191"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="164,216,337,243"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="409,5,551,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="407,56,553,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="407,107,553,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="404,157,556,184"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="409,208,551,235"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="385,259,575,285"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="411,309,549,336"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#aeb698c5e2520150713bae4d109e3a682" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="164,150,341,191"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="166,216,339,243"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="413,5,555,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="411,56,557,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="411,107,557,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="408,157,560,184"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="413,208,555,235"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="389,259,579,285"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="415,309,553,336"/>
 </map>
 </div>
 <div class="dynheader">
@@ -366,7 +367,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_icgraph" id="RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_icgraph">
 <area shape="rect" title="Invert a symmetric, positive definite square matrix from its Cholesky decomposition." alt="" coords="173,5,284,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -398,37 +399,38 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Calculate CrossProduct of 2 MPCR Matrices performs: x %*% y , t(x) %*% x. </p>
+<p>Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.</p>
+<p>MPCR is an R package provided by the STSDS group at KAUST </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Matrix, if Null t(aInputA) %*% aInputA ,otherwise aInputA %*% aInputB </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Matrix, if Null t(aInputA) %*% aInputA ,otherwise aInputA %*% aInputB </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>MPR Matrix </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MPCR Matrix </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_cgraph" id="RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_cgraph">
-<area shape="rect" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="5,487,121,513"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a3ace62895c405f9faa575c2da78fdef3" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="169,251,340,293"/>
-<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="173,411,336,437"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="396,512,569,539"/>
-<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPR Objects to use for Promotion." alt="" coords="191,512,318,539"/>
-<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="173,563,336,589"/>
-<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="182,613,327,640"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="411,5,554,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="410,56,555,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="410,107,555,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="407,157,559,184"/>
-<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="412,208,553,235"/>
-<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="411,259,555,285"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="411,309,554,336"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="388,360,577,387"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="413,411,552,437"/>
-<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="409,461,556,488"/>
+<area shape="rect" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="5,487,121,513"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a4d6e3d438dd9fcd8f4cdc5a8e537a8da" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="169,251,347,293"/>
+<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="177,411,339,437"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="403,512,576,539"/>
+<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPCR Objects to use for Promotion." alt="" coords="195,512,321,539"/>
+<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="177,563,339,589"/>
+<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPCR Objects according to the Highest Object Precision." alt="" coords="185,613,331,640"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="418,5,561,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="417,56,562,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="417,107,562,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="413,157,565,184"/>
+<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="419,208,560,235"/>
+<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="417,259,561,285"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="418,309,561,336"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="395,360,584,387"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="420,411,559,437"/>
+<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="416,461,563,488"/>
 </map>
 </div>
 <div class="dynheader">
@@ -436,8 +438,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_icgraph" id="RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_icgraph">
-<area shape="rect" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="173,5,289,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="173,5,289,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -472,27 +474,30 @@ Here is the caller graph for this function:</div>
 <p>Calculate Eigen Values and (optionally) Eigen Vectors. if(aOnlyValues)= true , only the values will be calculated. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPR Square Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPCR Square Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aOnlyValues</td><td>bool True, Only values will be returned ,otherwise values and vectors. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>vector of MPR objects, First element Values ,and second element Vectors. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>vector of MPCR objects, First element Values ,and second element Vectors. </dd></dl>
+<p>This if condition is added since MKL eigen routine has a bug with float affecting the runtime of the function.</p>
+<p>so for this function, any non double matrix will be converted to double to avoid this timing problem.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_cgraph" id="RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_cgraph">
-<area shape="rect" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(aOnlyValues)= true , only the values will b..." alt="" coords="5,187,72,213"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a4b672e8178ecc2b2daad3037d3d0adf0" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(apOutputVectors)= nullptr ,..." alt="" coords="121,150,292,191"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="120,216,293,243"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="365,5,507,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="363,56,509,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="363,107,509,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="360,157,512,184"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="365,208,507,235"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="341,259,531,285"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="367,309,505,336"/>
+<area shape="rect" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(aOnlyValues)= true , only the values will b..." alt="" coords="5,157,72,184"/>
+<area shape="rect" href="classDataType.html#aa853d7432fd2eb51c09238e00e805a4f" title="Convert MPCR Object Precision." alt="" coords="120,99,321,125"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a52bdf8f12e8169bb9f88fe3b5aaf0aac" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(apOutputVectors)= nullptr ,..." alt="" coords="132,150,309,191"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="134,216,307,243"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="393,5,535,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="391,56,537,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="391,107,537,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="388,157,540,184"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="393,208,535,235"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="369,259,559,285"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="395,309,533,336"/>
 </map>
 </div>
 <div class="dynheader">
@@ -501,7 +506,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_icgraph" id="RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_icgraph">
 <area shape="rect" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(aOnlyValues)= true , only the values will b..." alt="" coords="173,5,240,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -566,9 +571,9 @@ Here is the caller graph for this function:</div>
 <p>Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Matrix ,if missing syrk routine will be used </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">aInputC</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Matrix ,if missing syrk routine will be used </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">aInputC</td><td>MPCR Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aTransposeA</td><td>if true , the transpose of A will be Used </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aTransposeB</td><td>if true , the transpose of B will be Used </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">aAlpha</td><td>factor of A </td></tr>
@@ -576,29 +581,29 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>MPR Matrix </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MPCR Matrix </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_cgraph" id="RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_cgraph">
 <area shape="rect" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="5,487,80,513"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a3ace62895c405f9faa575c2da78fdef3" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="128,251,299,293"/>
-<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="132,411,295,437"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="355,512,528,539"/>
-<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPR Objects to use for Promotion." alt="" coords="150,512,277,539"/>
-<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="132,563,295,589"/>
-<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="141,613,286,640"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="370,5,513,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="369,56,514,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="369,107,514,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="365,157,517,184"/>
-<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="371,208,512,235"/>
-<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="369,259,513,285"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="370,309,513,336"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="347,360,536,387"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="372,411,511,437"/>
-<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="368,461,515,488"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a4d6e3d438dd9fcd8f4cdc5a8e537a8da" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="128,251,305,293"/>
+<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="135,411,298,437"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="361,512,535,539"/>
+<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPCR Objects to use for Promotion." alt="" coords="153,512,280,539"/>
+<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="135,563,298,589"/>
+<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPCR Objects according to the Highest Object Precision." alt="" coords="144,613,289,640"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="377,5,519,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="375,56,521,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="375,107,521,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="372,157,524,184"/>
+<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="377,208,519,235"/>
+<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="376,259,520,285"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="377,309,519,336"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="353,360,543,387"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="379,411,517,437"/>
+<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="375,461,521,488"/>
 </map>
 </div>
 <div class="dynheader">
@@ -607,7 +612,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_icgraph" id="RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_icgraph">
 <area shape="rect" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="173,5,248,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -632,7 +637,7 @@ Here is the caller graph for this function:</div>
 <p>Check if a Matrix Is Symmetric. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPCR Matrix </td></tr>
   </table>
   </dd>
 </dl>
@@ -643,11 +648,11 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_cgraph" id="RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_cgraph">
 <area shape="rect" title="Check if a Matrix Is Symmetric." alt="" coords="5,35,119,61"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="167,5,340,32"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a343974f31c6d270cecfa68ff22c3662c" title="Check if a Matrix Is Symmetric." alt="" coords="168,57,339,98"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="391,13,537,40"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="391,64,537,91"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="388,115,540,141"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="169,5,342,32"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#ad56ba3c059d0ecb871efdad87bc10049" title="Check if a Matrix Is Symmetric." alt="" coords="167,57,344,98"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="395,13,541,40"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="395,64,541,91"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="392,115,544,141"/>
 </map>
 </div>
 <div class="dynheader">
@@ -656,7 +661,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_icgraph" id="RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_icgraph">
 <area shape="rect" title="Check if a Matrix Is Symmetric." alt="" coords="173,5,287,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -691,7 +696,7 @@ Here is the caller graph for this function:</div>
 <p>Computes a matrix norm of aInput. The norm can be the one ("O") norm, the infinity ("I") norm, the Frobenius ("F") norm, or the maximum modulus ("M") among elements of a matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>MPCR Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aType</td><td>Type of Norm ( O , 1 , I , F, M) </td></tr>
   </table>
   </dd>
@@ -703,13 +708,13 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_cgraph" id="RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_cgraph">
 <area shape="rect" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="5,77,72,104"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="120,48,293,75"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a24d3c59542127c302a2fe8e94ef358dd" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="121,99,292,141"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="346,5,489,32"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="345,56,490,83"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="341,107,493,133"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="346,157,489,184"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="348,208,487,235"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="122,48,295,75"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a3dcaf6bd7a11a06db70d4e1097af99b4" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="120,99,297,141"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="350,5,493,32"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="349,56,494,83"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="345,107,497,133"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="350,157,493,184"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="352,208,491,235"/>
 </map>
 </div>
 <div class="dynheader">
@@ -718,7 +723,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_icgraph" id="RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_icgraph">
 <area shape="rect" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="173,5,240,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -753,7 +758,7 @@ Here is the caller graph for this function:</div>
 <p>Computes the QR decomposition of a matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aTolerance</td><td>the tolerance for detecting linear dependencies in the columns of aInputA </td></tr>
   </table>
   </dd>
@@ -765,16 +770,16 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_cgraph" id="RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_cgraph">
 <area shape="rect" title="Computes the QR decomposition of a matrix." alt="" coords="5,153,153,180"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="201,124,375,151"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#ab4e3dab3fb8b03e35f314c94748872ab" title="Computes the QR decomposition of a matrix." alt="" coords="203,175,373,217"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="446,5,589,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="445,56,590,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="445,107,590,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="441,157,593,184"/>
-<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="447,208,588,235"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="446,259,589,285"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="423,309,612,336"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="448,360,587,387"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="203,124,377,151"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a77142d0bbe9c5b3409bf89ea97f74818" title="Computes the QR decomposition of a matrix." alt="" coords="201,175,379,217"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="450,5,593,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="449,56,594,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="449,107,594,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="445,157,597,184"/>
+<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="451,208,592,235"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="450,259,593,285"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="427,309,616,336"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="452,360,591,387"/>
 </map>
 </div>
 <div class="dynheader">
@@ -783,7 +788,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_icgraph" id="RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_icgraph">
 <area shape="rect" title="Computes the QR decomposition of a matrix." alt="" coords="173,5,321,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -830,30 +835,30 @@ Here is the caller graph for this function:</div>
 <p>Returns part or all of Q, the order-nrow(X) orthogonal (unitary) transformation represented by qr. If complete is TRUE, Q has nrow(X) columns. If complete is FALSE, Q has ncol(X) columns. and each column of Q is multiplied by the corresponding value in Dvec. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix QR </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Object Representing QRAUX </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix QR </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Object Representing QRAUX </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aComplete</td><td>logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-value rows beneath the square upper triangle. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aDvec</td><td>MPR Object Representing DVec ,if null QRDecompositionQ will be called. otherwise QRDecompositionQY </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aDvec</td><td>MPCR Object Representing DVec ,if null QRDecompositionQ will be called. otherwise QRDecompositionQY </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>returns Q. As MPR Object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>returns Q. As MPCR Object. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_cgraph" id="RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_cgraph">
 <area shape="rect" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="5,125,164,152"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="212,67,385,93"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a2177212332d3ccf040827e22b434cfd6" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="213,183,384,225"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#acca465973a6d07f4b116a504bf0f00ba" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="213,118,384,159"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="457,309,599,336"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="455,5,601,32"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="455,56,601,83"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="452,107,604,133"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="457,157,599,184"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="433,208,623,235"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="459,259,597,285"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="214,67,387,93"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a27b933e2aebb6707f2b4ad8a843fa2ee" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="212,183,389,225"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a903f45dc4c56fd063be9fcb41de60229" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="212,118,389,159"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="461,309,603,336"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="459,5,605,32"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="459,56,605,83"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="456,107,608,133"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="461,157,603,184"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="437,208,627,235"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="463,259,601,285"/>
 </map>
 </div>
 <div class="dynheader">
@@ -862,7 +867,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_icgraph" id="RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_icgraph">
 <area shape="rect" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="173,5,332,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -903,29 +908,29 @@ Here is the caller graph for this function:</div>
 <p>Returns part or all of Q, the order-nrow(X) orthogonal (unitary) transformation represented by qr. If complete is TRUE, Q has nrow(X) columns. If complete is FALSE, Q has ncol(X) columns. and each column of Q is multiplied by the corresponding value in Dvec. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix QR </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Object Representing QRAUX </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix QR </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Object Representing QRAUX </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aComplete</td><td>logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-value rows beneath the square upper triangle. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aDvec</td><td>MPR Object Representing DVec , QRDecompositionQY with flag transpose =true wil be called </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aDvec</td><td>MPCR Object Representing DVec , QRDecompositionQY with flag transpose =true wil be called </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>returns Q. As MPR Object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>returns Q. As MPCR Object. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_cgraph" id="RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_cgraph">
 <area shape="rect" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="5,128,176,155"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="224,99,397,125"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#acca465973a6d07f4b116a504bf0f00ba" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="225,150,396,191"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="469,5,611,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="467,56,613,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="467,107,613,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="464,157,616,184"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="469,208,611,235"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="445,259,635,285"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="471,309,609,336"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="226,99,399,125"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a903f45dc4c56fd063be9fcb41de60229" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="224,150,401,191"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="473,5,615,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="471,56,617,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="471,107,617,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="468,157,620,184"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="473,208,615,235"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="449,259,639,285"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="475,309,613,336"/>
 </map>
 </div>
 <div class="dynheader">
@@ -934,7 +939,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_icgraph" id="RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_icgraph">
 <area shape="rect" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="173,5,344,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -975,29 +980,29 @@ Here is the caller graph for this function:</div>
 <p>Returns part or all of Q, the order-nrow(X) orthogonal (unitary) transformation represented by qr. If complete is TRUE, Q has nrow(X) columns. If complete is FALSE, Q has ncol(X) columns. and each column of Q is multiplied by the corresponding value in Dvec. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix QR </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Object Representing QRAUX </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix QR </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Object Representing QRAUX </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aComplete</td><td>logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-value rows beneath the square upper triangle. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aDvec</td><td>MPR Object Representing DVec , QRDecompositionQY with flag transpose =false wil be called </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aDvec</td><td>MPCR Object Representing DVec , QRDecompositionQY with flag transpose =false wil be called </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>returns Q. As MPR Object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>returns Q. As MPCR Object. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_cgraph" id="RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_cgraph">
 <area shape="rect" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="5,128,172,155"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="220,99,393,125"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#acca465973a6d07f4b116a504bf0f00ba" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="221,150,392,191"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="465,5,607,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="463,56,609,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="463,107,609,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="460,157,612,184"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="465,208,607,235"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="441,259,631,285"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="467,309,605,336"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="222,99,395,125"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a903f45dc4c56fd063be9fcb41de60229" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="220,150,397,191"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="469,5,611,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="467,56,613,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="467,107,613,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="464,157,616,184"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="469,208,611,235"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="445,259,635,285"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="471,309,609,336"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1006,7 +1011,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_icgraph" id="RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_icgraph">
 <area shape="rect" title="Returns part or all of Q, the order&#45;nrow(X) orthogonal (unitary) transformation represented by qr...." alt="" coords="173,5,340,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -1041,27 +1046,27 @@ Here is the caller graph for this function:</div>
 <p>returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and may depend on whether complete is TRUE or FALSE). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aComplete</td><td>logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-value rows beneath the square upper triangle. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>returns R. This may be pivoted. As MPR Object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>returns R. This may be pivoted. As MPCR Object. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_cgraph" id="RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_cgraph">
 <area shape="rect" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="5,128,163,155"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="211,99,384,125"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#ab8ce24fa527bdbdf6440ebbe08c20fcd" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="212,150,383,191"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="455,5,598,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="454,56,599,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="454,107,599,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="451,157,603,184"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="455,208,598,235"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="432,259,621,285"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="457,309,596,336"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="213,99,386,125"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#ac609806ecdb032bdfbca40e7ac8e6d5c" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="211,150,388,191"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="459,5,602,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="458,56,603,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="458,107,603,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="455,157,607,184"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="459,208,602,235"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="436,259,625,285"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="461,309,600,336"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1070,7 +1075,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_icgraph" id="RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_icgraph">
 <area shape="rect" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="295,5,452,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 <area shape="rect" href="RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="173,31,247,57"/>
 </map>
 </div>
@@ -1112,34 +1117,34 @@ Here is the caller graph for this function:</div>
 <p>Estimate the reciprocal of the condition number of a matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aNorm</td><td>character string indicating the type of norm to be used in the estimate. The default is "O" for the 1-norm ("O" is equivalent to "1"). For sparse matrices, when useInv=TRUE, norm can be any of the kinds allowed for norm; otherwise, the other possible value is "I" for the infinity norm. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aTriangle</td><td>Bool if true,Only the lower triangle will be used. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>MPR Vector containing one element which is an estimate of the reciprocal condition number of aInput. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MPCR Vector containing one element which is an estimate of the reciprocal condition number of aInput. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_cgraph" id="RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_cgraph">
-<area shape="rect" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="5,216,79,243"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="589,103,734,130"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="585,52,737,79"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="345,492,519,519"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#ab4e3dab3fb8b03e35f314c94748872ab" title="Computes the QR decomposition of a matrix." alt="" coords="347,325,517,366"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#abf0f106b1180d2d6a29fedf46f2049d9" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="127,150,297,192"/>
-<area shape="rect" href="RLinearAlgebra_8cpp.html#a899353c985867c62dea2222e958e90ce" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="133,267,291,294"/>
-<area shape="rect" href="classDataType.html#aec80bd3dbce793daf24077e58ff4c85d" title="Transpose MPR Matrix." alt="" coords="134,368,290,395"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="590,159,733,186"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="589,418,734,444"/>
-<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="591,367,732,394"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="590,211,733,238"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="567,266,756,292"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="592,316,731,343"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a24d3c59542127c302a2fe8e94ef358dd" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="347,92,517,133"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#ab8ce24fa527bdbdf6440ebbe08c20fcd" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="347,260,517,301"/>
+<area shape="rect" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="5,217,79,244"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="599,104,745,131"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="596,53,748,80"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="354,493,527,520"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a77142d0bbe9c5b3409bf89ea97f74818" title="Computes the QR decomposition of a matrix." alt="" coords="352,326,529,367"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#ad3df9b11fb2ef85bb83b45fa48e1b220" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="127,151,304,193"/>
+<area shape="rect" href="RLinearAlgebra_8cpp.html#a899353c985867c62dea2222e958e90ce" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="137,268,294,295"/>
+<area shape="rect" href="classDataType.html#aec80bd3dbce793daf24077e58ff4c85d" title="Transpose MPCR Matrix." alt="" coords="137,369,293,396"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="601,160,743,187"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="599,419,745,445"/>
+<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="601,368,743,395"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="601,212,743,239"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="577,267,767,293"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="603,317,741,344"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a3dcaf6bd7a11a06db70d4e1097af99b4" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="352,93,529,134"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#ac609806ecdb032bdfbca40e7ac8e6d5c" title="returns R. This may be pivoted, The number of rows of R is either nrow(aInputA) or ncol(aInputA) (and..." alt="" coords="352,261,529,302"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1148,7 +1153,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_icgraph" id="RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_icgraph">
 <area shape="rect" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="173,5,247,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -1183,30 +1188,32 @@ Here is the caller graph for this function:</div>
 <p>Solves the equation AX=B. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Matrix X, if Null t(A) will be used. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Matrix X, if Null t(A) will be used. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>MPR Matrix B </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MPCR Matrix B </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_cgraph" id="RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_cgraph">
 <area shape="rect" title="Solves the equation AX=B." alt="" coords="5,132,72,159"/>
-<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="124,5,287,32"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="347,72,520,99"/>
-<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPR Objects to use for Promotion." alt="" coords="142,107,269,133"/>
-<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="124,157,287,184"/>
-<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="133,208,278,235"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a843f01038eeb503267760b4a0a4ab609" title="Solves the equation AX=B." alt="" coords="120,259,291,301"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="362,140,505,167"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="361,191,506,217"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="361,241,506,268"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="357,292,509,319"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="339,343,528,369"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="364,393,503,420"/>
+<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="127,5,290,32"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="353,57,527,84"/>
+<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPCR Objects to use for Promotion." alt="" coords="145,107,272,133"/>
+<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="127,157,290,184"/>
+<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPCR Objects according to the Highest Object Precision." alt="" coords="136,208,281,235"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#adbbaafc06cebed29879351524a5982da" title="Solves the equation AX=B." alt="" coords="120,259,297,301"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="369,112,511,139"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="367,163,513,189"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="367,213,513,240"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="364,264,516,291"/>
+<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="368,315,512,341"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="345,365,535,392"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="371,416,509,443"/>
+<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="367,467,513,493"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1215,7 +1222,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_icgraph" id="RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_icgraph">
 <area shape="rect" title="Solves the equation AX=B." alt="" coords="173,5,240,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -1262,7 +1269,7 @@ Here is the caller graph for this function:</div>
 <p>Compute the singular-value decomposition of a rectangular matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aNu</td><td>the number of left singular vectors to be computed. This must between 0 and m = nrow(aInputA). default aNu = nrow(aInputA). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aNv</td><td>the number of right singular vectors to be computed. This must be between 0 and n = ncol(x). default aNv = ncol(aInputA). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aTranspose</td><td>Bool if true, aOutputV will contain V ,otherwise VT default true for svd() false for la.svd() </td></tr>
@@ -1276,16 +1283,16 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_cgraph" id="RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_cgraph">
 <area shape="rect" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="5,108,64,135"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="387,5,533,32"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="384,56,536,83"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="128,196,301,223"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a31dda2dc92c1d7c3cace13cef9a3e68d" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="112,145,317,172"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="389,107,531,133"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="387,157,533,184"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="389,208,531,235"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="365,259,555,285"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="391,309,529,336"/>
-<area shape="rect" href="classDataType.html#aec80bd3dbce793daf24077e58ff4c85d" title="Transpose MPR Matrix." alt="" coords="382,360,538,387"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="394,5,539,32"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="391,56,543,83"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="131,196,305,223"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a9085cca6610c2c87cdf93eaf781ef893" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="112,145,324,172"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="395,107,538,133"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="394,157,539,184"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="395,208,538,235"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="372,259,561,285"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="397,309,536,336"/>
+<area shape="rect" href="classDataType.html#aec80bd3dbce793daf24077e58ff4c85d" title="Transpose MPCR Matrix." alt="" coords="389,360,545,387"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1294,7 +1301,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_icgraph" id="RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_icgraph">
 <area shape="rect" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="173,5,232,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -1326,37 +1333,37 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x) </p>
+<p>Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(y) , x %*% t(x) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPR Matrix </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPR Matrix, if Null aInputA %*% t(aInputA) ,otherwise aInputA %*% t(aInputB) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputA</td><td>MPCR Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInputB</td><td>MPCR Matrix, if Null aInputA %*% t(aInputA) ,otherwise aInputA %*% t(aInputB) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>MPR Matrix </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MPCR Matrix </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_cgraph" id="RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_cgraph">
-<area shape="rect" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="5,487,128,513"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a3ace62895c405f9faa575c2da78fdef3" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="176,251,347,293"/>
-<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="180,411,343,437"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="403,512,576,539"/>
-<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPR Objects to use for Promotion." alt="" coords="198,512,325,539"/>
-<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="180,563,343,589"/>
-<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="189,613,334,640"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="418,5,561,32"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="417,56,562,83"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="417,107,562,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="413,157,565,184"/>
-<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="419,208,560,235"/>
-<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="417,259,561,285"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="418,309,561,336"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="395,360,584,387"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="420,411,559,437"/>
-<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="416,461,563,488"/>
+<area shape="rect" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="5,487,128,513"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a4d6e3d438dd9fcd8f4cdc5a8e537a8da" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(x) , x %*% t(y) , x %*% y ,..." alt="" coords="176,251,353,293"/>
+<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="183,411,346,437"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="409,512,583,539"/>
+<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPCR Objects to use for Promotion." alt="" coords="201,512,328,539"/>
+<area shape="rect" href="classDataType.html#a4c3c19af2ffa337460947f2d215996a4" title="Check if a Casted Memory Address is a DataType." alt="" coords="183,563,346,589"/>
+<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPCR Objects according to the Highest Object Precision." alt="" coords="192,613,337,640"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="425,5,567,32"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="423,56,569,83"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="423,107,569,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="420,157,572,184"/>
+<area shape="rect" href="classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="425,208,567,235"/>
+<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="424,259,568,285"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="425,309,567,336"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="401,360,591,387"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="427,411,565,437"/>
+<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="423,461,569,488"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1364,8 +1371,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_icgraph" id="RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_icgraph">
-<area shape="rect" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="173,5,296,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="173,5,296,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -1387,10 +1394,10 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Transpose a given MPR Matrix. </p>
+<p>Transpose a given MPCR Matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">aInputA</td><td>MPR Matrix A </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">aInputA</td><td>MPCR Matrix A </td></tr>
   </table>
   </dd>
 </dl>
@@ -1399,8 +1406,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_a34474f8f633d9660b4cdc9fee95d28c8_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_a34474f8f633d9660b4cdc9fee95d28c8_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_a34474f8f633d9660b4cdc9fee95d28c8_icgraph" id="RLinearAlgebra_8cpp_a34474f8f633d9660b4cdc9fee95d28c8_icgraph">
-<area shape="rect" title="Transpose a given MPR Matrix." alt="" coords="173,5,268,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" title="Transpose a given MPCR Matrix." alt="" coords="173,5,268,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -1460,20 +1467,21 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_cgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_cgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_cgraph" id="RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_cgraph">
-<area shape="rect" title=" " alt="" coords="5,313,67,340"/>
-<area shape="rect" href="namespacempr_1_1operations_1_1linear.html#a163f68c083e69bfefd30905211520b42" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="115,201,285,242"/>
-<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="355,5,501,32"/>
-<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="119,288,281,315"/>
-<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="341,411,515,437"/>
-<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPR Objects to use for Promotion." alt="" coords="137,389,263,416"/>
-<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="127,440,273,467"/>
-<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="357,56,499,83"/>
-<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="355,107,501,133"/>
-<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="352,157,504,184"/>
-<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="356,208,500,235"/>
-<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="357,259,499,285"/>
-<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="333,309,523,336"/>
-<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="359,360,497,387"/>
+<area shape="rect" title=" " alt="" coords="5,364,67,391"/>
+<area shape="rect" href="namespacempcr_1_1operations_1_1linear.html#a9f4c43dc1b2e4c0abfd93e6991bb256a" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="115,226,292,267"/>
+<area shape="rect" href="classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="362,5,507,32"/>
+<area shape="rect" href="classPromoter.html#a2207b7ba503499c23f20b330fde1b486" title="De&#45;Promotes the Half Precision (ONLY) objects that were promoted. can be extended to de&#45;promote all M..." alt="" coords="122,339,285,365"/>
+<area shape="rect" href="classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="348,461,521,488"/>
+<area shape="rect" href="classPromoter.html#ab4a02bcb7f4bc62a271f30cdb8b76440" title="Insert MPCR Objects to use for Promotion." alt="" coords="140,440,267,467"/>
+<area shape="rect" href="classPromoter.html#a5741a6019a38181104e3959c22a03cd5" title="Promote all the inserted MPCR Objects according to the Highest Object Precision." alt="" coords="131,491,276,517"/>
+<area shape="rect" href="classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="363,56,506,83"/>
+<area shape="rect" href="classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="362,107,507,133"/>
+<area shape="rect" href="classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="359,157,511,184"/>
+<area shape="rect" href="classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="363,208,507,235"/>
+<area shape="rect" href="classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="363,259,506,285"/>
+<area shape="rect" href="classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="340,309,529,336"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="365,360,504,387"/>
+<area shape="rect" href="classDataType.html#a40e689a5337288e5630e6b0a0e605b46" title="Changes a Matrix to a Vector." alt="" coords="361,411,508,437"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1482,7 +1490,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_icgraph.png" border="0" usemap="#RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_icgraph" alt=""/></div>
 <map name="RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_icgraph" id="RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_icgraph">
 <area shape="rect" title=" " alt="" coords="173,5,235,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 

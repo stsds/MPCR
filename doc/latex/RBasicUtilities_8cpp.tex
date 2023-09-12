@@ -1,10 +1,11 @@
 \hypertarget{RBasicUtilities_8cpp}{}\doxysection{src/adapters/\+R\+Basic\+Utilities.cpp File Reference}
 \label{RBasicUtilities_8cpp}\index{src/adapters/RBasicUtilities.cpp@{src/adapters/RBasicUtilities.cpp}}
 {\ttfamily \#include $<$operations/\+Basic\+Operations.\+hpp$>$}\newline
-{\ttfamily \#include $<$utilities/\+M\+P\+R\+Dispatcher.\+hpp$>$}\newline
+{\ttfamily \#include $<$utilities/\+M\+P\+C\+R\+Dispatcher.\+hpp$>$}\newline
 {\ttfamily \#include $<$adapters/\+R\+Basic\+Utilities.\+hpp$>$}\newline
 {\ttfamily \#include $<$adapters/\+R\+Helpers.\+hpp$>$}\newline
-Include dependency graph for R\+Basic\+Utilities.\+cpp\+:\nopagebreak
+Include dependency graph for R\+Basic\+Utilities.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -19,11 +20,11 @@ Include dependency graph for R\+Basic\+Utilities.\+cpp\+:\nopagebreak
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_a3c7b0f1d0a59864831bb4de0616eada0}{R\+R\+Bind}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+InputA, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+InputB)
 \begin{DoxyCompactList}\small\item\em R Adapter for Combining two Matrices by rows. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{RBasicUtilities_8cpp_a3f44edf01567cdd98ec608376f489052}{R\+Is\+S\+Float}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
-\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+PR object is 16-\/bit Precision. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+P\+CR object is 16-\/bit Precision. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{RBasicUtilities_8cpp_a9f426ffa4cc3d5a4558c0efbe30544c3}{R\+Is\+Float}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
-\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+PR object is 32-\/bit Precision. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+P\+CR object is 32-\/bit Precision. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{RBasicUtilities_8cpp_a9dc8226f25a27552db03840cd0d14133}{R\+Is\+Double}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
-\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+PR object is 64-\/bit Precision. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R Adapter for Checking if M\+P\+CR object is 64-\/bit Precision. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_a18b9e36fcec82799284d6d990ec68556}{R\+Replicate}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Size, size\+\_\+t a\+Length)
 \begin{DoxyCompactList}\small\item\em R Adapter for Replicating value(s) number of times in-\/case a\+Length =0 the output size will be size$\ast$input size ,else size=a\+Length. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{RBasicUtilities_8cpp_a762e83f23019fe8cf3ca2e8349ae079b}{R\+Na\+Exclude}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
@@ -31,9 +32,9 @@ void \mbox{\hyperlink{RBasicUtilities_8cpp_a762e83f23019fe8cf3ca2e8349ae079b}{R\
 void \mbox{\hyperlink{RBasicUtilities_8cpp_a7662f372439ac68c56ca063631df8f98}{R\+Na\+Replace}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, double a\+Value)
 \begin{DoxyCompactList}\small\item\em R Adapter for Replacing NA values with a given value. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f}{R\+Get\+Diagonal}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
-\begin{DoxyCompactList}\small\item\em R adapter for Getting Diagonal of a Matrix. M\+PR Object must be a Matrix. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R adapter for Getting Diagonal of a Matrix. M\+P\+CR Object must be a Matrix. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_a124b24199018e5d0ef8465b2d8bbb481}{R\+Get\+Diagonal\+With\+Dims}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Row, size\+\_\+t a\+Col)
-\begin{DoxyCompactList}\small\item\em R adapter for Getting Diagonal of a Matrix. M\+PR can be a Vector , but dims must be passed. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R adapter for Getting Diagonal of a Matrix. M\+P\+CR can be a Vector , but dims must be passed. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{RBasicUtilities_8cpp_a59c4ffb9412ef2d6d55d54532dff8f15}{R\+Get\+Type}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
 \begin{DoxyCompactList}\small\item\em R Adapter for Printing string indicating whether it\textquotesingle{}s 16/32/64 Bit Precision. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_abf9fdb72c6ee34be1237a045f0f1585c}{R\+Get\+Min}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
@@ -49,19 +50,19 @@ size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8cpp_a8baa94866693cb0dc393d2b63175a
 S\+E\+XP \mbox{\hyperlink{RBasicUtilities_8cpp_a484d9e079c56338e31633b9d78c4edb7}{R\+Is\+Na}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, long a\+Idx)
 \begin{DoxyCompactList}\small\item\em R Adapter for Checking Whether Element at index is N\+AN or Not. \end{DoxyCompactList}\item 
 size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8cpp_addc5061b847e3c154c90ae8ff45d4028}{R\+Object\+Size}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
-\begin{DoxyCompactList}\small\item\em Get total size of Memory used by M\+PR Object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Get total size of Memory used by M\+P\+CR Object. \end{DoxyCompactList}\item 
 size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8cpp_a8793fefe3c9a5e19e6bcf3cd4a830e23}{R\+Get\+N\+Row}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
 \begin{DoxyCompactList}\small\item\em R Adapter for Getting Number of Rows. \end{DoxyCompactList}\item 
 size\+\_\+t \mbox{\hyperlink{RBasicUtilities_8cpp_a4abdc0ba99683c0a4195e7cd842bfb3e}{R\+Get\+N\+Col}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
 \begin{DoxyCompactList}\small\item\em R Adapter for Getting Number of Columns. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{RBasicUtilities_8cpp_a0fa4d270064a51d382f3341a3d6c489e}{R\+Print}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input)
-\begin{DoxyCompactList}\small\item\em R Adapter for Printing Information about M\+PR object Dimensions-\/\+Matrix/\+Vector-\/\+Values ,and Precisions. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R Adapter for Printing Information about M\+P\+CR object Dimensions-\/\+Matrix/\+Vector-\/\+Values ,and Precisions. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_ac092b8a53065f4638e56046f8a8cebed}{R\+Get\+Element\+Vector}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Index)
-\begin{DoxyCompactList}\small\item\em R Adapter for Getting Element with Idx from M\+PR Vector as M\+PR Object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Element with Idx from M\+P\+CR Vector as M\+P\+CR Object. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_a64d2eaeee8515b1e1fbb1207989e61f9}{R\+Get\+Element\+Matrix}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, size\+\_\+t a\+Row\+Idx, size\+\_\+t a\+Col\+Idx)
-\begin{DoxyCompactList}\small\item\em R Adapter for Getting Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+PR Matrix as M\+PR Object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R Adapter for Getting Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+P\+CR Matrix as M\+P\+CR Object. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_aad67124b9ab2d929ed5ddbee5d6caf84}{R\+Concatenate}} (Rcpp\+::\+List\+Of$<$ S\+E\+XP $>$ a\+List)
-\begin{DoxyCompactList}\small\item\em R Adapter for Concatenating List of M\+PR Vectors into one M\+PR Vector. This Function Casts the S\+E\+XP pointer to Data\+Types pointers , And Check a Magic Number inside the M\+PR Class to determine if its a M\+PR object or Not. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em R Adapter for Concatenating List of M\+P\+CR Vectors into one M\+P\+CR Vector. This Function Casts the S\+E\+XP pointer to Data\+Types pointers , And Check a Magic Number inside the M\+P\+CR Class to determine if its a M\+P\+CR object or Not. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_ab29d921348d05f1c1744ddccc62292e8}{R\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Center, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Scale)
 \begin{DoxyCompactList}\small\item\em R Adapter for Centering and/or Scaling the columns of a numeric matrix. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_ad68c9ec3a68e4c3c01dd8d26d10ddf70}{R\+Scale}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Input, bool \mbox{\hyperlink{BasicOperations_8cpp_a968029ffb54719ee07ba757b41f35bcf}{a\+Center}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Scale)
@@ -74,8 +75,8 @@ void \mbox{\hyperlink{RBasicUtilities_8cpp_a0fa4d270064a51d382f3341a3d6c489e}{R\
 \begin{DoxyCompactList}\small\item\em R Adapter for Centering and/or Scaling the columns of a numeric matrix. Centering is done using column mean and scaling is done using column standard deviation. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_ac8816ef904ce2297cb4066a4a1100708}{R\+Scale\+Dispatcher}} (S\+E\+XP a, S\+E\+XP b, S\+E\+XP c)
 \begin{DoxyCompactList}\small\item\em R Adapter for Dispatching Rscale. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_adc3681c2844dd76aa56f66162d52cc25}{R\+Convert\+To\+M\+PR}} (std\+::vector$<$ double $>$ \&a\+Values, const size\+\_\+t \&a\+Row, const size\+\_\+t \&a\+Col, const std\+::string \&a\+Precision)
-\begin{DoxyCompactList}\small\item\em Converts R vector or Matrix to M\+PR object. if a\+Row or a\+Col = zero , M\+PR vector will be created , else M\+PR Matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RBasicUtilities_8cpp_a442baae1e3c400ab0bb29c7397884eb9}{R\+Convert\+To\+M\+P\+CR}} (std\+::vector$<$ double $>$ \&a\+Values, const size\+\_\+t \&a\+Row, const size\+\_\+t \&a\+Col, const std\+::string \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em Converts R vector or Matrix to M\+P\+CR object. if a\+Row or a\+Col = zero , M\+P\+CR vector will be created , else M\+P\+CR Matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -89,14 +90,16 @@ void \mbox{\hyperlink{RBasicUtilities_8cpp_a0fa4d270064a51d382f3341a3d6c489e}{R\
 
 R Adapter for Combining two Matrices by columns. 
 
-This File Contains R adapters for C++ functions since R sends and receives pointers to objects. and to assure proper dispatching. Here is the call graph for this function\+:\nopagebreak
+This File Contains R adapters for C++ functions since R sends and receives pointers to objects. and to assure proper dispatching. Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_ad7b6dfc5eaefb9c0939c2de99d41cfe1_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -111,9 +114,9 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-R Adapter for Concatenating List of M\+PR Vectors into one M\+PR Vector. This Function Casts the S\+E\+XP pointer to Data\+Types pointers , And Check a Magic Number inside the M\+PR Class to determine if its a M\+PR object or Not. 
+R Adapter for Concatenating List of M\+P\+CR Vectors into one M\+P\+CR Vector. This Function Casts the S\+E\+XP pointer to Data\+Types pointers , And Check a Magic Number inside the M\+P\+CR Class to determine if its a M\+P\+CR object or Not. 
 
-Warning\+: There\textquotesingle{}s a very Small Possibility that the Passed Objects\textquotesingle{} Magic Number is the Same as \mbox{\hyperlink{classDataType}{Data\+Type}} , in this case , The behavior of the function is unexpected. So the User should check whether all Objects are M\+PR Objects or not.
+Warning\+: There\textquotesingle{}s a very Small Possibility that the Passed Objects\textquotesingle{} Magic Number is the Same as \mbox{\hyperlink{classDataType}{Data\+Type}} , in this case , The behavior of the function is unexpected. So the User should check whether all Objects are M\+P\+CR Objects or not.
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -121,53 +124,56 @@ Warning\+: There\textquotesingle{}s a very Small Possibility that the Passed Obj
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Vector containing all values in all lists (Precision = Highest Precision in the List) 
+M\+P\+CR Vector containing all values in all lists (Precision = Highest Precision in the List) 
 \end{DoxyReturn}
 This if condition is added because Concatenate take 2 M\+PR object at a time ,so it checks if a\+List is even or odd and if odd, dummy object will be added.
 
-Add Dummy ObjectHere is the call graph for this function\+:\nopagebreak
+Add Dummy ObjectHere is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_aad67124b9ab2d929ed5ddbee5d6caf84_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=291pt]{RBasicUtilities_8cpp_aad67124b9ab2d929ed5ddbee5d6caf84_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{RBasicUtilities_8cpp_adc3681c2844dd76aa56f66162d52cc25}\label{RBasicUtilities_8cpp_adc3681c2844dd76aa56f66162d52cc25}} 
-\index{RBasicUtilities.cpp@{RBasicUtilities.cpp}!RConvertToMPR@{RConvertToMPR}}
-\index{RConvertToMPR@{RConvertToMPR}!RBasicUtilities.cpp@{RBasicUtilities.cpp}}
-\doxysubsubsection{\texorpdfstring{RConvertToMPR()}{RConvertToMPR()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Convert\+To\+M\+PR (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$ \&}]{a\+Values,  }\item[{const size\+\_\+t \&}]{a\+Row,  }\item[{const size\+\_\+t \&}]{a\+Col,  }\item[{const std\+::string \&}]{a\+Precision }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{RBasicUtilities_8cpp_a442baae1e3c400ab0bb29c7397884eb9}\label{RBasicUtilities_8cpp_a442baae1e3c400ab0bb29c7397884eb9}} 
+\index{RBasicUtilities.cpp@{RBasicUtilities.cpp}!RConvertToMPCR@{RConvertToMPCR}}
+\index{RConvertToMPCR@{RConvertToMPCR}!RBasicUtilities.cpp@{RBasicUtilities.cpp}}
+\doxysubsubsection{\texorpdfstring{RConvertToMPCR()}{RConvertToMPCR()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Convert\+To\+M\+P\+CR (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$ \&}]{a\+Values,  }\item[{const size\+\_\+t \&}]{a\+Row,  }\item[{const size\+\_\+t \&}]{a\+Col,  }\item[{const std\+::string \&}]{a\+Precision }\end{DoxyParamCaption})}
 
 
 
-Converts R vector or Matrix to M\+PR object. if a\+Row or a\+Col = zero , M\+PR vector will be created , else M\+PR Matrix. 
+Converts R vector or Matrix to M\+P\+CR object. if a\+Row or a\+Col = zero , M\+P\+CR vector will be created , else M\+P\+CR Matrix. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Values} & R vector/\+Matrix holding values to create M\+PR object from. \\
+\mbox{\texttt{ in}}  & {\em a\+Values} & R vector/\+Matrix holding values to create M\+P\+CR object from. \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Rows in case of creating an M\+PR Matrix . \\
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Rows in case of creating an M\+P\+CR Matrix . \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Cols in case of creating an M\+PR Matrix . \\
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Cols in case of creating an M\+P\+CR Matrix . \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+Precision} & Required Precision of the created M\+PR Object.\\
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Required Precision of the created M\+P\+CR Object.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-New M\+PR Object constructed from the given inputs 
+New M\+P\+CR Object constructed from the given inputs 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=300pt]{RBasicUtilities_8cpp_adc3681c2844dd76aa56f66162d52cc25_icgraph}
+\includegraphics[width=307pt]{RBasicUtilities_8cpp_a442baae1e3c400ab0bb29c7397884eb9_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{RBasicUtilities_8cpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f}\label{RBasicUtilities_8cpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f}} 
@@ -178,24 +184,26 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-R adapter for Getting Diagonal of a Matrix. M\+PR Object must be a Matrix. 
+R adapter for Getting Diagonal of a Matrix. M\+P\+CR Object must be a Matrix. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Matrix\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Matrix\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object holding Diagonals 
+M\+P\+CR Object holding Diagonals 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a73c3d1eb8c0a8ad34bf1b685b16c2e2f_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -210,11 +218,11 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-R adapter for Getting Diagonal of a Matrix. M\+PR can be a Vector , but dims must be passed. 
+R adapter for Getting Diagonal of a Matrix. M\+P\+CR can be a Vector , but dims must be passed. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR object can be Vector or Matrix \\
 \hline
 \mbox{\texttt{ out}}  & {\em a\+Row} & Number of Rows \\
 \hline
@@ -222,9 +230,10 @@ R adapter for Getting Diagonal of a Matrix. M\+PR can be a Vector , but dims mus
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object holding Diagonals 
+M\+P\+CR Object holding Diagonals 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -239,11 +248,11 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-R Adapter for Getting Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+PR Matrix as M\+PR Object. 
+R Adapter for Getting Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} from M\+P\+CR Matrix as M\+P\+CR Object. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Row} & Row Idx \\
 \hline
@@ -251,9 +260,10 @@ R Adapter for Getting Element with Idx \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} fr
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object holding element at idx 
+M\+P\+CR Object holding element at idx 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -268,19 +278,20 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-R Adapter for Getting Element with Idx from M\+PR Vector as M\+PR Object. 
+R Adapter for Getting Element with Idx from M\+P\+CR Vector as M\+P\+CR Object. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Index} & Index of Data\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object holding element at idx 
+M\+P\+CR Object holding element at idx 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -299,20 +310,22 @@ R Adapter for Getting Max Element in Array.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR object can be Vector or Matrix\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object holding Maximum Val (Same Precision) 
+M\+P\+CR Object holding Maximum Val (Same Precision) 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a3c2a4824829ad094e7b268d08cfb4a42_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -331,20 +344,22 @@ R Adapter for Getting Max Element Index in Array.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR object can be Vector or Matrix\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Index of Max Element 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a8baa94866693cb0dc393d2b63175a48f_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -363,20 +378,22 @@ R Adapter for Getting Min Element in Array.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR object can be Vector or Matrix\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object holding Minimum Val (Same Precision) 
+M\+P\+CR Object holding Minimum Val (Same Precision) 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_abf9fdb72c6ee34be1237a045f0f1585c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -395,20 +412,22 @@ R Adapter for Getting Min Element Index in Array.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR object can be Vector or Matrix\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Index of Min Element 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_ad82f73297bccd29773fc26dc104a7a4c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -427,20 +446,22 @@ R Adapter for Getting Number of Columns.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Number of Rows in a Matrix 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=289pt]{RBasicUtilities_8cpp_a4abdc0ba99683c0a4195e7cd842bfb3e_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -459,20 +480,22 @@ R Adapter for Getting Number of Rows.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 Number of Rows in a Matrix 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=299pt]{RBasicUtilities_8cpp_a8793fefe3c9a5e19e6bcf3cd4a830e23_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -491,17 +514,19 @@ R Adapter for Printing string indicating whether it\textquotesingle{}s 16/32/64 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object can be Vector or Matrix \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR object can be Vector or Matrix \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a59c4ffb9412ef2d6d55d54532dff8f15_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -516,24 +541,26 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-R Adapter for Checking if M\+PR object is 64-\/bit Precision. 
+R Adapter for Checking if M\+P\+CR object is 64-\/bit Precision. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 True if the object is holding 64-\/bit precision object, false otherwise 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a9dc8226f25a27552db03840cd0d14133_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -548,24 +575,26 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-R Adapter for Checking if M\+PR object is 32-\/bit Precision. 
+R Adapter for Checking if M\+P\+CR object is 32-\/bit Precision. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 True if the object is holding 32-\/bit precision object, false otherwise 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a9f426ffa4cc3d5a4558c0efbe30544c3_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -584,7 +613,7 @@ R Adapter for Checking Whether Element at index is N\+AN or Not.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Index} & Index of Element to check\\
 \hline
@@ -592,14 +621,16 @@ R Adapter for Checking Whether Element at index is N\+AN or Not.
 \begin{DoxyReturn}{Returns}
 true if N\+AN,-\/N\+AN else Otherwise 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a484d9e079c56338e31633b9d78c4edb7_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -614,24 +645,26 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-R Adapter for Checking if M\+PR object is 16-\/bit Precision. 
+R Adapter for Checking if M\+P\+CR object is 16-\/bit Precision. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 True if the object is holding 16-\/bit precision object, false otherwise 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a3f44edf01567cdd98ec608376f489052_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -650,17 +683,19 @@ R Adapter for Removing NA values from Vector.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in,out}}  & {\em ap\+Input} & M\+PR Object. \\
+\mbox{\texttt{ in,out}}  & {\em ap\+Input} & M\+P\+CR Object. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a762e83f23019fe8cf3ca2e8349ae079b_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -679,19 +714,21 @@ R Adapter for Replacing NA values with a given value.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in,out}}  & {\em ap\+Input} & M\+PR Object. \\
+\mbox{\texttt{ in,out}}  & {\em ap\+Input} & M\+P\+CR Object. \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Value} & Value to use it instead of NA\textquotesingle{}s \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a7662f372439ac68c56ca063631df8f98_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -706,24 +743,26 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Get total size of Memory used by M\+PR Object. 
+Get total size of Memory used by M\+P\+CR Object. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object\\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Total size of Memory used by M\+PR Object 
+Total size of Memory used by M\+P\+CR Object 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=328pt]{RBasicUtilities_8cpp_addc5061b847e3c154c90ae8ff45d4028_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -738,21 +777,23 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-R Adapter for Printing Information about M\+PR object Dimensions-\/\+Matrix/\+Vector-\/\+Values ,and Precisions. 
+R Adapter for Printing Information about M\+P\+CR object Dimensions-\/\+Matrix/\+Vector-\/\+Values ,and Precisions. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Object. \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Object. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a0fa4d270064a51d382f3341a3d6c489e_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -771,22 +812,24 @@ R Adapter for Combining two Matrices by rows.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Matrix one \\
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+P\+CR Matrix one \\
 \hline
-\mbox{\texttt{ in}}  & {\em ap\+InputB} & M\+PR Matrix two\\
+\mbox{\texttt{ in}}  & {\em ap\+InputB} & M\+P\+CR Matrix two\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Matrix holding combined data 
+M\+P\+CR Matrix holding combined data 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a3c7b0f1d0a59864831bb4de0616eada0_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -805,7 +848,7 @@ R Adapter for Replicating value(s) number of times in-\/case a\+Length =0 the ou
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR object to replicate \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR object to replicate \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Size} & Size of output vector \\
 \hline
@@ -813,16 +856,18 @@ R Adapter for Replicating value(s) number of times in-\/case a\+Length =0 the ou
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Vector Holding Replicated Data 
+M\+P\+CR Vector Holding Replicated Data 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a18b9e36fcec82799284d6d990ec68556_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -841,13 +886,14 @@ R Adapter for Centering and/or Scaling the columns of a numeric matrix. Centerin
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+P\+CR Object. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object with the same size and shape after centering and/or scaling. 
+M\+P\+CR Object with the same size and shape after centering and/or scaling. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -866,7 +912,7 @@ R Adapter for Centering and/or Scaling the columns of a numeric matrix.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+P\+CR Object. \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Center} & bool if true centering is done using column mean ,else no centering is done. \\
 \hline
@@ -874,9 +920,10 @@ R Adapter for Centering and/or Scaling the columns of a numeric matrix.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object with the same size and shape after centering and/or scaling. 
+M\+P\+CR Object with the same size and shape after centering and/or scaling. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -895,17 +942,18 @@ R Adapter for Centering and/or Scaling the columns of a numeric matrix.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+P\+CR Object. \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Center} & bool if true centering is done using column mean ,else no centering is done. \\
 \hline
-\mbox{\texttt{ out}}  & {\em ap\+Scale} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\mbox{\texttt{ out}}  & {\em ap\+Scale} & numeric-\/alike M\+P\+CR vector of length equal to the number of columns of a\+Input. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object with the same size and shape after centering and/or scaling. 
+M\+P\+CR Object with the same size and shape after centering and/or scaling. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -924,17 +972,18 @@ R Adapter for Centering and/or Scaling the columns of a numeric matrix.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+P\+CR Object. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ap\+Center} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\mbox{\texttt{ in}}  & {\em ap\+Center} & numeric-\/alike M\+P\+CR vector of length equal to the number of columns of a\+Input. \\
 \hline
 \mbox{\texttt{ out}}  & {\em a\+Scale} & bool if true scaling is done using column standard deviation,else no scaling is done. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object with the same size and shape after centering and/or scaling. 
+M\+P\+CR Object with the same size and shape after centering and/or scaling. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -953,24 +1002,26 @@ R Adapter for Centering and/or Scaling the columns of a numeric matrix.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+PR Object. \\
+\mbox{\texttt{ in}}  & {\em ap\+InputA} & M\+P\+CR Object. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ap\+Center} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\mbox{\texttt{ in}}  & {\em ap\+Center} & numeric-\/alike M\+P\+CR vector of length equal to the number of columns of a\+Input. \\
 \hline
-\mbox{\texttt{ out}}  & {\em ap\+Scale} & numeric-\/alike M\+PR vector of length equal to the number of columns of a\+Input. \\
+\mbox{\texttt{ out}}  & {\em ap\+Scale} & numeric-\/alike M\+P\+CR vector of length equal to the number of columns of a\+Input. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object with the same size and shape after centering and/or scaling. 
+M\+P\+CR Object with the same size and shape after centering and/or scaling. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_ab29d921348d05f1c1744ddccc62292e8_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -997,16 +1048,18 @@ R Adapter for Dispatching Rscale.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Object with the same size and shape after centering and/or scaling. 
+M\+P\+CR Object with the same size and shape after centering and/or scaling. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_ac8816ef904ce2297cb4066a4a1100708_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1025,7 +1078,7 @@ R Adapter for Applying operation (+,-\/,$\ast$,/) to the row or column in Matrix
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em ap\+Input} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em ap\+Stats} & the value(s) that should be used in the operation \\
 \hline
@@ -1035,16 +1088,18 @@ R Adapter for Applying operation (+,-\/,$\ast$,/) to the row or column in Matrix
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Vector holding Data After Applying Sweep 
+M\+P\+CR Vector holding Data After Applying Sweep 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RBasicUtilities_8cpp_a88be51e5e019afe298aecb9ce099f23c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

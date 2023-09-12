@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['error_682',['ERROR',['../namespacempr_1_1precision.html#a9d4312ee29651a68510757fe1a2ae258ab025c2cf7a22260ced56d1607752cf16',1,'mpr::precision']]]
+  ['error_696',['ERROR',['../namespacempcr_1_1precision.html#afe2f4e3f46878624d55561ba84a10df7a59c8e877966a02fc01238a611a97035b',1,'mpcr::precision']]]
 ];

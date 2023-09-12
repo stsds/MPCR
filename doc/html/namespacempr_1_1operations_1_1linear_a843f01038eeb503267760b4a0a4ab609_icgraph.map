@@ -1,5 +1,0 @@
-<map id="mpr::operations::linear::Solve" name="mpr::operations::linear::Solve">
-<area shape="rect" id="node1" title="Solves the equation AX=B." alt="" coords="288,5,459,47"/>
-<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a8eeed7fcd31e59e45d07ec2bc76a3c54" title="Solves the equation AX=B." alt="" coords="173,13,240,39"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
-</map>

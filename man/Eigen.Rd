@@ -1,26 +1,26 @@
 \name{31-Eigen decomposition}
 \alias{eigen}
-\alias{eigen,Rcpp_MMPR-method}
+\alias{eigen,Rcpp_MPCR-method}
 \title{eigen decomposition}
 \usage{
-\S4method{eigen}{Rcpp_MMPR}(x, only.values = FALSE)
+\S4method{eigen}{Rcpp_MPCR}(x, only.values = FALSE)
 }
 \arguments{
-\item{x}{An MMPR object.}
+\item{x}{An MPCR object.}
 
 \item{only.values}{(TRUE/FALSE)?}
 
 }
 \value{
-A list contains MMPR objects describing the values and optionally vectors.
+A list contains MPCR objects describing the values and optionally vectors.
 }
 \description{
-Solves a system of equations or invert an MMPR matrix, using lapack routine \code{syevr()}
+Solves a system of equations or invert an MPCR matrix, using lapack routine \code{syevr()}
 }
 \examples{
 \dontrun{
-library(MMPR)
-x <- as.MMPR("your_data",nrow,ncol,precision)
+library(MPCR)
+x <- as.MPCR("your_data",nrow,ncol,precision)
 y <- eigen(x)
 }
 }

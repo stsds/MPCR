@@ -1,12 +1,12 @@
 \name{32-Symmetric}
 \alias{isSymmetric}
-\alias{isSymmetric,Rcpp_MMPR-method}
+\alias{isSymmetric,Rcpp_MPCR-method}
 \title{isSymmetric}
 \usage{
-\S4method{isSymmetric}{Rcpp_MMPR}(object, ...)
+\S4method{isSymmetric}{Rcpp_MPCR}(object, ...)
 }
 \arguments{
-\item{object}{An MMPR matrix.}
+\item{object}{An MPCR matrix.}
 
 \item{...}{Ignored.}
 }
@@ -14,11 +14,11 @@
 A logical value.
 }
 \description{
-Check if a given MMPR matrix is symmetric.
+Check if a given MPCR matrix is symmetric.
 }
 \examples{
   \dontrun{
-library(MMPR)
+library(MPCR)
 
 x <- as.MPPR(1:200,100,2,"Single")
 isSymmetric(x)                      #false

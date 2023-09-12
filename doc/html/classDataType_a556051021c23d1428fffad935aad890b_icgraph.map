@@ -1,7 +1,7 @@
 <map id="DataType::DataType" name="DataType::DataType">
 <area shape="rect" id="node1" title="DataType default constructor." alt="" coords="463,31,615,57"/>
-<area shape="rect" id="node2" href="$classDataType.html#aecf5b1bde9889156d296d16cdd1143d4" title="Get Element with Idx [row][col] from MPR Matrix as MPR Object." alt="" coords="204,5,415,32"/>
-<area shape="rect" id="node4" href="$classDataType.html#a6a4056c3fc54575745948321625f3f2a" title="Get Element at Idx from MPR Vector as MPR Object." alt="" coords="205,56,414,83"/>
-<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a64d2eaeee8515b1e1fbb1207989e61f9" title="R Adapter for Getting Element with Idx [row][col] from MPR Matrix as MPR Object." alt="" coords="5,5,156,32"/>
-<area shape="rect" id="node5" href="$RBasicUtilities_8hpp.html#ac092b8a53065f4638e56046f8a8cebed" title="R Adapter for Getting Element with Idx from MPR Vector as MPR Object." alt="" coords="6,56,155,83"/>
+<area shape="rect" id="node2" href="$classDataType.html#aecf5b1bde9889156d296d16cdd1143d4" title="Get Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="204,5,415,32"/>
+<area shape="rect" id="node4" href="$classDataType.html#a6a4056c3fc54575745948321625f3f2a" title="Get Element at Idx from MPCR Vector as MPCR Object." alt="" coords="205,56,414,83"/>
+<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a64d2eaeee8515b1e1fbb1207989e61f9" title="R Adapter for Getting Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="5,5,156,32"/>
+<area shape="rect" id="node5" href="$RBasicUtilities_8hpp.html#ac092b8a53065f4638e56046f8a8cebed" title="R Adapter for Getting Element with Idx from MPCR Vector as MPCR Object." alt="" coords="6,56,155,83"/>
 </map>

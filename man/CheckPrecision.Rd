@@ -1,25 +1,25 @@
 \name{25-Check precision}
 \alias{Check Precision}
-\alias{MMPR.is.single,Rcpp_MMPR-method}
-\alias{MMPR.is.double,Rcpp_MMPR-method}
-\alias{MMPR.is.half,Rcpp_MMPR-method}
-\alias{MMPR.is.float,Rcpp_MMPR-method}
+\alias{MPCR.is.single,Rcpp_MPCR-method}
+\alias{MPCR.is.double,Rcpp_MPCR-method}
+\alias{MPCR.is.half,Rcpp_MPCR-method}
+\alias{MPCR.is.float,Rcpp_MPCR-method}
 
 \title{Metadata functions}
 \description{
-    Checks the precision of a given MMPR object.
+    Checks the precision of a given MPCR object.
 }
 \usage{
 
-\S4method{MMPR.is.single}{Rcpp_MMPR}(x)
-\S4method{MMPR.is.half}{Rcpp_MMPR}(x)
-\S4method{MMPR.is.double}{Rcpp_MMPR}(x)
-\S4method{MMPR.is.float}{Rcpp_MMPR}(x)
+\S4method{MPCR.is.single}{Rcpp_MPCR}(x)
+\S4method{MPCR.is.half}{Rcpp_MPCR}(x)
+\S4method{MPCR.is.double}{Rcpp_MPCR}(x)
+\S4method{MPCR.is.float}{Rcpp_MPCR}(x)
 
 }
 \arguments{
   \item{x}{
-    An MMPR object.
+    An MPCR object.
   }
 }
 \value{
@@ -27,10 +27,10 @@
 }
 \examples{
   \dontrun{
-  library(MMPR)
+  library(MPCR)
 
-  x <- as.MMPR(1:20,precision="double")
-  MMPR.is.double(x) #TRUE
-  MMPR.is.single(x) #FALSE
+  x <- as.MPCR(1:20,precision="double")
+  MPCR.is.double(x) #TRUE
+  MPCR.is.single(x) #FALSE
   }
 }

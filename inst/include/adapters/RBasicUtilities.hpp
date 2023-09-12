@@ -2,12 +2,12 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_RBASICUTILITIES_HPP
-#define MPR_RBASICUTILITIES_HPP
+#ifndef MPCR_RBASICUTILITIES_HPP
+#define MPCR_RBASICUTILITIES_HPP
 
 #include <data-units/DataType.hpp>
 
@@ -17,12 +17,12 @@
  * R Adapter for Combining two Matrices by columns
  *
  * @param[in] apInputA
- * MPR Matrix one
+ * MPCR Matrix one
  * @param[in] apInputB
- * MPR Matrix two
+ * MPCR Matrix two
  *
  * @return
- * MPR Matrix holding combined data
+ * MPCR Matrix holding combined data
  *
  */
 DataType *
@@ -33,12 +33,12 @@ RCBind(DataType *apInputA, DataType *apInputB);
  * R Adapter for Combining two Matrices by rows
  *
  * @param[in] apInputA
- * MPR Matrix one
+ * MPCR Matrix one
  * @param[in] apInputB
- * MPR Matrix two
+ * MPCR Matrix two
  *
  * @return
- * MPR Matrix holding combined data
+ * MPCR Matrix holding combined data
  *
  */
 DataType *
@@ -46,10 +46,10 @@ RRBind(DataType *apInputA, DataType *apInputB);
 
 /**
  * @brief
- * R Adapter for Checking if MPR object is 16-bit Precision
+ * R Adapter for Checking if MPCR object is 16-bit Precision
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  *
  * @returns
  * True if the object is holding 16-bit precision object,
@@ -61,10 +61,10 @@ RIsSFloat(DataType *apInput);
 
 /**
  * @brief
- * R Adapter for Checking if MPR object is 32-bit Precision
+ * R Adapter for Checking if MPCR object is 32-bit Precision
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  *
  * @returns
  * True if the object is holding 32-bit precision object,
@@ -76,10 +76,10 @@ RIsFloat(DataType *apInput);
 
 /**
  * @brief
- * R Adapter for Checking if MPR object is 64-bit Precision
+ * R Adapter for Checking if MPCR object is 64-bit Precision
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  *
  * @returns
  * True if the object is holding 64-bit precision object,
@@ -95,14 +95,14 @@ RIsDouble(DataType *apInput);
  * in-case aLength =0 the output size will be size*input size ,else size=aLength
  *
  * @param[in] apInput
- * MPR object to replicate
+ * MPCR object to replicate
  * @param[in] aSize
  * Size of output vector
  * @param[in] aLength
  * Length of Output Value
  *
  * @returns
- * MPR Vector Holding Replicated Data
+ * MPCR Vector Holding Replicated Data
  *
  */
 DataType *
@@ -113,7 +113,7 @@ RReplicate(DataType *apInput, size_t aSize, size_t aLength);
  * R Adapter for Removing NA values from Vector.
  *
  * @param[in,out] apInput
- * MPR Object.
+ * MPCR Object.
  *
  */
 void
@@ -124,7 +124,7 @@ RNaExclude(DataType *apInput);
  * R Adapter for Replacing NA values with a given value.
  *
  * @param[in,out] apInput
- * MPR Object.
+ * MPCR Object.
  * @param[in] aValue
  * Value to use it instead of NA's
  *
@@ -135,13 +135,13 @@ RNaReplace(DataType *apInput, double aValue);
 /**
  * @brief
  * R adapter for Getting Diagonal of a Matrix.
- * MPR Object must be a Matrix
+ * MPCR Object must be a Matrix
  *
  * @param[in] apInput
- * MPR Matrix
+ * MPCR Matrix
  *
  * @returns
- * MPR Object holding Diagonals
+ * MPCR Object holding Diagonals
  *
  */
 DataType *
@@ -150,17 +150,17 @@ RGetDiagonal(DataType *apInput);
 /**
  * @brief
  * R adapter for Getting Diagonal of a Matrix.
- * MPR can be a Vector , but dims must be passed
+ * MPCR can be a Vector , but dims must be passed
  *
  * @param[in] apInput
- * MPR object can be Vector or Matrix
+ * MPCR object can be Vector or Matrix
  * @param[out] aRow
  * Number of Rows
  * @param[in] aCol
  * Number of Cols
  *
  * @returns
- * MPR Object holding Diagonals
+ * MPCR Object holding Diagonals
  *
  */
 DataType *
@@ -171,7 +171,7 @@ RGetDiagonalWithDims(DataType *apInput, size_t aRow, size_t aCol);
  * R Adapter for Printing string indicating whether it's 16/32/64 Bit Precision
  *
  * @param[in] apInput
- * MPR object can be Vector or Matrix
+ * MPCR object can be Vector or Matrix
  *
  */
 void
@@ -182,10 +182,10 @@ RGetType(DataType *apInput);
  * R Adapter for Getting Min Element in Array
  *
  * @param[in] apInput
- * MPR object can be Vector or Matrix
+ * MPCR object can be Vector or Matrix
  *
  * @returns
- * MPR Object holding Minimum Val (Same Precision)
+ * MPCR Object holding Minimum Val (Same Precision)
  *
  */
 DataType *
@@ -196,7 +196,7 @@ RGetMin(DataType *apInput);
  * R Adapter for Getting Min Element Index in Array
  *
  * @param[in] apInput
- * MPR object can be Vector or Matrix
+ * MPCR object can be Vector or Matrix
  *
  * @returns
  * Index of Min Element
@@ -210,10 +210,10 @@ RGetMinIdx(DataType *apInput);
  * R Adapter for Getting Max Element in Array
  *
  * @param[in] apInput
- * MPR object can be Vector or Matrix
+ * MPCR object can be Vector or Matrix
  *
  * @returns
- * MPR Object holding Maximum Val (Same Precision)
+ * MPCR Object holding Maximum Val (Same Precision)
  *
  */
 DataType *
@@ -224,7 +224,7 @@ RGetMax(DataType *apInput);
  * R Adapter for Getting Max Element Index in Array
  *
  * @param[in] apInput
- * MPR object can be Vector or Matrix
+ * MPCR object can be Vector or Matrix
  *
  * @returns
  * Index of Max Element
@@ -238,7 +238,7 @@ RGetMaxIdx(DataType *apInput);
  * R Adapter for Applying operation (+,-,*,/) to the row or column in Matrix.
  *
  * @param[in] apInput
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] apStats
  * the value(s) that should be used in the operation
  * @param[in] aMargin
@@ -247,7 +247,7 @@ RGetMaxIdx(DataType *apInput);
  * char containing operation (+,-,*,/)
  *
  * @returns
- * MPR Vector holding Data After Applying Sweep
+ * MPCR Vector holding Data After Applying Sweep
  *
  */
 DataType *
@@ -259,7 +259,7 @@ RSweep(DataType *apInput, DataType *apStats, int aMargin,
  * R Adapter for Checking Whether Element at index is NAN or Not
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  * @param[in] aIndex
  * Index of Element to check
  *
@@ -272,13 +272,13 @@ RIsNa(DataType *apInput, long aIdx);
 
 /**
  * @brief
- * Get total size of Memory used by MPR Object
+ * Get total size of Memory used by MPCR Object
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  *
  * @returns
- * Total size of Memory used by MPR Object
+ * Total size of Memory used by MPCR Object
  *
  */
 size_t
@@ -289,7 +289,7 @@ RObjectSize(DataType *apInput);
  * R Adapter for Getting Number of Rows
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  *
  * @returns
  * Number of Rows in a Matrix
@@ -302,7 +302,7 @@ RGetNRow(DataType *apInput);
  * R Adapter for Getting Number of Columns
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  *
  * @returns
  * Number of Rows in a Matrix
@@ -313,11 +313,11 @@ RGetNCol(DataType *apInput);
 
 /**
  * @brief
- * R Adapter for Printing Information about MPR object
+ * R Adapter for Printing Information about MPCR object
  * Dimensions-Matrix/Vector-Values ,and Precisions.
  *
  * @param[in] apInput
- * MPR Object.
+ * MPCR Object.
  *
  */
 void
@@ -325,15 +325,15 @@ RPrint(DataType *apInput);
 
 /**
  * @brief
- * R Adapter for Getting Element with Idx from MPR Vector as MPR Object
+ * R Adapter for Getting Element with Idx from MPCR Vector as MPCR Object
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  * @param[in] aIndex
  * Index of Data
  *
  * @returns
- * MPR Object holding element at idx
+ * MPCR Object holding element at idx
  *
  */
 DataType *
@@ -341,18 +341,18 @@ RGetElementVector(DataType *apInput, size_t aIndex);
 
 /**
  * @brief
- * R Adapter for Getting Element with Idx [row][col] from MPR Matrix
- * as MPR Object
+ * R Adapter for Getting Element with Idx [row][col] from MPCR Matrix
+ * as MPCR Object
  *
  * @param[in] apInput
- * MPR Object
+ * MPCR Object
  * @param[in] aRow
  * Row Idx
  * @param[in] aCol
  * Col Idx
  *
  * @returns
- * MPR Object holding element at idx
+ * MPCR Object holding element at idx
  *
  */
 DataType *
@@ -361,20 +361,20 @@ RGetElementMatrix(DataType *apInput, size_t aRowIdx,
 
 /**
  * @brief
- * R Adapter for Concatenating List of MPR Vectors into one MPR Vector.
+ * R Adapter for Concatenating List of MPCR Vectors into one MPCR Vector.
  * This Function Casts the SEXP pointer to DataTypes pointers , And Check a Magic
- * Number inside the MPR Class to determine if its a MPR object or Not.
+ * Number inside the MPCR Class to determine if its a MPCR object or Not.
  *
  * Warning:
  * There's a very Small Possibility that the Passed Objects' Magic Number is
  * the Same as DataType , in this case , The behavior of the function is unexpected.
- * So the User should check whether all Objects are MPR Objects or not.
+ * So the User should check whether all Objects are MPCR Objects or not.
  *
  * @param[in] aList
  * List Of SEXP
  *
  * @returns
- * MPR Vector containing all values in all lists (Precision = Highest Precision
+ * MPCR Vector containing all values in all lists (Precision = Highest Precision
  * in the List)
  *
  */
@@ -386,15 +386,15 @@ RConcatenate(Rcpp::ListOf <SEXP> aList);
  *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
  *
  * @param[in] apInputA
- * MPR Object.
+ * MPCR Object.
  * @param[in] apCenter
- * numeric-alike MPR vector of length equal to the number of
+ * numeric-alike MPCR vector of length equal to the number of
  * columns of aInput.
  * @param[out] apScale
- * numeric-alike MPR vector of length equal to the number of
+ * numeric-alike MPCR vector of length equal to the number of
  * columns of aInput.
  * @returns
- * MPR Object with the same size and shape after centering and/or scaling.
+ * MPCR Object with the same size and shape after centering and/or scaling.
  *
  */
 DataType *
@@ -405,14 +405,14 @@ RScale(DataType *apInput, DataType *apCenter, DataType *apScale);
  *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
  *
  * @param[in] apInputA
- * MPR Object.
+ * MPCR Object.
  * @param[in] aCenter
  * bool if true centering is done using column mean ,else no centering is done.
  * @param[out] apScale
- * numeric-alike MPR vector of length equal to the number of
+ * numeric-alike MPCR vector of length equal to the number of
  * columns of aInput.
  * @returns
- * MPR Object with the same size and shape after centering and/or scaling.
+ * MPCR Object with the same size and shape after centering and/or scaling.
  *
  */
 DataType *
@@ -423,15 +423,15 @@ RScale(DataType *apInput, bool aCenter, DataType *apScale);
  *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
  *
  * @param[in] apInputA
- * MPR Object.
+ * MPCR Object.
  * @param[in] apCenter
- * numeric-alike MPR vector of length equal to the number of
+ * numeric-alike MPCR vector of length equal to the number of
  * columns of aInput.
  * @param[out] aScale
  * bool if true scaling is done using column standard deviation,else no scaling
  * is done.
  * @returns
- * MPR Object with the same size and shape after centering and/or scaling.
+ * MPCR Object with the same size and shape after centering and/or scaling.
  *
  */
 DataType *
@@ -442,14 +442,14 @@ RScale(DataType *apInput, DataType *apCenter, bool aScale);
  *  R Adapter for Centering and/or Scaling the columns of a numeric matrix.
  *
  * @param[in] apInputA
- * MPR Object.
+ * MPCR Object.
  * @param[in] aCenter
  * bool if true centering is done using column mean ,else no centering is done.
  * @param[out] aScale
  * bool if true scaling is done using column standard deviation,else no scaling
  * is done.
  * @returns
- * MPR Object with the same size and shape after centering and/or scaling.
+ * MPCR Object with the same size and shape after centering and/or scaling.
  *
  */
 DataType *
@@ -462,9 +462,9 @@ RScale(DataType *apInput, bool aCenter, bool aScale);
  *  deviation.
  *
  * @param[in] apInputA
- * MPR Object.
+ * MPCR Object.
  * @returns
- * MPR Object with the same size and shape after centering and/or scaling.
+ * MPCR Object with the same size and shape after centering and/or scaling.
  *
  */
 DataType *
@@ -482,7 +482,7 @@ RScale(DataType *apInput);
  * SEXP Object.
 
  * @returns
- * MPR Object with the same size and shape after centering and/or scaling.
+ * MPCR Object with the same size and shape after centering and/or scaling.
  *
  */
 DataType *
@@ -490,25 +490,25 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c);
 
 /**
  * @brief
- *  Converts R vector or Matrix to MPR object.
- *  if aRow or aCol = zero , MPR vector will be created , else MPR Matrix.
+ *  Converts R vector or Matrix to MPCR object.
+ *  if aRow or aCol = zero , MPCR vector will be created , else MPCR Matrix.
  *
  * @param[in] aValues
- * R vector/Matrix holding values to create MPR object from.
+ * R vector/Matrix holding values to create MPCR object from.
  * @param[in] aRow
- * Number of Rows in case of creating an MPR Matrix .
+ * Number of Rows in case of creating an MPCR Matrix .
  * @param[in] aCol
- * Number of Cols in case of creating an MPR Matrix .
+ * Number of Cols in case of creating an MPCR Matrix .
  * @param[in] aPrecision
- * Required Precision of the created MPR Object.
+ * Required Precision of the created MPCR Object.
  *
  * @returns
- * New MPR Object constructed from the given inputs
+ * New MPCR Object constructed from the given inputs
  *
  */
 DataType *
-RConvertToMPR(std::vector <double> &aValues, const size_t &aRow,
+RConvertToMPCR(std::vector <double> &aValues, const size_t &aRow,
               const size_t &aCol, const std::string &aPrecision);
 
 
-#endif //MPR_RBASICUTILITIES_HPP
+#endif //MPCR_RBASICUTILITIES_HPP

@@ -2,12 +2,12 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_LINEARALGEBRAHELPER_HPP
-#define MPR_LINEARALGEBRAHELPER_HPP
+#ifndef MPCR_LINEARALGEBRAHELPER_HPP
+#define MPCR_LINEARALGEBRAHELPER_HPP
 
 #include <data-units/DataType.hpp>
 #include <lapack.hh>
@@ -114,7 +114,7 @@ Symmetrize(DataType &aInput, const bool &aToUpperTriangle) {
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
     if (row != col) {
-        MPR_API_EXCEPTION("Cannot Symmetrize ,Matrix is Not Square", -1);
+        MPCR_API_EXCEPTION("Cannot Symmetrize ,Matrix is Not Square", -1);
     }
     if (aToUpperTriangle) {
 

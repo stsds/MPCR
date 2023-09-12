@@ -2,22 +2,22 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_PRECISION_HPP
-#define MPR_PRECISION_HPP
+#ifndef MPCR_PRECISION_HPP
+#define MPCR_PRECISION_HPP
 
 #include <utilities/FloatingPointHandler.hpp>
-#include <utilities/MPRErrorHandler.hpp>
+#include <utilities/MPCRErrorHandler.hpp>
 
 
-namespace mpr {
+namespace mpcr {
     namespace precision {
         /**
          * Int Enum Describing the Precision and Operations order
-         * of the MPR (Data Type)object
+         * of the MPCR (Data Type)object
          **/
         enum Precision : int {
             /** 16-Bit Precision (Will be replaced with sfloat later on) **/
@@ -89,7 +89,7 @@ namespace mpr {
         GetOutputPrecision(const Precision &aPrecisionA,
                            const Precision &aPrecisionB) {
             if (aPrecisionA > 3 || aPrecisionB > 3) {
-                MPR_API_EXCEPTION("Unknown Type Value", -1);
+                MPCR_API_EXCEPTION("Unknown Type Value", -1);
             }
             return ( aPrecisionA >= aPrecisionB ) ? aPrecisionA : aPrecisionB;
         }
@@ -130,7 +130,7 @@ namespace mpr {
 
         /**
          * @brief
-         * Get Precision for any MPR Class to make sure no Input is initialized
+         * Get Precision for any MPCR Class to make sure no Input is initialized
          * as anything other than the supported 3 precisions. (Int Version)
          *
          * @param[in] aPrecision
@@ -145,14 +145,14 @@ namespace mpr {
         GetInputPrecision(const int &aPrecision) {
             if (aPrecision > 0 && aPrecision < 4) {
                 if (aPrecision == 0 && !USING_HALF) {
-                    MPR_API_WARN(
+                    MPCR_API_WARN(
                         "Your Compiler doesn't support 16-Bit ,32-Bit will be used",
                         1);
                     return FLOAT;
                 }
                 return static_cast<Precision>(aPrecision);
             } else {
-                MPR_API_EXCEPTION(
+                MPCR_API_EXCEPTION(
                     "Error in Initialization : Unknown Type Value",
                     aPrecision);
             }
@@ -162,7 +162,7 @@ namespace mpr {
 
         /**
          * @brief
-         * Get Precision for any MPR Class to make sure no Input is initialized
+         * Get Precision for any MPCR Class to make sure no Input is initialized
          * as anything other than the supported 3 precisions. (String Version).
          * Transforms the string to lower case to ensure proper initialization
          *
@@ -185,7 +185,7 @@ namespace mpr {
                 return DOUBLE;
             } else if (aPrecision == "half") {
                 if constexpr(!USING_HALF) {
-                    MPR_API_WARN(
+                    MPCR_API_WARN(
                         "Your Compiler doesn't support 16-Bit ,32-Bit will be used",
                         1);
                     return FLOAT;
@@ -195,7 +195,7 @@ namespace mpr {
             } else {
                 auto msg = "Error in Initialization : Unknown Type Value" +
                            std::string(aPrecision);
-                MPR_API_EXCEPTION(
+                MPCR_API_EXCEPTION(
                     msg.c_str(), -1
                 );
             }
@@ -214,7 +214,7 @@ namespace mpr {
             } else if (aPrecision == DOUBLE) {
                 return "64-Bit";
             } else {
-                MPR_API_EXCEPTION(
+                MPCR_API_EXCEPTION(
                     "Error in Initialization : Unknown Type Value",
                     (int) aPrecision);
             }
@@ -227,4 +227,4 @@ namespace mpr {
 }
 
 
-#endif //MPR_PRECISION_HPP
+#endif //MPCR_PRECISION_HPP

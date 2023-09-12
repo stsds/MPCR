@@ -1,4 +1,0 @@
-<map id="mpr::operations::linear::TileTrsm" name="mpr::operations::linear::TileTrsm">
-<area shape="rect" id="node1" title="Solves a triangular matrix equation performs: op(A)*X=alpha*B X*op(A)=alpha*B." alt="" coords="173,5,344,47"/>
-<area shape="rect" id="node2" href="$MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,13,125,39"/>
-</map>

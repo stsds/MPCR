@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MMPR: File Members</title>
+<title>MPCR: File Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">MMPR
+   <div id="projectname">MPCR
    </div>
   </td>
  </tr>
@@ -64,8 +64,8 @@ $(function() {
 &#160;
 
 <h3><a id="index_r"></a>- r -</h3><ul>
-<li>R_init_MMPR()
-: <a class="el" href="RcppExports_8cpp.html#ad3d3a171cea092249471bc1449d5c3ca">RcppExports.cpp</a>
+<li>R_init_MPCR()
+: <a class="el" href="RcppExports_8cpp.html#ad9f69faaf95948c0f45147ea0b874144">RcppExports.cpp</a>
 </li>
 <li>RAbs()
 : <a class="el" href="RMathematicalOperations_8cpp.html#a2cd84acde0e87fa7f45c971895d5b60e">RMathematicalOperations.cpp</a>
@@ -123,17 +123,17 @@ $(function() {
 : <a class="el" href="RBasicUtilities_8cpp.html#aad67124b9ab2d929ed5ddbee5d6caf84">RBasicUtilities.cpp</a>
 , <a class="el" href="RBasicUtilities_8hpp.html#aad67124b9ab2d929ed5ddbee5d6caf84">RBasicUtilities.hpp</a>
 </li>
-<li>RConvertToMPR()
-: <a class="el" href="RBasicUtilities_8cpp.html#adc3681c2844dd76aa56f66162d52cc25">RBasicUtilities.cpp</a>
-, <a class="el" href="RBasicUtilities_8hpp.html#adc3681c2844dd76aa56f66162d52cc25">RBasicUtilities.hpp</a>
+<li>RConvertToMPCR()
+: <a class="el" href="RBasicUtilities_8cpp.html#a442baae1e3c400ab0bb29c7397884eb9">RBasicUtilities.cpp</a>
+, <a class="el" href="RBasicUtilities_8hpp.html#a442baae1e3c400ab0bb29c7397884eb9">RBasicUtilities.hpp</a>
+</li>
+<li>RCopyMPCRTile()
+: <a class="el" href="RHelpers_8cpp.html#a68fbf364dc1dff37efe5da3a083c8f85">RHelpers.cpp</a>
+, <a class="el" href="RHelpers_8hpp.html#a68fbf364dc1dff37efe5da3a083c8f85">RHelpers.hpp</a>
 </li>
 <li>RCopyMPR()
 : <a class="el" href="RHelpers_8cpp.html#aad28668708ef1005063ad81c9892ca4d">RHelpers.cpp</a>
 , <a class="el" href="RHelpers_8hpp.html#aad28668708ef1005063ad81c9892ca4d">RHelpers.hpp</a>
-</li>
-<li>RCopyMPRTile()
-: <a class="el" href="RHelpers_8cpp.html#ad7adf3c8cf4ccb5c2a75cec4af269724">RHelpers.cpp</a>
-, <a class="el" href="RHelpers_8hpp.html#ad7adf3c8cf4ccb5c2a75cec4af269724">RHelpers.hpp</a>
 </li>
 <li>RCos()
 : <a class="el" href="RMathematicalOperations_8cpp.html#a3dbb043b30e5351a55ae05edcd8e1037">RMathematicalOperations.cpp</a>
@@ -144,8 +144,8 @@ $(function() {
 , <a class="el" href="RMathematicalOperations_8hpp.html#a08d409ce90c5bf80a156b1b91269e327">RMathematicalOperations.hpp</a>
 </li>
 <li>RCPP_MODULE()
-: <a class="el" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188">DataTypeModule.cpp</a>
-, <a class="el" href="MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804">MPRTileModule.cpp</a>
+: <a class="el" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a">DataTypeModule.cpp</a>
+, <a class="el" href="MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18">MPCRTileModule.cpp</a>
 </li>
 <li>RCrossProduct()
 : <a class="el" href="RLinearAlgebra_8cpp.html#aad63789b8f3ae6a2aa763dd0b87d5112">RLinearAlgebra.cpp</a>
@@ -222,9 +222,13 @@ $(function() {
 : <a class="el" href="RBasicUtilities_8cpp.html#a8793fefe3c9a5e19e6bcf3cd4a830e23">RBasicUtilities.cpp</a>
 , <a class="el" href="RBasicUtilities_8hpp.html#a8793fefe3c9a5e19e6bcf3cd4a830e23">RBasicUtilities.hpp</a>
 </li>
+<li>RGetSerializeTile()
+: <a class="el" href="RHelpers_8cpp.html#a341414c352215e81cefb89db35cc6bd2">RHelpers.cpp</a>
+, <a class="el" href="RHelpers_8hpp.html#a341414c352215e81cefb89db35cc6bd2">RHelpers.hpp</a>
+</li>
 <li>RGetTile()
-: <a class="el" href="RHelpers_8cpp.html#ade87ad07c3e37a47d01eef7a952a4158">RHelpers.cpp</a>
-, <a class="el" href="RHelpers_8hpp.html#ade87ad07c3e37a47d01eef7a952a4158">RHelpers.hpp</a>
+: <a class="el" href="RHelpers_8cpp.html#a9014c9b7530c3545157dc52bb5261589">RHelpers.cpp</a>
+, <a class="el" href="RHelpers_8hpp.html#a9014c9b7530c3545157dc52bb5261589">RHelpers.hpp</a>
 </li>
 <li>RGetType()
 : <a class="el" href="RBasicUtilities_8cpp.html#a59c4ffb9412ef2d6d55d54532dff8f15">RBasicUtilities.cpp</a>
@@ -239,8 +243,8 @@ $(function() {
 , <a class="el" href="RBinaryOperations_8hpp.html#acc0e91abac771cf5d2165a79d76c1253">RBinaryOperations.hpp</a>
 </li>
 <li>RInsertTile()
-: <a class="el" href="RHelpers_8cpp.html#a2d5a5be221e96efcf67c19c40c3b78f5">RHelpers.cpp</a>
-, <a class="el" href="RHelpers_8hpp.html#a2d5a5be221e96efcf67c19c40c3b78f5">RHelpers.hpp</a>
+: <a class="el" href="RHelpers_8cpp.html#ae09266e55d7d278b07daa8c93f66f9b2">RHelpers.cpp</a>
+, <a class="el" href="RHelpers_8hpp.html#ae09266e55d7d278b07daa8c93f66f9b2">RHelpers.hpp</a>
 </li>
 <li>RIsDouble()
 : <a class="el" href="RBasicUtilities_8cpp.html#a9dc8226f25a27552db03840cd0d14133">RBasicUtilities.cpp</a>
@@ -279,8 +283,9 @@ $(function() {
 , <a class="el" href="RBinaryOperations_8hpp.html#a3dde745baba7a2483aa0d1bf48330918">RBinaryOperations.hpp</a>
 </li>
 <li>RLessThanOrEqual()
-: <a class="el" href="RBinaryOperations_8cpp.html#ab835534e4c46fddef3429db150f23e59">RBinaryOperations.cpp</a>
-, <a class="el" href="RBinaryOperations_8hpp.html#ab835534e4c46fddef3429db150f23e59">RBinaryOperations.hpp</a>
+: <a class="el" href="RBinaryOperations_8hpp.html#ab835534e4c46fddef3429db150f23e59">RBinaryOperations.hpp</a>
+, <a class="el" href="RBinaryOperations_8cpp.html#ab835534e4c46fddef3429db150f23e59">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a66b6fd9d5afe044f222170ee6271f9dc">RBinaryOperations.hpp</a>
 </li>
 <li>RLGamma()
 : <a class="el" href="RMathematicalOperations_8cpp.html#ac17afa949d5c2bce786d07adcf3cacd1">RMathematicalOperations.cpp</a>
@@ -295,12 +300,12 @@ $(function() {
 , <a class="el" href="RMathematicalOperations_8hpp.html#aeccb650f7361e8bef41486700806d30c">RMathematicalOperations.hpp</a>
 </li>
 <li>RLog2()
-: <a class="el" href="RMathematicalOperations_8cpp.html#a7e072d391b4d162f0ae507dc7ffd59ec">RMathematicalOperations.cpp</a>
-, <a class="el" href="RMathematicalOperations_8hpp.html#a7e072d391b4d162f0ae507dc7ffd59ec">RMathematicalOperations.hpp</a>
+: <a class="el" href="RMathematicalOperations_8hpp.html#a7e072d391b4d162f0ae507dc7ffd59ec">RMathematicalOperations.hpp</a>
+, <a class="el" href="RMathematicalOperations_8cpp.html#a7e072d391b4d162f0ae507dc7ffd59ec">RMathematicalOperations.cpp</a>
 </li>
 <li>RNaExclude()
-: <a class="el" href="RBasicUtilities_8hpp.html#a762e83f23019fe8cf3ca2e8349ae079b">RBasicUtilities.hpp</a>
-, <a class="el" href="RBasicUtilities_8cpp.html#a762e83f23019fe8cf3ca2e8349ae079b">RBasicUtilities.cpp</a>
+: <a class="el" href="RBasicUtilities_8cpp.html#a762e83f23019fe8cf3ca2e8349ae079b">RBasicUtilities.cpp</a>
+, <a class="el" href="RBasicUtilities_8hpp.html#a762e83f23019fe8cf3ca2e8349ae079b">RBasicUtilities.hpp</a>
 </li>
 <li>RNaReplace()
 : <a class="el" href="RBasicUtilities_8cpp.html#a7662f372439ac68c56ca063631df8f98">RBasicUtilities.cpp</a>
@@ -311,42 +316,45 @@ $(function() {
 , <a class="el" href="RLinearAlgebra_8hpp.html#a4e72a89d4403f0c0c1cef7e0e57b12eb">RLinearAlgebra.hpp</a>
 </li>
 <li>RNotEqual()
-: <a class="el" href="RBinaryOperations_8hpp.html#a27b0047a3554e8ae7859b9f4bee1f59f">RBinaryOperations.hpp</a>
+: <a class="el" href="RBinaryOperations_8cpp.html#ae7a89a627f16eddf1e067d56ce8937a7">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a27b0047a3554e8ae7859b9f4bee1f59f">RBinaryOperations.hpp</a>
 , <a class="el" href="RBinaryOperations_8cpp.html#a27b0047a3554e8ae7859b9f4bee1f59f">RBinaryOperations.cpp</a>
-, <a class="el" href="RBinaryOperations_8hpp.html#ae7a89a627f16eddf1e067d56ce8937a7">RBinaryOperations.hpp</a>
 </li>
 <li>RObjectSize()
-: <a class="el" href="RBasicUtilities_8cpp.html#addc5061b847e3c154c90ae8ff45d4028">RBasicUtilities.cpp</a>
-, <a class="el" href="RBasicUtilities_8hpp.html#addc5061b847e3c154c90ae8ff45d4028">RBasicUtilities.hpp</a>
+: <a class="el" href="RBasicUtilities_8hpp.html#addc5061b847e3c154c90ae8ff45d4028">RBasicUtilities.hpp</a>
+, <a class="el" href="RBasicUtilities_8cpp.html#addc5061b847e3c154c90ae8ff45d4028">RBasicUtilities.cpp</a>
 </li>
 <li>RPerformDiv()
-: <a class="el" href="RBinaryOperations_8cpp.html#a68f13e2c0cc9769fa925dfb7a9331bc5">RBinaryOperations.cpp</a>
-, <a class="el" href="RBinaryOperations_8hpp.html#a79f0581e1ef7c38b538dd17ea0cf9a63">RBinaryOperations.hpp</a>
-, <a class="el" href="RBinaryOperations_8cpp.html#a79f0581e1ef7c38b538dd17ea0cf9a63">RBinaryOperations.cpp</a>
+: <a class="el" href="RBinaryOperations_8cpp.html#a79f0581e1ef7c38b538dd17ea0cf9a63">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a68f13e2c0cc9769fa925dfb7a9331bc5">RBinaryOperations.hpp</a>
 </li>
 <li>RPerformDivDispatcher()
-: <a class="el" href="RBinaryOperations_8hpp.html#a4ad8808e5cc78fd4da8c04b65d052f47">RBinaryOperations.hpp</a>
-, <a class="el" href="RBinaryOperations_8cpp.html#a4ad8808e5cc78fd4da8c04b65d052f47">RBinaryOperations.cpp</a>
+: <a class="el" href="RBinaryOperations_8cpp.html#a4ad8808e5cc78fd4da8c04b65d052f47">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a4ad8808e5cc78fd4da8c04b65d052f47">RBinaryOperations.hpp</a>
 </li>
 <li>RPerformMinus()
 : <a class="el" href="RBinaryOperations_8cpp.html#afa2459db83902c6a5db235b0cb5c639c">RBinaryOperations.cpp</a>
 , <a class="el" href="RBinaryOperations_8hpp.html#afa2459db83902c6a5db235b0cb5c639c">RBinaryOperations.hpp</a>
 </li>
 <li>RPerformMinusDispatcher()
-: <a class="el" href="RBinaryOperations_8cpp.html#abf85f69f05fa935e818f8032c5c654d0">RBinaryOperations.cpp</a>
-, <a class="el" href="RBinaryOperations_8hpp.html#abf85f69f05fa935e818f8032c5c654d0">RBinaryOperations.hpp</a>
+: <a class="el" href="RBinaryOperations_8hpp.html#abf85f69f05fa935e818f8032c5c654d0">RBinaryOperations.hpp</a>
+, <a class="el" href="RBinaryOperations_8cpp.html#abf85f69f05fa935e818f8032c5c654d0">RBinaryOperations.cpp</a>
 </li>
 <li>RPerformMltDispatcher()
-: <a class="el" href="RBinaryOperations_8hpp.html#a9ab1a5333178978034512b71d090a80a">RBinaryOperations.hpp</a>
-, <a class="el" href="RBinaryOperations_8cpp.html#a9ab1a5333178978034512b71d090a80a">RBinaryOperations.cpp</a>
+: <a class="el" href="RBinaryOperations_8cpp.html#a9ab1a5333178978034512b71d090a80a">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a9ab1a5333178978034512b71d090a80a">RBinaryOperations.hpp</a>
 </li>
 <li>RPerformMult()
-: <a class="el" href="RBinaryOperations_8cpp.html#a6fefdfe6c0748f49d31b788002d49b4a">RBinaryOperations.cpp</a>
-, <a class="el" href="RBinaryOperations_8hpp.html#a6fefdfe6c0748f49d31b788002d49b4a">RBinaryOperations.hpp</a>
+: <a class="el" href="RBinaryOperations_8hpp.html#a6fefdfe6c0748f49d31b788002d49b4a">RBinaryOperations.hpp</a>
+, <a class="el" href="RBinaryOperations_8cpp.html#a813d05ef218f6f3cf6b02f25d59a8c6c">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a813d05ef218f6f3cf6b02f25d59a8c6c">RBinaryOperations.hpp</a>
+, <a class="el" href="RBinaryOperations_8cpp.html#a6fefdfe6c0748f49d31b788002d49b4a">RBinaryOperations.cpp</a>
 </li>
 <li>RPerformPlus()
-: <a class="el" href="RBinaryOperations_8cpp.html#a4bb7fad31d6813dd725233de0519c5ee">RBinaryOperations.cpp</a>
+: <a class="el" href="RBinaryOperations_8cpp.html#a5eb314a3350c97586b638b3b554560ad">RBinaryOperations.cpp</a>
 , <a class="el" href="RBinaryOperations_8hpp.html#a4bb7fad31d6813dd725233de0519c5ee">RBinaryOperations.hpp</a>
+, <a class="el" href="RBinaryOperations_8cpp.html#a4bb7fad31d6813dd725233de0519c5ee">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a5eb314a3350c97586b638b3b554560ad">RBinaryOperations.hpp</a>
 </li>
 <li>RPerformPlusDispatcher()
 : <a class="el" href="RBinaryOperations_8cpp.html#a5794754a50d451c8224bf20648e139fb">RBinaryOperations.cpp</a>
@@ -355,6 +363,8 @@ $(function() {
 <li>RPerformPow()
 : <a class="el" href="RBinaryOperations_8hpp.html#ae083a82064391ef3f7223f3a4fc19a4a">RBinaryOperations.hpp</a>
 , <a class="el" href="RBinaryOperations_8cpp.html#aa3d1270b230020f8bf544e2855590af9">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#aa3d1270b230020f8bf544e2855590af9">RBinaryOperations.hpp</a>
+, <a class="el" href="RBinaryOperations_8cpp.html#ae083a82064391ef3f7223f3a4fc19a4a">RBinaryOperations.cpp</a>
 </li>
 <li>RPerformPowDispatcher()
 : <a class="el" href="RBinaryOperations_8cpp.html#a1dac3e05c75525dac091a336a1da84bb">RBinaryOperations.cpp</a>
@@ -365,28 +375,28 @@ $(function() {
 , <a class="el" href="RBasicUtilities_8cpp.html#a0fa4d270064a51d382f3341a3d6c489e">RBasicUtilities.cpp</a>
 </li>
 <li>RQRDecomposition()
-: <a class="el" href="RLinearAlgebra_8hpp.html#a2bf1d3be5fd2f6701dc704d8ed4787eb">RLinearAlgebra.hpp</a>
-, <a class="el" href="RLinearAlgebra_8cpp.html#a2bf1d3be5fd2f6701dc704d8ed4787eb">RLinearAlgebra.cpp</a>
+: <a class="el" href="RLinearAlgebra_8cpp.html#a2bf1d3be5fd2f6701dc704d8ed4787eb">RLinearAlgebra.cpp</a>
+, <a class="el" href="RLinearAlgebra_8hpp.html#a2bf1d3be5fd2f6701dc704d8ed4787eb">RLinearAlgebra.hpp</a>
 </li>
 <li>RQRDecompositionQ()
-: <a class="el" href="RLinearAlgebra_8cpp.html#a6194ff200d27724ba756cbd8000288dc">RLinearAlgebra.cpp</a>
-, <a class="el" href="RLinearAlgebra_8hpp.html#a6194ff200d27724ba756cbd8000288dc">RLinearAlgebra.hpp</a>
+: <a class="el" href="RLinearAlgebra_8hpp.html#a6194ff200d27724ba756cbd8000288dc">RLinearAlgebra.hpp</a>
+, <a class="el" href="RLinearAlgebra_8cpp.html#a6194ff200d27724ba756cbd8000288dc">RLinearAlgebra.cpp</a>
 </li>
 <li>RQRDecompositionQty()
 : <a class="el" href="RLinearAlgebra_8hpp.html#afa6d5fc8536e496a04fc2c1340cba569">RLinearAlgebra.hpp</a>
 , <a class="el" href="RLinearAlgebra_8cpp.html#afa6d5fc8536e496a04fc2c1340cba569">RLinearAlgebra.cpp</a>
 </li>
 <li>RQRDecompositionQy()
-: <a class="el" href="RLinearAlgebra_8cpp.html#aeba50fab8381884d7466d4c3972cfb4e">RLinearAlgebra.cpp</a>
-, <a class="el" href="RLinearAlgebra_8hpp.html#aeba50fab8381884d7466d4c3972cfb4e">RLinearAlgebra.hpp</a>
+: <a class="el" href="RLinearAlgebra_8hpp.html#aeba50fab8381884d7466d4c3972cfb4e">RLinearAlgebra.hpp</a>
+, <a class="el" href="RLinearAlgebra_8cpp.html#aeba50fab8381884d7466d4c3972cfb4e">RLinearAlgebra.cpp</a>
 </li>
 <li>RQRDecompositionR()
 : <a class="el" href="RLinearAlgebra_8hpp.html#a899353c985867c62dea2222e958e90ce">RLinearAlgebra.hpp</a>
 , <a class="el" href="RLinearAlgebra_8cpp.html#a899353c985867c62dea2222e958e90ce">RLinearAlgebra.cpp</a>
 </li>
 <li>RRBind()
-: <a class="el" href="RBasicUtilities_8cpp.html#a3c7b0f1d0a59864831bb4de0616eada0">RBasicUtilities.cpp</a>
-, <a class="el" href="RBasicUtilities_8hpp.html#a3c7b0f1d0a59864831bb4de0616eada0">RBasicUtilities.hpp</a>
+: <a class="el" href="RBasicUtilities_8hpp.html#a3c7b0f1d0a59864831bb4de0616eada0">RBasicUtilities.hpp</a>
+, <a class="el" href="RBasicUtilities_8cpp.html#a3c7b0f1d0a59864831bb4de0616eada0">RBasicUtilities.cpp</a>
 </li>
 <li>RRCond()
 : <a class="el" href="RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698">RLinearAlgebra.hpp</a>
@@ -401,21 +411,19 @@ $(function() {
 , <a class="el" href="RMathematicalOperations_8hpp.html#ad150a6c45f903d66aac6ec8db33b2d74">RMathematicalOperations.hpp</a>
 </li>
 <li>RScale()
-: <a class="el" href="RBasicUtilities_8cpp.html#ab29d921348d05f1c1744ddccc62292e8">RBasicUtilities.cpp</a>
-, <a class="el" href="RBasicUtilities_8hpp.html#ab29d921348d05f1c1744ddccc62292e8">RBasicUtilities.hpp</a>
-, <a class="el" href="RBasicUtilities_8cpp.html#a8016b4df956fc9fa3a02e608a83b6d40">RBasicUtilities.cpp</a>
+: <a class="el" href="RBasicUtilities_8cpp.html#a106d38b298f357cdeaeee128d85c6212">RBasicUtilities.cpp</a>
 , <a class="el" href="RBasicUtilities_8hpp.html#ad68c9ec3a68e4c3c01dd8d26d10ddf70">RBasicUtilities.hpp</a>
+, <a class="el" href="RBasicUtilities_8cpp.html#ad68c9ec3a68e4c3c01dd8d26d10ddf70">RBasicUtilities.cpp</a>
+, <a class="el" href="RBasicUtilities_8hpp.html#a8016b4df956fc9fa3a02e608a83b6d40">RBasicUtilities.hpp</a>
 , <a class="el" href="RBasicUtilities_8cpp.html#aed6da81d22798bc36832db0e83c40c83">RBasicUtilities.cpp</a>
-, <a class="el" href="RBasicUtilities_8hpp.html#aed6da81d22798bc36832db0e83c40c83">RBasicUtilities.hpp</a>
-, <a class="el" href="RBasicUtilities_8cpp.html#a106d38b298f357cdeaeee128d85c6212">RBasicUtilities.cpp</a>
 </li>
 <li>RScaleDispatcher()
-: <a class="el" href="RBasicUtilities_8hpp.html#ac8816ef904ce2297cb4066a4a1100708">RBasicUtilities.hpp</a>
-, <a class="el" href="RBasicUtilities_8cpp.html#ac8816ef904ce2297cb4066a4a1100708">RBasicUtilities.cpp</a>
+: <a class="el" href="RBasicUtilities_8cpp.html#ac8816ef904ce2297cb4066a4a1100708">RBasicUtilities.cpp</a>
+, <a class="el" href="RBasicUtilities_8hpp.html#ac8816ef904ce2297cb4066a4a1100708">RBasicUtilities.hpp</a>
 </li>
 <li>RSin()
-: <a class="el" href="RMathematicalOperations_8hpp.html#a6c1f897b31b845014633a3c5400295a7">RMathematicalOperations.hpp</a>
-, <a class="el" href="RMathematicalOperations_8cpp.html#a6c1f897b31b845014633a3c5400295a7">RMathematicalOperations.cpp</a>
+: <a class="el" href="RMathematicalOperations_8cpp.html#a6c1f897b31b845014633a3c5400295a7">RMathematicalOperations.cpp</a>
+, <a class="el" href="RMathematicalOperations_8hpp.html#a6c1f897b31b845014633a3c5400295a7">RMathematicalOperations.hpp</a>
 </li>
 <li>RSinh()
 : <a class="el" href="RMathematicalOperations_8hpp.html#ae485c972fc1e580d2645c53dd5240a19">RMathematicalOperations.hpp</a>
@@ -434,24 +442,24 @@ $(function() {
 , <a class="el" href="RLinearAlgebra_8cpp.html#a5595028cb926cb8d01b50c8f6eb6bdd2">RLinearAlgebra.cpp</a>
 </li>
 <li>RSweep()
-: <a class="el" href="RBasicUtilities_8cpp.html#a88be51e5e019afe298aecb9ce099f23c">RBasicUtilities.cpp</a>
-, <a class="el" href="RBasicUtilities_8hpp.html#a3afcc36ebeabc95b6920c095ba15cd1c">RBasicUtilities.hpp</a>
+: <a class="el" href="RBasicUtilities_8hpp.html#a3afcc36ebeabc95b6920c095ba15cd1c">RBasicUtilities.hpp</a>
+, <a class="el" href="RBasicUtilities_8cpp.html#a88be51e5e019afe298aecb9ce099f23c">RBasicUtilities.cpp</a>
 </li>
 <li>RTan()
 : <a class="el" href="RMathematicalOperations_8cpp.html#ae8e8504567d74a1d945c0b84dd0dd1a0">RMathematicalOperations.cpp</a>
 , <a class="el" href="RMathematicalOperations_8hpp.html#ae8e8504567d74a1d945c0b84dd0dd1a0">RMathematicalOperations.hpp</a>
 </li>
 <li>RTanh()
-: <a class="el" href="RMathematicalOperations_8hpp.html#aff4362b93c6289bb186d9b3f3f28de91">RMathematicalOperations.hpp</a>
-, <a class="el" href="RMathematicalOperations_8cpp.html#aff4362b93c6289bb186d9b3f3f28de91">RMathematicalOperations.cpp</a>
+: <a class="el" href="RMathematicalOperations_8cpp.html#aff4362b93c6289bb186d9b3f3f28de91">RMathematicalOperations.cpp</a>
+, <a class="el" href="RMathematicalOperations_8hpp.html#aff4362b93c6289bb186d9b3f3f28de91">RMathematicalOperations.hpp</a>
 </li>
 <li>RTCrossProduct()
-: <a class="el" href="RLinearAlgebra_8cpp.html#a471b6761be43bb48d2f031d619a99700">RLinearAlgebra.cpp</a>
-, <a class="el" href="RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700">RLinearAlgebra.hpp</a>
+: <a class="el" href="RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700">RLinearAlgebra.hpp</a>
+, <a class="el" href="RLinearAlgebra_8cpp.html#a471b6761be43bb48d2f031d619a99700">RLinearAlgebra.cpp</a>
 </li>
 <li>RToNumericMatrix()
-: <a class="el" href="RBinaryOperations_8hpp.html#a83d0ee61a40276c4c25bb163f2c94661">RBinaryOperations.hpp</a>
-, <a class="el" href="RBinaryOperations_8cpp.html#a83d0ee61a40276c4c25bb163f2c94661">RBinaryOperations.cpp</a>
+: <a class="el" href="RBinaryOperations_8cpp.html#a83d0ee61a40276c4c25bb163f2c94661">RBinaryOperations.cpp</a>
+, <a class="el" href="RBinaryOperations_8hpp.html#a83d0ee61a40276c4c25bb163f2c94661">RBinaryOperations.hpp</a>
 </li>
 <li>RToNumericVector()
 : <a class="el" href="RBinaryOperations_8hpp.html#a8ccab2184bc2c0e5fe8d95543121e432">RBinaryOperations.hpp</a>

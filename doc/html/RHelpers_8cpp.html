@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MMPR: src/adapters/RHelpers.cpp File Reference</title>
+<title>MPCR: src/adapters/RHelpers.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">MMPR
+   <div id="projectname">MPCR
    </div>
   </td>
  </tr>
@@ -77,16 +77,16 @@ Include dependency graph for RHelpers.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="RHelpers_8cpp__incl.png" border="0" usemap="#src_2adapters_2RHelpers_8cpp" alt=""/></div>
 <map name="src_2adapters_2RHelpers_8cpp" id="src_2adapters_2RHelpers_8cpp">
-<area shape="rect" title=" " alt="" coords="81,5,273,32"/>
-<area shape="rect" href="RHelpers_8hpp.html" title=" " alt="" coords="91,80,262,107"/>
-<area shape="rect" href="MPRTile_8hpp.html" title=" " alt="" coords="91,155,263,181"/>
-<area shape="rect" href="DataType_8hpp.html" title=" " alt="" coords="86,229,267,256"/>
-<area shape="rect" title=" " alt="" coords="73,304,136,331"/>
-<area shape="rect" href="Precision_8hpp.html" title=" " alt="" coords="161,304,339,331"/>
+<area shape="rect" title=" " alt="" coords="83,5,275,32"/>
+<area shape="rect" href="RHelpers_8hpp.html" title=" " alt="" coords="94,80,265,107"/>
+<area shape="rect" href="MPCRTile_8hpp.html" title=" " alt="" coords="89,155,270,181"/>
+<area shape="rect" href="DataType_8hpp.html" title=" " alt="" coords="89,229,270,256"/>
+<area shape="rect" title=" " alt="" coords="76,304,139,331"/>
+<area shape="rect" href="Precision_8hpp.html" title=" " alt="" coords="163,304,342,331"/>
 <area shape="rect" href="FloatingPointHandler_8hpp.html" title=" " alt="" coords="5,379,244,405"/>
-<area shape="rect" href="MPRErrorHandler_8hpp.html" title=" " alt="" coords="269,379,482,405"/>
-<area shape="rect" title=" " alt="" coords="294,453,361,480"/>
-<area shape="rect" title=" " alt="" coords="385,453,459,480"/>
+<area shape="rect" href="MPCRErrorHandler_8hpp.html" title=" " alt="" coords="268,379,491,405"/>
+<area shape="rect" title=" " alt="" coords="298,453,365,480"/>
+<area shape="rect" title=" " alt="" coords="389,453,463,480"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -98,20 +98,110 @@ Functions</h2></td></tr>
 <tr class="memitem:ab9b2086f45ef148c54dc8619062b41e5"><td class="memItemLeft" align="right" valign="top">Rcpp::LogicalVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#ab9b2086f45ef148c54dc8619062b41e5">ToLogicalVector</a> (std::vector&lt; int &gt; &amp;<a class="el" href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a>)</td></tr>
 <tr class="memdesc:ab9b2086f45ef148c54dc8619062b41e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change Vector of HALF Values to R-Logical Vector 1/TRUE 0/FALSE INT_MIN=NA.  <a href="RHelpers_8cpp.html#ab9b2086f45ef148c54dc8619062b41e5">More...</a><br /></td></tr>
 <tr class="separator:ab9b2086f45ef148c54dc8619062b41e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d5a5be221e96efcf67c19c40c3b78f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#a2d5a5be221e96efcf67c19c40c3b78f5">RInsertTile</a> (<a class="el" href="classMPRTile.html">MPRTile</a> *aMatrix, <a class="el" href="classDataType.html">DataType</a> *aTile, const size_t &amp;aRowIdx, const size_t &amp;aColIdx)</td></tr>
-<tr class="memdesc:a2d5a5be221e96efcf67c19c40c3b78f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates a Tile in <a class="el" href="classMPRTile.html">MPRTile</a> Object, by copying the tile and inserting the new tile to avoid R ownership problem.  <a href="RHelpers_8cpp.html#a2d5a5be221e96efcf67c19c40c3b78f5">More...</a><br /></td></tr>
-<tr class="separator:a2d5a5be221e96efcf67c19c40c3b78f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade87ad07c3e37a47d01eef7a952a4158"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#ade87ad07c3e37a47d01eef7a952a4158">RGetTile</a> (<a class="el" href="classMPRTile.html">MPRTile</a> *aMatrix, const size_t &amp;aRowIdx, const size_t &amp;aColIdx)</td></tr>
-<tr class="memdesc:ade87ad07c3e37a47d01eef7a952a4158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a Tile from <a class="el" href="classMPRTile.html">MPRTile</a> Object.  <a href="RHelpers_8cpp.html#ade87ad07c3e37a47d01eef7a952a4158">More...</a><br /></td></tr>
-<tr class="separator:ade87ad07c3e37a47d01eef7a952a4158"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7adf3c8cf4ccb5c2a75cec4af269724"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMPRTile.html">MPRTile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#ad7adf3c8cf4ccb5c2a75cec4af269724">RCopyMPRTile</a> (<a class="el" href="classMPRTile.html">MPRTile</a> *aMatrix)</td></tr>
-<tr class="memdesc:ad7adf3c8cf4ccb5c2a75cec4af269724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a deepcopy of <a class="el" href="classMPRTile.html">MPRTile</a> Matrix.  <a href="RHelpers_8cpp.html#ad7adf3c8cf4ccb5c2a75cec4af269724">More...</a><br /></td></tr>
-<tr class="separator:ad7adf3c8cf4ccb5c2a75cec4af269724"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae09266e55d7d278b07daa8c93f66f9b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#ae09266e55d7d278b07daa8c93f66f9b2">RInsertTile</a> (<a class="el" href="classMPCRTile.html">MPCRTile</a> *aMatrix, <a class="el" href="classDataType.html">DataType</a> *aTile, const size_t &amp;aRowIdx, const size_t &amp;aColIdx)</td></tr>
+<tr class="memdesc:ae09266e55d7d278b07daa8c93f66f9b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates a Tile in <a class="el" href="classMPCRTile.html">MPCRTile</a> Object, by copying the tile and inserting the new tile to avoid R ownership problem.  <a href="RHelpers_8cpp.html#ae09266e55d7d278b07daa8c93f66f9b2">More...</a><br /></td></tr>
+<tr class="separator:ae09266e55d7d278b07daa8c93f66f9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9014c9b7530c3545157dc52bb5261589"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#a9014c9b7530c3545157dc52bb5261589">RGetTile</a> (<a class="el" href="classMPCRTile.html">MPCRTile</a> *aMatrix, const size_t &amp;aRowIdx, const size_t &amp;aColIdx)</td></tr>
+<tr class="memdesc:a9014c9b7530c3545157dc52bb5261589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a Tile from <a class="el" href="classMPCRTile.html">MPCRTile</a> Object.  <a href="RHelpers_8cpp.html#a9014c9b7530c3545157dc52bb5261589">More...</a><br /></td></tr>
+<tr class="separator:a9014c9b7530c3545157dc52bb5261589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68fbf364dc1dff37efe5da3a083c8f85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMPCRTile.html">MPCRTile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#a68fbf364dc1dff37efe5da3a083c8f85">RCopyMPCRTile</a> (<a class="el" href="classMPCRTile.html">MPCRTile</a> *aMatrix)</td></tr>
+<tr class="memdesc:a68fbf364dc1dff37efe5da3a083c8f85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a deepcopy of <a class="el" href="classMPCRTile.html">MPCRTile</a> Matrix.  <a href="RHelpers_8cpp.html#a68fbf364dc1dff37efe5da3a083c8f85">More...</a><br /></td></tr>
+<tr class="separator:a68fbf364dc1dff37efe5da3a083c8f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad28668708ef1005063ad81c9892ca4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#aad28668708ef1005063ad81c9892ca4d">RCopyMPR</a> (<a class="el" href="classDataType.html">DataType</a> *aMatrix)</td></tr>
-<tr class="memdesc:aad28668708ef1005063ad81c9892ca4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a deepcopy of normal MPR object.  <a href="RHelpers_8cpp.html#aad28668708ef1005063ad81c9892ca4d">More...</a><br /></td></tr>
+<tr class="memdesc:aad28668708ef1005063ad81c9892ca4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a deepcopy of normal MPCR object.  <a href="RHelpers_8cpp.html#aad28668708ef1005063ad81c9892ca4d">More...</a><br /></td></tr>
 <tr class="separator:aad28668708ef1005063ad81c9892ca4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2607b50b1ee33fcd86af9c49f2d4b653"><td class="memItemLeft" align="right" valign="top">RawVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#a2607b50b1ee33fcd86af9c49f2d4b653">SerializeTile</a> (<a class="el" href="classDataType.html">DataType</a> *<a class="el" href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a>)</td></tr>
+<tr class="memdesc:a2607b50b1ee33fcd86af9c49f2d4b653"><td class="mdescLeft">&#160;</td><td class="mdescRight">R version to Serialize <a class="el" href="classDataType.html">DataType</a> object as a Raw Vector.  <a href="RHelpers_8cpp.html#a2607b50b1ee33fcd86af9c49f2d4b653">More...</a><br /></td></tr>
+<tr class="separator:a2607b50b1ee33fcd86af9c49f2d4b653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa6313c38d8ecaf3b3eab98315307bbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDataType.html">DataType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#afa6313c38d8ecaf3b3eab98315307bbd">DeSerializeTile</a> (Rcpp::RawVector <a class="el" href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a>)</td></tr>
+<tr class="memdesc:afa6313c38d8ecaf3b3eab98315307bbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">R version to DeSerialize Stream of bytes to MPCR Object.  <a href="RHelpers_8cpp.html#afa6313c38d8ecaf3b3eab98315307bbd">More...</a><br /></td></tr>
+<tr class="separator:afa6313c38d8ecaf3b3eab98315307bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a341414c352215e81cefb89db35cc6bd2"><td class="memItemLeft" align="right" valign="top">Rcpp::RawVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="RHelpers_8cpp.html#a341414c352215e81cefb89db35cc6bd2">RGetSerializeTile</a> (<a class="el" href="classMPCRTile.html">MPCRTile</a> *aMatrix, const size_t &amp;aRowIdx, const size_t &amp;aColIdx)</td></tr>
+<tr class="memdesc:a341414c352215e81cefb89db35cc6bd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">R version to Serialize Tile object as a Raw Vector from Tile-Matrix without copying.  <a href="RHelpers_8cpp.html#a341414c352215e81cefb89db35cc6bd2">More...</a><br /></td></tr>
+<tr class="separator:a341414c352215e81cefb89db35cc6bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="afa6313c38d8ecaf3b3eab98315307bbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa6313c38d8ecaf3b3eab98315307bbd">&#9670;&nbsp;</a></span>DeSerializeTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDataType.html">DataType</a>* DeSerializeTile </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::RawVector&#160;</td>
+          <td class="paramname"><em>aInput</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>R version to DeSerialize Stream of bytes to MPCR Object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">aInput</td><td>vector of bytes containing <a class="el" href="classDataType.html">DataType</a> object as a stream of bytes </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_cgraph.png" border="0" usemap="#RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_cgraph" alt=""/></div>
+<map name="RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_cgraph" id="RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_cgraph">
+<area shape="rect" title="R version to DeSerialize Stream of bytes to MPCR Object." alt="" coords="5,5,125,32"/>
+<area shape="rect" href="classDataType.html#ae56450561defe10fdc6d286a078cb8f1" title="R version to DeSerialize Stream of bytes to MPCR Object." alt="" coords="173,5,348,32"/>
+<area shape="rect" href="classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="396,5,535,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_icgraph.png" border="0" usemap="#RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_icgraph" alt=""/></div>
+<map name="RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_icgraph" id="RHelpers_8cpp_afa6313c38d8ecaf3b3eab98315307bbd_icgraph">
+<area shape="rect" title="R version to DeSerialize Stream of bytes to MPCR Object." alt="" coords="173,5,293,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a68fbf364dc1dff37efe5da3a083c8f85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68fbf364dc1dff37efe5da3a083c8f85">&#9670;&nbsp;</a></span>RCopyMPCRTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classMPCRTile.html">MPCRTile</a>* RCopyMPCRTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMPCRTile.html">MPCRTile</a> *&#160;</td>
+          <td class="paramname"><em>aMatrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a deepcopy of <a class="el" href="classMPCRTile.html">MPCRTile</a> Matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td><a class="el" href="classMPCRTile.html">MPCRTile</a> Matrix</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new Copy of <a class="el" href="classMPCRTile.html">MPCRTile</a> Matrix </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="RHelpers_8cpp_a68fbf364dc1dff37efe5da3a083c8f85_icgraph.png" border="0" usemap="#RHelpers_8cpp_a68fbf364dc1dff37efe5da3a083c8f85_icgraph" alt=""/></div>
+<map name="RHelpers_8cpp_a68fbf364dc1dff37efe5da3a083c8f85_icgraph" id="RHelpers_8cpp_a68fbf364dc1dff37efe5da3a083c8f85_icgraph">
+<area shape="rect" title="Creates a deepcopy of MPCRTile Matrix." alt="" coords="173,5,299,32"/>
+<area shape="rect" href="MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,5,125,32"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="aad28668708ef1005063ad81c9892ca4d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aad28668708ef1005063ad81c9892ca4d">&#9670;&nbsp;</a></span>RCopyMPR()</h2>
 
@@ -128,72 +218,36 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a deepcopy of normal MPR object. </p>
+<p>Creates a deepcopy of normal MPCR object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td>MPR Object</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td>MPCR Object</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a new Copy of MPR Object </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a new Copy of MPCR Object </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="RHelpers_8cpp_aad28668708ef1005063ad81c9892ca4d_icgraph.png" border="0" usemap="#RHelpers_8cpp_aad28668708ef1005063ad81c9892ca4d_icgraph" alt=""/></div>
 <map name="RHelpers_8cpp_aad28668708ef1005063ad81c9892ca4d_icgraph" id="RHelpers_8cpp_aad28668708ef1005063ad81c9892ca4d_icgraph">
-<area shape="rect" title="Creates a deepcopy of normal MPR object." alt="" coords="173,5,267,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" title="Creates a deepcopy of normal MPCR object." alt="" coords="173,5,267,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ad7adf3c8cf4ccb5c2a75cec4af269724"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7adf3c8cf4ccb5c2a75cec4af269724">&#9670;&nbsp;</a></span>RCopyMPRTile()</h2>
+<a id="a341414c352215e81cefb89db35cc6bd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a341414c352215e81cefb89db35cc6bd2">&#9670;&nbsp;</a></span>RGetSerializeTile()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classMPRTile.html">MPRTile</a>* RCopyMPRTile </td>
+          <td class="memname">Rcpp::RawVector RGetSerializeTile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMPRTile.html">MPRTile</a> *&#160;</td>
-          <td class="paramname"><em>aMatrix</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a deepcopy of <a class="el" href="classMPRTile.html">MPRTile</a> Matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td><a class="el" href="classMPRTile.html">MPRTile</a> Matrix</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a new Copy of <a class="el" href="classMPRTile.html">MPRTile</a> Matrix </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="RHelpers_8cpp_ad7adf3c8cf4ccb5c2a75cec4af269724_icgraph.png" border="0" usemap="#RHelpers_8cpp_ad7adf3c8cf4ccb5c2a75cec4af269724_icgraph" alt=""/></div>
-<map name="RHelpers_8cpp_ad7adf3c8cf4ccb5c2a75cec4af269724_icgraph" id="RHelpers_8cpp_ad7adf3c8cf4ccb5c2a75cec4af269724_icgraph">
-<area shape="rect" title="Creates a deepcopy of MPRTile Matrix." alt="" coords="173,5,289,32"/>
-<area shape="rect" href="MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,5,125,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ade87ad07c3e37a47d01eef7a952a4158"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade87ad07c3e37a47d01eef7a952a4158">&#9670;&nbsp;</a></span>RGetTile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classDataType.html">DataType</a>* RGetTile </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classMPRTile.html">MPRTile</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="classMPCRTile.html">MPCRTile</a> *&#160;</td>
           <td class="paramname"><em>aMatrix</em>, </td>
         </tr>
         <tr>
@@ -216,10 +270,68 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Get a Tile from <a class="el" href="classMPRTile.html">MPRTile</a> Object. </p>
+<p>R version to Serialize Tile object as a Raw Vector from Tile-Matrix without copying. </p>
+<dl class="section return"><dt>Returns</dt><dd>vector of bytes containing <a class="el" href="classDataType.html">DataType</a> object as a stream of bytes </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_cgraph.png" border="0" usemap="#RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_cgraph" alt=""/></div>
+<map name="RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_cgraph" id="RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_cgraph">
+<area shape="rect" title="R version to Serialize Tile object as a Raw Vector from Tile&#45;Matrix without copying." alt="" coords="5,67,140,94"/>
+<area shape="rect" href="classMPCRTile.html#a50551c9cee581b547dc7ba102a233e11" title="Get a Tile from the MPCR Tiles using Tile Row idx and Tile Col idx." alt="" coords="197,42,335,69"/>
+<area shape="rect" href="classDataType.html#a8df341046029b87c75851d9f0e676d18" title="R version to Serialize DataType object as a Raw Vector." alt="" coords="188,93,344,119"/>
+<area shape="rect" href="classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="392,5,592,47"/>
+<area shape="rect" href="structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="408,71,576,98"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_icgraph.png" border="0" usemap="#RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_icgraph" alt=""/></div>
+<map name="RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_icgraph" id="RHelpers_8cpp_a341414c352215e81cefb89db35cc6bd2_icgraph">
+<area shape="rect" title="R version to Serialize Tile object as a Raw Vector from Tile&#45;Matrix without copying." alt="" coords="173,5,308,32"/>
+<area shape="rect" href="MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,5,125,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a9014c9b7530c3545157dc52bb5261589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9014c9b7530c3545157dc52bb5261589">&#9670;&nbsp;</a></span>RGetTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDataType.html">DataType</a>* RGetTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classMPCRTile.html">MPCRTile</a> *&#160;</td>
+          <td class="paramname"><em>aMatrix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t &amp;&#160;</td>
+          <td class="paramname"><em>aRowIdx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t &amp;&#160;</td>
+          <td class="paramname"><em>aColIdx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a Tile from <a class="el" href="classMPCRTile.html">MPCRTile</a> Object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td><a class="el" href="classMPRTile.html">MPRTile</a> Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td><a class="el" href="classMPCRTile.html">MPCRTile</a> Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aRowIdx</td><td>Tile Row idx </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aColIdx</td><td>Tile Col idx</td></tr>
   </table>
@@ -229,28 +341,28 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_cgraph.png" border="0" usemap="#RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_cgraph" alt=""/></div>
-<map name="RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_cgraph" id="RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_cgraph">
-<area shape="rect" title="Get a Tile from MPRTile Object." alt="" coords="5,31,84,57"/>
-<area shape="rect" href="classMPRTile.html#a3f98908a681e4afe3aa2cfd1c1d7519d" title="Get a Tile from the MPR Tiles using Tile Row idx and Tile Col idx." alt="" coords="132,31,261,57"/>
-<area shape="rect" href="classMPRTile.html#addf7def3a02072651e69c28d7c4e19ce" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="309,5,537,32"/>
-<area shape="rect" href="structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="339,56,507,83"/>
+<div class="center"><img src="RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_cgraph.png" border="0" usemap="#RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_cgraph" alt=""/></div>
+<map name="RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_cgraph" id="RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_cgraph">
+<area shape="rect" title="Get a Tile from MPCRTile Object." alt="" coords="5,42,84,69"/>
+<area shape="rect" href="classMPCRTile.html#a50551c9cee581b547dc7ba102a233e11" title="Get a Tile from the MPCR Tiles using Tile Row idx and Tile Col idx." alt="" coords="132,42,271,69"/>
+<area shape="rect" href="classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="319,5,519,47"/>
+<area shape="rect" href="structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="335,71,503,98"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_icgraph.png" border="0" usemap="#RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_icgraph" alt=""/></div>
-<map name="RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_icgraph" id="RHelpers_8cpp_ade87ad07c3e37a47d01eef7a952a4158_icgraph">
-<area shape="rect" title="Get a Tile from MPRTile Object." alt="" coords="173,5,252,32"/>
-<area shape="rect" href="MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,5,125,32"/>
+<div class="center"><img src="RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_icgraph.png" border="0" usemap="#RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_icgraph" alt=""/></div>
+<map name="RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_icgraph" id="RHelpers_8cpp_a9014c9b7530c3545157dc52bb5261589_icgraph">
+<area shape="rect" title="Get a Tile from MPCRTile Object." alt="" coords="173,5,252,32"/>
+<area shape="rect" href="MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a2d5a5be221e96efcf67c19c40c3b78f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d5a5be221e96efcf67c19c40c3b78f5">&#9670;&nbsp;</a></span>RInsertTile()</h2>
+<a id="ae09266e55d7d278b07daa8c93f66f9b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae09266e55d7d278b07daa8c93f66f9b2">&#9670;&nbsp;</a></span>RInsertTile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +370,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void RInsertTile </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classMPRTile.html">MPRTile</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="classMPCRTile.html">MPCRTile</a> *&#160;</td>
           <td class="paramname"><em>aMatrix</em>, </td>
         </tr>
         <tr>
@@ -287,10 +399,10 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Updates a Tile in <a class="el" href="classMPRTile.html">MPRTile</a> Object, by copying the tile and inserting the new tile to avoid R ownership problem. </p>
+<p>Updates a Tile in <a class="el" href="classMPCRTile.html">MPCRTile</a> Object, by copying the tile and inserting the new tile to avoid R ownership problem. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td><a class="el" href="classMPRTile.html">MPRTile</a> Matrix </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aMatrix</td><td><a class="el" href="classMPCRTile.html">MPCRTile</a> Matrix </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aTile</td><td>Tile containing new data that needs to be updated. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aRowIdx</td><td>Tile Row idx </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">aColIdx</td><td>Tile Col idx </td></tr>
@@ -300,21 +412,60 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_cgraph.png" border="0" usemap="#RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_cgraph" alt=""/></div>
-<map name="RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_cgraph" id="RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_cgraph">
-<area shape="rect" title="Updates a Tile in MPRTile Object, by copying the tile and inserting the new tile to avoid R ownership..." alt="" coords="5,31,97,57"/>
-<area shape="rect" href="classMPRTile.html#a7dcf1284858811f3443b58a7a321103d" title="Insert a Tile inside the MPR Tiles using Tile Row idx and Tile Col idx. this function doesn&#39;t check w..." alt="" coords="145,31,288,57"/>
-<area shape="rect" href="classMPRTile.html#addf7def3a02072651e69c28d7c4e19ce" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="336,5,564,32"/>
-<area shape="rect" href="structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="366,56,534,83"/>
+<div class="center"><img src="RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_cgraph.png" border="0" usemap="#RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_cgraph" alt=""/></div>
+<map name="RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_cgraph" id="RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_cgraph">
+<area shape="rect" title="Updates a Tile in MPCRTile Object, by copying the tile and inserting the new tile to avoid R ownershi..." alt="" coords="5,42,97,69"/>
+<area shape="rect" href="classMPCRTile.html#a3e7b8228ea53f1ab4a5bcb5acfcff702" title="Insert a Tile inside the MPCR Tiles using Tile Row idx and Tile Col idx. this function doesn&#39;t check ..." alt="" coords="145,42,297,69"/>
+<area shape="rect" href="classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="345,5,545,47"/>
+<area shape="rect" href="structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="361,71,529,98"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_icgraph.png" border="0" usemap="#RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_icgraph" alt=""/></div>
-<map name="RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_icgraph" id="RHelpers_8cpp_a2d5a5be221e96efcf67c19c40c3b78f5_icgraph">
-<area shape="rect" title="Updates a Tile in MPRTile Object, by copying the tile and inserting the new tile to avoid R ownership..." alt="" coords="173,5,265,32"/>
-<area shape="rect" href="MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,5,125,32"/>
+<div class="center"><img src="RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_icgraph.png" border="0" usemap="#RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_icgraph" alt=""/></div>
+<map name="RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_icgraph" id="RHelpers_8cpp_ae09266e55d7d278b07daa8c93f66f9b2_icgraph">
+<area shape="rect" title="Updates a Tile in MPCRTile Object, by copying the tile and inserting the new tile to avoid R ownershi..." alt="" coords="173,5,265,32"/>
+<area shape="rect" href="MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,5,125,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2607b50b1ee33fcd86af9c49f2d4b653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2607b50b1ee33fcd86af9c49f2d4b653">&#9670;&nbsp;</a></span>SerializeTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RawVector SerializeTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classDataType.html">DataType</a> *&#160;</td>
+          <td class="paramname"><em>aInput</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>R version to Serialize <a class="el" href="classDataType.html">DataType</a> object as a Raw Vector. </p>
+<dl class="section return"><dt>Returns</dt><dd>vector of bytes containing <a class="el" href="classDataType.html">DataType</a> object as a stream of bytes </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_cgraph.png" border="0" usemap="#RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_cgraph" alt=""/></div>
+<map name="RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_cgraph" id="RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_cgraph">
+<area shape="rect" title="R version to Serialize DataType object as a Raw Vector." alt="" coords="5,5,108,32"/>
+<area shape="rect" href="classDataType.html#a8df341046029b87c75851d9f0e676d18" title="R version to Serialize DataType object as a Raw Vector." alt="" coords="156,5,312,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_icgraph.png" border="0" usemap="#RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_icgraph" alt=""/></div>
+<map name="RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_icgraph" id="RHelpers_8cpp_a2607b50b1ee33fcd86af9c49f2d4b653_icgraph">
+<area shape="rect" title="R version to Serialize DataType object as a Raw Vector." alt="" coords="173,5,276,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
 </map>
 </div>
 
@@ -347,13 +498,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Change Vector of HALF Values to R-Logical Matrix 1/TRUE 0/FALSE INT_MIN=NA. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">aInput</td><td>MPR Object </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">apDim</td><td><a class="el" href="structDimensions.html">Dimensions</a> to set R-Matrix With. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.</p>
+<p>MPCR is an R package provided by the STSDS group at KAUST </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -370,23 +516,23 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RHelpers_8cpp_a794e6be5a797f5a81191f56d445b995d_icgraph.png" border="0" usemap="#RHelpers_8cpp_a794e6be5a797f5a81191f56d445b995d_icgraph" alt=""/></div>
 <map name="RHelpers_8cpp_a794e6be5a797f5a81191f56d445b995d_icgraph" id="RHelpers_8cpp_a794e6be5a797f5a81191f56d445b995d_icgraph">
 <area shape="rect" title="Change Vector of HALF Values to R&#45;Logical Matrix 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="675,249,799,276"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#a73f57e62aad99ad7e84c9f80e8dc2804" title="R&#45;Adapter for Checking Whether MPR Object one is Equal to MPR Object two." alt="" coords="512,9,579,36"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#aa897b50e35158acdf4d6448ab44785c9" title="R&#45;Adapter for Checking Whether MPR Object one is Greater than MPR Object two." alt="" coords="489,63,601,89"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#acc0e91abac771cf5d2165a79d76c1253" title="R&#45;Adapter for Checking Whether MPR Object one is Greater than or Equal MPR Object two." alt="" coords="464,119,627,145"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#a73f57e62aad99ad7e84c9f80e8dc2804" title="R&#45;Adapter for Checking Whether MPCR Object one is Equal to MPCR Object two." alt="" coords="512,9,579,36"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#aa897b50e35158acdf4d6448ab44785c9" title="R&#45;Adapter for Checking Whether MPCR Object one is Greater than MPCR Object two." alt="" coords="489,63,601,89"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#acc0e91abac771cf5d2165a79d76c1253" title="R&#45;Adapter for Checking Whether MPCR Object one is Greater than or Equal MPCR Object two." alt="" coords="464,119,627,145"/>
 <area shape="rect" href="RMathematicalOperations_8hpp.html#a447dc7c733928c018505bad211d8e283" title="Check if elements is finite or not." alt="" coords="255,173,334,200"/>
 <area shape="rect" href="RMathematicalOperations_8hpp.html#a5e249c17bf45b0c779b5cb6013e1342d" title="Check if elements is infinite or not." alt="" coords="249,224,340,251"/>
 <area shape="rect" href="RBasicUtilities_8hpp.html#a484d9e079c56338e31633b9d78c4edb7" title="R Adapter for Checking Whether Element at index is NAN or Not." alt="" coords="515,275,575,301"/>
 <area shape="rect" href="RMathematicalOperations_8hpp.html#a212e93dc2403e3f653b84596ade1066e" title="Check if elements is NAN or not." alt="" coords="511,325,579,352"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#a3dde745baba7a2483aa0d1bf48330918" title="R&#45;Adapter for Checking Whether MPR Object one is Less than MPR Object two." alt="" coords="499,376,591,403"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#ab835534e4c46fddef3429db150f23e59" title="R&#45;Adapter for Checking Whether MPR Object one is Less than or Equal MPR Object two." alt="" coords="474,431,617,457"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#a27b0047a3554e8ae7859b9f4bee1f59f" title="R&#45;Adapter for Checking Whether MPR Object one is Not Equal to MPR Object two." alt="" coords="500,485,591,512"/>
-<area shape="rect" href="classDataType.html#a88d4b85a0143f28ee2d041832b636954" title="R&#45;Adapter for Checking Whether MPR Object is Equal to aObj." alt="" coords="196,5,393,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,249,125,276"/>
-<area shape="rect" href="classDataType.html#a9682733283d07903083e6d552a193ca3" title="R&#45;Adapter for Checking Whether MPR Object is Greater than aObj." alt="" coords="173,56,416,83"/>
-<area shape="rect" href="classDataType.html#a6d3077cd8399d5f978e203e4937cb052" title="R&#45;Adapter for Checking Whether MPR Object is Greater than or equal aObj." alt="" coords="183,107,406,149"/>
-<area shape="rect" href="classDataType.html#a44f2248dbe1c96e5710590ec4eeb8642" title="R&#45;Adapter for Checking Whether MPR Object is Less than aObj." alt="" coords="183,376,406,403"/>
-<area shape="rect" href="classDataType.html#af7522309152f3688a18e1ac7525fb25f" title="R&#45;Adapter for Checking Whether MPR Object is Less than or equal aObj." alt="" coords="193,427,396,469"/>
-<area shape="rect" href="classDataType.html#a1a1137b47354835ff643db701d2cb4bc" title="R&#45;Adapter for Checking Whether MPR Object is Not Equal to aObj." alt="" coords="185,493,405,520"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#a3dde745baba7a2483aa0d1bf48330918" title="R&#45;Adapter for Checking Whether MPCR Object one is Less than MPCR Object two." alt="" coords="499,376,591,403"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#ab835534e4c46fddef3429db150f23e59" title="R&#45;Adapter for Checking Whether MPCR Object one is Less than or Equal MPCR Object two." alt="" coords="474,431,617,457"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#a27b0047a3554e8ae7859b9f4bee1f59f" title="R&#45;Adapter for Checking Whether MPCR Object one is Not Equal to MPCR Object two." alt="" coords="500,485,591,512"/>
+<area shape="rect" href="classDataType.html#a88d4b85a0143f28ee2d041832b636954" title="R&#45;Adapter for Checking Whether MPCR Object is Equal to aObj." alt="" coords="196,5,393,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,249,125,276"/>
+<area shape="rect" href="classDataType.html#a9682733283d07903083e6d552a193ca3" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than aObj." alt="" coords="173,56,416,83"/>
+<area shape="rect" href="classDataType.html#a6d3077cd8399d5f978e203e4937cb052" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than or equal aObj." alt="" coords="183,107,406,149"/>
+<area shape="rect" href="classDataType.html#a44f2248dbe1c96e5710590ec4eeb8642" title="R&#45;Adapter for Checking Whether MPCR Object is Less than aObj." alt="" coords="183,376,406,403"/>
+<area shape="rect" href="classDataType.html#af7522309152f3688a18e1ac7525fb25f" title="R&#45;Adapter for Checking Whether MPCR Object is Less than or equal aObj." alt="" coords="193,427,396,469"/>
+<area shape="rect" href="classDataType.html#a1a1137b47354835ff643db701d2cb4bc" title="R&#45;Adapter for Checking Whether MPCR Object is Not Equal to aObj." alt="" coords="185,493,405,520"/>
 </map>
 </div>
 
@@ -411,7 +557,7 @@ Here is the caller graph for this function:</div>
 <p>Change Vector of HALF Values to R-Logical Vector 1/TRUE 0/FALSE INT_MIN=NA. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">aInput</td><td>MPR Object </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">aInput</td><td>MPCR Object </td></tr>
   </table>
   </dd>
 </dl>
@@ -421,23 +567,23 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="RHelpers_8cpp_ab9b2086f45ef148c54dc8619062b41e5_icgraph.png" border="0" usemap="#RHelpers_8cpp_ab9b2086f45ef148c54dc8619062b41e5_icgraph" alt=""/></div>
 <map name="RHelpers_8cpp_ab9b2086f45ef148c54dc8619062b41e5_icgraph" id="RHelpers_8cpp_ab9b2086f45ef148c54dc8619062b41e5_icgraph">
 <area shape="rect" title="Change Vector of HALF Values to R&#45;Logical Vector 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="675,249,797,276"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#a73f57e62aad99ad7e84c9f80e8dc2804" title="R&#45;Adapter for Checking Whether MPR Object one is Equal to MPR Object two." alt="" coords="512,9,579,36"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#aa897b50e35158acdf4d6448ab44785c9" title="R&#45;Adapter for Checking Whether MPR Object one is Greater than MPR Object two." alt="" coords="489,63,601,89"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#acc0e91abac771cf5d2165a79d76c1253" title="R&#45;Adapter for Checking Whether MPR Object one is Greater than or Equal MPR Object two." alt="" coords="464,119,627,145"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#a73f57e62aad99ad7e84c9f80e8dc2804" title="R&#45;Adapter for Checking Whether MPCR Object one is Equal to MPCR Object two." alt="" coords="512,9,579,36"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#aa897b50e35158acdf4d6448ab44785c9" title="R&#45;Adapter for Checking Whether MPCR Object one is Greater than MPCR Object two." alt="" coords="489,63,601,89"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#acc0e91abac771cf5d2165a79d76c1253" title="R&#45;Adapter for Checking Whether MPCR Object one is Greater than or Equal MPCR Object two." alt="" coords="464,119,627,145"/>
 <area shape="rect" href="RMathematicalOperations_8hpp.html#a447dc7c733928c018505bad211d8e283" title="Check if elements is finite or not." alt="" coords="255,173,334,200"/>
 <area shape="rect" href="RMathematicalOperations_8hpp.html#a5e249c17bf45b0c779b5cb6013e1342d" title="Check if elements is infinite or not." alt="" coords="249,224,340,251"/>
 <area shape="rect" href="RBasicUtilities_8hpp.html#a484d9e079c56338e31633b9d78c4edb7" title="R Adapter for Checking Whether Element at index is NAN or Not." alt="" coords="515,275,575,301"/>
 <area shape="rect" href="RMathematicalOperations_8hpp.html#a212e93dc2403e3f653b84596ade1066e" title="Check if elements is NAN or not." alt="" coords="511,325,579,352"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#a3dde745baba7a2483aa0d1bf48330918" title="R&#45;Adapter for Checking Whether MPR Object one is Less than MPR Object two." alt="" coords="499,376,591,403"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#ab835534e4c46fddef3429db150f23e59" title="R&#45;Adapter for Checking Whether MPR Object one is Less than or Equal MPR Object two." alt="" coords="474,431,617,457"/>
-<area shape="rect" href="RBinaryOperations_8hpp.html#a27b0047a3554e8ae7859b9f4bee1f59f" title="R&#45;Adapter for Checking Whether MPR Object one is Not Equal to MPR Object two." alt="" coords="500,485,591,512"/>
-<area shape="rect" href="classDataType.html#a88d4b85a0143f28ee2d041832b636954" title="R&#45;Adapter for Checking Whether MPR Object is Equal to aObj." alt="" coords="196,5,393,32"/>
-<area shape="rect" href="DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,249,125,276"/>
-<area shape="rect" href="classDataType.html#a9682733283d07903083e6d552a193ca3" title="R&#45;Adapter for Checking Whether MPR Object is Greater than aObj." alt="" coords="173,56,416,83"/>
-<area shape="rect" href="classDataType.html#a6d3077cd8399d5f978e203e4937cb052" title="R&#45;Adapter for Checking Whether MPR Object is Greater than or equal aObj." alt="" coords="183,107,406,149"/>
-<area shape="rect" href="classDataType.html#a44f2248dbe1c96e5710590ec4eeb8642" title="R&#45;Adapter for Checking Whether MPR Object is Less than aObj." alt="" coords="183,376,406,403"/>
-<area shape="rect" href="classDataType.html#af7522309152f3688a18e1ac7525fb25f" title="R&#45;Adapter for Checking Whether MPR Object is Less than or equal aObj." alt="" coords="193,427,396,469"/>
-<area shape="rect" href="classDataType.html#a1a1137b47354835ff643db701d2cb4bc" title="R&#45;Adapter for Checking Whether MPR Object is Not Equal to aObj." alt="" coords="185,493,405,520"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#a3dde745baba7a2483aa0d1bf48330918" title="R&#45;Adapter for Checking Whether MPCR Object one is Less than MPCR Object two." alt="" coords="499,376,591,403"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#ab835534e4c46fddef3429db150f23e59" title="R&#45;Adapter for Checking Whether MPCR Object one is Less than or Equal MPCR Object two." alt="" coords="474,431,617,457"/>
+<area shape="rect" href="RBinaryOperations_8hpp.html#a27b0047a3554e8ae7859b9f4bee1f59f" title="R&#45;Adapter for Checking Whether MPCR Object one is Not Equal to MPCR Object two." alt="" coords="500,485,591,512"/>
+<area shape="rect" href="classDataType.html#a88d4b85a0143f28ee2d041832b636954" title="R&#45;Adapter for Checking Whether MPCR Object is Equal to aObj." alt="" coords="196,5,393,32"/>
+<area shape="rect" href="DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,249,125,276"/>
+<area shape="rect" href="classDataType.html#a9682733283d07903083e6d552a193ca3" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than aObj." alt="" coords="173,56,416,83"/>
+<area shape="rect" href="classDataType.html#a6d3077cd8399d5f978e203e4937cb052" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than or equal aObj." alt="" coords="183,107,406,149"/>
+<area shape="rect" href="classDataType.html#a44f2248dbe1c96e5710590ec4eeb8642" title="R&#45;Adapter for Checking Whether MPCR Object is Less than aObj." alt="" coords="183,376,406,403"/>
+<area shape="rect" href="classDataType.html#af7522309152f3688a18e1ac7525fb25f" title="R&#45;Adapter for Checking Whether MPCR Object is Less than or equal aObj." alt="" coords="193,427,396,469"/>
+<area shape="rect" href="classDataType.html#a1a1137b47354835ff643db701d2cb4bc" title="R&#45;Adapter for Checking Whether MPCR Object is Not Equal to aObj." alt="" coords="185,493,405,520"/>
 </map>
 </div>
 

@@ -1,0 +1,6 @@
+<map id="mpcr::operations::math::Gamma" name="mpcr::operations::math::Gamma">
+<area shape="rect" id="node1" title="Perform Gamma operation on a given MPCR Object." alt="" coords="312,23,487,65"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#a2325ceeac662bb5862dd7013d2454e55" title="Perform tgamma operation on MPCR Object." alt="" coords="177,5,260,32"/>
+<area shape="rect" id="node4" href="$RMathematicalOperations_8hpp.html#ac17afa949d5c2bce786d07adcf3cacd1" title="Perform lgamma operation on MPCR Object." alt="" coords="173,56,264,83"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,31,125,57"/>
+</map>

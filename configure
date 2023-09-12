@@ -3,7 +3,7 @@
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
 # All rights reserved.
-# MMPR is an R package provided by the STSDS group at KAUST
+# MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
 
@@ -28,8 +28,8 @@ rm -rf bin/
 mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-  -DMPR_BUILD_TESTS=$BUILDING_TESTS \
-  -DMPR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
+  -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
+  -DMPCR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   -DCMAKE_TEST_PREFIX="$TEST_PATH" \
   -DCMAKE_CONFIG_PREFIX="$CONFIG_PATH" \
@@ -47,9 +47,9 @@ make clean
 make all -j
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  cp "${ABSOLUE_PATH}/bin/src/libmpr.dylib" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.dylib -> src"
+  cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
 else
-  cp "${ABSOLUE_PATH}/bin/src/libmpr.so" "${ABSOLUE_PATH}/src/MMPR.so" || echo "Failed: libmpr.so -> src"
+  cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
 fi
 
 rm -rf "${ABSOLUE_PATH}/bin/"

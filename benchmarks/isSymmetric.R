@@ -1,5 +1,5 @@
 library(rbenchmark)
-library(MMPR)
+library(MPCR)
 
 
 run_issymmeric_benchmark <- function(n, replication, times) {
@@ -14,13 +14,13 @@ run_issymmeric_benchmark <- function(n, replication, times) {
   matrix_nonsymmetric <- matrix(rnorm(n * (n / 2)), nrow = n, ncol = n / 2)
 
 
-  mmpr_matrix_symmetric_double <- as.MMPR(matrix_symmetric, n, n, "double")
-  mmpr_matrix_sq_nonsymmetric_double <- as.MMPR(matrix_sq_nonsymmetric, n, n, "double")
-  mmpr_matrix_nonsymmetric_double <- as.MMPR(matrix_nonsymmetric, n, n, "double")
+  MPCR_matrix_symmetric_double <- as.MPCR(matrix_symmetric, n, n, "double")
+  MPCR_matrix_sq_nonsymmetric_double <- as.MPCR(matrix_sq_nonsymmetric, n, n, "double")
+  MPCR_matrix_nonsymmetric_double <- as.MPCR(matrix_nonsymmetric, n, n, "double")
 
-  mmpr_matrix_symmetric_single <- as.MMPR(matrix_symmetric, n, n, "single")
-  mmpr_matrix_sq_nonsymmetric_single <- as.MMPR(matrix_sq_nonsymmetric, n, n, "single")
-  mmpr_matrix_nonsymmetric_single <- as.MMPR(matrix_nonsymmetric, n, n, "single")
+  MPCR_matrix_symmetric_single <- as.MPCR(matrix_symmetric, n, n, "single")
+  MPCR_matrix_sq_nonsymmetric_single <- as.MPCR(matrix_sq_nonsymmetric, n, n, "single")
+  MPCR_matrix_nonsymmetric_single <- as.MPCR(matrix_nonsymmetric, n, n, "single")
 
 
   cat("Matrix  : ")
@@ -35,8 +35,8 @@ run_issymmeric_benchmark <- function(n, replication, times) {
 
   print(benchmark(replications = rep(replication, times),
                   isSymmetric(matrix_symmetric),
-                  isSymmetric(mmpr_matrix_symmetric_single),
-                  isSymmetric(mmpr_matrix_symmetric_double),
+                  isSymmetric(MPCR_matrix_symmetric_single),
+                  isSymmetric(MPCR_matrix_symmetric_double),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n\n")
@@ -44,8 +44,8 @@ run_issymmeric_benchmark <- function(n, replication, times) {
 
   print(benchmark(replications = rep(replication, times),
                   isSymmetric(matrix_sq_nonsymmetric),
-                  isSymmetric(mmpr_matrix_sq_nonsymmetric_single),
-                  isSymmetric(mmpr_matrix_sq_nonsymmetric_double),
+                  isSymmetric(MPCR_matrix_sq_nonsymmetric_single),
+                  isSymmetric(MPCR_matrix_sq_nonsymmetric_double),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n\n")
@@ -53,8 +53,8 @@ run_issymmeric_benchmark <- function(n, replication, times) {
 
   print(benchmark(replications = rep(replication, times),
                   isSymmetric(matrix_nonsymmetric),
-                  isSymmetric(mmpr_matrix_nonsymmetric_single),
-                  isSymmetric(mmpr_matrix_nonsymmetric_double),
+                  isSymmetric(MPCR_matrix_nonsymmetric_single),
+                  isSymmetric(MPCR_matrix_nonsymmetric_double),
                   columns = c("test", "replications", "elapsed")))
 
 }

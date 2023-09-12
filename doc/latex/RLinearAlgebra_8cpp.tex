@@ -3,8 +3,9 @@
 {\ttfamily \#include $<$adapters/\+R\+Linear\+Algebra.\+hpp$>$}\newline
 {\ttfamily \#include $<$adapters/\+R\+Helpers.\+hpp$>$}\newline
 {\ttfamily \#include $<$data-\/units/\+Promoter.\+hpp$>$}\newline
-{\ttfamily \#include $<$utilities/\+M\+P\+R\+Dispatcher.\+hpp$>$}\newline
-Include dependency graph for R\+Linear\+Algebra.\+cpp\+:\nopagebreak
+{\ttfamily \#include $<$utilities/\+M\+P\+C\+R\+Dispatcher.\+hpp$>$}\newline
+Include dependency graph for R\+Linear\+Algebra.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -19,9 +20,9 @@ Include dependency graph for R\+Linear\+Algebra.\+cpp\+:\nopagebreak
 void \mbox{\hyperlink{RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628}{R\+Gemm}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, S\+E\+XP \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$a\+InputC, const bool \&a\+TransposeA, const bool \&a\+TransposeB, const double \&a\+Alpha, const double \&a\+Beta)
 \begin{DoxyCompactList}\small\item\em Perform Matrix Matrix Multiplication using Gemm/\+Syrk routines performs\+: C= alphaA $\ast$B +betaC. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112}{R\+Cross\+Product}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, S\+E\+XP \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}})
-\begin{DoxyCompactList}\small\item\em Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% y , t(x) \%$\ast$\% x. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Calculate Cross\+Product of 2 M\+P\+CR Matrices performs\+: x \%$\ast$\% y , t(x) \%$\ast$\% x. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700}{R\+T\+Cross\+Product}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, S\+E\+XP \mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}})
-\begin{DoxyCompactList}\small\item\em Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% t(y) , x \%$\ast$\% t(x) \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Calculate Cross\+Product of 2 M\+P\+CR Matrices performs\+: x \%$\ast$\% t(y) , x \%$\ast$\% t(x) \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab}{R\+Is\+Symmetric}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}})
 \begin{DoxyCompactList}\small\item\em Check if a Matrix Is Symmetric. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4}{R\+Back\+Solve}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{LinearAlgebra_8cpp_af29c585d74852408757764cc58b8b6fd}{a\+InputB}}, const long \&a\+Col, const bool \&a\+Upper\+Triangle, const bool \&a\+Transpose)
@@ -35,7 +36,7 @@ bool \mbox{\hyperlink{RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab}{R\+
 std\+::vector$<$ \mbox{\hyperlink{classDataType}{Data\+Type}} $>$ \mbox{\hyperlink{RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2}{R\+S\+VD}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const long \&a\+Nu, const long \&a\+Nv, const bool \&a\+Transpose)
 \begin{DoxyCompactList}\small\item\em Compute the singular-\/value decomposition of a rectangular matrix. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8cpp_a34474f8f633d9660b4cdc9fee95d28c8}{R\+Transpose}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}})
-\begin{DoxyCompactList}\small\item\em Transpose a given M\+PR Matrix. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Transpose a given M\+P\+CR Matrix. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb}{R\+Norm}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const std\+::string \&a\+Type)
 \begin{DoxyCompactList}\small\item\em Computes a matrix norm of a\+Input. The norm can be the one (\char`\"{}\+O\char`\"{}) norm, the infinity (\char`\"{}\+I\char`\"{}) norm, the Frobenius (\char`\"{}\+F\char`\"{}) norm, or the maximum modulus (\char`\"{}\+M\char`\"{}) among elements of a matrix. \end{DoxyCompactList}\item 
 std\+::vector$<$ \mbox{\hyperlink{classDataType}{Data\+Type}} $>$ \mbox{\hyperlink{RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb}{R\+Q\+R\+Decomposition}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\mbox{\hyperlink{MathematicalOperations_8cpp_ac5a8b6d5d0c66319ea2bd9dd9a1234b0}{a\+InputA}}, const double \&a\+Tolerance)
@@ -67,9 +68,9 @@ Solves a system of linear equations where the coefficient matrix is upper or low
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Col} & The number of columns of a\+InputA and rows of a\+InputB to use. default ncol(a\+Input\+A) \\
 \hline
@@ -81,14 +82,16 @@ Solves a system of linear equations where the coefficient matrix is upper or low
 \begin{DoxyReturn}{Returns}
 The solution of the triangular system 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a4795dfedd631c690066b70114ef258c4_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -107,20 +110,22 @@ Calculate Cholesky decomposition.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+P\+CR Matrix \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Matrix containing decomposition result 
+M\+P\+CR Matrix containing decomposition result 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a53e99e6d030fb35f6e7baab60810f861_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -139,20 +144,22 @@ Invert a symmetric, positive definite square matrix from its Cholesky decomposit
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix containing Cholesky decomposition. \\
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+P\+CR Matrix containing Cholesky decomposition. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Matrix 
+M\+P\+CR Matrix 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a40e5e74b11c2b637753a89cb07acaef3_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -167,26 +174,30 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% y , t(x) \%$\ast$\% x. 
+Calculate Cross\+Product of 2 M\+P\+CR Matrices performs\+: x \%$\ast$\% y , t(x) \%$\ast$\% x. 
 
+Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.
 
+M\+P\+CR is an R package provided by the S\+T\+S\+DS group at K\+A\+U\+ST 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix, if Null t(a\+Input\+A) \%$\ast$\% a\+InputA ,otherwise a\+InputA \%$\ast$\% a\+InputB \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Matrix, if Null t(a\+Input\+A) \%$\ast$\% a\+InputA ,otherwise a\+InputA \%$\ast$\% a\+InputB \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Matrix 
+M\+P\+CR Matrix 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_aad63789b8f3ae6a2aa763dd0b87d5112_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -205,22 +216,26 @@ Calculate Eigen Values and (optionally) Eigen Vectors. if(a\+Only\+Values)= true
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Square Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+P\+CR Square Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Only\+Values} & bool True, Only values will be returned ,otherwise values and vectors. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-vector of M\+PR objects, First element Values ,and second element Vectors. 
+vector of M\+P\+CR objects, First element Values ,and second element Vectors. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+This if condition is added since M\+KL eigen routine has a bug with float affecting the runtime of the function.
+
+so for this function, any non double matrix will be converted to double to avoid this timing problem.Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_ae29d6ee560390e9403f2cf52e5489799_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -239,11 +254,11 @@ Perform Matrix Matrix Multiplication using Gemm/\+Syrk routines performs\+: C= a
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix ,if missing syrk routine will be used \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Matrix ,if missing syrk routine will be used \\
 \hline
-\mbox{\texttt{ in,out}}  & {\em a\+InputC} & M\+PR Matrix \\
+\mbox{\texttt{ in,out}}  & {\em a\+InputC} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+TransposeA} & if true , the transpose of A will be Used \\
 \hline
@@ -255,16 +270,18 @@ Perform Matrix Matrix Multiplication using Gemm/\+Syrk routines performs\+: C= a
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Matrix 
+M\+P\+CR Matrix 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_ae0412e03a33a5694770a7be74cb56628_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -283,20 +300,22 @@ Check if a Matrix Is Symmetric.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+P\+CR Matrix \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true if symmetric ,false otherwise 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a3444363bdbdf1b7b1ef5ed9fdee158ab_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -315,7 +334,7 @@ Computes a matrix norm of a\+Input. The norm can be the one (\char`\"{}\+O\char`
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+Input} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Type} & Type of Norm ( O , 1 , I , F, M) \\
 \hline
@@ -323,14 +342,16 @@ Computes a matrix norm of a\+Input. The norm can be the one (\char`\"{}\+O\char`
 \begin{DoxyReturn}{Returns}
 Norm Value 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a4e72a89d4403f0c0c1cef7e0e57b12eb_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -349,7 +370,7 @@ Computes the QR decomposition of a matrix.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Tolerance} & the tolerance for detecting linear dependencies in the columns of a\+InputA \\
 \hline
@@ -357,14 +378,16 @@ Computes the QR decomposition of a matrix.
 \begin{DoxyReturn}{Returns}
 vector containing QR,Q\+Raux,Pivot,Rank 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a2bf1d3be5fd2f6701dc704d8ed4787eb_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -383,26 +406,28 @@ Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformatio
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix QR \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix QR \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Object Representing Q\+R\+A\+UX \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Object Representing Q\+R\+A\+UX \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+PR Object Representing D\+Vec ,if null Q\+R\+DecompositionQ will be called. otherwise Q\+R\+Decomposition\+QY \\
+\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+P\+CR Object Representing D\+Vec ,if null Q\+R\+DecompositionQ will be called. otherwise Q\+R\+Decomposition\+QY \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-returns Q. As M\+PR Object. 
+returns Q. As M\+P\+CR Object. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a6194ff200d27724ba756cbd8000288dc_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -421,26 +446,28 @@ Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformatio
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix QR \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix QR \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Object Representing Q\+R\+A\+UX \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Object Representing Q\+R\+A\+UX \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+PR Object Representing D\+Vec , Q\+R\+Decomposition\+QY with flag transpose =true wil be called \\
+\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+P\+CR Object Representing D\+Vec , Q\+R\+Decomposition\+QY with flag transpose =true wil be called \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-returns Q. As M\+PR Object. 
+returns Q. As M\+P\+CR Object. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_afa6d5fc8536e496a04fc2c1340cba569_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -459,26 +486,28 @@ Returns part or all of Q, the order-\/nrow(X) orthogonal (unitary) transformatio
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix QR \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix QR \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Object Representing Q\+R\+A\+UX \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Object Representing Q\+R\+A\+UX \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+PR Object Representing D\+Vec , Q\+R\+Decomposition\+QY with flag transpose =false wil be called \\
+\mbox{\texttt{ in}}  & {\em a\+Dvec} & M\+P\+CR Object Representing D\+Vec , Q\+R\+Decomposition\+QY with flag transpose =false wil be called \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-returns Q. As M\+PR Object. 
+returns Q. As M\+P\+CR Object. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_aeba50fab8381884d7466d4c3972cfb4e_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -497,22 +526,24 @@ returns R. This may be pivoted, The number of rows of R is either nrow(a\+Input\
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Complete} & logical expression . Indicates whether an arbitrary orthogonal completion of the Q or X matrices is to be made, or whether the matrix is to be completed by binding zero-\/value rows beneath the square upper triangle. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-returns R. This may be pivoted. As M\+PR Object. 
+returns R. This may be pivoted. As M\+P\+CR Object. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a899353c985867c62dea2222e958e90ce_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -531,7 +562,7 @@ Estimate the reciprocal of the condition number of a matrix.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Norm} & character string indicating the type of norm to be used in the estimate. The default is \char`\"{}\+O\char`\"{} for the 1-\/norm (\char`\"{}\+O\char`\"{} is equivalent to \char`\"{}1\char`\"{}). For sparse matrices, when use\+Inv=T\+R\+UE, norm can be any of the kinds allowed for norm; otherwise, the other possible value is \char`\"{}\+I\char`\"{} for the infinity norm. \\
 \hline
@@ -539,16 +570,18 @@ Estimate the reciprocal of the condition number of a matrix.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Vector containing one element which is an estimate of the reciprocal condition number of a\+Input. 
+M\+P\+CR Vector containing one element which is an estimate of the reciprocal condition number of a\+Input. 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a8d4a9dc85f82d4e225cdced198536698_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -567,22 +600,24 @@ Solves the equation AX=B.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix A \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix A \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix X, if Null t(\+A) will be used. \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Matrix X, if Null t(\+A) will be used. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Matrix B 
+M\+P\+CR Matrix B 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a8eeed7fcd31e59e45d07ec2bc76a3c54_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -601,7 +636,7 @@ Compute the singular-\/value decomposition of a rectangular matrix.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
 \mbox{\texttt{ in}}  & {\em a\+Nu} & the number of left singular vectors to be computed. This must between 0 and m = nrow(a\+Input\+A). default a\+Nu = nrow(a\+Input\+A). \\
 \hline
@@ -613,14 +648,16 @@ Compute the singular-\/value decomposition of a rectangular matrix.
 \begin{DoxyReturn}{Returns}
 Vectors containing d,u,v or VT if a\+Transpose = false 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a5595028cb926cb8d01b50c8f6eb6bdd2_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -635,26 +672,28 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Calculate Cross\+Product of 2 M\+PR Matrices performs\+: x \%$\ast$\% t(y) , x \%$\ast$\% t(x) 
+Calculate Cross\+Product of 2 M\+P\+CR Matrices performs\+: x \%$\ast$\% t(y) , x \%$\ast$\% t(x) 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+PR Matrix \\
+\mbox{\texttt{ in}}  & {\em a\+InputA} & M\+P\+CR Matrix \\
 \hline
-\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+PR Matrix, if Null a\+InputA \%$\ast$\% t(a\+Input\+A) ,otherwise a\+InputA \%$\ast$\% t(a\+Input\+B) \\
+\mbox{\texttt{ in}}  & {\em a\+InputB} & M\+P\+CR Matrix, if Null a\+InputA \%$\ast$\% t(a\+Input\+A) ,otherwise a\+InputA \%$\ast$\% t(a\+Input\+B) \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-M\+PR Matrix 
+M\+P\+CR Matrix 
 \end{DoxyReturn}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_a471b6761be43bb48d2f031d619a99700_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -669,14 +708,15 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Transpose a given M\+PR Matrix. 
+Transpose a given M\+P\+CR Matrix. 
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{ in,out}}  & {\em a\+InputA} & M\+PR Matrix A \\
+\mbox{\texttt{ in,out}}  & {\em a\+InputA} & M\+P\+CR Matrix A \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -689,14 +729,16 @@ Here is the caller graph for this function\+:\nopagebreak
 \doxysubsubsection{\texorpdfstring{RTrsm()}{RTrsm()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}}$\ast$ R\+Trsm (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputA,  }\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{a\+InputB,  }\item[{const bool \&}]{a\+Upper\+Tri,  }\item[{const bool \&}]{a\+Transpose,  }\item[{const char \&}]{a\+Side,  }\item[{const double \&}]{a\+Alpha }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{RLinearAlgebra_8cpp_ad9707037cdca328d5ffa3542400576ce_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
