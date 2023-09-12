@@ -1,5 +1,0 @@
-<map id="mpr::operations::math::IsFinite" name="mpr::operations::math::IsFinite">
-<area shape="rect" id="node1" title="Checks if a given MPR Object values are Finite or not." alt="" coords="300,5,467,47"/>
-<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#a447dc7c733928c018505bad211d8e283" title="Check if elements is finite or not." alt="" coords="173,13,252,39"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
-</map>

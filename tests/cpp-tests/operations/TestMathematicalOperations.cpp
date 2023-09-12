@@ -2,18 +2,18 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <libraries/catch/catch.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 #include <operations/MathematicalOperations.hpp>
 
 
 using namespace std;
-using namespace mpr::precision;
-using namespace mpr::operations;
+using namespace mpcr::precision;
+using namespace mpcr::operations;
 
 
 void

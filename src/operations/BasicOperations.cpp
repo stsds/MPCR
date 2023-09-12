@@ -2,17 +2,17 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <operations/BasicOperations.hpp>
-#include <utilities/MPRErrorHandler.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRErrorHandler.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
-using namespace mpr::operations;
-using namespace mpr::precision;
+using namespace mpcr::operations;
+using namespace mpcr::precision;
 
 
 template <typename T>
@@ -62,7 +62,7 @@ void
 basic::GetType(DataType &aVec, std::string &aType) {
 
     std::stringstream ss;
-    ss << "MMPR Object : ";
+    ss << "MPCR Object : ";
 
     precision::Precision temp = aVec.GetPrecision();
     if (temp == precision::HALF) {
@@ -72,7 +72,7 @@ basic::GetType(DataType &aVec, std::string &aType) {
     } else if (temp == precision::DOUBLE) {
         ss << "64-Bit Precision";
     } else {
-        MPR_API_EXCEPTION("Type Error Unknown Type", (int) temp);
+        MPCR_API_EXCEPTION("Type Error Unknown Type", (int) temp);
     }
     ss << std::endl;
     aType = ss.str();
@@ -88,11 +88,11 @@ basic::GetDiagonal(DataType &aVec, DataType &aOutput,
 
     if (!aVec.IsMatrix()) {
         if (apDim == nullptr) {
-            MPR_API_EXCEPTION("Matrix Out of Bound No Dimensions is Passed",
+            MPCR_API_EXCEPTION("Matrix Out of Bound No Dimensions is Passed",
                               -1);
         }
         if (!aVec.CanBeMatrix(apDim->GetNRow(), apDim->GetNCol())) {
-            MPR_API_EXCEPTION("Matrix Out of Bound Wrong Dimensions", -1);
+            MPCR_API_EXCEPTION("Matrix Out of Bound Wrong Dimensions", -1);
         }
         pDims = apDim;
     } else {
@@ -144,7 +144,7 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
 
     if (aMargin == 1 && rows % stat_size ||
         aMargin != 1 && cols % stat_size) {
-        MPR_API_WARN("STATS does not recycle exactly across MARGIN", -1);
+        MPCR_API_WARN("STATS does not recycle exactly across MARGIN", -1);
     }
 
     if (aMargin == 1) {
@@ -170,7 +170,7 @@ basic::Concatenate(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     }
 
     if (aInputA.IsMatrix()) {
-        MPR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
+        MPCR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
     }
 
     T *pData_in_one = (T *) aInputA.GetData();
@@ -182,7 +182,7 @@ basic::Concatenate(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     if (aInputB.GetSize() != 0) {
         if (aInputB.IsMatrix()) {
-            MPR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
+            MPCR_API_EXCEPTION("Cannot Concatenate a Matrix", -1);
         }
 
         X *pData_in_two = (X *) aInputB.GetData();
@@ -201,13 +201,13 @@ template <typename T, typename X, typename Y>
 void
 basic::ColumnBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
     if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
-        MPR_API_EXCEPTION("Cannot Bind ... Not a Matrix", -1);
+        MPCR_API_EXCEPTION("Cannot Bind ... Not a Matrix", -1);
     }
     size_t new_size = aInputA.GetSize() + aInputB.GetSize();
     auto dim_one = aInputA.GetDimensions();
     auto dim_two = aInputB.GetDimensions();
     if (dim_one->GetNRow() != dim_two->GetNRow()) {
-        MPR_API_EXCEPTION("Cannot Bind ... Different Row Size", -1);
+        MPCR_API_EXCEPTION("Cannot Bind ... Different Row Size", -1);
     }
 
     size_t num_rows = dim_one->GetNRow();
@@ -233,13 +233,13 @@ template <typename T, typename X, typename Y>
 void
 basic::RowBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
     if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
-        MPR_API_EXCEPTION("Cannot Bind ... Not a Matrix", -1);
+        MPCR_API_EXCEPTION("Cannot Bind ... Not a Matrix", -1);
     }
     size_t new_size = aInputA.GetSize() + aInputB.GetSize();
     auto dim_one = aInputA.GetDimensions();
     auto dim_two = aInputB.GetDimensions();
     if (dim_one->GetNCol() != dim_two->GetNCol()) {
-        MPR_API_EXCEPTION("Cannot Bind ... Different Column Size", -1);
+        MPCR_API_EXCEPTION("Cannot Bind ... Different Column Size", -1);
     }
 
     size_t num_cols = dim_one->GetNCol();
@@ -452,7 +452,7 @@ basic::ApplyCenter(DataType &aInputA, DataType &aCenter, DataType &aOutput,
         auto pData_center = (X *) aCenter.GetData();
         auto center_size = aCenter.GetSize();
         if (col != center_size) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Cannot Center with the Provided Data, Column size doesn't equal Center Vector Size",
                 -1);
         }
@@ -520,7 +520,7 @@ basic::ApplyScale(DataType &aInputA, DataType &aScale, DataType &aOutput,
         auto scale_size = aScale.GetSize();
         auto col_size = aInputA.GetNCol();
         if (col_size != scale_size) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Cannot Scale with the Provided Data, Column size doesn't equal Scale Vector Size",
                 -1);
         }

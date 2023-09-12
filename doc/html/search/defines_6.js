@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['mpr_5fapi_5fexception_707',['MPR_API_EXCEPTION',['../MPRErrorHandler_8hpp.html#a32bbc15c9666c0fc66059869632c38b9',1,'MPRErrorHandler.hpp']]],
-  ['mpr_5fapi_5fwarn_708',['MPR_API_WARN',['../MPRErrorHandler_8hpp.html#acd16bdb4016c20638b69ce7c8bd4fdeb',1,'MPRErrorHandler.hpp']]]
+  ['mpcr_5fapi_5fexception_721',['MPCR_API_EXCEPTION',['../MPCRErrorHandler_8hpp.html#a7d519a9478280f8175abdba67338ffaa',1,'MPCRErrorHandler.hpp']]],
+  ['mpcr_5fapi_5fwarn_722',['MPCR_API_WARN',['../MPCRErrorHandler_8hpp.html#afc73751719ff64a242fc551cb1f93947',1,'MPCRErrorHandler.hpp']]]
 ];

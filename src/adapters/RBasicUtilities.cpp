@@ -2,18 +2,18 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <operations/BasicOperations.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 #include <adapters/RBasicUtilities.hpp>
 #include <adapters/RHelpers.hpp>
 
 
-using namespace mpr::operations;
-using namespace mpr::precision;
+using namespace mpcr::operations;
+using namespace mpcr::precision;
 
 
 /**
@@ -76,7 +76,7 @@ RReplicate(DataType *apInput, size_t aSize, size_t aLength) {
         aSize = aLength;
     }
     if (aSize == 0) {
-        MPR_API_EXCEPTION("Replicate size cannot equal to Zero", -1);
+        MPCR_API_EXCEPTION("Replicate size cannot equal to Zero", -1);
     }
     auto precision = apInput->GetPrecision();
     auto pOutput = new DataType(precision);
@@ -275,7 +275,7 @@ RConcatenate(Rcpp::ListOf <SEXP> aList) {
             precision_out = GetOutputPrecision(precision_out,
                                                temp_mpr->GetPrecision());
         } else {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure all Objects are MMPR Objects and Vectors",
                 (int) i);
         }
@@ -412,7 +412,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
     auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
         a);
     if (!temp_mpr->IsDataType()) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Undefined Object . Make Sure You're Using MMPR Object",
             -1);
     }
@@ -434,7 +434,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
         auto temp_scale = (DataType *) Rcpp::internal::as_module_object_internal(
             c);
         if (!temp_scale->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -444,7 +444,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
         auto temp_center = (DataType *) Rcpp::internal::as_module_object_internal(
             b);
         if (!temp_center->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -455,7 +455,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
         auto temp_center = (DataType *) Rcpp::internal::as_module_object_internal(
             b);
         if (!temp_center->IsDataType() || !temp_scale->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -465,7 +465,7 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
 }
 
 DataType *
-RConvertToMPR(std::vector <double> &aValues, const size_t &aRow,
+RConvertToMPCR(std::vector <double> &aValues, const size_t &aRow,
               const size_t &aCol, const std::string &aPrecision){
     if(aRow==0 || aCol==0){
         return new DataType(aValues,aPrecision);

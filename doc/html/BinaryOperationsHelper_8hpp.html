@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MMPR: inst/include/operations/helpers/BinaryOperationsHelper.hpp File Reference</title>
+<title>MPCR: inst/include/operations/helpers/BinaryOperationsHelper.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">MMPR
+   <div id="projectname">MPCR
    </div>
   </td>
  </tr>
@@ -221,7 +221,9 @@ Macros</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">           <span class="keywordflow">for</span>(<span class="keyword">auto</span> i=0;i&lt;sizeOut;i++){                                        \</div>
 <div class="line">                dataOut[i]=dataA[i%sizeA] FUN dataB[i % sizeB];                \</div>
 <div class="line">            }                                                                  \</div>
-</div><!-- fragment -->
+</div><!-- fragment --><p>Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.</p>
+<p>MPCR is an R package provided by the STSDS group at KAUST </p>
+
 </div>
 </div>
 <a id="a05b6e7d13c4114e61e21117d3182e94c"></a>
@@ -412,7 +414,7 @@ Macros</h2></td></tr>
 <div class="line">                dataOut[i]=std::pow(dataA[i%sizeA],dataB[i%sizeB]);            \</div>
 <div class="line">            }                                                                  \</div>
 <div class="line">         }<span class="keywordflow">else</span> {                                                               \</div>
-<div class="line">             MPR_API_EXCEPTION(<span class="stringliteral">&quot;Operation Not Supported&quot;</span>, -1);                 \</div>
+<div class="line">             MPCR_API_EXCEPTION(<span class="stringliteral">&quot;Operation Not Supported&quot;</span>, -1);                 \</div>
 <div class="line">         }                                                                     \</div>
 </div><!-- fragment -->
 </div>
@@ -473,7 +475,7 @@ Macros</h2></td></tr>
 <div class="line">                dataOut[i]=std::pow(dataA[i], dataB);                          \</div>
 <div class="line">            }                                                                  \</div>
 <div class="line">         }<span class="keywordflow">else</span> {                                                               \</div>
-<div class="line">             MPR_API_EXCEPTION(<span class="stringliteral">&quot;Operation Not Supported&quot;</span>, -1);                 \</div>
+<div class="line">             MPCR_API_EXCEPTION(<span class="stringliteral">&quot;Operation Not Supported&quot;</span>, -1);                 \</div>
 <div class="line">         }                                                                     \</div>
 </div><!-- fragment -->
 </div>
@@ -542,7 +544,7 @@ Macros</h2></td></tr>
 <div class="line">         }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(FUN==<span class="stringliteral">&quot;&lt;=&quot;</span>)  {                                                \</div>
 <div class="line">            COMPARE_OP(dataA,dataB,dataOut,&lt;=,sizeB,sizeA,sizeOut)             \</div>
 <div class="line">         }<span class="keywordflow">else</span> {                                                               \</div>
-<div class="line">             MPR_API_EXCEPTION(<span class="stringliteral">&quot;Compare Operation Not Supported&quot;</span>, -1);         \</div>
+<div class="line">             MPCR_API_EXCEPTION(<span class="stringliteral">&quot;Compare Operation Not Supported&quot;</span>, -1);         \</div>
 <div class="line">         }                                                                     \</div>
 </div><!-- fragment -->
 </div>
@@ -599,7 +601,7 @@ Macros</h2></td></tr>
 <div class="line">         }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(FUN==<span class="stringliteral">&quot;&lt;=&quot;</span>)  {                                                \</div>
 <div class="line">            COMPARE_OP_SINGLE(dataA,dataB,dataOut,&lt;=,sizeA)                    \</div>
 <div class="line">         }<span class="keywordflow">else</span> {                                                               \</div>
-<div class="line">             MPR_API_EXCEPTION(<span class="stringliteral">&quot;Compare Operation Not Supported&quot;</span>, -1);         \</div>
+<div class="line">             MPCR_API_EXCEPTION(<span class="stringliteral">&quot;Compare Operation Not Supported&quot;</span>, -1);         \</div>
 <div class="line">         }                                                                     \</div>
 </div><!-- fragment --><p>This dispatcher launch iterations using Row Major Representation for dataA and a single Val for dataB (Comparisons) </p>
 

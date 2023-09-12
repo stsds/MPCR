@@ -1,0 +1,7 @@
+<map id="mpcr::operations::basic::GetType" name="mpcr::operations::basic::GetType">
+<area shape="rect" id="node1" title="Get string indicating whether it&#39;s 16/32/64 Bit Precision." alt="" coords="528,35,703,76"/>
+<area shape="rect" id="node2" href="$namespacempcr_1_1operations_1_1basic.html#a3098c1674365a992248234aa66c91da8" title="Get Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values Precisions." alt="" coords="305,5,480,47"/>
+<area shape="rect" id="node5" href="$RBasicUtilities_8hpp.html#a59c4ffb9412ef2d6d55d54532dff8f15" title="R Adapter for Printing string indicating whether it&#39;s 16/32/64 Bit Precision." alt="" coords="173,67,257,94"/>
+<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a0fa4d270064a51d382f3341a3d6c489e" title="R Adapter for Printing Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values ,..." alt="" coords="185,15,246,42"/>
+<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,42,125,69"/>
+</map>

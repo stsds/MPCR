@@ -2,12 +2,12 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_LINEARALGEBRA_HPP
-#define MPR_LINEARALGEBRA_HPP
+#ifndef MPCR_LINEARALGEBRA_HPP
+#define MPCR_LINEARALGEBRA_HPP
 
 
 #include <data-units/DataType.hpp>
@@ -16,22 +16,22 @@
 #define LAYOUT blas::Layout::ColMajor
 
 
-namespace mpr {
+namespace mpcr {
     namespace operations {
         namespace linear {
 
             /**
              * @brief
-             * Calculate CrossProduct of 2 MPR Matrices
+             * Calculate CrossProduct of 2 MPCR Matrices
              * performs:
              * x %*% t(x) , x %*% t(y) , x %*% y  , t(x) %*% y
              *
              * @param[in] aInputA
-             * MPR Matrix
+             * MPCR Matrix
              * @param[in] aInputB
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutput
-             * MPR Matrix
+             * MPCR Matrix
              * @param[in] aTransposeA
              * bool to indicate whether aInputA should be Transposed or not
              * @param[in] aTransposeB
@@ -54,7 +54,7 @@ namespace mpr {
              * Check if a Matrix Is Symmetric
              *
              * @param[in] aInput
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutput
              * true if symmetric ,false otherwise
              *
@@ -68,9 +68,9 @@ namespace mpr {
              * Calculate Cholesky decomposition
              *
              * @param[in] aInput
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutput
-             * MPR Matrix containing decomposition result
+             * MPCR Matrix containing decomposition result
              *
              */
             template <typename T>
@@ -84,9 +84,9 @@ namespace mpr {
              * Cholesky decomposition.
              *
              * @param[in] aInput
-             * MPR Matrix containing Cholesky decomposition.
+             * MPCR Matrix containing Cholesky decomposition.
              * @param[out] aOutput
-             * MPR Matrix
+             * MPCR Matrix
              *
              */
             template <typename T>
@@ -99,11 +99,11 @@ namespace mpr {
              * Solves the equation AX=B
              *
              * @param[in] aInputA
-             * MPR Matrix A
+             * MPCR Matrix A
              * @param[in] aInputB
-             * MPR Matrix X
+             * MPCR Matrix X
              * @param[out] aOutput
-             * MPR Matrix B
+             * MPCR Matrix B
              * @param[in] aSingle
              * if true only aInputA will be used and for X t(A) will be used.
              *
@@ -121,9 +121,9 @@ namespace mpr {
              * Solve aInputA aOutput = aInputB
              *
              * @param[in] aInputA
-             * MPR Matrix
+             * MPCR Matrix
              * @param[in] aInputB
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutput
              * The solution of the triangular system
              * @param[in] aCol
@@ -147,7 +147,7 @@ namespace mpr {
              * if(apOutputVectors)= nullptr , only the values will be calculated
              *
              * @param[in] aInput
-             * MPR Square Matrix
+             * MPCR Square Matrix
              * @param[out] aOutputValues
              * Eigen Values
              * @param[out] apOutputVectors
@@ -165,7 +165,7 @@ namespace mpr {
              * modulus ("M") among elements of a matrix.
              *
              * @param[in] aInput
-             * MPR Matrix
+             * MPCR Matrix
              * @param[in] aType
              * Type of Norm ( O , 1 , I , F, M)
              * @param[out] aOutput
@@ -181,9 +181,9 @@ namespace mpr {
              * Computes the QR decomposition of a matrix.
              *
              * @param[in] aInputA
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutputQr
-             * a MPR Matrix with the same dimensions as aInputA. The upper
+             * a MPCR Matrix with the same dimensions as aInputA. The upper
              * triangle contains the decomposition and the lower triangle
              * contains information of the decomposition (stored in compact form)
              * @param[out] aOutputQraux
@@ -211,9 +211,9 @@ namespace mpr {
              * (and may depend on whether complete is TRUE or FALSE).
              *
              * @param[in] aInputA
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutput
-             * returns R. This may be pivoted. As MPR Object.
+             * returns R. This may be pivoted. As MPCR Object.
              * @param[in] aComplete
              * logical expression . Indicates whether an arbitrary
              * orthogonal completion of the Q or X matrices is to be made,
@@ -233,11 +233,11 @@ namespace mpr {
              * nrow(X) columns. If complete is FALSE, Q has ncol(X) columns.
              *
              * @param[in] aInputA
-             * MPR Matrix QR
+             * MPCR Matrix QR
              * @param[in] aInputB
-             * MPR Object Representing QRAUX
+             * MPCR Object Representing QRAUX
              * @param[out] aOutput
-             * returns Q. As MPR Object.
+             * returns Q. As MPCR Object.
              * @param[in] aComplete
              * logical expression . Indicates whether an arbitrary
              * orthogonal completion of the Q or X matrices is to be made,
@@ -257,13 +257,13 @@ namespace mpr {
              * nrow(X) columns. If complete is FALSE, Q has ncol(X) columns.
              * and each column of Q is multiplied by the corresponding value in Dvec.
              * @param[in] aInputA
-             * MPR Matrix
+             * MPCR Matrix
              * @param[in] aInputB
-             * MPR Object Representing QRAUX
+             * MPCR Object Representing QRAUX
              * @param[in] aInputC
-             * MPR Object Representing DVec
+             * MPCR Object Representing DVec
              * @param[out] aOutput
-             * returns Q. As MPR Object.
+             * returns Q. As MPCR Object.
              * @param[in] aComplete
              * logical expression . Indicates whether an arbitrary
              * orthogonal completion of the Q or X matrices is to be made,
@@ -282,15 +282,15 @@ namespace mpr {
              * Compute the singular-value decomposition of a rectangular matrix.
              *
              * @param[in] aInputA
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutputS
-             * an MPR Object containing the singular values of aInputA,
+             * an MPCR Object containing the singular values of aInputA,
              * of length min(n, p).
              * @param[out] aOutputU
-             * a MPR Matrix whose columns contain the left singular vectors of
+             * a MPCR Matrix whose columns contain the left singular vectors of
              * aInputA, present if nu > 0. Dimension c(m, nu).
              * @param[out] aOutputV
-             * a MPR Matrix whose columns contain the right singular vectors of
+             * a MPCR Matrix whose columns contain the right singular vectors of
              * aInputA, present if nv > 0. Dimension c(n, nv).
              * @param[in] aNu
              * the number of left singular vectors to be computed.
@@ -313,9 +313,9 @@ namespace mpr {
              * Estimate the reciprocal of the condition number of a matrix.
              *
              * @param[in] aInput
-             * MPR Matrix
+             * MPCR Matrix
              * @param[out] aOutput
-             * MPR Vector containing one element which is an estimate of the
+             * MPCR Vector containing one element which is an estimate of the
              * reciprocal condition number of aInput.
              * @param[in] aNorm
              * character string indicating the type of norm to be used in the
@@ -335,4 +335,4 @@ namespace mpr {
     }
 }
 
-#endif //MPR_LINEARALGEBRA_HPP
+#endif //MPCR_LINEARALGEBRA_HPP

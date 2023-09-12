@@ -1,14 +1,14 @@
 <map id="Promoter::Promote" name="Promoter::Promote">
-<area shape="rect" id="node1" title="Promote all the inserted MPR Objects according to the Highest Object Precision." alt="" coords="392,208,537,235"/>
-<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a4795dfedd631c690066b70114ef258c4" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="209,5,308,32"/>
-<area shape="rect" id="node4" href="$RLinearAlgebra_8hpp.html#aad63789b8f3ae6a2aa763dd0b87d5112" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="201,56,317,83"/>
-<area shape="rect" id="node5" href="$RLinearAlgebra_8hpp.html#ae0412e03a33a5694770a7be74cb56628" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="221,107,296,133"/>
-<area shape="rect" id="node6" href="$RLinearAlgebra_8hpp.html#a8eeed7fcd31e59e45d07ec2bc76a3c54" title="Solves the equation AX=B." alt="" coords="225,157,292,184"/>
-<area shape="rect" id="node7" href="$RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700" title="Calculate CrossProduct of 2 MPR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="197,208,320,235"/>
-<area shape="rect" id="node8" href="$RLinearAlgebra_8hpp.html#ad9707037cdca328d5ffa3542400576ce" title=" " alt="" coords="228,259,289,285"/>
-<area shape="rect" id="node9" href="$namespacempr_1_1operations_1_1linear.html#ab513f8ae03768c169422a7526c023091" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="173,310,344,351"/>
-<area shape="rect" id="node11" href="$namespacempr_1_1operations_1_1linear.html#ae6cfe175d37fd5765b277e4b60e5706d" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="173,375,344,417"/>
-<area shape="rect" id="node12" href="$namespacempr_1_1operations_1_1linear.html#abd6448d4de9c6dd0b6bfcb9f85cc02ad" title="Solves a triangular matrix equation performs: op(A)*X=alpha*B X*op(A)=alpha*B." alt="" coords="173,441,344,482"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,132,125,159"/>
-<area shape="rect" id="node10" href="$MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,383,125,409"/>
+<area shape="rect" id="node1" title="Promote all the inserted MPCR Objects according to the Highest Object Precision." alt="" coords="399,208,544,235"/>
+<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a4795dfedd631c690066b70114ef258c4" title="Solves a system of linear equations where the coefficient matrix is upper or lower triangular...." alt="" coords="213,5,311,32"/>
+<area shape="rect" id="node4" href="$RLinearAlgebra_8hpp.html#aad63789b8f3ae6a2aa763dd0b87d5112" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% y , t(x) %*% x." alt="" coords="204,56,320,83"/>
+<area shape="rect" id="node5" href="$RLinearAlgebra_8hpp.html#ae0412e03a33a5694770a7be74cb56628" title="Perform Matrix Matrix Multiplication using Gemm/Syrk routines performs: C= alphaA *B +betaC." alt="" coords="225,107,299,133"/>
+<area shape="rect" id="node6" href="$RLinearAlgebra_8hpp.html#a8eeed7fcd31e59e45d07ec2bc76a3c54" title="Solves the equation AX=B." alt="" coords="229,157,295,184"/>
+<area shape="rect" id="node7" href="$RLinearAlgebra_8hpp.html#a471b6761be43bb48d2f031d619a99700" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="201,208,323,235"/>
+<area shape="rect" id="node8" href="$RLinearAlgebra_8hpp.html#ad9707037cdca328d5ffa3542400576ce" title=" " alt="" coords="231,259,293,285"/>
+<area shape="rect" id="node9" href="$namespacempcr_1_1operations_1_1linear.html#a5c8f7cdb592e0cb4a820d88af7105d22" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="173,310,351,351"/>
+<area shape="rect" id="node11" href="$namespacempcr_1_1operations_1_1linear.html#abf947d90eb7b44b63653c9078e7f41a5" title="Tiled&#45;Matrix Multiplication of 2 MPCR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="173,375,351,417"/>
+<area shape="rect" id="node12" href="$namespacempcr_1_1operations_1_1linear.html#a7d47126a1945fd0a6fd28af51ebd9f77" title="Solves a triangular matrix equation performs: op(A)*X=alpha*B X*op(A)=alpha*B." alt="" coords="173,441,351,482"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,132,125,159"/>
+<area shape="rect" id="node10" href="$MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,383,125,409"/>
 </map>

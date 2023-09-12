@@ -1,24 +1,24 @@
 \name{24-Transpose}
 \alias{transpose}
-\alias{t,Rcpp_MMPR-method}
+\alias{t,Rcpp_MPCR-method}
 \title{transpose}
 \usage{
-\S4method{t}{Rcpp_MMPR}(x)
+\S4method{t}{Rcpp_MPCR}(x)
 }
 \arguments{
-\item{x}{An MMPR object.}
+\item{x}{An MPCR object.}
 }
 \value{
-An MMPR object.
+An MPCR object.
 }
 \description{
-Transpose an MMPR object.
+Transpose an MPCR object.
 }
 \examples{
   \dontrun{
-  library(MMPR)
+  library(MPCR)
   a <- matrix(1:20, nrow = 2)
-  a_mmpr <- as.MMPR(a,2,10,"double")
-  a_mmpr_transpose <- t(a_mmpr)
+  a_MPCR <- as.MPCR(a,2,10,"double")
+  a_MPCR_transpose <- t(a_MPCR)
   }
 }

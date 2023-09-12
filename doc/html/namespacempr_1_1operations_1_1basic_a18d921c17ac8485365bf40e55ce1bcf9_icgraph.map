@@ -1,8 +1,0 @@
-<map id="mpr::operations::basic::MinMax" name="mpr::operations::basic::MinMax">
-<area shape="rect" id="node1" title="Get Min/Max Element in Array and Idx at which the element is. if only the Index is Needed ,..." alt="" coords="324,74,491,115"/>
-<area shape="rect" id="node2" href="$RBasicUtilities_8hpp.html#a3c2a4824829ad094e7b268d08cfb4a42" title="R Adapter for Getting Max Element in Array." alt="" coords="183,5,266,32"/>
-<area shape="rect" id="node4" href="$RBasicUtilities_8hpp.html#a8baa94866693cb0dc393d2b63175a48f" title="R Adapter for Getting Max Element Index in Array." alt="" coords="173,56,276,83"/>
-<area shape="rect" id="node5" href="$RBasicUtilities_8hpp.html#abf9fdb72c6ee34be1237a045f0f1585c" title="R Adapter for Getting Min Element in Array." alt="" coords="185,107,264,133"/>
-<area shape="rect" id="node6" href="$RBasicUtilities_8hpp.html#ad82f73297bccd29773fc26dc104a7a4c" title="R Adapter for Getting Min Element Index in Array." alt="" coords="175,157,274,184"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,81,125,108"/>
-</map>

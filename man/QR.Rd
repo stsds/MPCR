@@ -1,11 +1,11 @@
 \name{34-QR decomposition}
 \alias{qr}
-\alias{qr,Rcpp_MMPR-method}
+\alias{qr,Rcpp_MPCR-method}
 \alias{qr.Q,ANY-method}
 \alias{qr.R,ANY-method}
 \title{QR decomposition}
 \usage{
-\S4method{qr}{Rcpp_MMPR}(x, tol = 1e-07)
+\S4method{qr}{Rcpp_MPCR}(x, tol = 1e-07)
 
 \S4method{qr.Q}{ANY}(qr, complete = FALSE, Dvec)
 
@@ -13,9 +13,9 @@
 
 }
 \arguments{
-\item{x}{An MMPR matrix.}
+\item{x}{An MPCR matrix.}
 
-\item{qr}{QR decomposition MMPR object.}
+\item{qr}{QR decomposition MPCR object.}
 
 \item{tol}{The tolerance for determining numerical column rank.}
 
@@ -39,10 +39,10 @@ argument \code{LAPACK=TRUE}.
 \examples{
 \dontrun{
 
-library(MMPR)
+library(MPCR)
 
 
-qr_input <-as.MMPR( c(1, 2, 3, 2, 4, 6, 3, 3, 3),3,3,"single")
+qr_input <-as.MPCR( c(1, 2, 3, 2, 4, 6, 3, 3, 3),3,3,"single")
 qr_out <- qr(qr_input)
 qr_out
 qr_out[["qr"]]$PrintValues()

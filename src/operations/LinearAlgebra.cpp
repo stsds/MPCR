@@ -2,17 +2,17 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <blas.hh>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 #include <operations/helpers/LinearAlgebraHelper.hpp>
 #include <operations/LinearAlgebra.hpp>
 
 
-using namespace mpr::operations;
+using namespace mpcr::operations;
 using namespace std;
 
 
@@ -82,7 +82,7 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     }
 
     if (col_a != row_b) {
-        MPR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
+        MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
     }
 
     T *pData_out = nullptr;
@@ -91,7 +91,7 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         pData_out = (T *) aOutput.GetData();
 
         if (aOutput.GetNRow() != row_a || aOutput.GetNCol() != col_b) {
-            MPR_API_EXCEPTION("Wrong Output Matrix Dimensions", -1);
+            MPCR_API_EXCEPTION("Wrong Output Matrix Dimensions", -1);
         }
 
     } else {
@@ -174,7 +174,7 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
 
 
     if (row != col) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Cannot Apply Cholesky Decomposition on non-square Matrix", -1);
     }
 
@@ -184,7 +184,7 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
 
     auto rc = lapack::potrf(triangle, row, pOutput, row);
     if (rc != 0) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Error While Applying Cholesky Decomposition", rc);
     }
 
@@ -205,7 +205,7 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
     auto col = aInputA.GetNCol();
 
     if (aNCol > col) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Size Cannot exceed the Number of Cols of Input", -1);
     }
 
@@ -233,7 +233,7 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
     auto rc = lapack::potri(lapack::Uplo::Upper, aNCol, pOutput,
                             aOutput.GetNRow());
     if (rc != 0) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Error While Applying Cholesky Decomposition", rc);
     }
 
@@ -254,7 +254,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
 
     if (rows_a != cols_a) {
-        MPR_API_EXCEPTION("Cannot Solve This Matrix , Must be a Square Matrix",
+        MPCR_API_EXCEPTION("Cannot Solve This Matrix , Must be a Square Matrix",
                           -1);
     }
 
@@ -271,7 +271,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     }
 
     if (cols_a != rows_b) {
-        MPR_API_EXCEPTION("Dimensions must be compatible", -1);
+        MPCR_API_EXCEPTION("Dimensions must be compatible", -1);
     }
 
     auto pIpiv = new int64_t[cols_a];
@@ -293,7 +293,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
         if (rc != 0) {
             delete[] pIpiv;
-            MPR_API_EXCEPTION("Error While Solving", rc);
+            MPCR_API_EXCEPTION("Error While Solving", rc);
         }
 
         rc = lapack::getri(cols_a, pData_in_out, rows_a, pIpiv);
@@ -301,14 +301,14 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
         if (rc != 0) {
             delete[] pIpiv;
-            MPR_API_EXCEPTION("Error While Solving", rc);
+            MPCR_API_EXCEPTION("Error While Solving", rc);
         }
 
     }
 
     if (rc != 0) {
         delete[] pIpiv;
-        MPR_API_EXCEPTION("Error While Solving", rc);
+        MPCR_API_EXCEPTION("Error While Solving", rc);
     }
 
 
@@ -330,7 +330,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     bool flag_transform=false;
     if (!aInputA.IsMatrix()) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Inputs Must Be Matrices", -1);
     }
 
@@ -347,7 +347,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto side = aSide == 'L' ? blas::Side::Left : blas::Side::Right;
 
     if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Given Number of Columns is Greater than Columns of B", -1);
     }
     if (aUpperTri) {
@@ -445,7 +445,7 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
         delete[] pOutput_u;
         delete[] pOutput_s;
         delete[] pTemp_data;
-        MPR_API_EXCEPTION("Error While Getting SVD", rc);
+        MPCR_API_EXCEPTION("Error While Getting SVD", rc);
     }
 
 
@@ -467,7 +467,7 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     auto row = aInput.GetNRow();
 
     if (row != col) {
-        MPR_API_EXCEPTION("Cannot Perform Eigen on non square Matrix", -1);
+        MPCR_API_EXCEPTION("Cannot Perform Eigen on non square Matrix", -1);
     }
 
 
@@ -494,7 +494,7 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         delete[] pIsuppz;
         delete[] pValues;
         delete[] pVectors;
-        MPR_API_EXCEPTION("Error While Performing Eigen", rc);
+        MPCR_API_EXCEPTION("Error While Performing Eigen", rc);
     }
 
     if (apOutputVectors) {
@@ -540,7 +540,7 @@ linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
         pOutput[ 0 ] = NormMaxMod <T>(aInput);
     } else {
         delete[] pOutput;
-        MPR_API_EXCEPTION("Argument must be one of 'M','1','O','I','F' or 'E' ",
+        MPCR_API_EXCEPTION("Argument must be one of 'M','1','O','I','F' or 'E' ",
                           -1);
     }
 
@@ -575,7 +575,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
         delete[] pQr_in_out;
         delete[] pJpvt;
         delete[] pQraux;
-        MPR_API_EXCEPTION("Error While Performing QR Decomposition", rc);
+        MPCR_API_EXCEPTION("Error While Performing QR Decomposition", rc);
     }
 
 
@@ -664,7 +664,7 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
 
     if (rc != 0) {
         delete[] pOutput_data;
-        MPR_API_EXCEPTION("Error While Performing QR.Q", rc);
+        MPCR_API_EXCEPTION("Error While Performing QR.Q", rc);
     }
 
     aOutput.ClearUp();
@@ -686,7 +686,7 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
     lapack::Norm norm = aNorm == "I" ? lapack::Norm::Inf : lapack::Norm::One;
 
     if (row != col) {
-        MPR_API_EXCEPTION("Wrong Dimensions for rcond", -1);
+        MPCR_API_EXCEPTION("Wrong Dimensions for rcond", -1);
     }
     auto pRcond = new T[1];
 
@@ -697,7 +697,7 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
 
         if (rc != 0) {
             delete[] pRcond;
-            MPR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
+            MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
         }
 
     } else {
@@ -718,7 +718,7 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             delete[] pRcond;
             delete[] pIpiv;
             delete[] pTemp_data;
-            MPR_API_EXCEPTION("Error While Performing rcond getrf", rc);
+            MPCR_API_EXCEPTION("Error While Performing rcond getrf", rc);
         }
         delete[] pIpiv;
 
@@ -728,7 +728,7 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             delete[] pRcond;
             delete[] pIpiv;
             delete[] pTemp_data;
-            MPR_API_EXCEPTION("Error While Performing rcond gecon", rc);
+            MPCR_API_EXCEPTION("Error While Performing rcond gecon", rc);
         }
 
         delete[] pTemp_data;
@@ -765,7 +765,7 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
 
     if (rc != 0) {
         delete[] pOutput_data;
-        MPR_API_EXCEPTION("Error While Performing QR.QY", rc);
+        MPCR_API_EXCEPTION("Error While Performing QR.QY", rc);
     }
 
     aOutput.ClearUp();

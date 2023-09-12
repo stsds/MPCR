@@ -1,0 +1,8 @@
+<map id="mpcr::operations::math::SquareRoot" name="mpcr::operations::math::SquareRoot">
+<area shape="rect" id="node1" title="Perform Square root operation on a given MPCR Object." alt="" coords="5,99,180,141"/>
+<area shape="rect" id="node2" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="251,5,394,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="250,56,395,83"/>
+<area shape="rect" id="node4" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="252,107,393,133"/>
+<area shape="rect" id="node5" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="251,157,394,184"/>
+<area shape="rect" id="node6" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="228,208,417,235"/>
+</map>

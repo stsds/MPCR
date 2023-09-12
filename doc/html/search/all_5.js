@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['eigen_55',['Eigen',['../namespacempr_1_1operations_1_1linear.html#a4b672e8178ecc2b2daad3037d3d0adf0',1,'mpr::operations::linear']]],
-  ['equaldispatcher_56',['EqualDispatcher',['../classDataType.html#a88d4b85a0143f28ee2d041832b636954',1,'DataType']]],
-  ['error_57',['ERROR',['../namespacempr_1_1precision.html#a9d4312ee29651a68510757fe1a2ae258ab025c2cf7a22260ced56d1607752cf16',1,'mpr::precision']]],
-  ['exponential_58',['Exponential',['../namespacempr_1_1operations_1_1math.html#a6f18cfb3597d7f1eebd0bf3f557a9446',1,'mpr::operations::math']]]
+  ['eigen_57',['Eigen',['../namespacempcr_1_1operations_1_1linear.html#a52bdf8f12e8169bb9f88fe3b5aaf0aac',1,'mpcr::operations::linear']]],
+  ['equaldispatcher_58',['EqualDispatcher',['../classDataType.html#a88d4b85a0143f28ee2d041832b636954',1,'DataType']]],
+  ['error_59',['ERROR',['../namespacempcr_1_1precision.html#afe2f4e3f46878624d55561ba84a10df7a59c8e877966a02fc01238a611a97035b',1,'mpcr::precision']]],
+  ['exponential_60',['Exponential',['../namespacempcr_1_1operations_1_1math.html#a956159c741fec39fee8162681e95bdd7',1,'mpcr::operations::math']]]
 ];

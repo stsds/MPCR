@@ -1,0 +1,6 @@
+<map id="RGetTile" name="RGetTile">
+<area shape="rect" id="node1" title="Get a Tile from MPCRTile Object." alt="" coords="5,42,84,69"/>
+<area shape="rect" id="node2" href="$classMPCRTile.html#a50551c9cee581b547dc7ba102a233e11" title="Get a Tile from the MPCR Tiles using Tile Row idx and Tile Col idx." alt="" coords="132,42,271,69"/>
+<area shape="rect" id="node3" href="$classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="319,5,519,47"/>
+<area shape="rect" id="node4" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="335,71,503,98"/>
+</map>

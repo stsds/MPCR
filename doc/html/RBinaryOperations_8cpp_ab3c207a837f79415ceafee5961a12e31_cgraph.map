@@ -1,7 +1,7 @@
 <map id="RGreaterThanOrEqual" name="RGreaterThanOrEqual">
-<area shape="rect" id="node1" title="R&#45;Adapter for Checking Whether MPR Object is Greater than or Equal a Given Value." alt="" coords="5,247,168,273"/>
+<area shape="rect" id="node1" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than or Equal a Given Value." alt="" coords="5,247,168,273"/>
 <area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="252,149,425,176"/>
-<area shape="rect" id="node3" href="$namespacempr_1_1operations_1_1binary.html#a8a795b3df224443191f2defa9392eb55" title="Perform Compare Operation on MPR Object and a Numerical Value according to provided Operation aFun." alt="" coords="216,201,461,242"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1operations_1_1binary.html#ab016b8223f6f268bd8b3d481dc9aa999" title="Perform Compare Operation on MPCR Object and a Numerical Value according to provided Operation aFun." alt="" coords="216,201,461,242"/>
 <area shape="rect" id="node11" href="$RHelpers_8cpp.html#a794e6be5a797f5a81191f56d445b995d" title="Change Vector of HALF Values to R&#45;Logical Matrix 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="277,323,401,349"/>
 <area shape="rect" id="node14" href="$RHelpers_8cpp.html#ab9b2086f45ef148c54dc8619062b41e5" title="Change Vector of HALF Values to R&#45;Logical Vector 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="277,373,400,400"/>
 <area shape="rect" id="node4" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="521,5,666,32"/>

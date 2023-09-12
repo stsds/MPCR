@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['datatype_361',['DataType',['../classDataType.html',1,'']]],
-  ['dimensions_362',['Dimensions',['../structDimensions.html',1,'']]]
+  ['datatype_368',['DataType',['../classDataType.html',1,'']]],
+  ['dimensions_369',['Dimensions',['../structDimensions.html',1,'']]]
 ];

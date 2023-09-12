@@ -1,5 +1,0 @@
-<map id="MPRTile::ChangePrecision" name="MPRTile::ChangePrecision">
-<area shape="rect" id="node1" title="Change Precision of a certain tile." alt="" coords="5,31,196,57"/>
-<area shape="rect" id="node2" href="$classMPRTile.html#addf7def3a02072651e69c28d7c4e19ce" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="244,5,472,32"/>
-<area shape="rect" id="node3" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="274,56,442,83"/>
-</map>

@@ -1,27 +1,27 @@
 \name{33-Norm}
 \alias{norm}
-\alias{norm,Rcpp_MMPR-method}
+\alias{norm,Rcpp_MPCR-method}
 \title{norm}
 \usage{
-\S4method{norm}{Rcpp_MMPR}(x, type = "O")
+\S4method{norm}{Rcpp_MPCR}(x, type = "O")
 }
 \arguments{
-\item{x}{An MMPR object.}
+\item{x}{An MPCR object.}
 
 \item{type}{"O"-ne, "I"-nfinity, "F"-robenius, "M"-ax modulus, and "1" norms.}
 
 }
 \value{
-An MMPR object.
+An MPCR object.
 }
 \description{
 Compute norm.
 }
 \examples{
 \dontrun{
-library(MMPR)
+library(MPCR)
 
-x <- as.MMPR(1:20,precision="double")
+x <- as.MPCR(1:20,precision="double")
 norm(x, type="O")
 }
 }

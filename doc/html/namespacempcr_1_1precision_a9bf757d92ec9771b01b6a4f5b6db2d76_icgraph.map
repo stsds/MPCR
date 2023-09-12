@@ -1,0 +1,14 @@
+<map id="mpcr::precision::GetInputPrecision" name="mpcr::precision::GetInputPrecision">
+<area shape="rect" id="node1" title="Get Precision for any MPCR Class to make sure no Input is initialized as anything other than the supp..." alt="" coords="428,226,615,267"/>
+<area shape="rect" id="node2" href="$classMPCRTile.html#aef3ef7bc764aa66f58b7637c9b599b7b" title="Change Precision of a certain tile." alt="" coords="177,5,376,32"/>
+<area shape="rect" id="node3" href="$classDataType.html#a47b958c3961806c5d128169e98e7d42c" title="DataType Constructor." alt="" coords="201,56,353,83"/>
+<area shape="rect" id="node4" href="$classMPCRTile.html#a1ec6ba04a475bad2dcf63b3cf6db95a6" title="Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,..." alt="" coords="173,107,380,133"/>
+<area shape="rect" id="node5" href="$classMPCRTile.html#ab62de59d19dd2cfa0907337b329268d6" title="MPCR&#45;Tile Constructor." alt="" coords="201,157,353,184"/>
+<area shape="rect" id="node6" href="$RBinaryOperations_8hpp.html#abc076b9220e28c7892443f47363aed88" title="R&#45;Adapter for Changing Precision of MPCR Object." alt="" coords="207,208,346,235"/>
+<area shape="rect" id="node8" href="$RBinaryOperations_8hpp.html#a68f13e2c0cc9769fa925dfb7a9331bc5" title="R&#45;Adapter for Performing Div with on MPCR object using a Given Value." alt="" coords="224,259,329,285"/>
+<area shape="rect" id="node9" href="$RBinaryOperations_8hpp.html#a770313c42d045067bdc981881f048583" title="R&#45;Adapter for Performing Minus with on MPCR object using a Given Value." alt="" coords="215,309,338,336"/>
+<area shape="rect" id="node10" href="$RBinaryOperations_8hpp.html#a813d05ef218f6f3cf6b02f25d59a8c6c" title="R&#45;Adapter for Performing Multiplication on MPCR object using a Given Value." alt="" coords="221,360,333,387"/>
+<area shape="rect" id="node11" href="$RBinaryOperations_8hpp.html#a4bb7fad31d6813dd725233de0519c5ee" title="R&#45;Adapter for Performing Plus on MPCR object using a Given Value." alt="" coords="221,411,332,437"/>
+<area shape="rect" id="node12" href="$RBinaryOperations_8hpp.html#aa3d1270b230020f8bf544e2855590af9" title="R&#45;Adapter for Performing Power operation on MPCR object using a Given Value." alt="" coords="221,461,332,488"/>
+<area shape="rect" id="node7" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,208,125,235"/>
+</map>

@@ -2,17 +2,17 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_TILELINEARALGEBRA_HPP
-#define MPR_TILELINEARALGEBRA_HPP
+#ifndef MPCR_TILELINEARALGEBRA_HPP
+#define MPCR_TILELINEARALGEBRA_HPP
 
-#include <data-units/MPRTile.hpp>
+#include <data-units/MPCRTile.hpp>
 
 
-namespace mpr {
+namespace mpcr {
     namespace operations {
         namespace linear {
 
@@ -21,7 +21,7 @@ namespace mpr {
              * Calculate Cholesky decomposition for Tiled-Symmetric Matrix
              *
              * @param[in] aMatrix
-             * MPR Matrix
+             * MPCR Matrix
              * @param[in] aOverWriteInput
              * if true , the input will be overwritten with the output,otherwise
              * a new copy will be created.
@@ -29,25 +29,25 @@ namespace mpr {
              * int to decide the number of threads used in OpenMP, default = 1
              * (sequential)
              * @returns
-             * MPRTile Matrix containing decomposition result.
+             * MPCRTile Matrix containing decomposition result.
              *
              */
-            MPRTile *
-            TileCholesky(MPRTile &aMatrix, const bool &aOverWriteInput = true,
+            MPCRTile *
+            TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput = true,
                          const unsigned int &aNumThreads = 1);
 
             /**
              * @brief
-             * Tiled-Matrix Multiplication of 2 MPR Tile Matrices
+             * Tiled-Matrix Multiplication of 2 MPCR Tile Matrices
              * performs:
              * C = alpha A * B + beta C
              *
              * @param[in] aInputA
-             * MPRTile Matrix
+             * MPCRTile Matrix
              * @param[in] aInputB
-             * MPRTile Matrix
+             * MPCRTile Matrix
              * @param[in,out] aInputC
-             * MPRTile Matrix
+             * MPCRTile Matrix
              * @param[in] aTransposeA
              * flag to indicate whether A should be transposed
              * @param[in] aTransposeB
@@ -62,7 +62,7 @@ namespace mpr {
              *
              */
             void
-            TileGemm(MPRTile &aInputA, MPRTile &aInputB, MPRTile &aInputC,
+            TileGemm(MPCRTile &aInputA, MPCRTile &aInputB, MPCRTile &aInputC,
                      const bool &aTransposeA = false,
                      const bool &aTransposeB = false,
                      const double &aAlpha = 1, const double &aBeta = 1,
@@ -77,9 +77,9 @@ namespace mpr {
              * X*op(A)=alpha*B
              *
              * @param[in] aInputA
-             * MPRTile Matrix A
+             * MPCRTile Matrix A
              * @param[in,out] aInputB
-             * MPRTile Matrix B, X after returning.
+             * MPCRTile Matrix B, X after returning.
              * @param[in] aSide
              * 'R for Right side , 'L' for Left side
              * @param [in] aUpperTriangle
@@ -94,7 +94,7 @@ namespace mpr {
              *
              */
             void
-            TileTrsm(MPRTile &aInputA, MPRTile &aInputB, const char &aSide,
+            TileTrsm(MPCRTile &aInputA, MPCRTile &aInputB, const char &aSide,
                      const bool &aUpperTriangle, const bool &aTranspose,
                      const double &aAlpha);
         }
@@ -102,4 +102,4 @@ namespace mpr {
 }
 
 
-#endif //MPR_TILELINEARALGEBRA_HPP
+#endif //MPCR_TILELINEARALGEBRA_HPP

@@ -2,7 +2,7 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
@@ -13,10 +13,10 @@ void
 Promoter::Promote() {
 
     if (mCounter != mPrecisions.size()) {
-        MPR_API_EXCEPTION("Cannot Promote without inserting all elements", -1);
+        MPCR_API_EXCEPTION("Cannot Promote without inserting all elements", -1);
     }
 
-    Precision highest_precision = mpr::precision::FLOAT;
+    Precision highest_precision = mpcr::precision::FLOAT;
 
     for (auto &x: mPrecisions) {
         if (x > highest_precision) {
@@ -35,7 +35,7 @@ void
 Promoter::DePromote() {
 
     for (auto i = 0; i < mCounter; i++) {
-        if (mPrecisions[ i ] == mpr::precision::HALF) {
+        if (mPrecisions[ i ] == mpcr::precision::HALF) {
             mDataHolders[ i ]->ConvertPrecision(mPrecisions[ i ]);
         }
     }

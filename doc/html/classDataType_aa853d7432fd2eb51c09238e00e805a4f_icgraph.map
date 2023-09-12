@@ -1,0 +1,6 @@
+<map id="DataType::ConvertPrecision" name="DataType::ConvertPrecision">
+<area shape="rect" id="node1" title="Convert MPCR Object Precision." alt="" coords="360,31,561,57"/>
+<area shape="rect" id="node2" href="$RBinaryOperations_8hpp.html#abc076b9220e28c7892443f47363aed88" title="R&#45;Adapter for Changing Precision of MPCR Object." alt="" coords="173,5,312,32"/>
+<area shape="rect" id="node4" href="$RLinearAlgebra_8hpp.html#ae29d6ee560390e9403f2cf52e5489799" title="Calculate Eigen Values and (optionally) Eigen Vectors. if(aOnlyValues)= true , only the values will b..." alt="" coords="209,56,276,83"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,31,125,57"/>
+</map>

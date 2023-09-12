@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['precision_677',['Precision',['../namespacempr_1_1precision.html#a9d4312ee29651a68510757fe1a2ae258',1,'mpr::precision']]]
+  ['precision_691',['Precision',['../namespacempcr_1_1precision.html#afe2f4e3f46878624d55561ba84a10df7',1,'mpcr::precision']]]
 ];

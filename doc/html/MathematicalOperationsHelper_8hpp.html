@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>MMPR: inst/include/operations/helpers/MathematicalOperationsHelper.hpp File Reference</title>
+<title>MPCR: inst/include/operations/helpers/MathematicalOperationsHelper.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">MMPR
+   <div id="projectname">MPCR
    </div>
   </td>
  </tr>
@@ -71,19 +71,19 @@ $(function() {
 <div class="title">MathematicalOperationsHelper.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="MPRDispatcher_8hpp_source.html">utilities/MPRDispatcher.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="MPCRDispatcher_8hpp_source.html">utilities/MPCRDispatcher.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for MathematicalOperationsHelper.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="MathematicalOperationsHelper_8hpp__incl.png" border="0" usemap="#inst_2include_2operations_2helpers_2MathematicalOperationsHelper_8hpp" alt=""/></div>
 <map name="inst_2include_2operations_2helpers_2MathematicalOperationsHelper_8hpp" id="inst_2include_2operations_2helpers_2MathematicalOperationsHelper_8hpp">
-<area shape="rect" title=" " alt="" coords="192,5,431,61"/>
-<area shape="rect" href="MPRDispatcher_8hpp.html" title=" " alt="" coords="211,109,412,136"/>
-<area shape="rect" href="Precision_8hpp.html" title=" " alt="" coords="159,184,338,211"/>
-<area shape="rect" href="MPRErrorHandler_8hpp.html" title=" " alt="" coords="269,259,482,285"/>
+<area shape="rect" title=" " alt="" coords="196,5,435,61"/>
+<area shape="rect" href="MPCRDispatcher_8hpp.html" title=" " alt="" coords="210,109,421,136"/>
+<area shape="rect" href="Precision_8hpp.html" title=" " alt="" coords="163,184,342,211"/>
+<area shape="rect" href="MPCRErrorHandler_8hpp.html" title=" " alt="" coords="268,259,491,285"/>
 <area shape="rect" href="FloatingPointHandler_8hpp.html" title=" " alt="" coords="5,259,244,285"/>
-<area shape="rect" title=" " alt="" coords="295,333,362,360"/>
-<area shape="rect" title=" " alt="" coords="386,333,461,360"/>
+<area shape="rect" title=" " alt="" coords="298,333,365,360"/>
+<area shape="rect" title=" " alt="" coords="389,333,463,360"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -160,7 +160,7 @@ Macros</h2></td></tr>
 <div class="line">        }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="BasicOperationsHelper_8hpp.html#aed8aea9b4bfc6ba0133e4625c7070278">OPERATION</a>==<span class="stringliteral">&quot;atanh&quot;</span>){                                          \</div>
 <div class="line">        RUN_OP(<a class="code" href="DataType_8cpp.html#ae63188ba4baf2bf83ebdd2f407df67c5">aOutput</a>,aSize,std::atanh,<a class="code" href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a>)                                \</div>
 <div class="line">        }<span class="keywordflow">else</span>{                                                                 \</div>
-<div class="line">        MPR_API_EXCEPTION(<span class="stringliteral">&quot;Unknown Inverse Trig Operation&quot;</span>, -1);               \</div>
+<div class="line">        MPCR_API_EXCEPTION(<span class="stringliteral">&quot;Unknown Inverse Trig Operation&quot;</span>, -1);               \</div>
 <div class="line">        }                                                                      \</div>
 </div><!-- fragment -->
 </div>
@@ -211,7 +211,7 @@ Macros</h2></td></tr>
 <div class="line">        }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="BasicOperationsHelper_8hpp.html#aed8aea9b4bfc6ba0133e4625c7070278">OPERATION</a>==<span class="stringliteral">&quot;trunc&quot;</span>){                                          \</div>
 <div class="line">        RUN_OP(<a class="code" href="DataType_8cpp.html#ae63188ba4baf2bf83ebdd2f407df67c5">aOutput</a>,aSize,std::trunc,<a class="code" href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a>)                                \</div>
 <div class="line">        }<span class="keywordflow">else</span>{                                                                 \</div>
-<div class="line">        MPR_API_EXCEPTION(<span class="stringliteral">&quot;Unknown Round Operation&quot;</span>, -1);                      \</div>
+<div class="line">        MPCR_API_EXCEPTION(<span class="stringliteral">&quot;Unknown Round Operation&quot;</span>, -1);                      \</div>
 <div class="line">        }                                                                      \</div>
 </div><!-- fragment -->
 </div>
@@ -266,7 +266,7 @@ Macros</h2></td></tr>
 <div class="line">        }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="BasicOperationsHelper_8hpp.html#aed8aea9b4bfc6ba0133e4625c7070278">OPERATION</a>==<span class="stringliteral">&quot;tanh&quot;</span>){                                           \</div>
 <div class="line">        RUN_OP(<a class="code" href="DataType_8cpp.html#ae63188ba4baf2bf83ebdd2f407df67c5">aOutput</a>,aSize,std::tanh,<a class="code" href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a>)                                 \</div>
 <div class="line">        }<span class="keywordflow">else</span>{                                                                 \</div>
-<div class="line">        MPR_API_EXCEPTION(<span class="stringliteral">&quot;Unknown Trig Operation&quot;</span>, -1);                       \</div>
+<div class="line">        MPCR_API_EXCEPTION(<span class="stringliteral">&quot;Unknown Trig Operation&quot;</span>, -1);                       \</div>
 <div class="line">        }                                                                      \</div>
 </div><!-- fragment -->
 </div>
@@ -309,17 +309,19 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">for</span>(<span class="keyword">auto</span> i=0;i&lt;size;i++){                                              \</div>
-<div class="line">            aOutput[i]=__FUN__(<a class="code" href="MPRDispatcher_8hpp.html#a95dfc80599f592f262b6d72516d365a9">FIRST</a>(__VA_ARGS__)<a class="code" href="MPRDispatcher_8hpp.html#a1ca078cc5836ad29afe7ea13c181431a">REST</a>(__VA_ARGS__)[i]);        \</div>
+<div class="line">            aOutput[i]=__FUN__(<a class="code" href="MPCRDispatcher_8hpp.html#a95dfc80599f592f262b6d72516d365a9">FIRST</a>(__VA_ARGS__)<a class="code" href="MPCRDispatcher_8hpp.html#a1ca078cc5836ad29afe7ea13c181431a">REST</a>(__VA_ARGS__)[i]);        \</div>
 <div class="line">        }                                                                      \</div>
-</div><!-- fragment -->
+</div><!-- fragment --><p>Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.</p>
+<p>MPCR is an R package provided by the STSDS group at KAUST </p>
+
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="aMPRDispatcher_8hpp_html_a1ca078cc5836ad29afe7ea13c181431a"><div class="ttname"><a href="MPRDispatcher_8hpp.html#a1ca078cc5836ad29afe7ea13c181431a">REST</a></div><div class="ttdeci">#define REST(...)</div><div class="ttdef"><b>Definition:</b> MPRDispatcher.hpp:25</div></div>
-<div class="ttc" id="aLinearAlgebra_8cpp_html_a6d72f94b92fb4d87ccc1626e60e28b4d"><div class="ttname"><a href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a></div><div class="ttdeci">DataType DataType const bool &amp;aUpperTriangle DataType DataType DataType const bool &amp;aSingle DataType &amp; aInput</div><div class="ttdef"><b>Definition:</b> LinearAlgebra.cpp:773</div></div>
-<div class="ttc" id="aBasicOperationsHelper_8hpp_html_aed8aea9b4bfc6ba0133e4625c7070278"><div class="ttname"><a href="BasicOperationsHelper_8hpp.html#aed8aea9b4bfc6ba0133e4625c7070278">OPERATION</a></div><div class="ttdeci">#define OPERATION(dataA, dataB, dataOut, FUN, sizeB, accum)</div><div class="ttdef"><b>Definition:</b> BasicOperationsHelper.hpp:20</div></div>
-<div class="ttc" id="aMPRDispatcher_8hpp_html_a95dfc80599f592f262b6d72516d365a9"><div class="ttname"><a href="MPRDispatcher_8hpp.html#a95dfc80599f592f262b6d72516d365a9">FIRST</a></div><div class="ttdeci">#define FIRST(...)</div><div class="ttdef"><b>Definition:</b> MPRDispatcher.hpp:16</div></div>
-<div class="ttc" id="aDataType_8cpp_html_ae63188ba4baf2bf83ebdd2f407df67c5"><div class="ttname"><a href="DataType_8cpp.html#ae63188ba4baf2bf83ebdd2f407df67c5">aOutput</a></div><div class="ttdeci">std::vector&lt; int &gt; &amp; aOutput</div><div class="ttdef"><b>Definition:</b> DataType.cpp:1161</div></div>
+<div class="ttc" id="aMPCRDispatcher_8hpp_html_a1ca078cc5836ad29afe7ea13c181431a"><div class="ttname"><a href="MPCRDispatcher_8hpp.html#a1ca078cc5836ad29afe7ea13c181431a">REST</a></div><div class="ttdeci">#define REST(...)</div><div class="ttdef"><b>Definition:</b> MPCRDispatcher.hpp:32</div></div>
+<div class="ttc" id="aLinearAlgebra_8cpp_html_a6d72f94b92fb4d87ccc1626e60e28b4d"><div class="ttname"><a href="LinearAlgebra_8cpp.html#a6d72f94b92fb4d87ccc1626e60e28b4d">aInput</a></div><div class="ttdeci">DataType DataType const bool &amp;aUpperTriangle DataType DataType DataType const bool &amp;aSingle DataType &amp; aInput</div><div class="ttdef"><b>Definition:</b> LinearAlgebra.cpp:800</div></div>
+<div class="ttc" id="aMPCRDispatcher_8hpp_html_a95dfc80599f592f262b6d72516d365a9"><div class="ttname"><a href="MPCRDispatcher_8hpp.html#a95dfc80599f592f262b6d72516d365a9">FIRST</a></div><div class="ttdeci">#define FIRST(...)</div><div class="ttdef"><b>Definition:</b> MPCRDispatcher.hpp:23</div></div>
+<div class="ttc" id="aBasicOperationsHelper_8hpp_html_aed8aea9b4bfc6ba0133e4625c7070278"><div class="ttname"><a href="BasicOperationsHelper_8hpp.html#aed8aea9b4bfc6ba0133e4625c7070278">OPERATION</a></div><div class="ttdeci">#define OPERATION(dataA, dataB, dataOut, FUN, sizeB, accum)</div><div class="ttdef"><b>Definition:</b> BasicOperationsHelper.hpp:26</div></div>
+<div class="ttc" id="aDataType_8cpp_html_ae63188ba4baf2bf83ebdd2f407df67c5"><div class="ttname"><a href="DataType_8cpp.html#ae63188ba4baf2bf83ebdd2f407df67c5">aOutput</a></div><div class="ttdeci">std::vector&lt; int &gt; &amp; aOutput</div><div class="ttdef"><b>Definition:</b> DataType.cpp:1337</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

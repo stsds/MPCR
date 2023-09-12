@@ -1,10 +1,10 @@
 <map id="RTanh" name="RTanh">
-<area shape="rect" id="node1" title="Perform Tanh operation on MPR Object." alt="" coords="5,77,65,104"/>
-<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="113,48,287,75"/>
-<area shape="rect" id="node3" href="$namespacempr_1_1operations_1_1math.html#a1adbb08313a8a3eb8e6e378e50a13dc6" title="Perform TrigOperation on MPR Object according to provided Function aFun." alt="" coords="115,99,285,141"/>
-<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="358,5,501,32"/>
-<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="357,56,502,83"/>
-<area shape="rect" id="node6" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="359,107,500,133"/>
-<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="358,157,501,184"/>
-<area shape="rect" id="node8" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="335,208,524,235"/>
+<area shape="rect" id="node1" title="Perform Tanh operation on MPCR Object." alt="" coords="5,77,65,104"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="114,48,287,75"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1operations_1_1math.html#aae8d8c61a3da10253c2c4840adf555ae" title="Perform TrigOperation on MPCR Object according to provided Function aFun." alt="" coords="113,99,288,141"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="359,5,502,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="358,56,503,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="360,107,501,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="359,157,502,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="336,208,525,235"/>
 </map>

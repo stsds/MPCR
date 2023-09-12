@@ -1,11 +1,11 @@
 <map id="DataType::GetVal" name="DataType::GetVal">
 <area shape="rect" id="node1" title="Get Values in the Vector according to Index (0&#45;based Indexing)" alt="" coords="631,122,765,149"/>
-<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1basic.html#ad694808357dfa08cd39fe10c2ace239f" title="Get Information about MPR object Dimensions&#45;Matrix/Vector&#45;Values Precisions." alt="" coords="394,5,561,47"/>
-<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,45,125,71"/>
-<area shape="rect" id="node5" href="$classDataType.html#aecf5b1bde9889156d296d16cdd1143d4" title="Get Element with Idx [row][col] from MPR Matrix as MPR Object." alt="" coords="372,122,583,149"/>
-<area shape="rect" id="node7" href="$classDataType.html#a6a4056c3fc54575745948321625f3f2a" title="Get Element at Idx from MPR Vector as MPR Object." alt="" coords="373,173,582,199"/>
+<area shape="rect" id="node2" href="$namespacempcr_1_1operations_1_1basic.html#a3098c1674365a992248234aa66c91da8" title="Get Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values Precisions." alt="" coords="390,5,565,47"/>
+<area shape="rect" id="node4" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,45,125,71"/>
+<area shape="rect" id="node5" href="$classDataType.html#aecf5b1bde9889156d296d16cdd1143d4" title="Get Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="372,122,583,149"/>
+<area shape="rect" id="node7" href="$classDataType.html#a6a4056c3fc54575745948321625f3f2a" title="Get Element at Idx from MPCR Vector as MPCR Object." alt="" coords="373,173,582,199"/>
 <area shape="rect" id="node9" href="$LinearAlgebraHelper_8hpp.html#ae948fbee011997a69531e7a5a6c25896" title=" " alt="" coords="438,223,517,250"/>
-<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a0fa4d270064a51d382f3341a3d6c489e" title="R Adapter for Printing Information about MPR object Dimensions&#45;Matrix/Vector&#45;Values ,..." alt="" coords="218,17,279,43"/>
-<area shape="rect" id="node6" href="$RBasicUtilities_8hpp.html#a64d2eaeee8515b1e1fbb1207989e61f9" title="R Adapter for Getting Element with Idx [row][col] from MPR Matrix as MPR Object." alt="" coords="173,122,324,149"/>
-<area shape="rect" id="node8" href="$RBasicUtilities_8hpp.html#ac092b8a53065f4638e56046f8a8cebed" title="R Adapter for Getting Element with Idx from MPR Vector as MPR Object." alt="" coords="174,173,323,199"/>
+<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a0fa4d270064a51d382f3341a3d6c489e" title="R Adapter for Printing Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values ,..." alt="" coords="218,17,279,43"/>
+<area shape="rect" id="node6" href="$RBasicUtilities_8hpp.html#a64d2eaeee8515b1e1fbb1207989e61f9" title="R Adapter for Getting Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="173,122,324,149"/>
+<area shape="rect" id="node8" href="$RBasicUtilities_8hpp.html#ac092b8a53065f4638e56046f8a8cebed" title="R Adapter for Getting Element with Idx from MPCR Vector as MPCR Object." alt="" coords="174,173,323,199"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="mpcr::operations::basic::Sweep" name="mpcr::operations::basic::Sweep">
+<area shape="rect" id="node1" title="Apply operation (+,&#45;,*,/) to the row or column in Matrix." alt="" coords="296,5,471,47"/>
+<area shape="rect" id="node2" href="$RBasicUtilities_8hpp.html#a3afcc36ebeabc95b6920c095ba15cd1c" title="R Adapter for Applying operation (+,&#45;,*,/) to the row or column in Matrix." alt="" coords="173,13,248,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,13,125,39"/>
+</map>

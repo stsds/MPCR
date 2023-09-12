@@ -2,17 +2,17 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <adapters/RLinearAlgebra.hpp>
 #include <adapters/RHelpers.hpp>
 #include <data-units/Promoter.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
-using namespace mpr::operations;
+using namespace mpcr::operations;
 
 
 DataType *
@@ -52,7 +52,7 @@ RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
         temp_b = (DataType *) Rcpp::internal::as_module_object_internal(
             aInputB);
         if (!temp_b->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -90,7 +90,7 @@ RCrossProduct(DataType *aInputA, SEXP aInputB) {
         temp_b = (DataType *) Rcpp::internal::as_module_object_internal(
             aInputB);
         if (!temp_b->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -132,7 +132,7 @@ RTCrossProduct(DataType *aInputA, SEXP aInputB) {
         temp_b = (DataType *) Rcpp::internal::as_module_object_internal(
             aInputB);
         if (!temp_b->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -226,7 +226,7 @@ RSolve(DataType *aInputA, SEXP aInputB) {
         temp_b = (DataType *) Rcpp::internal::as_module_object_internal(
             aInputB);
         if (!temp_b->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
@@ -403,7 +403,7 @@ RQRDecompositionQ(DataType *aInputA, DataType *aInputB, const bool &aComplete,
         auto temp_dvec = (DataType *) Rcpp::internal::as_module_object_internal(
             aDvec);
         if (!temp_dvec->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }

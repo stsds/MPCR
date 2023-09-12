@@ -1,17 +1,17 @@
 \name{06-Extract-Replace}
-\alias{[,Rcpp_MMPR-method}
-\alias{[[,Rcpp_MMPR-method}
-\alias{[<-,Rcpp_MMPR-method}
-\alias{[[<-,Rcpp_MMPR-method}
-\title{Extract or replace elements from an MMPR object.}
+\alias{[,Rcpp_MPCR-method}
+\alias{[[,Rcpp_MPCR-method}
+\alias{[<-,Rcpp_MPCR-method}
+\alias{[[<-,Rcpp_MPCR-method}
+\title{Extract or replace elements from an MPCR object.}
 \usage{
-  \S4method{[}{Rcpp_MMPR}(x, i, j, drop = TRUE)
-  \S4method{[}{Rcpp_MMPR}(x, i, j, ...) <- value
-  \S4method{[[}{Rcpp_MMPR}(x, i, drop = TRUE)
-  \S4method{[[}{Rcpp_MMPR}(x, i, ...) <- value
+  \S4method{[}{Rcpp_MPCR}(x, i, j, drop = TRUE)
+  \S4method{[}{Rcpp_MPCR}(x, i, j, ...) <- value
+  \S4method{[[}{Rcpp_MPCR}(x, i, drop = TRUE)
+  \S4method{[[}{Rcpp_MPCR}(x, i, ...) <- value
 }
 \arguments{
-  \item{x}{An MMPR object.}
+  \item{x}{An MPCR object.}
   \item{i}{Row index or indices.}
   \item{j}{Column index or indices.}
   \item{...}{ignored.}
@@ -19,14 +19,14 @@
   \item{value}{A value to replace the selected elements with.}
 }
 \description{
-Extract or replace elements from an MMPR object using the `[`, `[[`, `[<-`, and `[[<-` operators.
+Extract or replace elements from an MPCR object using the `[`, `[[`, `[<-`, and `[[<-` operators.
 When extracting values, they will be converted to double precision. However, if you update a single object, the double value will be cast down to match the precision.
-If the MMPR object is a matrix and you access it using the 'i' index, the operation is assumed to be performed in column-major order, or using 'i' and 'j' index.
+If the MPCR object is a matrix and you access it using the 'i' index, the operation is assumed to be performed in column-major order, or using 'i' and 'j' index.
 }
 \examples{
   \dontrun{
-  library(MMPR)
-    x <-as.MMPR(1:50,"single")
+  library(MPCR)
+    x <-as.MPCR(1:50,"single")
     ext <- x[5]
     x[5] <- 0
     x$ToMatrix(5,10)

@@ -1,55 +1,55 @@
 \name{05-Comparison}
 \alias{comparison}
 
-\alias{<,Rcpp_MMPR,Rcpp_MMPR-method}
-\alias{<=,Rcpp_MMPR,Rcpp_MMPR-method}
-\alias{==,Rcpp_MMPR,Rcpp_MMPR-method}
-\alias{!=,Rcpp_MMPR,Rcpp_MMPR-method}
-\alias{>,Rcpp_MMPR,Rcpp_MMPR-method}
-\alias{>=,Rcpp_MMPR,Rcpp_MMPR-method}
-\alias{<,Rcpp_MMPR,BaseLinAlg-method}
-\alias{<=,Rcpp_MMPR,BaseLinAlg-method}
-\alias{==,Rcpp_MMPR,BaseLinAlg-method}
-\alias{!=,Rcpp_MMPR,BaseLinAlg-method}
-\alias{>,Rcpp_MMPR,BaseLinAlg-method}
-\alias{>=,Rcpp_MMPR,BaseLinAlg-method}
+\alias{<,Rcpp_MPCR,Rcpp_MPCR-method}
+\alias{<=,Rcpp_MPCR,Rcpp_MPCR-method}
+\alias{==,Rcpp_MPCR,Rcpp_MPCR-method}
+\alias{!=,Rcpp_MPCR,Rcpp_MPCR-method}
+\alias{>,Rcpp_MPCR,Rcpp_MPCR-method}
+\alias{>=,Rcpp_MPCR,Rcpp_MPCR-method}
+\alias{<,Rcpp_MPCR,BaseLinAlg-method}
+\alias{<=,Rcpp_MPCR,BaseLinAlg-method}
+\alias{==,Rcpp_MPCR,BaseLinAlg-method}
+\alias{!=,Rcpp_MPCR,BaseLinAlg-method}
+\alias{>,Rcpp_MPCR,BaseLinAlg-method}
+\alias{>=,Rcpp_MPCR,BaseLinAlg-method}
 
 
-\title{Binary comparison operators for numeric/MMPR objects.}
+\title{Binary comparison operators for numeric/MPCR objects.}
 \description{
-    Binary comparison operators for numeric/MMPR objects.
+    Binary comparison operators for numeric/MPCR objects.
 }
 \usage{
 
-\S4method{<}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
+\S4method{<}{Rcpp_MPCR,Rcpp_MPCR}(e1, e2)
 
-\S4method{<=}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
+\S4method{<=}{Rcpp_MPCR,Rcpp_MPCR}(e1, e2)
 
-\S4method{==}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
+\S4method{==}{Rcpp_MPCR,Rcpp_MPCR}(e1, e2)
 
-\S4method{!=}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
+\S4method{!=}{Rcpp_MPCR,Rcpp_MPCR}(e1, e2)
 
-\S4method{>}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
+\S4method{>}{Rcpp_MPCR,Rcpp_MPCR}(e1, e2)
 
-\S4method{>=}{Rcpp_MMPR,Rcpp_MMPR}(e1, e2)
+\S4method{>=}{Rcpp_MPCR,Rcpp_MPCR}(e1, e2)
 
-\S4method{<}{Rcpp_MMPR,BaseLinAlg}(e1, e2)
+\S4method{<}{Rcpp_MPCR,BaseLinAlg}(e1, e2)
 
-\S4method{<=}{Rcpp_MMPR,BaseLinAlg}(e1, e2)
+\S4method{<=}{Rcpp_MPCR,BaseLinAlg}(e1, e2)
 
-\S4method{==}{Rcpp_MMPR,BaseLinAlg}(e1, e2)
+\S4method{==}{Rcpp_MPCR,BaseLinAlg}(e1, e2)
 
-\S4method{!=}{Rcpp_MMPR,BaseLinAlg}(e1, e2)
+\S4method{!=}{Rcpp_MPCR,BaseLinAlg}(e1, e2)
 
-\S4method{>}{Rcpp_MMPR,BaseLinAlg}(e1, e2)
+\S4method{>}{Rcpp_MPCR,BaseLinAlg}(e1, e2)
 
-\S4method{>=}{Rcpp_MMPR,BaseLinAlg}(e1, e2)
+\S4method{>=}{Rcpp_MPCR,BaseLinAlg}(e1, e2)
 
 
 }
 \arguments{
   \item{e1,e2}{
-    Numeric/MMPR objects.
+    Numeric/MPCR objects.
   }
 }
 \value{
@@ -57,9 +57,9 @@
 }
 \examples{
   \dontrun{
-  library(MMPR)
-  s1 <- as.MMPR(1:20,nrow=2,ncol=10,"single")
-  s2 <- as.MMPR(21:40,nrow=2,ncol=10,"double")
+  library(MPCR)
+  s1 <- as.MPCR(1:20,nrow=2,ncol=10,"single")
+  s2 <- as.MPCR(21:40,nrow=2,ncol=10,"double")
 
   x <- s1 > s2
   }

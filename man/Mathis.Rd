@@ -1,22 +1,22 @@
 \name{14-Mathis}
 \alias{mathis}
-\alias{is.finite,Rcpp_MMPR-method}
-\alias{is.infinite,Rcpp_MMPR-method}
-\alias{is.nan,Rcpp_MMPR-method}
+\alias{is.finite,Rcpp_MPCR-method}
+\alias{is.infinite,Rcpp_MPCR-method}
+\alias{is.nan,Rcpp_MPCR-method}
 \title{Finite, infinite, and NaNs}
 \description{
     Finite, infinite, and NaNs.
 }
 \usage{
-\S4method{is.finite}{Rcpp_MMPR}(x)
+\S4method{is.finite}{Rcpp_MPCR}(x)
 
-\S4method{is.infinite}{Rcpp_MMPR}(x)
+\S4method{is.infinite}{Rcpp_MPCR}(x)
 
-\S4method{is.nan}{Rcpp_MMPR}(x)
+\S4method{is.nan}{Rcpp_MPCR}(x)
 }
 \arguments{
   \item{x}{
-    An MMPR object.
+    An MPCR object.
   }
 }
 \value{
@@ -24,9 +24,9 @@
 }
 \examples{
   \dontrun{
-  library(MMPR)
+  library(MPCR)
 
-  x <- as.MMPR(1:20,precision="double")
+  x <- as.MPCR(1:20,precision="double")
   is.nan(sqrt(x))
   }
 }

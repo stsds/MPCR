@@ -1,0 +1,7 @@
+<map id="DataType::RSerialize" name="DataType::RSerialize">
+<area shape="rect" id="node1" title="R version to Serialize DataType object as a Raw Vector." alt="" coords="356,31,512,57"/>
+<area shape="rect" id="node2" href="$RHelpers_8hpp.html#a341414c352215e81cefb89db35cc6bd2" title="R version to Serialize Tile object as a Raw Vector from Tile&#45;Matrix without copying." alt="" coords="173,5,308,32"/>
+<area shape="rect" id="node4" href="$RHelpers_8hpp.html#aeb0a8b773c10b01aa1818ca93f4f79fe" title="R version to Serialize DataType object as a Raw Vector." alt="" coords="189,56,292,83"/>
+<area shape="rect" id="node3" href="$MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,5,125,32"/>
+<area shape="rect" id="node5" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,56,125,83"/>
+</map>

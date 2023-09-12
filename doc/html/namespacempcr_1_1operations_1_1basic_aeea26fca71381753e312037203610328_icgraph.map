@@ -1,0 +1,5 @@
+<map id="mpcr::operations::basic::IsSFloat" name="mpcr::operations::basic::IsSFloat">
+<area shape="rect" id="node1" title="Check if MPCR object is 16&#45;bit Precision." alt="" coords="304,5,479,47"/>
+<area shape="rect" id="node2" href="$RBasicUtilities_8hpp.html#a3f44edf01567cdd98ec608376f489052" title="R Adapter for Checking if MPCR object is 16&#45;bit Precision." alt="" coords="173,13,256,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,13,125,39"/>
+</map>

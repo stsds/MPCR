@@ -1,10 +1,10 @@
 <map id="RGetMaxIdx" name="RGetMaxIdx">
 <area shape="rect" id="node1" title="R Adapter for Getting Max Element Index in Array." alt="" coords="5,77,108,104"/>
-<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="156,48,329,75"/>
-<area shape="rect" id="node3" href="$namespacempr_1_1operations_1_1basic.html#a18d921c17ac8485365bf40e55ce1bcf9" title="Get Min/Max Element in Array and Idx at which the element is. if only the Index is Needed ,..." alt="" coords="159,99,326,141"/>
-<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="379,5,521,32"/>
-<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="377,56,523,83"/>
-<area shape="rect" id="node6" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="379,107,521,133"/>
-<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="379,157,521,184"/>
-<area shape="rect" id="node8" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="381,208,519,235"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="157,48,330,75"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1operations_1_1basic.html#aa385c268a4be2ead860cdbb571aaf260" title="Get Min/Max Element in Array and Idx at which the element is. if only the Index is Needed ,..." alt="" coords="156,99,331,141"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="380,5,523,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="379,56,524,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="381,107,522,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="380,157,523,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="382,208,521,235"/>
 </map>

@@ -2,7 +2,7 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
@@ -27,7 +27,7 @@ ToLogicalVector(std::vector <int> &aInput) {
 
 
 void
-RInsertTile(MPRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
+RInsertTile(MPCRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
             const size_t &aColIdx) {
     auto new_obj = new DataType(*aTile);
     aMatrix->InsertTile(new_obj, aRowIdx - 1, aColIdx - 1);
@@ -35,16 +35,16 @@ RInsertTile(MPRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
 
 
 DataType *
-RGetTile(MPRTile *aMatrix, const size_t &aRowIdx, const size_t &aColIdx) {
+RGetTile(MPCRTile *aMatrix, const size_t &aRowIdx, const size_t &aColIdx) {
     auto pOutput = aMatrix->GetTile(aRowIdx - 1, aColIdx - 1);
     auto new_obj = new DataType(*pOutput);
     return new_obj;
 }
 
 
-MPRTile *
-RCopyMPRTile(MPRTile *aMatrix) {
-    auto tile_matrix = new MPRTile(*aMatrix);
+MPCRTile *
+RCopyMPCRTile(MPCRTile *aMatrix) {
+    auto tile_matrix = new MPCRTile(*aMatrix);
     return tile_matrix;
 }
 
@@ -69,7 +69,7 @@ DeSerializeTile(Rcpp::RawVector aInput) {
 
 
 Rcpp::RawVector
-RGetSerializeTile(MPRTile *aMatrix, const size_t &aRowIdx,
+RGetSerializeTile(MPCRTile *aMatrix, const size_t &aRowIdx,
                  const size_t &aColIdx) {
     auto pOutput = aMatrix->GetTile(aRowIdx - 1, aColIdx - 1);
     return pOutput->RSerialize();

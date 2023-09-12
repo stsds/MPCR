@@ -2,18 +2,18 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <libraries/catch/catch.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 #include <operations/TileLinearAlgebra.hpp>
 #include <operations/LinearAlgebra.hpp>
 
 
 using namespace std;
-using namespace mpr::operations;
+using namespace mpcr::operations;
 
 
 void
@@ -30,15 +30,15 @@ TEST_TILE_LINEAR_ALGEBRA() {
         vector <string> precision_b = {"float", "float", "double", "double"};
 
 
-        MPRTile a(4, 4, 2, 2, values, precision_a);
-        MPRTile b(4, 4, 2, 2, values, precision_b);
+        MPCRTile a(4, 4, 2, 2, values, precision_a);
+        MPCRTile b(4, 4, 2, 2, values, precision_b);
 
         vector <double> zeros(16, 0);
 
-        MPRTile c(4, 4, 2, 2, zeros, precision_b);
+        MPCRTile c(4, 4, 2, 2, zeros, precision_b);
 
         auto counter = 0;
-        mpr::operations::linear::TileGemm(a, b, c);
+        mpcr::operations::linear::TileGemm(a, b, c);
 
         REQUIRE(c.GetNRow() == 4);
         REQUIRE(c.GetNCol() == 4);
@@ -81,7 +81,7 @@ TEST_TILE_LINEAR_ALGEBRA() {
         vector <string> precision_a = {"float", "double", "float", "double"};
 
 
-        MPRTile a(4, 4, 2, 2, values, precision_a);
+        MPCRTile a(4, 4, 2, 2, values, precision_a);
 
         auto counter = 0;
 
@@ -96,10 +96,10 @@ TEST_TILE_LINEAR_ALGEBRA() {
         temp_tile.SetDimensions(4, 4);
         DataType output_temp_chol(FLOAT);
 
-        SIMPLE_DISPATCH(FLOAT, mpr::operations::linear::Cholesky, temp_tile,
+        SIMPLE_DISPATCH(FLOAT, mpcr::operations::linear::Cholesky, temp_tile,
                         output_temp_chol, false)
 
-        auto pMatrix_output = mpr::operations::linear::TileCholesky(a, false);
+        auto pMatrix_output = mpcr::operations::linear::TileCholesky(a, false);
 
         REQUIRE(pMatrix_output->GetNCol() == 4);
         REQUIRE(pMatrix_output->GetNRow() == 4);
@@ -142,7 +142,7 @@ TEST_TILE_LINEAR_ALGEBRA() {
          */
 
 
-        MPRTile a(6, 6, 2, 2, values, precision_a);
+        MPCRTile a(6, 6, 2, 2, values, precision_a);
         DataType temp_chol(values, FLOAT);
         temp_chol.SetDimensions(6, 6);
 
@@ -158,10 +158,10 @@ TEST_TILE_LINEAR_ALGEBRA() {
         REQUIRE(a.GetTilePerCol() == 3);
 
         DataType output_temp_chol(FLOAT);
-        SIMPLE_DISPATCH(FLOAT, mpr::operations::linear::Cholesky, temp_chol,
+        SIMPLE_DISPATCH(FLOAT, mpcr::operations::linear::Cholesky, temp_chol,
                         output_temp_chol, false)
 
-        auto pMatrix_output = mpr::operations::linear::TileCholesky(a);
+        auto pMatrix_output = mpcr::operations::linear::TileCholesky(a);
 
         REQUIRE(pMatrix_output->GetNCol() == 6);
         REQUIRE(pMatrix_output->GetNRow() == 6);
@@ -195,8 +195,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
         SECTION("Left Upper NoTranspose ") {
             cout << "Testing Tile trsm ..." << endl;
             cout<<"Testing Trsm Left Upper NoTranspose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);
@@ -231,8 +231,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }SECTION("Left Upper Transpose") {
             cout<<"Testing Trsm Left Upper Transpose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);
@@ -267,8 +267,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }SECTION("Left Lower NoTranspose"){
             cout<<"Testing Trsm Left Lower NoTranspose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);
@@ -303,8 +303,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }SECTION("Left Lower Transpose"){
             cout<<"Testing Trsm Left Lower Transpose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);
@@ -339,8 +339,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }SECTION("Right Upper NoTranspose"){
             cout<<"Testing Trsm Right Upper NoTranspose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);
@@ -375,8 +375,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }SECTION("Right Upper Transpose"){
             cout<<"Testing Trsm Right Upper Transpose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);
@@ -411,8 +411,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }SECTION("Right Lower NoTranspose"){
             cout<<"Testing Trsm Right Lower NoTranspose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);
@@ -447,8 +447,8 @@ TEST_TILE_LINEAR_ALGEBRA() {
             }
         }SECTION("Right Lower Transpose"){
             cout<<"Testing Trsm Right Lower Transpose ..."<<endl;
-            MPRTile a(4, 4, 2, 2, values, precision_a);
-            MPRTile b(4, 4, 2, 2, values, precision_b);
+            MPCRTile a(4, 4, 2, 2, values, precision_a);
+            MPCRTile b(4, 4, 2, 2, values, precision_b);
 
             DataType test_a(values, FLOAT);
             test_a.SetDimensions(4, 4);

@@ -2,12 +2,12 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_BASICOPERATIONSHELPER_HPP
-#define MPR_BASICOPERATIONSHELPER_HPP
+#ifndef MPCR_BASICOPERATIONSHELPER_HPP
+#define MPCR_BASICOPERATIONSHELPER_HPP
 
 #include <math.h>
 
@@ -47,7 +47,7 @@
                 idx+=accum + 1;                                                \
             }                                                                  \
          }else {                                                               \
-             MPR_API_EXCEPTION("Operation Not Supported", -1);                 \
+             MPCR_API_EXCEPTION("Operation Not Supported", -1);                 \
          }                                                                     \
 
 
@@ -70,7 +70,7 @@
                     }                                                          \
                 }                                                              \
          }else {                                                               \
-             MPR_API_EXCEPTION("Operation Not Supported", -1);                 \
+             MPCR_API_EXCEPTION("Operation Not Supported", -1);                 \
          }                                                                     \
 
-#endif //MPR_BASICOPERATIONSHELPER_HPP
+#endif //MPCR_BASICOPERATIONSHELPER_HPP

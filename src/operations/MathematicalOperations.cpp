@@ -2,7 +2,7 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
@@ -10,7 +10,7 @@
 #include <operations/helpers/MathematicalOperationsHelper.hpp>
 
 
-using namespace mpr::operations;
+using namespace mpcr::operations;
 
 
 template <typename T>
@@ -42,7 +42,7 @@ void math::SquareRoot(DataType &aInputA, DataType &aOutput) {
             pOutput[ i ] = std::sqrt(pData[ i ]);
         }
     } catch (...) {
-        MPR_API_EXCEPTION("Cannot Perform SQRT on Negative Values", -1);
+        MPCR_API_EXCEPTION("Cannot Perform SQRT on Negative Values", -1);
     }
 
 
@@ -129,7 +129,7 @@ void math::Log(DataType &aInputA, DataType &aOutput, double aBase) {
         }
     }else {
         delete[] pOutput;
-        MPR_API_EXCEPTION("Unknown Log Base", aBase);
+        MPCR_API_EXCEPTION("Unknown Log Base", aBase);
     }
 
 

@@ -1,0 +1,8 @@
+<map id="mpcr::operations::math::PerformRoundOperation" name="mpcr::operations::math::PerformRoundOperation">
+<area shape="rect" id="node1" title="Perform Operation on MPCR Object according to provided Function aFun." alt="" coords="307,74,493,115"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#a2cd84acde0e87fa7f45c971895d5b60e" title="Perform Abs operation on MPCR Object." alt="" coords="189,5,243,32"/>
+<area shape="rect" id="node4" href="$RMathematicalOperations_8hpp.html#a5749ccfacb07bbf0c41d501d532421bb" title="Perform Ceil operation on MPCR Object." alt="" coords="178,56,254,83"/>
+<area shape="rect" id="node5" href="$RMathematicalOperations_8hpp.html#a9e4bbf22184e94a051e59bf89e01c252" title="Perform Floor operation on MPCR Object." alt="" coords="184,107,248,133"/>
+<area shape="rect" id="node6" href="$RMathematicalOperations_8hpp.html#ad961e07ba920050e5be87265c9b48ed7" title="Perform Truncate operation on MPCR Object." alt="" coords="173,157,259,184"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,81,125,108"/>
+</map>
