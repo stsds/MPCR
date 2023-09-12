@@ -1,12 +1,12 @@
 \name{35-Reciprocal condition}
 \alias{rcond}
-\alias{rcond,Rcpp_MMPR-method}
+\alias{rcond,Rcpp_MPCR-method}
 \title{reciprocal condition}
 \usage{
-\S4method{rcond}{Rcpp_MMPR}(x, norm = "O", useInv = FALSE)
+\S4method{rcond}{Rcpp_MPCR}(x, norm = "O", useInv = FALSE)
 }
 \arguments{
-\item{x}{An MMPR object.}
+\item{x}{An MPCR object.}
 
 \item{norm}{"O"-ne or "I"-nfinity norm.}
 
@@ -14,16 +14,16 @@
 
 }
 \value{
-An MMPR Object.
+An MPCR Object.
 }
 \description{
 Compute matrix norm.
 }
 \examples{
 \dontrun{
-library(MMPR)
+library(MPCR)
 
-x <- as.MMPR(1:20,precision="double")
+x <- as.MPCR(1:20,precision="double")
 rcond(x)
 }
 }

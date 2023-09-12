@@ -2,12 +2,12 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_DATATYPE_HPP
-#define MPR_DATATYPE_HPP
+#ifndef MPCR_DATATYPE_HPP
+#define MPCR_DATATYPE_HPP
 
 
 #include <vector>
@@ -155,7 +155,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aSize, mpr::precision::Precision aPrecision);
+    DataType(size_t aSize, mpcr::precision::Precision aPrecision);
 
     /**
      * @brief
@@ -167,7 +167,7 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     DataType(std::vector <double> &aValues,
-             mpr::precision::Precision aPrecision);
+             mpcr::precision::Precision aPrecision);
 
 
     /**
@@ -214,7 +214,7 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType(DataType &aDataType, const mpr::precision::Precision &aPrecision);
+    DataType(DataType &aDataType, const mpcr::precision::Precision &aPrecision);
 
     /**
      * @brief
@@ -238,7 +238,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aRow, size_t aCol, mpr::precision::Precision aPrecision);
+    DataType(size_t aRow, size_t aCol, mpcr::precision::Precision aPrecision);
 
     /**
      * @brief
@@ -260,7 +260,7 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     explicit
-    DataType(mpr::precision::Precision aPrecision);
+    DataType(mpcr::precision::Precision aPrecision);
 
     /**
      * @brief
@@ -274,12 +274,12 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Performing Plus Operation on MPR Object
+     * R-Adapter for Performing Plus Operation on MPCR Object
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
-     * MPR Object
+     * MPCR Object
      *
      */
     DataType *
@@ -287,12 +287,12 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Performing Minus Operation on MPR Object
+     * R-Adapter for Performing Minus Operation on MPCR Object
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
-     * MPR Object
+     * MPCR Object
      *
      */
     DataType *
@@ -300,12 +300,12 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Performing Multiply Operation on MPR Object
+     * R-Adapter for Performing Multiply Operation on MPCR Object
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
-     * MPR Object
+     * MPCR Object
      *
      */
     DataType *
@@ -313,12 +313,12 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Performing Division Operation on MPR Object
+     * R-Adapter for Performing Division Operation on MPCR Object
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
-     * MPR Object
+     * MPCR Object
      *
      */
     DataType *
@@ -326,12 +326,12 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Performing Power Operation on MPR Object
+     * R-Adapter for Performing Power Operation on MPCR Object
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
-     * MPR Object
+     * MPCR Object
      *
      */
     DataType *
@@ -339,10 +339,10 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Checking Whether MPR Object is Greater than aObj
+     * R-Adapter for Checking Whether MPCR Object is Greater than aObj
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
      * R-Vector/Matrix of Bool Values
      *
@@ -352,10 +352,10 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Checking Whether MPR Object is Greater than or equal aObj
+     * R-Adapter for Checking Whether MPCR Object is Greater than or equal aObj
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
      * R-Vector/Matrix of Bool Values
      *
@@ -365,10 +365,10 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Checking Whether MPR Object is Less than aObj
+     * R-Adapter for Checking Whether MPCR Object is Less than aObj
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
      * R-Vector/Matrix of Bool Values
      *
@@ -378,10 +378,10 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Checking Whether MPR Object is Less than or equal aObj
+     * R-Adapter for Checking Whether MPCR Object is Less than or equal aObj
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
      * R-Vector/Matrix of Bool Values
      *
@@ -391,10 +391,10 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Checking Whether MPR Object is Equal to aObj
+     * R-Adapter for Checking Whether MPCR Object is Equal to aObj
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
      * R-Vector/Matrix of Bool Values
      *
@@ -404,10 +404,10 @@ public:
 
     /**
      * @brief
-     * R-Adapter for Checking Whether MPR Object is Not Equal to aObj
+     * R-Adapter for Checking Whether MPCR Object is Not Equal to aObj
      *
      * @param[in] aObj
-     * MPR Object or Numerical Value
+     * MPCR Object or Numerical Value
      * @returns
      * R-Vector/Matrix of Bool Values
      *
@@ -525,7 +525,7 @@ public:
      * @returns
      * Precision Object
      */
-    mpr::precision::Precision &
+    mpcr::precision::Precision &
     GetPrecision();
 
     /**
@@ -566,7 +566,7 @@ public:
      * Precision of Vector or Matrix
      */
     void
-    SetPrecision(mpr::precision::Precision aPrecision);
+    SetPrecision(mpcr::precision::Precision aPrecision);
 
     /**
      * @brief
@@ -680,10 +680,10 @@ public:
 
     /**
      * @brief
-     * Check Whether MPR Elements are NA or Not
+     * Check Whether MPCR Elements are NA or Not
      *
      * @param[in] apDimensions
-     * Dimensions to set incase MPR Object is a Matrix.
+     * Dimensions to set incase MPCR Object is a Matrix.
      *
      * @returns
      * true if NAN,-NAN else Otherwise
@@ -694,10 +694,10 @@ public:
 
     /**
      * @brief
-     * Get total size of Memory used by MPR Object
+     * Get total size of Memory used by MPCR Object
      *
      * @returns
-     * Total size of Memory used by MPR Object
+     * Total size of Memory used by MPCR Object
      *
      */
     size_t
@@ -706,13 +706,13 @@ public:
 
     /**
      * @brief
-     * Get Element at Idx from MPR Vector as MPR Object
+     * Get Element at Idx from MPCR Vector as MPCR Object
      *
      * @param[in] aIndex
      * Index to Get Value from
      *
      * @returns
-     * MPR Object holding element at idx
+     * MPCR Object holding element at idx
      *
      */
     inline
@@ -727,7 +727,7 @@ public:
 
     /**
      * @brief
-     * Get Element with Idx [row][col] from MPR Matrix as MPR Object
+     * Get Element with Idx [row][col] from MPCR Matrix as MPCR Object
      *
      * @param[in] aRow
      * Row Idx
@@ -735,7 +735,7 @@ public:
      * Col Idx
      *
      * @returns
-     * MPR Object holding element at idx
+     * MPCR Object holding element at idx
      *
      */
     inline
@@ -765,18 +765,18 @@ public:
 
     /**
      * @brief
-     * Convert MPR Object Precision
+     * Convert MPCR Object Precision
      *
      * @param[in] aPrecision
-     * Required MPR Precision
+     * Required MPCR Precision
      *
      */
     void
-    ConvertPrecision(const mpr::precision::Precision &aPrecision);
+    ConvertPrecision(const mpcr::precision::Precision &aPrecision);
 
     /**
      * @brief
-     * Convert MPR Values to R-Numeric Vector (vector double will be wrapped to
+     * Convert MPCR Values to R-Numeric Vector (vector double will be wrapped to
      * match R-Numeric Vector)
      *
      * @returns
@@ -787,7 +787,7 @@ public:
 
     /**
      * @brief
-     * Convert MPR Values to R-Numeric Matrix
+     * Convert MPCR Values to R-Numeric Matrix
      *
      * @returns
      * R- Numeric Matrix
@@ -799,10 +799,10 @@ public:
 
     /**
      * @brief
-     * Set MPR Object Dimensions according to given input
+     * Set MPCR Object Dimensions according to given input
      *
      * @param[in] aInput
-     * MPR Object
+     * MPCR Object
      *
      */
     inline
@@ -817,7 +817,7 @@ public:
 
     /**
      * @brief
-     * Transpose MPR Matrix
+     * Transpose MPCR Matrix
      *
      */
     void
@@ -837,7 +837,7 @@ public:
     /**
      * @brief
      * Print a whole Row (given) in case of Matrix .
-     * used for printing MPR Tile
+     * used for printing MPCR Tile
      *
      * @param[in] aRowIdx
      * Row Idx to Print
@@ -868,7 +868,7 @@ public:
 
     /**
      * @brief
-     * Returns the sum of all elements in MPR Object
+     * Returns the sum of all elements in MPCR Object
      *
      * @returns
      * Sum of all elements
@@ -879,7 +879,7 @@ public:
 
     /**
      * @brief
-     * Returns the product of all elements in MPR Object
+     * Returns the product of all elements in MPCR Object
      *
      * @returns
      * Product of all elements
@@ -890,7 +890,7 @@ public:
 
     /**
      * @brief
-     * Returns the determinant of all elements in MPR Object
+     * Returns the determinant of all elements in MPCR Object
      *
      * @returns
      * Determinant of all elements
@@ -923,7 +923,7 @@ public:
 
     /**
      * @brief
-     * R version to DeSerialize Stream of bytes to MPR Object
+     * R version to DeSerialize Stream of bytes to MPCR Object
      *
      * @param[in] aInput
      * vector of bytes containing DataType object as a stream of bytes
@@ -934,7 +934,7 @@ public:
 
     /**
      * @brief
-     * DeSerialize Stream of bytes to MPR Object
+     * DeSerialize Stream of bytes to MPCR Object
      *
      * @param[in] aInput
      * vector of bytes containing DataType object as a stream of bytes
@@ -1036,12 +1036,12 @@ private:
 
     /**
      * @brief
-     * Check Whether Elements in MPR Objects are NA
+     * Check Whether Elements in MPCR Objects are NA
      *
      * @param[in] aOutput
      * Logical Output Int Vector 1/TRUE 0/FALSE
      * @param[out] apDimensions
-     * Dimensions to set incase MPR Object is Matrix
+     * Dimensions to set incase MPCR Object is Matrix
      *
      */
     template <typename T>
@@ -1050,10 +1050,10 @@ private:
 
     /**
      * @brief
-     * Get total size of Memory used by Data in MPR Object
+     * Get total size of Memory used by Data in MPCR Object
      *
      * @param[out] aDataSize
-     * Total size of Memory used by Data in MPR Object
+     * Total size of Memory used by Data in MPCR Object
      *
      */
     template <typename T>
@@ -1070,19 +1070,19 @@ private:
 
     /**
      * @brief
-     * Convert MPR Object Precision
+     * Convert MPCR Object Precision
      *
      * @param[in] aPrecision
-     * Required MPR Precision
+     * Required MPCR Precision
      *
      */
     template <typename T>
     void
-    ConvertPrecisionDispatcher(const mpr::precision::Precision &aPrecision);
+    ConvertPrecisionDispatcher(const mpcr::precision::Precision &aPrecision);
 
     /**
      * @brief
-     * Convert MPR Values to R-Numeric Vector (vector double will be wrapped to
+     * Convert MPCR Values to R-Numeric Vector (vector double will be wrapped to
      * match R-Numeric Vector)
      *
      * @param[in] aOutput
@@ -1095,7 +1095,7 @@ private:
 
     /**
      * @brief
-     * Convert MPR Values to R-Numeric Matrix
+     * Convert MPCR Values to R-Numeric Matrix
      *
      * @param[in] aOutput
      * R- Numeric Matrix
@@ -1131,7 +1131,7 @@ private:
 
     /**
      * @brief
-     * Dispatcher for calculating the sum of all elements in MPR Object
+     * Dispatcher for calculating the sum of all elements in MPCR Object
      *
      * @param[out] aResult
      * sum of all elements
@@ -1143,7 +1143,7 @@ private:
 
     /**
      * @brief
-     * Dispatcher for calculating the product of all elements in MPR Object
+     * Dispatcher for calculating the product of all elements in MPCR Object
      *
      * @param[out] aResult
      * Product of all elements
@@ -1155,7 +1155,7 @@ private:
 
     /**
      * @brief
-     * Dispatcher for calculating the determinant of all elements in MPR Object
+     * Dispatcher for calculating the determinant of all elements in MPCR Object
      *
      * @param[out] aResult
      * determinant of all elements
@@ -1191,7 +1191,7 @@ private:
     /** Total size of Vector or Matrix (Data Buffer) **/
     size_t mSize;
     /** Precision used to describe the data buffer **/
-    mpr::precision::Precision mPrecision;
+    mpcr::precision::Precision mPrecision;
     /** Bool indicating whether it's a Matrix(True) or Vector(False) **/
     bool mMatrix;
     /** Magic Number to check if object is DataType **/
@@ -1201,4 +1201,4 @@ private:
 };
 
 
-#endif //MPR_DATATYPE_HPP
+#endif //MPCR_DATATYPE_HPP

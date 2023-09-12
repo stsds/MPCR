@@ -1,5 +1,0 @@
-<map id="mpr::operations::linear::SVD" name="mpr::operations::linear::SVD">
-<area shape="rect" id="node1" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="280,5,485,32"/>
-<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a5595028cb926cb8d01b50c8f6eb6bdd2" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="173,5,232,32"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
-</map>

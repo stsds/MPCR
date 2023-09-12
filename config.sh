@@ -3,7 +3,7 @@
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
 # All rights reserved.
-# MMPR is an R package provided by the STSDS group at KAUST
+# MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
 RED='\033[0;31m'
@@ -107,8 +107,8 @@ rm -rf bin/
 mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-  -DMPR_BUILD_TESTS=$BUILDING_TESTS \
-  -DMPR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
+  -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
+  -DMPCR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   -DCMAKE_TEST_PREFIX="$TEST_PATH" \
   -DCMAKE_CONFIG_PREFIX="$CONFIG_PATH" \

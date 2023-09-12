@@ -1,5 +1,0 @@
-<map id="DataType::ConvertToNumericVector" name="DataType::ConvertToNumericVector">
-<area shape="rect" id="node1" title="Convert MPR Values to R&#45;Numeric Vector (vector double will be wrapped to match R&#45;Numeric Vector)" alt="" coords="361,5,572,47"/>
-<area shape="rect" id="node2" href="$RBinaryOperations_8hpp.html#a8ccab2184bc2c0e5fe8d95543121e432" title="R&#45;Adapter for Casting MPR Vector to R Numeric Vector." alt="" coords="173,13,313,39"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,13,125,39"/>
-</map>

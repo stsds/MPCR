@@ -2,17 +2,17 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <data-units/DataType.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 #include <adapters/RBinaryOperations.hpp>
 #include <Rcpp.h>
 
 
-using namespace mpr::precision;
+using namespace mpcr::precision;
 
 
 DataType::DataType(size_t aSize, Precision aPrecision) {
@@ -52,7 +52,7 @@ DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
 
 
 DataType::DataType(std::vector <double> &aValues,
-                   mpr::precision::Precision aPrecision) {
+                   mpcr::precision::Precision aPrecision) {
     this->SetMagicNumber();
     this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
@@ -97,7 +97,7 @@ DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
 }
 
 
-DataType::DataType(mpr::precision::Precision aPrecision) {
+DataType::DataType(mpcr::precision::Precision aPrecision) {
     this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mMatrix = false;
@@ -125,7 +125,7 @@ DataType::DataType(const DataType &aDataType) {
 
 
 DataType::DataType(DataType &aDataType,
-                   const mpr::precision::Precision &aPrecision) {
+                   const mpcr::precision::Precision &aPrecision) {
     this->SetMagicNumber();
     this->mpData = nullptr;
     this->mpDimensions = nullptr;
@@ -178,7 +178,7 @@ std::string
 DataType::PrintRow(const size_t &aRowIdx) {
 
     if (aRowIdx > this->GetNRow()) {
-        MPR_API_EXCEPTION("Segmentation fault index out of Bound", -1);
+        MPCR_API_EXCEPTION("Segmentation fault index out of Bound", -1);
     }
     std::stringstream ss;
     SIMPLE_DISPATCH(this->mPrecision, DataType::PrintRowsDispatcher, aRowIdx,
@@ -330,9 +330,9 @@ DataType::GetValue(size_t aIndex, double &aOutput) {
 
 double
 DataType::GetVal(size_t aIndex) {
-    double temp;
+    double temp=0;
     if (aIndex >= this->mSize) {
-        MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
+        MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
     SIMPLE_DISPATCH(mPrecision, GetValue, aIndex, temp)
     return temp;
@@ -351,7 +351,7 @@ DataType::SetValue(size_t aIndex, double &aVal) {
 void
 DataType::SetVal(size_t aIndex, double aVal) {
     if (aIndex >= this->mSize) {
-        MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
+        MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
     SIMPLE_DISPATCH(mPrecision, SetValue, aIndex, aVal)
 
@@ -359,7 +359,7 @@ DataType::SetVal(size_t aIndex, double aVal) {
 
 
 void
-DataType::SetPrecision(mpr::precision::Precision aPrecision) {
+DataType::SetPrecision(mpcr::precision::Precision aPrecision) {
     this->ClearUp();
     this->mPrecision = aPrecision;
 }
@@ -392,11 +392,11 @@ DataType::ToVector() {
 size_t
 DataType::GetMatrixIndex(size_t aRow, size_t aCol) {
     if (!this->mMatrix) {
-        MPR_API_EXCEPTION("Not a Matrix Fault.", -1);
+        MPCR_API_EXCEPTION("Not a Matrix Fault.", -1);
     }
     if (aRow >= mpDimensions->GetNRow() || aCol >= mpDimensions->GetNCol() ||
         aRow < 0 || aCol < 0) {
-        MPR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
+        MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
 
     return ( aCol * mpDimensions->GetNRow()) + aRow;
@@ -447,7 +447,7 @@ DataType::SetDimensions(size_t aRow, size_t aCol) {
 
     size_t size = aRow * aCol;
     if (size != this->mSize) {
-        MPR_API_EXCEPTION("Segmentation Fault Matrix Out Of Bound", -1);
+        MPCR_API_EXCEPTION("Segmentation Fault Matrix Out Of Bound", -1);
     }
     this->mSize = size;
     if (this->mpDimensions != nullptr) {
@@ -602,7 +602,7 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
             break;
         }
         default: {
-            MPR_API_EXCEPTION("Invalid Precision : Not Supported", -1);
+            MPCR_API_EXCEPTION("Invalid Precision : Not Supported", -1);
         }
     }
 
@@ -610,7 +610,7 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
 
 
 void
-DataType::ConvertPrecision(const mpr::precision::Precision &aPrecision) {
+DataType::ConvertPrecision(const mpcr::precision::Precision &aPrecision) {
     if (mPrecision == aPrecision) {
         return;
     }
@@ -639,7 +639,7 @@ DataType::ConvertToNumericVector() {
 Rcpp::NumericMatrix *
 DataType::ConvertToRMatrix() {
     if (!this->mMatrix) {
-        MPR_API_EXCEPTION("Invalid Cannot Convert, Not a Matrix", -1);
+        MPCR_API_EXCEPTION("Invalid Cannot Convert, Not a Matrix", -1);
     }
     Rcpp::NumericMatrix *pOutput = nullptr;
 
@@ -704,7 +704,7 @@ DataType::PerformPlusDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -731,7 +731,7 @@ DataType::PerformPowDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -757,7 +757,7 @@ DataType::PerformDivDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -784,7 +784,7 @@ DataType::PerformMultDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -811,7 +811,7 @@ DataType::PerformMinusDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -838,7 +838,7 @@ DataType::GreaterThanDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -864,7 +864,7 @@ DataType::GreaterThanOrEqualDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -890,7 +890,7 @@ DataType::LessThanDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -916,7 +916,7 @@ DataType::LessThanOrEqualDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -942,7 +942,7 @@ DataType::EqualDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -968,7 +968,7 @@ DataType::NotEqualDispatcher(SEXP aObj) {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
             aObj);
         if (!temp_mpr->IsDataType()) {
-            MPR_API_EXCEPTION(
+            MPCR_API_EXCEPTION(
                 "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
@@ -980,7 +980,7 @@ DataType::NotEqualDispatcher(SEXP aObj) {
 void
 DataType::Transpose() {
     if (!this->mMatrix) {
-        MPR_API_EXCEPTION("Cannot Transpose a Vector", -1);
+        MPCR_API_EXCEPTION("Cannot Transpose a Vector", -1);
     }
     SIMPLE_DISPATCH(this->mPrecision, DataType::TransposeDispatcher)
 }
@@ -1096,10 +1096,10 @@ DataType::ProductDispatcher(double &aResult) {
 
 double DataType::Determinant() {
     if (!this->mMatrix) {
-        MPR_API_EXCEPTION("Cannot calculate determinant for a vector", -1);
+        MPCR_API_EXCEPTION("Cannot calculate determinant for a vector", -1);
     }
     if (this->GetNRow() != this->GetNCol()) {
-        MPR_API_EXCEPTION(
+        MPCR_API_EXCEPTION(
             "Cannot calculate determinant for a non-square matrix", -1);
     }
     double result;
@@ -1163,10 +1163,10 @@ DataType::Serialize() {
     auto itr = 0;
     char metadata = 0;
 
-    if (this->mPrecision == mpr::precision::FLOAT) {
+    if (this->mPrecision == mpcr::precision::FLOAT) {
         size_val += sizeof(float);
 
-    } else if (this->mPrecision == mpr::precision::DOUBLE) {
+    } else if (this->mPrecision == mpcr::precision::DOUBLE) {
         size_val += sizeof(double);
     }
 
@@ -1247,10 +1247,10 @@ DataType::RSerialize() {
     auto itr = 0;
     char metadata = 0;
 
-    if (this->mPrecision == mpr::precision::FLOAT) {
+    if (this->mPrecision == mpcr::precision::FLOAT) {
         size_val += sizeof(float);
 
-    } else if (this->mPrecision == mpr::precision::DOUBLE) {
+    } else if (this->mPrecision == mpcr::precision::DOUBLE) {
         size_val += sizeof(double);
     }
 

@@ -1,14 +1,14 @@
 \name{20-Sweep}
 \alias{sweep}
-\alias{sweep,Rcpp_MMPR-method}
+\alias{sweep,Rcpp_MPCR-method}
 \title{sweep}
 \usage{
-\S4method{sweep}{Rcpp_MMPR}(x,stat,margin,FUN)
+\S4method{sweep}{Rcpp_MPCR}(x,stat,margin,FUN)
 }
 \arguments{
-\item{x}{An MMPR object.}
+\item{x}{An MPCR object.}
 
-\item{stat}{MMPR vector containing the value(s) that should be used in the operation.}
+\item{stat}{MPCR vector containing the value(s) that should be used in the operation.}
 
 \item{margin}{1 means row; otherwise means column.}
 
@@ -17,17 +17,17 @@
 
 }
 \value{
-An MMPR matrix of the same type as the highest precision input.
+An MPCR matrix of the same type as the highest precision input.
 }
 \description{
-Sweep an MMPR vector through an MMPR matrix.
+Sweep an MPCR vector through an MPCR matrix.
 }
 \examples{
 \dontrun{
-library(MMPR)
-x <- as.MMPR(1:20,10,2,"single")
-y <- as.MMPR(1:5,precision="double")
+library(MPCR)
+x <- as.MPCR(1:20,10,2,"single")
+y <- as.MPCR(1:5,precision="double")
 sweep_out <- sweep(x, stat=y, margin=1, FUN="+")
-MMPR.is.double(sweep_out)  #TRUE
+MPCR.is.double(sweep_out)  #TRUE
 }
 }

@@ -1,29 +1,29 @@
 \name{15-Miscmath}
 \alias{miscmath}
-\alias{abs,Rcpp_MMPR-method}
-\alias{sqrt,Rcpp_MMPR-method}
+\alias{abs,Rcpp_MPCR-method}
+\alias{sqrt,Rcpp_MPCR-method}
 \title{Miscellaneous mathematical functions}
 \description{
 Miscellaneous mathematical functions.
 }
 \usage{
-\S4method{abs}{Rcpp_MMPR}(x)
+\S4method{abs}{Rcpp_MPCR}(x)
 
-\S4method{sqrt}{Rcpp_MMPR}(x)
+\S4method{sqrt}{Rcpp_MPCR}(x)
 }
 \arguments{
 \item{x}{
-An MMPR object.
+An MPCR object.
 }
 }
 \value{
-An MMPR object of the same dimensions as the input.
+An MPCR object of the same dimensions as the input.
 }
 \examples{
 \dontrun{
-library(MMPR)
+library(MPCR)
 
-x <- as.MMPR(1:20,precision="double")
+x <- as.MPCR(1:20,precision="double")
 sqrt(x)
 }
 }

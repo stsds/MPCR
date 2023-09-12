@@ -2,31 +2,31 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_BASICOPERATIONS_HPP
-#define MPR_BASICOPERATIONS_HPP
+#ifndef MPCR_BASICOPERATIONS_HPP
+#define MPCR_BASICOPERATIONS_HPP
 
 #include <data-units/DataType.hpp>
 #include <operations/helpers/BasicOperationsHelper.hpp>
 
 
-namespace mpr {
+namespace mpcr {
     namespace operations {
         namespace basic {
 
             /**
              * @brief
              * Get Min/Max Element in Array and Idx at which the element is.
-             * if only the Index is Needed ,Empty (size =0) MPR object should
+             * if only the Index is Needed ,Empty (size =0) MPCR object should
              * be passed.
              *
              * @param[in] aVec
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * Min/Max Element With the Same input precision as MPR object
+             * Min/Max Element With the Same input precision as MPCR object
              * @param[out] aMinMaxIdx
              * Index at which Min/Max Element is
              * @param[in] aIsMax
@@ -44,7 +44,7 @@ namespace mpr {
              * Get string indicating whether it's 16/32/64 Bit Precision
              *
              * @param[in] aVec
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aType
              * String Holding Precision Type
              *
@@ -59,9 +59,9 @@ namespace mpr {
              * Must be passed & it should match the Vector size
              *
              * @param[in] aVec
-             * MPR object can be Vector or Matrix
+             * MPCR object can be Vector or Matrix
              * @param[out] aOutput
-             * MPR Vector holding Diagonal values
+             * MPCR Vector holding Diagonal values
              * @param[in] apDim
              * Dimensions Object in case Vector is used
              *
@@ -76,11 +76,11 @@ namespace mpr {
              * Apply operation (+,-,*,/) to the row or column in Matrix.
              *
              * @param[in] aVec
-             * MPR Matrix
+             * MPCR Matrix
              * @param[in] aStats
              * the value(s) that should be used in the operation
              * @param[out] aOutput
-             * MPR Vector holding Data After Applying Sweep
+             * MPCR Vector holding Data After Applying Sweep
              * @param[in] aMargin
              * aMargin = 1 means row; aMargin = otherwise means column.
              * @param[in] aFun
@@ -97,11 +97,11 @@ namespace mpr {
              * Concatenate one or two vector/Matrix(Row Bind) to a given vector
              *
              * @param[in] aInputA
-             * MPR Vector/Matrix one
+             * MPCR Vector/Matrix one
              * @param[in] aInputB
-             * MPR Vector/Matrix two
+             * MPCR Vector/Matrix two
              * @param[in,out] aOutput
-             * MPR Vector/Matrix holding all concatenated data
+             * MPCR Vector/Matrix holding all concatenated data
              * @param[in,out] aCurrentIdx
              * Index to start inserting from ,and it's updated according to next
              * index that should be used for insertion.
@@ -117,11 +117,11 @@ namespace mpr {
              * Combine two Matrices by columns
              *
              * @param[in] aInputA
-             * MPR Matrix one
+             * MPCR Matrix one
              * @param[in] aInputB
-             * MPR Matrix two
+             * MPCR Matrix two
              * @param[out] aOutput
-             * MPR Matrix holding combined data
+             * MPCR Matrix holding combined data
              *
              */
             template <typename T, typename X, typename Y>
@@ -133,11 +133,11 @@ namespace mpr {
              * Combine two Matrices by rows
              *
              * @param[in] aInputA
-             * MPR Matrix one
+             * MPCR Matrix one
              * @param[in] aInputB
-             * MPR Matrix two
+             * MPCR Matrix two
              * @param[out] aOutput
-             * MPR Matrix holding combined data
+             * MPCR Matrix holding combined data
              *
              */
             template <typename T, typename X, typename Y>
@@ -146,10 +146,10 @@ namespace mpr {
 
             /**
              * @brief
-             * Check if MPR object is 16-bit Precision
+             * Check if MPCR object is 16-bit Precision
              *
              * @param[in] aInput
-             * MPR Object
+             * MPCR Object
              * @returns
              * True if the object is holding 16-bit precision object,
              * false otherwise
@@ -160,10 +160,10 @@ namespace mpr {
 
             /**
              * @brief
-             * Check if MPR object is 32-bit Precision
+             * Check if MPCR object is 32-bit Precision
              *
              * @param[in] aInput
-             * MPR Object
+             * MPCR Object
              * @returns
              * True if the object is holding 32-bit precision object,
              * false otherwise
@@ -174,10 +174,10 @@ namespace mpr {
 
             /**
              * @brief
-             * Check if MPR object is 64-bit Precision
+             * Check if MPCR object is 64-bit Precision
              *
              * @param[in] aInput
-             * MPR Object
+             * MPCR Object
              * @returns
              * True if the object is holding 64-bit precision object,
              * false otherwise
@@ -191,9 +191,9 @@ namespace mpr {
              * Replicate value(s) number of times
              *
              * @param[in] aInput
-             * MPR object to replicate
+             * MPCR object to replicate
              * @param[out] aOutput
-             * MPR Vector holding replicated Data
+             * MPCR Vector holding replicated Data
              * @param[in] aSize
              * Size of output vector
              *
@@ -204,11 +204,11 @@ namespace mpr {
 
             /**
              * @brief
-             * Get Information about MPR object Dimensions-Matrix/Vector-Values
+             * Get Information about MPCR object Dimensions-Matrix/Vector-Values
              * Precisions.
              *
              * @param[in] aVec
-             * MPR Object.
+             * MPCR Object.
              * @param[out] aType
              * String that will hold the info.
              *
@@ -221,7 +221,7 @@ namespace mpr {
              * Remove NA values from Vector.
              *
              * @param[in,out] aInputA
-             * MPR Object.
+             * MPCR Object.
              *
              */
             template <typename T>
@@ -233,7 +233,7 @@ namespace mpr {
              * Replace NA values with a given value.
              *
              * @param[in,out] aInputA
-             * MPR Object.
+             * MPCR Object.
              * @param[in] aValue
              * Value to use it instead of NA's
              *
@@ -247,15 +247,15 @@ namespace mpr {
              * centers the columns of a numeric matrix.
              *
              * @param[in] aInputA
-             * MPR Object.
+             * MPCR Object.
              * @param[in] aCenter
-             * numeric-alike MPR vector of length equal to the number of
+             * numeric-alike MPCR vector of length equal to the number of
              * columns of aInput.
              * @param[out] aOutput
-             * MPR Output Object
+             * MPCR Output Object
              * @param[in] apCenter
              * bool to indicate whether to center using mean or not.
-             * if apCenter is not null, aCenter MPR object is ignored.
+             * if apCenter is not null, aCenter MPCR object is ignored.
              *
              */
             template <typename T, typename X, typename Y>
@@ -268,15 +268,15 @@ namespace mpr {
              * Scales the columns of a numeric matrix.
              *
              * @param[in] aInputA
-             * MPR Object.
+             * MPCR Object.
              * @param[in] aScale
-             * numeric-alike MPR vector of length equal to the number of
+             * numeric-alike MPCR vector of length equal to the number of
              * columns of aInput.
              * @param[out] aOutput
-             * MPR Output Object
+             * MPCR Output Object
              * @param[in] apScale
              * bool to indicate whether to scale using standard deviation or not.
-             * if apScale is not null, aScale MPR object is ignored.
+             * if apScale is not null, aScale MPCR object is ignored.
              *
              */
             template <typename T, typename X, typename Y>
@@ -290,4 +290,4 @@ namespace mpr {
 }
 
 
-#endif //MPR_BASICOPERATIONS_HPP
+#endif //MPCR_BASICOPERATIONS_HPP

@@ -1,4 +1,0 @@
-<map id="RConvertToMPR" name="RConvertToMPR">
-<area shape="rect" id="node1" title="Converts R vector or Matrix to MPR object. if aRow or aCol = zero , MPR vector will be created ,..." alt="" coords="173,5,299,32"/>
-<area shape="rect" id="node2" href="$DataTypeModule_8cpp.html#a0aa755831b4de65b4f412d72c6267188" title=" " alt="" coords="5,5,125,32"/>
-</map>

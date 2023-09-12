@@ -1,4 +1,4 @@
-library(MMPR)
+library(MPCR)
 
 
 a <- matrix(c(1.21, 0.18, 0.13, 0.41, 0.06, 0.23,
@@ -12,17 +12,17 @@ b <- c("double", "double", "double", "double",
        "double")
 
 
-test_mat <- new(MMPRTile, 6, 6, 2, 2, a, b)
+test_mat <- new(MPCRTile, 6, 6, 2, 2, a, b)
 
 # Get Tile return a deep copy of the original tile
-tile_temp <- MMPRTile.GetTile(matrix = test_mat, row = 1, col = 1)
+tile_temp <- MPCRTile.GetTile(matrix = test_mat, row = 1, col = 1)
 tile_temp$PrintValues()
-serialized <- MMPR.Serialize(tile_temp)
-tile_deserialized <- MMPR.DeSerialize(serialized)
+serialized <- MPCR.Serialize(tile_temp)
+tile_deserialized <- MPCR.DeSerialize(serialized)
 tile_deserialized$PrintValues()
 
 # Get Serialized Tile return a serialized version of tile without creating any new copies
-tile_temp_serialized<- MMPRTile.GetSerializedTile(matrix = test_mat, row = 1, col = 1)
-tile_deserialized <- MMPR.DeSerialize(tile_temp_serialized)
+tile_temp_serialized<- MPCRTile.GetSerializedTile(matrix = test_mat, row = 1, col = 1)
+tile_deserialized <- MPCR.DeSerialize(tile_temp_serialized)
 tile_deserialized$PrintValues()
 

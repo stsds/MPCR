@@ -1,25 +1,25 @@
 \name{12-Extremes}
 \alias{extremes}
-\alias{min,Rcpp_MMPR-method}
-\alias{max,Rcpp_MMPR-method}
-\alias{which.min,Rcpp_MMPR-method}
-\alias{which.max,Rcpp_MMPR-method}
+\alias{min,Rcpp_MPCR-method}
+\alias{max,Rcpp_MPCR-method}
+\alias{which.min,Rcpp_MPCR-method}
+\alias{which.max,Rcpp_MPCR-method}
 \title{Min-Max Functions}
 \description{
-    Min-Max functions for MMPR objects values and indices, all NA values are disregarded.
+    Min-Max functions for MPCR objects values and indices, all NA values are disregarded.
 }
 \usage{
-\S4method{min}{Rcpp_MMPR}(x)
+\S4method{min}{Rcpp_MPCR}(x)
 
-\S4method{max}{Rcpp_MMPR}(x)
+\S4method{max}{Rcpp_MPCR}(x)
 
-\S4method{which.min}{Rcpp_MMPR}(x)
+\S4method{which.min}{Rcpp_MPCR}(x)
 
-\S4method{which.max}{Rcpp_MMPR}(x)
+\S4method{which.max}{Rcpp_MPCR}(x)
 }
 \arguments{
   \item{x}{
-    An MMPR object.
+    An MPCR object.
   }
 }
 \value{
@@ -27,9 +27,9 @@
 }
 \examples{
   \dontrun{
-  library(MMPR)
+  library(MPCR)
 
-  x <- as.MMPR(1:20,precision="double")
+  x <- as.MPCR(1:20,precision="double")
   min <-min(x)
   min_idx <-which.min(x)
   }

@@ -3,44 +3,44 @@
 \title{Converters}
 
 \description{
- Converters from R to MMPR objects and vice-versa.
+ Converters from R to MPCR objects and vice-versa.
 }
-\section{MMPR Converter}{
+\section{MPCR Converter}{
     \describe{
-    Convert R object to MMPR object.
+    Convert R object to MPCR object.
     }
 
-   \subsection{MMPR converters}{
+   \subsection{MPCR converters}{
    \cr
-     \code{as.MMPR(data,nrow = 0,ncol = 0,precision)}: Converts R object to MMPR object.
+     \code{as.MPCR(data,nrow = 0,ncol = 0,precision)}: Converts R object to MPCR object.
       \cr
       \describe{
          \item{\code{data}}{R matrix/vector.}
-         \item{\code{nrow}}{Number of rows of the new MMPR matrix, \bold{default = zero} which means a vector will be created.}
-         \item{\code{ncol}}{Number of cols of the new MMPR matrix, \bold{default = zero} which means a vector will be created.}
-         \item{\code{precision}}{String indicates the precision of the new MMPR object (half, single, or double).}
+         \item{\code{nrow}}{Number of rows of the new MPCR matrix, \bold{default = zero} which means a vector will be created.}
+         \item{\code{ncol}}{Number of cols of the new MPCR matrix, \bold{default = zero} which means a vector will be created.}
+         \item{\code{precision}}{String indicates the precision of the new MPCR object (half, single, or double).}
       }
    }
 }
 
 \section{R Converter}{
     \describe{
-    Convert an MMPR object to R object.
+    Convert an MPCR object to R object.
     }
 
    \subsection{R vector converter}{
    \cr
-     \code{MMPR.ToNumericVector(x)}: Converts an MMPR object to a numeric R vector.
+     \code{MPCR.ToNumericVector(x)}: Converts an MPCR object to a numeric R vector.
       \describe{
-         \item{\code{x}}{MMPR object.}
+         \item{\code{x}}{MPCR object.}
       }
    }
 
       \subsection{R matrix converter}{
       \cr
-        \code{MMPR.ToNumericMatrix(x)}: Converts an MMPR object to a numeric R matrix.
+        \code{MPCR.ToNumericMatrix(x)}: Converts an MPCR object to a numeric R matrix.
          \describe{
-            \item{\code{x}}{MMPR object.}
+            \item{\code{x}}{MPCR object.}
          }
       }
 }
@@ -51,10 +51,10 @@
 
    # Example usage of the class and its methods
    a <- matrix(1:36, 6, 6)
-   mmpr_matrix <- as.MMPR(a,nrow=6,ncol=6,precision="single")
-   r_vector <- MMPR.ToNumericVector(mmpr_matrix)
+   MPCR_matrix <- as.MPCR(a,nrow=6,ncol=6,precision="single")
+   r_vector <- MPCR.ToNumericVector(MPCR_matrix)
    r_vector
-   r_matrix <- MMPR.ToNumericMatrix(mmpr_matrix)
+   r_matrix <- MPCR.ToNumericMatrix(MPCR_matrix)
    r_matrix
   }
 }

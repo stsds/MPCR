@@ -1,41 +1,41 @@
 \name{22-Trig}
 \alias{trig}
-\alias{sin,Rcpp_MMPR-method}
-\alias{cos,Rcpp_MMPR-method}
-\alias{tan,Rcpp_MMPR-method}
-\alias{asin,Rcpp_MMPR-method}
-\alias{acos,Rcpp_MMPR-method}
-\alias{atan,Rcpp_MMPR-method}
+\alias{sin,Rcpp_MPCR-method}
+\alias{cos,Rcpp_MPCR-method}
+\alias{tan,Rcpp_MPCR-method}
+\alias{asin,Rcpp_MPCR-method}
+\alias{acos,Rcpp_MPCR-method}
+\alias{atan,Rcpp_MPCR-method}
 \title{Trigonometric functions}
 \description{
 Basic trig functions.
 }
 \usage{
-\S4method{sin}{Rcpp_MMPR}(x)
+\S4method{sin}{Rcpp_MPCR}(x)
 
-\S4method{cos}{Rcpp_MMPR}(x)
+\S4method{cos}{Rcpp_MPCR}(x)
 
-\S4method{tan}{Rcpp_MMPR}(x)
+\S4method{tan}{Rcpp_MPCR}(x)
 
-\S4method{asin}{Rcpp_MMPR}(x)
+\S4method{asin}{Rcpp_MPCR}(x)
 
-\S4method{acos}{Rcpp_MMPR}(x)
+\S4method{acos}{Rcpp_MPCR}(x)
 
-\S4method{atan}{Rcpp_MMPR}(x)
+\S4method{atan}{Rcpp_MPCR}(x)
 }
 \arguments{
 \item{x}{
-An MMPR object.
+An MPCR object.
 }
 }
 \value{
-An MMPR object of the same dimensions as the input.
+An MPCR object of the same dimensions as the input.
 }
 \examples{
 \dontrun{
-library(MMPR)
+library(MPCR)
 
-mppr_matrix <- as.MMPR(1:20,nrow=2,ncol=10,"single")
+mppr_matrix <- as.MPCR(1:20,nrow=2,ncol=10,"single")
 x <- sin(mppr_matrix)
 }
 }

@@ -2,12 +2,12 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
-#ifndef MPR_RLINEARALGEBRA_HPP
-#define MPR_RLINEARALGEBRA_HPP
+#ifndef MPCR_RLINEARALGEBRA_HPP
+#define MPCR_RLINEARALGEBRA_HPP
 
 
 #include <operations/LinearAlgebra.hpp>
@@ -15,16 +15,16 @@
 
 /**
  * @brief
- * Calculate CrossProduct of 2 MPR Matrices
+ * Calculate CrossProduct of 2 MPCR Matrices
  * performs:
  * x %*% y  , t(x) %*% x
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aInputB
- * MPR Matrix, if Null t(aInputA) %*% aInputA ,otherwise aInputA %*% aInputB
+ * MPCR Matrix, if Null t(aInputA) %*% aInputA ,otherwise aInputA %*% aInputB
  * @returns
- * MPR Matrix
+ * MPCR Matrix
  *
  */
 DataType *
@@ -32,16 +32,16 @@ RCrossProduct(DataType *aInputA, SEXP aInputB);
 
 /**
  * @brief
- * Calculate CrossProduct of 2 MPR Matrices
+ * Calculate CrossProduct of 2 MPCR Matrices
  * performs:
  * x %*% t(y)  , x %*% t(x)
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aInputB
- * MPR Matrix, if Null aInputA %*% t(aInputA) ,otherwise aInputA %*% t(aInputB)
+ * MPCR Matrix, if Null aInputA %*% t(aInputA) ,otherwise aInputA %*% t(aInputB)
  * @returns
- * MPR Matrix
+ * MPCR Matrix
  *
  */
 DataType *
@@ -53,11 +53,11 @@ RTCrossProduct(DataType *aInputA, SEXP aInputB);
  * if(aOnlyValues)= true , only the values will be calculated
  *
  * @param[in] aInput
- * MPR Square Matrix
+ * MPCR Square Matrix
  * @param[in] aOnlyValues
  * bool True, Only values will be returned ,otherwise values and vectors.
  * @returns
- * vector of MPR objects, First element Values ,and second element Vectors.
+ * vector of MPCR objects, First element Values ,and second element Vectors.
  */
 std::vector <DataType>
 REigen(DataType *aInputA, const bool &aOnlyValues);
@@ -67,7 +67,7 @@ REigen(DataType *aInputA, const bool &aOnlyValues);
  * Check if a Matrix Is Symmetric
  *
  * @param[in] aInput
- * MPR Matrix
+ * MPCR Matrix
  * @returns
  * true if symmetric ,false otherwise
  *
@@ -82,9 +82,9 @@ RIsSymmetric(DataType *aInputA);
  * Solve aInputA aOutput = aInputB
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aInputB
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aCol
  * The number of columns of aInputA and rows of aInputB to use.
  * default ncol(aInputA)
@@ -105,9 +105,9 @@ RBackSolve(DataType *aInputA, DataType *aInputB, const long &aCol,
  * Calculate Cholesky decomposition
  *
  * @param[in] aInput
- * MPR Matrix
+ * MPCR Matrix
  * @returns
- * MPR Matrix containing decomposition result
+ * MPCR Matrix containing decomposition result
  *
  */
 DataType *
@@ -119,9 +119,9 @@ RCholesky(DataType *aInputA, const bool &aUpperTriangle);
  * Cholesky decomposition.
  *
  * @param[in] aInput
- * MPR Matrix containing Cholesky decomposition.
+ * MPCR Matrix containing Cholesky decomposition.
  * @returns
- * MPR Matrix
+ * MPCR Matrix
  *
  */
 DataType *
@@ -132,11 +132,11 @@ RCholeskyInv(DataType *aInputA, const size_t &aSize);
  * Solves the equation AX=B
  *
  * @param[in] aInputA
- * MPR Matrix A
+ * MPCR Matrix A
  * @param[in] aInputB
- * MPR Matrix X, if Null t(A) will be used.
+ * MPCR Matrix X, if Null t(A) will be used.
  * @returns
- * MPR Matrix B
+ * MPCR Matrix B
  *
  */
 DataType *
@@ -147,7 +147,7 @@ RSolve(DataType *aInputA, SEXP aInputB);
  * Compute the singular-value decomposition of a rectangular matrix.
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aNu
  * the number of left singular vectors to be computed.
  * This must between 0 and m = nrow(aInputA).
@@ -169,10 +169,10 @@ RSVD(DataType *aInputA, const long &aNu, const long &aNv,
 
 /**
  * @brief
- * Transpose a given MPR Matrix
+ * Transpose a given MPCR Matrix
  *
  * @param[in,out] aInputA
- * MPR Matrix A
+ * MPCR Matrix A
  *
  */
 DataType *
@@ -185,7 +185,7 @@ RTranspose(DataType *aInputA);
  * modulus ("M") among elements of a matrix.
  *
  * @param[in] aInput
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aType
  * Type of Norm ( O , 1 , I , F, M)
  * @returns
@@ -199,7 +199,7 @@ RNorm(DataType *aInputA, const std::string &aType);
  * Computes the QR decomposition of a matrix.
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aTolerance
  * the tolerance for detecting linear dependencies in the columns of
  * aInputA
@@ -215,7 +215,7 @@ RQRDecomposition(DataType *aInputA,const double &aTolerance);
  * Estimate the reciprocal of the condition number of a matrix.
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aNorm
  * character string indicating the type of norm to be used in the
  * estimate. The default is "O" for the 1-norm ("O" is equivalent to "1").
@@ -224,7 +224,7 @@ RQRDecomposition(DataType *aInputA,const double &aTolerance);
  * @param[in] aTriangle
  * Bool if true,Only the lower triangle will be used.
  * @returns
- * MPR Vector containing one element which is an estimate of the
+ * MPCR Vector containing one element which is an estimate of the
  * reciprocal condition number of aInput.
  *
  */
@@ -238,14 +238,14 @@ RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle);
  * (and may depend on whether complete is TRUE or FALSE).
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aComplete
  * logical expression . Indicates whether an arbitrary
  * orthogonal completion of the Q or X matrices is to be made,
  * or whether the  matrix is to be completed by binding zero-value
  * rows beneath the square upper triangle.
  * @returns
- * returns R. This may be pivoted. As MPR Object.
+ * returns R. This may be pivoted. As MPCR Object.
  *
  */
 DataType *
@@ -259,19 +259,19 @@ RQRDecompositionR(DataType *aInputA, const bool &aComplete);
  * and each column of Q is multiplied by the corresponding value in Dvec.
  *
  * @param[in] aInputA
- * MPR Matrix QR
+ * MPCR Matrix QR
  * @param[in] aInputB
- * MPR Object Representing QRAUX
+ * MPCR Object Representing QRAUX
  * @param[in] aComplete
  * logical expression . Indicates whether an arbitrary
  * orthogonal completion of the Q or X matrices is to be made,
  * or whether the  matrix is to be completed by binding zero-value
  * rows beneath the square upper triangle.
  * @param[in] aDvec
- * MPR Object Representing DVec ,if null QRDecompositionQ will be called.
+ * MPCR Object Representing DVec ,if null QRDecompositionQ will be called.
  * otherwise QRDecompositionQY
  * @returns
- * returns Q. As MPR Object.
+ * returns Q. As MPCR Object.
  *
  */
 DataType *
@@ -286,19 +286,19 @@ RQRDecompositionQ(DataType *aInputA, DataType *aInputB, const bool &aComplete,
  * and each column of Q is multiplied by the corresponding value in Dvec.
  *
  * @param[in] aInputA
- * MPR Matrix QR
+ * MPCR Matrix QR
  * @param[in] aInputB
- * MPR Object Representing QRAUX
+ * MPCR Object Representing QRAUX
  * @param[in] aComplete
  * logical expression . Indicates whether an arbitrary
  * orthogonal completion of the Q or X matrices is to be made,
  * or whether the  matrix is to be completed by binding zero-value
  * rows beneath the square upper triangle.
  * @param[in] aDvec
- * MPR Object Representing DVec , QRDecompositionQY with flag transpose =false
+ * MPCR Object Representing DVec , QRDecompositionQY with flag transpose =false
  * wil be called
  * @returns
- * returns Q. As MPR Object.
+ * returns Q. As MPCR Object.
  *
  */
 DataType *
@@ -312,19 +312,19 @@ RQRDecompositionQy(DataType *aInputA, DataType *aInputB, DataType *aDvec);
  * and each column of Q is multiplied by the corresponding value in Dvec.
  *
  * @param[in] aInputA
- * MPR Matrix QR
+ * MPCR Matrix QR
  * @param[in] aInputB
- * MPR Object Representing QRAUX
+ * MPCR Object Representing QRAUX
  * @param[in] aComplete
  * logical expression . Indicates whether an arbitrary
  * orthogonal completion of the Q or X matrices is to be made,
  * or whether the  matrix is to be completed by binding zero-value
  * rows beneath the square upper triangle.
  * @param[in] aDvec
- * MPR Object Representing DVec , QRDecompositionQY with flag transpose =true
+ * MPCR Object Representing DVec , QRDecompositionQY with flag transpose =true
  * wil be called
  * @returns
- * returns Q. As MPR Object.
+ * returns Q. As MPCR Object.
  *
  */
 DataType *
@@ -337,11 +337,11 @@ RQRDecompositionQty(DataType *aInputA, DataType *aInputB, DataType *aDvec);
  * C= alphaA *B +betaC
  *
  * @param[in] aInputA
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aInputB
- * MPR Matrix ,if missing syrk routine will be used
+ * MPCR Matrix ,if missing syrk routine will be used
  * @param[in,out] aInputC
- * MPR Matrix
+ * MPCR Matrix
  * @param[in] aTransposeA
  * if true , the transpose of A will be Used
  * @param[in] aTransposeB
@@ -352,7 +352,7 @@ RQRDecompositionQty(DataType *aInputA, DataType *aInputB, DataType *aDvec);
  * factor of C
  *
  * @returns
- * MPR Matrix
+ * MPCR Matrix
  *
  */
 void
@@ -365,4 +365,4 @@ RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
       const bool &aTranspose, const char &aSide, const double &aAlpha);
 
 
-#endif //MPR_RLINEARALGEBRA_HPP
+#endif //MPCR_RLINEARALGEBRA_HPP

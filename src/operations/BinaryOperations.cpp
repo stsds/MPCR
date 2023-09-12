@@ -2,18 +2,18 @@
  * Copyright (c) 2023, King Abdullah University of Science and Technology
  * All rights reserved.
  *
- * MMPR is an R package provided by the STSDS group at KAUST
+ * MPCR is an R package provided by the STSDS group at KAUST
  *
  **/
 
 #include <operations/BinaryOperations.hpp>
-#include <utilities/MPRErrorHandler.hpp>
-#include <utilities/MPRDispatcher.hpp>
+#include <utilities/MPCRErrorHandler.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 #include <operations/helpers/BasicOperationsHelper.hpp>
 #include <operations/helpers/BinaryOperationsHelper.hpp>
 
 
-using namespace mpr::operations;
+using namespace mpcr::operations;
 using namespace std;
 
 
@@ -154,11 +154,11 @@ binary::CheckDimensions(DataType &aInputA, DataType &aInputB) {
 
     if (aInputA.IsMatrix() || aInputB.IsMatrix()) {
         if (size_a != size_b) {
-            MPR_API_EXCEPTION("Matrix dims do not match the length of object",
+            MPCR_API_EXCEPTION("Matrix dims do not match the length of object",
                               -1);
         } else if (both_is_matrix) {
             if (aInputA.GetNRow() != aInputB.GetNRow()) {
-                MPR_API_EXCEPTION(
+                MPCR_API_EXCEPTION(
                     "Matrix dims do not match the length of object, non-conformable arrays ",
                     -1);
             }
@@ -169,7 +169,7 @@ binary::CheckDimensions(DataType &aInputA, DataType &aInputB) {
 
     if (a_is_bigger && size_b % size_a != 0 ||
         !a_is_bigger && size_a % size_b != 0) {
-        MPR_API_WARN(
+        MPCR_API_WARN(
             "longer object length is not a multiple of shorter object length",
             -1);
     }

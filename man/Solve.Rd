@@ -1,12 +1,12 @@
 \name{36-Solve}
 \alias{solve}
-\alias{solve,Rcpp_MMPR-method}
+\alias{solve,Rcpp_MPCR-method}
 \title{solve}
 \usage{
-\S4method{solve}{Rcpp_MMPR}(a, b = NULL, ...)
+\S4method{solve}{Rcpp_MPCR}(a, b = NULL, ...)
 }
 \arguments{
-\item{a, b}{An MMPR objects.}
+\item{a, b}{An MPCR objects.}
 
 \item{...}{Ignored.}
 }
@@ -14,13 +14,13 @@
 Solves the equation AX=B .and if B=NULL t(A) will be used.
 }
 \description{
-Solve a system of equations or invert an MMPR matrix.
+Solve a system of equations or invert an MPCR matrix.
 }
 \examples{
 \dontrun{
-library(MMPR)
+library(MPCR)
 
-x <- as.MMPR(1:20,4,5,"double")
+x <- as.MPCR(1:20,4,5,"double")
 y <- crossprod(x)
 solve(y)
 }

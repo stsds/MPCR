@@ -1,29 +1,29 @@
 \name{21-Special Math}
 \alias{specialmath}
-\alias{gamma,Rcpp_MMPR-method}
-\alias{lgamma,Rcpp_MMPR-method}
+\alias{gamma,Rcpp_MPCR-method}
+\alias{lgamma,Rcpp_MPCR-method}
 \title{Special mathematical functions.}
 \description{
 Special mathematical functions.
 }
 \usage{
-\S4method{gamma}{Rcpp_MMPR}(x)
+\S4method{gamma}{Rcpp_MPCR}(x)
 
-\S4method{lgamma}{Rcpp_MMPR}(x)
+\S4method{lgamma}{Rcpp_MPCR}(x)
 }
 \arguments{
 \item{x}{
-An MMPR object.
+An MPCR object.
 }
 }
 \value{
-An MMPR object of the same dimensions as the input.
+An MPCR object of the same dimensions as the input.
 }
 \examples{
 \dontrun{
-library(MMPR)
+library(MPCR)
 
-x <- as.MMPR(1:20,precision="double")
+x <- as.MPCR(1:20,precision="double")
 lgamma(x)
 }
 }

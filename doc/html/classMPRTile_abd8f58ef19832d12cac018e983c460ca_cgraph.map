@@ -1,5 +1,0 @@
-<map id="MPRTile::FillWithZeros" name="MPRTile::FillWithZeros">
-<area shape="rect" id="node1" title="Fills the Null Tiles with Zeros according to the MPRTile Metadata and Dimensions." alt="" coords="5,31,173,57"/>
-<area shape="rect" id="node2" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="225,5,386,32"/>
-<area shape="rect" id="node3" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="221,56,389,83"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="RNaReplace" name="RNaReplace">
-<area shape="rect" id="node1" title="R Adapter for Replacing NA values with a given value." alt="" coords="5,35,107,61"/>
-<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="155,5,328,32"/>
-<area shape="rect" id="node3" href="$namespacempr_1_1operations_1_1basic.html#a072bf1f1114bc9de507b2ee667b3e5e0" title="Replace NA values with a given value." alt="" coords="158,57,325,98"/>
-<area shape="rect" id="node4" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="376,39,521,65"/>
-<area shape="rect" id="node5" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="378,89,519,116"/>
-</map>

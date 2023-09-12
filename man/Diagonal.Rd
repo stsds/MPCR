@@ -1,23 +1,23 @@
 \name{11-Diagonal}
 \alias{diag}
-\alias{diag,Rcpp_MMPR-method}
+\alias{diag,Rcpp_MPCR-method}
 \title{diag}
 \usage{
-\S4method{diag}{Rcpp_MMPR}(x)
+\S4method{diag}{Rcpp_MPCR}(x)
 }
 \arguments{
-\item{x}{An MMPR matrix.}
+\item{x}{An MPCR matrix.}
 }
 \value{
-An MMPR vector contains the main diagonal of the matrix.
+An MPCR vector contains the main diagonal of the matrix.
 }
 \description{
-Returns the diagonal of an MMPR matrix.
+Returns the diagonal of an MPCR matrix.
 }
 \examples{
   \dontrun{
-    library(MMPR)
-    x <- as.MMPR(1:16,4,4,"single")
+    library(MPCR)
+    x <- as.MPCR(1:16,4,4,"single")
     diag_vals <- diag(x)
     }
 

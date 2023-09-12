@@ -1,6 +1,0 @@
-<map id="Promoter::ResetPromoter" name="Promoter::ResetPromoter">
-<area shape="rect" id="node1" title="Resets and deletes any saved objects and precisions." alt="" coords="392,46,579,73"/>
-<area shape="rect" id="node2" href="$namespacempr_1_1operations_1_1linear.html#ab513f8ae03768c169422a7526c023091" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="173,5,344,47"/>
-<area shape="rect" id="node4" href="$namespacempr_1_1operations_1_1linear.html#ae6cfe175d37fd5765b277e4b60e5706d" title="Tiled&#45;Matrix Multiplication of 2 MPR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="173,71,344,112"/>
-<area shape="rect" id="node3" href="$MPRTileModule_8cpp.html#a7349a685d120489dfba5667beec82804" title=" " alt="" coords="5,46,125,73"/>
-</map>
