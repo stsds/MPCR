@@ -1,0 +1,10 @@
+<map id="RRound" name="RRound">
+<area shape="rect" id="node1" title="Perform Round operation on MPCR Object." alt="" coords="5,77,77,104"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="126,48,299,75"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1operations_1_1math.html#a6eceba20b2f836e14eb3073bd7aba1c6" title="Rounds a given MPCR Object to a given Number of decimal places." alt="" coords="125,99,300,141"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="371,5,514,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="370,56,515,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="372,107,513,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="371,157,514,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="348,208,537,235"/>
+</map>

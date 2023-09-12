@@ -1,0 +1,4 @@
+<map id="RTCrossProduct" name="RTCrossProduct">
+<area shape="rect" id="node1" title="Calculate CrossProduct of 2 MPCR Matrices performs: x %*% t(y) , x %*% t(x)" alt="" coords="173,5,296,32"/>
+<area shape="rect" id="node2" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,5,125,32"/>
+</map>

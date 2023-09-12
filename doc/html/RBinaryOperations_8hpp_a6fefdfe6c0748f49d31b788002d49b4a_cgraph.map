@@ -1,0 +1,17 @@
+<map id="RPerformMult" name="RPerformMult">
+<area shape="rect" id="node1" title="R&#45;Adapter for Performing Multiplication on Two MPCR Objects." alt="" coords="5,159,117,185"/>
+<area shape="rect" id="node2" href="$namespacempcr_1_1precision.html#ae9d61541a8fc26d092a934ed5ffcfe18" title="Get Operation Order according to input,input,output for Dispatcher." alt="" coords="165,57,383,98"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1precision.html#a0dc69179bf2df06e91e617180cbec8db" title="Get Precision of output element (to promote output in case of multi&#45;precision operations)" alt="" coords="175,122,373,163"/>
+<area shape="rect" id="node4" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="187,188,361,215"/>
+<area shape="rect" id="node5" href="$namespacempcr_1_1operations_1_1binary.html#a6efe3af467f813416f2d33d54fe222e1" title="Perform Operation on 2 MPCR Objects according to provided Operation aFun." alt="" coords="183,239,365,281"/>
+<area shape="rect" id="node6" href="$namespacempcr_1_1operations_1_1binary.html#a38457dce193d4985a0ee2b64e71d2179" title="Function to check whether the input MPCR objects Dimensions match the required Dimensions ,..." alt="" coords="435,54,616,95"/>
+<area shape="rect" id="node7" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="668,36,820,63"/>
+<area shape="rect" id="node8" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="673,88,815,115"/>
+<area shape="rect" id="node9" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="672,143,816,169"/>
+<area shape="rect" id="node10" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="454,221,597,248"/>
+<area shape="rect" id="node11" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="453,272,598,299"/>
+<area shape="rect" id="node12" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="453,323,598,349"/>
+<area shape="rect" id="node13" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="454,373,597,400"/>
+<area shape="rect" id="node14" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="431,424,620,451"/>
+<area shape="rect" id="node15" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="456,475,595,501"/>
+</map>

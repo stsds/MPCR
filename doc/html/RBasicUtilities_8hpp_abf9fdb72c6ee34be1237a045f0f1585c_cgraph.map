@@ -1,0 +1,10 @@
+<map id="RGetMin" name="RGetMin">
+<area shape="rect" id="node1" title="R Adapter for Getting Min Element in Array." alt="" coords="5,77,84,104"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="133,48,306,75"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1operations_1_1basic.html#aa385c268a4be2ead860cdbb571aaf260" title="Get Min/Max Element in Array and Idx at which the element is. if only the Index is Needed ,..." alt="" coords="132,99,307,141"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="356,5,499,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="355,56,500,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="357,107,498,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="356,157,499,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="358,208,497,235"/>
+</map>

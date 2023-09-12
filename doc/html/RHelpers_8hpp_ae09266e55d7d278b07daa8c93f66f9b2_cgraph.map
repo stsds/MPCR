@@ -1,0 +1,6 @@
+<map id="RInsertTile" name="RInsertTile">
+<area shape="rect" id="node1" title="Updates a Tile in MPCRTile Object, by copying the tile and inserting the new tile to avoid R ownershi..." alt="" coords="5,42,97,69"/>
+<area shape="rect" id="node2" href="$classMPCRTile.html#a3e7b8228ea53f1ab4a5bcb5acfcff702" title="Insert a Tile inside the MPCR Tiles using Tile Row idx and Tile Col idx. this function doesn&#39;t check ..." alt="" coords="145,42,297,69"/>
+<area shape="rect" id="node3" href="$classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="345,5,545,47"/>
+<area shape="rect" id="node4" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="361,71,529,98"/>
+</map>

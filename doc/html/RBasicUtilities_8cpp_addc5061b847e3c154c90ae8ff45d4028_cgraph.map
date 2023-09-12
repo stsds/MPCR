@@ -1,0 +1,4 @@
+<map id="RObjectSize" name="RObjectSize">
+<area shape="rect" id="node1" title="Get total size of Memory used by MPCR Object." alt="" coords="5,5,105,32"/>
+<area shape="rect" id="node2" href="$classDataType.html#a21989e8d529f631b62136d8304bb0138" title="Get total size of Memory used by MPCR Object." alt="" coords="153,5,336,32"/>
+</map>

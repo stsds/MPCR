@@ -1,0 +1,10 @@
+<map id="RConcatenate" name="RConcatenate">
+<area shape="rect" id="node1" title="R Adapter for Concatenating List of MPCR Vectors into one MPCR Vector. This Function Casts the SEXP p..." alt="" coords="5,147,119,173"/>
+<area shape="rect" id="node2" href="$namespacempcr_1_1operations_1_1basic.html#a484c865b80fb910c55df63211f996bc2" title="Concatenate one or two vector/Matrix(Row Bind) to a given vector." alt="" coords="188,74,363,115"/>
+<area shape="rect" id="node7" href="$namespacempcr_1_1precision.html#ae9d61541a8fc26d092a934ed5ffcfe18" title="Get Operation Order according to input,input,output for Dispatcher." alt="" coords="167,139,384,181"/>
+<area shape="rect" id="node8" href="$namespacempcr_1_1precision.html#a0dc69179bf2df06e91e617180cbec8db" title="Get Precision of output element (to promote output in case of multi&#45;precision operations)" alt="" coords="177,205,374,246"/>
+<area shape="rect" id="node3" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="432,5,577,32"/>
+<area shape="rect" id="node4" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="434,56,575,83"/>
+<area shape="rect" id="node5" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="433,107,577,133"/>
+<area shape="rect" id="node6" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="433,157,576,184"/>
+</map>

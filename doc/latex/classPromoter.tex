@@ -1,0 +1,193 @@
+\hypertarget{classPromoter}{}\doxysection{Promoter Class Reference}
+\label{classPromoter}\index{Promoter@{Promoter}}
+
+
+{\ttfamily \#include $<$Promoter.\+hpp$>$}
+
+
+
+Collaboration diagram for Promoter\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{classPromoter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPromoter_a9e902cf314513de4981b441ef3a41052}{Promoter}} (int a\+Count)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classPromoter_a7e8c5cb673ec47b894ea50f1270cfb33}{$\sim$\+Promoter}} ()
+\begin{DoxyCompactList}\small\item\em Default De-\/\+Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPromoter_ab4a02bcb7f4bc62a271f30cdb8b76440}{Insert}} (\mbox{\hyperlink{classDataType}{Data\+Type}} \&\mbox{\hyperlink{LinearAlgebra_8cpp_a6d72f94b92fb4d87ccc1626e60e28b4d}{a\+Input}})
+\begin{DoxyCompactList}\small\item\em Insert M\+P\+CR Objects to use for Promotion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPromoter_a5741a6019a38181104e3959c22a03cd5}{Promote}} ()
+\begin{DoxyCompactList}\small\item\em Promote all the inserted M\+P\+CR Objects according to the Highest Object Precision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPromoter_a2207b7ba503499c23f20b330fde1b486}{De\+Promote}} ()
+\begin{DoxyCompactList}\small\item\em De-\/\+Promotes the Half Precision (O\+N\+LY) objects that were promoted. can be extended to de-\/promote all M\+P\+CR objects to their original Precision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPromoter_af74bd28863858e4422711e97a3d7a64e}{Reset\+Promoter}} (const size\+\_\+t \&a\+Count)
+\begin{DoxyCompactList}\small\item\em Resets and deletes any saved objects and precisions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ \mbox{\hyperlink{classPromoter_a2231467d4ccdcf2ca82990181242a0d1}{Get\+Promoted\+Tile}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\&ap\+Tile, const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{Precision}} \&a\+Precision\+Required)
+\begin{DoxyCompactList}\small\item\em used for \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Matrix algorithms. it returns a the required tile with the required precision and it keeps track of all the tiles created during the usage so that if a tile with specific precision is created before , it returns a pointer to that tile without the need of creating any new copies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPromoter_a9e902cf314513de4981b441ef3a41052}\label{classPromoter_a9e902cf314513de4981b441ef3a41052}} 
+\index{Promoter@{Promoter}!Promoter@{Promoter}}
+\index{Promoter@{Promoter}!Promoter@{Promoter}}
+\doxysubsubsection{\texorpdfstring{Promoter()}{Promoter()}}
+{\footnotesize\ttfamily Promoter\+::\+Promoter (\begin{DoxyParamCaption}\item[{int}]{a\+Count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Count} & Number of M\+P\+CR objects that will be used for Promotion Process \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPromoter_a7e8c5cb673ec47b894ea50f1270cfb33}\label{classPromoter_a7e8c5cb673ec47b894ea50f1270cfb33}} 
+\index{Promoter@{Promoter}!````~Promoter@{$\sim$Promoter}}
+\index{````~Promoter@{$\sim$Promoter}!Promoter@{Promoter}}
+\doxysubsubsection{\texorpdfstring{$\sim$Promoter()}{~Promoter()}}
+{\footnotesize\ttfamily Promoter\+::$\sim$\+Promoter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default De-\/\+Constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPromoter_a2207b7ba503499c23f20b330fde1b486}\label{classPromoter_a2207b7ba503499c23f20b330fde1b486}} 
+\index{Promoter@{Promoter}!DePromote@{DePromote}}
+\index{DePromote@{DePromote}!Promoter@{Promoter}}
+\doxysubsubsection{\texorpdfstring{DePromote()}{DePromote()}}
+{\footnotesize\ttfamily void Promoter\+::\+De\+Promote (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+De-\/\+Promotes the Half Precision (O\+N\+LY) objects that were promoted. can be extended to de-\/promote all M\+P\+CR objects to their original Precision. 
+
+Note\+: No M\+P\+CR Object pointer should be changed in any process in between Promotion and De-\/\+Promotion. Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPromoter_a2207b7ba503499c23f20b330fde1b486_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPromoter_a2231467d4ccdcf2ca82990181242a0d1}\label{classPromoter_a2231467d4ccdcf2ca82990181242a0d1}} 
+\index{Promoter@{Promoter}!GetPromotedTile@{GetPromotedTile}}
+\index{GetPromotedTile@{GetPromotedTile}!Promoter@{Promoter}}
+\doxysubsubsection{\texorpdfstring{GetPromotedTile()}{GetPromotedTile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ Promoter\+::\+Get\+Promoted\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\&}]{ap\+Tile,  }\item[{const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{Precision}} \&}]{a\+Precision\+Required }\end{DoxyParamCaption})}
+
+
+
+used for \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Matrix algorithms. it returns a the required tile with the required precision and it keeps track of all the tiles created during the usage so that if a tile with specific precision is created before , it returns a pointer to that tile without the need of creating any new copies. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Count} & New Counter that will be used for initializing the promoter \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPromoter_a2231467d4ccdcf2ca82990181242a0d1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPromoter_a2231467d4ccdcf2ca82990181242a0d1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPromoter_ab4a02bcb7f4bc62a271f30cdb8b76440}\label{classPromoter_ab4a02bcb7f4bc62a271f30cdb8b76440}} 
+\index{Promoter@{Promoter}!Insert@{Insert}}
+\index{Insert@{Insert}!Promoter@{Promoter}}
+\doxysubsubsection{\texorpdfstring{Insert()}{Insert()}}
+{\footnotesize\ttfamily void Promoter\+::\+Insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} \&}]{a\+Input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Insert M\+P\+CR Objects to use for Promotion. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Input} & M\+P\+CR Object to insert \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{classPromoter_ab4a02bcb7f4bc62a271f30cdb8b76440_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPromoter_ab4a02bcb7f4bc62a271f30cdb8b76440_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPromoter_a5741a6019a38181104e3959c22a03cd5}\label{classPromoter_a5741a6019a38181104e3959c22a03cd5}} 
+\index{Promoter@{Promoter}!Promote@{Promote}}
+\index{Promote@{Promote}!Promoter@{Promoter}}
+\doxysubsubsection{\texorpdfstring{Promote()}{Promote()}}
+{\footnotesize\ttfamily void Promoter\+::\+Promote (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Promote all the inserted M\+P\+CR Objects according to the Highest Object Precision. 
+
+Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.
+
+M\+P\+CR is an R package provided by the S\+T\+S\+DS group at K\+A\+U\+ST Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPromoter_a5741a6019a38181104e3959c22a03cd5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPromoter_af74bd28863858e4422711e97a3d7a64e}\label{classPromoter_af74bd28863858e4422711e97a3d7a64e}} 
+\index{Promoter@{Promoter}!ResetPromoter@{ResetPromoter}}
+\index{ResetPromoter@{ResetPromoter}!Promoter@{Promoter}}
+\doxysubsubsection{\texorpdfstring{ResetPromoter()}{ResetPromoter()}}
+{\footnotesize\ttfamily void Promoter\+::\+Reset\+Promoter (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Count }\end{DoxyParamCaption})}
+
+
+
+Resets and deletes any saved objects and precisions. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Count} & New Counter that will be used for initializing the promoter \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPromoter_af74bd28863858e4422711e97a3d7a64e_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/data-\/units/\mbox{\hyperlink{Promoter_8hpp}{Promoter.\+hpp}}\item 
+src/data-\/units/\mbox{\hyperlink{Promoter_8cpp}{Promoter.\+cpp}}\end{DoxyCompactItemize}

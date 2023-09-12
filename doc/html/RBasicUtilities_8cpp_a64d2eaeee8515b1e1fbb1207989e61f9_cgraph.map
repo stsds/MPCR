@@ -1,0 +1,7 @@
+<map id="RGetElementMatrix" name="RGetElementMatrix">
+<area shape="rect" id="node1" title="R Adapter for Getting Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="5,56,156,83"/>
+<area shape="rect" id="node2" href="$classDataType.html#aecf5b1bde9889156d296d16cdd1143d4" title="Get Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="204,56,415,83"/>
+<area shape="rect" id="node3" href="$classDataType.html#a556051021c23d1428fffad935aad890b" title="DataType default constructor." alt="" coords="483,5,635,32"/>
+<area shape="rect" id="node4" href="$classDataType.html#a68b2fa13423bed79444a721963249831" title="Get Index of Matrix in Row&#45;Wise Representation." alt="" coords="463,56,655,83"/>
+<area shape="rect" id="node5" href="$classDataType.html#a2150d8ef445e8db1eef0001c6d646da0" title="Get Values in the Vector according to Index (0&#45;based Indexing)" alt="" coords="491,107,626,133"/>
+</map>

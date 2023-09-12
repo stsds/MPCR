@@ -1,0 +1,912 @@
+\hypertarget{classMPCRTile}{}\doxysection{M\+P\+C\+R\+Tile Class Reference}
+\label{classMPCRTile}\index{MPCRTile@{MPCRTile}}
+
+
+{\ttfamily \#include $<$M\+P\+C\+R\+Tile.\+hpp$>$}
+
+
+
+Collaboration diagram for M\+P\+C\+R\+Tile\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{classMPCRTile__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMPCRTile_ab62de59d19dd2cfa0907337b329268d6}{M\+P\+C\+R\+Tile}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col, size\+\_\+t a\+Tile\+Row, size\+\_\+t a\+Tile\+Col, const std\+::vector$<$ double $>$ \&a\+Values, const std\+::vector$<$ std\+::string $>$ \&a\+Precisions)
+\begin{DoxyCompactList}\small\item\em M\+P\+C\+R-\/\+Tile Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMPCRTile_a48a484becc6df010737a1464335b7710}{M\+P\+C\+R\+Tile}} (size\+\_\+t a\+Row, size\+\_\+t a\+Col, size\+\_\+t a\+Tile\+Row, size\+\_\+t a\+Tile\+Col)
+\begin{DoxyCompactList}\small\item\em M\+P\+C\+R-\/\+Tile Constructor , Creates an Empty \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object with the right \mbox{\hyperlink{structDimensions}{Dimensions}} (All Tiles pointers are Null) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \& \mbox{\hyperlink{classMPCRTile_aa02496b9909c3f94ff2c65433ce0e88e}{operator=}} (const \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \&a\+M\+P\+C\+R\+Tile)
+\begin{DoxyCompactList}\small\item\em M\+P\+C\+R-\/\+Tile Equal Operator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMPCRTile_a7fee74f758e87bf3f52ca1001895009e}{M\+P\+C\+R\+Tile}} (const \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \&a\+M\+P\+C\+R\+Tile)
+\begin{DoxyCompactList}\small\item\em M\+P\+C\+R-\/\+Tile Copy Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classMPCRTile_ad9c75c97c7ede7315b44dee4b02df48d}{$\sim$\+M\+P\+C\+R\+Tile}} ()
+\begin{DoxyCompactList}\small\item\em M\+P\+C\+R-\/\+Tile De-\/\+Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_a7e400ecb6d88e47bb628927c52b025ff}{Set\+Val}} (const size\+\_\+t \&a\+Row\+Idx, const size\+\_\+t \&a\+Col\+Idx, double a\+Value)
+\begin{DoxyCompactList}\small\item\em Sets the value at \mbox{[}a\+Row\+Idx,a\+Col\+Idx\mbox{]}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classMPCRTile_a495763e25616b8260db7ad3df004b8fe}{Get\+Val}} (const size\+\_\+t \&a\+Row\+Idx, const size\+\_\+t \&a\+Col\+Idx)
+\begin{DoxyCompactList}\small\item\em Get the value at \mbox{[}a\+Row\+Idx,a\+Col\+Idx\mbox{]}. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_a5edd9a484d34e3e568333674295ca33d}{Get\+N\+Row}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Rows in Global Matrix. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_aa202280ef2a59935124c4415555ca5dd}{Get\+N\+Col}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Cols in Global Matrix. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_a15f03b7b6b8dc32d64e2bb72996fd29d}{Get\+Tile\+N\+Row}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Rows in Tiles. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_aefef84bd754d19af2006d362839858c9}{Get\+Tile\+N\+Col}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Cols in Tiles. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_a055e6926a7ac30493a2765c790a4aafe}{Get\+Tile\+Per\+Col}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Tiles per Col. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_a54e38995a22ddd309eb2ce02a80b57f2}{Get\+Tile\+Per\+Row}} () const
+\begin{DoxyCompactList}\small\item\em Get Number of Tiles per Row. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_a285be20eaf77ef0bd86acb63a3497f9b}{Change\+Precision}} (const size\+\_\+t \&a\+Tile\+Row\+Idx, const size\+\_\+t \&a\+Tile\+Col\+Idx, const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{mpcr\+::precision\+::\+Precision}} \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em Change Precision of a certain tile. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_aef3ef7bc764aa66f58b7637c9b599b7b}{Change\+Precision}} (const size\+\_\+t \&a\+Tile\+Row\+Idx, const size\+\_\+t \&a\+Tile\+Col\+Idx, const std\+::string \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em Change Precision of a certain tile. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_af4530de5a2cd5f04a203645ec68171b6}{Print\+Tile}} (const size\+\_\+t \&a\+Tile\+Row\+Idx, const size\+\_\+t \&a\+Tile\+Col\+Idx)
+\begin{DoxyCompactList}\small\item\em Print the values of a certain tile. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ $>$ \& \mbox{\hyperlink{classMPCRTile_aa35c750887fa635e65ab25ae24ca908b}{Get\+Tiles}} ()
+\begin{DoxyCompactList}\small\item\em Return Matrix described as a vector of \mbox{\hyperlink{classDataType}{Data\+Type}} Matrices in a Column Major Form. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_aba7c121e7ba72451988214c5a8775a65}{Get\+Tile\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Get Size of Tile. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_a473ea585428603266365ed49884003d3}{Get\+Matrix\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Get Size of Matrix. \end{DoxyCompactList}\item 
+const bool \mbox{\hyperlink{classMPCRTile_a0df43acd6ef15c1f1ffbc2b4958ca20b}{Is\+M\+P\+C\+R\+Tile}} () const
+\begin{DoxyCompactList}\small\item\em Check if a Casted Memory Address is a \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_a2ad618e84691bde1b4c0b31cea9b27d5}{Get\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Prints the Metadata of the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_aaa37a6f050048793b38b6fca2dbb12db}{Print}} ()
+\begin{DoxyCompactList}\small\item\em Prints the Metadata and the values of the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_a3e7b8228ea53f1ab4a5bcb5acfcff702}{Insert\+Tile}} (\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$ap\+Tile, const size\+\_\+t \&a\+Tile\+Row\+Idx, const size\+\_\+t \&a\+Tile\+Col\+Idx)
+\begin{DoxyCompactList}\small\item\em Insert a Tile inside the M\+P\+CR Tiles using Tile Row idx and Tile Col idx. this function doesn\textquotesingle{}t check whether the internal dimensions of the tile is the same as the \mbox{\hyperlink{structDimensions}{Dimensions}} used to created the Tiled Matrix. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\& \mbox{\hyperlink{classMPCRTile_a50551c9cee581b547dc7ba102a233e11}{Get\+Tile}} (const size\+\_\+t \&a\+Tile\+Row\+Idx, const size\+\_\+t \&a\+Tile\+Col\+Idx)
+\begin{DoxyCompactList}\small\item\em Get a Tile from the M\+P\+CR Tiles using Tile Row idx and Tile Col idx. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_accab8dfaf8058a28e01cce8220683591}{Set\+Dimensions}} (\mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \&a\+M\+P\+C\+R\+Tile)
+\begin{DoxyCompactList}\small\item\em Copies the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \mbox{\hyperlink{structDimensions}{Dimensions}} and sizes metadata from another \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} obj. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classMPCRTile_ae3313ef5c28be48e60b53ccf0b2fb95e}{Get\+Index\+Column\+Major}} (const \mbox{\hyperlink{MPCRTile_8hpp_a675afdc89b8e5cca12152f52df74548e}{Matrix\+Index}} \&a\+Idx, const size\+\_\+t \&a\+Leading\+Dim)
+\begin{DoxyCompactList}\small\item\em Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_a2124c8baa0b238e49e772a8a05628271}{Fill\+With\+Zeros}} ()
+\begin{DoxyCompactList}\small\item\em Fills the Null Tiles with Zeros according to the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Metadata and \mbox{\hyperlink{structDimensions}{Dimensions}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_ac8fbc7499da753101bdb4db0de418e45}{Fill\+Square\+Triangle}} (const double \&a\+Value, const bool \&a\+Upper\+Triangle=true, const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{mpcr\+::precision\+::\+Precision}} \&a\+Precision=\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a255d2db4625ab7bf55b9c91dcc1f68ff}{mpcr\+::precision\+::\+F\+L\+O\+AT}})
+\begin{DoxyCompactList}\small\item\em Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,replacing the old tiles Note\+: the Input must be a square Matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMPCRTile_a1ec6ba04a475bad2dcf63b3cf6db95a6}{Fill\+Square\+Triangle}} (const double \&a\+Value, const bool \&a\+Upper\+Triangle, const std\+::string \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,replacing the old tiles Note\+: the Input must be a square Matrix. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classMPCRTile_a4a190143301ae4dec9d075bace5824d8}{Sum}} ()
+\begin{DoxyCompactList}\small\item\em Returns the sum of all elements in all tiles in \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classMPCRTile_af2c62dd1137226c8100f83edb44a8843}{Product}} ()
+\begin{DoxyCompactList}\small\item\em Returns the product of all elements in all tiles in \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMPCRTile_ab62de59d19dd2cfa0907337b329268d6}\label{classMPCRTile_ab62de59d19dd2cfa0907337b329268d6}} 
+\index{MPCRTile@{MPCRTile}!MPCRTile@{MPCRTile}}
+\index{MPCRTile@{MPCRTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{MPCRTile()}{MPCRTile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily M\+P\+C\+R\+Tile\+::\+M\+P\+C\+R\+Tile (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col,  }\item[{size\+\_\+t}]{a\+Tile\+Row,  }\item[{size\+\_\+t}]{a\+Tile\+Col,  }\item[{const std\+::vector$<$ double $>$ \&}]{a\+Values,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{a\+Precisions }\end{DoxyParamCaption})}
+
+
+
+M\+P\+C\+R-\/\+Tile Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Global rows \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Global cols \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Row} & Number of rows in each tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Col} & Number of cols in each tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Values} & vector containing all the data needed to construct the Matrix from. should be the size of row$\ast$col \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precisions} & vector indicating the precision of each tile should be the same size as the required tiles\\
+\hline
+\end{DoxyParams}
+Copyright (c) 2023, King Abdullah University of Science and Technology All rights reserved.
+
+M\+P\+CR is an R package provided by the S\+T\+S\+DS group at K\+A\+U\+ST Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_ab62de59d19dd2cfa0907337b329268d6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a48a484becc6df010737a1464335b7710}\label{classMPCRTile_a48a484becc6df010737a1464335b7710}} 
+\index{MPCRTile@{MPCRTile}!MPCRTile@{MPCRTile}}
+\index{MPCRTile@{MPCRTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{MPCRTile()}{MPCRTile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily M\+P\+C\+R\+Tile\+::\+M\+P\+C\+R\+Tile (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{a\+Row,  }\item[{size\+\_\+t}]{a\+Col,  }\item[{size\+\_\+t}]{a\+Tile\+Row,  }\item[{size\+\_\+t}]{a\+Tile\+Col }\end{DoxyParamCaption})}
+
+
+
+M\+P\+C\+R-\/\+Tile Constructor , Creates an Empty \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object with the right \mbox{\hyperlink{structDimensions}{Dimensions}} (All Tiles pointers are Null) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row} & Number of Global rows \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col} & Number of Global cols \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Row} & Number of rows in each tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Col} & Number of cols in each tile \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMPCRTile_a7fee74f758e87bf3f52ca1001895009e}\label{classMPCRTile_a7fee74f758e87bf3f52ca1001895009e}} 
+\index{MPCRTile@{MPCRTile}!MPCRTile@{MPCRTile}}
+\index{MPCRTile@{MPCRTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{MPCRTile()}{MPCRTile()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily M\+P\+C\+R\+Tile\+::\+M\+P\+C\+R\+Tile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \&}]{a\+M\+P\+C\+R\+Tile }\end{DoxyParamCaption})}
+
+
+
+M\+P\+C\+R-\/\+Tile Copy Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+M\+P\+C\+R\+Tile} & \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a7fee74f758e87bf3f52ca1001895009e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_ad9c75c97c7ede7315b44dee4b02df48d}\label{classMPCRTile_ad9c75c97c7ede7315b44dee4b02df48d}} 
+\index{MPCRTile@{MPCRTile}!````~MPCRTile@{$\sim$MPCRTile}}
+\index{````~MPCRTile@{$\sim$MPCRTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{$\sim$MPCRTile()}{~MPCRTile()}}
+{\footnotesize\ttfamily M\+P\+C\+R\+Tile\+::$\sim$\+M\+P\+C\+R\+Tile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+M\+P\+C\+R-\/\+Tile De-\/\+Constructor. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMPCRTile_a285be20eaf77ef0bd86acb63a3497f9b}\label{classMPCRTile_a285be20eaf77ef0bd86acb63a3497f9b}} 
+\index{MPCRTile@{MPCRTile}!ChangePrecision@{ChangePrecision}}
+\index{ChangePrecision@{ChangePrecision}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{ChangePrecision()}{ChangePrecision()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Change\+Precision (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Tile\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Tile\+Col\+Idx,  }\item[{const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{mpcr\+::precision\+::\+Precision}} \&}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+Change Precision of a certain tile. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Row\+Idx} & Row idx of tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Col\+Idx} & Col idx of tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision Required \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a285be20eaf77ef0bd86acb63a3497f9b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a285be20eaf77ef0bd86acb63a3497f9b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_aef3ef7bc764aa66f58b7637c9b599b7b}\label{classMPCRTile_aef3ef7bc764aa66f58b7637c9b599b7b}} 
+\index{MPCRTile@{MPCRTile}!ChangePrecision@{ChangePrecision}}
+\index{ChangePrecision@{ChangePrecision}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{ChangePrecision()}{ChangePrecision()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Change\+Precision (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Tile\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Tile\+Col\+Idx,  }\item[{const std\+::string \&}]{a\+Precision }\end{DoxyParamCaption})}
+
+
+
+Change Precision of a certain tile. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Row\+Idx} & Row idx of tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Col\+Idx} & Col idx of tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Precision Required \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_aef3ef7bc764aa66f58b7637c9b599b7b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a1ec6ba04a475bad2dcf63b3cf6db95a6}\label{classMPCRTile_a1ec6ba04a475bad2dcf63b3cf6db95a6}} 
+\index{MPCRTile@{MPCRTile}!FillSquareTriangle@{FillSquareTriangle}}
+\index{FillSquareTriangle@{FillSquareTriangle}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{FillSquareTriangle()}{FillSquareTriangle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Fill\+Square\+Triangle (\begin{DoxyParamCaption}\item[{const double \&}]{a\+Value,  }\item[{const bool \&}]{a\+Upper\+Triangle,  }\item[{const std\+::string \&}]{a\+Precision }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,replacing the old tiles Note\+: the Input must be a square Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Value} & value to use for filling the triangle \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Upper\+Triangle} & bool to indicate whether to fill the upper or the lower triangle if true, the upper triangle will be accessed ;otherwise, the lower \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Default precision to use for filling the triangle \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a1ec6ba04a475bad2dcf63b3cf6db95a6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_ac8fbc7499da753101bdb4db0de418e45}\label{classMPCRTile_ac8fbc7499da753101bdb4db0de418e45}} 
+\index{MPCRTile@{MPCRTile}!FillSquareTriangle@{FillSquareTriangle}}
+\index{FillSquareTriangle@{FillSquareTriangle}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{FillSquareTriangle()}{FillSquareTriangle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Fill\+Square\+Triangle (\begin{DoxyParamCaption}\item[{const double \&}]{a\+Value,  }\item[{const bool \&}]{a\+Upper\+Triangle = {\ttfamily true},  }\item[{const \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{mpcr\+::precision\+::\+Precision}} \&}]{a\+Precision = {\ttfamily \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a255d2db4625ab7bf55b9c91dcc1f68ff}{mpcr\+::precision\+::\+F\+L\+O\+AT}}} }\end{DoxyParamCaption})}
+
+
+
+Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,replacing the old tiles Note\+: the Input must be a square Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Value} & value to use for filling the triangle \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Upper\+Triangle} & bool to indicate whether to fill the upper or the lower triangle if true, the upper triangle will be accessed ;otherwise, the lower \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Precision} & Default precision to use for filling the triangle \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_ac8fbc7499da753101bdb4db0de418e45_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_ac8fbc7499da753101bdb4db0de418e45_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a2124c8baa0b238e49e772a8a05628271}\label{classMPCRTile_a2124c8baa0b238e49e772a8a05628271}} 
+\index{MPCRTile@{MPCRTile}!FillWithZeros@{FillWithZeros}}
+\index{FillWithZeros@{FillWithZeros}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{FillWithZeros()}{FillWithZeros()}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Fill\+With\+Zeros (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fills the Null Tiles with Zeros according to the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Metadata and \mbox{\hyperlink{structDimensions}{Dimensions}}. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a2124c8baa0b238e49e772a8a05628271_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_ae3313ef5c28be48e60b53ccf0b2fb95e}\label{classMPCRTile_ae3313ef5c28be48e60b53ccf0b2fb95e}} 
+\index{MPCRTile@{MPCRTile}!GetIndexColumnMajor@{GetIndexColumnMajor}}
+\index{GetIndexColumnMajor@{GetIndexColumnMajor}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetIndexColumnMajor()}{GetIndexColumnMajor()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+Index\+Column\+Major (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{MPCRTile_8hpp_a675afdc89b8e5cca12152f52df74548e}{Matrix\+Index}} \&}]{a\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Leading\+Dim }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Idx} & pair of idx \mbox{[}Row,Col\mbox{]} \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Leading\+Dim} & Leading Dimension to use for conversion to a 1D idx\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Idx in a 1D Form 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_ae3313ef5c28be48e60b53ccf0b2fb95e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a473ea585428603266365ed49884003d3}\label{classMPCRTile_a473ea585428603266365ed49884003d3}} 
+\index{MPCRTile@{MPCRTile}!GetMatrixSize@{GetMatrixSize}}
+\index{GetMatrixSize@{GetMatrixSize}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetMatrixSize()}{GetMatrixSize()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+Matrix\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Size of Matrix. 
+
+\begin{DoxyReturn}{Returns}
+Size of Matrix 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{classMPCRTile_a473ea585428603266365ed49884003d3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_aa202280ef2a59935124c4415555ca5dd}\label{classMPCRTile_aa202280ef2a59935124c4415555ca5dd}} 
+\index{MPCRTile@{MPCRTile}!GetNCol@{GetNCol}}
+\index{GetNCol@{GetNCol}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetNCol()}{GetNCol()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+N\+Col (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Cols in Global Matrix. 
+
+\begin{DoxyReturn}{Returns}
+Number of Cols in Global Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classMPCRTile_aa202280ef2a59935124c4415555ca5dd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{classMPCRTile_aa202280ef2a59935124c4415555ca5dd_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a5edd9a484d34e3e568333674295ca33d}\label{classMPCRTile_a5edd9a484d34e3e568333674295ca33d}} 
+\index{MPCRTile@{MPCRTile}!GetNRow@{GetNRow}}
+\index{GetNRow@{GetNRow}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetNRow()}{GetNRow()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+N\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Rows in Global Matrix. 
+
+\begin{DoxyReturn}{Returns}
+Number of Rows in Global Matrix 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a5edd9a484d34e3e568333674295ca33d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{classMPCRTile_a5edd9a484d34e3e568333674295ca33d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a50551c9cee581b547dc7ba102a233e11}\label{classMPCRTile_a50551c9cee581b547dc7ba102a233e11}} 
+\index{MPCRTile@{MPCRTile}!GetTile@{GetTile}}
+\index{GetTile@{GetTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetTile()}{GetTile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$\& M\+P\+C\+R\+Tile\+::\+Get\+Tile (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Tile\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Tile\+Col\+Idx }\end{DoxyParamCaption})}
+
+
+
+Get a Tile from the M\+P\+CR Tiles using Tile Row idx and Tile Col idx. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Row\+Idx} & Row Idx of the Tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Col\+Idx} & Col Idx of the Tile\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+M\+P\+CR object describing the Tile at I\+Dx (a\+Tile\+Row\+Idx,a\+Tile\+Col\+Idx) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a50551c9cee581b547dc7ba102a233e11_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a50551c9cee581b547dc7ba102a233e11_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_aefef84bd754d19af2006d362839858c9}\label{classMPCRTile_aefef84bd754d19af2006d362839858c9}} 
+\index{MPCRTile@{MPCRTile}!GetTileNCol@{GetTileNCol}}
+\index{GetTileNCol@{GetTileNCol}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetTileNCol()}{GetTileNCol()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+Tile\+N\+Col (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Cols in Tiles. 
+
+\begin{DoxyReturn}{Returns}
+Number of Cols in Tiles 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_aefef84bd754d19af2006d362839858c9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{classMPCRTile_aefef84bd754d19af2006d362839858c9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a15f03b7b6b8dc32d64e2bb72996fd29d}\label{classMPCRTile_a15f03b7b6b8dc32d64e2bb72996fd29d}} 
+\index{MPCRTile@{MPCRTile}!GetTileNRow@{GetTileNRow}}
+\index{GetTileNRow@{GetTileNRow}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetTileNRow()}{GetTileNRow()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+Tile\+N\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Rows in Tiles. 
+
+\begin{DoxyReturn}{Returns}
+Number of Rows in Tiles 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a15f03b7b6b8dc32d64e2bb72996fd29d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{classMPCRTile_a15f03b7b6b8dc32d64e2bb72996fd29d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a055e6926a7ac30493a2765c790a4aafe}\label{classMPCRTile_a055e6926a7ac30493a2765c790a4aafe}} 
+\index{MPCRTile@{MPCRTile}!GetTilePerCol@{GetTilePerCol}}
+\index{GetTilePerCol@{GetTilePerCol}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetTilePerCol()}{GetTilePerCol()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+Tile\+Per\+Col (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Tiles per Col. 
+
+\begin{DoxyReturn}{Returns}
+Number of Tiles per Col 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a055e6926a7ac30493a2765c790a4aafe_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a055e6926a7ac30493a2765c790a4aafe_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a54e38995a22ddd309eb2ce02a80b57f2}\label{classMPCRTile_a54e38995a22ddd309eb2ce02a80b57f2}} 
+\index{MPCRTile@{MPCRTile}!GetTilePerRow@{GetTilePerRow}}
+\index{GetTilePerRow@{GetTilePerRow}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetTilePerRow()}{GetTilePerRow()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+Tile\+Per\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Number of Tiles per Row. 
+
+\begin{DoxyReturn}{Returns}
+Number of Tiles per Row 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a54e38995a22ddd309eb2ce02a80b57f2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a54e38995a22ddd309eb2ce02a80b57f2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_aa35c750887fa635e65ab25ae24ca908b}\label{classMPCRTile_aa35c750887fa635e65ab25ae24ca908b}} 
+\index{MPCRTile@{MPCRTile}!GetTiles@{GetTiles}}
+\index{GetTiles@{GetTiles}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetTiles()}{GetTiles()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$$>$\& M\+P\+C\+R\+Tile\+::\+Get\+Tiles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return Matrix described as a vector of \mbox{\hyperlink{classDataType}{Data\+Type}} Matrices in a Column Major Form. 
+
+\begin{DoxyReturn}{Returns}
+Vector of Data\+Types Pointers 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMPCRTile_aba7c121e7ba72451988214c5a8775a65}\label{classMPCRTile_aba7c121e7ba72451988214c5a8775a65}} 
+\index{MPCRTile@{MPCRTile}!GetTileSize@{GetTileSize}}
+\index{GetTileSize@{GetTileSize}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetTileSize()}{GetTileSize()}}
+{\footnotesize\ttfamily size\+\_\+t M\+P\+C\+R\+Tile\+::\+Get\+Tile\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Size of Tile. 
+
+\begin{DoxyReturn}{Returns}
+Size of Tile 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{classMPCRTile_aba7c121e7ba72451988214c5a8775a65_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a2ad618e84691bde1b4c0b31cea9b27d5}\label{classMPCRTile_a2ad618e84691bde1b4c0b31cea9b27d5}} 
+\index{MPCRTile@{MPCRTile}!GetType@{GetType}}
+\index{GetType@{GetType}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetType()}{GetType()}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the Metadata of the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a2ad618e84691bde1b4c0b31cea9b27d5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a2ad618e84691bde1b4c0b31cea9b27d5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a495763e25616b8260db7ad3df004b8fe}\label{classMPCRTile_a495763e25616b8260db7ad3df004b8fe}} 
+\index{MPCRTile@{MPCRTile}!GetVal@{GetVal}}
+\index{GetVal@{GetVal}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{GetVal()}{GetVal()}}
+{\footnotesize\ttfamily double M\+P\+C\+R\+Tile\+::\+Get\+Val (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Col\+Idx }\end{DoxyParamCaption})}
+
+
+
+Get the value at \mbox{[}a\+Row\+Idx,a\+Col\+Idx\mbox{]}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row\+Idx} & Idx row in Global Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col\+Idx} & Idx col in Global Matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value at \mbox{[}a\+Row\+Idx,a\+Col\+Idx\mbox{]} matrix element with 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a495763e25616b8260db7ad3df004b8fe_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{classMPCRTile_a495763e25616b8260db7ad3df004b8fe_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a3e7b8228ea53f1ab4a5bcb5acfcff702}\label{classMPCRTile_a3e7b8228ea53f1ab4a5bcb5acfcff702}} 
+\index{MPCRTile@{MPCRTile}!InsertTile@{InsertTile}}
+\index{InsertTile@{InsertTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{InsertTile()}{InsertTile()}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Insert\+Tile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDataType}{Data\+Type}} $\ast$}]{ap\+Tile,  }\item[{const size\+\_\+t \&}]{a\+Tile\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Tile\+Col\+Idx }\end{DoxyParamCaption})}
+
+
+
+Insert a Tile inside the M\+P\+CR Tiles using Tile Row idx and Tile Col idx. this function doesn\textquotesingle{}t check whether the internal dimensions of the tile is the same as the \mbox{\hyperlink{structDimensions}{Dimensions}} used to created the Tiled Matrix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ap\+Tile} & M\+P\+CR Tile to insert \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Row\+Idx} & Row Idx of the Tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Col\+Idx} & Col Idx of the Tile \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a3e7b8228ea53f1ab4a5bcb5acfcff702_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a3e7b8228ea53f1ab4a5bcb5acfcff702_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a0df43acd6ef15c1f1ffbc2b4958ca20b}\label{classMPCRTile_a0df43acd6ef15c1f1ffbc2b4958ca20b}} 
+\index{MPCRTile@{MPCRTile}!IsMPCRTile@{IsMPCRTile}}
+\index{IsMPCRTile@{IsMPCRTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{IsMPCRTile()}{IsMPCRTile()}}
+{\footnotesize\ttfamily const bool M\+P\+C\+R\+Tile\+::\+Is\+M\+P\+C\+R\+Tile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check if a Casted Memory Address is a \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. 
+
+\begin{DoxyReturn}{Returns}
+true if the casted pointer is a \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object, False Otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMPCRTile_aa02496b9909c3f94ff2c65433ce0e88e}\label{classMPCRTile_aa02496b9909c3f94ff2c65433ce0e88e}} 
+\index{MPCRTile@{MPCRTile}!operator=@{operator=}}
+\index{operator=@{operator=}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \& M\+P\+C\+R\+Tile\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \&}]{a\+M\+P\+C\+R\+Tile }\end{DoxyParamCaption})}
+
+
+
+M\+P\+C\+R-\/\+Tile Equal Operator. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+M\+P\+C\+R\+Tile} & \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Deep Copy of \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object provided. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_aa02496b9909c3f94ff2c65433ce0e88e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_aaa37a6f050048793b38b6fca2dbb12db}\label{classMPCRTile_aaa37a6f050048793b38b6fca2dbb12db}} 
+\index{MPCRTile@{MPCRTile}!Print@{Print}}
+\index{Print@{Print}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the Metadata and the values of the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_aaa37a6f050048793b38b6fca2dbb12db_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{classMPCRTile_aaa37a6f050048793b38b6fca2dbb12db_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_af4530de5a2cd5f04a203645ec68171b6}\label{classMPCRTile_af4530de5a2cd5f04a203645ec68171b6}} 
+\index{MPCRTile@{MPCRTile}!PrintTile@{PrintTile}}
+\index{PrintTile@{PrintTile}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{PrintTile()}{PrintTile()}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Print\+Tile (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Tile\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Tile\+Col\+Idx }\end{DoxyParamCaption})}
+
+
+
+Print the values of a certain tile. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Row\+Idx} & Row idx of tile \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Tile\+Col\+Idx} & Col idx of tile \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_af4530de5a2cd5f04a203645ec68171b6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{classMPCRTile_af4530de5a2cd5f04a203645ec68171b6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_af2c62dd1137226c8100f83edb44a8843}\label{classMPCRTile_af2c62dd1137226c8100f83edb44a8843}} 
+\index{MPCRTile@{MPCRTile}!Product@{Product}}
+\index{Product@{Product}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{Product()}{Product()}}
+{\footnotesize\ttfamily double M\+P\+C\+R\+Tile\+::\+Product (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the product of all elements in all tiles in \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. 
+
+\begin{DoxyReturn}{Returns}
+Product of all elements 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{classMPCRTile_af2c62dd1137226c8100f83edb44a8843_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_accab8dfaf8058a28e01cce8220683591}\label{classMPCRTile_accab8dfaf8058a28e01cce8220683591}} 
+\index{MPCRTile@{MPCRTile}!SetDimensions@{SetDimensions}}
+\index{SetDimensions@{SetDimensions}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{SetDimensions()}{SetDimensions()}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Set\+Dimensions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \&}]{a\+M\+P\+C\+R\+Tile }\end{DoxyParamCaption})}
+
+
+
+Copies the \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} \mbox{\hyperlink{structDimensions}{Dimensions}} and sizes metadata from another \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} obj. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+M\+P\+C\+R\+Tile} & \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_accab8dfaf8058a28e01cce8220683591_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a7e400ecb6d88e47bb628927c52b025ff}\label{classMPCRTile_a7e400ecb6d88e47bb628927c52b025ff}} 
+\index{MPCRTile@{MPCRTile}!SetVal@{SetVal}}
+\index{SetVal@{SetVal}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{SetVal()}{SetVal()}}
+{\footnotesize\ttfamily void M\+P\+C\+R\+Tile\+::\+Set\+Val (\begin{DoxyParamCaption}\item[{const size\+\_\+t \&}]{a\+Row\+Idx,  }\item[{const size\+\_\+t \&}]{a\+Col\+Idx,  }\item[{double}]{a\+Value }\end{DoxyParamCaption})}
+
+
+
+Sets the value at \mbox{[}a\+Row\+Idx,a\+Col\+Idx\mbox{]}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a\+Row\+Idx} & Idx row in Global Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Col\+Idx} & Idx col in Global Matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em a\+Value} & value to set matrix element with \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMPCRTile_a7e400ecb6d88e47bb628927c52b025ff_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=305pt]{classMPCRTile_a7e400ecb6d88e47bb628927c52b025ff_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMPCRTile_a4a190143301ae4dec9d075bace5824d8}\label{classMPCRTile_a4a190143301ae4dec9d075bace5824d8}} 
+\index{MPCRTile@{MPCRTile}!Sum@{Sum}}
+\index{Sum@{Sum}!MPCRTile@{MPCRTile}}
+\doxysubsubsection{\texorpdfstring{Sum()}{Sum()}}
+{\footnotesize\ttfamily double M\+P\+C\+R\+Tile\+::\+Sum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the sum of all elements in all tiles in \mbox{\hyperlink{classMPCRTile}{M\+P\+C\+R\+Tile}} Object. 
+
+\begin{DoxyReturn}{Returns}
+Sum of all elements 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{classMPCRTile_a4a190143301ae4dec9d075bace5824d8_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inst/include/data-\/units/\mbox{\hyperlink{MPCRTile_8hpp}{M\+P\+C\+R\+Tile.\+hpp}}\item 
+src/data-\/units/\mbox{\hyperlink{MPCRTile_8cpp}{M\+P\+C\+R\+Tile.\+cpp}}\end{DoxyCompactItemize}

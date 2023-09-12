@@ -1,0 +1,13 @@
+<map id="RNaExclude" name="RNaExclude">
+<area shape="rect" id="node1" title="R Adapter for Removing NA values from Vector." alt="" coords="5,153,105,180"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="154,124,327,151"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1operations_1_1basic.html#a34335040b556a8791202d9767b5ea512" title="Remove NA values from Vector." alt="" coords="153,175,328,217"/>
+<area shape="rect" id="node4" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="398,5,543,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="398,56,543,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="395,107,547,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="400,157,541,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="399,208,543,235"/>
+<area shape="rect" id="node9" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="399,259,542,285"/>
+<area shape="rect" id="node10" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="376,309,565,336"/>
+<area shape="rect" id="node11" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="401,360,540,387"/>
+</map>

@@ -1,0 +1,50 @@
+<map id="Dimensions::GetNRow" name="Dimensions::GetNRow">
+<area shape="rect" id="node1" title="Get Number of Rows." alt="" coords="965,663,1133,689"/>
+<area shape="rect" id="node2" href="$classMPCRTile.html#a285be20eaf77ef0bd86acb63a3497f9b" title="Change Precision of a certain tile." alt="" coords="719,460,917,487"/>
+<area shape="rect" id="node5" href="$classMPCRTile.html#ac8fbc7499da753101bdb4db0de418e45" title="Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,..." alt="" coords="464,156,671,183"/>
+<area shape="rect" id="node8" href="$classMPCRTile.html#a2124c8baa0b238e49e772a8a05628271" title="Fills the Null Tiles with Zeros according to the MPCRTile Metadata and Dimensions." alt="" coords="729,815,907,841"/>
+<area shape="rect" id="node9" href="$namespacempcr_1_1operations_1_1basic.html#a3098c1674365a992248234aa66c91da8" title="Get Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values Precisions." alt="" coords="731,931,905,973"/>
+<area shape="rect" id="node12" href="$namespacempcr_1_1operations_1_1basic.html#a08de5e5873abcb44e7af5844ce51d34b" title="Get Diagonal of a Matrix. if Vector is Being passed to the function its Dimensions Object Must be pas..." alt="" coords="731,866,905,907"/>
+<area shape="rect" id="node15" href="$classMPCRTile.html#a5edd9a484d34e3e568333674295ca33d" title="Get Number of Rows in Global Matrix." alt="" coords="219,400,371,427"/>
+<area shape="rect" id="node16" href="$classMPCRTile.html#a50551c9cee581b547dc7ba102a233e11" title="Get a Tile from the MPCR Tiles using Tile Row idx and Tile Col idx." alt="" coords="749,105,887,132"/>
+<area shape="rect" id="node19" href="$classMPCRTile.html#a15f03b7b6b8dc32d64e2bb72996fd29d" title="Get Number of Rows in Tiles." alt="" coords="207,511,383,537"/>
+<area shape="rect" id="node20" href="$classMPCRTile.html#a54e38995a22ddd309eb2ce02a80b57f2" title="Get Number of Tiles per Row." alt="" coords="474,308,661,335"/>
+<area shape="rect" id="node22" href="$classMPCRTile.html#a2ad618e84691bde1b4c0b31cea9b27d5" title="Prints the Metadata of the MPCRTile Object." alt="" coords="746,561,890,588"/>
+<area shape="rect" id="node23" href="$classMPCRTile.html#aaa37a6f050048793b38b6fca2dbb12db" title="Prints the Metadata and the values of the MPCRTile Object." alt="" coords="507,612,628,639"/>
+<area shape="rect" id="node24" href="$classMPCRTile.html#a495763e25616b8260db7ad3df004b8fe" title="Get the value at [aRowIdx,aColIdx]." alt="" coords="227,663,362,689"/>
+<area shape="rect" id="node25" href="$classMPCRTile.html#a3e7b8228ea53f1ab4a5bcb5acfcff702" title="Insert a Tile inside the MPCR Tiles using Tile Row idx and Tile Col idx. this function doesn&#39;t check ..." alt="" coords="742,257,894,284"/>
+<area shape="rect" id="node27" href="$classMPCRTile.html#a7fee74f758e87bf3f52ca1001895009e" title="MPCR&#45;Tile Copy Constructor." alt="" coords="742,1144,894,1171"/>
+<area shape="rect" id="node28" href="$classMPCRTile.html#aa02496b9909c3f94ff2c65433ce0e88e" title="MPCR&#45;Tile Equal Operator." alt="" coords="739,1195,897,1221"/>
+<area shape="rect" id="node29" href="$classMPCRTile.html#af4530de5a2cd5f04a203645ec68171b6" title="Print the values of a certain tile." alt="" coords="222,713,367,740"/>
+<area shape="rect" id="node30" href="$classMPCRTile.html#accab8dfaf8058a28e01cce8220683591" title="Copies the MPCRTile Dimensions and sizes metadata from another MPCRTile obj." alt="" coords="723,1245,913,1272"/>
+<area shape="rect" id="node31" href="$classMPCRTile.html#a7e400ecb6d88e47bb628927c52b025ff" title="Sets the value at [aRowIdx,aColIdx]." alt="" coords="752,764,884,791"/>
+<area shape="rect" id="node32" href="$RHelpers_8hpp.html#a794e6be5a797f5a81191f56d445b995d" title="Change Vector of HALF Values to R&#45;Logical Matrix 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="756,1093,880,1120"/>
+<area shape="rect" id="node3" href="$classMPCRTile.html#aef3ef7bc764aa66f58b7637c9b599b7b" title="Change Precision of a certain tile." alt="" coords="468,409,667,436"/>
+<area shape="rect" id="node4" href="$MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,431,125,457"/>
+<area shape="rect" id="node6" href="$classMPCRTile.html#a1ec6ba04a475bad2dcf63b3cf6db95a6" title="Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,..." alt="" coords="191,157,398,184"/>
+<area shape="rect" id="node7" href="$namespacempcr_1_1operations_1_1linear.html#a5c8f7cdb592e0cb4a820d88af7105d22" title="Calculate Cholesky decomposition for Tiled&#45;Symmetric Matrix." alt="" coords="206,209,383,250"/>
+<area shape="rect" id="node10" href="$RBasicUtilities_8hpp.html#a0fa4d270064a51d382f3341a3d6c489e" title="R Adapter for Printing Information about MPCR object Dimensions&#45;Matrix/Vector&#45;Values ,..." alt="" coords="264,897,325,924"/>
+<area shape="rect" id="node11" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,1145,125,1172"/>
+<area shape="rect" id="node13" href="$RBasicUtilities_8hpp.html#a73c3d1eb8c0a8ad34bf1b685b16c2e2f" title="R adapter for Getting Diagonal of a Matrix. MPCR Object must be a Matrix." alt="" coords="511,865,623,892"/>
+<area shape="rect" id="node14" href="$RBasicUtilities_8hpp.html#a124b24199018e5d0ef8465b2d8bbb481" title="R adapter for Getting Diagonal of a Matrix. MPCR can be a Vector , but dims must be passed." alt="" coords="479,815,655,841"/>
+<area shape="rect" id="node17" href="$RHelpers_8hpp.html#a341414c352215e81cefb89db35cc6bd2" title="R version to Serialize Tile object as a Raw Vector from Tile&#45;Matrix without copying." alt="" coords="227,56,362,83"/>
+<area shape="rect" id="node18" href="$RHelpers_8hpp.html#a9014c9b7530c3545157dc52bb5261589" title="Get a Tile from MPCRTile Object." alt="" coords="255,5,334,32"/>
+<area shape="rect" id="node21" href="$namespacempcr_1_1operations_1_1linear.html#abf947d90eb7b44b63653c9078e7f41a5" title="Tiled&#45;Matrix Multiplication of 2 MPCR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="206,330,383,371"/>
+<area shape="rect" id="node26" href="$RHelpers_8hpp.html#ae09266e55d7d278b07daa8c93f66f9b2" title="Updates a Tile in MPCRTile Object, by copying the tile and inserting the new tile to avoid R ownershi..." alt="" coords="249,276,341,303"/>
+<area shape="rect" id="node33" href="$RBinaryOperations_8hpp.html#a73f57e62aad99ad7e84c9f80e8dc2804" title="R&#45;Adapter for Checking Whether MPCR Object one is Equal to MPCR Object two." alt="" coords="534,1068,601,1095"/>
+<area shape="rect" id="node35" href="$RBinaryOperations_8hpp.html#aa897b50e35158acdf4d6448ab44785c9" title="R&#45;Adapter for Checking Whether MPCR Object one is Greater than MPCR Object two." alt="" coords="511,1119,623,1145"/>
+<area shape="rect" id="node37" href="$RBinaryOperations_8hpp.html#acc0e91abac771cf5d2165a79d76c1253" title="R&#45;Adapter for Checking Whether MPCR Object one is Greater than or Equal MPCR Object two." alt="" coords="486,1173,649,1200"/>
+<area shape="rect" id="node39" href="$RMathematicalOperations_8hpp.html#a447dc7c733928c018505bad211d8e283" title="Check if elements is finite or not." alt="" coords="528,1224,607,1251"/>
+<area shape="rect" id="node40" href="$RMathematicalOperations_8hpp.html#a5e249c17bf45b0c779b5cb6013e1342d" title="Check if elements is infinite or not." alt="" coords="522,1275,613,1301"/>
+<area shape="rect" id="node41" href="$RBasicUtilities_8hpp.html#a484d9e079c56338e31633b9d78c4edb7" title="R Adapter for Checking Whether Element at index is NAN or Not." alt="" coords="537,1327,597,1353"/>
+<area shape="rect" id="node42" href="$RMathematicalOperations_8hpp.html#a212e93dc2403e3f653b84596ade1066e" title="Check if elements is NAN or not." alt="" coords="533,1379,601,1405"/>
+<area shape="rect" id="node43" href="$RBinaryOperations_8hpp.html#a3dde745baba7a2483aa0d1bf48330918" title="R&#45;Adapter for Checking Whether MPCR Object one is Less than MPCR Object two." alt="" coords="521,1433,613,1460"/>
+<area shape="rect" id="node45" href="$RBinaryOperations_8hpp.html#ab835534e4c46fddef3429db150f23e59" title="R&#45;Adapter for Checking Whether MPCR Object one is Less than or Equal MPCR Object two." alt="" coords="496,967,639,993"/>
+<area shape="rect" id="node47" href="$RBinaryOperations_8hpp.html#a27b0047a3554e8ae7859b9f4bee1f59f" title="R&#45;Adapter for Checking Whether MPCR Object one is Not Equal to MPCR Object two." alt="" coords="522,1017,613,1044"/>
+<area shape="rect" id="node34" href="$classDataType.html#a88d4b85a0143f28ee2d041832b636954" title="R&#45;Adapter for Checking Whether MPCR Object is Equal to aObj." alt="" coords="196,1065,393,1092"/>
+<area shape="rect" id="node36" href="$classDataType.html#a9682733283d07903083e6d552a193ca3" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than aObj." alt="" coords="173,1116,416,1143"/>
+<area shape="rect" id="node38" href="$classDataType.html#a6d3077cd8399d5f978e203e4937cb052" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than or equal aObj." alt="" coords="183,1167,406,1209"/>
+<area shape="rect" id="node44" href="$classDataType.html#a44f2248dbe1c96e5710590ec4eeb8642" title="R&#45;Adapter for Checking Whether MPCR Object is Less than aObj." alt="" coords="183,1436,406,1463"/>
+<area shape="rect" id="node46" href="$classDataType.html#af7522309152f3688a18e1ac7525fb25f" title="R&#45;Adapter for Checking Whether MPCR Object is Less than or equal aObj." alt="" coords="193,949,396,990"/>
+<area shape="rect" id="node48" href="$classDataType.html#a1a1137b47354835ff643db701d2cb4bc" title="R&#45;Adapter for Checking Whether MPCR Object is Not Equal to aObj." alt="" coords="185,1015,405,1041"/>
+</map>

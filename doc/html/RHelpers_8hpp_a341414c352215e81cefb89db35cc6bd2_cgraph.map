@@ -1,0 +1,7 @@
+<map id="RGetSerializeTile" name="RGetSerializeTile">
+<area shape="rect" id="node1" title="R version to Serialize Tile object as a Raw Vector from Tile&#45;Matrix without copying." alt="" coords="5,67,140,94"/>
+<area shape="rect" id="node2" href="$classMPCRTile.html#a50551c9cee581b547dc7ba102a233e11" title="Get a Tile from the MPCR Tiles using Tile Row idx and Tile Col idx." alt="" coords="197,42,335,69"/>
+<area shape="rect" id="node5" href="$classDataType.html#a8df341046029b87c75851d9f0e676d18" title="R version to Serialize DataType object as a Raw Vector." alt="" coords="188,93,344,119"/>
+<area shape="rect" id="node3" href="$classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="392,5,592,47"/>
+<area shape="rect" id="node4" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="408,71,576,98"/>
+</map>

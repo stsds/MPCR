@@ -1,0 +1,6 @@
+<map id="RGetElementVector" name="RGetElementVector">
+<area shape="rect" id="node1" title="R Adapter for Getting Element with Idx from MPCR Vector as MPCR Object." alt="" coords="5,31,155,57"/>
+<area shape="rect" id="node2" href="$classDataType.html#a6a4056c3fc54575745948321625f3f2a" title="Get Element at Idx from MPCR Vector as MPCR Object." alt="" coords="203,31,412,57"/>
+<area shape="rect" id="node3" href="$classDataType.html#a556051021c23d1428fffad935aad890b" title="DataType default constructor." alt="" coords="460,5,612,32"/>
+<area shape="rect" id="node4" href="$classDataType.html#a2150d8ef445e8db1eef0001c6d646da0" title="Get Values in the Vector according to Index (0&#45;based Indexing)" alt="" coords="469,56,603,83"/>
+</map>

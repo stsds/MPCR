@@ -1,0 +1,18 @@
+<map id="RPerformMinusDispatcher" name="RPerformMinusDispatcher">
+<area shape="rect" id="node1" title="R&#45;Dispatcher to decide which Minus Method to use." alt="" coords="5,159,197,185"/>
+<area shape="rect" id="node2" href="$RBinaryOperations_8cpp.html#afa2459db83902c6a5db235b0cb5c639c" title="R&#45;Adapter for Performing Minus on Two MPCR Objects." alt="" coords="245,159,368,185"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1precision.html#ae9d61541a8fc26d092a934ed5ffcfe18" title="Get Operation Order according to input,input,output for Dispatcher." alt="" coords="416,57,633,98"/>
+<area shape="rect" id="node4" href="$namespacempcr_1_1precision.html#a0dc69179bf2df06e91e617180cbec8db" title="Get Precision of output element (to promote output in case of multi&#45;precision operations)" alt="" coords="426,122,623,163"/>
+<area shape="rect" id="node5" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="438,188,611,215"/>
+<area shape="rect" id="node6" href="$namespacempcr_1_1operations_1_1binary.html#a6efe3af467f813416f2d33d54fe222e1" title="Perform Operation on 2 MPCR Objects according to provided Operation aFun." alt="" coords="434,239,615,281"/>
+<area shape="rect" id="node7" href="$namespacempcr_1_1operations_1_1binary.html#a38457dce193d4985a0ee2b64e71d2179" title="Function to check whether the input MPCR objects Dimensions match the required Dimensions ,..." alt="" coords="685,54,867,95"/>
+<area shape="rect" id="node8" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="919,36,1071,63"/>
+<area shape="rect" id="node9" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="924,88,1065,115"/>
+<area shape="rect" id="node10" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="923,143,1067,169"/>
+<area shape="rect" id="node11" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="705,221,847,248"/>
+<area shape="rect" id="node12" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="703,272,849,299"/>
+<area shape="rect" id="node13" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="703,323,849,349"/>
+<area shape="rect" id="node14" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="705,373,847,400"/>
+<area shape="rect" id="node15" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="681,424,871,451"/>
+<area shape="rect" id="node16" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="707,475,845,501"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="RQRDecomposition" name="RQRDecomposition">
+<area shape="rect" id="node1" title="Computes the QR decomposition of a matrix." alt="" coords="5,153,153,180"/>
+<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="203,124,377,151"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1operations_1_1linear.html#a77142d0bbe9c5b3409bf89ea97f74818" title="Computes the QR decomposition of a matrix." alt="" coords="201,175,379,217"/>
+<area shape="rect" id="node4" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="450,5,593,32"/>
+<area shape="rect" id="node5" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="449,56,594,83"/>
+<area shape="rect" id="node6" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="449,107,594,133"/>
+<area shape="rect" id="node7" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="445,157,597,184"/>
+<area shape="rect" id="node8" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="451,208,592,235"/>
+<area shape="rect" id="node9" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="450,259,593,285"/>
+<area shape="rect" id="node10" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="427,309,616,336"/>
+<area shape="rect" id="node11" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="452,360,591,387"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="MPCRTile::FillSquareTriangle" name="MPCRTile::FillSquareTriangle">
+<area shape="rect" id="node1" title="Fills Upper or Lower Triangle with a given value and precision New Tiles will be created ,..." alt="" coords="5,81,212,108"/>
+<area shape="rect" id="node2" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="260,5,421,32"/>
+<area shape="rect" id="node3" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="485,99,653,125"/>
+<area shape="rect" id="node4" href="$classMPCRTile.html#a50551c9cee581b547dc7ba102a233e11" title="Get a Tile from the MPCR Tiles using Tile Row idx and Tile Col idx." alt="" coords="271,107,410,133"/>
+<area shape="rect" id="node6" href="$classMPCRTile.html#a3e7b8228ea53f1ab4a5bcb5acfcff702" title="Insert a Tile inside the MPCR Tiles using Tile Row idx and Tile Col idx. this function doesn&#39;t check ..." alt="" coords="265,157,417,184"/>
+<area shape="rect" id="node5" href="$classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="469,150,669,191"/>
+</map>

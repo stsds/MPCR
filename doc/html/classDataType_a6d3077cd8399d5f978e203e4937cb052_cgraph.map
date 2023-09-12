@@ -1,0 +1,20 @@
+<map id="DataType::GreaterThanOrEqualDispatcher" name="DataType::GreaterThanOrEqualDispatcher">
+<area shape="rect" id="node1" title="R&#45;Adapter for Checking Whether MPCR Object is Greater than or equal aObj." alt="" coords="5,166,228,208"/>
+<area shape="rect" id="node2" href="$RBinaryOperations_8cpp.html#acc0e91abac771cf5d2165a79d76c1253" title="R&#45;Adapter for Checking Whether MPCR Object one is Greater than or Equal MPCR Object two." alt="" coords="276,174,439,200"/>
+<area shape="rect" id="node3" href="$namespacempcr_1_1precision.html#ae9d61541a8fc26d092a934ed5ffcfe18" title="Get Operation Order according to input,input,output for Dispatcher." alt="" coords="487,13,704,54"/>
+<area shape="rect" id="node4" href="$namespacempcr_1_1precision.html#a0dc69179bf2df06e91e617180cbec8db" title="Get Precision of output element (to promote output in case of multi&#45;precision operations)" alt="" coords="497,78,694,120"/>
+<area shape="rect" id="node5" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="509,144,682,171"/>
+<area shape="rect" id="node6" href="$namespacempcr_1_1operations_1_1binary.html#aadc65ffa36733eada70aa0681d0fada0" title="Perform Compare Operation on two MPCR Object according to provided Operation aFun." alt="" coords="493,196,698,237"/>
+<area shape="rect" id="node15" href="$RHelpers_8cpp.html#a794e6be5a797f5a81191f56d445b995d" title="Change Vector of HALF Values to R&#45;Logical Matrix 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="533,316,657,343"/>
+<area shape="rect" id="node18" href="$RHelpers_8cpp.html#ab9b2086f45ef148c54dc8619062b41e5" title="Change Vector of HALF Values to R&#45;Logical Vector 1/TRUE 0/FALSE INT_MIN=NA." alt="" coords="534,367,657,394"/>
+<area shape="rect" id="node7" href="$namespacempcr_1_1operations_1_1binary.html#a38457dce193d4985a0ee2b64e71d2179" title="Function to check whether the input MPCR objects Dimensions match the required Dimensions ,..." alt="" coords="752,280,933,321"/>
+<area shape="rect" id="node8" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="981,315,1133,342"/>
+<area shape="rect" id="node9" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="987,79,1128,106"/>
+<area shape="rect" id="node10" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="985,260,1129,287"/>
+<area shape="rect" id="node11" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="770,76,915,103"/>
+<area shape="rect" id="node12" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="770,127,915,154"/>
+<area shape="rect" id="node13" href="$structDimensions.html#a6e4316f44676499821b3392b3156cf4f" title="Set Number of Columns." alt="" coords="763,178,922,204"/>
+<area shape="rect" id="node14" href="$structDimensions.html#a4db9418faf8e83644d225ea8d2a36c96" title="Set Number of Rows." alt="" coords="759,228,926,255"/>
+<area shape="rect" id="node16" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="762,396,923,423"/>
+<area shape="rect" id="node17" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="759,447,927,474"/>
+</map>

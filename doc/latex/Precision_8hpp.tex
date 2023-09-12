@@ -1,0 +1,68 @@
+\hypertarget{Precision_8hpp}{}\doxysection{inst/include/data-\/units/\+Precision.hpp File Reference}
+\label{Precision_8hpp}\index{inst/include/data-\/units/Precision.hpp@{inst/include/data-\/units/Precision.hpp}}
+{\ttfamily \#include $<$utilities/\+Floating\+Point\+Handler.\+hpp$>$}\newline
+{\ttfamily \#include $<$utilities/\+M\+P\+C\+R\+Error\+Handler.\+hpp$>$}\newline
+Include dependency graph for Precision.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Precision_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Precision_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacempcr}{mpcr}}
+\item 
+ \mbox{\hyperlink{namespacempcr_1_1precision}{mpcr\+::precision}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7}{mpcr\+::precision\+::\+Precision}} \+: int \{ \newline
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a2e4c1e9ab23eebc7546363a04d6a84bc}{mpcr\+::precision\+::\+H\+A\+LF}} = 1, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a255d2db4625ab7bf55b9c91dcc1f68ff}{mpcr\+::precision\+::\+F\+L\+O\+AT}} = 2, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7adb2341c0d5854b72be745c5ad2eb6ec2}{mpcr\+::precision\+::\+D\+O\+U\+B\+LE}} = 3, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a59c8e877966a02fc01238a611a97035b}{mpcr\+::precision\+::\+E\+R\+R\+OR}} = -\/1, 
+\newline
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a0fe277698e5fcb5b03a40c4a9a2f9d12}{mpcr\+::precision\+::\+S\+SS}} = 15, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a0c44ba12443c0ad33dfc5bba680dc808}{mpcr\+::precision\+::\+F\+SF}} = 25, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a9f19f1a2bf542113973c3f4fc060eea0}{mpcr\+::precision\+::\+S\+FF}} = 27, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a356b7f9d053fcdccad71f9b0d81ab3c3}{mpcr\+::precision\+::\+F\+FF}} = 30, 
+\newline
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7ade212024ec4fb0e2a8c3dc66f9e91988}{mpcr\+::precision\+::\+D\+SD}} = 35, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7ab034b8c34fb9eb8b586387c787465571}{mpcr\+::precision\+::\+S\+DD}} = 39, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7af16f04360c30fd4986a2d51ec28a0043}{mpcr\+::precision\+::\+D\+FD}} = 40, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7aac38ba568c789cffb72be0b6a3cd9af0}{mpcr\+::precision\+::\+F\+DD}} = 42, 
+\newline
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a79050dc860d28225e3fa6aa84fea49b2}{mpcr\+::precision\+::\+D\+DD}} = 45, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a815329c2b8077360b177b6def921c969}{mpcr\+::precision\+::\+S\+SD}} = 29, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7abd49a58167e42f2e345c4ed6b1780629}{mpcr\+::precision\+::\+S\+SF}} = 22, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a75134d81b3655fbb68a96f9f1b1b9721}{mpcr\+::precision\+::\+F\+FD}} = 37, 
+\newline
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7a15a0bcca055c6e2c8b5e8283328245da}{mpcr\+::precision\+::\+S\+FD}} = 34, 
+\mbox{\hyperlink{namespacempcr_1_1precision_afe2f4e3f46878624d55561ba84a10df7aa10a651010ec9b08531dffe8444698b3}{mpcr\+::precision\+::\+F\+SD}} = 32
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Precision \mbox{\hyperlink{namespacempcr_1_1precision_a0dc69179bf2df06e91e617180cbec8db}{mpcr\+::precision\+::\+Get\+Output\+Precision}} (const Precision \&a\+PrecisionA, const Precision \&a\+PrecisionB)
+\begin{DoxyCompactList}\small\item\em Get Precision of output element (to promote output in case of multi-\/precision operations) \end{DoxyCompactList}\item 
+Precision \mbox{\hyperlink{namespacempcr_1_1precision_ae9d61541a8fc26d092a934ed5ffcfe18}{mpcr\+::precision\+::\+Get\+Operation\+Precision}} (const Precision \&a\+PrecisionA, const Precision \&a\+PrecisionB, const Precision \&a\+PrecisionC)
+\begin{DoxyCompactList}\small\item\em Get Operation Order according to input,input,output for Dispatcher. \end{DoxyCompactList}\item 
+Precision \mbox{\hyperlink{namespacempcr_1_1precision_a9bf757d92ec9771b01b6a4f5b6db2d76}{mpcr\+::precision\+::\+Get\+Input\+Precision}} (const int \&a\+Precision)
+\begin{DoxyCompactList}\small\item\em Get Precision for any M\+P\+CR Class to make sure no Input is initialized as anything other than the supported 3 precisions. (Int Version) \end{DoxyCompactList}\item 
+Precision \mbox{\hyperlink{namespacempcr_1_1precision_ae455411d28038c93f0a059ff945d134f}{mpcr\+::precision\+::\+Get\+Input\+Precision}} (std\+::string a\+Precision)
+\begin{DoxyCompactList}\small\item\em Get Precision for any M\+P\+CR Class to make sure no Input is initialized as anything other than the supported 3 precisions. (String Version). Transforms the string to lower case to ensure proper initialization. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{namespacempcr_1_1precision_a9e178a46abb12b17c7f63548158201c8}{mpcr\+::precision\+::\+Get\+Precision\+As\+String}} (const Precision \&a\+Precision)
+\end{DoxyCompactItemize}

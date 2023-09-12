@@ -1,0 +1,5 @@
+<map id="mpcr::operations::math::Round" name="mpcr::operations::math::Round">
+<area shape="rect" id="node1" title="Rounds a given MPCR Object to a given Number of decimal places." alt="" coords="293,5,468,47"/>
+<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#ad150a6c45f903d66aac6ec8db33b2d74" title="Perform Round operation on MPCR Object." alt="" coords="173,13,245,39"/>
+<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,13,125,39"/>
+</map>
