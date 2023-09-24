@@ -37,7 +37,7 @@ should be similar to calling \code{qr()} on an ordinary R matrix with the
 argument \code{LAPACK=TRUE}.
 }
 \examples{
-\dontrun{
+\donttest{
 
 library(MPCR)
 

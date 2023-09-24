@@ -23,7 +23,7 @@
   A bool vector/matrix of the same dimensions as the input.
 }
 \examples{
-  \dontrun{
+  \donttest{
   library(MPCR)
 
   x <- as.MPCR(1:20,precision="double")

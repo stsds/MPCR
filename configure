@@ -7,11 +7,11 @@
 ##########################################################################
 
 
-COMPILE_FLAGS="-fPIC"
+COMPILE_FLAGS="-fPIC -W -w"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
-  COMPILE_FLAGS="-fPIC -Wno-unused-command-line-argument -Wno-absolute-value -Wno-deprecated-non-prototype"
+  COMPILE_FLAGS="-fPIC -W -w"
 else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi
@@ -44,7 +44,7 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 
 cd bin/
 make clean
-make all -j
+make all
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"

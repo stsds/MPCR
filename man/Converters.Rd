@@ -45,16 +45,18 @@
       }
 }
 
+\value{
+An MPCR or R numeric vector/matrix.
+}
+
 
 \examples{
-  \dontrun{
-
    # Example usage of the class and its methods
+   library(MPCR)
    a <- matrix(1:36, 6, 6)
    MPCR_matrix <- as.MPCR(a,nrow=6,ncol=6,precision="single")
    r_vector <- MPCR.ToNumericVector(MPCR_matrix)
    r_vector
    r_matrix <- MPCR.ToNumericMatrix(MPCR_matrix)
    r_matrix
-  }
 }

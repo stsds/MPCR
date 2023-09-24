@@ -15,7 +15,7 @@ An MPCR object.
 Transpose an MPCR object.
 }
 \examples{
-  \dontrun{
+  \donttest{
   library(MPCR)
   a <- matrix(1:20, nrow = 2)
   a_MPCR <- as.MPCR(a,2,10,"double")

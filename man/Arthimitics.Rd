@@ -49,7 +49,6 @@ Numeric/MPCR objects.
 An MPCR object, matching the data type of the highest precision input.
 }
 \examples{
-\dontrun{
 library(MPCR)
 s1 <- as.MPCR(1:20,nrow=2,ncol=10,"single")
 s2 <- as.MPCR(21:40,nrow=2,ncol=10,"double")
@@ -60,5 +59,4 @@ typeof(x) # A 64-bit precision (double) MPCR matrix.
 s3 <- as.MPCR(1:20,nrow=2,ncol=10,"single")
 x <- s1 + s3
 typeof(x) # A 32-bit precision (single) MPCR matrix.
-}
 }

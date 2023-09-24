@@ -20,10 +20,19 @@ SVD factorization.
 \details{
 The factorization is performed by the LAPACK routine \code{gesdd()}.
 }
+
+\value{
+The SVD decomposition of the MPCR matrix.
+}
+
 \examples{
-\dontrun{
+\donttest{
 library(MPCR)
-x <- as.MPCR("your_data",nrow,ncol,precision)
+svd_vals <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+              0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+              0, 0, 0, 1, 1, 1)
+
+x <- as.MPCR(svd_vals,9,4,"single")
 y <- svd(x)
 }
 }

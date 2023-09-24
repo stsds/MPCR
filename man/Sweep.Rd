@@ -23,7 +23,7 @@ An MPCR matrix of the same type as the highest precision input.
 Sweep an MPCR vector through an MPCR matrix.
 }
 \examples{
-\dontrun{
+\donttest{
 library(MPCR)
 x <- as.MPCR(1:20,10,2,"single")
 y <- as.MPCR(1:5,precision="double")

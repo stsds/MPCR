@@ -44,9 +44,14 @@ MPCR is a multi-precision vector/matrix, that enables the creation of vector/mat
   }
 }
 
+\value{
+MPCR object (constructor - accessors - methods)
+}
+
 \examples{
-  \dontrun{
+  \donttest{
     # Example usage of the class and its methods
+    library(MPCR)
     MPCR_object <- new(MPCR,50,"single")
 
     MPCR_object$ToMatrix(5,10)

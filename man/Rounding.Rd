@@ -29,10 +29,11 @@
   An MPCR object of the same dimensions as the input.
 }
 \examples{
-  \dontrun{
+  \donttest{
   library(MPCR)
 
-  x <- as.MPCR(1:20,precision="double")
+  input <- runif(20,-1,1)
+  x <- as.MPCR(input,precision="double")
   floor(x)
   }
 }

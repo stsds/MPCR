@@ -32,7 +32,7 @@
    An MPCR matrix.
  }
  \examples{
-   \dontrun{
+   \donttest{
    library(MPCR)
    # create 3 MPCR matrices a,b,c
    print(c)

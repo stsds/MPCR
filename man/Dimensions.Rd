@@ -20,12 +20,9 @@ The number of rows/cols in an MPCR object.
 Returns the number of rows or cols in an MPCR object.
 }
 \examples{
-  \dontrun{
     library(MPCR)
     x <- as.MPCR(1:16,4,4,"single")
     y <- as.MPCR(1:20,4,5,"double")
     rows_x <- nrow(x)
     cols_y <- ncol(y)
-    }
-
 }

@@ -30,7 +30,7 @@ Calculates the cross product of two MPCR matrices.
   This function uses blas routine \code{gemm()} for \bold{A} X \bold{B} operations  & \code{syrk()} for \bold{A} X \bold{A^T} operations.
 }
 \examples{
-    \dontrun{
+    \donttest{
     library(MPCR)
     x <- as.MPCR(1:16,4,4,"single")
     y <- as.MPCR(1:20,4,5,"double")

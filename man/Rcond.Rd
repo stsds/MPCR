@@ -20,7 +20,7 @@ An MPCR Object.
 Compute matrix norm.
 }
 \examples{
-\dontrun{
+\donttest{
 library(MPCR)
 
 x <- as.MPCR(1:20,precision="double")

@@ -1,7 +1,0 @@
-<map id="mpcr::operations::basic::Concatenate" name="mpcr::operations::basic::Concatenate">
-<area shape="rect" id="node1" title="Concatenate one or two vector/Matrix(Row Bind) to a given vector." alt="" coords="5,74,180,115"/>
-<area shape="rect" id="node2" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="228,5,373,32"/>
-<area shape="rect" id="node3" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="230,56,371,83"/>
-<area shape="rect" id="node4" href="$classDataType.html#ac4d6e129d94d66a52ac4ad21f60843cb" title="bool indicating whether it&#39;s a Matrix or Vector" alt="" coords="229,107,373,133"/>
-<area shape="rect" id="node5" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="229,157,372,184"/>
-</map>

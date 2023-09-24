@@ -27,9 +27,9 @@ MPCR.na.exclude & MPCR.na.omit will not return anything.
 }
 
 \examples{
-  \dontrun{
+  \donttest{
 library(MPCR)
-x <- as.MPCR(1:20,precision"single")
+x <- as.MPCR(1:20,precision="single")
 x[1] <- NAN
 MPCR.is.na(x,index=1) #TRUE
 MPCR.na.exclude(x,50)

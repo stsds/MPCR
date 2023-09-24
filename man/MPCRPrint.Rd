@@ -18,8 +18,11 @@ Prints the precision and type of the object, and print will print the meta data 
 \details{
 Prints metadata about the object and some values.
 }
+\value{
+A string containing the metadata of the MPCR object.
+}
 \examples{
-  \dontrun{
+  \donttest{
     library(MPCR)
     x <- as.MPCR(1:16,4,4,"single")
     y <- as.MPCR(1:20,4,5,"double")
