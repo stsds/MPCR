@@ -43,7 +43,7 @@ void
 TEST_DATA_TYPE() {
 
     SECTION("Test Initialization") {
-        cout << "Testing MPR CLASS ..." << endl;
+        cout << "Testing MPCR CLASS ..." << endl;
 
         DataType a(50, "float");
         REQUIRE(a.GetSize() == 50);
@@ -180,7 +180,7 @@ TEST_DATA_TYPE() {
             REQUIRE(b.GetVal(i) == 5);
         }
     }SECTION("Test Sum and Product") {
-        cout << "Testing MPR Sum ..." << endl;
+        cout << "Testing MPCR Sum ..." << endl;
         vector <double> values;
         auto size = 50;
         values.resize(size);
@@ -199,13 +199,31 @@ TEST_DATA_TYPE() {
 
         REQUIRE(sum == validate_sum);
 
-        cout << "Testing MPR Product ..." << endl;
+        cout << "Testing MPCR Product ..." << endl;
 
         double prod = a.Product();
         REQUIRE(prod == validate_prod);
 
+    }SECTION("Test square sum"){
+        cout << "Testing MPCR Square Sum ..." << endl;
+        vector <double> values;
+        auto size = 50;
+        values.resize(size);
+        double validate_sq_sum = 0;
+
+
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i + 1;
+            validate_sq_sum += pow(i+1,2);
+        }
+
+        DataType a(values, FLOAT);
+        auto sq_sum = a.SquareSum();
+
+        REQUIRE(sq_sum == validate_sq_sum);
+
     }SECTION("Testing Determinant") {
-        cout << "Testing MPR Determinant ..." << endl;
+        cout << "Testing MPCR Determinant ..." << endl;
         vector <double> values{1, 1, 1, 1, 1, 1, 2, 3, 2, 1, 1, 2, 3, 2, 1, 2,
                                1, 0, 2, 1, 1, 1, 1, 2, 1};
         DataType a(values, FLOAT);

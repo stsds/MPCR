@@ -330,7 +330,7 @@ DataType::GetValue(size_t aIndex, double &aOutput) {
 
 double
 DataType::GetVal(size_t aIndex) {
-    double temp=0;
+    double temp = 0;
     if (aIndex >= this->mSize) {
         MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
@@ -1064,6 +1064,15 @@ DataType::Sum() {
 }
 
 
+double
+DataType::SquareSum() {
+    double sum;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::SquareSumDispatcher, sum)
+    return sum;
+
+}
+
+
 template <typename T>
 void
 DataType::SumDispatcher(double &aResult) {
@@ -1071,6 +1080,17 @@ DataType::SumDispatcher(double &aResult) {
     auto pData = (T *) this->mpData;
     for (auto i = 0; i < this->mSize; i++) {
         aResult += pData[ i ];
+    }
+}
+
+
+template <typename T>
+void
+DataType::SquareSumDispatcher(double &aResult) {
+    aResult = 0;
+    auto pData = (T *) this->mpData;
+    for (auto i = 0; i < this->mSize; i++) {
+        aResult += pow(pData[ i ],2);
     }
 }
 
@@ -1129,8 +1149,8 @@ DataType::DeterminantDispatcher(double &aResult) {
     for (int i = 0; i < size; i++) {
         int max_row = i;
         for (int j = i + 1; j < size; j++) {
-            if (abs(pData[ j * size + i ]) >
-                abs(pData[ max_row * size + i ])) {
+            if (std::abs(pData[ j * size + i ]) >
+                std::abs(pData[ max_row * size + i ])) {
                 max_row = j;
             }
         }
@@ -1330,6 +1350,8 @@ SIMPLE_INSTANTIATE(void, DataType::DeterminantDispatcher, double &aResult)
 SIMPLE_INSTANTIATE(void, DataType::ProductDispatcher, double &aResult)
 
 SIMPLE_INSTANTIATE(void, DataType::SumDispatcher, double &aResult)
+
+SIMPLE_INSTANTIATE(void, DataType::SquareSumDispatcher, double &aResult)
 
 SIMPLE_INSTANTIATE(void, DataType::FillTriangleDispatcher, const double &aValue,
                    const bool &aUpperTriangle)

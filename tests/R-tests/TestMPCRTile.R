@@ -122,10 +122,22 @@ a <- matrix(c(1:16), 4, 4)
 
 mat_a <- new(MPCRTile, 4, 4, 2, 2, a, b)
 print(mat_a)
+
+main_diagonal <- mat_a$Diag()
+cat("----------------------------- Main Diagonal of the matrix ------------------------------------\n")
+main_diagonal$PrintValues()
+
+
 sum <- mat_a$Sum()
 cat("----------------------------- Sum of values from 1 to 16 ------------------------------------\n")
 sum
 prod <- mat_a$Prod()
 cat("----------------------------- Product of values from 1 to 16 ------------------------------------\n")
 prod
+
+square_sum <- mat_a$SquareSum()
+cat("----------------------------- Square Sum of values from 1 to 16 ------------------------------------\n")
+square_sum
+
+
 

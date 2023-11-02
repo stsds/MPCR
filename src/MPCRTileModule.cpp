@@ -43,7 +43,9 @@ RCPP_MODULE(MPCRTile) {
         .method("show", &MPCRTile::GetType)
         .method("MPCRTile.print", &MPCRTile::Print)
         .method("FillSquareTriangle", pFillTriangle)
+        .method("Diag", &MPCRTile::GetDiagonal)
         .method("Sum", &MPCRTile::Sum)
+        .method("SquareSum", &MPCRTile::SquareSum)
         .method("Prod", &MPCRTile::Product);
 
     /** MPCRTile Functions **/

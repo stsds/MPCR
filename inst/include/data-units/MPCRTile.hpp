@@ -479,6 +479,17 @@ public:
 
     /**
      * @brief
+     * Returns the square sum of all elements in all tiles in MPCRTile Object
+     *
+     * @returns
+     * Square sum of all elements
+     *
+     */
+    double
+    SquareSum();
+
+    /**
+     * @brief
      * Returns the product of all elements in all tiles in MPCRTile Object
      *
      * @returns
@@ -487,6 +498,18 @@ public:
      */
     double
     Product();
+
+    /**
+     * @brief
+     * Returns the main diagonal of MPCRTile matrix.
+     *
+     * @returns
+     * The main diagonal of MPCRTile matrix as MPCR object of type double.
+     *
+     */
+    DataType*
+    GetDiagonal();
+
 
 private:
 

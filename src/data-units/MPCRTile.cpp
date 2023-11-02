@@ -536,8 +536,7 @@ MPCRTile::FillSquareTriangle(const double &aValue, const bool &aUpperTriangle,
 
 double
 MPCRTile::Product() {
-    double prod;
-    prod = 1;
+    double prod = 1;
     for (auto &tile: mTiles) {
         if (tile != nullptr) {
             prod *= tile->Product();
@@ -549,14 +548,47 @@ MPCRTile::Product() {
 
 double
 MPCRTile::Sum() {
-    double sum;
-    sum = 0;
+    double sum = 0;
     for (auto &tile: mTiles) {
         if (tile != nullptr) {
             sum += tile->Sum();
         }
     }
     return sum;
+}
+
+
+DataType *
+MPCRTile::GetDiagonal() {
+
+    auto pOutput = new DataType(DOUBLE);
+
+    auto count = std::min(this->mpDimensions->GetNCol(),
+                          this->mpDimensions->GetNRow());
+
+    auto pOutput_data = new double[count];
+
+    for (auto i = 0; i < count; i++) {
+        pOutput_data[ i ] = this->GetVal(i, i);
+    }
+
+    pOutput->SetSize(count);
+    pOutput->SetData((char *) pOutput_data);
+
+    return pOutput;
+}
+
+
+double
+MPCRTile::SquareSum() {
+
+    double sq_sum = 0;
+    for (auto &tile: mTiles) {
+        if (tile != nullptr) {
+            sq_sum += tile->SquareSum();
+        }
+    }
+    return sq_sum;
 }
 
 
