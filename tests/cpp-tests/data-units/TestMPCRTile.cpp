@@ -251,7 +251,7 @@ TEST_MPR_TILE() {
             REQUIRE(diag->GetVal(i) == validate_vals[ i ]);
         }
 
-    }SECTION("Test square sum") {
+    }SECTION("Test square sum and Frobenius Norm") {
         vector <double> values;
         vector <string> precisions(16, "float");
         values.resize(64);
@@ -263,7 +263,10 @@ TEST_MPR_TILE() {
         }
 
         MPCRTile a(8, 8, 2, 2, values, precisions);
-        REQUIRE(validate_sq_sum==a.SquareSum());
+        REQUIRE(validate_sq_sum == a.SquareSum());
+        REQUIRE(a.Norm("f") == sqrt(validate_sq_sum));
+        REQUIRE_THROWS(a.Norm("D"));
+
 
     }
 

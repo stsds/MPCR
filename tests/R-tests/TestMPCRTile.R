@@ -139,5 +139,9 @@ square_sum <- mat_a$SquareSum()
 cat("----------------------------- Square Sum of values from 1 to 16 ------------------------------------\n")
 square_sum
 
+f_norm <- mat_a$Norm("f")
+cat("----------------------------- Frobenius Norm of values from 1 to 16 ------------------------------------\n")
+f_norm
+
 
 

@@ -46,6 +46,7 @@ RCPP_MODULE(MPCRTile) {
         .method("Diag", &MPCRTile::GetDiagonal)
         .method("Sum", &MPCRTile::Sum)
         .method("SquareSum", &MPCRTile::SquareSum)
+        .method("Norm", &MPCRTile::Norm)
         .method("Prod", &MPCRTile::Product);
 
     /** MPCRTile Functions **/

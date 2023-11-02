@@ -510,6 +510,17 @@ public:
     DataType*
     GetDiagonal();
 
+    /**
+     * @brief
+     * Calculate the Frobenius Norm of a Matrix
+     *
+     * @returns
+     * Frobenius Norm of a Matrix
+     *
+     */
+    double
+    Norm(const std::string &aType="F");
+
 
 private:
 

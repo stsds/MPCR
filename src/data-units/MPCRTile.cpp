@@ -591,6 +591,15 @@ MPCRTile::SquareSum() {
     return sq_sum;
 }
 
+double
+MPCRTile::Norm(const std::string &aType) {
+    if(!(aType[0]=='F' || aType[0]=='f')){
+        MPCR_API_EXCEPTION("Only Frobenius Norm is supported.",-1);
+    }
+    auto sq_sum=this->SquareSum();
+    return sqrt(sq_sum);
+}
+
 
 SIMPLE_INSTANTIATE(void, MPCRTile::AssignValuesToTile, DataType &aTile,
                    const size_t &aTileRowIdx, const size_t &aTileColIdx,
