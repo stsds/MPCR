@@ -1,4 +1,0 @@
-<map id="RToNumericVector" name="RToNumericVector">
-<area shape="rect" id="node1" title="R&#45;Adapter for Casting MPCR Vector to R Numeric Vector." alt="" coords="5,13,145,39"/>
-<area shape="rect" id="node2" href="$classDataType.html#a74ad8221d457d75eb561b9fcfafea549" title="Convert MPCR Values to R&#45;Numeric Vector (vector double will be wrapped to match R&#45;Numeric Vector)" alt="" coords="193,5,404,47"/>
-</map>

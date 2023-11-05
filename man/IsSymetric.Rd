@@ -17,13 +17,13 @@ A logical value.
 Check if a given MPCR matrix is symmetric.
 }
 \examples{
-  \dontrun{
+
 library(MPCR)
 
-x <- as.MPPR(1:200,100,2,"Single")
+x <- as.MPCR(1:50,25,2,"Single")
 isSymmetric(x)                      #false
 
 crossprod_output<-crossprod(x)
 isSymmetric(crossprod_output)       #true
-}
+
 }

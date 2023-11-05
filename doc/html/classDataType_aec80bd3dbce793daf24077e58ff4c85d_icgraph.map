@@ -1,7 +1,0 @@
-<map id="DataType::Transpose" name="DataType::Transpose">
-<area shape="rect" id="node1" title="Transpose MPCR Matrix." alt="" coords="555,31,711,57"/>
-<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="173,5,247,32"/>
-<area shape="rect" id="node4" href="$namespacempcr_1_1operations_1_1linear.html#a9085cca6610c2c87cdf93eaf781ef893" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="295,56,507,83"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,31,125,57"/>
-<area shape="rect" id="node5" href="$RLinearAlgebra_8hpp.html#a5595028cb926cb8d01b50c8f6eb6bdd2" title="Compute the singular&#45;value decomposition of a rectangular matrix." alt="" coords="181,56,239,83"/>
-</map>

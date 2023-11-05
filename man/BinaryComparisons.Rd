@@ -56,11 +56,11 @@
   A vector/matrix of logicals.
 }
 \examples{
-  \dontrun{
+
   library(MPCR)
   s1 <- as.MPCR(1:20,nrow=2,ncol=10,"single")
   s2 <- as.MPCR(21:40,nrow=2,ncol=10,"double")
 
   x <- s1 > s2
-  }
+
 }

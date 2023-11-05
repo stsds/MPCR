@@ -27,11 +27,12 @@
   Prints/change metadata about an MPCR object.
 }
 \examples{
-  \dontrun{
+
   library(MPCR)
 
   x <- as.MPCR(1:20,precision="double")
   typeof(x)
   MPCR.ChangePrecision(x,"single")
-  }
+  MPCR.is.single(x) #True
+
 }

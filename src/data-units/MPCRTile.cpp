@@ -11,8 +11,8 @@
 
 
 MPCRTile::MPCRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol,
-                 const std::vector <double> &aValues,
-                 const std::vector <std::string> &aPrecisions) {
+                   const std::vector <double> &aValues,
+                   const std::vector <std::string> &aPrecisions) {
 
 
     AssignDimensions(aRow, aCol, aTileRow, aTileCol);
@@ -68,7 +68,8 @@ MPCRTile::MPCRTile(size_t aRow, size_t aCol, size_t aTileRow, size_t aTileCol) {
 
 
 void MPCRTile::AssignDimensions(const size_t &aRow, const size_t &aCol,
-                               const size_t &aTileRow, const size_t &aTileCol) {
+                                const size_t &aTileRow,
+                                const size_t &aTileCol) {
     this->mSize = aRow * aCol;
 
     if (mSize == 0) {
@@ -83,11 +84,13 @@ void MPCRTile::AssignDimensions(const size_t &aRow, const size_t &aCol,
     auto required_tiles = mSize / mTileSize;
 
     if (mSize % mTileSize != 0) {
-        MPCR_API_EXCEPTION("Tiles should cover the whole Matrix Dimensions", -1);
+        MPCR_API_EXCEPTION("Tiles should cover the whole Matrix Dimensions",
+                           -1);
     }
 
     if (required_tiles % row != 0 || required_tiles % col != 0) {
-        MPCR_API_EXCEPTION("Tiles should cover the whole Matrix Dimensions", -1);
+        MPCR_API_EXCEPTION("Tiles should cover the whole Matrix Dimensions",
+                           -1);
     }
 
 
@@ -100,8 +103,8 @@ void MPCRTile::AssignDimensions(const size_t &aRow, const size_t &aCol,
 template <typename T>
 void
 MPCRTile::AssignValuesToTile(DataType &aTile, const size_t &aTileRowIdx,
-                            const size_t &aTileColIdx,
-                            const std::vector <double> &aValues) {
+                             const size_t &aTileColIdx,
+                             const std::vector <double> &aValues) {
     auto col = aTile.GetNCol();
     auto row = aTile.GetNRow();
     auto pOutput = new T[row * col];
@@ -136,7 +139,7 @@ MPCRTile::GetTileIndex(const MatrixIndex &aMatrixIndex) {
 
 MatrixIndex
 MPCRTile::GetLocalIndex(const MatrixIndex &aIdxGlobal,
-                       const MatrixIndex &aTileIdx) {
+                        const MatrixIndex &aTileIdx) {
     auto row_local = aIdxGlobal.first -
                      ( aTileIdx.first * this->mpTileInnerDimensions->GetNRow());
 
@@ -148,8 +151,9 @@ MPCRTile::GetLocalIndex(const MatrixIndex &aIdxGlobal,
 }
 
 
-MatrixIndex MPCRTile::GetGlobalIndex(const MatrixIndex &aIdxLocal,
-                                    const MatrixIndex &aTileIdx) {
+MatrixIndex
+MPCRTile::GetGlobalIndex(const MatrixIndex &aIdxLocal,
+                         const MatrixIndex &aTileIdx) {
     auto row_glob = aIdxLocal.first +
                     ( aTileIdx.first * this->mpTileInnerDimensions->GetNRow());
 
@@ -194,7 +198,7 @@ MPCRTile::GetVal(const size_t &aRowIdx, const size_t &aColIdx) {
 
 void
 MPCRTile::ChangePrecision(const size_t &aTileRowIdx, const size_t &aTileColIdx,
-                         const mpcr::precision::Precision &aPrecision) {
+                          const mpcr::precision::Precision &aPrecision) {
 
     if (CheckIndex(aTileRowIdx, aTileColIdx, *this->mpTilesDimensions)) {
         MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
@@ -209,11 +213,21 @@ MPCRTile::ChangePrecision(const size_t &aTileRowIdx, const size_t &aTileColIdx,
 
 void
 MPCRTile::PrintTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
-    if (CheckIndex(aTileRowIdx, aTileColIdx, *this->mpTilesDimensions)) {
+
+    auto tile_row_idx = aTileRowIdx;
+    auto tile_col_idx = aTileColIdx;
+
+#ifndef RUNNING_CPP
+    tile_row_idx-=1;
+    tile_col_idx-=1;
+#endif
+
+    if (CheckIndex(tile_row_idx, tile_col_idx, *this->mpTilesDimensions)) {
         MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
+
     auto tile_idx = GetIndexColumnMajor(
-        std::make_pair(aTileRowIdx, aTileColIdx),
+        std::make_pair(tile_row_idx, tile_col_idx),
         this->mpTilesDimensions->GetNRow());
 
     mTiles[ tile_idx ]->Print();
@@ -222,7 +236,7 @@ MPCRTile::PrintTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
 
 bool
 MPCRTile::CheckIndex(const size_t &aRowIdx, const size_t &aColIdx,
-                    const Dimensions &aDimensions) {
+                     const Dimensions &aDimensions) {
     return aRowIdx >= aDimensions.GetNRow() ||
            aColIdx >= aDimensions.GetNCol() || aRowIdx < 0 ||
            aColIdx < 0;
@@ -231,9 +245,19 @@ MPCRTile::CheckIndex(const size_t &aRowIdx, const size_t &aColIdx,
 
 void
 MPCRTile::ChangePrecision(const size_t &aTileRowIdx, const size_t &aTileColIdx,
-                         const std::string &aPrecision) {
+                          const std::string &aPrecision) {
+
     auto precision = GetInputPrecision(aPrecision);
-    ChangePrecision(aTileRowIdx, aTileColIdx, precision);
+
+    auto tile_row_idx = aTileRowIdx;
+    auto tile_col_idx = aTileColIdx;
+
+#ifndef RUNNING_CPP
+    tile_row_idx-=1;
+    tile_col_idx-=1;
+#endif
+
+    ChangePrecision(tile_row_idx, tile_col_idx, precision);
 }
 
 
@@ -362,7 +386,7 @@ MPCRTile::GetTile(const size_t &aTileRowIdx, const size_t &aTileColIdx) {
 
 void
 MPCRTile::InsertTile(DataType *apTile, const size_t &aTileRowIdx,
-                    const size_t &aTileColIdx) {
+                     const size_t &aTileColIdx) {
 
     if (CheckIndex(aTileRowIdx, aTileColIdx, *this->mpTilesDimensions)) {
         MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
@@ -465,7 +489,7 @@ MPCRTile(const MPCRTile &aMPCRTile) {
 
 void
 MPCRTile::FillSquareTriangle(const double &aValue, const bool &aUpperTriangle,
-                            const Precision &aPrecision) {
+                             const Precision &aPrecision) {
     auto row = mpTileInnerDimensions->GetNRow();
     auto col = mpTileInnerDimensions->GetNCol();
     auto size = row * col;
@@ -512,8 +536,7 @@ MPCRTile::FillSquareTriangle(const double &aValue, const bool &aUpperTriangle,
 
 double
 MPCRTile::Product() {
-    double prod;
-    prod = 1;
+    double prod = 1;
     for (auto &tile: mTiles) {
         if (tile != nullptr) {
             prod *= tile->Product();
@@ -525,14 +548,56 @@ MPCRTile::Product() {
 
 double
 MPCRTile::Sum() {
-    double sum;
-    sum = 0;
+    double sum = 0;
     for (auto &tile: mTiles) {
         if (tile != nullptr) {
             sum += tile->Sum();
         }
     }
     return sum;
+}
+
+
+DataType *
+MPCRTile::GetDiagonal() {
+
+    auto pOutput = new DataType(DOUBLE);
+
+    auto count = std::min(this->mpDimensions->GetNCol(),
+                          this->mpDimensions->GetNRow());
+
+    auto pOutput_data = new double[count];
+
+    for (auto i = 0; i < count; i++) {
+        pOutput_data[ i ] = this->GetVal(i, i);
+    }
+
+    pOutput->SetSize(count);
+    pOutput->SetData((char *) pOutput_data);
+
+    return pOutput;
+}
+
+
+double
+MPCRTile::SquareSum() {
+
+    double sq_sum = 0;
+    for (auto &tile: mTiles) {
+        if (tile != nullptr) {
+            sq_sum += tile->SquareSum();
+        }
+    }
+    return sq_sum;
+}
+
+double
+MPCRTile::Norm(const std::string &aType) {
+    if(!(aType[0]=='F' || aType[0]=='f')){
+        MPCR_API_EXCEPTION("Only Frobenius Norm is supported.",-1);
+    }
+    auto sq_sum=this->SquareSum();
+    return sqrt(sq_sum);
 }
 
 

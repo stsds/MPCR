@@ -32,7 +32,7 @@ The logarithm base. If base = 1, exp(1) is assumed, only base 1,2, and 10 availa
 An MPCR object of the same dimensions as the input.
 }
 \examples{
-\dontrun{
+\donttest{
 library(MPCR)
 
 x <- as.MPCR(1:20,precision="double")

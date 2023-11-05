@@ -27,10 +27,10 @@ These functions give the obvious hyperbolic functions. They respectively compute
 An MPCR object of the same dimensions as the input.
 }
 \examples{
-    \dontrun{
+
     library(MPCR)
 
-    mppr_matrix <- as.MPCR(1:20,nrow=2,ncol=10,precision="single")
-    x <- sinh(mppr_matrix)
-    }
+    mpcr_matrix <- as.MPCR(1:20,nrow=2,ncol=10,precision="single")
+    x <- sinh(mpcr_matrix)
+
 }

@@ -393,8 +393,18 @@ convertedMPCR <- as.MPCR(1:24, nrow = 4, ncol = 6, precision = "float")
 convertedMPCR$PrintValues()
 cat("-------------- Test Print --------------------------\n")
 print(convertedMPCR)
-# convertedMPCR
 
+
+sum <- convertedMPCR$Sum()
+cat("----------------------------- Sum of values from 1 to 24 ------------------------------------\n")
+sum
+prod <- convertedMPCR$Prod()
+cat("----------------------------- Product of values from 1 to 24 ------------------------------------\n")
+prod
+
+square_sum <- convertedMPCR$SquareSum()
+cat("----------------------------- Square Sum of values from 1 to 24 ------------------------------------\n")
+square_sum
 
 
 

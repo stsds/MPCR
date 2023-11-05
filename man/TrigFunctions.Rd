@@ -32,10 +32,10 @@ An MPCR object.
 An MPCR object of the same dimensions as the input.
 }
 \examples{
-\dontrun{
+\donttest{
 library(MPCR)
 
-mppr_matrix <- as.MPCR(1:20,nrow=2,ncol=10,"single")
-x <- sin(mppr_matrix)
+mpcr_matrix <- as.MPCR(1:20,nrow=2,ncol=10,"single")
+x <- sin(mpcr_matrix)
 }
 }

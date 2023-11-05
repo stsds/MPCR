@@ -1,7 +1,0 @@
-<map id="mpcr::operations::basic::ApplyCenter" name="mpcr::operations::basic::ApplyCenter">
-<area shape="rect" id="node1" title="centers the columns of a numeric matrix." alt="" coords="472,23,647,65"/>
-<area shape="rect" id="node2" href="$RBasicUtilities_8hpp.html#ab29d921348d05f1c1744ddccc62292e8" title="R Adapter for Centering and/or Scaling the columns of a numeric matrix." alt="" coords="357,31,424,57"/>
-<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a8016b4df956fc9fa3a02e608a83b6d40" title="R Adapter for Centering and/or Scaling the columns of a numeric matrix. Centering is done using colum..." alt="" coords="208,5,275,32"/>
-<area shape="rect" id="node4" href="$RBasicUtilities_8hpp.html#ac8816ef904ce2297cb4066a4a1100708" title="R Adapter for Dispatching Rscale." alt="" coords="173,56,309,83"/>
-<area shape="rect" id="node5" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,56,125,83"/>
-</map>

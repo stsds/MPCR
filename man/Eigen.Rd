@@ -18,9 +18,11 @@ A list contains MPCR objects describing the values and optionally vectors.
 Solves a system of equations or invert an MPCR matrix, using lapack routine \code{syevr()}
 }
 \examples{
-\dontrun{
+\donttest{
 library(MPCR)
-x <- as.MPCR("your_data",nrow,ncol,precision)
+s <- runif(10, 3)
+cross_prod <- crossprod(s)
+x <- as.MPCR(cross_prod,nrow(cross_prod),nrow(cross_prod),precision)
 y <- eigen(x)
 }
 }

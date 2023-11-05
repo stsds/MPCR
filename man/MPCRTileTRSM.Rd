@@ -31,11 +31,22 @@
  }
 
  \examples{
-   \dontrun{
+   \donttest{
    library(MPCR)
-   # create 2 MPCR Tile matrices a,b
-   print(b)
-   MPCRTile.trsm(a,b,side='L',upper_triangle=TRUE,transpose=FALSE,alpha=1)
-   print(b)
+   a <- matrix(c(3.12393, -1.16854, -0.304408, -2.15901,
+                 -1.16854, 1.86968, 1.04094, 1.35925,
+                 -0.304408, 1.04094, 4.43374, 1.21072,
+                 -2.15901, 1.35925, 1.21072, 5.57265), 4,4)
+
+
+   b <- c("float", "double", "float", "float")
+   c <- c("float", "float", "double", "float")
+
+   mat_a <- new(MPCRTile, 4,4, 2, 2, a, b)
+   mat_b <- new(MPCRTile, 4,4, 2, 2, a, c)
+
+   MPCRTile.trsm(a=mat_a,b=mat_b,side='R',upper_triangle=TRUE,transpose=FALSE,alpha=1)
+   print(mat_b)
+
    }
 }

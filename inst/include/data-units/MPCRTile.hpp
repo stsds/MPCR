@@ -479,6 +479,17 @@ public:
 
     /**
      * @brief
+     * Returns the square sum of all elements in all tiles in MPCRTile Object
+     *
+     * @returns
+     * Square sum of all elements
+     *
+     */
+    double
+    SquareSum();
+
+    /**
+     * @brief
      * Returns the product of all elements in all tiles in MPCRTile Object
      *
      * @returns
@@ -487,6 +498,33 @@ public:
      */
     double
     Product();
+
+    /**
+     * @brief
+     * Returns the main diagonal of MPCRTile matrix.
+     *
+     * @returns
+     * The main diagonal of MPCRTile matrix as MPCR object of type double.
+     *
+     */
+    DataType*
+    GetDiagonal();
+
+    /**
+     * @brief
+     * Calculate the Frobenius Norm of a Matrix
+     *
+     * @param[in] aType
+     * string containing type of norm, only Frobenius norm is supported.
+     * use "F" or "f" for Frobenius norm, otherwise, it will throw an error.
+     *
+     * @returns
+     * Frobenius Norm of a Matrix
+     *
+     */
+    double
+    Norm(const std::string &aType="F");
+
 
 private:
 

@@ -1,6 +1,0 @@
-<map id="RPerformPow" name="RPerformPow">
-<area shape="rect" id="node1" title="R&#45;Adapter for Performing Power Operation on Two MPCR Objects." alt="" coords="461,31,572,57"/>
-<area shape="rect" id="node2" href="$classDataType.html#a2b0f6830fedc1bb4aaaf7cdb432a8ee5" title="R&#45;Adapter for Performing Power Operation on MPCR Object." alt="" coords="173,5,413,32"/>
-<area shape="rect" id="node4" href="$RBinaryOperations_8hpp.html#a1dac3e05c75525dac091a336a1da84bb" title="R&#45;Dispatcher to decide which Power Method to use." alt="" coords="203,56,383,83"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,31,125,57"/>
-</map>

@@ -30,7 +30,7 @@ Solves a system of linear equations where the coefficient matrix is upper or low
 }
 
 \examples{
-\dontrun{
+\donttest{
   library(MPCR)
   a <- matrix(c(2, 0, 0, 3), nrow = 2)
   b <- matrix(c(1, 2), nrow = 2)
