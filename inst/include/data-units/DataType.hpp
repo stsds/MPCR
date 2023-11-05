@@ -879,6 +879,17 @@ public:
 
     /**
      * @brief
+     * Returns the square sum of all elements in MPCR Object
+     *
+     * @returns
+     * Square sum of all elements
+     *
+     */
+    double
+    SquareSum();
+
+    /**
+     * @brief
      * Returns the product of all elements in MPCR Object
      *
      * @returns
@@ -1134,12 +1145,24 @@ private:
      * Dispatcher for calculating the sum of all elements in MPCR Object
      *
      * @param[out] aResult
-     * sum of all elements
+     * Sum of all elements
      *
      */
     template <typename T>
     void
     SumDispatcher(double &aResult);
+
+    /**
+     * @brief
+     * Dispatcher for calculating the square sum of all elements in MPCR Object
+     *
+     * @param[out] aResult
+     * square sum of all elements
+     *
+     */
+    template <typename T>
+    void
+    SquareSumDispatcher(double &aResult);
 
     /**
      * @brief

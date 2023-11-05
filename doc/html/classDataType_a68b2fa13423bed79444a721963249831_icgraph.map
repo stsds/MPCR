@@ -1,5 +1,0 @@
-<map id="DataType::GetMatrixIndex" name="DataType::GetMatrixIndex">
-<area shape="rect" id="node1" title="Get Index of Matrix in Row&#45;Wise Representation." alt="" coords="463,5,655,32"/>
-<area shape="rect" id="node2" href="$classDataType.html#aecf5b1bde9889156d296d16cdd1143d4" title="Get Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="204,5,415,32"/>
-<area shape="rect" id="node3" href="$RBasicUtilities_8hpp.html#a64d2eaeee8515b1e1fbb1207989e61f9" title="R Adapter for Getting Element with Idx [row][col] from MPCR Matrix as MPCR Object." alt="" coords="5,5,156,32"/>
-</map>

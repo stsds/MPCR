@@ -98,12 +98,12 @@ ___
 
 **This graph represents the speedup of MPCR single precision object to R double object in three major linear algebra functions.**
 
-![](benchmarks/graphs/speedup_single_to_double.png)
+![](benchmarks/graphs/speedup_of_MPCR_single_precision_to_R.png)
 
 
 **This graph represents the speedup of MPCR double precision object to R double object in three major linear algebra functions.**
 
-![](benchmarks/graphs/Speedup_of_MPCR_double_precision_to_R_double_precision.png)
+![](benchmarks/graphs/speedup_of_MPCR_double_precision_to_R_double_precision.png)
 
 
 **This graph shows the timing of different functions with different sizes and precisions.**

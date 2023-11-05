@@ -17,7 +17,7 @@ Solves the equation AX=B .and if B=NULL t(A) will be used.
 Solve a system of equations or invert an MPCR matrix.
 }
 \examples{
-\dontrun{
+\donttest{
 library(MPCR)
 
 x <- as.MPCR(1:20,4,5,"double")

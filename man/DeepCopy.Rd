@@ -34,9 +34,14 @@
    }
 }
 
+\value{
+An MPCR copy from the input object.
+}
+
 
 \examples{
-  \dontrun{
+
+   library(MPCR)
    # Example usage of the class and its methods
    a <- matrix(1:36, 6, 6)
    MPCR_matrix <- as.MPCR(a,nrow=6,ncol=6,precision="single")
@@ -54,5 +59,4 @@
 
    MPCR_matrix[2,2]           #100
    MPCR_matrix_copy[2,2]      #200
-  }
 }

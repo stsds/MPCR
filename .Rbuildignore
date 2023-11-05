@@ -12,4 +12,3 @@
 ^Meta$
 ./bin/
 ./cmake-build-debug/
-./..Rcheck/

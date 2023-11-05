@@ -18,11 +18,9 @@ MPCR object containing values from all objects in the list.
 }
 
 \examples{
-  \dontrun{
 library(MPCR)
-x <- as.MPCR(1:20,precision"single")
-y <- as.MPCR(1:20,precision"single")
+x <- as.MPCR(1:20,precision="single")
+y <- as.MPCR(1:20,precision="single")
 list <- c(x,y)
 new_obj <- MPCR.Concatenate(list)
-}
 }

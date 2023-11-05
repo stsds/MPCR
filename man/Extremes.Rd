@@ -26,11 +26,11 @@
   Min/max value/index.
 }
 \examples{
-  \dontrun{
+
   library(MPCR)
 
   x <- as.MPCR(1:20,precision="double")
   min <-min(x)
   min_idx <-which.min(x)
-  }
+
 }

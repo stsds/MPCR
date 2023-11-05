@@ -21,10 +21,12 @@ An MPCR object, matching the data type of the highest precision input.
 \code{rbind()} and \code{cbind()} for MPCR objects.
 }
 \examples{
-  \dontrun{
 library(MPCR)
 # create 2 MPCR matrix a,b
-x <- rbind(a,b)
-y <- cbind(a,b)
-}
+a <- as.MPCR(1:20,nrow=2,ncol=10,"single")
+b <- as.MPCR(21:40,nrow=2,ncol=10,"double")
+
+x <- MPCR.rbind(a,b)
+y <- MPCR.cbind(a,b)
+
 }

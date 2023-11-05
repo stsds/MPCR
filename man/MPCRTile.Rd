@@ -81,8 +81,14 @@ MPCRTile is a data structure for tile matrices with mixed precision, where each 
       }
 }
 
+\value{
+MPCRTile object (constructor - accessors - methods)
+}
+
 \examples{
-  \dontrun{
+  \donttest{
+
+  library(MPCR)
     # Example usage of the class and its methods
    a <- matrix(1:36, 6, 6)
    b <- c("double", "double", "single", "double",

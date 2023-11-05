@@ -24,14 +24,12 @@ When extracting values, they will be converted to double precision. However, if 
 If the MPCR object is a matrix and you access it using the 'i' index, the operation is assumed to be performed in column-major order, or using 'i' and 'j' index.
 }
 \examples{
-  \dontrun{
   library(MPCR)
-    x <-as.MPCR(1:50,"single")
+    x <-as.MPCR(1:50,precision="single")
     ext <- x[5]
     x[5] <- 0
     x$ToMatrix(5,10)
     x[2,5]
     x[3,5] <- 100
-}
 
 }

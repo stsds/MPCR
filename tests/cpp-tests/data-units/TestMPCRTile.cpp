@@ -196,6 +196,7 @@ TEST_MPR_TILE() {
             }
         }
     }SECTION("Test Sum and Product") {
+        cout << "Testing Sum and Product ..." << endl;
         vector <double> values;
         vector <string> precisions(5, "float");
         auto size = 20;
@@ -214,6 +215,59 @@ TEST_MPR_TILE() {
         REQUIRE(sum == validate_sum);
         auto prod = a.Product();
         REQUIRE(prod == validate_prod);
+    }SECTION("Test Get Diagonal") {
+        cout << "Testing Get main diagonal ..." << endl;
+
+        vector <double> values;
+        vector <string> precisions(4, "float");
+        values.resize(24);
+        for (auto i = 0; i < values.size(); i++) {
+            values[ i ] = i + 1;
+        }
+
+        vector <double> validate_vals = {1, 6, 11, 16};
+
+        MPCRTile a(4, 6, 2, 3, values, precisions);
+        auto diag = a.GetDiagonal();
+        auto size = diag->GetSize();
+        REQUIRE(size == validate_vals.size());
+
+        for (auto i = 0; i < size; i++) {
+            REQUIRE(diag->GetVal(i) == validate_vals[ i ]);
+        }
+
+        values.resize(36);
+        for (auto i = 0; i < values.size(); i++) {
+            values[ i ] = i + 1;
+        }
+        validate_vals = {1, 8, 15, 22, 29, 36};
+
+        MPCRTile b(6, 6, 3, 3, values, precisions);
+        diag = b.GetDiagonal();
+        size = diag->GetSize();
+        REQUIRE(size == validate_vals.size());
+
+        for (auto i = 0; i < size; i++) {
+            REQUIRE(diag->GetVal(i) == validate_vals[ i ]);
+        }
+
+    }SECTION("Test square sum and Frobenius Norm") {
+        vector <double> values;
+        vector <string> precisions(16, "float");
+        values.resize(64);
+        double validate_sq_sum = 0;
+
+        for (auto i = 0; i < values.size(); i++) {
+            values[ i ] = i + 1;
+            validate_sq_sum += pow(i + 1, 2);
+        }
+
+        MPCRTile a(8, 8, 2, 2, values, precisions);
+        REQUIRE(validate_sq_sum == a.SquareSum());
+        REQUIRE(a.Norm("f") == sqrt(validate_sq_sum));
+        REQUIRE_THROWS(a.Norm("D"));
+
+
     }
 
 

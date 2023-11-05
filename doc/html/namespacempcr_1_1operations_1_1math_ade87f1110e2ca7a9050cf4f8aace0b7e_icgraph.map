@@ -1,7 +1,0 @@
-<map id="mpcr::operations::math::Log" name="mpcr::operations::math::Log">
-<area shape="rect" id="node1" title="Perform Log operation on a given MPCR Object." alt="" coords="292,56,497,83"/>
-<area shape="rect" id="node2" href="$RMathematicalOperations_8hpp.html#abff793eeba9137ca37ca788779fc1033" title="Perform Log operation on MPCR Object default 1." alt="" coords="181,5,236,32"/>
-<area shape="rect" id="node4" href="$RMathematicalOperations_8hpp.html#aeccb650f7361e8bef41486700806d30c" title="Perform Log Base 10 operation on MPCR Object." alt="" coords="173,56,244,83"/>
-<area shape="rect" id="node5" href="$RMathematicalOperations_8hpp.html#a7e072d391b4d162f0ae507dc7ffd59ec" title="Perform Log Base 2 operation on MPCR Object." alt="" coords="177,107,240,133"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,56,125,83"/>
-</map>

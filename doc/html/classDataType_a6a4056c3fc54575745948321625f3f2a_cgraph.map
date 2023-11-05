@@ -1,5 +1,0 @@
-<map id="DataType::GetElementVector" name="DataType::GetElementVector">
-<area shape="rect" id="node1" title="Get Element at Idx from MPCR Vector as MPCR Object." alt="" coords="5,31,215,57"/>
-<area shape="rect" id="node2" href="$classDataType.html#a556051021c23d1428fffad935aad890b" title="DataType default constructor." alt="" coords="263,5,415,32"/>
-<area shape="rect" id="node3" href="$classDataType.html#a2150d8ef445e8db1eef0001c6d646da0" title="Get Values in the Vector according to Index (0&#45;based Indexing)" alt="" coords="271,56,406,83"/>
-</map>

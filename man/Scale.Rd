@@ -17,11 +17,11 @@ An MPCR matrix.
 Center or scale an MPCR object.
 }
 \examples{
-  \dontrun{
+  \donttest{
   library(MPCR)
-    x <-as.MPCR(1:50,"single")
+    input <-as.MPCR(1:50,precision="single")
     x$ToMatrix(5, 10)
     temp_center_scale <- new(1:10,precision="double")
-    z <- scale(x=temp_scale, center=FALSE, scale=temp_center_scale)
+    z <- scale(x=input, center=FALSE, scale=temp_center_scale)
 }
 }

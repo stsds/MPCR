@@ -1,8 +1,0 @@
-<map id="mpcr::operations::math::PerformRoundOperation" name="mpcr::operations::math::PerformRoundOperation">
-<area shape="rect" id="node1" title="Perform Operation on MPCR Object according to provided Function aFun." alt="" coords="5,99,192,141"/>
-<area shape="rect" id="node2" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="263,5,406,32"/>
-<area shape="rect" id="node3" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="262,56,407,83"/>
-<area shape="rect" id="node4" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="264,107,405,133"/>
-<area shape="rect" id="node5" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="263,157,406,184"/>
-<area shape="rect" id="node6" href="$classDataType.html#a8c90b3a1121a4adb953b402c85199b81" title="Set Matrix Dimensions (throw Error in case the Dimensions can&#39;t cover all the data available)" alt="" coords="240,208,429,235"/>
-</map>

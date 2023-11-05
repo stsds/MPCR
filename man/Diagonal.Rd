@@ -15,10 +15,8 @@ An MPCR vector contains the main diagonal of the matrix.
 Returns the diagonal of an MPCR matrix.
 }
 \examples{
-  \dontrun{
     library(MPCR)
     x <- as.MPCR(1:16,4,4,"single")
     diag_vals <- diag(x)
-    }
 
 }

@@ -26,11 +26,8 @@
  Boolean indicates the precision of the object according to the used function.
 }
 \examples{
-  \dontrun{
   library(MPCR)
-
   x <- as.MPCR(1:20,precision="double")
   MPCR.is.double(x) #TRUE
   MPCR.is.single(x) #FALSE
-  }
 }

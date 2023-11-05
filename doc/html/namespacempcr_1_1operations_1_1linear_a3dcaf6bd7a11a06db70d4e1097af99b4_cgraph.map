@@ -1,8 +1,0 @@
-<map id="mpcr::operations::linear::Norm" name="mpcr::operations::linear::Norm">
-<area shape="rect" id="node1" title="Computes a matrix norm of aInput. The norm can be the one (&quot;O&quot;) norm, the infinity (&quot;I&quot;) norm,..." alt="" coords="5,99,183,141"/>
-<area shape="rect" id="node2" href="$classDataType.html#a40564ccc4c22ef6e8c4b6be15a25f793" title="DataType ClearUp Function to Clear all Pointers and data inside except Precision." alt="" coords="235,5,378,32"/>
-<area shape="rect" id="node3" href="$classDataType.html#a2ee1d39ae086769460ffb93b219cd473" title="Get Number of Columns." alt="" coords="234,56,379,83"/>
-<area shape="rect" id="node4" href="$classDataType.html#aa73b26ced781e189d2c6554b4a3a5996" title="Get Number of Rows." alt="" coords="231,107,383,133"/>
-<area shape="rect" id="node5" href="$classDataType.html#a833001ac9e0685db373f2dc3600df129" title="Set Data Buffer. (Clears the Current Buffer)" alt="" coords="235,157,378,184"/>
-<area shape="rect" id="node6" href="$classDataType.html#ab66a88e82a8c6f24b1e2b79bb665bf15" title="Set Size of Vector or Matrix." alt="" coords="237,208,376,235"/>
-</map>

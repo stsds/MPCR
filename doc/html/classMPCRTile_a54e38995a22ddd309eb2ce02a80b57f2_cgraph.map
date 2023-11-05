@@ -1,4 +1,0 @@
-<map id="MPCRTile::GetTilePerRow" name="MPCRTile::GetTilePerRow">
-<area shape="rect" id="node1" title="Get Number of Tiles per Row." alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node2" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="240,5,408,32"/>
-</map>
