@@ -514,6 +514,10 @@ public:
      * @brief
      * Calculate the Frobenius Norm of a Matrix
      *
+     * @param[in] aType
+     * string containing type of norm, only Frobenius norm is supported.
+     * use "F" or "f" for Frobenius norm, otherwise, it will throw an error.
+     *
      * @returns
      * Frobenius Norm of a Matrix
      *
