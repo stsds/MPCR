@@ -1,4 +1,4 @@
-\name{14-Mathis}
+\name{13-Mathis}
 \alias{mathis}
 \alias{is.finite,Rcpp_MPCR-method}
 \alias{is.infinite,Rcpp_MPCR-method}

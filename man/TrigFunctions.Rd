@@ -1,4 +1,4 @@
-\name{22-Trig}
+\name{21-Trig}
 \alias{trig}
 \alias{sin,Rcpp_MPCR-method}
 \alias{cos,Rcpp_MPCR-method}

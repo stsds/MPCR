@@ -1,4 +1,4 @@
-\name{13-Log}
+\name{12-Log}
 \alias{log}
 \alias{exp,Rcpp_MPCR-method}
 \alias{expm1,Rcpp_MPCR-method}

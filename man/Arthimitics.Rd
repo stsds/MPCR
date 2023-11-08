@@ -1,4 +1,4 @@
-\name{04-Arithmetic}
+\name{03-Arithmetic}
 \alias{arithmetic}
 
 \alias{+,Rcpp_MPCR,Rcpp_MPCR-method}

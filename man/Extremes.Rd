@@ -1,4 +1,4 @@
-\name{12-Extremes}
+\name{11-Extremes}
 \alias{extremes}
 \alias{min,Rcpp_MPCR-method}
 \alias{max,Rcpp_MPCR-method}

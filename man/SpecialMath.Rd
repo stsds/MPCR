@@ -1,4 +1,4 @@
-\name{21-Special Math}
+\name{20-Special Math}
 \alias{specialmath}
 \alias{gamma,Rcpp_MPCR-method}
 \alias{lgamma,Rcpp_MPCR-method}

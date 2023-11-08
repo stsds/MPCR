@@ -9,8 +9,7 @@
 #define MPCR_RHELPERS_HPP
 
 
-#include <data-units/MPCRTile.hpp>
-
+#include <data-units/DataType.hpp>
 
 using namespace Rcpp;
 
@@ -42,56 +41,6 @@ ToLogicalVector(std::vector <int> &aInput);
 
 /**
  * @brief
- * Updates a Tile in MPCRTile Object, by copying the tile and inserting the new
- * tile to avoid R ownership problem.
- *
- * @param[in] aMatrix
- * MPCRTile Matrix
- * @param[in] aTile
- * Tile containing new data that needs to be updated.
- * @param[in] aRowIdx
- * Tile Row idx
- * @param[in] aColIdx
- * Tile Col idx
- *
- */
-void
-RInsertTile(MPCRTile *aMatrix, DataType *aTile, const size_t &aRowIdx,
-           const size_t &aColIdx);
-/**
- * @brief
- * Get a Tile from MPCRTile Object
- *
- * @param[in] aMatrix
- * MPCRTile Matrix
- * @param[in] aRowIdx
- * Tile Row idx
- * @param[in] aColIdx
- * Tile Col idx
- *
- *
- * @returns
- *  a copy of the tile at the idx [aRowIdx,aColIdx] to avoid ownership problem
- *  in R
- */
-DataType *
-RGetTile(MPCRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx);
-
-/**
- * @brief
- * Creates a deepcopy of MPCRTile Matrix
- *
- * @param[in] aMatrix
- * MPCRTile Matrix
- *
- * @returns
- *  a new Copy of MPCRTile Matrix
- */
-MPCRTile *
-RCopyMPCRTile(MPCRTile *aMatrix);
-
-/**
- * @brief
  * Creates a deepcopy of normal MPCR object
  *
  * @param[in] aMatrix
@@ -103,39 +52,6 @@ RCopyMPCRTile(MPCRTile *aMatrix);
 DataType*
 RCopyMPR(DataType *aMatrix);
 
-/**
- * @brief
- * R version to Serialize DataType object as a Raw Vector
- *
- * @returns
- * vector of bytes containing DataType object as a stream of bytes
- *
- */
-Rcpp::RawVector
-SerializeTile(DataType *aInput);
-
-/**
- * @brief
- * R version to DeSerialize Stream of bytes to MPCR Object
- *
- * @param[in] aInput
- * vector of bytes containing DataType object as a stream of bytes
- *
- */
-DataType *
-DeSerializeTile(Rcpp::RawVector aInput);
-
-/**
- * @brief
- * R version to Serialize Tile object as a Raw Vector from Tile-Matrix without
- * copying
- *
- * @returns
- * vector of bytes containing DataType object as a stream of bytes
- *
- */
-Rcpp::RawVector
-RGetSerializeTile(MPCRTile *aMatrix, const size_t &aRowIdx,const size_t &aColIdx);
 
 
 
