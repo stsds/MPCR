@@ -1,5 +1,0 @@
-<map id="mpcr::operations::math::IsInFinite" name="mpcr::operations::math::IsInFinite">
-<area shape="rect" id="node1" title="Checks if a given MPCR Object values are InFinite or not." alt="" coords="5,23,180,65"/>
-<area shape="rect" id="node2" href="$classDataType.html#a45cc38d26accdd88f151365af69d3f52" title="Get Data of Vector." alt="" coords="228,5,373,32"/>
-<area shape="rect" id="node3" href="$classDataType.html#a1212ec3ead86135b62555e6afc1076da" title="Get Size of Vector or Matrix." alt="" coords="230,56,371,83"/>
-</map>

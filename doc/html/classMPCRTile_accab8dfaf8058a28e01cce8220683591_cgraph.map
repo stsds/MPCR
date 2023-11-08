@@ -1,5 +1,0 @@
-<map id="MPCRTile::SetDimensions" name="MPCRTile::SetDimensions">
-<area shape="rect" id="node1" title="Copies the MPCRTile Dimensions and sizes metadata from another MPCRTile obj." alt="" coords="5,31,195,57"/>
-<area shape="rect" id="node2" href="$structDimensions.html#a387bc2434f511b19733f888c12005a15" title="Get Number of Columns." alt="" coords="246,5,407,32"/>
-<area shape="rect" id="node3" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="243,56,411,83"/>
-</map>
