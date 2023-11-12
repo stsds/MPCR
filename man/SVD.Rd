@@ -1,4 +1,4 @@
-\name{37-Singular value decomposition}
+\name{36-Singular value decomposition}
 \alias{svd}
 \alias{La.svd,Rcpp_MPCR-method}
 \alias{svd,Rcpp_MPCR-method}

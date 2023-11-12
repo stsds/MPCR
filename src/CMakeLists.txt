@@ -13,7 +13,6 @@ add_subdirectory(adapters)
 set(
         NEW_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/DataTypeModule.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/MPCRTileModule.cpp
         ${SOURCES}
         ${NEW_SOURCES}
 

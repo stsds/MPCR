@@ -1,4 +1,4 @@
-\name{17-Replicate}
+\name{16-Replicate}
 \alias{replicate}
 \alias{rep,Rcpp_MPCR-method}
 \title{replicate}

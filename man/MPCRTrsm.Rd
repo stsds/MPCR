@@ -1,4 +1,4 @@
-\name{40-MPCR TRSM}
+\name{39-MPCR TRSM}
 \alias{MPCR TRSM}
 \alias{MPCR.trsm,Rcpp_MPCR-method}
 \title{MPCR TRSM  (Triangular Solve)}
@@ -39,7 +39,7 @@
    mat_a <- as.MPCR(a,4,4,"single")
    mat_b <- as.MPCR(a,4,4,"double")
 
-   MPCRTile.trsm(a=mat_a,b=mat_b,side='R',upper_triangle=TRUE,transpose=FALSE,alpha=1)
+   MPCR.trsm(a=mat_a,b=mat_b,side='R',upper_triangle=TRUE,transpose=FALSE,alpha=1)
    print(mat_b)
    }
 }

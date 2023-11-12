@@ -1,4 +1,4 @@
-\name{07-Dimensions}
+\name{06-Dimensions}
 \alias{dimensions}
 \alias{nrow,Rcpp_MPCR-method}
 \alias{ncol,Rcpp_MPCR-method}

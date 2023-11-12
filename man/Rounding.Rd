@@ -1,4 +1,4 @@
-\name{18-Round}
+\name{17-Round}
 \alias{round}
 \alias{ceiling,Rcpp_MPCR-method}
 \alias{floor,Rcpp_MPCR-method}

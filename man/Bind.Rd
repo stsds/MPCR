@@ -1,4 +1,4 @@
-\name{10-Bind}
+\name{09-Bind}
 
 \alias{MPCR.rbind,Rcpp_MPCR-method}
 \alias{MPCR.cbind,Rcpp_MPCR-method}

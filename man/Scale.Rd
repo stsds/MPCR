@@ -1,4 +1,4 @@
-\name{19-Scale}
+\name{18-Scale}
 \alias{scale}
 \alias{scale,Rcpp_MPCR-method}
 \title{scale}

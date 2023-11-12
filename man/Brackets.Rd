@@ -1,4 +1,4 @@
-\name{06-Extract-Replace}
+\name{07-Extract-Replace}
 \alias{[,Rcpp_MPCR-method}
 \alias{[[,Rcpp_MPCR-method}
 \alias{[<-,Rcpp_MPCR-method}

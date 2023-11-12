@@ -6,40 +6,6 @@
 
 .onLoad <- function(libname, pkgname) {
   loadModule("MPCR", TRUE, loadNow = TRUE)
-  loadModule("MPCRTile", TRUE, loadNow = TRUE)
-
-  #--------------------------------------------------------------------------------
-  # MPR Tile
-  setMethod("[", signature(x = "Rcpp_MPCRTile"), function(x, i, j, drop = TRUE) {
-    if (missing(j)) {
-      stop("Please Provide a 2D Index")
-    }else {
-      i = i - 1
-      j = j - 1
-      ret <- x$MPCRTile.GetVal(i, j)
-      ret
-    }
-  })
-
-  setReplaceMethod("[", signature(x = "Rcpp_MPCRTile", value = "ANY"), function(x, i, j, ..., value) {
-    if (missing(j)) {
-      stop("Please Provide a 2D Index")
-    }else {
-      i = i - 1
-      j = j - 1
-      x$MPCRTile.SetVal(i, j, value)
-    }
-    x
-  })
-
-  #-------------------------- MPCRTile Print ---------------------------------------
-  setMethod("print", c(x = "Rcpp_MPCRTile"), function(x, ...) {
-    x$MPCRTile.print()
-  })
-  #-------------------------- MPCRTile Linear Algebra ------------------------------
-  setMethod("chol", c(x = "Rcpp_MPCRTile"), MPCRTile.chol)
-
-  #--------------------------------------------------------------------------------
 
   #------------------------------ MPR Class----------------------------------------
   setMethod("[", signature(x = "Rcpp_MPCR"), function(x, i, j, drop = TRUE) {

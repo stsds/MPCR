@@ -1,4 +1,4 @@
-\name{25-Check precision}
+\name{24-Check precision}
 \alias{Check Precision}
 \alias{MPCR.is.single,Rcpp_MPCR-method}
 \alias{MPCR.is.double,Rcpp_MPCR-method}
