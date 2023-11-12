@@ -14,7 +14,6 @@ macro(BuildDependency raw_name url tag)
     execute_process(COMMAND ${CMAKE_COMMAND}
             -DCMAKE_INSTALL_PREFIX=${${name}_installpath}
             -DNOFORTRAN=1
-            -DCMAKE_CXX_FLAGS_RELEASE="-fPIC -w -W"
             -DCMAKE_C_FLAGS_RELEASE="-fPIC -w -W"
             #            -DBUILD_SHARED_LIBS=ON
             ${${name}_srcpath}
