@@ -78,6 +78,13 @@ namespace mpcr {
             Cholesky(DataType &aInputA, DataType &aOutput,
                      const bool &aUpperTriangle = true);
 
+#ifdef USE_CUDA
+            template <typename T>
+            void
+            CudaCholesky(DataType &aInputA, DataType &aOutput,
+                         const bool &aUpperTriangle = true);
+#endif
+
             /**
              * @brief
              * Invert a symmetric, positive definite square matrix from its

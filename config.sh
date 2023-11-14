@@ -6,6 +6,7 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+cd "$(dirname "$0")"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -15,7 +16,7 @@ NC='\033[0m'
 PROJECT_SOURCE_DIR=$(dirname "$0")
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  ABSOLUE_PATH=$([[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}")
+  ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
 else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi
@@ -27,9 +28,9 @@ while getopts ":f:c:tevhi:" opt; do
     TEST_PATH=$OPTARG
     ;;
   c) ##### Define test file path  #####
-      echo -e "${BLUE}Config File path set to $OPTARG${NC}"
-      CONFIG_PATH=$OPTARG
-      ;;
+    echo -e "${BLUE}Config File path set to $OPTARG${NC}"
+    CONFIG_PATH=$OPTARG
+    ;;
   t) ##### Building tests enabled #####
     echo -e "${GREEN}Building tests enabled${NC}"
     BUILDING_TESTS="ON"
@@ -117,6 +118,5 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
   -B"${PROJECT_SOURCE_DIR}/bin" \
   -DRUNNING_CPP=ON \
   -DBUILD_SHARED_LIBS=OFF \
-  -DUSE_CUDA=OFF \
   -DCMAKE_CXX_FLAGS_DEBUG="-fPIC" \
   -DCMAKE_CXX_FLAGS_RELEASE="-fPIC"

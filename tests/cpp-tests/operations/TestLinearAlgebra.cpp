@@ -588,35 +588,37 @@ TEST_LINEAR_ALGEBRA() {
 }
 
 void
-TEST_SOLVE_BIG_DATA(){
-    double n = 100;
-    vector <double> values_a(n*n);
-    vector <double> values_b(n);
-    srand(time(0));
-    double a = 4.5;
-    double b = 0.5;
+TEST(){
+#ifdef USE_CUDA
+    SECTION("Testing Cholesky CUDA Decomposition") {
+        cout << "Testing CUDA Cholesky Decomposition ..." << endl;
+        vector <double> values = {4, 12, -16, 12, 37, -43, -16, -43, 98};
+        DataType a(values, DOUBLE);
+        a.ToMatrix(3, 3);
+        a.Print();
+        DataType b(DOUBLE);
+        SIMPLE_DISPATCH(DOUBLE, linear::CudaCholesky, a, b)
+//
+        vector <double> values_validate = {2, 12, -16, 6, 1, -43, -8, 5, 3}; //Fill Triangle is still not implemented as a CUDA Kernel.
+        // Lower Triangle should be set to zeros
+
+        REQUIRE(b.GetNCol() == 3);
+        REQUIRE(b.GetNRow() == 3);
+        REQUIRE(b.GetPrecision()==DOUBLE);
+        b.Print();
+
+        for (auto i = 0; i < b.GetSize(); i++) {
+            REQUIRE(b.GetVal(i)==values_validate[i]);
+        }
 
 
-    for (auto i = 0; i < n*n; i++) {
-        values_a[ i ] = a + ( b - a ) * rand() / RAND_MAX;
     }
+#endif
 
-    for (auto i = 0; i < n; i++) {
-        values_b[ i ] = a + ( b - a ) * rand() / RAND_MAX;
-    }
-
-    DataType mat_a(values_a,"float");
-    DataType mat_b(values_b,"float");
-
-    mat_a.SetDimensions(n,n);
-
-    DataType output(FLOAT);
-
-    SIMPLE_DISPATCH(FLOAT, linear::Solve, mat_a, mat_b, output, false)
-    output.Print();
 }
 
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
     TEST_LINEAR_ALGEBRA();
-//    TEST_SOLVE_BIG_DATA();
+    TEST();
+
 }

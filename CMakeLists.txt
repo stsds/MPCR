@@ -32,13 +32,14 @@ endif ()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(CheckLanguage)
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-if(NOT APPLE)
-include(ImportGFortran)
-endif()
+if (NOT APPLE)
+    include(ImportGFortran)
+endif ()
 
 include(ImportOpenMP)
 if (OpenMP_FOUND)
@@ -61,28 +62,32 @@ if (${R_FOUND})
     add_definitions(-DUSING_R)
 endif ()
 
+# This section is to test if there's a CUDA compiler available on the system,
+# if so, the code will compile both CPU and GPU backends.
+check_language(CUDA)
+if(CMAKE_CUDA_COMPILER)
+    set(USE_CUDA ON)
+else()
+    message(STATUS "-- No CUDA support --")
+endif()
 
-if (USE_CUDA)
-    message("-- Build CUDA Support")
+
+if (${USE_CUDA})
+    message("-- Build CUDA Support --")
+    include(toolchains/CudaToolchain)
     add_definitions(-DUSE_CUDA)
     enable_language(CUDA)
-    include(toolchains/CudaToolchain)
-    set(BLA_VENDOR NVHPC)
     include(ImportCuSolver)
-    include(ImportBlasPP)
-    unset(BLA_VENDOR)
-    include(ImportLapack)
-    include(ImportLapackPP)
-    set(LIBS
-            LAPACK::LAPACK
-            ${LIBS}
-            )
 else ()
     message("-- Build Serial Support -- ")
-    include(ImportBlasPP)
-    include(ImportLapack)
-    include(ImportLapackPP)
 endif ()
+
+
+set(gpu_backend CACHE "none" FORCE)
+include(ImportBlasPP)
+include(ImportLapack)
+include(ImportLapackPP)
+
 
 if (${USE_OMP})
     get_directory_property(CMAKE_PARENT_DIR PARENT_DIRECTORY)
@@ -124,7 +129,6 @@ endif ()
 
 # Add Include DIRS
 include_directories(${CMAKE_SOURCE_DIR}/inst/include)
-include_directories(${CMAKE_SOURCE_DIR}/prerequisites)
 
 
 # Options
@@ -138,6 +142,7 @@ message("Building MPCR tests : ${MPCR_BUILD_TESTS}")
 
 
 if (MPCR_BUILD_TESTS)
+    include_directories(${CMAKE_SOURCE_DIR}/prerequisites)
     add_subdirectory(tests/cpp-tests)
     # Add the system test.
     include(CTest)

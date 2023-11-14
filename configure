@@ -6,6 +6,7 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+cd "$(dirname "$0")"
 
 COMPILE_FLAGS="-fPIC -W -w"
 
@@ -37,7 +38,6 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -H"${ABSOLUE_PATH}" \
   -B"${ABSOLUE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
-  -DUSE_CUDA=OFF \
   -DBUILD_SHARED_LIBS=OFF \
   -DCMAKE_CXX_FLAGS_DEBUG="$COMPILE_FLAGS"\
   -DCMAKE_CXX_FLAGS_RELEASE="$COMPILE_FLAGS"
