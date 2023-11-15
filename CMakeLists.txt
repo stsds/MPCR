@@ -72,6 +72,7 @@ else()
 endif()
 
 
+# Find CUDAToolkit and Link to CUSOLVER
 if (${USE_CUDA})
     message("-- Build CUDA Support --")
     include(toolchains/CudaToolchain)
@@ -82,11 +83,13 @@ else ()
     message("-- Build Serial Support -- ")
 endif ()
 
-
+# since the code will compile both CPU and GPU calls, blaspp and lapackpp will be build with no GPU support and all
+# the GPU operation would be done directly using cusolver.
 set(gpu_backend CACHE "none" FORCE)
 include(ImportBlasPP)
 include(ImportLapack)
 include(ImportLapackPP)
+
 
 
 if (${USE_OMP})
