@@ -4,10 +4,14 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+
 .onLoad <- function(libname, pkgname) {
+
   loadModule("MPCR", TRUE, loadNow = TRUE)
   loadModule("MPCRTile", TRUE, loadNow = TRUE)
 
+  utils::globalVariables(c("n", "p"))
+  suppressMessages({
   #--------------------------------------------------------------------------------
   # MPR Tile
   setMethod("[", signature(x = "Rcpp_MPCRTile"), function(x, i, j, drop = TRUE) {
@@ -151,9 +155,6 @@
   setMethod("typeof", c(x = "Rcpp_MPCR"), MPCR.typeof)
 
 
-
-
-
   # -----------------------------------------------------------------------------
   # Min-Max - Done
   # -----------------------------------------------------------------------------
@@ -279,19 +280,19 @@
   })
 
 
-  setMethod("qr", c(x = "Rcpp_MPCR"), function(x,tol) {
-    if(missing(tol)){
-      tol= 1e-07
+  setMethod("qr", c(x = "Rcpp_MPCR"), function(x, tol) {
+    if (missing(tol)) {
+      tol = 1e-07
     }
-    ret <- MPCR.qr(x,tol)
+    ret <- MPCR.qr(x, tol)
     names(ret) <- c("qr", "qraux", "pivot", "rank")
     ret
   })
 
   setMethod("qr.R", c(qr = "ANY"), function(qr, complete = FALSE) {
 
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
         if (missing(complete)) {
           complete = FALSE
         }
@@ -310,8 +311,8 @@
 
   setMethod("qr.Q", c(qr = "ANY"), function(qr, complete = FALSE, Dvec) {
 
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
         if (missing(Dvec)) {
           Dvec = NULL
         }
@@ -333,9 +334,9 @@
   })
 
   setMethod("qr.qy", c(qr = "ANY"), function(qr, y) {
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
-        ret <- MPCR.qr.qy(qr$qr, qr$qraux,y)
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
+        ret <- MPCR.qr.qy(qr$qr, qr$qraux, y)
         ret
 
       }else {
@@ -347,9 +348,9 @@
   })
 
   setMethod("qr.qty", c(qr = "ANY"), function(qr, y) {
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
-        ret <- MPCR.qr.qty(qr$qr, qr$qraux,y)
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
+        ret <- MPCR.qr.qty(qr$qr, qr$qraux, y)
         ret
 
       }else {
@@ -372,14 +373,17 @@
     ret
   })
 
-  setMethod("La.svd", c(x = "Rcpp_MPCR"), function(x, nu, nv) {
+  setMethod("La.svd", c(x = "Rcpp_MPCR"), function(x, nu = min(n, p), nv = min(n, p)) {
+    n = x$Row()
+    p = x$Col()
+
     if (missing(nu)) {
       nu = -1
     }
     if (missing(nv)) {
       nv = -1
     }
-    ret <- MPCR.La.svd(x)
+    ret <- MPCR.La.svd(x, nu, nv)
     names(ret) <- c("d", "u", "vt")
     ret
   })
@@ -465,5 +469,6 @@
       triangular = FALSE
     }
     MPCR.rcond(x, norm, triangular)
+  })
   })
 }
