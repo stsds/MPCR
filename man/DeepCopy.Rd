@@ -1,5 +1,7 @@
 \name{08-Copy}
 \alias{copy}
+\alias{MPCR.copy}
+\alias{MPCRTile.copy}
 \title{copy}
 
 \description{

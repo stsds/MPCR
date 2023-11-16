@@ -2,6 +2,10 @@
 \alias{crossprod}
 \alias{crossprod,Rcpp_MPCR-method}
 \alias{tcrossprod,Rcpp_MPCR-method}
+
+\alias{MPCR.crossprod}
+\alias{MPCR.tcrossprod}
+
 \title{crossprod}
 \usage{
 \S4method{crossprod}{Rcpp_MPCR}(x, y = NULL)

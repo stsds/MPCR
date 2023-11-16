@@ -3,6 +3,11 @@
 \alias{is.finite,Rcpp_MPCR-method}
 \alias{is.infinite,Rcpp_MPCR-method}
 \alias{is.nan,Rcpp_MPCR-method}
+
+\alias{MPCR.is.finite}
+\alias{MPCR.is.infinite}
+\alias{MPCR.is.nan}
+
 \title{Finite, infinite, and NaNs}
 \description{
     Finite, infinite, and NaNs.

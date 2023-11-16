@@ -1,5 +1,11 @@
 \name{03-Converters}
 \alias{Converters}
+
+\alias{MPCR.ToNumericVector}
+\alias{MPCR.ToNumericMatrix}
+\alias{as.MPCR}
+
+
 \title{Converters}
 
 \description{

@@ -2,6 +2,7 @@
 
 
 \alias{MPCRTile.trsm,Rcpp_MPCRTile-method}
+\alias{MPCRTile.trsm}
 \title{MPCRTile TRSM  (Triangular Solve)}
 
 \description{

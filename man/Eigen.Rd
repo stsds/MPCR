@@ -1,5 +1,6 @@
 \name{31-Eigen decomposition}
 \alias{eigen}
+\alias{MPCR.eigen}
 \alias{eigen,Rcpp_MPCR-method}
 \title{eigen decomposition}
 \usage{

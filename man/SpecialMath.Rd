@@ -2,6 +2,10 @@
 \alias{specialmath}
 \alias{gamma,Rcpp_MPCR-method}
 \alias{lgamma,Rcpp_MPCR-method}
+
+\alias{MPCR.gamma}
+\alias{MPCR.lgamma}
+
 \title{Special mathematical functions.}
 \description{
 Special mathematical functions.

@@ -2,6 +2,10 @@
 \alias{miscmath}
 \alias{abs,Rcpp_MPCR-method}
 \alias{sqrt,Rcpp_MPCR-method}
+
+\alias{MPCR.abs}
+\alias{MPCR.sqrt}
+
 \title{Miscellaneous mathematical functions}
 \description{
 Miscellaneous mathematical functions.

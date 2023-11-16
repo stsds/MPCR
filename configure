@@ -44,7 +44,7 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 
 cd bin/
 make clean
-make all
+make all -j 8
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"

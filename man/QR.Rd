@@ -3,6 +3,13 @@
 \alias{qr,Rcpp_MPCR-method}
 \alias{qr.Q,ANY-method}
 \alias{qr.R,ANY-method}
+
+\alias{MPCR.qr}
+\alias{MPCR.qr.Q}
+\alias{MPCR.qr.R}
+\alias{MPCR.qr.qty}
+\alias{MPCR.qr.qy}
+
 \title{QR decomposition}
 \usage{
 \S4method{qr}{Rcpp_MPCR}(x, tol = 1e-07)

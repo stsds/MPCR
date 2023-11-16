@@ -1,6 +1,7 @@
 \name{42-MPCRTile POTRF}
 \alias{MPCRTile Chol}
 \alias{chol,Rcpp_MPCRTile-method}
+\alias{MPCRTile.chol}
 \title{MPCRTile Chol  ( Cholesky decomposition )}
 \description{
     Tile-based Cholesky decomposition of a positive definite tile-based symmetric matrix.

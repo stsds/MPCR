@@ -1,5 +1,6 @@
 \name{41-MPCRTile GEMM}
 \alias{MPCRTile GEMM}
+\alias{MPCRTile.gemm}
 \alias{MPCRTile.gemm,Rcpp_MPCRTile-method}
 \title{MPCRTile GEMM  (Matrix-Matrix Multiplication)}
 
