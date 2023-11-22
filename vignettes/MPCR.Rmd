@@ -1,18 +1,19 @@
 ---
 title: "Multi-Precision-Computing-in-R"
-output: pdf_document
+output: rmarkdown::html_vignette
 author: David Helmy
 documentclass: article
 vignette: >
   %\VignetteIndexEntry{Multi-Precision-Computing-in-R}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
 
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+        collapse = TRUE,
+        comment = "#>"
 )
 ```
 
@@ -49,11 +50,11 @@ ___
 
 # creating an R matrix of double precision values
 R_matrix <- matrix(c(1.21, 0.18, 0.13, 0.41, 0.06, 0.23,
-              0.18, 0.64, 0.10, -0.16, 0.23, 0.07,
-              0.13, 0.10, 0.36, -0.10, 0.03, 0.18,
-              0.41, -0.16, -0.10, 1.05, -0.29, -0.08,
-              0.06, 0.23, 0.03, -0.29, 1.71, -0.10,
-              0.23, 0.07, 0.18, -0.08, -0.10, 0.36), 6, 6)
+                     0.18, 0.64, 0.10, -0.16, 0.23, 0.07,
+                     0.13, 0.10, 0.36, -0.10, 0.03, 0.18,
+                     0.41, -0.16, -0.10, 1.05, -0.29, -0.08,
+                     0.06, 0.23, 0.03, -0.29, 1.71, -0.10,
+                     0.23, 0.07, 0.18, -0.08, -0.10, 0.36), 6, 6)
 
 # creating a vector of strings, each string represents the precision of its corresponding tile.
 # column major indexing is assumed
