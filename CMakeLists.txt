@@ -1,4 +1,3 @@
-
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
 # All rights reserved.
@@ -36,9 +35,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-if(NOT APPLE)
-include(ImportGFortran)
-endif()
+if (NOT APPLE)
+    include(ImportGFortran)
+endif ()
 
 include(ImportOpenMP)
 if (OpenMP_FOUND)
@@ -62,27 +61,16 @@ if (${R_FOUND})
 endif ()
 
 
-if (USE_CUDA)
-    message("-- Build CUDA Support")
-    add_definitions(-DUSE_CUDA)
-    enable_language(CUDA)
-    include(toolchains/CudaToolchain)
-    set(BLA_VENDOR NVHPC)
-    include(ImportCuSolver)
-    include(ImportBlasPP)
-    unset(BLA_VENDOR)
-    include(ImportLapack)
-    include(ImportLapackPP)
-    set(LIBS
-            LAPACK::LAPACK
-            ${LIBS}
-            )
-else ()
-    message("-- Build Serial Support -- ")
-    include(ImportBlasPP)
-    include(ImportLapack)
-    include(ImportLapackPP)
-endif ()
+# blaspp and lapackpp will be build with no GPU support.
+set(gpu_backend CACHE "none" FORCE)
+
+add_definitions(-DBLAS_ERROR_NDEBUG)
+add_definitions(-DNDEBUG)
+include(ImportBlasPP)
+include(ImportLapack)
+include(ImportLapackPP)
+
+
 
 if (${USE_OMP})
     get_directory_property(CMAKE_PARENT_DIR PARENT_DIRECTORY)
@@ -124,7 +112,6 @@ endif ()
 
 # Add Include DIRS
 include_directories(${CMAKE_SOURCE_DIR}/inst/include)
-include_directories(${CMAKE_SOURCE_DIR}/prerequisites)
 
 
 # Options
@@ -138,6 +125,7 @@ message("Building MPCR tests : ${MPCR_BUILD_TESTS}")
 
 
 if (MPCR_BUILD_TESTS)
+    include_directories(${CMAKE_SOURCE_DIR}/prerequisites)
     add_subdirectory(tests/cpp-tests)
     # Add the system test.
     include(CTest)
@@ -145,6 +133,3 @@ if (MPCR_BUILD_TESTS)
             COMMAND system-tests
             )
 endif ()
-
-
-

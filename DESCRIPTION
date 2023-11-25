@@ -20,8 +20,3 @@ Authors@R: c(
     person("Brightskies", role=c("cph"))
     )
 URL: https://github.com/stsds/MPCR
-VignetteBuilder: rmarkdown
-Suggests:
-    knitr,
-    rmarkdown,
-    utils

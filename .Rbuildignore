@@ -6,9 +6,7 @@
 ^.Rhistory*
 .gitignore
 ./src/Makevars.win
-./.git
 .travis.yml
-^doc$
-^Meta$
 ./bin/
 ./cmake-build-debug/
+LICENSE
