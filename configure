@@ -7,11 +7,11 @@
 ##########################################################################
 
 
-COMPILE_FLAGS="-fPIC -W -w"
+COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
-  COMPILE_FLAGS="-fPIC -W -w"
+  COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi
@@ -29,15 +29,12 @@ mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
-  -DMPCR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-  -DCMAKE_TEST_PREFIX="$TEST_PATH" \
   -DCMAKE_CONFIG_PREFIX="$CONFIG_PATH" \
   -DCMAKE_VERBOSE_MAKEFILE:BOOL=$VERBOSE \
   -H"${ABSOLUE_PATH}" \
   -B"${ABSOLUE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
-  -DUSE_CUDA=OFF \
   -DBUILD_SHARED_LIBS=OFF \
   -DCMAKE_CXX_FLAGS_DEBUG="$COMPILE_FLAGS"\
   -DCMAKE_CXX_FLAGS_RELEASE="$COMPILE_FLAGS"
