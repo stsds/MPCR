@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/sh
 
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
@@ -109,7 +109,6 @@ mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
-  -DMPCR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   -DCMAKE_TEST_PREFIX="$TEST_PATH" \
   -DCMAKE_CONFIG_PREFIX="$CONFIG_PATH" \

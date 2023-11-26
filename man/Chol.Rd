@@ -1,6 +1,9 @@
 \name{27-Cholesky decomposition}
 \alias{chol}
 \alias{chol,Rcpp_MPCR-method}
+\alias{MPCR.chol}
+
+
 \title{cholesky decomposition}
 \usage{
 \S4method{chol}{Rcpp_MPCR}(x,upper_triangle=TRUE)

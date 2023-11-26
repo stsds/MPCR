@@ -1,5 +1,6 @@
 \name{39-MPCR TRSM}
 \alias{MPCR TRSM}
+\alias{MPCR.trsm}
 \alias{MPCR.trsm,Rcpp_MPCR-method}
 \title{MPCR TRSM  (Triangular Solve)}
 

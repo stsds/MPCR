@@ -15,7 +15,6 @@ macro(BuildDependency raw_name url tag)
             -DCMAKE_INSTALL_PREFIX=${${name}_installpath}
             -DNOFORTRAN=1
             -DCMAKE_C_FLAGS_RELEASE="-fPIC -w -W"
-            #            -DBUILD_SHARED_LIBS=ON
             ${${name}_srcpath}
             WORKING_DIRECTORY
             ${${name}_binpath})

@@ -1,5 +1,6 @@
 \name{38-MPCR GEMM}
 \alias{MPCR GEMM}
+\alias{MPCR.gemm}
 \alias{MPCR.gemm,Rcpp_MPCR-method}
 \title{MPCR GEMM  (Matrix-Matrix Multiplication)}
 

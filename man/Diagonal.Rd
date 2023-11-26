@@ -1,5 +1,6 @@
 \name{10-Diagonal}
 \alias{diag}
+\alias{MPCR.diag}
 \alias{diag,Rcpp_MPCR-method}
 \title{diag}
 \usage{

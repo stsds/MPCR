@@ -5,6 +5,11 @@
 \alias{MPCR.is.half,Rcpp_MPCR-method}
 \alias{MPCR.is.float,Rcpp_MPCR-method}
 
+\alias{MPCR.is.single}
+\alias{MPCR.is.double}
+\alias{MPCR.is.half}
+\alias{MPCR.is.float}
+
 \title{Metadata functions}
 \description{
     Checks the precision of a given MPCR object.

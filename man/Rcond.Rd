@@ -1,6 +1,7 @@
 \name{34-Reciprocal condition}
 \alias{rcond}
 \alias{rcond,Rcpp_MPCR-method}
+\alias{MPCR.rcond}
 \title{reciprocal condition}
 \usage{
 \S4method{rcond}{Rcpp_MPCR}(x, norm = "O", useInv = FALSE)

@@ -2,6 +2,10 @@
 \alias{forwardsolve,Rcpp_MPCR,Rcpp_MPCR-method}
 \alias{backsolve,Rcpp_MPCR,Rcpp_MPCR-method}
 
+\alias{MPCR.backsolve}
+\alias{MPCR.forwardsolve}
+
+
 \title{Back/Forward solve}
 
 \description{

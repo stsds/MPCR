@@ -12,6 +12,12 @@
 \alias{/,Rcpp_MPCR,BaseLinAlg-method}
 \alias{^,Rcpp_MPCR,BaseLinAlg-method}
 
+\alias{MPCR.Add}
+\alias{MPCR.Divide}
+\alias{MPCR.Subtract}
+\alias{MPCR.Multiply}
+\alias{MPCR.Power}
+
 
 \title{Binary arithmetic numeric/MPCR objects.}
 \description{

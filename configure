@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/sh
 
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
@@ -8,11 +8,11 @@
 
 cd "$(dirname "$0")"
 
-COMPILE_FLAGS="-fPIC -W -w"
+COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
-  COMPILE_FLAGS="-fPIC -W -w"
+  COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi
@@ -30,9 +30,7 @@ mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
-  -DMPCR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
-  -DCMAKE_TEST_PREFIX="$TEST_PATH" \
   -DCMAKE_CONFIG_PREFIX="$CONFIG_PATH" \
   -DCMAKE_VERBOSE_MAKEFILE:BOOL=$VERBOSE \
   -H"${ABSOLUE_PATH}" \
@@ -44,7 +42,7 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 
 cd bin/
 make clean
-make all
+make all -j 8
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
