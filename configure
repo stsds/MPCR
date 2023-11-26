@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/sh
 
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology

@@ -14,8 +14,8 @@ rm -rf ./src/*.d
 rm -rf ./src/*.dll
 rm -rf ./.idea/
 rm -rf ./cmake-build-debug
-rm -rf ./bin
-rm -rf ./.git
+rm -rf ./bin/
+rm -rf ./.git/
 rm -rf ./config.sh
 rm -rf ./clean_build.sh
 rm -rf ./..Rcheck/
