@@ -8,11 +8,11 @@
 add_subdirectory(data-units)
 add_subdirectory(operations)
 add_subdirectory(adapters)
-# Add MPR library for Testing CPP using all C/C++ Code
 
 set(
         NEW_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/DataTypeModule.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RcppExports.cpp
         ${SOURCES}
         ${NEW_SOURCES}
 

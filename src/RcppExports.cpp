@@ -20,7 +20,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 RcppExport SEXP _rcpp_module_boot_MPCR();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rcpp_module_boot_MPCR", (DL_FUNC) &_rcpp_module_boot_MMPR, 0},
+    {"_rcpp_module_boot_MPCR", (DL_FUNC) &_rcpp_module_boot_MPCR, 0},
     {NULL, NULL,                                                0}
 };
 
