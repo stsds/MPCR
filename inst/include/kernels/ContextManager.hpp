@@ -26,6 +26,10 @@ namespace mpcr {
             static ContextManager *mpInstance;
         public:
 
+            /**
+             * @brief
+             * Get the current singleton instance, and create one if not instantiated.
+             */
             static
             ContextManager &GetInstance();
 
@@ -60,13 +64,25 @@ namespace mpcr {
             void
             SyncMainContext() const;
 
+            /**
+             * @brief
+             * Synchronizes all streams.
+             */
             void
             SyncAll() const;
 
+            /**
+             * @brief
+             * Get number of created streams.
+             */
             [[nodiscard]]
             size_t
             GetNumOfContexts() const;
 
+            /**
+             * @brief
+             * Get specific stream.
+             */
             RunContext *
             GetContext(size_t aIdx = 0);
 
@@ -78,13 +94,25 @@ namespace mpcr {
             void
             DestroyInstance();
 
+            /**
+             * @brief
+             * Set the current context to be used internally if any stream is needed.
+             */
             void
             SetOperationContext(RunContext *aRunContext);
 
+            /**
+             * @brief
+             * Get the current context to be used internally if any stream is needed.
+             */
             static
             RunContext *
             GetOperationContext();
 
+            /**
+             * @brief
+             * Create new stream and add it to the context manager.
+             */
             RunContext *
             CreateRunContext();
 
@@ -96,22 +124,24 @@ namespace mpcr {
              *
              */
             ContextManager() {
-                mpInstance->mContexts = std::vector<RunContext*>(1);
-                mpInstance->mContexts[0]=new RunContext();
-                mpInstance->mpCurrentContext=mpInstance->mContexts[0];
+                mpInstance->mContexts = std::vector <RunContext *>(1);
+                mpInstance->mContexts[ 0 ] = new RunContext();
+                mpInstance->mpCurrentContext = mpInstance->mContexts[ 0 ];
             }
 
-        private:
-            std::vector <mpcr::kernels::RunContext*> mContexts;
-            RunContext *mpCurrentContext;
 
+        private:
+            /** Vector holding all the created run context **/
+            std::vector <mpcr::kernels::RunContext *> mContexts;
+            /** Pointer to hold the current run context to be used internally
+             *  if any streams is needed.
+             **/
+            RunContext *mpCurrentContext;
         };
 
 
     }
 }
-
-
 
 
 #endif //MPCR_CONTEXTMANAGER_HPP

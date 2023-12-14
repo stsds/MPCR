@@ -107,28 +107,4 @@ memory::Memset(char *apDestination, char aValue, const size_t &aSizeInBytes,
 #ifdef USE_CUDA
 
 
-cudaMemcpyKind
-MemoryDirectionConverter::ToCudaMemoryTransferType(
-    const MemoryTransfer &aTransferType) {
-
-    switch (aTransferType) {
-        case MemoryTransfer::HOST_TO_HOST:
-            return cudaMemcpyHostToHost;
-
-        case MemoryTransfer::HOST_TO_DEVICE:
-            return cudaMemcpyHostToDevice;
-
-        case MemoryTransfer::DEVICE_TO_DEVICE:
-            return cudaMemcpyDeviceToDevice;
-
-        case MemoryTransfer::DEVICE_TO_HOST:
-            return cudaMemcpyDeviceToHost;
-
-        default:
-            return cudaMemcpyDefault;
-
-    }
-}
-
-
 #endif

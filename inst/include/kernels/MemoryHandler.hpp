@@ -19,6 +19,7 @@ using namespace mpcr::definitions;
 namespace mpcr {
     namespace memory {
 
+        /** Enums describing memory transfer types **/
         enum class MemoryTransfer {
             HOST_TO_DEVICE,
             DEVICE_TO_DEVICE,
@@ -97,11 +98,41 @@ namespace mpcr {
                const kernels::RunContext *aContext);
 
 #ifdef USE_CUDA
+        /** Class responsible for mapping memory handler enums to cuda enums. **/
         class MemoryDirectionConverter{
         public:
+
+            /**
+             * @brief
+             * Convert Memory transfer types into cuda memcpy types
+             *
+             * @param[in] aTransferType
+             * MemoryTransfer type
+             *
+             * @returns
+             * Cuda Memcpy Kind enum.
+             */
+            inline
             static
             cudaMemcpyKind
-            ToCudaMemoryTransferType(const memory::MemoryTransfer &aTransferType);
+            ToCudaMemoryTransferType(const memory::MemoryTransfer &aTransferType){
+                switch (aTransferType) {
+                    case MemoryTransfer::HOST_TO_HOST:
+                        return cudaMemcpyHostToHost;
+
+                    case MemoryTransfer::HOST_TO_DEVICE:
+                        return cudaMemcpyHostToDevice;
+
+                    case MemoryTransfer::DEVICE_TO_DEVICE:
+                        return cudaMemcpyDeviceToDevice;
+
+                    case MemoryTransfer::DEVICE_TO_HOST:
+                        return cudaMemcpyDeviceToHost;
+                    default:
+                        return cudaMemcpyDefault;
+
+                }
+            }
         };
 #endif
     }
