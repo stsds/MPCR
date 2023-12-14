@@ -10,13 +10,14 @@
 #define MPCR_RUNCONTEXT_HPP
 
 #include <utilities/MPCRErrorHandler.hpp>
+#include <common/Definitions.hpp>
 #include <cstddef>
 
 
 #ifdef USE_CUDA
 
 #include <cusolverDn.h>
-#include <common/Definitions.hpp>
+
 
 
 #endif
