@@ -11,7 +11,8 @@
 
 
 #include <vector>
-#include <data-units/Precision.hpp>
+#include <data-units/DataHolder.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
 /** Dimensions struct holding Dimensions for Representing a Vector as a Matrix **/
@@ -155,7 +156,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aSize, mpcr::precision::Precision aPrecision);
+    DataType(size_t aSize, mpcr::definitions::Precision aPrecision);
 
     /**
      * @brief
@@ -167,7 +168,7 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     DataType(std::vector <double> &aValues,
-             mpcr::precision::Precision aPrecision);
+             mpcr::definitions::Precision aPrecision);
 
 
     /**
@@ -214,7 +215,7 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType(DataType &aDataType, const mpcr::precision::Precision &aPrecision);
+    DataType(DataType &aDataType, const mpcr::definitions::Precision &aPrecision);
 
     /**
      * @brief
@@ -238,7 +239,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aRow, size_t aCol, mpcr::precision::Precision aPrecision);
+    DataType(size_t aRow, size_t aCol, mpcr::definitions::Precision aPrecision);
 
     /**
      * @brief
@@ -260,7 +261,7 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     explicit
-    DataType(mpcr::precision::Precision aPrecision);
+    DataType(mpcr::definitions::Precision aPrecision);
 
     /**
      * @brief
@@ -525,7 +526,7 @@ public:
      * @returns
      * Precision Object
      */
-    mpcr::precision::Precision &
+    mpcr::definitions::Precision &
     GetPrecision();
 
     /**
@@ -566,7 +567,7 @@ public:
      * Precision of Vector or Matrix
      */
     void
-    SetPrecision(mpcr::precision::Precision aPrecision);
+    SetPrecision(mpcr::definitions::Precision aPrecision);
 
     /**
      * @brief
@@ -772,7 +773,7 @@ public:
      *
      */
     void
-    ConvertPrecision(const mpcr::precision::Precision &aPrecision);
+    ConvertPrecision(const mpcr::definitions::Precision &aPrecision);
 
     /**
      * @brief
@@ -1089,7 +1090,7 @@ private:
      */
     template <typename T>
     void
-    ConvertPrecisionDispatcher(const mpcr::precision::Precision &aPrecision);
+    ConvertPrecisionDispatcher(const mpcr::definitions::Precision &aPrecision);
 
     /**
      * @brief
@@ -1214,7 +1215,7 @@ private:
     /** Total size of Vector or Matrix (Data Buffer) **/
     size_t mSize;
     /** Precision used to describe the data buffer **/
-    mpcr::precision::Precision mPrecision;
+    mpcr::definitions::Precision mPrecision;
     /** Bool indicating whether it's a Matrix(True) or Vector(False) **/
     bool mMatrix;
     /** Magic Number to check if object is DataType **/

@@ -9,8 +9,8 @@
 #ifndef MPCR_MPRERRORHANDLER_HPP
 #define MPCR_MPRERRORHANDLER_HPP
 
-#include <Rcpp.h>
-#include <sstream>
+
+#include <utilities/MPCRPrinter.hpp>
 
 #ifdef USE_CUDA
 #include <cuda_runtime.h>
@@ -106,8 +106,13 @@ public:
     {
         if (aCode != cudaSuccess)
         {
+#ifdef RUNNING_CPP
             fprintf(stderr,"GPU Assert: %s %s %d\n", cudaGetErrorString(aCode), aFile, aLine);
             if (aAbort) exit(aCode);
+#elif
+            std::string s="GPU Assert:  "+std::string(cudaGetErrorString(aCode));
+            Rcpp::stop(s);
+#endif
         }
     }
 #endif

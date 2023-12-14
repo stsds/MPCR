@@ -8,6 +8,7 @@
 add_subdirectory(data-units)
 add_subdirectory(operations)
 add_subdirectory(adapters)
+add_subdirectory(kernels)
 
 set(
         NEW_SOURCES

@@ -6,7 +6,7 @@
  *
  **/
 
-#include <data-units/Precision.hpp>
+#include <kernels/Precision.hpp>
 #include <libraries/catch/catch.hpp>
 
 

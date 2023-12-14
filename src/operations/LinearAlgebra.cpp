@@ -7,7 +7,6 @@
  **/
 
 #include <blas.hh>
-#include <utilities/MPCRDispatcher.hpp>
 #include <operations/helpers/LinearAlgebraHelper.hpp>
 #include <operations/LinearAlgebra.hpp>
 #include <utilities/TypeChecker.hpp>

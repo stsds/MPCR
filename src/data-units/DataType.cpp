@@ -7,12 +7,11 @@
  **/
 
 #include <data-units/DataType.hpp>
-#include <utilities/MPCRDispatcher.hpp>
 #include <adapters/RBinaryOperations.hpp>
-#include <Rcpp.h>
 
 
 using namespace mpcr::precision;
+
 
 
 DataType::DataType(size_t aSize, Precision aPrecision) {
@@ -52,7 +51,7 @@ DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
 
 
 DataType::DataType(std::vector <double> &aValues,
-                   mpcr::precision::Precision aPrecision) {
+                   mpcr::definitions::Precision aPrecision) {
     this->SetMagicNumber();
     this->mpData = nullptr;
     this->mPrecision = GetInputPrecision(aPrecision);
@@ -97,7 +96,7 @@ DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
 }
 
 
-DataType::DataType(mpcr::precision::Precision aPrecision) {
+DataType::DataType(mpcr::definitions::Precision aPrecision) {
     this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mMatrix = false;
@@ -125,7 +124,7 @@ DataType::DataType(const DataType &aDataType) {
 
 
 DataType::DataType(DataType &aDataType,
-                   const mpcr::precision::Precision &aPrecision) {
+                   const mpcr::definitions::Precision &aPrecision) {
     this->SetMagicNumber();
     this->mpData = nullptr;
     this->mpDimensions = nullptr;
@@ -235,13 +234,7 @@ DataType::PrintVal() {
             }
             ss << std::setfill(' ') << std::setw(14) << "]" << std::endl;
             if (ss.gcount() > stream_size) {
-#ifdef RUNNING_CPP
-                std::cout << std::string(ss.str());
-#endif
-
-#ifndef RUNNING_CPP
-                Rcpp::Rcout << std::string(ss.str());
-#endif
+                MPCR_PRINTER(ss.str())
                 ss.clear();
             }
         }
@@ -249,14 +242,8 @@ DataType::PrintVal() {
             ss << "Note Only Matrix with size 100*13 is printed" <<
                std::endl;
         }
-#ifdef RUNNING_CPP
-        std::cout << std::string(ss.str());
-#endif
 
-#ifndef RUNNING_CPP
-        Rcpp::Rcout << std::string(ss.str());
-#endif
-
+        MPCR_PRINTER(std::string(ss.str()))
     } else {
         ss << "Vector Size : " << mSize <<
            std::endl;
@@ -273,25 +260,13 @@ DataType::PrintVal() {
                << temp[ i ];
             if (i % 100 == 0) {
                 if (ss.gcount() > stream_size) {
-#ifdef RUNNING_CPP
-                    std::cout << std::string(ss.str());
-#endif
-
-#ifndef RUNNING_CPP
-                    Rcpp::Rcout << std::string(ss.str());
-#endif
+                    MPCR_PRINTER(std::string(ss.str()))
                     ss.clear();
                 }
             }
         }
         ss << std::endl;
-#ifdef RUNNING_CPP
-        std::cout << std::string(ss.str());
-#endif
-
-#ifndef RUNNING_CPP
-        Rcpp::Rcout << std::string(ss.str());
-#endif
+        MPCR_PRINTER(std::string(ss.str()))
     }
 
 }
@@ -359,7 +334,7 @@ DataType::SetVal(size_t aIndex, double aVal) {
 
 
 void
-DataType::SetPrecision(mpcr::precision::Precision aPrecision) {
+DataType::SetPrecision(mpcr::definitions::Precision aPrecision) {
     this->ClearUp();
     this->mPrecision = aPrecision;
 }
@@ -610,7 +585,7 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
 
 
 void
-DataType::ConvertPrecision(const mpcr::precision::Precision &aPrecision) {
+DataType::ConvertPrecision(const mpcr::definitions::Precision &aPrecision) {
     if (mPrecision == aPrecision) {
         return;
     }
@@ -1090,7 +1065,7 @@ DataType::SquareSumDispatcher(double &aResult) {
     aResult = 0;
     auto pData = (T *) this->mpData;
     for (auto i = 0; i < this->mSize; i++) {
-        aResult += pow(pData[ i ],2);
+        aResult += pow(pData[ i ], 2);
     }
 }
 
@@ -1183,10 +1158,10 @@ DataType::Serialize() {
     auto itr = 0;
     char metadata = 0;
 
-    if (this->mPrecision == mpcr::precision::FLOAT) {
+    if (this->mPrecision == mpcr::definitions::FLOAT) {
         size_val += sizeof(float);
 
-    } else if (this->mPrecision == mpcr::precision::DOUBLE) {
+    } else if (this->mPrecision == mpcr::definitions::DOUBLE) {
         size_val += sizeof(double);
     }
 
@@ -1267,10 +1242,10 @@ DataType::RSerialize() {
     auto itr = 0;
     char metadata = 0;
 
-    if (this->mPrecision == mpcr::precision::FLOAT) {
+    if (this->mPrecision == mpcr::definitions::FLOAT) {
         size_val += sizeof(float);
 
-    } else if (this->mPrecision == mpcr::precision::DOUBLE) {
+    } else if (this->mPrecision == mpcr::definitions::DOUBLE) {
         size_val += sizeof(double);
     }
 

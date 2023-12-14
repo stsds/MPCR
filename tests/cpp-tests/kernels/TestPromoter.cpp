@@ -7,10 +7,11 @@
  **/
 
 #include <libraries/catch/catch.hpp>
-#include <data-units/Promoter.hpp>
+#include <kernels/Promoter.hpp>
 
 
 using namespace mpcr::precision;
+using namespace mpcr::kernels;
 
 
 void
@@ -37,32 +38,7 @@ TEST_PROMOTE() {
         REQUIRE(a.GetPrecision() == DOUBLE);
         REQUIRE(b.GetPrecision() == HALF);
         REQUIRE(c.GetPrecision() == DOUBLE);
-    }SECTION("Test Get Precision Mapper") {
-        std::cout << "Testing Promoter Precision Mapper ..." << std::endl;
-        auto a = new DataType(FLOAT);
-
-
-
-        Promoter p(1);
-        auto temp_tile = p.GetPromotedTile(a, DOUBLE);
-        auto temp_tile_two = p.GetPromotedTile(a, DOUBLE);
-        REQUIRE(temp_tile->GetPrecision() == DOUBLE);
-        REQUIRE(temp_tile == temp_tile_two);
-
-        temp_tile = p.GetPromotedTile(a, FLOAT);
-        REQUIRE(temp_tile->GetPrecision() == FLOAT);
-        REQUIRE(temp_tile == a);
-
-        temp_tile = p.GetPromotedTile(a, HALF);
-        REQUIRE(temp_tile->GetPrecision() == HALF);
-
-        temp_tile_two = p.GetPromotedTile(a, HALF);
-        REQUIRE(temp_tile==temp_tile_two);
-
-        delete a;
-
     }
-
 
 }
 

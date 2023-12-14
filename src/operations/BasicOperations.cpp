@@ -7,8 +7,7 @@
  **/
 
 #include <operations/BasicOperations.hpp>
-#include <utilities/MPCRErrorHandler.hpp>
-#include <utilities/MPCRDispatcher.hpp>
+
 
 
 using namespace mpcr::operations;
@@ -64,12 +63,12 @@ basic::GetType(DataType &aVec, std::string &aType) {
     std::stringstream ss;
     ss << "MPCR Object : ";
 
-    precision::Precision temp = aVec.GetPrecision();
-    if (temp == precision::HALF) {
+    definitions::Precision temp = aVec.GetPrecision();
+    if (temp ==definitions::HALF) {
         ss << "16-Bit Precision";
-    } else if (temp == precision::FLOAT) {
+    } else if (temp ==definitions::FLOAT) {
         ss << "32-Bit Precision";
-    } else if (temp == precision::DOUBLE) {
+    } else if (temp ==definitions::DOUBLE) {
         ss << "64-Bit Precision";
     } else {
         MPCR_API_EXCEPTION("Type Error Unknown Type", (int) temp);

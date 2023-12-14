@@ -6,7 +6,6 @@
  *
  **/
 
-#include <data-units/DataType.hpp>
 #include <adapters/RBasicUtilities.hpp>
 #include <adapters/RBinaryOperations.hpp>
 #include <adapters/RMathematicalOperations.hpp>

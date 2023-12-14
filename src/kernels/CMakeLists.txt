@@ -5,10 +5,11 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
-set(TESTFILES
+set(SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/Promoter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ContextManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/MemoryHandler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RunContext.cpp
 
-        ${CMAKE_CURRENT_SOURCE_DIR}/TestDataType.cpp
-
-        ${TESTFILES}
-        PARENT_SCOPE
-        )
+        ${SOURCES}
+        PARENT_SCOPE)

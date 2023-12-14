@@ -186,4 +186,4 @@ void GetRank(DataType &aInput, const double aTolerance, T &aRank) {
 }
 
 
-#endif //MPR_LINEARALGEBRAHELPER_HPP
+#endif //MPCR_LINEARALGEBRAHELPER_HPP

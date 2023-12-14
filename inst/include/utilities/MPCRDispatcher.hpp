@@ -9,11 +9,11 @@
 #ifndef MPCR_MPRDISPATCHER_HPP
 #define MPCR_MPRDISPATCHER_HPP
 
-#include <data-units/Precision.hpp>
+#include <common/Definitions.hpp>
 #include <utilities/MPCRErrorHandler.hpp>
 
 
-using namespace mpcr::precision;
+using namespace mpcr::definitions;
 
 /** Dispatcher to support Dispatching of template functions with Rcpp
  * Only 10 arguments are supported here.
@@ -131,15 +131,9 @@ using namespace mpcr::precision;
 #define SIMPLE_INSTANTIATE(RETURNTYPE, __FUN__, ...) \
         template RETURNTYPE __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
 
-/** Instantiators for Template functions with return type the same as dispatching
- *  type (One template argument)
- **/
-#define SIMPLE_INSTANTIATE_WITH_RETURN(__FUN__, ...) \
-        template float16 __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template float __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template double __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+
 
 /** Instantiators for Template functions with a given return type
  * (Three template argument)
