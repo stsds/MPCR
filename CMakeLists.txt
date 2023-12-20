@@ -28,12 +28,27 @@ endif ()
 
 
 # Set C++ standard to C++11.
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+include(cmake/CheckInstall.cmake)
+set(mpcr_path_to_check ${CMAKE_BINARY_DIR})
+check_install(${mpcr_path_to_check} mpcr_result)
+
+if (${mpcr_result})
+    message("MPCR Install Result : ${mpcr_result}")
+    set(MPCR_INSTALL OFF)
+
+    # Move new R file to R directory
+else ()
+    add_definitions(-DMPCR_INSTALL)
+    set(MPCR_INSTALL ON)
+    message("MPCR Install Result : ${mpcr_result}")
+endif ()
 
 if (NOT APPLE)
     include(ImportGFortran)
@@ -69,6 +84,13 @@ add_definitions(-DNDEBUG)
 include(ImportBlasPP)
 include(ImportLapack)
 include(ImportLapackPP)
+
+if (${MPCR_INSTALL})
+    set(LIBS
+            ${LIBS_LINEAR}
+            ${LIBS}
+            )
+endif ()
 
 
 

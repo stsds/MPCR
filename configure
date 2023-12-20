@@ -8,21 +8,27 @@
 
 
 COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
+# Check the operating system type
+OS_TYPE=$(uname -s)
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
+if [ "$OS_TYPE" = "Darwin" ]; then
+    case "$1" in
+       /*) ABSOLUTE_PATH="$1" ;;
+       *) ABSOLUTE_PATH="$PWD/${1#./}" ;;
+     esac
+
   COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 else
-  ABSOLUE_PATH=$(dirname $(realpath "$0"))
+  ABSOLUTE_PATH=$(dirname $(realpath "$0"))
 fi
 
 BUILDING_EXAMPLES="OFF"
 BUILDING_TESTS="OFF"
 INSTALL_PATH="/usr/local"
 VERBOSE=OFF
-TEST_PATH="${ABSOLUE_PATH}/tests/test-files"
-CONFIG_PATH="${ABSOLUE_PATH}/config"
-echo ${ABSOLUE_PATH}
+TEST_PATH="${ABSOLUTE_PATH}/tests/test-files"
+CONFIG_PATH="${ABSOLUTE_PATH}/config"
+echo ${ABSOLUTE_PATH}
 
 rm -rf bin/
 mkdir bin/
@@ -32,8 +38,8 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   -DCMAKE_CONFIG_PREFIX="$CONFIG_PATH" \
   -DCMAKE_VERBOSE_MAKEFILE:BOOL=$VERBOSE \
-  -H"${ABSOLUE_PATH}" \
-  -B"${ABSOLUE_PATH}/bin" \
+  -H"${ABSOLUTE_PATH}" \
+  -B"${ABSOLUTE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
   -DBUILD_SHARED_LIBS=OFF \
   -DCMAKE_CXX_FLAGS_DEBUG="$COMPILE_FLAGS"\
@@ -43,10 +49,12 @@ cd bin/
 make clean
 make all -j 8
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
+# Check if the operating system is macOS (Darwin)
+if [ "$OS_TYPE" = "Darwin" ]; then
+  cp "${ABSOLUTE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUTE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
 else
-  cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
+  cp "${ABSOLUTE_PATH}/bin/src/libmpcr.so" "${ABSOLUTE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
 fi
 
-rm -rf "${ABSOLUE_PATH}/bin/"
+
+rm -rf "${ABSOLUTE_PATH}/bin/"

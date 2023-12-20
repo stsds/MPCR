@@ -28,8 +28,10 @@ else ()
     message("   BLAS++ already included")
 endif ()
 
-set(LIBS
+set(LIBS_LINEAR
         blaspp
+        ${LIBS_LINEAR}
         ${LIBS}
         )
+
 message(STATUS "BLAS++ done")

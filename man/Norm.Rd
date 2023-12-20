@@ -19,9 +19,11 @@ An MPCR object.
 Compute norm.
 }
 \examples{
+  \donttest{
+
 library(MPCR)
 
 x <- as.MPCR(1:20,precision="double")
 norm(x, type="O")
-
+}
 }

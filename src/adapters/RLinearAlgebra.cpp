@@ -7,7 +7,6 @@
  **/
 
 #include <adapters/RLinearAlgebra.hpp>
-#include <adapters/RHelpers.hpp>
 #include <data-units/Promoter.hpp>
 #include <utilities/MPCRDispatcher.hpp>
 

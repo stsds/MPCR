@@ -14,6 +14,7 @@ set(
         NEW_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/DataTypeModule.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/MPCRTileModule.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RcppExports.cpp
         ${SOURCES}
         ${NEW_SOURCES}
 

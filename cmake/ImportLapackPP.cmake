@@ -29,14 +29,11 @@ else ()
 endif ()
 
 # Add to linking libs.
-set(LIBS
+set(LIBS_LINEAR
         lapackpp
+        ${LIBS_LINEAR}
         ${LIBS}
         )
 
-# Add definition indicating version.
-if ("${lapackpp_defines}" MATCHES "LAPACK_ILP64")
-    set(COMPILE_DEFINITIONS "${COMPILE_DEFINITIONS} -DHCORE_HAVE_LAPACK_WITH_ILP64")
-endif ()
 
 message(STATUS "LAPACK++ done")
