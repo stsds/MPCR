@@ -18,6 +18,9 @@ ContextManager &
 ContextManager::GetInstance() {
     if (mpInstance == nullptr) {
         mpInstance = new ContextManager();
+        mpInstance->mContexts.resize(1);
+        mpInstance->mContexts[ 0 ] = new RunContext();
+        mpInstance->mpCurrentContext = mpInstance->mContexts[ 0 ];
     }
     return *mpInstance;
 }
@@ -58,7 +61,7 @@ void
 ContextManager::DestroyInstance() {
     if (mpInstance) {
         mpInstance->SyncAll();
-        for (auto &x: mpInstance->mContexts) {
+        for (auto *&x: mpInstance->mContexts) {
             delete x;
             x = nullptr;
         }
@@ -80,12 +83,12 @@ ContextManager::GetContext(size_t aIdx) {
 
 
 void
-ContextManager::SetOperationContext(RunContext *aRunContext) {
+ContextManager::SetOperationContext(RunContext *&aRunContext) {
     this->mpCurrentContext = aRunContext;
 }
 
 
-RunContext *
+RunContext *&
 ContextManager::GetOperationContext() {
     if (mpInstance->mpCurrentContext == nullptr) {
         MPCR_API_EXCEPTION("No current operation context available", -1);
@@ -94,11 +97,11 @@ ContextManager::GetOperationContext() {
 }
 
 
-RunContext *
+RunContext *&
 ContextManager::CreateRunContext() {
     auto run_context = new RunContext();
     mpInstance->mContexts.push_back(run_context);
-    return run_context;
+    return mpInstance->mContexts.back();
 }
 
 

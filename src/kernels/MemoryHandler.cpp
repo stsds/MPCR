@@ -15,9 +15,7 @@ using namespace memory;
 
 
 char *
-memory::AllocateArray(const size_t &aSizeInBytes,
-                      const OperationPlacement &aPlacement,
-                      const kernels::RunContext *aContext) {
+memory::AllocateArray(const size_t &aSizeInBytes,const OperationPlacement &aPlacement,const kernels::RunContext *aContext) {
 
     char *pdata = nullptr;
 
@@ -39,8 +37,7 @@ memory::AllocateArray(const size_t &aSizeInBytes,
 
 
 void
-memory::DestroyArray(char *apArray, const OperationPlacement &aPlacement,
-                     const kernels::RunContext *aContext) {
+memory::DestroyArray(char *apArray, const OperationPlacement &aPlacement,const kernels::RunContext *aContext) {
 
     if (apArray != nullptr) {
 #ifdef USE_CUDA

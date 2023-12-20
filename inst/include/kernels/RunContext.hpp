@@ -82,7 +82,8 @@ namespace mpcr {
             void *
             RequestWorkBuffer(const size_t &aBufferSize) const;
 
-
+            void
+            FreeWorkBuffer()const;
 
         private:
             void
@@ -93,13 +94,20 @@ namespace mpcr {
 
         private:
 #ifdef USE_CUDA
+            /** Integer pointer on device containing the rc values of cublas/cusolver **/
             int *mpInfo;
+            /** Work buffer needed for cublas/cusolver operations **/
             mutable void *mpWorkBuffer;
+            /** Work buffer size **/
             mutable size_t mWorkBufferSize;
+            /** cusolver handle **/
             cusolverDnHandle_t mCuSolverHandle;
+            /** Cuda stream **/
             cudaStream_t mCudaStream;
 #endif
+            /** Enum indicating whether the operation is sync or async **/
             RunMode mRunMode;
+            /** Enum indicating whether the operation is done on GPU or CPU **/
             definitions::OperationPlacement mOperationPlacement;
         };
     }

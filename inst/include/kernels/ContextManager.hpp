@@ -99,21 +99,21 @@ namespace mpcr {
              * Set the current context to be used internally if any stream is needed.
              */
             void
-            SetOperationContext(RunContext *aRunContext);
+            SetOperationContext(RunContext *&aRunContext);
 
             /**
              * @brief
              * Get the current context to be used internally if any stream is needed.
              */
             static
-            RunContext *
+            RunContext *&
             GetOperationContext();
 
             /**
              * @brief
              * Create new stream and add it to the context manager.
              */
-            RunContext *
+            RunContext *&
             CreateRunContext();
 
 
@@ -123,11 +123,7 @@ namespace mpcr {
              * Context Manager constructor.
              *
              */
-            ContextManager() {
-                mpInstance->mContexts = std::vector <RunContext *>(1);
-                mpInstance->mContexts[ 0 ] = new RunContext();
-                mpInstance->mpCurrentContext = mpInstance->mContexts[ 0 ];
-            }
+            ContextManager()=default;
 
 
         private:

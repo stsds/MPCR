@@ -64,6 +64,20 @@ public:
     void
     ClearUp();
 
+    template <typename T,typename X>
+    void
+    ChangePrecision();
+
+private:
+
+    template <typename T,typename X>
+    void
+    PromoteOnHost();
+
+    template <typename T,typename X>
+    void
+    PromoteOnDevice();
+
 
 
 

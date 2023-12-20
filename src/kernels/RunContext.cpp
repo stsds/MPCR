@@ -203,4 +203,20 @@ void RunContext::ClearUp() {
 }
 
 
+void
+RunContext::FreeWorkBuffer() const {
+
+    if(this->mOperationPlacement==definitions::GPU){
+        this->Sync();
+        if (this->mpWorkBuffer != nullptr) {
+            GPU_ERROR_CHECK(cudaFree(this->mpWorkBuffer));
+        }
+    }
+    this->mWorkBufferSize = 0;
+    this->mpWorkBuffer = nullptr;
+
+}
+
+
+
 #endif

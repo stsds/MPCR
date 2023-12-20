@@ -41,8 +41,8 @@ namespace mpcr {
          */
 
         char *
-        AllocateArray(const size_t  &aSizeInBytes, const OperationPlacement &aPlacement,
-                      const kernels::RunContext *aContext);
+        AllocateArray(const size_t &aSizeInBytes,
+                      const OperationPlacement &aPlacement,const kernels::RunContext *aContext);
 
         /**
          * @brief
@@ -53,8 +53,7 @@ namespace mpcr {
          *
          */
         void
-        DestroyArray(char *apArray, const OperationPlacement &aPlacement,
-                     const kernels::RunContext *aContext);
+        DestroyArray(char *apArray, const OperationPlacement &aPlacement,const kernels::RunContext *aContext);
 
         /**
          * @brief
@@ -98,8 +97,9 @@ namespace mpcr {
                const kernels::RunContext *aContext);
 
 #ifdef USE_CUDA
+
         /** Class responsible for mapping memory handler enums to cuda enums. **/
-        class MemoryDirectionConverter{
+        class MemoryDirectionConverter {
         public:
 
             /**
@@ -115,7 +115,8 @@ namespace mpcr {
             inline
             static
             cudaMemcpyKind
-            ToCudaMemoryTransferType(const memory::MemoryTransfer &aTransferType){
+            ToCudaMemoryTransferType(
+                const memory::MemoryTransfer &aTransferType) {
                 switch (aTransferType) {
                     case MemoryTransfer::HOST_TO_HOST:
                         return cudaMemcpyHostToHost;

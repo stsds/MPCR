@@ -9,8 +9,17 @@
 #include <data-units/DataHolder.hpp>
 
 
+#ifdef USE_CUDA
+
+#include <kernels/cuda/CudaMemoryKernels.hpp>
+
+
+#endif
+
+
 using namespace mpcr;
 using namespace mpcr::definitions;
+using namespace mpcr::kernels;
 
 
 DataHolder::DataHolder() {
@@ -28,6 +37,12 @@ DataHolder::~DataHolder() {
 
 DataHolder::DataHolder(const size_t &aSize,
                        const OperationPlacement &aPlacement) {
+#ifndef USE_CUDA
+    if(aPlacement==mpcr::definitions::GPU){
+        MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+    }
+#endif
+
     if (aSize == 0) {
         mpDeviceData = nullptr;
         mpHostData = nullptr;
@@ -46,7 +61,7 @@ DataHolder::DataHolder(const size_t &aSize,
 
     mSize = aSize;
     auto *temp = memory::AllocateArray(aSize, aPlacement,
-                                       kernels::ContextManager::GetOperationContext());
+                                       ContextManager::GetOperationContext());
     if (aPlacement == CPU) {
         this->mpHostData = temp;
     } else {
@@ -67,6 +82,12 @@ DataHolder::DataHolder(char *apHostPointer, char *apDevicePointer,
 void
 DataHolder::FreeMemory(const OperationPlacement &aPlacement) {
 
+#ifndef USE_CUDA
+    if(aPlacement==mpcr::definitions::GPU && mpDeviceData!= nullptr){
+        MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+    }
+#endif
+
     if (aPlacement == CPU) {
 
         if (mBufferState == BufferState::NO_DEVICE) {
@@ -75,7 +96,7 @@ DataHolder::FreeMemory(const OperationPlacement &aPlacement) {
         }
         this->Sync(GPU);
         memory::DestroyArray(this->mpHostData, aPlacement,
-                             kernels::ContextManager::GetOperationContext());
+                             ContextManager::GetOperationContext());
         mBufferState = BufferState::NO_HOST;
 
     } else {
@@ -86,7 +107,7 @@ DataHolder::FreeMemory(const OperationPlacement &aPlacement) {
         }
         this->Sync(CPU);
         memory::DestroyArray(this->mpDeviceData, aPlacement,
-                             kernels::ContextManager::GetOperationContext());
+                             ContextManager::GetOperationContext());
         mBufferState = BufferState::NO_DEVICE;
 
     }
@@ -117,13 +138,16 @@ DataHolder::Sync() {
     if (mBufferState == BufferState::HOST_NEWER) {
         // memcpy host to device
         memory::MemCpy(this->mpDeviceData, this->mpHostData, this->mSize,
-                       kernels::ContextManager::GetOperationContext(),
+                       ContextManager::GetOperationContext(),
                        memory::MemoryTransfer::HOST_TO_DEVICE);
         mBufferState = BufferState::EQUAL;
     } else if (mBufferState == BufferState::DEVICE_NEWER) {
+#ifndef USE_CUDA
+        MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+#endif
         // memcpy device to host
         memory::MemCpy(this->mpHostData, this->mpDeviceData, this->mSize,
-                       kernels::ContextManager::GetOperationContext(),
+                       ContextManager::GetOperationContext(),
                        memory::MemoryTransfer::DEVICE_TO_HOST);
         mBufferState = BufferState::EQUAL;
     }
@@ -133,6 +157,11 @@ DataHolder::Sync() {
 void
 DataHolder::SetDataPointer(char *apData, const size_t &aSizeInBytes,
                            const OperationPlacement &aPlacement) {
+#ifndef USE_CUDA
+    if(aPlacement==mpcr::definitions::GPU){
+        MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+    }
+#endif
 
     if (apData == nullptr) {
         this->FreeMemory(aPlacement);
@@ -156,6 +185,12 @@ DataHolder::SetDataPointer(char *apData, const size_t &aSizeInBytes,
 void
 DataHolder::Sync(const OperationPlacement &aPlacement) {
 
+#ifndef USE_CUDA
+    if(aPlacement==mpcr::definitions::GPU){
+        MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+    }
+#endif
+
     if (aPlacement == CPU && ( mBufferState == BufferState::HOST_NEWER ||
                                mBufferState == BufferState::NO_DEVICE ||
                                mBufferState == BufferState::EQUAL )) {
@@ -177,10 +212,10 @@ void
 DataHolder::ClearUp() {
 
     memory::DestroyArray(this->mpDeviceData, GPU,
-                         kernels::ContextManager::GetOperationContext());
+                         ContextManager::GetOperationContext());
 
     memory::DestroyArray(this->mpHostData, CPU,
-                         kernels::ContextManager::GetOperationContext());
+                         ContextManager::GetOperationContext());
 
     this->mpDeviceData = nullptr;
     this->mpHostData = nullptr;
@@ -204,6 +239,9 @@ DataHolder::SetDataPointer(char *apHostPointer, char *apDevicePointer,
         return;
     } else {
         if (apHostPointer == nullptr) {
+#ifndef USE_CUDA
+            MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+#endif
             mBufferState = BufferState::NO_HOST;
             return;
         } else if (mpDeviceData == nullptr) {
@@ -219,9 +257,75 @@ DataHolder::SetDataPointer(char *apHostPointer, char *apDevicePointer,
 void
 DataHolder::Allocate(const size_t &aSizeInBytes,
                      const OperationPlacement &aPlacement) {
+#ifndef USE_CUDA
+    if(aPlacement==mpcr::definitions::GPU){
+        MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+    }
+#endif
     auto *temp = memory::AllocateArray(aSizeInBytes, aPlacement,
-                                       kernels::ContextManager::GetOperationContext());
+                                       ContextManager::GetOperationContext());
     this->SetDataPointer(temp, aSizeInBytes, aPlacement);
 }
+
+
+template <typename T, typename X>
+void
+DataHolder::ChangePrecision() {
+
+    if (typeid(T) == typeid(X)) {
+        return;
+    }
+
+    if (mBufferState == BufferState::DEVICE_NEWER ||
+        mBufferState == BufferState::NO_HOST) {
+        PromoteOnDevice <T, X>();
+
+    } else if (mBufferState == BufferState::HOST_NEWER ||
+               mBufferState == BufferState::NO_DEVICE) {
+        PromoteOnHost <T, X>();
+
+    } else if (mBufferState == BufferState::EQUAL) {
+        if (ContextManager::GetOperationContext()->GetOperationPlacement() ==
+            GPU) {
+            PromoteOnDevice <T, X>();
+        } else {
+            PromoteOnHost <T, X>();
+        }
+    } else {
+        return;
+    }
+
+
+}
+
+
+template <typename T, typename X>
+void
+DataHolder::PromoteOnHost() {
+    auto size = this->mSize / sizeof(T);
+    auto pData = (T *) this->mpHostData;
+    auto pData_new = (X *) memory::AllocateArray(sizeof(X) * size, CPU,
+                                                 ContextManager::GetOperationContext());
+    std::copy(pData, pData + size, pData_new);
+    this->SetDataPointer(pData_new, size * sizeof(X), CPU);
+}
+
+
+template <typename T, typename X>
+void
+DataHolder::PromoteOnDevice() {
+#ifdef USE_CUDA
+    auto size = this->mSize / sizeof(T);
+    auto pData = (T *) this->mpDeviceData;
+    auto pData_new = (X *) memory::AllocateArray(sizeof(X) * size, GPU,
+                                                 ContextManager::GetOperationContext());
+    CudaMemoryKernels::Copy <T, X>(pData, pData_new, size);
+    this->SetDataPointer(pData_new, size * sizeof(X), GPU);
+#else
+    MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Placement",-1);
+#endif
+}
+
+
 
 

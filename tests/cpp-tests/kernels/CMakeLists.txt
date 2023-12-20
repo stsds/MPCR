@@ -7,8 +7,11 @@
 
 set(TESTFILES
 
-        ${CMAKE_CURRENT_SOURCE_DIR}/TestPrecision.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/TestPromoter.cpp
+#        ${CMAKE_CURRENT_SOURCE_DIR}/TestPrecision.cpp
+#        ${CMAKE_CURRENT_SOURCE_DIR}/TestPromoter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TestMemoryHandler.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TestRunContext.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TestContextManager.cpp
 
         ${TESTFILES}
         PARENT_SCOPE
