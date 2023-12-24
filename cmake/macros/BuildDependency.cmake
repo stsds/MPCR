@@ -21,6 +21,7 @@ macro(BuildDependency raw_name url tag)
     # Build and install subproject
     include(ProcessorCount)
     ProcessorCount(N)
+    set(N 2)
     if (NOT N EQUAL 0)
         execute_process(COMMAND ${CMAKE_COMMAND} --build ${${name}_binpath} --parallel ${N} --target install ERROR_FILE /dev/null OUTPUT_QUIET)
     else ()

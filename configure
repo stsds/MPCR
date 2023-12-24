@@ -30,6 +30,10 @@ TEST_PATH="${ABSOLUTE_PATH}/tests/test-files"
 CONFIG_PATH="${ABSOLUTE_PATH}/config"
 echo ${ABSOLUTE_PATH}
 
+mv "${ABSOLUTE_PATH}/src/cmake/" "${ABSOLUTE_PATH}/cmake"
+mv "${ABSOLUTE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUTE_PATH}/CMakeLists.txt"
+
+
 rm -rf bin/
 mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=RELEASE \
@@ -47,7 +51,7 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 
 cd bin/
 make clean
-make all -j 8
+make all -j 2
 
 # Check if the operating system is macOS (Darwin)
 if [ "$OS_TYPE" = "Darwin" ]; then
@@ -56,5 +60,6 @@ else
   cp "${ABSOLUTE_PATH}/bin/src/libmpcr.so" "${ABSOLUTE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
 fi
 
+${R_HOME}/bin/Rscript "${ABSOLUTE_PATH}/cmake/CreateSymbolTable.R" "${ABSOLUTE_PATH}/bin/" "${ABSOLUTE_PATH}/src/symbols.rds"
 
 rm -rf "${ABSOLUTE_PATH}/bin/"
