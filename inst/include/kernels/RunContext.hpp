@@ -66,6 +66,9 @@ namespace mpcr {
             GetRunMode() const;
 
             void
+            SetRunMode(const RunMode &aRunMode);
+
+            void
             Sync() const;
 
 #ifdef USE_CUDA

@@ -19,7 +19,7 @@ RunContext::RunContext(
     const RunMode &aRunMode) {
 
 #ifdef USE_CUDA
-    this->mpInfo= nullptr;
+    this->mpInfo = nullptr;
     if (aOperationPlacement == definitions::GPU) {
         cudaStreamCreate(&this->mCudaStream);
         cusolverDnCreate(&this->mCuSolverHandle);
@@ -70,7 +70,7 @@ RunContext::~RunContext() {
     if (this->mpWorkBuffer != nullptr) {
         GPU_ERROR_CHECK(cudaFree(this->mpWorkBuffer));
     }
-    if(this->mOperationPlacement==definitions::GPU){
+    if (this->mOperationPlacement == definitions::GPU) {
         rc = cusolverDnDestroy(this->mCuSolverHandle);
         if (rc) {
             MPCR_API_EXCEPTION("Error While Destroying CuSolver Handle", rc);
@@ -123,20 +123,31 @@ RunContext::SetOperationPlacement(
 void
 RunContext::Sync() const {
 #ifdef USE_CUDA
-    if(this->mOperationPlacement==definitions::GPU){
+    if (this->mOperationPlacement == definitions::GPU) {
         cudaStreamSynchronize(this->mCudaStream);
     }
 #endif
 }
 
 
+void
+RunContext::SetRunMode(const RunMode &aRunMode) {
+    if (this->mRunMode == RunMode::ASYNC && aRunMode == RunMode::SYNC) {
+        this->Sync();
+    }
+    this->mRunMode=aRunMode;
+}
+
+/** -------------------------- CUDA code -------------------------- **/
+
 #ifdef USE_CUDA
 
 
 cudaStream_t
 RunContext::GetStream() const {
-    if(this->mOperationPlacement==definitions::CPU){
-        MPCR_API_EXCEPTION("Cannot get context metadata while running CPU context", -1);
+    if (this->mOperationPlacement == definitions::CPU) {
+        MPCR_API_EXCEPTION(
+            "Cannot get context metadata while running CPU context", -1);
     }
     return this->mCudaStream;
 }
@@ -144,8 +155,9 @@ RunContext::GetStream() const {
 
 cusolverDnHandle_t
 RunContext::GetCusolverDnHandle() const {
-    if(this->mOperationPlacement==definitions::CPU){
-        MPCR_API_EXCEPTION("Cannot get context metadata while running CPU context", -1);
+    if (this->mOperationPlacement == definitions::CPU) {
+        MPCR_API_EXCEPTION(
+            "Cannot get context metadata while running CPU context", -1);
     }
     return this->mCuSolverHandle;
 }
@@ -153,8 +165,9 @@ RunContext::GetCusolverDnHandle() const {
 
 int *
 RunContext::GetInfoPointer() const {
-    if(this->mOperationPlacement==definitions::CPU){
-        MPCR_API_EXCEPTION("Cannot get context metadata while running CPU context", -1);
+    if (this->mOperationPlacement == definitions::CPU) {
+        MPCR_API_EXCEPTION(
+            "Cannot get context metadata while running CPU context", -1);
     }
     return this->mpInfo;
 }
@@ -163,8 +176,9 @@ RunContext::GetInfoPointer() const {
 void *
 RunContext::RequestWorkBuffer(const size_t &aBufferSize) const {
 
-    if(this->mOperationPlacement==definitions::CPU){
-        MPCR_API_EXCEPTION("Cannot get context metadata while running CPU context", -1);
+    if (this->mOperationPlacement == definitions::CPU) {
+        MPCR_API_EXCEPTION(
+            "Cannot get context metadata while running CPU context", -1);
     }
 
     if (aBufferSize > this->mWorkBufferSize) {
@@ -180,7 +194,7 @@ RunContext::RequestWorkBuffer(const size_t &aBufferSize) const {
 
 
 void RunContext::ClearUp() {
-    if(this->mOperationPlacement==definitions::GPU){
+    if (this->mOperationPlacement == definitions::GPU) {
         int rc = 0;
         this->Sync();
         if (this->mpWorkBuffer != nullptr) {
@@ -197,7 +211,7 @@ void RunContext::ClearUp() {
         GPU_ERROR_CHECK(cudaFree(this->mpInfo));
     }
 
-    this->mpInfo= nullptr;
+    this->mpInfo = nullptr;
     this->mWorkBufferSize = 0;
     this->mpWorkBuffer = nullptr;
 }
@@ -206,7 +220,7 @@ void RunContext::ClearUp() {
 void
 RunContext::FreeWorkBuffer() const {
 
-    if(this->mOperationPlacement==definitions::GPU){
+    if (this->mOperationPlacement == definitions::GPU) {
         this->Sync();
         if (this->mpWorkBuffer != nullptr) {
             GPU_ERROR_CHECK(cudaFree(this->mpWorkBuffer));

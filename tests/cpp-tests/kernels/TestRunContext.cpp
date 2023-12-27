@@ -16,13 +16,77 @@ using namespace mpcr::definitions;
 using namespace std;
 
 
+#ifdef USE_CUDA
 void
-TEST_RUN_CONTEXT() {
-    cout << "Testing Run Context ..." << endl;
+TEST_RUN_CONTEXT_CUDA() {
+    cout << "Testing Run Context CUDA ..." << endl;
+    RunContext context;
+    REQUIRE(context.GetOperationPlacement()==mpcr::definitions::CPU);
+    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::SYNC);
+
+    context.SetOperationPlacement(GPU);
+    REQUIRE(context.GetOperationPlacement()==GPU);
+
+    context.SetRunMode(RunMode::ASYNC);
+    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+
+    auto pwork_buffer=context.RequestWorkBuffer(500);
+    REQUIRE(pwork_buffer!= nullptr);
+
+    auto pwork_buffer_two=context.RequestWorkBuffer(600);
+    REQUIRE(pwork_buffer_two!= nullptr);
+
+    context.FreeWorkBuffer();
+
+    REQUIRE(context.GetInfoPointer()!= nullptr);
+
+    pwork_buffer=context.RequestWorkBuffer(400);
+    REQUIRE(pwork_buffer!= nullptr);
+
+    context.FreeWorkBuffer();
+    pwork_buffer_two=context.RequestWorkBuffer(0);
+    REQUIRE(pwork_buffer_two== nullptr);
+
+
+
+
+}
+#endif
+
+
+void
+TEST_RUN_CONTEXT(){
+    cout << "Testing Run Context CPU ..." << endl;
+    RunContext context;
+    REQUIRE(context.GetOperationPlacement()==mpcr::definitions::CPU);
+    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::SYNC);
+
+    context.SetOperationPlacement(GPU);
+    REQUIRE(context.GetOperationPlacement()==CPU);
+
+    context.SetRunMode(RunMode::ASYNC);
+    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+
+    auto context_copy=context;
+    REQUIRE(context_copy.GetOperationPlacement()==CPU);
+    REQUIRE(context_copy.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+
+    RunContext context_copy_two(context);
+    REQUIRE(context_copy_two.GetOperationPlacement()==CPU);
+    REQUIRE(context_copy_two.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+
+    RunContext context_test_placement(GPU,RunMode::ASYNC);
+    REQUIRE(context_test_placement.GetOperationPlacement()==CPU);
+    REQUIRE(context_test_placement.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+
+
 }
 
-
 TEST_CASE("RunContextTest", "[RunContext]") {
+#ifdef USE_CUDA
+    TEST_RUN_CONTEXT_CUDA();
+#else
     TEST_RUN_CONTEXT();
+#endif
 
 }
