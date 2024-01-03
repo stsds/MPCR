@@ -103,6 +103,11 @@ RunContext::SetOperationPlacement(
     const definitions::OperationPlacement &aOperationPlacement) {
 
 #ifdef USE_CUDA
+    if (this->mOperationPlacement == definitions::GPU &&
+        aOperationPlacement == definitions::GPU) {
+        this->FreeWorkBuffer();
+        return;
+    }
     this->ClearUp();
     this->mOperationPlacement = aOperationPlacement;
     if (this->mOperationPlacement == definitions::GPU) {
@@ -135,7 +140,7 @@ RunContext::SetRunMode(const RunMode &aRunMode) {
     if (this->mRunMode == RunMode::ASYNC && aRunMode == RunMode::SYNC) {
         this->Sync();
     }
-    this->mRunMode=aRunMode;
+    this->mRunMode = aRunMode;
 }
 
 /** -------------------------- CUDA code -------------------------- **/
@@ -230,7 +235,6 @@ RunContext::FreeWorkBuffer() const {
     this->mpWorkBuffer = nullptr;
 
 }
-
 
 
 #endif

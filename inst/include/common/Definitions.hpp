@@ -12,6 +12,7 @@
 namespace mpcr{
     namespace definitions{
 
+        /** Int Enum to describe whether a RunContext is on GPU or CPU **/
         enum OperationPlacement : int {
             GPU = 0,
             CPU = 1

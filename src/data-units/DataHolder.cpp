@@ -123,6 +123,21 @@ DataHolder::GetSize() {
 char *
 DataHolder::GetDataPointer(const OperationPlacement &aPlacement) {
 
+    if (mBufferState == BufferState::NO_DEVICE &&
+        aPlacement == mpcr::definitions::GPU) {
+
+        this->mpDeviceData = memory::AllocateArray(this->mSize, GPU,
+                                                 ContextManager::GetOperationContext());
+        mBufferState=BufferState::HOST_NEWER;
+
+    } else if (mBufferState == BufferState::NO_HOST &&
+               aPlacement == mpcr::definitions::CPU) {
+
+        this->mpHostData = memory::AllocateArray(this->mSize, CPU,
+                                                 ContextManager::GetOperationContext());
+        mBufferState=BufferState::DEVICE_NEWER;
+    }
+
     this->Sync(aPlacement);
 
     if (aPlacement == CPU) {
