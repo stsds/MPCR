@@ -53,7 +53,7 @@ namespace mpcr {
          *
          */
         void
-        DestroyArray(char *apArray, const OperationPlacement &aPlacement,const kernels::RunContext *aContext);
+        DestroyArray(char *&apArray, const OperationPlacement &aPlacement,const kernels::RunContext *aContext);
 
         /**
          * @brief
@@ -72,7 +72,7 @@ namespace mpcr {
          * The transfer type telling the memcpy where each pointer resides(host or accelerator).
          */
         void
-        MemCpy(char *apDestination, const char *apSrcDataArray,
+        MemCpy(char *&apDestination, const char *apSrcDataArray,
                const size_t &aSizeInBytes, const kernels::RunContext *aContext,
                MemoryTransfer aTransferType = MemoryTransfer::DEVICE_TO_DEVICE);
 
@@ -92,7 +92,7 @@ namespace mpcr {
          *
          */
         void
-        Memset(char *apDestination, char aValue, const size_t &aSizeInBytes,
+        Memset(char *&apDestination, char aValue, const size_t &aSizeInBytes,
                const OperationPlacement &aPlacement,
                const kernels::RunContext *aContext);
 

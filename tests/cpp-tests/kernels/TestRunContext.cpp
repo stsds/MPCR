@@ -36,7 +36,11 @@ TEST_RUN_CONTEXT_CUDA() {
     auto pwork_buffer_two=context.RequestWorkBuffer(600);
     REQUIRE(pwork_buffer_two!= nullptr);
 
+    pwork_buffer=context.RequestWorkBuffer(300);
+    REQUIRE(pwork_buffer==pwork_buffer_two);
+
     context.FreeWorkBuffer();
+    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
 
     REQUIRE(context.GetInfoPointer()!= nullptr);
 

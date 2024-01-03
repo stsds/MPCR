@@ -107,8 +107,9 @@ public:
         if (aCode != cudaSuccess)
         {
 #ifdef RUNNING_CPP
-            fprintf(stderr,"GPU Assert: %s %s %d\n", cudaGetErrorString(aCode), aFile, aLine);
-            if (aAbort) exit(aCode);
+            char s[200];
+            sprintf((char*)s,"GPU Assert: %s %s %d\n", cudaGetErrorString(aCode), aFile, aLine);
+            throw std::invalid_argument(s);
 #elif
             std::string s="GPU Assert:  "+std::string(cudaGetErrorString(aCode));
             Rcpp::stop(s);
