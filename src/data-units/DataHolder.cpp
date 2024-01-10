@@ -169,6 +169,7 @@ DataHolder::SetDataPointer(char *apData, const size_t &aSizeInBytes,
     }
 #endif
 
+
     if (apData == nullptr) {
         this->FreeMemory(aPlacement);
         return;
@@ -198,6 +199,7 @@ DataHolder::SetDataPointer(char *apData, const size_t &aSizeInBytes,
     }
 
     this->mSize = aSizeInBytes;
+
 
 }
 
@@ -378,6 +380,44 @@ DataHolder::AllocateMissingBuffer(const OperationPlacement &aPlacement) {
                                                  ContextManager::GetOperationContext());
         mBufferState = BufferState::DEVICE_NEWER;
     }
+}
+
+
+DataHolder::DataHolder(const DataHolder &aDataHolder) {
+    this->mpHostData= nullptr;
+    this->mpDeviceData= nullptr;
+    this->ClearUp();
+    this->CopyBuffers(aDataHolder);
+}
+
+
+void
+DataHolder::CopyBuffers(const DataHolder &aDataHolder) {
+    if (aDataHolder.mBufferState == BufferState::EMPTY) {
+        return;
+    } else if (aDataHolder.mBufferState == BufferState::NO_HOST ||
+        aDataHolder.mBufferState == BufferState::DEVICE_NEWER) {
+        this->Allocate(aDataHolder.mSize, GPU);
+        memory::MemCpy(this->mpDeviceData, aDataHolder.mpDeviceData,
+                       aDataHolder.mSize, ContextManager::GetOperationContext(),
+                       memory::MemoryTransfer::DEVICE_TO_DEVICE);
+    } else {
+        this->Allocate(aDataHolder.mSize, CPU);
+        memory::MemCpy(this->mpHostData, aDataHolder.mpHostData,
+                       aDataHolder.mSize, ContextManager::GetOperationContext(),
+                       memory::MemoryTransfer::HOST_TO_HOST);
+    }
+
+}
+
+
+DataHolder &
+DataHolder::operator =(const DataHolder &aDataHolder) {
+    this->mpHostData= nullptr;
+    this->mpDeviceData= nullptr;
+    this->ClearUp();
+    this->CopyBuffers(aDataHolder);
+    return *this;
 }
 
 

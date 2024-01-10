@@ -31,7 +31,7 @@ private:
         EMPTY
     };
 public:
-
+//TODO: add copy constructor
     /**
      * @brief
      * DataHolder constructor.
@@ -79,6 +79,11 @@ public:
      *
      */
     ~DataHolder();
+
+    DataHolder(const DataHolder &aDataHolder);
+
+    DataHolder&
+    operator=(const DataHolder &aDataHolder);
 
     /**
      * @brief
@@ -244,6 +249,9 @@ private:
      */
     void
     AllocateMissingBuffer(const OperationPlacement &aPlacement);
+
+    void
+    CopyBuffers(const DataHolder &aDataHolder);
 
 
 private:

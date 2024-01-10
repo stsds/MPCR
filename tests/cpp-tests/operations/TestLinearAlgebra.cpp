@@ -586,39 +586,39 @@ TEST_LINEAR_ALGEBRA() {
         REQUIRE(val <= 0.001);
     }
 }
-
-void
-TEST(){
-#ifdef USE_CUDA
-    SECTION("Testing Cholesky CUDA Decomposition") {
-        cout << "Testing CUDA Cholesky Decomposition ..." << endl;
-        vector <double> values = {4, 12, -16, 12, 37, -43, -16, -43, 98};
-        DataType a(values, DOUBLE);
-        a.ToMatrix(3, 3);
-        a.Print();
-        DataType b(DOUBLE);
-        SIMPLE_DISPATCH(DOUBLE, linear::CudaCholesky, a, b)
 //
-        vector <double> values_validate = {2, 12, -16, 6, 1, -43, -8, 5, 3}; //Fill Triangle is still not implemented as a CUDA Kernel.
-        // Lower Triangle should be set to zeros
-
-        REQUIRE(b.GetNCol() == 3);
-        REQUIRE(b.GetNRow() == 3);
-        REQUIRE(b.GetPrecision()==DOUBLE);
-        b.Print();
-
-        for (auto i = 0; i < b.GetSize(); i++) {
-            REQUIRE(b.GetVal(i)==values_validate[i]);
-        }
-
-
-    }
-#endif
-
-}
+//void
+//TEST(){
+//#ifdef USE_CUDA
+//    SECTION("Testing Cholesky CUDA Decomposition") {
+//        cout << "Testing CUDA Cholesky Decomposition ..." << endl;
+//        vector <double> values = {4, 12, -16, 12, 37, -43, -16, -43, 98};
+//        DataType a(values, DOUBLE);
+//        a.ToMatrix(3, 3);
+//        a.Print();
+//        DataType b(DOUBLE);
+//        SIMPLE_DISPATCH(DOUBLE, linear::CudaCholesky, a, b)
+////
+//        vector <double> values_validate = {2, 12, -16, 6, 1, -43, -8, 5, 3}; //Fill Triangle is still not implemented as a CUDA Kernel.
+//        // Lower Triangle should be set to zeros
+//
+//        REQUIRE(b.GetNCol() == 3);
+//        REQUIRE(b.GetNRow() == 3);
+//        REQUIRE(b.GetPrecision()==DOUBLE);
+//        b.Print();
+//
+//        for (auto i = 0; i < b.GetSize(); i++) {
+//            REQUIRE(b.GetVal(i)==values_validate[i]);
+//        }
+//
+//
+//    }
+//#endif
+//
+//}
 
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
     TEST_LINEAR_ALGEBRA();
-    TEST();
+//    TEST();
 
 }

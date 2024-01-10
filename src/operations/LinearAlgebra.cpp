@@ -776,103 +776,103 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     aOutput.SetDimensions(row, output_nrhs);
     aOutput.SetData((char *) pOutput_data);
 }
-
-#ifdef USE_CUDA
-template <typename T>
-void
-linear::CudaCholesky(DataType &aInputA, DataType &aOutput,
-                     const bool &aUpperTriangle) {
-
-    auto row = aInputA.GetNRow();
-    auto col = aInputA.GetNCol();
-    auto triangle = aUpperTriangle ? cublasFillMode_t::CUBLAS_FILL_MODE_UPPER : cublasFillMode_t::CUBLAS_FILL_MODE_LOWER;
-
-
-    if (row != col) {
-        MPCR_API_EXCEPTION(
-            "Cannot Apply Cholesky Decomposition on non-square Matrix", -1);
-    }
-
-    aInputA.Print();
-    T* pOutput = nullptr;
-    T* pOutput_out = new T[aInputA.GetSize()];
-
-
-    GPU_ERROR_CHECK(cudaMalloc((void**) &pOutput, row * col * sizeof(T)));
-    auto pData = (T *) aInputA.GetData();
-    GPU_ERROR_CHECK(cudaMemcpy(pOutput, pData, row * col * sizeof(T), cudaMemcpyKind::cudaMemcpyHostToDevice));
-
-
-    cusolverDnHandle_t cuHandle;
-    cusolverDnCreate(&cuHandle);
-    int* devInfo;
-    int lWork = 0;
-    cudaMalloc((void**)&devInfo, sizeof(int));
-    T* workspace = nullptr;
-
-
-    if constexpr(is_double<T>()) {
 //
-//        cusolverDnDpotrf_bufferSize(cuHandle,
-//                                    triangle,
-//                                    row,
-//                                    pOutput,
-//                                    row,
-//                                    &lWork);
+//#ifdef USE_CUDA
+//template <typename T>
+//void
+//linear::CudaCholesky(DataType &aInputA, DataType &aOutput,
+//                     const bool &aUpperTriangle) {
+//
+//    auto row = aInputA.GetNRow();
+//    auto col = aInputA.GetNCol();
+//    auto triangle = aUpperTriangle ? cublasFillMode_t::CUBLAS_FILL_MODE_UPPER : cublasFillMode_t::CUBLAS_FILL_MODE_LOWER;
 //
 //
-//        GPU_ERROR_CHECK(cudaMalloc(&workspace, lWork * sizeof(T)));
-
-        cusolverDnDpotrf(cuHandle,
-                         triangle,
-                         row,
-                         pOutput,
-                         row,
-                         workspace,
-                         lWork,
-                         devInfo);
-    }
-    else {
-        cusolverDnSpotrf(cuHandle,
-                         triangle,
-                         row,
-                         pOutput,
-                         row,
-                         nullptr,
-                         0,
-                         devInfo);
-    }
-
-
-    // Check for errors
-    int devInfo_h = 0;
-    cudaMemcpy(&devInfo_h, devInfo, sizeof(int), cudaMemcpyDeviceToHost);
-    if (devInfo_h != 0) {
-        exit(1);
-    }
-
-
-
-    GPU_ERROR_CHECK(cudaMemcpy(pOutput_out, pOutput, row * col * sizeof(T), cudaMemcpyKind::cudaMemcpyDeviceToHost));
-
-    cudaFree(devInfo);
-    cudaFree(workspace);
-    cudaFree(pOutput);
-    cusolverDnDestroy(cuHandle);
-
-    aOutput.ClearUp();
-    aOutput.SetDimensions(aInputA);
-    aOutput.SetData((char *) pOutput_out);
-
-//    aOutput.FillTriangle(0, !aUpperTriangle);
-
-}
-
-
-FLOATING_POINT_INST(void, linear::CudaCholesky, DataType &aInputA,
-                    DataType &aOutput, const bool &aUpperTriangle)
-
-#endif
+//    if (row != col) {
+//        MPCR_API_EXCEPTION(
+//            "Cannot Apply Cholesky Decomposition on non-square Matrix", -1);
+//    }
+//
+//    aInputA.Print();
+//    T* pOutput = nullptr;
+//    T* pOutput_out = new T[aInputA.GetSize()];
+//
+//
+//    GPU_ERROR_CHECK(cudaMalloc((void**) &pOutput, row * col * sizeof(T)));
+//    auto pData = (T *) aInputA.GetData();
+//    GPU_ERROR_CHECK(cudaMemcpy(pOutput, pData, row * col * sizeof(T), cudaMemcpyKind::cudaMemcpyHostToDevice));
+//
+//
+//    cusolverDnHandle_t cuHandle;
+//    cusolverDnCreate(&cuHandle);
+//    int* devInfo;
+//    int lWork = 0;
+//    cudaMalloc((void**)&devInfo, sizeof(int));
+//    T* workspace = nullptr;
+//
+//
+//    if constexpr(is_double<T>()) {
+////
+////        cusolverDnDpotrf_bufferSize(cuHandle,
+////                                    triangle,
+////                                    row,
+////                                    pOutput,
+////                                    row,
+////                                    &lWork);
+////
+////
+////        GPU_ERROR_CHECK(cudaMalloc(&workspace, lWork * sizeof(T)));
+//
+//        cusolverDnDpotrf(cuHandle,
+//                         triangle,
+//                         row,
+//                         pOutput,
+//                         row,
+//                         workspace,
+//                         lWork,
+//                         devInfo);
+//    }
+//    else {
+//        cusolverDnSpotrf(cuHandle,
+//                         triangle,
+//                         row,
+//                         pOutput,
+//                         row,
+//                         nullptr,
+//                         0,
+//                         devInfo);
+//    }
+//
+//
+//    // Check for errors
+//    int devInfo_h = 0;
+//    cudaMemcpy(&devInfo_h, devInfo, sizeof(int), cudaMemcpyDeviceToHost);
+//    if (devInfo_h != 0) {
+//        exit(1);
+//    }
+//
+//
+//
+//    GPU_ERROR_CHECK(cudaMemcpy(pOutput_out, pOutput, row * col * sizeof(T), cudaMemcpyKind::cudaMemcpyDeviceToHost));
+//
+//    cudaFree(devInfo);
+//    cudaFree(workspace);
+//    cudaFree(pOutput);
+//    cusolverDnDestroy(cuHandle);
+//
+//    aOutput.ClearUp();
+//    aOutput.SetDimensions(aInputA);
+//    aOutput.SetData((char *) pOutput_out);
+//
+////    aOutput.FillTriangle(0, !aUpperTriangle);
+//
+//}
+//
+//
+//FLOATING_POINT_INST(void, linear::CudaCholesky, DataType &aInputA,
+//                    DataType &aOutput, const bool &aUpperTriangle)
+//
+//#endif
 
 FLOATING_POINT_INST(void, linear::CrossProduct, DataType &aInputA,
                     DataType &aInputB, DataType &aOutput,

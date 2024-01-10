@@ -156,7 +156,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aSize, mpcr::definitions::Precision aPrecision);
+    DataType(size_t aSize, mpcr::definitions::Precision aPrecision,const OperationPlacement &aOperationPlacement=CPU);
 
     /**
      * @brief
@@ -168,7 +168,7 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     DataType(std::vector <double> &aValues,
-             mpcr::definitions::Precision aPrecision);
+             mpcr::definitions::Precision aPrecision,const OperationPlacement &aOperationPlacement=CPU);
 
 
     /**
@@ -180,7 +180,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a string Precision)
      */
-    DataType(std::vector <double> aValues, std::string aPrecision);
+    DataType(std::vector <double> aValues, std::string aPrecision,const OperationPlacement &aOperationPlacement=CPU);
 
 
     /**
@@ -197,7 +197,7 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     DataType(std::vector <double> &aValues, const size_t &aRow,
-             const size_t &aCol, const std::string &aPrecision);
+             const size_t &aCol, const std::string &aPrecision,const OperationPlacement &aOperationPlacement=CPU);
 
     /**
      * @brief
@@ -215,7 +215,8 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType(DataType &aDataType, const mpcr::definitions::Precision &aPrecision);
+    DataType(DataType &aDataType,
+             const mpcr::definitions::Precision &aPrecision);
 
     /**
      * @brief
@@ -226,7 +227,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a String)
      */
-    DataType(size_t aSize, const std::string &aPrecision);
+    DataType(size_t aSize, const std::string &aPrecision,const OperationPlacement &aOperationPlacement=CPU);
 
     /**
      * @brief
@@ -250,7 +251,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as an int)
      */
-    DataType(size_t aSize, int aPrecision);
+    DataType(size_t aSize, int aPrecision,const OperationPlacement &aOperationPlacement=CPU);
 
     /**
      * @brief
@@ -432,10 +433,9 @@ public:
     ClearUp() {
         this->mSize = 0;
         this->mMatrix = false;
-        delete[] this->mpData;
         delete this->mpDimensions;
-        this->mpData = nullptr;
         this->mpDimensions = nullptr;
+        mData.ClearUp();
     }
 
 
@@ -533,11 +533,15 @@ public:
      * @brief
      * Get Data of Vector
      *
+     * @param[in] aOperationPlacement
+     * Enum to decide which pointer should be returned.
+     *
      * @returns
      * Char pointer pointing to vector data (Must be casted according to precision)
+     * ( can be a host or device pointer according to operation placement )
      */
     char *
-    GetData();
+    GetData(const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -602,7 +606,7 @@ public:
      * Buffer to set Object Buffer With.
      */
     void
-    SetData(char *aData);
+    SetData(char *aData, const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -833,7 +837,7 @@ public:
      *
      */
     void
-    SetValues(std::vector <double> &aValues);
+    SetValues(std::vector <double> &aValues,const OperationPlacement &aOperationPlacement=CPU);
 
     /**
      * @brief
@@ -958,6 +962,9 @@ public:
 
 private:
 
+    size_t
+    GetSizeInBytes();
+
     /**
      * @brief
      * Get Values in the Vector according to Index (0-based Indexing) and
@@ -1030,7 +1037,8 @@ private:
      */
     template <typename T>
     void
-    Init(std::vector <double> *aValues = nullptr);
+    Init(std::vector <double> *aValues = nullptr,
+         const OperationPlacement &aOperationPlacement=CPU);
 
     /**
      * @brief
@@ -1209,7 +1217,7 @@ private:
 
 
     /** Buffer Holding the Data **/
-    char *mpData;
+    DataHolder mData;
     /** Dimensions object that describe the Vector as a Matrix **/
     Dimensions *mpDimensions;
     /** Total size of Vector or Matrix (Data Buffer) **/

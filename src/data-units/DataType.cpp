@@ -13,81 +13,86 @@
 using namespace mpcr::precision;
 
 
-
-DataType::DataType(size_t aSize, Precision aPrecision) {
+DataType::DataType(size_t aSize, Precision aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    mData.ClearUp();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aSize;
     this->mpDimensions = nullptr;
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init)
+    SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
 }
 
 
-DataType::DataType(std::vector <double> aValues, std::string aPrecision) {
+DataType::DataType(std::vector <double> aValues, std::string aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
 
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    mData.ClearUp();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
     this->mpDimensions = nullptr;
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
 
 }
 
 
 DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
-                   const size_t &aCol, const std::string &aPrecision) {
+                   const size_t &aCol, const std::string &aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    mData.ClearUp();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
 }
 
 
 DataType::DataType(std::vector <double> &aValues,
-                   mpcr::definitions::Precision aPrecision) {
+                   mpcr::definitions::Precision aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    mData.ClearUp();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
     this->mpDimensions = nullptr;
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
 }
 
 
-DataType::DataType(size_t aSize, int aPrecision) {
+DataType::DataType(size_t aSize, int aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    mData.ClearUp();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = nullptr;
     this->mMatrix = false;
     this->mSize = aSize;
-    SIMPLE_DISPATCH(this->mPrecision, Init)
+    SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
 }
 
 
-DataType::DataType(size_t aSize, const std::string &aPrecision) {
+DataType::DataType(size_t aSize, const std::string &aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
     this->SetMagicNumber();
     this->mPrecision = GetInputPrecision(aPrecision);
-    this->mpData = nullptr;
+    mData.ClearUp();
     this->mpDimensions = nullptr;
     this->mMatrix = false;
     this->mSize = aSize;
-    SIMPLE_DISPATCH(this->mPrecision, Init)
+    SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
 
 }
 
 
 DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    mData.ClearUp();
     this->mPrecision = GetInputPrecision(aPrecision);
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
@@ -102,13 +107,13 @@ DataType::DataType(mpcr::definitions::Precision aPrecision) {
     this->mMatrix = false;
     this->mpDimensions = nullptr;
     this->mSize = 0;
-    this->mpData = nullptr;
+    mData.ClearUp();
 }
 
 
 DataType::DataType(const DataType &aDataType) {
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    this->mData.ClearUp();
     this->mpDimensions = nullptr;
     this->mSize = aDataType.mSize;
     this->mPrecision = aDataType.mPrecision;
@@ -116,17 +121,14 @@ DataType::DataType(const DataType &aDataType) {
     if (this->mMatrix) {
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     }
-    if (this->mSize != 0) {
-        SIMPLE_DISPATCH(this->mPrecision, GetCopyOfData, aDataType.mpData,
-                        this->mpData)
-    }
+    this->mData = aDataType.mData;
 }
 
 
 DataType::DataType(DataType &aDataType,
                    const mpcr::definitions::Precision &aPrecision) {
     this->SetMagicNumber();
-    this->mpData = nullptr;
+    this->mData.ClearUp();
     this->mpDimensions = nullptr;
     this->mSize = aDataType.mSize;
     this->mPrecision = aPrecision;
@@ -144,14 +146,14 @@ DataType::DataType(DataType &aDataType,
 
 
 DataType::~DataType() {
-    delete[] mpData;
     delete mpDimensions;
 }
 
 
 template <typename T>
 void
-DataType::Init(std::vector <double> *aValues) {
+DataType::Init(std::vector <double> *aValues,
+               const OperationPlacement &aOperationPlacement) {
     if (this->mSize == 0) {
         return;
     }
@@ -168,7 +170,7 @@ DataType::Init(std::vector <double> *aValues) {
             temp[ i ] = (T) aValues->at(i);
         }
     }
-    this->mpData = (char *) temp;
+    this->SetData((char *) temp, aOperationPlacement);
 
 }
 
@@ -192,7 +194,7 @@ void
 DataType::PrintRowsDispatcher(const size_t &aRowIdx,
                               std::stringstream &aRowAsString) {
 
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
     auto col = GetNCol();
     auto row = GetNRow();
     size_t idx = 0;
@@ -211,7 +213,7 @@ void
 DataType::PrintVal() {
     std::stringstream ss;
     auto stream_size = 10000;
-    T *temp = (T *) this->mpData;
+    T *temp = (T *) this->GetData(CPU);
 
     if (this->mMatrix) {
         auto rows = this->mpDimensions->GetNRow();
@@ -285,8 +287,8 @@ DataType::GetPrecision() {
 
 
 char *
-DataType::GetData() {
-    return this->mpData;
+DataType::GetData(const OperationPlacement &aOperationPlacement) {
+    return mData.GetDataPointer(aOperationPlacement);
 }
 
 
@@ -299,7 +301,8 @@ DataType::GetSize() const {
 template <typename T>
 void
 DataType::GetValue(size_t aIndex, double &aOutput) {
-    aOutput = (double) (((T *) this->mpData )[ aIndex ] );
+    auto pdata = (T *) this->GetData(CPU);
+    aOutput = (double) ( pdata[ aIndex ] );
 }
 
 
@@ -318,7 +321,7 @@ template <typename T>
 void
 DataType::SetValue(size_t aIndex, double &aVal) {
 
-    T *data = (T *) this->mpData;
+    T *data = (T *) this->GetData(CPU);
     data[ aIndex ] = (T) aVal;
 }
 
@@ -379,11 +382,9 @@ DataType::GetMatrixIndex(size_t aRow, size_t aCol) {
 
 
 void
-DataType::SetData(char *aData) {
-    if (aData != mpData) {
-        delete[] mpData;
-    }
-    this->mpData = aData;
+DataType::SetData(char *aData, const OperationPlacement &aOperationPlacement) {
+    this->mData.SetDataPointer(aData, this->GetSizeInBytes(),
+                               aOperationPlacement);
 }
 
 
@@ -473,17 +474,13 @@ DataType::operator =(const DataType &aDataType) {
     this->mSize = aDataType.mSize;
     this->mPrecision = aDataType.mPrecision;
     this->mMatrix = aDataType.mMatrix;
-    this->mpData = nullptr;
+    mData = aDataType.mData;
     if (this->mMatrix) {
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     } else {
         this->mpDimensions = nullptr;
     }
 
-    if (this->mSize != 0) {
-        SIMPLE_DISPATCH(this->mPrecision, GetCopyOfData, aDataType.mpData,
-                        this->mpData)
-    }
     return *this;
 }
 
@@ -499,7 +496,7 @@ DataType::IsNA(const size_t &aIndex) {
 template <typename T>
 void
 DataType::CheckNA(const size_t &aIndex, bool &aFlag) {
-    T *data = (T *) this->mpData;
+    T *data = (T *) GetData(CPU);
     aFlag = std::isnan(data[ aIndex ]);
 }
 
@@ -549,7 +546,7 @@ template <typename T>
 void
 DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
 
-    auto data = (T *) this->mpData;
+    auto data = (T *) this->GetData(CPU);
     auto size = this->mSize;
     this->mPrecision = aPrecision;
 
@@ -596,7 +593,7 @@ DataType::ConvertPrecision(const mpcr::definitions::Precision &aPrecision) {
 template <typename T>
 void
 DataType::ConvertToVector(std::vector <double> &aOutput) {
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
     aOutput.clear();
     aOutput.resize(this->mSize);
     aOutput.assign(pData, pData + this->mSize);
@@ -627,7 +624,7 @@ DataType::ConvertToRMatrix() {
 template <typename T>
 void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput) {
 
-    auto pData = (T *) mpData;
+    auto pData = (T *) this->GetData(CPU);
     aOutput = new Rcpp::NumericMatrix(this->mpDimensions->GetNRow(),
                                       this->mpDimensions->GetNCol(), pData);
 
@@ -636,7 +633,7 @@ void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput) {
 
 template <typename T>
 void DataType::CheckNA(std::vector <int> &aOutput, Dimensions *&apDimensions) {
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
     aOutput.clear();
     aOutput.resize(this->mSize);
     if (this->mMatrix) {
@@ -965,7 +962,7 @@ template <typename T>
 void
 DataType::TransposeDispatcher() {
 
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
     auto pOutput = new T[this->mSize];
     auto col = this->GetNCol();
     auto row = this->GetNRow();
@@ -987,17 +984,17 @@ DataType::TransposeDispatcher() {
 }
 
 
-void DataType::SetValues(std::vector <double> &aValues) {
+void DataType::SetValues(std::vector <double> &aValues,
+                         const OperationPlacement &aOperationPlacement) {
     this->mSize = aValues.size();
     if (this->mMatrix) {
         delete this->mpDimensions;
         this->mpDimensions = nullptr;
         this->mMatrix = false;
     }
-    delete[] this->mpData;
-    this->mpData = nullptr;
+    mData.ClearUp();
 
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues)
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
 }
 
 
@@ -1013,7 +1010,7 @@ void DataType::FillTriangleDispatcher(const double &aValue,
 
     auto row = this->GetNRow();
     auto col = this->GetNCol();
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
 
     if (!aUpperTriangle) {
         for (auto j = 0; j < col; j++) {
@@ -1052,7 +1049,7 @@ template <typename T>
 void
 DataType::SumDispatcher(double &aResult) {
     aResult = 0;
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
     for (auto i = 0; i < this->mSize; i++) {
         aResult += pData[ i ];
     }
@@ -1063,7 +1060,7 @@ template <typename T>
 void
 DataType::SquareSumDispatcher(double &aResult) {
     aResult = 0;
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
     for (auto i = 0; i < this->mSize; i++) {
         aResult += pow(pData[ i ], 2);
     }
@@ -1082,7 +1079,7 @@ template <typename T>
 void
 DataType::ProductDispatcher(double &aResult) {
     aResult = 1;
-    auto pData = (T *) this->mpData;
+    auto pData = (T *) this->GetData(CPU);
     for (auto i = 0; i < this->mSize; i++) {
         aResult *= pData[ i ];
     }
@@ -1108,7 +1105,7 @@ void
 DataType::DeterminantDispatcher(double &aResult) {
 
     double det = 1.0;
-    auto data = (T *) this->mpData;
+    auto data = (T *) this->GetData(CPU);
     auto size = this->GetNCol();
     std::vector <double> pData;
 
@@ -1193,7 +1190,7 @@ DataType::Serialize() {
         itr = 1 + sizeof(size_t);
     }
 
-    memcpy(buffer + itr, this->mpData, this->mSize * size_val);
+    memcpy(buffer + itr, this->GetData(CPU), this->mSize * size_val);
 
     return vec;
 }
@@ -1276,7 +1273,7 @@ DataType::RSerialize() {
         itr = 1 + sizeof(size_t);
     }
 
-    memcpy(buffer + itr, this->mpData, this->mSize * size_val);
+    memcpy(buffer + itr, this->GetData(CPU), this->mSize * size_val);
 
     return vec;
 }
@@ -1320,6 +1317,23 @@ DataType::RDeSerialize(Rcpp::RawVector aInput) {
 }
 
 
+size_t
+DataType::GetSizeInBytes() {
+    size_t size = this->mSize;
+    switch (this->mPrecision) {
+        case HALF:
+            return size * sizeof(float16);
+        case FLOAT:
+            return size * sizeof(float);
+        case DOUBLE:
+            return size * sizeof(double);
+        default:
+            MPCR_API_EXCEPTION("Error while getting size in bytes", -1);
+    }
+    return 0;
+}
+
+
 SIMPLE_INSTANTIATE(void, DataType::DeterminantDispatcher, double &aResult)
 
 SIMPLE_INSTANTIATE(void, DataType::ProductDispatcher, double &aResult)
@@ -1339,7 +1353,8 @@ SIMPLE_INSTANTIATE(void, DataType::ConvertPrecisionDispatcher,
 
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
 
-SIMPLE_INSTANTIATE(void, DataType::Init, std::vector <double> *aValues)
+SIMPLE_INSTANTIATE(void, DataType::Init, std::vector <double> *aValues,
+                   const OperationPlacement &aOperationPlacement)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 

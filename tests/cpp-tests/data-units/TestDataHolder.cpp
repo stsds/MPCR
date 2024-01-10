@@ -43,6 +43,18 @@ TEST_DATA_HOLDER_GPU() {
             REQUIRE(pdata_host[ i ] == i);
         }
 
+        SECTION("Copy Constructor"){
+            DataHolder data_b(data_a);
+            REQUIRE(data_b.GetSize()==data_a.GetSize());
+            REQUIRE(data_a.GetDataPointer(CPU)!=data_b.GetDataPointer(CPU));
+
+
+            auto data_b_host=(float*)data_b.GetDataPointer(CPU);
+            for (auto i = 0; i < n; i++) {
+                REQUIRE(data_b_host[ i ] == i);
+            }
+        }
+
         SECTION("Getting a GPU copy") {
             auto pdata_device = (float *) data_a.GetDataPointer(GPU);
 
@@ -224,6 +236,16 @@ TEST_DATA_HOLDER_CPU() {
 
         for (auto i = 0; i < n; i++) {
             REQUIRE(pdata_host[ i ] == i);
+        }SECTION("Copy Constructor"){
+            DataHolder data_b(data_a);
+            REQUIRE(data_b.GetSize()==data_a.GetSize());
+            REQUIRE(data_a.GetDataPointer(CPU)!=data_b.GetDataPointer(CPU));
+
+
+            auto data_b_host=(float*)data_b.GetDataPointer(CPU);
+            for (auto i = 0; i < n; i++) {
+                REQUIRE(data_b_host[ i ] == i);
+            }
         }
 
         SECTION("Getting a GPU copy") {
