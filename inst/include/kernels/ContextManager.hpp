@@ -19,7 +19,6 @@ namespace mpcr {
          * @brief
          * Singleton Class responsible for managing and delivering all MPCR Context Objects.
          */
-
         class ContextManager {
         private:
             /** Singleton instance of MemoryHandler **/

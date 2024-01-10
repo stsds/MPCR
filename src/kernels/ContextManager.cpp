@@ -90,6 +90,9 @@ ContextManager::SetOperationContext(RunContext *&aRunContext) {
 
 RunContext *&
 ContextManager::GetOperationContext() {
+    if(mpInstance== nullptr){
+        ContextManager::GetInstance();
+    }
     if (mpInstance->mpCurrentContext == nullptr) {
         MPCR_API_EXCEPTION("No current operation context available", -1);
     }

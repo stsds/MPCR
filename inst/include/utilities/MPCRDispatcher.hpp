@@ -11,6 +11,7 @@
 
 #include <common/Definitions.hpp>
 #include <utilities/MPCRErrorHandler.hpp>
+#include <utilities/FloatingPointHandler.hpp>
 
 
 using namespace mpcr::definitions;
@@ -159,5 +160,34 @@ using namespace mpcr::definitions;
         template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
+
+/** Instantiators for Template functions with a given return type
+ * (Three template argument)
+ **/
+#define COPY_INSTANTIATE(RETURNTYPE, __FUN__, ...) \
+        template RETURNTYPE __FUN__<float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<float,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<double,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<double,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<float16,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+
+
+/** Instantiators for Template functions with a given return type
+ * (Three template argument)
+ **/
+#define COPY_INSTANTIATE_ONE(RETURNTYPE, __FUN__, ...) \
+        template RETURNTYPE __FUN__<float16,float> (const float16*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,double> (const float16*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<float,float16> (const float*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,double> (const float*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<double,float16> (const double*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<double,float> (const double*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;   \
+        template RETURNTYPE __FUN__<double,double> (const double*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,float> (const float*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;     \
+        template RETURNTYPE __FUN__<float16,float16> (const float16*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
 #endif //MPCR_MPRDISPATCHER_HPP

@@ -7,6 +7,7 @@
  **/
 
 #include <data-units/DataHolder.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
 #ifdef USE_CUDA
@@ -123,21 +124,11 @@ DataHolder::GetSize() {
 char *
 DataHolder::GetDataPointer(const OperationPlacement &aPlacement) {
 
-    if (mBufferState == BufferState::NO_DEVICE &&
-        aPlacement == mpcr::definitions::GPU) {
-
-        this->mpDeviceData = memory::AllocateArray(this->mSize, GPU,
-                                                 ContextManager::GetOperationContext());
-        mBufferState=BufferState::HOST_NEWER;
-
-    } else if (mBufferState == BufferState::NO_HOST &&
-               aPlacement == mpcr::definitions::CPU) {
-
-        this->mpHostData = memory::AllocateArray(this->mSize, CPU,
-                                                 ContextManager::GetOperationContext());
-        mBufferState=BufferState::DEVICE_NEWER;
+    if (mBufferState == BufferState::EMPTY) {
+        return nullptr;
     }
 
+    AllocateMissingBuffer(aPlacement);
     this->Sync(aPlacement);
 
     if (aPlacement == CPU) {
@@ -183,6 +174,19 @@ DataHolder::SetDataPointer(char *apData, const size_t &aSizeInBytes,
         return;
     }
 
+    if (aPlacement == mpcr::definitions::GPU && apData == mpDeviceData) {
+        if (mBufferState != BufferState::NO_HOST) {
+            mBufferState = BufferState::DEVICE_NEWER;
+        }
+        return;
+    } else if (aPlacement == mpcr::definitions::CPU && apData == mpHostData) {
+        if (mBufferState != BufferState::NO_DEVICE) {
+            mBufferState = BufferState::HOST_NEWER;
+        }
+
+        return;
+    }
+
     this->ClearUp();
 
     if (aPlacement == CPU) {
@@ -193,6 +197,7 @@ DataHolder::SetDataPointer(char *apData, const size_t &aSizeInBytes,
         mBufferState = BufferState::NO_HOST;
     }
 
+    this->mSize = aSizeInBytes;
 
 }
 
@@ -242,7 +247,9 @@ DataHolder::ClearUp() {
 void
 DataHolder::SetDataPointer(char *apHostPointer, char *apDevicePointer,
                            const size_t &aSizeInBytes) {
-    this->ClearUp();
+    if (!( mpHostData == apHostPointer && mpDeviceData == apDevicePointer )) {
+        this->ClearUp();
+    }
 
     this->mpHostData = apHostPointer;
     this->mpDeviceData = apDevicePointer;
@@ -322,7 +329,7 @@ DataHolder::PromoteOnHost() {
     auto pData_new = (X *) memory::AllocateArray(sizeof(X) * size, CPU,
                                                  ContextManager::GetOperationContext());
     std::copy(pData, pData + size, pData_new);
-    this->SetDataPointer(pData_new, size * sizeof(X), CPU);
+    this->SetDataPointer((char *) pData_new, size * sizeof(X), CPU);
 }
 
 
@@ -332,15 +339,51 @@ DataHolder::PromoteOnDevice() {
 #ifdef USE_CUDA
     auto size = this->mSize / sizeof(T);
     auto pData = (T *) this->mpDeviceData;
+
+    bool delete_context = false;
+    auto context = ContextManager::GetOperationContext();
+
+    if (context->GetOperationPlacement() == CPU) {
+        delete_context = true;
+        context = new RunContext(GPU, RunMode::SYNC);
+    }
+
     auto pData_new = (X *) memory::AllocateArray(sizeof(X) * size, GPU,
-                                                 ContextManager::GetOperationContext());
-    CudaMemoryKernels::Copy <T, X>(pData, pData_new, size);
-    this->SetDataPointer(pData_new, size * sizeof(X), GPU);
+                                                 context);
+    CudaMemoryKernels::Copy <T, X>(pData, pData_new, size, context);
+
+    this->SetDataPointer((char *) pData_new, size * sizeof(X), GPU);
+
+    if (delete_context) {
+        delete context;
+    }
+
 #else
     MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Placement",-1);
 #endif
 }
 
 
+void
+DataHolder::AllocateMissingBuffer(const OperationPlacement &aPlacement) {
+    if (mBufferState == BufferState::NO_DEVICE &&
+        aPlacement == mpcr::definitions::GPU) {
+        this->mpDeviceData = memory::AllocateArray(this->mSize, GPU,
+                                                   ContextManager::GetOperationContext());
+        mBufferState = BufferState::HOST_NEWER;
 
+    } else if (mBufferState == BufferState::NO_HOST &&
+               aPlacement == mpcr::definitions::CPU) {
+        this->mpHostData = memory::AllocateArray(this->mSize, CPU,
+                                                 ContextManager::GetOperationContext());
+        mBufferState = BufferState::DEVICE_NEWER;
+    }
+}
+
+
+COPY_INSTANTIATE(void, DataHolder::ChangePrecision)
+
+COPY_INSTANTIATE(void, DataHolder::PromoteOnHost)
+
+COPY_INSTANTIATE(void, DataHolder::PromoteOnDevice)
 

@@ -7,6 +7,7 @@
  **/
 
 #include <kernels/cuda/CudaMemoryKernels.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
 using namespace mpcr::kernels;
@@ -42,4 +43,9 @@ CudaMemoryKernels::Copy(const T *apSource, X *apDestination,
 
 
 }
+
+
+
+COPY_INSTANTIATE_ONE(void,CudaMemoryKernels::Copy,const size_t &aNumElements,
+                     const kernels::RunContext *aContext)
 

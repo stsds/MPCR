@@ -130,13 +130,15 @@ public:
      * pointer to the data buffer.
      *
      */
+
     char *
     GetDataPointer(const OperationPlacement &aPlacement);
+
 
     /**
      * @brief
      * Set Data buffer, this function will automatically delete any existing
-     * buffers on CPU and GPU.
+     * buffers on CPU and GPU,in case new buffers are passed.
      *
      * @param[in] apData
      * Data buffer pointer.
@@ -153,7 +155,8 @@ public:
     /**
      * @brief
      * Set Data buffer, this function will automatically delete any existing
-     * buffers on CPU and GPU and set the the two new buffers.
+     * buffers on CPU and GPU ,in case new buffers are passed,
+     * and set the the two new buffers.
      *
      * @param[in] apHostPointer
      * Data buffer pointer on host.
@@ -166,6 +169,28 @@ public:
     void
     SetDataPointer(char *apHostPointer, char *apDevicePointer,
                    const size_t &aSizeInBytes);
+
+    /**
+     * @brief
+     * Clear up and de-allocate all object data and metadata.
+     *
+     */
+    void
+    ClearUp();
+
+    /**
+     * @brief
+     * Change precision of buffer. this function will detect whether to promote
+     * on host or on device according to the buffer state. And in case the buffers
+     * are equal, the function will decide based on the current Operation Context
+     * inside the context manager.
+     *
+     */
+    template <typename T, typename X>
+    void
+    ChangePrecision();
+
+private:
 
     /**
      * @brief
@@ -190,27 +215,6 @@ public:
 
     /**
      * @brief
-     * Clear up and de-allocate all object data and metadata.
-     *
-     */
-    void
-    ClearUp();
-
-    /**
-     * @brief
-     * Change precision of buffer. this function will detect whether to promote
-     * on host or on device according to the buffer state. And in case the buffers
-     * are equal, the function will decide based on the current Operation Context
-     * inside the context manager.
-     *
-     */
-    template <typename T, typename X>
-    void
-    ChangePrecision();
-
-private:
-    /**
-     * @brief
      * Change precision on host pointer, this function will automatically delete
      * the data on device.
      *
@@ -228,6 +232,18 @@ private:
     template <typename T, typename X>
     void
     PromoteOnDevice();
+
+    /**
+     * @brief
+     * Checks if the host or device pointer need to be allocated.
+     * this function will not sync any buffers, it will only allocate.
+     *
+     * @param[in] aPlacement
+     * check placement for buffer allocation.
+     *
+     */
+    void
+    AllocateMissingBuffer(const OperationPlacement &aPlacement);
 
 
 private:

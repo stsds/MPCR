@@ -8,6 +8,7 @@
 set(TESTFILES
 
         ${CMAKE_CURRENT_SOURCE_DIR}/TestDataType.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TestDataHolder.cpp
 
         ${TESTFILES}
         PARENT_SCOPE
