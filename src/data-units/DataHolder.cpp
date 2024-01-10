@@ -384,10 +384,20 @@ DataHolder::AllocateMissingBuffer(const OperationPlacement &aPlacement) {
 
 
 DataHolder::DataHolder(const DataHolder &aDataHolder) {
-    this->mpHostData= nullptr;
-    this->mpDeviceData= nullptr;
+    this->mpHostData = nullptr;
+    this->mpDeviceData = nullptr;
     this->ClearUp();
     this->CopyBuffers(aDataHolder);
+}
+
+
+DataHolder &
+DataHolder::operator =(const DataHolder &aDataHolder) {
+    this->mpHostData = nullptr;
+    this->mpDeviceData = nullptr;
+    this->ClearUp();
+    this->CopyBuffers(aDataHolder);
+    return *this;
 }
 
 
@@ -396,11 +406,15 @@ DataHolder::CopyBuffers(const DataHolder &aDataHolder) {
     if (aDataHolder.mBufferState == BufferState::EMPTY) {
         return;
     } else if (aDataHolder.mBufferState == BufferState::NO_HOST ||
-        aDataHolder.mBufferState == BufferState::DEVICE_NEWER) {
+               aDataHolder.mBufferState == BufferState::DEVICE_NEWER) {
+#ifdef USE_CUDA
         this->Allocate(aDataHolder.mSize, GPU);
         memory::MemCpy(this->mpDeviceData, aDataHolder.mpDeviceData,
                        aDataHolder.mSize, ContextManager::GetOperationContext(),
                        memory::MemoryTransfer::DEVICE_TO_DEVICE);
+#else
+        MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
+#endif
     } else {
         this->Allocate(aDataHolder.mSize, CPU);
         memory::MemCpy(this->mpHostData, aDataHolder.mpHostData,
@@ -408,16 +422,6 @@ DataHolder::CopyBuffers(const DataHolder &aDataHolder) {
                        memory::MemoryTransfer::HOST_TO_HOST);
     }
 
-}
-
-
-DataHolder &
-DataHolder::operator =(const DataHolder &aDataHolder) {
-    this->mpHostData= nullptr;
-    this->mpDeviceData= nullptr;
-    this->ClearUp();
-    this->CopyBuffers(aDataHolder);
-    return *this;
 }
 
 

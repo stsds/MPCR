@@ -15,7 +15,9 @@ using namespace memory;
 
 
 char *
-memory::AllocateArray(const size_t &aSizeInBytes,const OperationPlacement &aPlacement,const kernels::RunContext *aContext) {
+memory::AllocateArray(const size_t &aSizeInBytes,
+                      const OperationPlacement &aPlacement,
+                      const kernels::RunContext *aContext) {
 
     char *pdata = nullptr;
 
@@ -37,7 +39,8 @@ memory::AllocateArray(const size_t &aSizeInBytes,const OperationPlacement &aPlac
 
 
 void
-memory::DestroyArray(char *&apArray, const OperationPlacement &aPlacement,const kernels::RunContext *aContext) {
+memory::DestroyArray(char *&apArray, const OperationPlacement &aPlacement,
+                     const kernels::RunContext *aContext) {
 
     if (apArray != nullptr) {
 #ifdef USE_CUDA
@@ -46,10 +49,10 @@ memory::DestroyArray(char *&apArray, const OperationPlacement &aPlacement,const 
         }
 #endif
         if (aPlacement == definitions::CPU) {
-                delete[]apArray;
+            delete[]apArray;
         }
     }
-    apArray= nullptr;
+    apArray = nullptr;
 
 }
 
@@ -63,6 +66,11 @@ memory::MemCpy(char *&apDestination, const char *apSrcDataArray,
     }
 #ifdef USE_CUDA
     if (aTransferType != MemoryTransfer::HOST_TO_HOST) {
+        if (aContext == nullptr ||
+            aContext->GetOperationPlacement() == definitions::CPU) {
+            MPCR_API_EXCEPTION(
+                "CUDA Memcpy cannot be performed with CPU context", -1);
+        }
         GPU_ERROR_CHECK(
             cudaMemcpyAsync(apDestination, apSrcDataArray,
                             aSizeInBytes,
@@ -88,6 +96,11 @@ memory::Memset(char *&apDestination, char aValue, const size_t &aSizeInBytes,
                const kernels::RunContext *aContext) {
 #ifdef USE_CUDA
     if (aPlacement == definitions::GPU) {
+        if (aContext == nullptr ||
+            aContext->GetOperationPlacement() == definitions::CPU) {
+            MPCR_API_EXCEPTION(
+                "CUDA Memcpy cannot be performed with CPU context", -1);
+        }
         GPU_ERROR_CHECK(cudaMemsetAsync(apDestination, aValue, aSizeInBytes,
                                         aContext->GetStream()))
         if (aContext->GetRunMode() == kernels::RunMode::ASYNC) {
