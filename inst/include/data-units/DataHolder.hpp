@@ -82,8 +82,8 @@ public:
 
     DataHolder(const DataHolder &aDataHolder);
 
-    DataHolder&
-    operator=(const DataHolder &aDataHolder);
+    DataHolder &
+    operator =(const DataHolder &aDataHolder);
 
     /**
      * @brief
@@ -194,6 +194,21 @@ public:
     template <typename T, typename X>
     void
     ChangePrecision();
+
+
+    inline
+    bool
+    IsAllocated(const OperationPlacement &aOperationalPlacement) {
+        return ( aOperationalPlacement == GPU ) ? ( mpDeviceData == nullptr )
+                                                : ( mpHostData == nullptr );
+    };
+
+    inline
+    bool
+    IsEmpty(){
+        return (mpHostData== nullptr && mpDeviceData== nullptr && mSize==0);
+    }
+
 
 private:
 

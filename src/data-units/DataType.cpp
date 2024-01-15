@@ -13,13 +13,15 @@
 using namespace mpcr::precision;
 
 
+/** ------------------------- Constructors ---------------------------------- **/
+
 DataType::DataType(size_t aSize, Precision aPrecision,
                    const OperationPlacement &aOperationPlacement) {
+    this->mpDimensions = nullptr;
+    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
     this->SetMagicNumber();
     mData.ClearUp();
-    this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aSize;
-    this->mpDimensions = nullptr;
     this->mMatrix = false;
     SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
 }
@@ -27,12 +29,11 @@ DataType::DataType(size_t aSize, Precision aPrecision,
 
 DataType::DataType(std::vector <double> aValues, std::string aPrecision,
                    const OperationPlacement &aOperationPlacement) {
-
+    this->mpDimensions = nullptr;
+    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
     this->SetMagicNumber();
     mData.ClearUp();
-    this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
-    this->mpDimensions = nullptr;
     this->mMatrix = false;
     SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
 
@@ -42,9 +43,9 @@ DataType::DataType(std::vector <double> aValues, std::string aPrecision,
 DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
                    const size_t &aCol, const std::string &aPrecision,
                    const OperationPlacement &aOperationPlacement) {
+    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
     this->SetMagicNumber();
     mData.ClearUp();
-    this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
@@ -55,11 +56,11 @@ DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
 DataType::DataType(std::vector <double> &aValues,
                    mpcr::definitions::Precision aPrecision,
                    const OperationPlacement &aOperationPlacement) {
+    this->mpDimensions = nullptr;
+    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
     this->SetMagicNumber();
     mData.ClearUp();
-    this->mPrecision = GetInputPrecision(aPrecision);
     this->mSize = aValues.size();
-    this->mpDimensions = nullptr;
     this->mMatrix = false;
     SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
 }
@@ -67,10 +68,10 @@ DataType::DataType(std::vector <double> &aValues,
 
 DataType::DataType(size_t aSize, int aPrecision,
                    const OperationPlacement &aOperationPlacement) {
+    this->mpDimensions = nullptr;
+    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
     this->SetMagicNumber();
     mData.ClearUp();
-    this->mPrecision = GetInputPrecision(aPrecision);
-    this->mpDimensions = nullptr;
     this->mMatrix = false;
     this->mSize = aSize;
     SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
@@ -79,10 +80,10 @@ DataType::DataType(size_t aSize, int aPrecision,
 
 DataType::DataType(size_t aSize, const std::string &aPrecision,
                    const OperationPlacement &aOperationPlacement) {
-    this->SetMagicNumber();
-    this->mPrecision = GetInputPrecision(aPrecision);
-    mData.ClearUp();
     this->mpDimensions = nullptr;
+    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
+    this->SetMagicNumber();
+    mData.ClearUp();
     this->mMatrix = false;
     this->mSize = aSize;
     SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
@@ -136,12 +137,9 @@ DataType::DataType(DataType &aDataType,
     if (this->mMatrix) {
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     }
-    if (this->mSize != 0) {
-        auto precision = GetOperationPrecision(aDataType.mPrecision,
-                                               this->mPrecision,
-                                               DOUBLE);
-        DISPATCHER(precision, DataType::GetCopyOfData, aDataType, *this)
-    }
+    this->mData = aDataType.mData;
+    SIMPLE_DISPATCH(aDataType.mPrecision, ConvertPrecisionDispatcher,
+                    this->mPrecision)
 }
 
 
@@ -150,29 +148,8 @@ DataType::~DataType() {
 }
 
 
-template <typename T>
-void
-DataType::Init(std::vector <double> *aValues,
-               const OperationPlacement &aOperationPlacement) {
-    if (this->mSize == 0) {
-        return;
-    }
-    double val = 0;
-#ifdef RUNNING_CPP
-    val = 1.5;
-#endif
-    bool flag = ( aValues == nullptr );
-    T *temp = new T[mSize];
-    for (auto i = 0; i < mSize; i++) {
-        if (flag) {
-            temp[ i ] = (T) val;
-        } else {
-            temp[ i ] = (T) aValues->at(i);
-        }
-    }
-    this->SetData((char *) temp, aOperationPlacement);
+/** ---------------------------- Methods ------------------------------- **/
 
-}
 
 
 std::string
@@ -185,91 +162,6 @@ DataType::PrintRow(const size_t &aRowIdx) {
     SIMPLE_DISPATCH(this->mPrecision, DataType::PrintRowsDispatcher, aRowIdx,
                     ss)
     return ss.str();
-
-}
-
-
-template <typename T>
-void
-DataType::PrintRowsDispatcher(const size_t &aRowIdx,
-                              std::stringstream &aRowAsString) {
-
-    auto pData = (T *) this->GetData(CPU);
-    auto col = GetNCol();
-    auto row = GetNRow();
-    size_t idx = 0;
-    auto temp_col = col > 16 ? 16 : col;
-
-    for (auto i = 0; i < temp_col; i++) {
-        idx = ( i * row ) + aRowIdx;
-        aRowAsString << std::setfill(' ') << std::setw(14)
-                     << std::setprecision(7) << pData[ idx ] << "\t";
-    }
-}
-
-
-template <typename T>
-void
-DataType::PrintVal() {
-    std::stringstream ss;
-    auto stream_size = 10000;
-    T *temp = (T *) this->GetData(CPU);
-
-    if (this->mMatrix) {
-        auto rows = this->mpDimensions->GetNRow();
-        auto cols = this->mpDimensions->GetNCol();
-        ss << "Precision  : " << GetPrecisionAsString(this->mPrecision)
-           << "  Precision " << std::endl;
-        ss << "Number of Rows : " << rows << std::endl;
-        ss << "Number of Columns : " << cols << std::endl;
-        ss << "---------------------" << std::endl;
-        size_t start_idx;
-        size_t print_col = ( cols > 16 ) ? 16 : cols;
-        size_t print_rows = ( rows > 100 ) ? 100 : rows;
-
-        for (auto i = 0; i < print_rows; i++) {
-            ss << " [\t";
-            for (auto j = 0; j < print_col; j++) {
-                start_idx = ( j * rows ) + i;
-                ss << std::setfill(' ') << std::setw(14) << std::setprecision(7)
-                   << temp[ start_idx ] << "\t";
-            }
-            ss << std::setfill(' ') << std::setw(14) << "]" << std::endl;
-            if (ss.gcount() > stream_size) {
-                MPCR_PRINTER(ss.str())
-                ss.clear();
-            }
-        }
-        if (print_rows * print_col != this->mSize) {
-            ss << "Note Only Matrix with size 100*13 is printed" <<
-               std::endl;
-        }
-
-        MPCR_PRINTER(std::string(ss.str()))
-    } else {
-        ss << "Vector Size : " << mSize <<
-           std::endl;
-        ss << "---------------------" <<
-           std::endl;
-        auto counter_rows = 0;
-        for (auto i = 0; i < mSize; i++) {
-            if (i % 7 == 0) {
-                ss << std::endl;
-                ss << "[ " << counter_rows + 1 << " ]" << "\t";
-                counter_rows += 7;
-            }
-            ss << std::setfill(' ') << std::setw(14) << std::setprecision(7)
-               << temp[ i ];
-            if (i % 100 == 0) {
-                if (ss.gcount() > stream_size) {
-                    MPCR_PRINTER(std::string(ss.str()))
-                    ss.clear();
-                }
-            }
-        }
-        ss << std::endl;
-        MPCR_PRINTER(std::string(ss.str()))
-    }
 
 }
 
@@ -288,6 +180,12 @@ DataType::GetPrecision() {
 
 char *
 DataType::GetData(const OperationPlacement &aOperationPlacement) {
+    if (mPrecision == HALF && aOperationPlacement == CPU) {
+        MPCR_PRINTER("CPU doesn't support 16-bit, ")
+        MPCR_PRINTER("the data will be converted to 32-bit")
+        MPCR_PRINTER(std::endl)
+        SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher, FLOAT)
+    }
     return mData.GetDataPointer(aOperationPlacement);
 }
 
@@ -295,14 +193,6 @@ DataType::GetData(const OperationPlacement &aOperationPlacement) {
 size_t
 DataType::GetSize() const {
     return this->mSize;
-}
-
-
-template <typename T>
-void
-DataType::GetValue(size_t aIndex, double &aOutput) {
-    auto pdata = (T *) this->GetData(CPU);
-    aOutput = (double) ( pdata[ aIndex ] );
 }
 
 
@@ -317,15 +207,6 @@ DataType::GetVal(size_t aIndex) {
 }
 
 
-template <typename T>
-void
-DataType::SetValue(size_t aIndex, double &aVal) {
-
-    T *data = (T *) this->GetData(CPU);
-    data[ aIndex ] = (T) aVal;
-}
-
-
 void
 DataType::SetVal(size_t aIndex, double aVal) {
     if (aIndex >= this->mSize) {
@@ -337,9 +218,17 @@ DataType::SetVal(size_t aIndex, double aVal) {
 
 
 void
-DataType::SetPrecision(mpcr::definitions::Precision aPrecision) {
+DataType::SetPrecision(mpcr::definitions::Precision aPrecision,
+                       const OperationPlacement &aOperationPlacement) {
     this->ClearUp();
-    this->mPrecision = aPrecision;
+    if (aPrecision == HALF && aOperationPlacement == CPU) {
+        this->mPrecision = FLOAT;
+        MPCR_PRINTER("Cannot allocate 16-bit precision on CPU, ")
+        MPCR_PRINTER("Changed to 32-bit")
+        MPCR_PRINTER(std::endl)
+    } else {
+        this->mPrecision = aPrecision;
+    }
 }
 
 
@@ -383,8 +272,12 @@ DataType::GetMatrixIndex(size_t aRow, size_t aCol) {
 
 void
 DataType::SetData(char *aData, const OperationPlacement &aOperationPlacement) {
+    auto op_placement = aOperationPlacement;
+    if (this->mPrecision == HALF && aOperationPlacement == CPU) {
+        MPCR_API_EXCEPTION("Cannot allocate 16-bit precision on CPU",-1);
+    }
     this->mData.SetDataPointer(aData, this->GetSizeInBytes(),
-                               aOperationPlacement);
+                               op_placement);
 }
 
 
@@ -443,32 +336,6 @@ DataType::GetDimensions() const {
 }
 
 
-template <typename T>
-void
-DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
-    T *data = (T *) apSrc;
-    auto size = this->mSize;
-    T *pOutput = new T[size];
-
-
-    memcpy((char *) pOutput, (char *) data, size * sizeof(T));
-    apDest = (char *) pOutput;
-}
-
-
-template <typename T, typename X, typename Y>
-void
-DataType::GetCopyOfData(DataType &aSrc, DataType &aDestination) {
-    T *data = (T *) aSrc.GetData();
-    auto size = aDestination.mSize;
-    X *pOutput = new X[size];
-
-    std::copy(data, data + size, pOutput);
-    aDestination.SetData((char *) pOutput);
-
-}
-
-
 DataType &
 DataType::operator =(const DataType &aDataType) {
     this->mSize = aDataType.mSize;
@@ -493,25 +360,9 @@ DataType::IsNA(const size_t &aIndex) {
 }
 
 
-template <typename T>
-void
-DataType::CheckNA(const size_t &aIndex, bool &aFlag) {
-    T *data = (T *) GetData(CPU);
-    aFlag = std::isnan(data[ aIndex ]);
-}
-
-
-template <typename T>
-void
-DataType::GetDataSize(size_t &aDataSize) {
-    aDataSize = this->mSize * sizeof(T);
-}
-
-
 size_t
 DataType::GetObjectSize() {
-    size_t data_size;
-    SIMPLE_DISPATCH(this->mPrecision, GetDataSize, data_size)
+    size_t data_size=mData.GetSize();
     if (this->mMatrix) {
         data_size += 3 * sizeof(size_t);
     } else {
@@ -537,66 +388,30 @@ DataType::SetValMatrix(size_t aRow, size_t aCol, double aVal) {
 }
 
 
-void DataType::SetMagicNumber() {
-    this->mMagicNumber = 911;
-}
-
-
-template <typename T>
 void
-DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
-
-    auto data = (T *) this->GetData(CPU);
-    auto size = this->mSize;
-    this->mPrecision = aPrecision;
-
-
-    if (size == 0) {
-        return;
-    }
-    switch (aPrecision) {
-        case HALF: {
-            auto temp = new float16[size];
-            std::copy(data, data + size, temp);
-            this->SetData((char *) temp);
-            break;
-        }
-        case FLOAT: {
-            auto temp = new float[size];
-            std::copy(data, data + size, temp);
-            this->SetData((char *) temp);
-            break;
-        }
-        case DOUBLE: {
-            auto temp = new double[size];
-            std::copy(data, data + size, temp);
-            this->SetData((char *) temp);
-            break;
-        }
-        default: {
-            MPCR_API_EXCEPTION("Invalid Precision : Not Supported", -1);
-        }
-    }
-
+DataType::SetMagicNumber() {
+    this->mMagicNumber = 911;
 }
 
 
 void
 DataType::ConvertPrecision(const mpcr::definitions::Precision &aPrecision) {
+    auto temp_precision = aPrecision;
     if (mPrecision == aPrecision) {
         return;
     }
-    SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher, aPrecision)
-}
 
+#ifndef USE_CUDA
+        if(aPrecision==HALF){
+        temp_precision=FLOAT;
+        MPCR_PRINTER("Cannot allocate 16-bit precision with CPU only compiled code. ")
+        MPCR_PRINTER("Changing to 32-bit precision")
+        MPCR_PRINTER(std::endl)
+    }
+#endif
 
-template <typename T>
-void
-DataType::ConvertToVector(std::vector <double> &aOutput) {
-    auto pData = (T *) this->GetData(CPU);
-    aOutput.clear();
-    aOutput.resize(this->mSize);
-    aOutput.assign(pData, pData + this->mSize);
+    SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher,
+                    temp_precision)
 }
 
 
@@ -621,35 +436,6 @@ DataType::ConvertToRMatrix() {
 }
 
 
-template <typename T>
-void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput) {
-
-    auto pData = (T *) this->GetData(CPU);
-    aOutput = new Rcpp::NumericMatrix(this->mpDimensions->GetNRow(),
-                                      this->mpDimensions->GetNCol(), pData);
-
-}
-
-
-template <typename T>
-void DataType::CheckNA(std::vector <int> &aOutput, Dimensions *&apDimensions) {
-    auto pData = (T *) this->GetData(CPU);
-    aOutput.clear();
-    aOutput.resize(this->mSize);
-    if (this->mMatrix) {
-        delete apDimensions;
-        apDimensions = new Dimensions(this->mpDimensions->GetNRow(),
-                                      this->mpDimensions->GetNCol());
-
-    }
-
-    for (auto i = 0; i < this->mSize; i++) {
-        aOutput[ i ] = std::isnan(pData[ i ]);
-    }
-
-}
-
-
 std::vector <int> *
 DataType::IsNA(Dimensions *&apDimensions) {
     auto pOutput = new std::vector <int>();
@@ -657,6 +443,290 @@ DataType::IsNA(Dimensions *&apDimensions) {
     return pOutput;
 }
 
+
+void
+DataType::Transpose() {
+    if (!this->mMatrix) {
+        MPCR_API_EXCEPTION("Cannot Transpose a Vector", -1);
+    }
+    SIMPLE_DISPATCH(this->mPrecision, DataType::TransposeDispatcher)
+}
+
+
+void
+DataType::SetValues(std::vector <double> &aValues,
+                    const OperationPlacement &aOperationPlacement) {
+    this->mSize = aValues.size();
+    if (this->mMatrix) {
+        delete this->mpDimensions;
+        this->mpDimensions = nullptr;
+        this->mMatrix = false;
+    }
+    mData.ClearUp();
+
+    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
+}
+
+
+void
+DataType::FillTriangle(const double &aValue, const bool &aUpperTriangle) {
+    SIMPLE_DISPATCH(this->mPrecision, DataType::FillTriangleDispatcher, aValue,
+                    aUpperTriangle)
+}
+
+
+double
+DataType::Sum() {
+    double sum;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::SumDispatcher, sum)
+    return sum;
+}
+
+
+double
+DataType::SquareSum() {
+    double sum;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::SquareSumDispatcher, sum)
+    return sum;
+
+}
+
+
+double
+DataType::Product() {
+    double prod;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::ProductDispatcher, prod)
+    return prod;
+}
+
+
+double DataType::Determinant() {
+    if (!this->mMatrix) {
+        MPCR_API_EXCEPTION("Cannot calculate determinant for a vector", -1);
+    }
+    if (this->GetNRow() != this->GetNCol()) {
+        MPCR_API_EXCEPTION(
+            "Cannot calculate determinant for a non-square matrix", -1);
+    }
+    double result;
+    SIMPLE_DISPATCH(this->mPrecision, DataType::DeterminantDispatcher, result)
+    return result;
+}
+
+
+std::vector <char>
+DataType::Serialize() {
+    size_t size = 1;
+    auto size_val = 0;
+    auto itr = 0;
+    char metadata = 0;
+
+    if (this->mPrecision == mpcr::definitions::FLOAT) {
+        size_val += sizeof(float);
+
+    } else if (this->mPrecision == mpcr::definitions::DOUBLE) {
+        size_val += sizeof(double);
+    }
+
+    size += this->mSize * size_val;
+
+    if (this->mMatrix) {
+        size += sizeof(size_t) * 2;
+        metadata |= 0x80;
+    } else {
+        size += sizeof(size_t);
+    }
+
+    metadata |= (( static_cast<int>(this->mPrecision ) & 0x03 ) << 5 );
+
+    std::vector <char> vec;
+    vec.resize(size);
+
+    auto buffer = vec.data();
+    buffer[ 0 ] = metadata;
+
+    if (this->mMatrix) {
+        memcpy(buffer + 1, (char *) &this->mpDimensions->mRow, sizeof(size_t));
+        memcpy(buffer + 1 + sizeof(size_t), (char *) &this->mpDimensions->mCol,
+               sizeof(size_t));
+
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        memcpy(buffer + 1, (char *) &this->mSize, sizeof(size_t));
+        itr = 1 + sizeof(size_t);
+    }
+
+    memcpy(buffer + itr, this->GetData(CPU), this->mSize * size_val);
+
+    return vec;
+}
+
+
+DataType *
+DataType::DeSerialize(char *apData) {
+    auto metadata = apData[ 0 ];
+    bool is_matrix = (( metadata & 0x80 ) != 0 );
+    auto temp_precision = static_cast<Precision>((( metadata >> 5 ) & 0x03 ));
+
+    auto itr = 0;
+
+    auto ret = new DataType(temp_precision);
+    ret->ClearUp();
+
+    auto obj_size = sizeof(float);
+    if (temp_precision == DOUBLE) {
+        obj_size = sizeof(double);
+    }
+
+    if (is_matrix) {
+        size_t row = *(size_t *) ( apData + 1 );
+        size_t col = *((size_t *) ( apData + 1 ) + 1 );
+        ret->SetSize(row * col);
+        ret->SetDimensions(row, col);
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        size_t size = *(size_t *) ( apData + 1 );
+        ret->SetSize(size);
+        itr = 1 + sizeof(size_t);
+    }
+
+    auto temp_data = new char[ret->GetSize() * obj_size];
+    memcpy(temp_data, apData + itr, obj_size * ret->GetSize());
+    ret->SetData(temp_data);
+
+    return ret;
+}
+
+
+Rcpp::RawVector
+DataType::RSerialize() {
+    size_t size = 1;
+    auto size_val = 0;
+    auto itr = 0;
+    char metadata = 0;
+
+    if (this->mPrecision == mpcr::definitions::FLOAT) {
+        size_val += sizeof(float);
+
+    } else if (this->mPrecision == mpcr::definitions::DOUBLE) {
+        size_val += sizeof(double);
+    }
+
+    size += this->mSize * size_val;
+
+    if (this->mMatrix) {
+        size += sizeof(size_t) * 2;
+        metadata |= 0x80;
+    } else {
+        size += sizeof(size_t);
+    }
+
+    metadata |= (( static_cast<int>(this->mPrecision ) & 0x03 ) << 5 );
+
+    Rcpp::RawVector vec(size);
+
+    auto buffer = vec.begin();
+    vec[ 0 ] = metadata;
+
+    if (this->mMatrix) {
+        memcpy(buffer + 1, (char *) &this->mpDimensions->mRow, sizeof(size_t));
+        memcpy(buffer + 1 + sizeof(size_t), (char *) &this->mpDimensions->mCol,
+               sizeof(size_t));
+
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        memcpy(buffer + 1, (char *) &this->mSize, sizeof(size_t));
+        itr = 1 + sizeof(size_t);
+    }
+
+    memcpy(buffer + itr, this->GetData(CPU), this->mSize * size_val);
+
+    return vec;
+}
+
+
+DataType *
+DataType::RDeSerialize(Rcpp::RawVector aInput) {
+    auto metadata = aInput[ 0 ];
+    bool is_matrix = (( metadata & 0x80 ) != 0 );
+    auto temp_precision = static_cast<Precision>((( metadata >> 5 ) & 0x03 ));
+
+    auto itr = 0;
+
+    auto ret = new DataType(temp_precision);
+    ret->ClearUp();
+
+    auto obj_size = sizeof(float);
+    if (temp_precision == DOUBLE) {
+        obj_size = sizeof(double);
+    }
+
+    auto data = aInput.begin();
+
+    if (is_matrix) {
+        size_t row = *(size_t *) ( data + 1 );
+        size_t col = *((size_t *) ( data + 1 ) + 1 );
+        ret->SetSize(row * col);
+        ret->SetDimensions(row, col);
+        itr = 1 + ( sizeof(size_t) * 2 );
+    } else {
+        size_t size = *(size_t *) ( data + 1 );
+        ret->SetSize(size);
+        itr = 1 + sizeof(size_t);
+    }
+
+    auto temp_data = new char[ret->GetSize() * obj_size];
+    memcpy(temp_data, data + itr, obj_size * ret->GetSize());
+    ret->SetData(temp_data);
+
+    return ret;
+}
+
+
+size_t
+DataType::GetSizeInBytes() {
+    size_t size = this->mSize;
+    switch (this->mPrecision) {
+        case HALF:
+            return size * sizeof(float16);
+        case FLOAT:
+            return size * sizeof(float);
+        case DOUBLE:
+            return size * sizeof(double);
+        default:
+            MPCR_API_EXCEPTION("Error while getting size in bytes", -1);
+    }
+    return 0;
+}
+
+
+void
+DataType::PrintTotalSize() {
+
+    auto size = this->GetSizeInBytes();
+
+    if (IsCPUAllocated()) {
+        MPCR_PRINTER("Total memory allocated on CPU in bytes : ")
+        MPCR_PRINTER(size)
+        MPCR_PRINTER(std::endl)
+    } else {
+        MPCR_PRINTER("No allocations on CPU")
+        MPCR_PRINTER(std::endl)
+    }
+
+    if (IsGPUAllocated()) {
+        MPCR_PRINTER("Total memory allocated on GPU in bytes : ")
+        MPCR_PRINTER(size)
+        MPCR_PRINTER(std::endl)
+    } else {
+        MPCR_PRINTER("No allocations on GPU")
+        MPCR_PRINTER(std::endl)
+    }
+
+}
+
+
+/** ------------------------- Operators for R ---------------------------------- **/
 
 DataType *
 DataType::PerformPlusDispatcher(SEXP aObj) {
@@ -949,100 +1019,7 @@ DataType::NotEqualDispatcher(SEXP aObj) {
 }
 
 
-void
-DataType::Transpose() {
-    if (!this->mMatrix) {
-        MPCR_API_EXCEPTION("Cannot Transpose a Vector", -1);
-    }
-    SIMPLE_DISPATCH(this->mPrecision, DataType::TransposeDispatcher)
-}
-
-
-template <typename T>
-void
-DataType::TransposeDispatcher() {
-
-    auto pData = (T *) this->GetData(CPU);
-    auto pOutput = new T[this->mSize];
-    auto col = this->GetNCol();
-    auto row = this->GetNRow();
-
-    size_t counter = 0;
-    size_t idx;
-
-    for (auto i = 0; i < row; i++) {
-        for (auto j = 0; j < col; j++) {
-            idx = ( j * row ) + i;
-            pOutput[ counter ] = pData[ idx ];
-            counter++;
-        }
-    }
-
-    this->SetData((char *) pOutput);
-    this->SetDimensions(col, row);
-
-}
-
-
-void DataType::SetValues(std::vector <double> &aValues,
-                         const OperationPlacement &aOperationPlacement) {
-    this->mSize = aValues.size();
-    if (this->mMatrix) {
-        delete this->mpDimensions;
-        this->mpDimensions = nullptr;
-        this->mMatrix = false;
-    }
-    mData.ClearUp();
-
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
-}
-
-
-void DataType::FillTriangle(const double &aValue, const bool &aUpperTriangle) {
-    SIMPLE_DISPATCH(this->mPrecision, DataType::FillTriangleDispatcher, aValue,
-                    aUpperTriangle)
-}
-
-
-template <typename T>
-void DataType::FillTriangleDispatcher(const double &aValue,
-                                      const bool &aUpperTriangle) {
-
-    auto row = this->GetNRow();
-    auto col = this->GetNCol();
-    auto pData = (T *) this->GetData(CPU);
-
-    if (!aUpperTriangle) {
-        for (auto j = 0; j < col; j++) {
-            for (auto i = j + 1; i < row; i++)
-                pData[ i + row * j ] = aValue;
-        }
-    } else {
-        for (auto i = 0; i < row; i++) {
-            for (auto j = i + 1; j < col; j++) {
-                pData[ i + row * j ] = aValue;
-            }
-        }
-    }
-
-}
-
-
-double
-DataType::Sum() {
-    double sum;
-    SIMPLE_DISPATCH(this->mPrecision, DataType::SumDispatcher, sum)
-    return sum;
-}
-
-
-double
-DataType::SquareSum() {
-    double sum;
-    SIMPLE_DISPATCH(this->mPrecision, DataType::SquareSumDispatcher, sum)
-    return sum;
-
-}
+/** ------------------- DISPATCHERS & Template functions ------------------- **/
 
 
 template <typename T>
@@ -1067,14 +1044,6 @@ DataType::SquareSumDispatcher(double &aResult) {
 }
 
 
-double
-DataType::Product() {
-    double prod;
-    SIMPLE_DISPATCH(this->mPrecision, DataType::ProductDispatcher, prod)
-    return prod;
-}
-
-
 template <typename T>
 void
 DataType::ProductDispatcher(double &aResult) {
@@ -1083,20 +1052,6 @@ DataType::ProductDispatcher(double &aResult) {
     for (auto i = 0; i < this->mSize; i++) {
         aResult *= pData[ i ];
     }
-}
-
-
-double DataType::Determinant() {
-    if (!this->mMatrix) {
-        MPCR_API_EXCEPTION("Cannot calculate determinant for a vector", -1);
-    }
-    if (this->GetNRow() != this->GetNCol()) {
-        MPCR_API_EXCEPTION(
-            "Cannot calculate determinant for a non-square matrix", -1);
-    }
-    double result;
-    SIMPLE_DISPATCH(this->mPrecision, DataType::DeterminantDispatcher, result)
-    return result;
 }
 
 
@@ -1148,191 +1103,288 @@ DataType::DeterminantDispatcher(double &aResult) {
 }
 
 
-std::vector <char>
-DataType::Serialize() {
-    size_t size = 1;
-    auto size_val = 0;
-    auto itr = 0;
-    char metadata = 0;
+template <typename T>
+void DataType::FillTriangleDispatcher(const double &aValue,
+                                      const bool &aUpperTriangle) {
 
-    if (this->mPrecision == mpcr::definitions::FLOAT) {
-        size_val += sizeof(float);
+    auto row = this->GetNRow();
+    auto col = this->GetNCol();
+    auto pData = (T *) this->GetData(CPU);
 
-    } else if (this->mPrecision == mpcr::definitions::DOUBLE) {
-        size_val += sizeof(double);
+    if (!aUpperTriangle) {
+        for (auto j = 0; j < col; j++) {
+            for (auto i = j + 1; i < row; i++)
+                pData[ i + row * j ] = aValue;
+        }
+    } else {
+        for (auto i = 0; i < row; i++) {
+            for (auto j = i + 1; j < col; j++) {
+                pData[ i + row * j ] = aValue;
+            }
+        }
     }
 
-    size += this->mSize * size_val;
+}
+
+
+template <typename T>
+void
+DataType::TransposeDispatcher() {
+
+    auto pData = (T *) this->GetData(CPU);
+    auto pOutput = new T[this->mSize];
+    auto col = this->GetNCol();
+    auto row = this->GetNRow();
+
+    size_t counter = 0;
+    size_t idx;
+
+    for (auto i = 0; i < row; i++) {
+        for (auto j = 0; j < col; j++) {
+            idx = ( j * row ) + i;
+            pOutput[ counter ] = pData[ idx ];
+            counter++;
+        }
+    }
+
+    this->SetData((char *) pOutput);
+    this->SetDimensions(col, row);
+
+}
+
+
+template <typename T>
+void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput) {
+
+    auto pData = (T *) this->GetData(CPU);
+    aOutput = new Rcpp::NumericMatrix(this->mpDimensions->GetNRow(),
+                                      this->mpDimensions->GetNCol(), pData);
+
+}
+
+
+template <typename T>
+void DataType::CheckNA(std::vector <int> &aOutput, Dimensions *&apDimensions) {
+    auto pData = (T *) this->GetData(CPU);
+    aOutput.clear();
+    aOutput.resize(this->mSize);
+    if (this->mMatrix) {
+        delete apDimensions;
+        apDimensions = new Dimensions(this->mpDimensions->GetNRow(),
+                                      this->mpDimensions->GetNCol());
+
+    }
+
+    for (auto i = 0; i < this->mSize; i++) {
+        aOutput[ i ] = std::isnan(pData[ i ]);
+    }
+
+}
+
+
+template <typename T>
+void
+DataType::ConvertToVector(std::vector <double> &aOutput) {
+    auto pData = (T *) this->GetData(CPU);
+    aOutput.clear();
+    aOutput.resize(this->mSize);
+    aOutput.assign(pData, pData + this->mSize);
+}
+
+
+template <typename T>
+void
+DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
+    this->mPrecision = aPrecision;
+
+    if (this->mSize == 0) {
+        return;
+    }
+    switch (aPrecision) {
+        case HALF: {
+            mData.GetDataPointer(GPU);
+            mData.FreeMemory(CPU);
+            mData.ChangePrecision <T, float16>();
+            break;
+        }
+        case FLOAT: {
+            mData.ChangePrecision <T, float>();
+            break;
+        }
+        case DOUBLE: {
+            mData.ChangePrecision <T, double>();
+            break;
+        }
+        default: {
+            MPCR_API_EXCEPTION("Invalid Precision : Not Supported", -1);
+        }
+    }
+
+}
+
+
+template <typename T>
+void
+DataType::CheckNA(const size_t &aIndex, bool &aFlag) {
+    T *data = (T *) GetData(CPU);
+    aFlag = std::isnan(data[ aIndex ]);
+}
+
+
+
+template <typename T>
+void
+DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
+    T *data = (T *) apSrc;
+    auto size = this->mSize;
+    T *pOutput = new T[size];
+
+
+    memcpy((char *) pOutput, (char *) data, size * sizeof(T));
+    apDest = (char *) pOutput;
+}
+
+
+template <typename T, typename X, typename Y>
+void
+DataType::GetCopyOfData(DataType &aSrc, DataType &aDestination) {
+    T *data = (T *) aSrc.GetData();
+    auto size = aDestination.mSize;
+    X *pOutput = new X[size];
+
+    std::copy(data, data + size, pOutput);
+    aDestination.SetData((char *) pOutput);
+
+}
+
+
+template <typename T>
+void
+DataType::SetValue(size_t aIndex, double &aVal) {
+
+    T *data = (T *) this->GetData(CPU);
+    data[ aIndex ] = (T) aVal;
+}
+
+
+template <typename T>
+void
+DataType::GetValue(size_t aIndex, double &aOutput) {
+    auto pdata = (T *) this->GetData(CPU);
+    aOutput = (double) ( pdata[ aIndex ] );
+}
+
+
+template <typename T>
+void
+DataType::PrintVal() {
+    std::stringstream ss;
+    auto stream_size = 10000;
+    T *temp = (T *) this->GetData(CPU);
 
     if (this->mMatrix) {
-        size += sizeof(size_t) * 2;
-        metadata |= 0x80;
+        auto rows = this->mpDimensions->GetNRow();
+        auto cols = this->mpDimensions->GetNCol();
+        ss << "Precision  : " << GetPrecisionAsString(this->mPrecision)
+           << "  Precision " << std::endl;
+        ss << "Number of Rows : " << rows << std::endl;
+        ss << "Number of Columns : " << cols << std::endl;
+        ss << "---------------------" << std::endl;
+        size_t start_idx;
+        size_t print_col = ( cols > 16 ) ? 16 : cols;
+        size_t print_rows = ( rows > 100 ) ? 100 : rows;
+
+        for (auto i = 0; i < print_rows; i++) {
+            ss << " [\t";
+            for (auto j = 0; j < print_col; j++) {
+                start_idx = ( j * rows ) + i;
+                ss << std::setfill(' ') << std::setw(14) << std::setprecision(7)
+                   << temp[ start_idx ] << "\t";
+            }
+            ss << std::setfill(' ') << std::setw(14) << "]" << std::endl;
+            if (ss.gcount() > stream_size) {
+                MPCR_PRINTER(ss.str())
+                ss.clear();
+            }
+        }
+        if (print_rows * print_col != this->mSize) {
+            ss << "Note Only Matrix with size 100*13 is printed" <<
+               std::endl;
+        }
+
+        MPCR_PRINTER(std::string(ss.str()))
     } else {
-        size += sizeof(size_t);
+        ss << "Vector Size : " << mSize <<
+           std::endl;
+        ss << "---------------------" <<
+           std::endl;
+        auto counter_rows = 0;
+        for (auto i = 0; i < mSize; i++) {
+            if (i % 7 == 0) {
+                ss << std::endl;
+                ss << "[ " << counter_rows + 1 << " ]" << "\t";
+                counter_rows += 7;
+            }
+            ss << std::setfill(' ') << std::setw(14) << std::setprecision(7)
+               << temp[ i ];
+            if (i % 100 == 0) {
+                if (ss.gcount() > stream_size) {
+                    MPCR_PRINTER(std::string(ss.str()))
+                    ss.clear();
+                }
+            }
+        }
+        ss << std::endl;
+        MPCR_PRINTER(std::string(ss.str()))
     }
 
-    metadata |= (( static_cast<int>(this->mPrecision ) & 0x03 ) << 5 );
-
-    std::vector <char> vec;
-    vec.resize(size);
-
-    auto buffer = vec.data();
-    buffer[ 0 ] = metadata;
-
-    if (this->mMatrix) {
-        memcpy(buffer + 1, (char *) &this->mpDimensions->mRow, sizeof(size_t));
-        memcpy(buffer + 1 + sizeof(size_t), (char *) &this->mpDimensions->mCol,
-               sizeof(size_t));
-
-        itr = 1 + ( sizeof(size_t) * 2 );
-    } else {
-        memcpy(buffer + 1, (char *) &this->mSize, sizeof(size_t));
-        itr = 1 + sizeof(size_t);
-    }
-
-    memcpy(buffer + itr, this->GetData(CPU), this->mSize * size_val);
-
-    return vec;
 }
 
 
-DataType *
-DataType::DeSerialize(char *apData) {
-    auto metadata = apData[ 0 ];
-    bool is_matrix = (( metadata & 0x80 ) != 0 );
-    auto temp_precision = static_cast<Precision>((( metadata >> 5 ) & 0x03 ));
+template <typename T>
+void
+DataType::PrintRowsDispatcher(const size_t &aRowIdx,
+                              std::stringstream &aRowAsString) {
 
-    auto itr = 0;
+    auto pData = (T *) this->GetData(CPU);
+    auto col = GetNCol();
+    auto row = GetNRow();
+    size_t idx = 0;
+    auto temp_col = col > 16 ? 16 : col;
 
-    auto ret = new DataType(temp_precision);
-    ret->ClearUp();
-
-    auto obj_size = sizeof(float);
-    if (temp_precision == DOUBLE) {
-        obj_size = sizeof(double);
+    for (auto i = 0; i < temp_col; i++) {
+        idx = ( i * row ) + aRowIdx;
+        aRowAsString << std::setfill(' ') << std::setw(14)
+                     << std::setprecision(7) << pData[ idx ] << "\t";
     }
-
-    if (is_matrix) {
-        size_t row = *(size_t *) ( apData + 1 );
-        size_t col = *((size_t *) ( apData + 1 ) + 1 );
-        ret->SetSize(row * col);
-        ret->SetDimensions(row, col);
-        itr = 1 + ( sizeof(size_t) * 2 );
-    } else {
-        size_t size = *(size_t *) ( apData + 1 );
-        ret->SetSize(size);
-        itr = 1 + sizeof(size_t);
-    }
-
-    auto temp_data = new char[ret->GetSize() * obj_size];
-    memcpy(temp_data, apData + itr, obj_size * ret->GetSize());
-    ret->SetData(temp_data);
-
-    return ret;
 }
 
 
-Rcpp::RawVector
-DataType::RSerialize() {
-    size_t size = 1;
-    auto size_val = 0;
-    auto itr = 0;
-    char metadata = 0;
-
-    if (this->mPrecision == mpcr::definitions::FLOAT) {
-        size_val += sizeof(float);
-
-    } else if (this->mPrecision == mpcr::definitions::DOUBLE) {
-        size_val += sizeof(double);
+template <typename T>
+void
+DataType::Init(std::vector <double> *aValues,
+               const OperationPlacement &aOperationPlacement) {
+    if (this->mSize == 0) {
+        return;
     }
-
-    size += this->mSize * size_val;
-
-    if (this->mMatrix) {
-        size += sizeof(size_t) * 2;
-        metadata |= 0x80;
-    } else {
-        size += sizeof(size_t);
+    double val = 0;
+#ifdef RUNNING_CPP
+    val = 1.5;
+#endif
+    bool flag = ( aValues == nullptr );
+    T *temp = new T[mSize];
+    for (auto i = 0; i < mSize; i++) {
+        if (flag) {
+            temp[ i ] = (T) val;
+        } else {
+            temp[ i ] = (T) aValues->at(i);
+        }
     }
+    this->SetData((char *) temp, aOperationPlacement);
 
-    metadata |= (( static_cast<int>(this->mPrecision ) & 0x03 ) << 5 );
-
-    Rcpp::RawVector vec(size);
-
-    auto buffer = vec.begin();
-    vec[ 0 ] = metadata;
-
-    if (this->mMatrix) {
-        memcpy(buffer + 1, (char *) &this->mpDimensions->mRow, sizeof(size_t));
-        memcpy(buffer + 1 + sizeof(size_t), (char *) &this->mpDimensions->mCol,
-               sizeof(size_t));
-
-        itr = 1 + ( sizeof(size_t) * 2 );
-    } else {
-        memcpy(buffer + 1, (char *) &this->mSize, sizeof(size_t));
-        itr = 1 + sizeof(size_t);
-    }
-
-    memcpy(buffer + itr, this->GetData(CPU), this->mSize * size_val);
-
-    return vec;
 }
 
-
-DataType *
-DataType::RDeSerialize(Rcpp::RawVector aInput) {
-    auto metadata = aInput[ 0 ];
-    bool is_matrix = (( metadata & 0x80 ) != 0 );
-    auto temp_precision = static_cast<Precision>((( metadata >> 5 ) & 0x03 ));
-
-    auto itr = 0;
-
-    auto ret = new DataType(temp_precision);
-    ret->ClearUp();
-
-    auto obj_size = sizeof(float);
-    if (temp_precision == DOUBLE) {
-        obj_size = sizeof(double);
-    }
-
-    auto data = aInput.begin();
-
-    if (is_matrix) {
-        size_t row = *(size_t *) ( data + 1 );
-        size_t col = *((size_t *) ( data + 1 ) + 1 );
-        ret->SetSize(row * col);
-        ret->SetDimensions(row, col);
-        itr = 1 + ( sizeof(size_t) * 2 );
-    } else {
-        size_t size = *(size_t *) ( data + 1 );
-        ret->SetSize(size);
-        itr = 1 + sizeof(size_t);
-    }
-
-    auto temp_data = new char[ret->GetSize() * obj_size];
-    memcpy(temp_data, data + itr, obj_size * ret->GetSize());
-    ret->SetData(temp_data);
-
-    return ret;
-}
-
-
-size_t
-DataType::GetSizeInBytes() {
-    size_t size = this->mSize;
-    switch (this->mPrecision) {
-        case HALF:
-            return size * sizeof(float16);
-        case FLOAT:
-            return size * sizeof(float);
-        case DOUBLE:
-            return size * sizeof(double);
-        default:
-            MPCR_API_EXCEPTION("Error while getting size in bytes", -1);
-    }
-    return 0;
-}
-
+/** ------------------------- INSTANTIATIONS ---------------------------------- **/
 
 SIMPLE_INSTANTIATE(void, DataType::DeterminantDispatcher, double &aResult)
 
@@ -1364,8 +1416,6 @@ SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, const char *apSrc,
 SIMPLE_INSTANTIATE(void, DataType::GetValue, size_t aIndex, double &aOutput)
 
 SIMPLE_INSTANTIATE(void, DataType::SetValue, size_t aIndex, double &aVal)
-
-SIMPLE_INSTANTIATE(void, DataType::GetDataSize, size_t &aDataSize)
 
 SIMPLE_INSTANTIATE(void, DataType::ConvertToVector,
                    std::vector <double> &aOutput)

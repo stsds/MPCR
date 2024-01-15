@@ -156,7 +156,8 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aSize, mpcr::definitions::Precision aPrecision,const OperationPlacement &aOperationPlacement=CPU);
+    DataType(size_t aSize, mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -168,7 +169,8 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     DataType(std::vector <double> &aValues,
-             mpcr::definitions::Precision aPrecision,const OperationPlacement &aOperationPlacement=CPU);
+             mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
 
     /**
@@ -180,7 +182,8 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a string Precision)
      */
-    DataType(std::vector <double> aValues, std::string aPrecision,const OperationPlacement &aOperationPlacement=CPU);
+    DataType(std::vector <double> aValues, std::string aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
 
     /**
@@ -197,7 +200,8 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     DataType(std::vector <double> &aValues, const size_t &aRow,
-             const size_t &aCol, const std::string &aPrecision,const OperationPlacement &aOperationPlacement=CPU);
+             const size_t &aCol, const std::string &aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -227,7 +231,8 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a String)
      */
-    DataType(size_t aSize, const std::string &aPrecision,const OperationPlacement &aOperationPlacement=CPU);
+    DataType(size_t aSize, const std::string &aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -251,7 +256,8 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as an int)
      */
-    DataType(size_t aSize, int aPrecision,const OperationPlacement &aOperationPlacement=CPU);
+    DataType(size_t aSize, int aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -571,7 +577,8 @@ public:
      * Precision of Vector or Matrix
      */
     void
-    SetPrecision(mpcr::definitions::Precision aPrecision);
+    SetPrecision(mpcr::definitions::Precision aPrecision,
+                 const OperationPlacement &aOperationPlacement=CPU);
 
     /**
      * @brief
@@ -711,51 +718,6 @@ public:
 
     /**
      * @brief
-     * Get Element at Idx from MPCR Vector as MPCR Object
-     *
-     * @param[in] aIndex
-     * Index to Get Value from
-     *
-     * @returns
-     * MPCR Object holding element at idx
-     *
-     */
-    inline
-    DataType *
-    GetElementVector(const size_t &aIndex) {
-        auto element = GetVal(aIndex);
-        auto output = new DataType(1, this->mPrecision);
-        output->SetVal(0, element);
-        return output;
-    }
-
-
-    /**
-     * @brief
-     * Get Element with Idx [row][col] from MPCR Matrix as MPCR Object
-     *
-     * @param[in] aRow
-     * Row Idx
-     * @param[in] aCol
-     * Col Idx
-     *
-     * @returns
-     * MPCR Object holding element at idx
-     *
-     */
-    inline
-    DataType *
-    GetElementMatrix(const size_t &aRow, const size_t &aCol) {
-        auto index = GetMatrixIndex(aRow, aCol);
-        auto element = GetVal(index);
-        auto output = new DataType(1, this->mPrecision);
-        output->SetVal(0, element);
-        return output;
-    }
-
-
-    /**
-     * @brief
      * Check if a Casted Memory Address is a DataType.
      *
      * @returns
@@ -837,7 +799,8 @@ public:
      *
      */
     void
-    SetValues(std::vector <double> &aValues,const OperationPlacement &aOperationPlacement=CPU);
+    SetValues(std::vector <double> &aValues,
+              const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -960,6 +923,24 @@ public:
     DeSerialize(char *apData);
 
 
+    inline
+    bool
+    IsGPUAllocated() {
+        return mData.IsAllocated(GPU);
+    };
+
+
+    inline
+    bool
+    IsCPUAllocated() {
+        return mData.IsAllocated(CPU);
+    }
+
+
+    void
+    PrintTotalSize();
+
+
 private:
 
     size_t
@@ -1038,7 +1019,7 @@ private:
     template <typename T>
     void
     Init(std::vector <double> *aValues = nullptr,
-         const OperationPlacement &aOperationPlacement=CPU);
+         const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -1219,7 +1200,7 @@ private:
     /** Buffer Holding the Data **/
     DataHolder mData;
     /** Dimensions object that describe the Vector as a Matrix **/
-    Dimensions *mpDimensions;
+    Dimensions *mpDimensions= nullptr;
     /** Total size of Vector or Matrix (Data Buffer) **/
     size_t mSize;
     /** Precision used to describe the data buffer **/

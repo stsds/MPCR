@@ -296,6 +296,9 @@ template <typename T, typename X>
 void
 DataHolder::ChangePrecision() {
 
+    if(this->IsEmpty()){
+        return;
+    }
     if (typeid(T) == typeid(X)) {
         return;
     }

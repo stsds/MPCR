@@ -230,18 +230,6 @@ RPrint(DataType *apInput) {
 }
 
 
-DataType *
-RGetElementVector(DataType *apInput, size_t aIndex) {
-    return apInput->GetElementVector(aIndex);
-}
-
-
-DataType *
-RGetElementMatrix(DataType *apInput, size_t aRowIdx,
-                  size_t aColIdx) {
-    return apInput->GetElementMatrix(aRowIdx, aColIdx);
-}
-
 
 DataType *
 RConcatenate(Rcpp::ListOf <SEXP> aList) {

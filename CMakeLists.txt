@@ -20,15 +20,19 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "" OR ${CMAKE_BUILD_TYPE} STREQUAL "NOMODE")
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "RELEASE")
     message(STATUS "WORKING ON RELEASE MODE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopenmp -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC ")
     add_definitions(-DBLAS_ERROR_NDEBUG)
     add_definitions(-DNDEBUG)
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "DEBUG" OR ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     message(STATUS "WORKING ON DEBUG MODE")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fopenmp -g -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG}")
 else ()
     message(FATAL_ERROR "Unrecognized build type")
 endif ()
 
+
+message(STATUS "Building MPCR using GCC/G++ compiler")
 
 # Set C++ standard to C++11.
 set(CMAKE_CXX_STANDARD 11)
@@ -92,30 +96,6 @@ include(ImportBlasPP)
 include(ImportLapack)
 include(ImportLapackPP)
 
-
-if (${USE_OMP})
-    get_directory_property(CMAKE_PARENT_DIR PARENT_DIRECTORY)
-    if (NOT CMAKE_PARENT_DIR)
-        if (${USE_INTEL} STREQUAL "YES" OR ${USE_INTEL} STREQUAL "ON")
-            message(STATUS "Building MPCR using INTEL compiler")
-
-            set(CMAKE_C_COMPILER icc)
-            set(CMAKE_CXX_COMPILER icpc)
-
-            set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}  -xHost -qopenmp -g -debug -O3 -fp-model fast=2 -no-prec-div -fma -qopt-assume-safe-padding -qopt-report=4 -fPIC")
-            set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -xHost -qopenmp -O3 -fp-model fast=2 -no-prec-div -fma -qopt-assume-safe-padding -fPIC")
-            add_definitions(-DUSE_INTEL)
-        else ()
-            set(CMAKE_C_COMPILER gcc)
-            set(CMAKE_CXX_COMPILER g++)
-
-            set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fopenmp -g -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
-            set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopenmp -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
-
-            message(STATUS "Building MPCR using GCC/G++ compiler")
-        endif ()
-    endif ()
-endif ()
 
 
 # definitions
