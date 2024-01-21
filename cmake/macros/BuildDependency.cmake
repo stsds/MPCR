@@ -10,14 +10,17 @@ macro(BuildDependency raw_name url tag)
     set(${name}_installpath ${CMAKE_BINARY_DIR}/_deps/${name}-install)
     file(MAKE_DIRECTORY ${${name}_binpath})
     file(MAKE_DIRECTORY ${${name}_installpath})
+
     # Configure subproject into <subproject-build-dir>
     execute_process(COMMAND ${CMAKE_COMMAND}
             -DCMAKE_INSTALL_PREFIX=${${name}_installpath}
             -DNOFORTRAN=1
+            -DBUILD_SHARED_LIBS=OFF
             -DCMAKE_C_FLAGS_RELEASE="-fPIC -w -W"
             ${${name}_srcpath}
             WORKING_DIRECTORY
             ${${name}_binpath})
+
     # Build and install subproject
     include(ProcessorCount)
     ProcessorCount(N)
@@ -32,24 +35,38 @@ macro(BuildDependency raw_name url tag)
     set(ENV{CPATH} "${${name}_installpath}/include:$ENV{CPATH}")
     set(ENV{PKG_CONFIG_PATH} "${${name}_installpath}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}")
     set(${capital_name}_DIR "${${name}_installpath}/lib")
+
     include_directories(${${name}_installpath}/include)
     link_directories(${${name}_installpath}/lib)
+    link_directories(${${name}_installpath}/lib64)
+
     install(
             DIRECTORY
             "${${name}_installpath}/lib"
             DESTINATION
             ./
+            PATTERN "*"
+            PERMISSIONS
+            GROUP_READ GROUP_WRITE GROUP_EXECUTE
+
     )
     install(
             DIRECTORY
             "${${name}_installpath}/include"
             DESTINATION
             ./
+            PATTERN "*"
+            PERMISSIONS
+            GROUP_READ GROUP_WRITE GROUP_EXECUTE
     )
     install(
             DIRECTORY
             "${${name}_installpath}/share"
             DESTINATION
             ./
+            PATTERN "*"
+            PERMISSIONS
+            GROUP_READ GROUP_WRITE GROUP_EXECUTE
     )
+
 endmacro()

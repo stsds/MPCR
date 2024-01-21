@@ -6,16 +6,43 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+# Function to install CMake from source
+install_cmake() {
+  echo "CMake not found. Installing CMake from source..."
+
+  # Create a temporary directory for building CMake
+  temp_dir=$(mktemp -d)
+  cd "$temp_dir" || exit 1
+
+  # Download CMake source code
+  wget https://github.com/Kitware/CMake/releases/download/v3.28.1/cmake-3.28.1.tar.gz
+
+  # Extract the source code
+  tar -xzvf cmake-3.28.1.tar.gz
+
+  # Enter the extracted directory
+  cd cmake-3.28.1 || exit 1
+
+  # Configure, build, and install CMake to the specified location
+  ./bootstrap --prefix="$install_dir" --parallel=8 -- -DCMAKE_USE_OPENSSL=OFF
+  make -j 8
+  sudo make install
+
+  # Clean up
+  cd "$temp_dir" || exit 1
+  rm -rf "$temp_dir"
+}
 
 COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 # Check the operating system type
 OS_TYPE=$(uname -s)
-
+echo $OS_TYPE
+echo "------------------------------------------------------------"
 if [ "$OS_TYPE" = "Darwin" ]; then
-    case "$1" in
-       /*) ABSOLUTE_PATH="$1" ;;
-       *) ABSOLUTE_PATH="$PWD/${1#./}" ;;
-     esac
+  case "$1" in
+  /*) ABSOLUTE_PATH="$1" ;;
+  *) ABSOLUTE_PATH="$PWD/${1#./}" ;;
+  esac
 
   COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 else
@@ -30,13 +57,33 @@ TEST_PATH="${ABSOLUTE_PATH}/tests/test-files"
 CONFIG_PATH="${ABSOLUTE_PATH}/config"
 echo ${ABSOLUTE_PATH}
 
-mv "${ABSOLUTE_PATH}/src/cmake/" "${ABSOLUTE_PATH}/cmake"
-mv "${ABSOLUTE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUTE_PATH}/CMakeLists.txt"
-
+#mv "${ABSOLUTE_PATH}/src/cmake/" "${ABSOLUTE_PATH}/cmake"
+#mv "${ABSOLUTE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUTE_PATH}/CMakeLists.txt"
+#mv "/home/david/MPR/bin/_deps/blas-install" "/home/david/"
 
 rm -rf bin/
 mkdir bin/
-cmake -DCMAKE_BUILD_TYPE=RELEASE \
+
+
+# Check if cmake is installed
+if command -v cmake /dev/null 2>&1; then
+  # Save the installation directory to the variable
+  cmake_install_dir=$(command -v cmake | xargs dirname)
+  echo "CMake is installed in: $cmake_install_dir"
+  cmake_command_bin=cmake
+elif [ -x "/Applications/CMake.app/Contents/bin/cmake" ]; then
+  echo "CMake found in /Applications/CMake.app/Contents/bin/cmake."
+  cmake_install_dir="/Applications/CMake.app/Contents/bin"
+  cmake_command_bin="${cmake_install_dir}/cmake"
+else
+  echo "Installing CMake from source"
+  mkdir "${ABSOLUTE_PATH}/inst/_deps/"
+  install_dir="${ABSOLUTE_PATH}/inst/_deps/"
+  install_cmake "$install_dir"
+  cmake_command_bin="${ABSOLUTE_PATH}/inst/_deps/bin/cmake"
+fi
+
+"$cmake_command_bin" -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
@@ -46,8 +93,10 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -B"${ABSOLUTE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
   -DBUILD_SHARED_LIBS=OFF \
-  -DCMAKE_CXX_FLAGS_DEBUG="$COMPILE_FLAGS"\
+  -DCMAKE_CXX_FLAGS_DEBUG="$COMPILE_FLAGS" \
+  -DCMAKE_MESSAGE_LOG_LEVEL=TRACE \
   -DCMAKE_CXX_FLAGS_RELEASE="$COMPILE_FLAGS"
+
 
 cd bin/
 make clean
@@ -62,4 +111,4 @@ fi
 
 ${R_HOME}/bin/Rscript "${ABSOLUTE_PATH}/cmake/CreateSymbolTable.R" "${ABSOLUTE_PATH}/bin/" "${ABSOLUTE_PATH}/src/symbols.rds"
 
-rm -rf "${ABSOLUTE_PATH}/bin/"
+#rm -rf "${ABSOLUTE_PATH}/bin/"
