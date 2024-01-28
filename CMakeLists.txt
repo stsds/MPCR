@@ -9,6 +9,7 @@ cmake_minimum_required(VERSION 3.20)
 cmake_policy(SET CMP0048 NEW)
 
 set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_C_COMPILER gcc)
 
 # Project Name and Version
 project(MPCR VERSION 1.0.0)
@@ -19,13 +20,14 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "" OR ${CMAKE_BUILD_TYPE} STREQUAL "NOMODE")
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "RELEASE")
     message(STATUS "WORKING ON RELEASE MODE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopenmp -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "DEBUG" OR ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     message(STATUS "WORKING ON DEBUG MODE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fopenmp -g -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
 else ()
     message(FATAL_ERROR "Unrecognized build type")
 endif ()
-
 
 # Set C++ standard to C++11.
 set(CMAKE_CXX_STANDARD 17)
@@ -42,8 +44,6 @@ check_install(${mpcr_path_to_check} mpcr_result)
 if (${mpcr_result})
     message("MPCR Install Result : ${mpcr_result}")
     set(MPCR_INSTALL OFF)
-
-    # Move new R file to R directory
 else ()
     add_definitions(-DMPCR_INSTALL)
     set(MPCR_INSTALL ON)
@@ -90,32 +90,6 @@ if (${MPCR_INSTALL})
             ${LIBS_LINEAR}
             ${LIBS}
             )
-endif ()
-
-
-
-if (${USE_OMP})
-    get_directory_property(CMAKE_PARENT_DIR PARENT_DIRECTORY)
-    if (NOT CMAKE_PARENT_DIR)
-        if (${USE_INTEL} STREQUAL "YES" OR ${USE_INTEL} STREQUAL "ON")
-            message(STATUS "Building MPCR using INTEL compiler")
-
-            set(CMAKE_C_COMPILER icc)
-            set(CMAKE_CXX_COMPILER icpc)
-
-            set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}  -xHost -qopenmp -g -debug -O3 -fp-model fast=2 -no-prec-div -fma -qopt-assume-safe-padding -qopt-report=4 -fPIC")
-            set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -xHost -qopenmp -O3 -fp-model fast=2 -no-prec-div -fma -qopt-assume-safe-padding -fPIC")
-            add_definitions(-DUSE_INTEL)
-        else ()
-            set(CMAKE_C_COMPILER gcc)
-            set(CMAKE_CXX_COMPILER g++)
-
-            set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fopenmp -g -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
-            set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopenmp -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
-
-            message(STATUS "Building MPCR using GCC/G++ compiler")
-        endif ()
-    endif ()
 endif ()
 
 

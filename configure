@@ -33,7 +33,7 @@ install_cmake() {
   rm -rf "$temp_dir"
 }
 
-COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
+COMPILE_FLAGS="-fPIC -w -Wno-dev"
 # Check the operating system type
 OS_TYPE=$(uname -s)
 echo $OS_TYPE
@@ -44,7 +44,7 @@ if [ "$OS_TYPE" = "Darwin" ]; then
   *) ABSOLUTE_PATH="$PWD/${1#./}" ;;
   esac
 
-  COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
+  COMPILE_FLAGS="-fPIC -w -Wno-dev"
 else
   ABSOLUTE_PATH=$(dirname $(realpath "$0"))
 fi
@@ -57,9 +57,8 @@ TEST_PATH="${ABSOLUTE_PATH}/tests/test-files"
 CONFIG_PATH="${ABSOLUTE_PATH}/config"
 echo ${ABSOLUTE_PATH}
 
-#mv "${ABSOLUTE_PATH}/src/cmake/" "${ABSOLUTE_PATH}/cmake"
-#mv "${ABSOLUTE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUTE_PATH}/CMakeLists.txt"
-#mv "/home/david/MPR/bin/_deps/blas-install" "/home/david/"
+mv "${ABSOLUTE_PATH}/src/cmake/" "${ABSOLUTE_PATH}/cmake"
+mv "${ABSOLUTE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUTE_PATH}/CMakeLists.txt"
 
 rm -rf bin/
 mkdir bin/
@@ -111,4 +110,4 @@ fi
 
 ${R_HOME}/bin/Rscript "${ABSOLUTE_PATH}/cmake/CreateSymbolTable.R" "${ABSOLUTE_PATH}/bin/" "${ABSOLUTE_PATH}/src/symbols.rds"
 
-#rm -rf "${ABSOLUTE_PATH}/bin/"
+rm -rf "${ABSOLUTE_PATH}/bin/"

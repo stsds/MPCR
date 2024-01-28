@@ -12,7 +12,7 @@ else ()
     if (APPLE)
         include(${PROJECT_SOURCE_DIR}/cmake/ImportOpenMP_MacoOS.cmake)
     else ()
-                find_package(OpenMP REQUIRED)
+        find_package(OpenMP)
     endif ()
 
     IF (OPENMP_FOUND)
