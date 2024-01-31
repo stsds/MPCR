@@ -19,5 +19,4 @@ Returns the diagonal of an MPCR matrix.
     library(MPCR)
     x <- as.MPCR(1:16,4,4,"single")
     diag_vals <- diag(x)
-
 }

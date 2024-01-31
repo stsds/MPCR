@@ -40,8 +40,7 @@ Solves a system of linear equations where the coefficient matrix is upper or low
   b <- matrix(c(1, 2), nrow = 2)
   a_MPCR <- as.MPCR(a,2,2,"single")
   b_MPCR <- as.MPCR(b,2,1,"double")
-  x <- forwardsolve(a_MPCR, b_MPCR)
-  x
+  x <- backsolve(a_MPCR, b_MPCR)
 }
 }
 

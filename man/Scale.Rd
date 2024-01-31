@@ -21,8 +21,8 @@ Center or scale an MPCR object.
   \donttest{
   library(MPCR)
     input <-as.MPCR(1:50,precision="single")
-    x$ToMatrix(5, 10)
-    temp_center_scale <- new(1:10,precision="double")
+    input$ToMatrix(5, 10)
+    temp_center_scale <- as.MPCR(1:10,precision="double")
     z <- scale(x=input, center=FALSE, scale=temp_center_scale)
 }
 }

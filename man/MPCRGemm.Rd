@@ -32,13 +32,5 @@
  \value{
    An MPCR matrix.
  }
- \examples{
-   \donttest{
-   library(MPCR)
-   # create 3 MPCR matrices a,b,c
-   print(c)
-   MPCR.gemm(a,b,c,transpose_a=false,transpose_b=TRUE,alpha=1,beta=1)
-   print(c)
-   }
- }
+
 

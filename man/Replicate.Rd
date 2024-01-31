@@ -27,5 +27,4 @@ values are given, only the len value will have effect.
     rep_vals_1 <- rep(x,count=2)  #output size will be 16*2
     rep_vals_2 <- rep(x,len=2)  #output size will be 2
 
-
 }

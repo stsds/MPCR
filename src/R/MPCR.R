@@ -9,6 +9,7 @@
 
   loadModule("MPCR", TRUE, loadNow = TRUE)
   loadModule("MPCRTile", TRUE, loadNow = TRUE)
+  utils::globalVariables(c("n", "p"))
 
   suppressMessages({
     #--------------------------------------------------------------------------------
@@ -242,6 +243,90 @@
     setMethod("!=", c(e1 = "Rcpp_MPCR", e2 = "ANY"), function(e1, e2) {
       ret <- e1$NotEqual(e2)
       ret
+    })
+
+
+
+    # Linear Algebra - Done
+    # ---------------------
+
+    setMethod("t", signature(x = "Rcpp_MPCR"), function(x) {
+
+    })
+
+    setMethod("isSymmetric", signature(object = "Rcpp_MPCR"), function(object, ...) {
+
+    })
+
+    setMethod("chol", signature(x = "Rcpp_MPCR"), function(x, upper_triangle, ...) {
+      x
+    })
+
+    setMethod("chol2inv", c(x = "Rcpp_MPCR"), function(x, size) {
+
+    })
+
+
+    setMethod("qr", c(x = "Rcpp_MPCR"), function(x, tol) {
+
+    })
+
+    setMethod("qr.R", c(qr = "ANY"), function(qr, complete = FALSE) {
+
+    })
+
+    setMethod("qr.Q", c(qr = "ANY"), function(qr, complete = FALSE, Dvec) {
+
+    })
+
+    setMethod("qr.qy", c(qr = "ANY"), function(qr, y) {
+    })
+
+    setMethod("qr.qty", c(qr = "ANY"), function(qr, y) {
+    })
+
+    setMethod("svd", c(x = "Rcpp_MPCR"), function(x, nu, nv) {
+    })
+
+    setMethod("La.svd", c(x = "Rcpp_MPCR"), function(x, nu = min(n, p), nv = min(n, p)) {
+    })
+
+    setMethod("crossprod", signature(x = "Rcpp_MPCR"), function(x, y = NULL) {
+
+    })
+    setMethod("tcrossprod", signature(x = "Rcpp_MPCR"), function(x, y = NULL) {
+
+    })
+
+    setMethod("%*%", signature(x = "Rcpp_MPCR", y = "Rcpp_MPCR"), function (x,y){
+
+    })
+
+
+    setMethod("eigen", c(x = "Rcpp_MPCR"), function(x, only.values) {
+
+    })
+
+    setMethod("solve", signature(a = "Rcpp_MPCR"), function(a, b, ...) {
+
+    })
+
+
+    setMethod("backsolve", c(r = "Rcpp_MPCR", x = "Rcpp_MPCR"), function(r, x, k, upper.tri = FALSE, transpose = FALSE) {
+
+    })
+    setMethod("forwardsolve", c(l = "Rcpp_MPCR", x = "Rcpp_MPCR"),
+              function(l, x, k, upper.tri = FALSE, transpose = FALSE) {
+
+              })
+
+
+    setMethod("norm", c(x = "Rcpp_MPCR"), function(x, type) {
+
+    })
+
+    setMethod("rcond", signature(x = "Rcpp_MPCR"), function(x, norm = "O", triangular = FALSE, ...) {
+
     })
 
   })

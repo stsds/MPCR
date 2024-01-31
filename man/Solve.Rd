@@ -22,7 +22,6 @@ Solve a system of equations or invert an MPCR matrix.
 library(MPCR)
 
 x <- as.MPCR(1:20,4,5,"double")
-y <- crossprod(x)
-solve(y)
+solve(x)
 }
 }

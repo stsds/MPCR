@@ -52,12 +52,5 @@ library(MPCR)
 qr_input <-as.MPCR( c(1, 2, 3, 2, 4, 6, 3, 3, 3),3,3,"single")
 qr_out <- qr(qr_input)
 qr_out
-qr_out[["qr"]]$PrintValues()
-qr_out[["qraux"]]$PrintValues()
-qr_out[["pivot"]]$PrintValues()
-qr_out[["rank"]]$PrintValues()
-
-qr_q <- qr.Q(qr_out)
-qr_q
 }
 }

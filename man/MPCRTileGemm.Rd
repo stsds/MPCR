@@ -29,15 +29,3 @@
  \value{
    An MPCR tile matrix C.
  }
- \examples{
-   \donttest{
-   library(MPCR)
-   # create 3 MPCR Tile matrices a,b,c
-   a <- as.MPCR(1:20,5,4,"single")
-   b <- as.MPCR(1:20,4,5,"single")
-   c  <- as.MPCR(1:16,4,4,"single")
-   print(c)
-   MPCRTile.gemm(a,b,c,transpose_a=false,transpose_b=TRUE,alpha=1,beta=1,num_threads = 8)
-   print(c)
-   }
-}
