@@ -209,7 +209,6 @@ public:
         return (mpHostData== nullptr && mpDeviceData== nullptr && mSize==0);
     }
 
-
 private:
 
     /**

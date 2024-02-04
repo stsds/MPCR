@@ -42,7 +42,8 @@ namespace mpcr {
 
         char *
         AllocateArray(const size_t &aSizeInBytes,
-                      const OperationPlacement &aPlacement,const kernels::RunContext *aContext);
+                      const OperationPlacement &aPlacement,
+                      const kernels::RunContext *aContext);
 
         /**
          * @brief
@@ -53,7 +54,8 @@ namespace mpcr {
          *
          */
         void
-        DestroyArray(char *&apArray, const OperationPlacement &aPlacement,const kernels::RunContext *aContext);
+        DestroyArray(char *&apArray, const OperationPlacement &aPlacement,
+                     const kernels::RunContext *aContext);
 
         /**
          * @brief
@@ -96,7 +98,13 @@ namespace mpcr {
                const OperationPlacement &aPlacement,
                const kernels::RunContext *aContext);
 
+
+
 #ifdef USE_CUDA
+
+        template <typename T, typename X>
+        void
+        CopyDevice(const char* apSource,char *apDestination,const size_t &aNumElements);
 
         /** Class responsible for mapping memory handler enums to cuda enums. **/
         class MemoryDirectionConverter {
@@ -135,6 +143,7 @@ namespace mpcr {
                 }
             }
         };
+
 #endif
     }
 

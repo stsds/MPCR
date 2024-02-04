@@ -10,6 +10,15 @@
 #include <kernels/MemoryHandler.hpp>
 
 
+#ifdef USE_CUDA
+
+#include <kernels/cuda/CudaMemoryKernels.hpp>
+#include <utilities/MPCRDispatcher.hpp>
+
+
+#endif
+
+
 using namespace mpcr;
 using namespace memory;
 
@@ -116,6 +125,24 @@ memory::Memset(char *&apDestination, char aValue, const size_t &aSizeInBytes,
 
 
 #ifdef USE_CUDA
+
+
+template <typename T, typename X>
+void
+memory::CopyDevice(const char *apSource, char *apDestination,
+                   const size_t &aNumElements) {
+
+    auto pData_src = (T *) apSource;
+    auto pData_des = (X *) apDestination;
+    auto context = kernels::ContextManager::GetOperationContext();
+    kernels::CudaMemoryKernels::Copy <T, X>(pData_src, pData_des, aNumElements,
+                                            context);
+
+}
+
+
+COPY_INSTANTIATE(void, memory::CopyDevice, const char *apSource,
+                 char *apDestination, const size_t &aNumElements)
 
 
 #endif

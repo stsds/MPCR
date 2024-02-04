@@ -296,7 +296,7 @@ template <typename T, typename X>
 void
 DataHolder::ChangePrecision() {
 
-    if(this->IsEmpty()){
+    if (this->IsEmpty()) {
         return;
     }
     if (typeid(T) == typeid(X)) {
@@ -433,4 +433,3 @@ COPY_INSTANTIATE(void, DataHolder::ChangePrecision)
 COPY_INSTANTIATE(void, DataHolder::PromoteOnHost)
 
 COPY_INSTANTIATE(void, DataHolder::PromoteOnDevice)
-

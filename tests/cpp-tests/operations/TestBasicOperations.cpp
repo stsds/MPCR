@@ -377,6 +377,11 @@ TEST_BASIC_OPERATION() {
         DataType b(6, 4, DOUBLE);
         DataType c(DOUBLE);
 
+        for (auto i = 0; i < 6*4; ++i) {
+            REQUIRE(a.GetVal( i ) ==0);
+            REQUIRE(b.GetVal( i ) ==0);
+        }
+
         DISPATCHER(FDD, basic::RowBind, a, b, c)
 
         DataType test(12, 4, DOUBLE);
@@ -438,7 +443,7 @@ TEST_BASIC_OPERATION() {
         size = a.GetSize();
         REQUIRE(size == 40);
         for (auto i = 0; i < size; i++) {
-            REQUIRE(data_in_a[ i ] == 1.5);
+            REQUIRE(data_in_a[ i ] == 0);
         }
 
         cout << "Testing NA Omit in Matrix ..." << endl;
@@ -483,6 +488,7 @@ TEST_BASIC_OPERATION() {
         DataType a(50, FLOAT);
         auto size = sizeof(bool) + sizeof(Precision) + sizeof(size_t);
         size += ( 50 * sizeof(float));
+        size+= sizeof (DataHolder);
 
         REQUIRE(size == a.GetObjectSize());
 
@@ -499,10 +505,10 @@ TEST_BASIC_OPERATION() {
         REQUIRE(size % 2 == 0);
         mpr_objects.resize(size);
 
-        vector <Precision> precisions{HALF, FLOAT, DOUBLE};
+        vector <Precision> precisions{ FLOAT, DOUBLE};
 
         for (auto i = 0; i < size; i++) {
-            auto temp_mpr = new DataType(30, precisions[ i % 3 ]);
+            auto temp_mpr = new DataType(30, precisions[ i % 2 ]);
             mpr_objects[ i ] = temp_mpr;
         }
 

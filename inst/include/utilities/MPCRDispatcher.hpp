@@ -43,10 +43,6 @@ using namespace mpcr::definitions;
 /** Dispatcher for one template arguments **/
 #define SIMPLE_DISPATCH(PRECISION, __FUN__, ...)                               \
           switch(PRECISION){                                                   \
-              case HALF: {                                                     \
-              __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));             \
-              break;                                                           \
-              }                                                                \
               case FLOAT: {                                                    \
                __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;          \
                break;                                                          \
@@ -61,25 +57,41 @@ using namespace mpcr::definitions;
                }                                                               \
           };                                                                   \
 
+
+/** Dispatcher for one template arguments **/
+#define SIMPLE_DISPATCH_WITH_HALF(PRECISION, __FUN__, ...)                     \
+          switch(PRECISION){                                                   \
+                case HALF: {                                                   \
+               __FUN__<float16>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;        \
+               break;                                                          \
+               }                                                               \
+               case FLOAT: {                                                   \
+               __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;          \
+               break;                                                          \
+               }                                                               \
+               case DOUBLE: {                                                  \
+               __FUN__<double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;         \
+               break;                                                          \
+               }                                                               \
+               default : {                                                     \
+                MPCR_API_EXCEPTION("C++ Error : Type Undefined Dispatcher",    \
+                                 (int)PRECISION);                              \
+               }                                                               \
+          };                                                                   \
+
+
+/** Instantiators for Template functions with a given return type
+ * (One template argument)
+ **/
+#define SIMPLE_INSTANTIATE_WITH_HALF(RETURNTYPE, __FUN__, ...) \
+        template RETURNTYPE __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        SIMPLE_INSTANTIATE(RETURNTYPE, __FUN__, FIRST(__VA_ARGS__)REST(__VA_ARGS__))
+
+
+
 /** Dispatcher for three template arguments **/
 #define DISPATCHER(PRECISION, __FUN__, ...)                                    \
           switch(PRECISION){                                                   \
-               case FSF: {                                                     \
-               __FUN__<float,float16,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));  \
-               break;                                                          \
-               }                                                               \
-               case SFF: {                                                     \
-               __FUN__<float16,float,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-               break;                                                          \
-               }                                                               \
-               case DSD: {                                                     \
-               __FUN__<double,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
-               case SDD: {                                                     \
-               __FUN__<float16,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
                case DFD: {                                                     \
                __FUN__<double,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
@@ -88,36 +100,12 @@ using namespace mpcr::definitions;
                __FUN__<float,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
                }                                                               \
-               case SSS: {                                                     \
-               __FUN__<float16,float16,float16>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));      \
-               break;                                                          \
-               }                                                               \
                case FFF: {                                                     \
                __FUN__<float,float,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
                }                                                               \
                case DDD: {                                                     \
                __FUN__<double,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
-               case SSD: {                                                     \
-               __FUN__<float16,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));   \
-               break;                                                          \
-               }                                                               \
-               case SSF: {                                                     \
-               __FUN__<float16,float16,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));    \
-               break;                                                          \
-               }                                                               \
-               case FFD: {                                                     \
-               __FUN__<float,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
-               case SFD: {                                                     \
-               __FUN__<float16,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
-               break;                                                          \
-               }                                                               \
-               case FSD: {                                                     \
-               __FUN__<float,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
                break;                                                          \
                }                                                               \
                default : {                                                     \
@@ -130,9 +118,9 @@ using namespace mpcr::definitions;
  * (One template argument)
  **/
 #define SIMPLE_INSTANTIATE(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+
 
 
 
@@ -140,20 +128,10 @@ using namespace mpcr::definitions;
  * (Three template argument)
  **/
 #define INSTANTIATE(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<float,float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<double,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<double,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<float,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float16,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float,float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<double,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<float16,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<float,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
 
 
 #define FLOATING_POINT_INST(RETURNTYPE, __FUN__, ...) \
@@ -191,3 +169,11 @@ using namespace mpcr::definitions;
         template RETURNTYPE __FUN__<float16,float16> (const float16*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
 #endif //MPCR_MPRDISPATCHER_HPP
+
+
+/**
+ *  Functions CPU -> 3 param -> Performed on CPU, no 16-bit support -> Combination -> FDD,FFF, DFD,DDD
+ *  Functions Linear Algebra -> F,D
+ *  Functions Linear Algebra GPU -> F,D   except GEMM -> H,F,D
+ *
+ * */

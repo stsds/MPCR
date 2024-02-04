@@ -144,6 +144,7 @@ TEST_LINEAR_ALGEBRA() {
         a.ToMatrix(3, 4);
         a.Transpose();
 
+
         REQUIRE(a.GetNRow() == 4);
         REQUIRE(a.GetNCol() == 3);
         for (auto i = 0; i < a.GetSize(); i++) {

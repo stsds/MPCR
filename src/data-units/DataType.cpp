@@ -23,7 +23,8 @@ DataType::DataType(size_t aSize, Precision aPrecision,
     mData.ClearUp();
     this->mSize = aSize;
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, nullptr,
+                              aOperationPlacement)
 }
 
 
@@ -35,7 +36,8 @@ DataType::DataType(std::vector <double> aValues, std::string aPrecision,
     mData.ClearUp();
     this->mSize = aValues.size();
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues,
+                              aOperationPlacement)
 
 }
 
@@ -49,7 +51,8 @@ DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
     this->mSize = aValues.size();
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues,
+                              aOperationPlacement)
 }
 
 
@@ -62,7 +65,8 @@ DataType::DataType(std::vector <double> &aValues,
     mData.ClearUp();
     this->mSize = aValues.size();
     this->mMatrix = false;
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues,
+                              aOperationPlacement)
 }
 
 
@@ -74,7 +78,8 @@ DataType::DataType(size_t aSize, int aPrecision,
     mData.ClearUp();
     this->mMatrix = false;
     this->mSize = aSize;
-    SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, nullptr,
+                              aOperationPlacement)
 }
 
 
@@ -86,7 +91,8 @@ DataType::DataType(size_t aSize, const std::string &aPrecision,
     mData.ClearUp();
     this->mMatrix = false;
     this->mSize = aSize;
-    SIMPLE_DISPATCH(this->mPrecision, Init, nullptr, aOperationPlacement)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, nullptr,
+                              aOperationPlacement)
 
 }
 
@@ -98,7 +104,7 @@ DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
     this->mSize = aRow * aCol;
-    SIMPLE_DISPATCH(this->mPrecision, Init)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init)
 }
 
 
@@ -190,6 +196,15 @@ DataType::GetData(const OperationPlacement &aOperationPlacement) {
 }
 
 
+void
+DataType::Allocate(std::vector <double> &aValues, const size_t &aSize,
+                   const OperationPlacement &aPlacement) {
+
+    this->mSize = aSize;
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues, aPlacement)
+}
+
+
 size_t
 DataType::GetSize() const {
     return this->mSize;
@@ -274,7 +289,7 @@ void
 DataType::SetData(char *aData, const OperationPlacement &aOperationPlacement) {
     auto op_placement = aOperationPlacement;
     if (this->mPrecision == HALF && aOperationPlacement == CPU) {
-        MPCR_API_EXCEPTION("Cannot allocate 16-bit precision on CPU",-1);
+        MPCR_API_EXCEPTION("Cannot allocate 16-bit precision on CPU", -1);
     }
     this->mData.SetDataPointer(aData, this->GetSizeInBytes(),
                                op_placement);
@@ -362,7 +377,17 @@ DataType::IsNA(const size_t &aIndex) {
 
 size_t
 DataType::GetObjectSize() {
-    size_t data_size=mData.GetSize();
+    auto size = this->GetSizeInBytes();
+    int num=0;
+
+    if (IsCPUAllocated()) {
+     num++;
+    }
+    if (IsGPUAllocated()) {
+     num++;
+    }
+
+    size_t data_size = size*num;
     if (this->mMatrix) {
         data_size += 3 * sizeof(size_t);
     } else {
@@ -370,6 +395,7 @@ DataType::GetObjectSize() {
     }
     data_size += sizeof(bool);
     data_size += sizeof(Precision);
+    data_size+= sizeof (DataHolder);
     return data_size;
 }
 
@@ -590,7 +616,8 @@ DataType::DeSerialize(char *apData) {
         itr = 1 + sizeof(size_t);
     }
 
-    auto temp_data = new char[ret->GetSize() * obj_size];
+    auto temp_data = mpcr::memory::AllocateArray(ret->GetSize() * obj_size, CPU,
+                                                 nullptr);
     memcpy(temp_data, apData + itr, obj_size * ret->GetSize());
     ret->SetData(temp_data);
 
@@ -604,6 +631,8 @@ DataType::RSerialize() {
     auto size_val = 0;
     auto itr = 0;
     char metadata = 0;
+
+    auto pData = this->GetData(CPU);
 
     if (this->mPrecision == mpcr::definitions::FLOAT) {
         size_val += sizeof(float);
@@ -639,7 +668,7 @@ DataType::RSerialize() {
         itr = 1 + sizeof(size_t);
     }
 
-    memcpy(buffer + itr, this->GetData(CPU), this->mSize * size_val);
+    memcpy(buffer + itr, pData, this->mSize * size_val);
 
     return vec;
 }
@@ -675,7 +704,9 @@ DataType::RDeSerialize(Rcpp::RawVector aInput) {
         itr = 1 + sizeof(size_t);
     }
 
-    auto temp_data = new char[ret->GetSize() * obj_size];
+
+    auto temp_data = mpcr::memory::AllocateArray(ret->GetSize() * obj_size, CPU,
+                                                 nullptr);
     memcpy(temp_data, data + itr, obj_size * ret->GetSize());
     ret->SetData(temp_data);
 
@@ -737,10 +768,9 @@ DataType::PerformPlusDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RPerformPlus(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RPerformPlus(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -764,10 +794,9 @@ DataType::PerformPowDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RPerformPow(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RPerformPow(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -790,10 +819,9 @@ DataType::PerformDivDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RPerformDiv(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RPerformDiv(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -817,10 +845,9 @@ DataType::PerformMultDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RPerformMult(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RPerformMult(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -844,10 +871,9 @@ DataType::PerformMinusDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RPerformMinus(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RPerformMinus(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -871,10 +897,9 @@ DataType::GreaterThanDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RGreaterThan(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RGreaterThan(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -897,10 +922,9 @@ DataType::GreaterThanOrEqualDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RGreaterThanOrEqual(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RGreaterThanOrEqual(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -923,10 +947,9 @@ DataType::LessThanDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RLessThan(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RLessThan(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -949,10 +972,9 @@ DataType::LessThanOrEqualDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RLessThanOrEqual(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RLessThanOrEqual(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -975,10 +997,9 @@ DataType::EqualDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return REqual(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return REqual(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -1001,10 +1022,9 @@ DataType::NotEqualDispatcher(SEXP aObj) {
 
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
-        auto temp_mpr = new DataType(0, DOUBLE);
-        temp_mpr->SetSize(values.size());
-        temp_mpr->SetData((char *) values.data());
-        return RNotEqual(this, temp_mpr);
+        DataType temp_mpr(0, DOUBLE);
+        temp_mpr.Allocate(values, values.size(), CPU);
+        return RNotEqual(this, &temp_mpr);
 
     } else {
         auto temp_mpr = (DataType *) Rcpp::internal::as_module_object_internal(
@@ -1124,6 +1144,8 @@ void DataType::FillTriangleDispatcher(const double &aValue,
         }
     }
 
+    this->SetData((char *) pData, CPU);
+
 }
 
 
@@ -1132,7 +1154,8 @@ void
 DataType::TransposeDispatcher() {
 
     auto pData = (T *) this->GetData(CPU);
-    auto pOutput = new T[this->mSize];
+    auto pOutput = (T*)mpcr::memory::AllocateArray(this->GetSizeInBytes(), CPU,
+                                               nullptr);
     auto col = this->GetNCol();
     auto row = this->GetNRow();
 
@@ -1147,7 +1170,7 @@ DataType::TransposeDispatcher() {
         }
     }
 
-    this->SetData((char *) pOutput);
+    this->SetData((char *) pOutput, CPU);
     this->SetDimensions(col, row);
 
 }
@@ -1202,9 +1225,17 @@ DataType::ConvertPrecisionDispatcher(const Precision &aPrecision) {
     }
     switch (aPrecision) {
         case HALF: {
+#ifdef USE_CUDA
             mData.GetDataPointer(GPU);
             mData.FreeMemory(CPU);
             mData.ChangePrecision <T, float16>();
+
+#else
+            MPCR_PRINTER("Half Precision is not supported, Converting automatically to single")
+            MPCR_PRINTER(std::endl)
+            this->ConvertPrecisionDispatcher <T>(FLOAT);
+#endif
+
             break;
         }
         case FLOAT: {
@@ -1231,39 +1262,13 @@ DataType::CheckNA(const size_t &aIndex, bool &aFlag) {
 }
 
 
-
-template <typename T>
-void
-DataType::GetCopyOfData(const char *apSrc, char *&apDest) {
-    T *data = (T *) apSrc;
-    auto size = this->mSize;
-    T *pOutput = new T[size];
-
-
-    memcpy((char *) pOutput, (char *) data, size * sizeof(T));
-    apDest = (char *) pOutput;
-}
-
-
-template <typename T, typename X, typename Y>
-void
-DataType::GetCopyOfData(DataType &aSrc, DataType &aDestination) {
-    T *data = (T *) aSrc.GetData();
-    auto size = aDestination.mSize;
-    X *pOutput = new X[size];
-
-    std::copy(data, data + size, pOutput);
-    aDestination.SetData((char *) pOutput);
-
-}
-
-
 template <typename T>
 void
 DataType::SetValue(size_t aIndex, double &aVal) {
 
     T *data = (T *) this->GetData(CPU);
     data[ aIndex ] = (T) aVal;
+    this->SetData((char *) data, CPU);
 }
 
 
@@ -1367,22 +1372,58 @@ DataType::Init(std::vector <double> *aValues,
     if (this->mSize == 0) {
         return;
     }
-    double val = 0;
-#ifdef RUNNING_CPP
-    val = 1.5;
-#endif
-    bool flag = ( aValues == nullptr );
-    T *temp = new T[mSize];
-    for (auto i = 0; i < mSize; i++) {
-        if (flag) {
-            temp[ i ] = (T) val;
+
+    this->mData.Allocate(this->GetSizeInBytes(), aOperationPlacement);
+
+    auto pData = (T *) this->mData.GetDataPointer(aOperationPlacement);
+
+    if (aValues == nullptr) {
+        auto pdata_temp_char = this->mData.GetDataPointer(aOperationPlacement);
+        mpcr::memory::Memset(pdata_temp_char, 0, this->GetSizeInBytes(),
+                             aOperationPlacement,
+                             mpcr::kernels::ContextManager::GetOperationContext());
+        this->mData.SetDataPointer(pdata_temp_char, this->GetSizeInBytes(),
+                                   aOperationPlacement);
+
+    } else {
+        if (aValues->size() < this->mSize) {
+            auto idx = aValues->size();
+            aValues->resize(mSize);
+            for (auto i = idx; i < this->mSize; i++) {
+                aValues->at(i) = 0;
+            }
+        }
+        if (aOperationPlacement == CPU) {
+            std::copy(aValues->begin(), aValues->end(), pData);
         } else {
-            temp[ i ] = (T) aValues->at(i);
+#ifdef USE_CUDA
+            mpcr::kernels::RunContext context(GPU,
+                                              mpcr::kernels::RunMode::SYNC);
+
+            auto size_in_bytes = aValues->size() * sizeof(double);
+            auto temp_data = mpcr::memory::AllocateArray(size_in_bytes, GPU,
+                                                         &context);
+
+            mpcr::memory::MemCpy(temp_data, (char *) aValues->data(),
+                                 size_in_bytes, &context,
+                                 mpcr::memory::MemoryTransfer::HOST_TO_DEVICE);
+
+            mpcr::memory::CopyDevice <double, T>((char *) temp_data,
+                                                 (char *) pData,
+                                                 aValues->size());
+
+            this->mData.SetDataPointer((char *) pData, this->GetSizeInBytes(),
+                                       aOperationPlacement);
+            mpcr::memory::DestroyArray(temp_data, GPU, &context);
+#else
+            MPCR_API_EXCEPTION("Cannot Perform GPU Allocation, No GPU Support", -1);
+#endif
         }
     }
-    this->SetData((char *) temp, aOperationPlacement);
+
 
 }
+
 
 /** ------------------------- INSTANTIATIONS ---------------------------------- **/
 
@@ -1400,18 +1441,10 @@ SIMPLE_INSTANTIATE(void, DataType::FillTriangleDispatcher, const double &aValue,
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, std::vector <int> &aOutput,
                    Dimensions *&apDimensions)
 
-SIMPLE_INSTANTIATE(void, DataType::ConvertPrecisionDispatcher,
-                   const Precision &aPrecision)
-
 SIMPLE_INSTANTIATE(void, DataType::CheckNA, const size_t &aIndex, bool &aFlag)
-
-SIMPLE_INSTANTIATE(void, DataType::Init, std::vector <double> *aValues,
-                   const OperationPlacement &aOperationPlacement)
 
 SIMPLE_INSTANTIATE(void, DataType::PrintVal)
 
-SIMPLE_INSTANTIATE(void, DataType::GetCopyOfData, const char *apSrc,
-                   char *&apDest)
 
 SIMPLE_INSTANTIATE(void, DataType::GetValue, size_t aIndex, double &aOutput)
 
@@ -1428,5 +1461,10 @@ SIMPLE_INSTANTIATE(void, DataType::TransposeDispatcher)
 SIMPLE_INSTANTIATE(void, DataType::PrintRowsDispatcher, const size_t &aRowIdx,
                    std::stringstream &aRowAsString)
 
-INSTANTIATE(void, DataType::GetCopyOfData, DataType &aSrc,
-            DataType &aDestination)
+SIMPLE_INSTANTIATE_WITH_HALF(void, DataType::ConvertPrecisionDispatcher,
+                             const Precision &aPrecision)
+
+SIMPLE_INSTANTIATE_WITH_HALF(void, DataType::Init,
+                             std::vector <double> *aValues,
+                             const OperationPlacement &aOperationPlacement)
+

@@ -33,7 +33,7 @@ void
 InitValidator(char *&apData, size_t aSize) {
     T *temp = new T[aSize];
     for (auto i = 0; i < aSize; i++) {
-        temp[ i ] = (T) 1.5;
+        temp[ i ] = (T) 0.0;
     }
     apData = (char *) temp;
 }

@@ -578,7 +578,7 @@ public:
      */
     void
     SetPrecision(mpcr::definitions::Precision aPrecision,
-                 const OperationPlacement &aOperationPlacement=CPU);
+                 const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -938,6 +938,11 @@ public:
 
 
     void
+    Allocate(std::vector <double> &aValues, const size_t &aSize,
+             const OperationPlacement &aPlacement);
+
+
+    void
     PrintTotalSize();
 
 
@@ -982,35 +987,6 @@ private:
     template <typename T>
     void
     PrintVal();
-
-    /**
-     * @brief
-     * Copies Data From Src buffer to Dest Buffer
-     *
-     * @params[in] aSrc
-     * Buffer to copy from
-     * @params[out] aDest
-     * Buffer to copy to
-     *
-     */
-    template <typename T>
-    void
-    GetCopyOfData(const char *apSrc, char *&apDest);
-
-    /**
-     * @brief
-     * Copies Data From Src buffer to Dest Buffer
-     *
-     * @params[in] aSrc
-     * Buffer to copy from
-     * @params[out] aDest
-     * Buffer to copy to
-     *
-     */
-    template <typename T, typename X, typename Y>
-    void
-    GetCopyOfData(DataType &aSrc, DataType &aDestination);
-
 
     /**
      * @brief
@@ -1200,7 +1176,7 @@ private:
     /** Buffer Holding the Data **/
     DataHolder mData;
     /** Dimensions object that describe the Vector as a Matrix **/
-    Dimensions *mpDimensions= nullptr;
+    Dimensions *mpDimensions = nullptr;
     /** Total size of Vector or Matrix (Data Buffer) **/
     size_t mSize;
     /** Precision used to describe the data buffer **/
