@@ -25,7 +25,11 @@ TEST_PRECISION() {
 
     /** Testing Input Generator**/
     Precision temp = GetInputPrecision(1);
+#ifdef USING_HALF
     REQUIRE(temp == HALF);
+#else
+    REQUIRE(temp == FLOAT);
+#endif
 
     temp = GetInputPrecision(2);
     REQUIRE(temp == FLOAT);
@@ -34,11 +38,12 @@ TEST_PRECISION() {
     REQUIRE(temp == DOUBLE);
 
     temp = GetInputPrecision("half");
-    if (USING_HALF) {
+
+#ifdef USING_HALF
         REQUIRE(temp == HALF);
-    } else {
+#else
         REQUIRE(temp == FLOAT);
-    }
+#endif
 
     temp = GetInputPrecision("FLOAT");
     REQUIRE(temp == FLOAT);
@@ -47,7 +52,11 @@ TEST_PRECISION() {
     REQUIRE(temp == DOUBLE);
 
     temp = GetInputPrecision(HALF);
+#ifdef USING_HALF
     REQUIRE(temp == HALF);
+#else
+    REQUIRE(temp == FLOAT);
+#endif
 
     temp = GetInputPrecision(FLOAT);
     REQUIRE(temp == FLOAT);
@@ -121,8 +130,30 @@ TEST_PRECISION() {
 
 }
 
+void
+TEST_HALF_PRECISION(){
+
+    Precision temp = GetInputPrecision(1);
+#ifdef USE_CUDA
+        REQUIRE(temp == HALF);
+#else
+        REQUIRE(temp==FLOAT);
+#endif
+
+
+    temp = GetInputPrecision("half");
+
+#ifdef USE_CUDA
+        REQUIRE(temp == HALF);
+#else
+        REQUIRE(temp == FLOAT);
+#endif
+
+}
+
 
 TEST_CASE("PRECISIONTEST", "[Precision]") {
     TEST_PRECISION();
+    TEST_HALF_PRECISION();
 
 }

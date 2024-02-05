@@ -17,7 +17,6 @@ typedef half float16;
 
 #else
 typedef int float16;
-#define USING_HALF 0
 #endif
 
 

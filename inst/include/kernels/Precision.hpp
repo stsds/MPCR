@@ -92,13 +92,18 @@ namespace mpcr {
         Precision
         GetInputPrecision(const int &aPrecision) {
             if (aPrecision > 0 && aPrecision < 4) {
-                if (aPrecision == 0 && !USING_HALF) {
+#ifdef USING_HALF
+                return static_cast<Precision>(aPrecision);
+#else
+                if(aPrecision==1){
                     MPCR_API_WARN(
                         "Your Compiler doesn't support 16-Bit ,32-Bit will be used",
                         1);
                     return FLOAT;
                 }
                 return static_cast<Precision>(aPrecision);
+#endif
+
             } else {
                 MPCR_API_EXCEPTION(
                     "Error in Initialization : Unknown Type Value",
@@ -132,14 +137,16 @@ namespace mpcr {
             } else if (aPrecision == "double") {
                 return DOUBLE;
             } else if (aPrecision == "half") {
-                if constexpr(!USING_HALF) {
-                    MPCR_API_WARN(
+#ifdef USING_HALF
+                return HALF;
+#else
+                MPCR_API_WARN(
                         "Your Compiler doesn't support 16-Bit ,32-Bit will be used",
                         1);
-                    return FLOAT;
-                } else {
-                    return HALF;
-                }
+
+                return FLOAT;
+#endif
+
             } else {
                 auto msg = "Error in Initialization : Unknown Type Value" +
                            std::string(aPrecision);

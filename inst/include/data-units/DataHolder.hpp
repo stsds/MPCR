@@ -31,7 +31,7 @@ private:
         EMPTY
     };
 public:
-//TODO: add copy constructor
+
     /**
      * @brief
      * DataHolder constructor.
