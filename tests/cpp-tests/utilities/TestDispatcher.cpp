@@ -57,7 +57,7 @@ TEST_DISPATCHER() {
     bool rc = false;
     int a = 5;
     int b = 10;
-    Precision precision = HALF;
+    Precision precision = FLOAT;
     SIMPLE_DISPATCH(precision, TestSimpleDispatch, a, b, rc)
     REQUIRE(rc == false);
 
@@ -80,6 +80,11 @@ TEST_DISPATCHER() {
     DataType dataA(50, FLOAT);
     DataType dataB(50, FLOAT);
     DataType dataOut(50, FLOAT);
+
+    for(auto i=0;i<dataA.GetSize();i++){
+        dataA.SetVal(i,1.5);
+        dataB.SetVal(i,1.5);
+    }
 
     SIMPLE_DISPATCH(FLOAT, GenerateData, &dataOut, 3)
 

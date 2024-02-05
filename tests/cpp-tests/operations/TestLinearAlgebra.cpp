@@ -57,14 +57,14 @@ TEST_LINEAR_ALGEBRA() {
         values.clear();
         values = {5, 11, 143, 10, 123, 132};
         a.ClearUp();
-        a.SetValues(values);
+        a.Allocate(values);
         a.ToMatrix(3, 2);
 
 
         values.clear();
         values = {2, 3, 5, 6, 8, 11, 13, 14, 20, 30};
         b.ClearUp();
-        b.SetValues(values);
+        b.Allocate(values);
         b.ToMatrix(5, 2);
 
         output.ClearUp();

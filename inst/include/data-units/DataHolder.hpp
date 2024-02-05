@@ -199,8 +199,8 @@ public:
     inline
     bool
     IsAllocated(const OperationPlacement &aOperationalPlacement) {
-        return ( aOperationalPlacement == GPU ) ? ( mpDeviceData == nullptr )
-                                                : ( mpHostData == nullptr );
+        return ( aOperationalPlacement == GPU ) ? ( mpDeviceData != nullptr )
+                                                : ( mpHostData != nullptr );
     };
 
     inline

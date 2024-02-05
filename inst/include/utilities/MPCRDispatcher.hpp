@@ -169,11 +169,3 @@ using namespace mpcr::definitions;
         template RETURNTYPE __FUN__<float16,float16> (const float16*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
 #endif //MPCR_MPRDISPATCHER_HPP
-
-
-/**
- *  Functions CPU -> 3 param -> Performed on CPU, no 16-bit support -> Combination -> FDD,FFF, DFD,DDD
- *  Functions Linear Algebra -> F,D
- *  Functions Linear Algebra GPU -> F,D   except GEMM -> H,F,D
- *
- * */

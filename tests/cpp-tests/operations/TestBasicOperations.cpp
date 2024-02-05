@@ -235,8 +235,11 @@ TEST_BASIC_OPERATION() {
         cout << "Testing Type Checks ..." << endl;
         DataType a(FLOAT);
         DataType b(DOUBLE);
+#ifdef USE_CUDA
+        DataType c(HALF,GPU);
+#else
         DataType c(HALF);
-
+#endif
         REQUIRE(basic::IsSFloat(a) == false);
         REQUIRE(basic::IsFloat(a) == true);
         REQUIRE(basic::IsDouble(a) == false);
@@ -246,10 +249,15 @@ TEST_BASIC_OPERATION() {
         REQUIRE(basic::IsFloat(b) == false);
         REQUIRE(basic::IsDouble(b) == true);
 
-
+#ifdef USE_CUDA
         REQUIRE(basic::IsSFloat(c) == true);
         REQUIRE(basic::IsFloat(c) == false);
         REQUIRE(basic::IsDouble(c) == false);
+#else
+        REQUIRE(basic::IsSFloat(c) == false);
+        REQUIRE(basic::IsFloat(c) == true);
+        REQUIRE(basic::IsDouble(c) == false);
+#endif
 
 
     }SECTION("Testing CBind Same Precision") {

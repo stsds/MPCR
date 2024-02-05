@@ -15,14 +15,21 @@ using namespace mpcr::precision;
 
 /** ------------------------- Constructors ---------------------------------- **/
 
-DataType::DataType(size_t aSize, Precision aPrecision,
-                   const OperationPlacement &aOperationPlacement) {
+void DataType::InitializeObject(size_t aSize, const Precision &aPrecision,
+                                const OperationPlacement &aOperationPlacement) {
+    this->SetPrecision(aPrecision, aOperationPlacement);
     this->mpDimensions = nullptr;
-    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
     this->SetMagicNumber();
     mData.ClearUp();
     this->mSize = aSize;
     this->mMatrix = false;
+}
+
+
+DataType::DataType(size_t aSize, Precision aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
+
+    this->InitializeObject(aSize, aPrecision, aOperationPlacement);
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, nullptr,
                               aOperationPlacement)
 }
@@ -30,12 +37,10 @@ DataType::DataType(size_t aSize, Precision aPrecision,
 
 DataType::DataType(std::vector <double> aValues, std::string aPrecision,
                    const OperationPlacement &aOperationPlacement) {
-    this->mpDimensions = nullptr;
-    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
-    this->SetMagicNumber();
-    mData.ClearUp();
-    this->mSize = aValues.size();
-    this->mMatrix = false;
+
+    auto precision = GetInputPrecision(aPrecision);
+    this->InitializeObject(aValues.size(), precision, aOperationPlacement);
+
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues,
                               aOperationPlacement)
 
@@ -45,12 +50,13 @@ DataType::DataType(std::vector <double> aValues, std::string aPrecision,
 DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
                    const size_t &aCol, const std::string &aPrecision,
                    const OperationPlacement &aOperationPlacement) {
-    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
-    this->SetMagicNumber();
-    mData.ClearUp();
-    this->mSize = aValues.size();
+
+    auto precision = GetInputPrecision(aPrecision);
+    this->InitializeObject(aValues.size(), precision, aOperationPlacement);
+
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
+
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues,
                               aOperationPlacement)
 }
@@ -59,12 +65,8 @@ DataType::DataType(std::vector <double> &aValues, const size_t &aRow,
 DataType::DataType(std::vector <double> &aValues,
                    mpcr::definitions::Precision aPrecision,
                    const OperationPlacement &aOperationPlacement) {
-    this->mpDimensions = nullptr;
-    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
-    this->SetMagicNumber();
-    mData.ClearUp();
-    this->mSize = aValues.size();
-    this->mMatrix = false;
+    auto precision = GetInputPrecision(aPrecision);
+    this->InitializeObject(aValues.size(), precision, aOperationPlacement);
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues,
                               aOperationPlacement)
 }
@@ -72,12 +74,9 @@ DataType::DataType(std::vector <double> &aValues,
 
 DataType::DataType(size_t aSize, int aPrecision,
                    const OperationPlacement &aOperationPlacement) {
-    this->mpDimensions = nullptr;
-    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
-    this->SetMagicNumber();
-    mData.ClearUp();
-    this->mMatrix = false;
-    this->mSize = aSize;
+    auto precision = GetInputPrecision(aPrecision);
+    this->InitializeObject(aSize, precision, aOperationPlacement);
+
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, nullptr,
                               aOperationPlacement)
 }
@@ -85,67 +84,61 @@ DataType::DataType(size_t aSize, int aPrecision,
 
 DataType::DataType(size_t aSize, const std::string &aPrecision,
                    const OperationPlacement &aOperationPlacement) {
-    this->mpDimensions = nullptr;
-    this->SetPrecision(GetInputPrecision(aPrecision), aOperationPlacement);
-    this->SetMagicNumber();
-    mData.ClearUp();
-    this->mMatrix = false;
-    this->mSize = aSize;
+
+    auto precision = GetInputPrecision(aPrecision);
+    this->InitializeObject(aSize, precision, aOperationPlacement);
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, nullptr,
                               aOperationPlacement)
 
 }
 
 
-DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision) {
-    this->SetMagicNumber();
-    mData.ClearUp();
-    this->mPrecision = GetInputPrecision(aPrecision);
+DataType::DataType(size_t aRow, size_t aCol, Precision aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
+
+    auto precision = GetInputPrecision(aPrecision);
+    this->InitializeObject(aRow * aCol, precision, aOperationPlacement);
+
     this->mpDimensions = new Dimensions(aRow, aCol);
     this->mMatrix = true;
-    this->mSize = aRow * aCol;
+
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init)
 }
 
 
-DataType::DataType(mpcr::definitions::Precision aPrecision) {
-    this->SetMagicNumber();
-    this->mPrecision = GetInputPrecision(aPrecision);
-    this->mMatrix = false;
-    this->mpDimensions = nullptr;
-    this->mSize = 0;
-    mData.ClearUp();
+DataType::DataType(mpcr::definitions::Precision aPrecision,
+                   const OperationPlacement &aOperationPlacement) {
+    this->InitializeObject(0, aPrecision, aOperationPlacement);
 }
 
 
 DataType::DataType(const DataType &aDataType) {
     this->SetMagicNumber();
-    this->mData.ClearUp();
-    this->mpDimensions = nullptr;
+    this->ClearUp();
     this->mSize = aDataType.mSize;
     this->mPrecision = aDataType.mPrecision;
     this->mMatrix = aDataType.mMatrix;
+    this->mData = aDataType.mData;
+
     if (this->mMatrix) {
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     }
-    this->mData = aDataType.mData;
 }
 
 
 DataType::DataType(DataType &aDataType,
                    const mpcr::definitions::Precision &aPrecision) {
     this->SetMagicNumber();
-    this->mData.ClearUp();
-    this->mpDimensions = nullptr;
+    this->ClearUp();
     this->mSize = aDataType.mSize;
     this->mPrecision = aPrecision;
     this->mMatrix = aDataType.mMatrix;
+    this->mData = aDataType.mData;
     if (this->mMatrix) {
         this->mpDimensions = new Dimensions(*aDataType.GetDimensions());
     }
-    this->mData = aDataType.mData;
-    SIMPLE_DISPATCH(aDataType.mPrecision, ConvertPrecisionDispatcher,
-                    this->mPrecision)
+    SIMPLE_DISPATCH_WITH_HALF(aDataType.mPrecision, ConvertPrecisionDispatcher,
+                              this->mPrecision)
 }
 
 
@@ -190,17 +183,19 @@ DataType::GetData(const OperationPlacement &aOperationPlacement) {
         MPCR_PRINTER("CPU doesn't support 16-bit, ")
         MPCR_PRINTER("the data will be converted to 32-bit")
         MPCR_PRINTER(std::endl)
-        SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher, FLOAT)
+        SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, ConvertPrecisionDispatcher,
+                                  FLOAT)
     }
     return mData.GetDataPointer(aOperationPlacement);
 }
 
 
 void
-DataType::Allocate(std::vector <double> &aValues, const size_t &aSize,
+DataType::Allocate(std::vector <double> &aValues,
                    const OperationPlacement &aPlacement) {
 
-    this->mSize = aSize;
+    this->SetPrecision(this->mPrecision, aPlacement);
+    this->mSize = aValues.size();
     SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, &aValues, aPlacement)
 }
 
@@ -378,16 +373,16 @@ DataType::IsNA(const size_t &aIndex) {
 size_t
 DataType::GetObjectSize() {
     auto size = this->GetSizeInBytes();
-    int num=0;
+    int num = 0;
 
     if (IsCPUAllocated()) {
-     num++;
+        num++;
     }
     if (IsGPUAllocated()) {
-     num++;
+        num++;
     }
 
-    size_t data_size = size*num;
+    size_t data_size = size * num;
     if (this->mMatrix) {
         data_size += 3 * sizeof(size_t);
     } else {
@@ -395,7 +390,7 @@ DataType::GetObjectSize() {
     }
     data_size += sizeof(bool);
     data_size += sizeof(Precision);
-    data_size+= sizeof (DataHolder);
+    data_size += sizeof(DataHolder);
     return data_size;
 }
 
@@ -436,8 +431,8 @@ DataType::ConvertPrecision(const mpcr::definitions::Precision &aPrecision) {
     }
 #endif
 
-    SIMPLE_DISPATCH(this->mPrecision, ConvertPrecisionDispatcher,
-                    temp_precision)
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, ConvertPrecisionDispatcher,
+                              temp_precision)
 }
 
 
@@ -476,21 +471,6 @@ DataType::Transpose() {
         MPCR_API_EXCEPTION("Cannot Transpose a Vector", -1);
     }
     SIMPLE_DISPATCH(this->mPrecision, DataType::TransposeDispatcher)
-}
-
-
-void
-DataType::SetValues(std::vector <double> &aValues,
-                    const OperationPlacement &aOperationPlacement) {
-    this->mSize = aValues.size();
-    if (this->mMatrix) {
-        delete this->mpDimensions;
-        this->mpDimensions = nullptr;
-        this->mMatrix = false;
-    }
-    mData.ClearUp();
-
-    SIMPLE_DISPATCH(this->mPrecision, Init, &aValues, aOperationPlacement)
 }
 
 
@@ -769,7 +749,7 @@ DataType::PerformPlusDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RPerformPlus(this, &temp_mpr);
 
     } else {
@@ -795,7 +775,7 @@ DataType::PerformPowDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RPerformPow(this, &temp_mpr);
 
     } else {
@@ -820,7 +800,7 @@ DataType::PerformDivDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RPerformDiv(this, &temp_mpr);
 
     } else {
@@ -846,7 +826,7 @@ DataType::PerformMultDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RPerformMult(this, &temp_mpr);
 
     } else {
@@ -872,7 +852,7 @@ DataType::PerformMinusDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RPerformMinus(this, &temp_mpr);
 
     } else {
@@ -898,7 +878,7 @@ DataType::GreaterThanDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RGreaterThan(this, &temp_mpr);
 
     } else {
@@ -923,7 +903,7 @@ DataType::GreaterThanOrEqualDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RGreaterThanOrEqual(this, &temp_mpr);
 
     } else {
@@ -948,7 +928,7 @@ DataType::LessThanDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RLessThan(this, &temp_mpr);
 
     } else {
@@ -973,7 +953,7 @@ DataType::LessThanOrEqualDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RLessThanOrEqual(this, &temp_mpr);
 
     } else {
@@ -998,7 +978,7 @@ DataType::EqualDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return REqual(this, &temp_mpr);
 
     } else {
@@ -1023,7 +1003,7 @@ DataType::NotEqualDispatcher(SEXP aObj) {
     } else if (TYPEOF(aObj) == VECSXP || TYPEOF(aObj) == INTSXP) {
         auto values = Rcpp::as <std::vector <double>>(aObj);
         DataType temp_mpr(0, DOUBLE);
-        temp_mpr.Allocate(values, values.size(), CPU);
+        temp_mpr.Allocate(values, CPU);
         return RNotEqual(this, &temp_mpr);
 
     } else {
@@ -1154,8 +1134,9 @@ void
 DataType::TransposeDispatcher() {
 
     auto pData = (T *) this->GetData(CPU);
-    auto pOutput = (T*)mpcr::memory::AllocateArray(this->GetSizeInBytes(), CPU,
-                                               nullptr);
+    auto pOutput = (T *) mpcr::memory::AllocateArray(this->GetSizeInBytes(),
+                                                     CPU,
+                                                     nullptr);
     auto col = this->GetNCol();
     auto row = this->GetNRow();
 
@@ -1423,7 +1404,6 @@ DataType::Init(std::vector <double> *aValues,
 
 
 }
-
 
 /** ------------------------- INSTANTIATIONS ---------------------------------- **/
 

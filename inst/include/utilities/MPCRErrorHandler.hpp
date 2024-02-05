@@ -110,7 +110,7 @@ public:
             char s[200];
             sprintf((char*)s,"GPU Assert: %s %s %d\n", cudaGetErrorString(aCode), aFile, aLine);
             throw std::invalid_argument(s);
-#elif
+#else
             std::string s="GPU Assert:  "+std::string(cudaGetErrorString(aCode));
             Rcpp::stop(s);
 #endif

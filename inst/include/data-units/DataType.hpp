@@ -145,7 +145,10 @@ public:
      * @brief
      * DataType default constructor
      */
-    DataType() = default;
+    explicit
+    DataType(){
+        this->InitializeObject(0,DOUBLE,CPU);
+    }
 
     /**
      * @brief
@@ -156,6 +159,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
+    explicit
     DataType(size_t aSize, mpcr::definitions::Precision aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
 
@@ -168,6 +172,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
+    explicit
     DataType(std::vector <double> &aValues,
              mpcr::definitions::Precision aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
@@ -182,6 +187,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a string Precision)
      */
+    explicit
     DataType(std::vector <double> aValues, std::string aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
 
@@ -199,6 +205,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
+    explicit
     DataType(std::vector <double> &aValues, const size_t &aRow,
              const size_t &aCol, const std::string &aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
@@ -219,6 +226,7 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
+    explicit
     DataType(DataType &aDataType,
              const mpcr::definitions::Precision &aPrecision);
 
@@ -231,6 +239,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a String)
      */
+    explicit
     DataType(size_t aSize, const std::string &aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
 
@@ -245,7 +254,9 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aRow, size_t aCol, mpcr::definitions::Precision aPrecision);
+    explicit
+    DataType(size_t aRow, size_t aCol, mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -256,6 +267,7 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as an int)
      */
+    explicit
     DataType(size_t aSize, int aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
 
@@ -268,7 +280,8 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     explicit
-    DataType(mpcr::definitions::Precision aPrecision);
+    DataType(mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -792,18 +805,6 @@ public:
 
     /**
      * @brief
-     * Set and cast values in the data vector according to Vector of double values
-     *
-     * @param[in] aValues
-     * vector of double values
-     *
-     */
-    void
-    SetValues(std::vector <double> &aValues,
-              const OperationPlacement &aOperationPlacement = CPU);
-
-    /**
-     * @brief
      * Print a whole Row (given) in case of Matrix .
      * used for printing MPCR Tile
      *
@@ -938,8 +939,8 @@ public:
 
 
     void
-    Allocate(std::vector <double> &aValues, const size_t &aSize,
-             const OperationPlacement &aPlacement);
+    Allocate(std::vector <double> &aValues,
+             const OperationPlacement &aPlacement = CPU);
 
 
     void
@@ -1171,6 +1172,11 @@ private:
     void
     FillTriangleDispatcher(const double &aValue,
                            const bool &aUpperTriangle = true);
+
+
+    void
+    InitializeObject(size_t aSize, const Precision &aPrecision,
+                     const OperationPlacement &aOperationPlacement);
 
 
     /** Buffer Holding the Data **/
