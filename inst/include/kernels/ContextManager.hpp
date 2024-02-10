@@ -105,15 +105,23 @@ namespace mpcr {
              * Get the current context to be used internally if any stream is needed.
              */
             static
-            RunContext *&
+            RunContext *
             GetOperationContext();
 
             /**
              * @brief
              * Create new stream and add it to the context manager.
              */
-            RunContext *&
+            RunContext *
             CreateRunContext();
+
+            /**
+             * @brief
+             * Get a GPU context to be used internally if any stream is needed.
+             */
+            static
+            RunContext *
+            GetGPUContext();
 
 
         protected:
@@ -132,6 +140,12 @@ namespace mpcr {
              *  if any streams is needed.
              **/
             RunContext *mpCurrentContext;
+#ifdef USE_CUDA
+            /** Context used internally if any GPU context is needed, when the
+             *  Current context is CPU
+             **/
+             RunContext *mpGPUContext;
+#endif
         };
 
 

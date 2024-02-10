@@ -949,6 +949,14 @@ public:
 
 private:
 
+    /**
+     * @brief
+     * Get buffer size in bytes according to the object precision.
+     *
+     * @returns
+     * Data buffer size in bytes.
+     *
+     */
     size_t
     GetSizeInBytes();
 
@@ -1091,7 +1099,6 @@ private:
     template <typename T>
     void
     TransposeDispatcher();
-
 
     /**
      * @brief

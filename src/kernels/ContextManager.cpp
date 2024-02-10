@@ -21,6 +21,11 @@ ContextManager::GetInstance() {
         mpInstance->mContexts.resize(1);
         mpInstance->mContexts[ 0 ] = new RunContext();
         mpInstance->mpCurrentContext = mpInstance->mContexts[ 0 ];
+#ifdef USE_CUDA
+        mpInstance->mpGPUContext = new RunContext(definitions::GPU,
+                                                  RunMode::SYNC);
+#endif
+
     }
     return *mpInstance;
 }
@@ -65,6 +70,12 @@ ContextManager::DestroyInstance() {
             delete x;
             x = nullptr;
         }
+
+#ifdef USE_CUDA
+        delete mpInstance->mpGPUContext;
+        mpInstance->mpGPUContext = nullptr;
+#endif
+
         delete mpInstance;
         mpInstance = nullptr;
     }
@@ -88,9 +99,9 @@ ContextManager::SetOperationContext(RunContext *&aRunContext) {
 }
 
 
-RunContext *&
+RunContext *
 ContextManager::GetOperationContext() {
-    if(mpInstance== nullptr){
+    if (mpInstance == nullptr) {
         ContextManager::GetInstance();
     }
     if (mpInstance->mpCurrentContext == nullptr) {
@@ -100,11 +111,25 @@ ContextManager::GetOperationContext() {
 }
 
 
-RunContext *&
+RunContext *
 ContextManager::CreateRunContext() {
     auto run_context = new RunContext();
     mpInstance->mContexts.push_back(run_context);
     return mpInstance->mContexts.back();
 }
 
-
+RunContext *
+ContextManager::GetGPUContext() {
+#ifdef USE_CUDA
+    if (mpInstance == nullptr) {
+        ContextManager::GetInstance();
+    }
+    if (mpInstance->mpGPUContext == nullptr) {
+        MPCR_API_EXCEPTION("No current operation context available", -1);
+    }
+    return mpInstance->mpGPUContext;
+#else
+    MPCR_API_EXCEPTION("Code is compiled without CUDA support", -1);
+#endif
+    return nullptr;
+}

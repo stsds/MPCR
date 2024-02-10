@@ -80,8 +80,30 @@ public:
      */
     ~DataHolder();
 
+    /**
+     * @brief
+     * Data Holder copy constructor
+     *
+     * @param[in] aDataHolder
+     * Input Data holder object to copy
+     *
+     * @returns
+     * new DataHolder object.
+     *
+     */
     DataHolder(const DataHolder &aDataHolder);
 
+    /**
+     * @brief
+     * DataHolder overloaded equal operator
+     *
+     * @param[in] aDataHolder
+     * Input Data holder object to copy
+     *
+     * @returns
+     * new DataHolder object.
+     *
+     */
     DataHolder &
     operator =(const DataHolder &aDataHolder);
 
@@ -195,7 +217,18 @@ public:
     void
     ChangePrecision();
 
-
+    /**
+     * @brief
+     * Checks if a specific buffer is allocated, according to the operation
+     * placement
+     *
+     * @param[in] aOperationalPlacement
+     * Operation placement to decide which buffer to check
+     *
+     * @returns
+     * true if the buffer is allocated, false otherwise.
+     *
+     */
     inline
     bool
     IsAllocated(const OperationPlacement &aOperationalPlacement) {
@@ -203,6 +236,14 @@ public:
                                                 : ( mpHostData != nullptr );
     };
 
+    /**
+     * @brief
+     * Checks if the Data Holder is empty
+     *
+     * @returns
+     * true if empty, false otherwise.
+     *
+     */
     inline
     bool
     IsEmpty(){
@@ -264,6 +305,14 @@ private:
     void
     AllocateMissingBuffer(const OperationPlacement &aPlacement);
 
+    /**
+     * @brief
+     * Copy buffers and all metadata from input Data holder
+     *
+     * @param[in] aDataHolder
+     * Data Holder to copy buffers and metadata from.
+     *
+     */
     void
     CopyBuffers(const DataHolder &aDataHolder);
 

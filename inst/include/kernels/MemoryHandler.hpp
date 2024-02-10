@@ -102,6 +102,25 @@ namespace mpcr {
 
 #ifdef USE_CUDA
 
+        /**
+         * @brief
+         * GPU Function to mimic std::copy, used to copy data from one buffer to another
+         * without the need of having the same datatype.
+         * Datatype supported: half,float,double
+         * typename T: source datatype
+         * typename X: destination datatype
+         *
+         *
+         * @param[in] apSource
+         * The source pointer.
+         *
+         * @param[in] apDestination
+         * The destination pointer.
+         *
+         * @param[in] aNumElements
+         * Number of elements inside the array
+         *
+         */
         template <typename T, typename X>
         void
         CopyDevice(const char* apSource,char *apDestination,const size_t &aNumElements);

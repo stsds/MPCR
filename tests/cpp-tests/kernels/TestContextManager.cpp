@@ -31,7 +31,7 @@ TEST_CONTEXT_MANAGER() {
     REQUIRE_THROWS(ContextManager::GetInstance().SyncContext(1));
 
 
-    auto &temp_context = ContextManager::GetInstance().CreateRunContext();
+    auto temp_context = ContextManager::GetInstance().CreateRunContext();
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 2);
     REQUIRE(temp_context->GetOperationPlacement() == CPU);
     REQUIRE(temp_context->GetRunMode() == mpcr::kernels::RunMode::SYNC);
@@ -44,10 +44,10 @@ TEST_CONTEXT_MANAGER() {
     ContextManager::GetInstance().SetOperationContext(temp_context);
     REQUIRE(
         ContextManager::GetInstance().GetOperationContext() == temp_context);
+
     ContextManager::DestroyInstance();
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 1);
     REQUIRE(ContextManager::GetInstance().GetOperationContext() != nullptr);
-    REQUIRE(temp_context == nullptr);
 
 
     auto *p1 = &ContextManager::GetInstance();
