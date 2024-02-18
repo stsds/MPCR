@@ -168,4 +168,13 @@ using namespace mpcr::definitions;
         template RETURNTYPE __FUN__<float,float> (const float*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;     \
         template RETURNTYPE __FUN__<float16,float16> (const float16*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
+
+/**
+ * @def MPCR_INSTANTIATE_CLASS
+ * @brief Macro definition to instantiate the MPCR template classes with supported types.
+**/
+
+#define MPCR_INSTANTIATE_CLASS(TEMPLATE_CLASS)   template class TEMPLATE_CLASS<float>;  \
+                                                    template class TEMPLATE_CLASS<double>;
+
 #endif //MPCR_MPRDISPATCHER_HPP

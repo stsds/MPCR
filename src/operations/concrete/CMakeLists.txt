@@ -5,13 +5,15 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/concrete)
+if (USE_CUDA)
+    set(SOURCES
+            ${CMAKE_CURRENT_SOURCE_DIR}/GPULinearAlgebra.cpp
+            ${SOURCES})
+endif ()
+
 
 set(SOURCES
-        ${CMAKE_CURRENT_SOURCE_DIR}/BasicOperations.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/BinaryOperations.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/LinearAlgebra.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/MathematicalOperations.cpp
-
+        ${CMAKE_CURRENT_SOURCE_DIR}/CPULinearAlgebra.cpp
         ${SOURCES}
         PARENT_SCOPE)
+

@@ -6,13 +6,17 @@
  *
  **/
 
-#include <blas.hh>
 #include <operations/helpers/LinearAlgebraHelper.hpp>
 #include <operations/LinearAlgebra.hpp>
 #include <utilities/TypeChecker.hpp>
+#include <operations/concrete/LinearAlgebraBackendFactory.hpp>
+
 
 #ifdef USE_CUDA
+
 #include <cusolverDn.h>
+
+
 #endif
 
 using namespace mpcr::operations;
@@ -27,22 +31,22 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                      const double &aBeta) {
 
     auto is_one_input = aInputB.GetSize() == 0;
-    auto flag_conv=false;
+    auto flag_conv = false;
 
-    if(!aInputB.IsMatrix() && !is_one_input){
-        if(aInputA.IsMatrix()){
-            if(aInputA.GetNCol()==aInputB.GetNCol()){
-                aInputB.SetDimensions(aInputA.GetNCol(),1);
-                flag_conv=true;
+    if (!aInputB.IsMatrix() && !is_one_input) {
+        if (aInputA.IsMatrix()) {
+            if (aInputA.GetNCol() == aInputB.GetNCol()) {
+                aInputB.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
             }
         }
     }
 
-    if(!aInputA.IsMatrix() && !is_one_input){
-        if(aInputB.IsMatrix()){
-            if(aInputA.GetNCol()!=aInputB.GetNRow()){
-                aInputA.SetDimensions(aInputA.GetNCol(),1);
-                flag_conv=true;
+    if (!aInputA.IsMatrix() && !is_one_input) {
+        if (aInputB.IsMatrix()) {
+            if (aInputA.GetNCol() != aInputB.GetNRow()) {
+                aInputA.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
             }
         }
     }
@@ -52,13 +56,9 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     auto row_a = aInputA.GetNRow();
     auto col_a = aInputA.GetNCol();
-    auto transpose_a = aTransposeA ? blas::Op::Trans : blas::Op::NoTrans;
-    auto transpose_b = aTransposeB ? blas::Op::Trans : blas::Op::NoTrans;
 
     size_t row_b;
     size_t col_b;
-
-
 
     // cross(x,y) -> x y
     // tcross(x,y) -> x t(y)
@@ -107,23 +107,26 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         aOutput.SetDimensions(row_a, col_b);
     }
 
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
 
     if (!is_one_input) {
-        blas::gemm(LAYOUT, transpose_a, transpose_b,
-                   row_a, col_b, col_a, aAlpha, pData_a, lda, pData_b, ldb,
-                   aBeta, pData_out, row_a);
+        solver->Gemm(aTransposeA, aTransposeB, row_a, col_b, col_a, aAlpha,
+                     pData_a, lda, pData_b, ldb, aBeta, pData_out, row_a);
     } else {
-        blas::syrk(LAYOUT, blas::Uplo::Lower, transpose_a, row_a, col_a,
-                   aAlpha, pData_a, lda, aBeta, pData_out, row_a);
+        solver->Syrk(true, aTransposeA, row_a, col_a, aAlpha, pData_a, lda,
+                     aBeta, pData_out, row_a);
+
     }
 
     aOutput.SetData((char *) pData_out);
 
     if (is_one_input && aSymmetrize) {
+        // this kernel will need to be implemented in GPU too.
         Symmetrize <T>(aOutput, true);
     }
 
-    if(flag_conv){
+    if (flag_conv) {
         aInputB.ToVector();
     }
 
@@ -173,7 +176,6 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
 
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
-    auto triangle = aUpperTriangle ? lapack::Uplo::Upper : lapack::Uplo::Lower;
 
 
     if (row != col) {
@@ -185,7 +187,10 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
     auto pData = (T *) aInputA.GetData();
     memcpy(pOutput, pData, ( row * col * sizeof(T)));
 
-    auto rc = lapack::potrf(triangle, row, pOutput, row);
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+    auto rc = solver->Potrf(aUpperTriangle, row, pOutput, row);
+
     if (rc != 0) {
         MPCR_API_EXCEPTION(
             "Error While Applying Cholesky Decomposition", rc);
@@ -233,8 +238,11 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
         pOutput = pTemp_data;
     }
 
-    auto rc = lapack::potri(lapack::Uplo::Upper, aNCol, pOutput,
-                            aOutput.GetNRow());
+
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+    auto rc = solver->Potri(true, aNCol, pOutput, aOutput.GetNRow());
+
     if (rc != 0) {
         MPCR_API_EXCEPTION(
             "Error While Applying Cholesky Decomposition", rc);
@@ -253,21 +261,21 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     auto rows_a = aInputA.GetNRow();
     auto cols_a = aInputA.GetNCol();
-    bool flag_to_matrix=false;
+    bool flag_to_matrix = false;
 
 
     if (rows_a != cols_a) {
         MPCR_API_EXCEPTION("Cannot Solve This Matrix , Must be a Square Matrix",
-                          -1);
+                           -1);
     }
 
     auto rows_b = rows_a;
     auto cols_b = rows_b;
 
     if (!aSingle) {
-        if(!aInputB.IsMatrix()){
-            flag_to_matrix=true;
-            aInputB.SetDimensions(aInputB.GetNCol(),1);
+        if (!aInputB.IsMatrix()) {
+            flag_to_matrix = true;
+            aInputB.SetDimensions(aInputB.GetNCol(), 1);
         }
         rows_b = aInputB.GetNRow();
         cols_b = aInputB.GetNCol();
@@ -280,28 +288,32 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto pIpiv = new int64_t[cols_a];
     aOutput.ClearUp();
     auto rc = 0;
+
+
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+
     if (!aSingle) {
         DataType dump = aInputA;
         aOutput = aInputB;
         auto pData_dump = (T *) dump.GetData();
         auto pData_in_out = (T *) aOutput.GetData();
 
-        rc = lapack::gesv(cols_a, cols_b, pData_dump, rows_a, pIpiv,
+        rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a, (void *) pIpiv,
                           pData_in_out, rows_b);
+
     } else {
         aOutput = aInputA;
         auto pData_in_out = (T *) aOutput.GetData();
 
-        rc = lapack::getrf(rows_a, cols_a, pData_in_out, rows_a, pIpiv);
+        rc = solver->Getrf(rows_a, cols_a, pData_in_out, rows_a, pIpiv);
 
         if (rc != 0) {
             delete[] pIpiv;
             MPCR_API_EXCEPTION("Error While Solving", rc);
         }
 
-        rc = lapack::getri(cols_a, pData_in_out, rows_a, pIpiv);
-
-
+        rc = solver->Getri(cols_a, pData_in_out, rows_a, pIpiv);
         if (rc != 0) {
             delete[] pIpiv;
             MPCR_API_EXCEPTION("Error While Solving", rc);
@@ -317,7 +329,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     aOutput.SetSize(cols_a * cols_b);
     aOutput.SetDimensions(cols_a, cols_b);
-    if(flag_to_matrix){
+    if (flag_to_matrix) {
         aInputB.ToVector();
     }
 
@@ -329,36 +341,28 @@ template <typename T>
 void
 linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const size_t &aCol, const bool &aUpperTri,
-                  const bool &aTranspose, const char &aSide,const double &aAlpha) {
+                  const bool &aTranspose, const char &aSide,
+                  const double &aAlpha) {
 
-    bool flag_transform=false;
+    bool flag_transform = false;
     if (!aInputA.IsMatrix()) {
         MPCR_API_EXCEPTION(
             "Inputs Must Be Matrices", -1);
     }
 
-    if(!aInputB.IsMatrix()){
-        aInputB.SetDimensions(aInputB.GetNCol(),1);
-        flag_transform=true;
+    if (!aInputB.IsMatrix()) {
+        aInputB.SetDimensions(aInputB.GetNCol(), 1);
+        flag_transform = true;
 
     }
     auto row_a = aInputA.GetNRow();
     auto row_b = aInputB.GetNRow();
     auto col_b = aInputB.GetNCol();
-    auto which_triangle = blas::Uplo::Lower;
-    auto transpose = blas::Op::NoTrans;
-    auto side = aSide == 'L' ? blas::Side::Left : blas::Side::Right;
+    auto left_side = aSide == 'L';
 
     if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
         MPCR_API_EXCEPTION(
             "Given Number of Columns is Greater than Columns of B", -1);
-    }
-    if (aUpperTri) {
-        which_triangle = blas::Uplo::Upper;
-    }
-
-    if (aTranspose) {
-        transpose = blas::Op::Trans;
     }
 
     aOutput.ClearUp();
@@ -374,12 +378,15 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                ( sizeof(T) * aCol ));
     }
 
-    blas::trsm(LAYOUT, side, which_triangle, transpose,
-               blas::Diag::NonUnit, row_b, col_b, aAlpha, pData, row_a, pData_in_out,
-               row_b);
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+
+    solver->Trsm(left_side, aUpperTri, aTranspose, row_b, col_b, aAlpha, pData,
+                 row_a, pData_in_out, row_b);
+
 
     aOutput.SetData((char *) pData_in_out);
-    if(flag_transform){
+    if (flag_transform) {
         aInputB.ToVector();
     }
 
@@ -427,21 +434,25 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
     auto pTemp_data = new T[row * col];
     memcpy((void *) pTemp_data, (void *) pData, ( row * col ) * sizeof(T));
 
-    lapack::Job job;
+    signed char job;
     int ldvt;
     if (aNu == 0 && aNv == 0) {
-        job = lapack::Job::NoVec;
+        job = 'N'; // NoVec
         ldvt = 1;
     } else if (aNu <= min_dim && aNv <= min_dim) {
-        job = lapack::Job::SomeVec;
+        job = 'S'; // SomeVec
         ldvt = min_dim;
     } else {
-        job = lapack::Job::AllVec;
+        job = 'A'; //AllVec
         ldvt = aNv;
     }
 
-    auto rc = lapack::gesdd(job, row, col, pTemp_data, row, pOutput_s,
-                            pOutput_u, row, pOutput_vt, ldvt);
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+
+    // Gesdd routine in CPU
+    auto rc = solver->SVD(job, row, col, pTemp_data, row, pOutput_s, pOutput_u,
+                          row, pOutput_vt, ldvt);
 
     if (rc != 0) {
         delete[] pOutput_vt;
@@ -474,27 +485,27 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     }
 
 
-    auto jobz = lapack::Job::NoVec;
+    auto jobz_no_vec = true;
+    auto fill_upper = true;
+
     if (apOutputVectors != nullptr) {
-        jobz = lapack::Job::Vec;
+        jobz_no_vec = false;
     }
 
-    DataType dump = aInput;
-    T dump_val = 0;
-    auto pData = (T *) dump.GetData();
-    int64_t num_found = 0;
+    auto pData = (T *) aInput.GetData();
 
     auto pValues = new T[col];
     auto pVectors = new T[col * col];
-    auto pIsuppz = new int64_t[2 * col];
 
+    memcpy((char *) pVectors, (char *) pData, col * col * sizeof(T));
 
-    auto rc = lapack::syevr(jobz, lapack::Range::All, lapack::Uplo::Upper, col,
-                            pData, row, 0, 0, 0, 0, 0, &num_found, pValues,
-                            pVectors, row, pIsuppz);
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+
+    auto rc = solver->Syevd(jobz_no_vec, fill_upper, col, pVectors, col,
+                            pValues);
 
     if (rc != 0) {
-        delete[] pIsuppz;
         delete[] pValues;
         delete[] pVectors;
         MPCR_API_EXCEPTION("Error While Performing Eigen", rc);
@@ -510,7 +521,6 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         delete[] pVectors;
     }
 
-    delete[] pIsuppz;
     std::reverse(pValues, pValues + col);
     aOutputValues.ClearUp();
     aOutputValues.SetSize(col);
@@ -543,8 +553,9 @@ linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
         pOutput[ 0 ] = NormMaxMod <T>(aInput);
     } else {
         delete[] pOutput;
-        MPCR_API_EXCEPTION("Argument must be one of 'M','1','O','I','F' or 'E' ",
-                          -1);
+        MPCR_API_EXCEPTION(
+            "Argument must be one of 'M','1','O','I','F' or 'E' ",
+            -1);
     }
 
     aOutput.SetData((char *) pOutput);
@@ -571,8 +582,10 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     memcpy((void *) pQr_in_out, (void *) pData,
            ( aInputA.GetSize()) * sizeof(T));
 
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
 
-    auto rc = lapack::geqp3(row, col, pQr_in_out, row, pJpvt, pQraux);
+    auto rc = solver->Geqp3(row, col, pQr_in_out, row, pJpvt, pQraux);
 
     if (rc != 0) {
         delete[] pQr_in_out;
@@ -663,7 +676,10 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
     memcpy((void *) pOutput_data, (void *) pQr_data,
            ( output_size * sizeof(T)));
 
-    auto rc = lapack::orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+
+    auto rc = solver->Orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
 
     if (rc != 0) {
         delete[] pOutput_data;
@@ -686,7 +702,11 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
     auto pData = (T *) aInput.GetData();
-    lapack::Norm norm = aNorm == "I" ? lapack::Norm::Inf : lapack::Norm::One;
+    string norm = aNorm == "I" ? "inf" : "one";
+
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+
 
     if (row != col) {
         MPCR_API_EXCEPTION("Wrong Dimensions for rcond", -1);
@@ -694,10 +714,11 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
     auto pRcond = new T[1];
 
     if (aTriangle) {
-        auto rc = lapack::trcon(norm, lapack::Uplo::Lower,
-                                lapack::Diag::NonUnit, row,
-                                pData, col, pRcond);
+        auto upper_triangle = false;
+        auto unit_triangle = false;
 
+        auto rc = solver->Trcon(aNorm, upper_triangle, unit_triangle, row,
+                                pData, col, pRcond);
         if (rc != 0) {
             delete[] pRcond;
             MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
@@ -707,16 +728,16 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
 
         auto pIpiv = new int64_t[row];
         auto pTemp_data = new T[row * col];
-        T xnorm;
+        T xnorm = 0;
         memcpy((void *) pTemp_data, (void *) pData, ( row * col ) * sizeof(T));
 
-        if (norm == lapack::Norm::One) {
+        if (norm == "one") {
             xnorm = NormMACS <T>(aInput);
-        } else if (norm == lapack::Norm::Inf) {
+        } else if (norm == "inf") {
             xnorm = NormMARS <T>(aInput);
         }
 
-        auto rc = lapack::getrf(row, col, pTemp_data, col, pIpiv);
+        auto rc = solver->Getrf(row, col, pTemp_data, col, pIpiv);
         if (rc != 0) {
             delete[] pRcond;
             delete[] pIpiv;
@@ -725,7 +746,8 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
         }
         delete[] pIpiv;
 
-        lapack::gecon(norm, row, pTemp_data, col, xnorm, pRcond);
+
+        rc = solver->Gecon(aNorm, row, pTemp_data, col, xnorm, pRcond);
 
         if (rc != 0) {
             delete[] pRcond;
@@ -764,7 +786,10 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     memcpy((void *) pOutput_data, (void *) pQr_data,
            ( output_size * sizeof(T)));
 
-    auto rc = lapack::orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
+    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+        CPU);
+
+    auto rc = solver->Orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
 
     if (rc != 0) {
         delete[] pOutput_data;
@@ -894,7 +919,7 @@ FLOATING_POINT_INST(void, linear::Solve, DataType &aInputA, DataType &aInputB,
 FLOATING_POINT_INST(void, linear::BackSolve, DataType &aInputA,
                     DataType &aInputB, DataType &aOutput, const size_t &aCol,
                     const bool &aUpperTri, const bool &aTranspose,
-                    const char &aSide,const double &aAlpha)
+                    const char &aSide, const double &aAlpha)
 
 FLOATING_POINT_INST(void, linear::Eigen, DataType &aInput,
                     DataType &aOutputValues, DataType *apOutputVectors)
