@@ -15,9 +15,27 @@
 
 namespace mpcr::operations {
     namespace linear {
+        /**
+         * Template Linear Algebra backend Factory
+         * This Factory is intended to be used on Float and Double only.
+         **/
         template <typename T>
         class LinearAlgebraBackendFactory {
         public:
+
+            /**
+             * @brief
+             * Creates a new instance of Linear algebra backend ( CPU/GPU )
+             *
+             * @param [in] aPlacement
+             * if CPU, CPU Linear algebra backend will be created.
+             * if GPU, GPU Linear algebra backend will be created.
+             * The function will throw error in case GPU is used when the code is
+             * not built with GPU support.
+             *
+             * @returns
+             * Unique pointer holder the linear algebra backend.
+             */
             static
             std::unique_ptr<LinearAlgebraBackend <T>>
             CreateBackend(const definitions::OperationPlacement &aPlacement) {

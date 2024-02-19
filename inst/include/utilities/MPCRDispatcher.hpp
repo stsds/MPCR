@@ -134,11 +134,6 @@ using namespace mpcr::definitions;
         template RETURNTYPE __FUN__<double,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
 
 
-#define FLOATING_POINT_INST(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-
-
 /** Instantiators for Template functions with a given return type
  * (Three template argument)
  **/

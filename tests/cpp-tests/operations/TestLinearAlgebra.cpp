@@ -619,6 +619,8 @@ TEST_LINEAR_ALGEBRA() {
 //}
 
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
+    mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+        CPU);
     TEST_LINEAR_ALGEBRA();
 //    TEST();
 

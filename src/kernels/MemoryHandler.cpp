@@ -67,7 +67,7 @@ memory::DestroyArray(char *&apArray, const OperationPlacement &aPlacement,
 
 
 void
-memory::MemCpy(char *&apDestination, const char *apSrcDataArray,
+memory::MemCpy(char *apDestination, const char *apSrcDataArray,
                const size_t &aSizeInBytes, const kernels::RunContext *aContext,
                MemoryTransfer aTransferType) {
     if (aSizeInBytes == 0) {
@@ -100,7 +100,7 @@ memory::MemCpy(char *&apDestination, const char *apSrcDataArray,
 
 
 void
-memory::Memset(char *&apDestination, char aValue, const size_t &aSizeInBytes,
+memory::Memset(char *apDestination, char aValue, const size_t &aSizeInBytes,
                const OperationPlacement &aPlacement,
                const kernels::RunContext *aContext) {
 #ifdef USE_CUDA
