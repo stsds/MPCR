@@ -243,7 +243,7 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
     aOutput.ClearUp();
     if (aNCol == col) {
-        aOutput.SetSize(aNCol*aNCol);
+        aOutput.SetSize(aNCol * aNCol);
         aOutput.SetDimensions(aNCol, aNCol);
         auto pData = (T *) aInputA.GetData(operation_placement);
 
@@ -631,7 +631,7 @@ linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
     aOutput.ClearUp();
     aOutput.SetSize(1);
 
-    auto pOutput = new T[1];
+    auto pOutput = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
 
     if (row == 0 || col == 0) {
         pOutput[ 0 ] = 0.0f;
@@ -650,7 +650,7 @@ linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
             -1);
     }
 
-    aOutput.SetData((char *) pOutput,CPU);
+    aOutput.SetData((char *) pOutput, CPU);
 }
 
 
@@ -724,7 +724,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     aOutputPivot.SetData((char *) pTemp_pvt, operation_placement);
 
     //TODO: needs to be revisited in GPU
-    auto pRank = new T[1];
+    auto pRank = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
     GetRank <T>(aOutputQr, aTolerance, *pRank);
 
     aRank.ClearUp();
@@ -745,7 +745,8 @@ linear::QRDecompositionR(DataType &aInputA, DataType &aOutput,
     auto row = aInputA.GetNRow();
     auto output_nrows = aComplete ? row : std::min(row, col);
     auto output_size = output_nrows * col;
-    auto pOutput_data = new T[output_size];
+    auto pOutput_data = (T *) memory::AllocateArray(output_size * sizeof(T),
+                                                    CPU, nullptr);
     auto pData = (T *) aInputA.GetData();
 
     memset(pOutput_data, 0, output_size * sizeof(T));
@@ -758,7 +759,7 @@ linear::QRDecompositionR(DataType &aInputA, DataType &aOutput,
     aOutput.ClearUp();
     aOutput.SetSize(output_size);
     aOutput.SetDimensions(output_nrows, col);
-    aOutput.SetData((char *) pOutput_data,CPU);
+    aOutput.SetData((char *) pOutput_data, CPU);
 
 }
 
@@ -1048,54 +1049,54 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
 //#endif
 
 SIMPLE_INSTANTIATE(void, linear::CrossProduct, DataType &aInputA,
-                    DataType &aInputB, DataType &aOutput,
-                    const bool &aTransposeA, const bool &aTransposeB,
-                    const bool &aSymmetrize, const double &aAlpha,
-                    const double &aBeta)
+                   DataType &aInputB, DataType &aOutput,
+                   const bool &aTransposeA, const bool &aTransposeB,
+                   const bool &aSymmetrize, const double &aAlpha,
+                   const double &aBeta)
 
 SIMPLE_INSTANTIATE(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
 
 SIMPLE_INSTANTIATE(void, linear::Cholesky, DataType &aInputA,
-                    DataType &aOutput, const bool &aUpperTriangle)
+                   DataType &aOutput, const bool &aUpperTriangle)
 
 SIMPLE_INSTANTIATE(void, linear::CholeskyInv, DataType &aInputA,
-                    DataType &aOutput, const size_t &aNCol)
+                   DataType &aOutput, const size_t &aNCol)
 
 SIMPLE_INSTANTIATE(void, linear::Solve, DataType &aInputA, DataType &aInputB,
-                    DataType &aOutput, const bool &aSingle)
+                   DataType &aOutput, const bool &aSingle)
 
 SIMPLE_INSTANTIATE(void, linear::BackSolve, DataType &aInputA,
-                    DataType &aInputB, DataType &aOutput, const size_t &aCol,
-                    const bool &aUpperTri, const bool &aTranspose,
-                    const char &aSide, const double &aAlpha)
+                   DataType &aInputB, DataType &aOutput, const size_t &aCol,
+                   const bool &aUpperTri, const bool &aTranspose,
+                   const char &aSide, const double &aAlpha)
 
 SIMPLE_INSTANTIATE(void, linear::Eigen, DataType &aInput,
-                    DataType &aOutputValues, DataType *apOutputVectors)
+                   DataType &aOutputValues, DataType *apOutputVectors)
 
 SIMPLE_INSTANTIATE(void, linear::Norm, DataType &aInput,
-                    const std::string &aType, DataType &aOutput)
+                   const std::string &aType, DataType &aOutput)
 
 SIMPLE_INSTANTIATE(void, linear::ReciprocalCondition, DataType &aInput,
-                    DataType &aOutput, const std::string &aNorm,
-                    const bool &aTriangle)
+                   DataType &aOutput, const std::string &aNorm,
+                   const bool &aTriangle)
 
 SIMPLE_INSTANTIATE(void, linear::SVD, DataType &aInputA, DataType &aOutputS,
-                    DataType &aOutputU, DataType &aOutputV, const size_t &aNu,
-                    const size_t &aNv, const bool &aTranspose)
+                   DataType &aOutputU, DataType &aOutputV, const size_t &aNu,
+                   const size_t &aNv, const bool &aTranspose)
 
 SIMPLE_INSTANTIATE(void, linear::QRDecompositionQ, DataType &aInputA,
-                    DataType &aInputB, DataType &aOutput, const bool &aComplete)
+                   DataType &aInputB, DataType &aOutput, const bool &aComplete)
 
 SIMPLE_INSTANTIATE(void, linear::QRDecomposition, DataType &aInputA,
-                    DataType &aOutputQr, DataType &aOutputQraux,
-                    DataType &aOutputPivot, DataType &aRank,
-                    const double &aTolerance)
+                   DataType &aOutputQr, DataType &aOutputQraux,
+                   DataType &aOutputPivot, DataType &aRank,
+                   const double &aTolerance)
 
 SIMPLE_INSTANTIATE(void, linear::QRDecompositionR, DataType &aInputA,
-                    DataType &aOutput, const bool &aComplete)
+                   DataType &aOutput, const bool &aComplete)
 
 SIMPLE_INSTANTIATE(void, linear::QRDecompositionQY, DataType &aInputA,
-                    DataType &aInputB, DataType &aInputC, DataType &aOutput,
-                    const bool &aTranspose)
+                   DataType &aInputB, DataType &aInputC, DataType &aOutput,
+                   const bool &aTranspose)
 
 

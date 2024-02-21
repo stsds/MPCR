@@ -9,9 +9,9 @@
 #include <operations/BasicOperations.hpp>
 
 
-
 using namespace mpcr::operations;
 using namespace mpcr::precision;
+using namespace mpcr;
 
 
 template <typename T>
@@ -28,7 +28,7 @@ basic::MinMax(DataType &aVec, DataType &aOutput, size_t &aMinMaxIdx,
     T max = pData[ 0 ];
     size_t min_idx = 0;
     size_t max_idx = 0;
-    pOutput = new T[1];
+    pOutput = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
     auto size = aVec.GetSize();
 
     for (auto i = 1; i < size; i++) {
@@ -64,11 +64,11 @@ basic::GetType(DataType &aVec, std::string &aType) {
     ss << "MPCR Object : ";
 
     definitions::Precision temp = aVec.GetPrecision();
-    if (temp ==definitions::HALF) {
+    if (temp == definitions::HALF) {
         ss << "16-Bit Precision";
-    } else if (temp ==definitions::FLOAT) {
+    } else if (temp == definitions::FLOAT) {
         ss << "32-Bit Precision";
-    } else if (temp ==definitions::DOUBLE) {
+    } else if (temp == definitions::DOUBLE) {
         ss << "64-Bit Precision";
     } else {
         MPCR_API_EXCEPTION("Type Error Unknown Type", (int) temp);
@@ -88,7 +88,7 @@ basic::GetDiagonal(DataType &aVec, DataType &aOutput,
     if (!aVec.IsMatrix()) {
         if (apDim == nullptr) {
             MPCR_API_EXCEPTION("Matrix Out of Bound No Dimensions is Passed",
-                              -1);
+                               -1);
         }
         if (!aVec.CanBeMatrix(apDim->GetNRow(), apDim->GetNCol())) {
             MPCR_API_EXCEPTION("Matrix Out of Bound Wrong Dimensions", -1);
@@ -102,7 +102,7 @@ basic::GetDiagonal(DataType &aVec, DataType &aOutput,
     T *pOutput_data;
     T *pData = (T *) aVec.GetData();
     auto count = std::min(pDims->GetNCol(), pDims->GetNRow());
-    pOutput_data = new T[count];
+    pOutput_data = (T *) memory::AllocateArray(count * sizeof(T), CPU, nullptr);
 
     auto row = pDims->GetNRow();
 
@@ -139,7 +139,7 @@ basic::Sweep(DataType &aVec, DataType &aStats, DataType &aOutput,
 
     auto size = aVec.GetSize();
     auto stat_size = aStats.GetSize();
-    pOutput_data = new Y[size];
+    pOutput_data = (Y *) memory::AllocateArray(size * sizeof(Y), CPU, nullptr);
 
     if (aMargin == 1 && rows % stat_size ||
         aMargin != 1 && cols % stat_size) {
@@ -214,7 +214,8 @@ basic::ColumnBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
 
     T *pData_one = (T *) aInputA.GetData();
     X *pData_two = (X *) aInputB.GetData();
-    Y *pData_out = new Y[new_size];
+    Y *pData_out = (Y *) memory::AllocateArray(new_size * sizeof(Y), CPU,
+                                               nullptr);
 
     std::copy(pData_one, pData_one + aInputA.GetSize(), pData_out);
     std::copy(pData_two, pData_two + aInputB.GetSize(),
@@ -247,7 +248,8 @@ basic::RowBind(DataType &aInputA, DataType &aInputB, DataType &aOutput) {
     size_t num_rows = num_rows_in_1 + num_rows_in_2;
     T *pData_one = (T *) aInputA.GetData();
     X *pData_two = (X *) aInputB.GetData();
-    Y *pData_out = new Y[new_size];
+    Y *pData_out = (Y *) memory::AllocateArray(new_size * sizeof(Y), CPU,
+                                               nullptr);
     size_t offset;
     size_t offset_one;
     size_t offset_two;
@@ -294,7 +296,7 @@ void
 basic::Replicate(DataType &aInput, DataType &aOutput, const size_t &aSize) {
 
     T *pData = (T *) aInput.GetData();
-    T *pBuffer = new T[aSize];
+    T *pBuffer = (T *) memory::AllocateArray(aSize * sizeof(T), CPU, nullptr);
     size_t data_size = aInput.GetSize();
     for (auto i = 0; i < aSize; ++i) {
         pBuffer[ i ] = pData[ i % data_size ];
@@ -315,7 +317,7 @@ basic::GetAsStr(DataType &aVec, std::string &aType) {
     if (aVec.IsMatrix()) {
         ss << "Matrix Of Dimensions :";
         auto dim = aVec.GetDimensions();
-        ss<<std::endl;
+        ss << std::endl;
         ss << "Number of Rows = " << dim->GetNRow() << std::endl;
         ss << "Number of Column = " << dim->GetNCol() << std::endl;
     } else {
@@ -361,7 +363,8 @@ basic::NAExclude(DataType &aInputA) {
         }
 
         counter = row_idx.size() * cols;
-        T *pOutput = new T[counter];
+        T *pOutput = (T *) memory::AllocateArray(counter * sizeof(T), CPU,
+                                                 nullptr);
         aInputA.SetSize(counter);
         auto row_size_new = row_idx.size();
         aInputA.SetDimensions(row_size_new, cols);
@@ -389,7 +392,8 @@ basic::NAExclude(DataType &aInputA) {
         if (counter == size) {
             return;
         }
-        T *pOutput = new T[counter];
+        T *pOutput = (T *) memory::AllocateArray(counter * sizeof(T), CPU,
+                                                 nullptr);
         aInputA.SetSize(counter);
         counter = 0;
         for (auto i = 0; i < size; ++i) {
@@ -415,7 +419,7 @@ basic::ApplyCenter(DataType &aInputA, DataType &aCenter, DataType &aOutput,
     aOutput.ClearUp();
     aOutput.SetSize(size);
     aOutput.SetDimensions(row, col);
-    auto pOutput = new Y[size];
+    auto pOutput = (Y *) memory::AllocateArray(size * sizeof(Y), CPU, nullptr);
     size_t start_idx;
 
     if (apCenter != nullptr) {
@@ -547,7 +551,7 @@ basic::NAReplace(DataType &aInputA, const double &aValue) {
         }
     }
 
-    aInputA.SetData((char*)pData);
+    aInputA.SetData((char *) pData);
 
 }
 

@@ -19,7 +19,7 @@ void math::PerformRoundOperation(DataType &aInputA, DataType &aOutput,
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
 
     PERFORM_ROUND_OP(pData, pOutput, size, aFun)
 
@@ -35,7 +35,7 @@ void math::SquareRoot(DataType &aInputA, DataType &aOutput) {
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
 
     try {
         for (auto i = 0; i < size; i++) {
@@ -57,7 +57,7 @@ void math::Exponential(DataType &aInputA, DataType &aOutput, bool aFlag) {
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
     double val = 0.0;
     if (aFlag) {
         val = 1.0;
@@ -110,7 +110,7 @@ void math::Log(DataType &aInputA, DataType &aOutput, double aBase) {
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
 
     if (aBase == 10) {
         for (auto i = 0; i < size; i++) {
@@ -120,14 +120,14 @@ void math::Log(DataType &aInputA, DataType &aOutput, double aBase) {
         for (auto i = 0; i < size; i++) {
             pOutput[ i ] = std::log2(pData[ i ]);
         }
-    }else if(aBase==1){
+    } else if (aBase == 1) {
 
-        auto val= 1.0/ log(std::exp(1));
+        auto val = 1.0 / log(std::exp(1));
 
         for (auto i = 0; i < size; i++) {
-            pOutput[ i ] = std::log(pData[ i])*val;
+            pOutput[ i ] = std::log(pData[ i ]) * val;
         }
-    }else {
+    } else {
         delete[] pOutput;
         MPCR_API_EXCEPTION("Unknown Log Base", aBase);
     }
@@ -146,7 +146,7 @@ math::PerformTrigOperation(DataType &aInputA, DataType &aOutput,
                            std::string aFun) {
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
 
     PERFORM_TRIG_OP(pData, pOutput, size, aFun)
 
@@ -163,8 +163,7 @@ math::PerformInverseTrigOperation(DataType &aInputA, DataType &aOutput,
                                   std::string aFun) {
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
-
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
     PERFORM_INV_TRIG_OP(pData, pOutput, size, aFun)
 
     aOutput.ClearUp();
@@ -180,7 +179,7 @@ math::Round(DataType &aInputA, DataType &aOutput, const int &aDecimalPoint) {
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
     auto mult_val = std::pow(10, aDecimalPoint);
 
     for (auto i = 0; i < size; i++) {
@@ -200,14 +199,14 @@ void math::Gamma(DataType &aInputA, DataType &aOutput, const bool &aLGamma) {
 
     auto pData = (T *) aInputA.GetData();
     auto size = aInputA.GetSize();
-    auto pOutput = new T[size];
+    auto pOutput = (T *) memory::AllocateArray(size * sizeof(T), CPU, nullptr);
     if (aLGamma) {
         for (auto i = 0; i < size; i++) {
-            pOutput[i] = std::lgamma(pData[ i ]);
+            pOutput[ i ] = std::lgamma(pData[ i ]);
         }
     } else {
         for (auto i = 0; i < size; i++) {
-            pOutput[i] = std::tgamma(pData[ i ]);
+            pOutput[ i ] = std::tgamma(pData[ i ]);
         }
     }
 
