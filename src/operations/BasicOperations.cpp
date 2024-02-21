@@ -547,6 +547,8 @@ basic::NAReplace(DataType &aInputA, const double &aValue) {
         }
     }
 
+    aInputA.SetData((char*)pData);
+
 }
 
 
