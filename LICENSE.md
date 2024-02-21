@@ -5,7 +5,12 @@
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
-Copyright (c) 2023, King Abdullah University of Science and Technology
+ Copyright (c) 2011-2014, The OpenBLAS Project
+ All rights reserved.
+
+ Copyright (c) 2017-2023, University of Tennessee. All rights reserved.
+
+ Copyright (c) 2023, King Abdullah University of Science and Technology
  All rights reserved.
 
                             Preamble
