@@ -271,14 +271,14 @@ RConcatenate(Rcpp::ListOf <SEXP> aList) {
     }
     /** Add Dummy Object **/
     if (list_size != mpr_list_size) {
-        DataType dummy(0, HALF);
+        DataType dummy(0, FLOAT);
         mpr_objects[ i ] = &dummy;
     }
 
     auto pOutput = new DataType(size_out, precision_out);
-    auto operation_precision = HALF;
-    auto precision_one = HALF;
-    auto precision_two = HALF;
+    auto operation_precision = FLOAT;
+    auto precision_one = FLOAT;
+    auto precision_two = FLOAT;
     size_t offset = 0;
 
     for (auto j = 0; j < mpr_list_size; j += 2) {
@@ -327,7 +327,7 @@ RScale(DataType *apInput, bool aCenter, DataType *apScale) {
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
     auto pOutput = new DataType(output_precision);
 
-    auto operation_comb = GetOperationPrecision(precision_a, precision_a,
+    auto operation_comb = GetOperationPrecision(precision_a, precision_b,
                                                 output_precision);
     DataType dummy_center(precision_b);
 
