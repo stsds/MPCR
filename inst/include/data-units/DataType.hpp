@@ -146,9 +146,10 @@ public:
      * DataType default constructor
      */
     explicit
-    DataType(){
-        this->InitializeObject(0,DOUBLE,CPU);
+    DataType() {
+        this->InitializeObject(0, DOUBLE, CPU);
     }
+
 
     /**
      * @brief
@@ -924,6 +925,14 @@ public:
     DeSerialize(char *apData);
 
 
+    /**
+     * @brief
+     * Checks if GPU buffer is allocated.
+     *
+     * @returns
+     * true if the buffer is allocated, false otherwise.
+     *
+     */
     inline
     bool
     IsGPUAllocated() {
@@ -931,6 +940,14 @@ public:
     };
 
 
+    /**
+     * @brief
+     * Checks if CPU buffer is allocated.
+     *
+     * @returns
+     * true if the buffer is allocated, false otherwise.
+     *
+     */
     inline
     bool
     IsCPUAllocated() {
@@ -938,11 +955,29 @@ public:
     }
 
 
+    /**
+     * @brief
+     * Allocate memory buffer on CPU or GPU and set it with all the values
+     * of the data passed.
+     * This function will automatically handle all the allocation and memory
+     * movement needed for the operation.
+     *
+     * @param [in] aValues
+     * Vector of double values, that will be casted according to object precision.
+     * @param [in] aPlacement
+     * Placement of buffer allocation needed.
+     *
+     */
     void
     Allocate(std::vector <double> &aValues,
              const OperationPlacement &aPlacement = CPU);
 
-
+    /**
+     * @brief
+     * Print object total size on taking into consideration the CPU and GPU data
+     * used.
+     *
+     */
     void
     PrintTotalSize();
 
@@ -1033,18 +1068,6 @@ private:
     template <typename T>
     void
     CheckNA(std::vector <int> &aOutput, Dimensions *&apDimensions);
-
-    /**
-     * @brief
-     * Get total size of Memory used by Data in MPCR Object
-     *
-     * @param[out] aDataSize
-     * Total size of Memory used by Data in MPCR Object
-     *
-     */
-    template <typename T>
-    void
-    GetDataSize(size_t &aDataSize);
 
     /**
      * @brief
@@ -1180,11 +1203,24 @@ private:
     FillTriangleDispatcher(const double &aValue,
                            const bool &aUpperTriangle = true);
 
-
+    /**
+     * @brief
+     * Function to be used to init MPCR object during the object constructor, used
+     * across all constructor for consistency
+     *
+     * @param [in] aSize
+     * Object size
+     * @param [in] aPrecision
+     * Object precision
+     * @param [in] aOperationPlacement
+     * Whether the allocation will be done on CPU or GPU
+     *
+     */
     void
     InitializeObject(size_t aSize, const Precision &aPrecision,
                      const OperationPlacement &aOperationPlacement);
 
+private:
 
     /** Buffer Holding the Data **/
     DataHolder mData;
