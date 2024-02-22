@@ -14,8 +14,8 @@ SystemRequirements: CMake (>=3.20) , C++ (>= 11)
 NeedsCompilation: yes
 OS_type: unix
 Authors@R: c(
-    person("David", "Helmy", role=c("aut", "cph"), email="david.helmy@brightskiesinc.com"),
-    person("Sameh", "Abdulah", role=c("cre","cph"), email="sameh.abdulah@kaust.edu.sa"),
+    person("David", "Helmy", role=c("aut"), email="david.helmy@brightskiesinc.com"),
+    person("Sameh", "Abdulah", role=c("cre"), email="sameh.abdulah@kaust.edu.sa"),
     person("KAUST", "King Abdullah University of Science and Technology", role=c("fnd","cph"))
     )
 URL: https://github.com/stsds/MPCR
