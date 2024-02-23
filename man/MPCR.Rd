@@ -1,5 +1,8 @@
 \name{01-MPCR}
 \alias{MPCR}
+\alias{Rcpp_MPCR-class}
+\alias{MPCR.Serialize}
+\alias{MPCR.DeSerialize}
 \title{MPCR S4 Class}
 
 \description{

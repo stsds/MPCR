@@ -2,6 +2,8 @@
 \alias{dimensions}
 \alias{nrow,Rcpp_MPCR-method}
 \alias{ncol,Rcpp_MPCR-method}
+\alias{MPCR.ncol}
+\alias{MPCR.nrow}
 \title{dimensions}
 \usage{
 \S4method{nrow}{Rcpp_MPCR}(x)

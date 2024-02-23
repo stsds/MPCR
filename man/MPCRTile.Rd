@@ -1,5 +1,9 @@
 \name{02-MPCRTile}
 \alias{MPCRTile}
+\alias{Rcpp_MPCRTile-class}
+\alias{MPCRTile.GetSerializedTile}
+\alias{MPCRTile.GetTile}
+\alias{MPCRTile.UpdateTile}
 \title{MPCRTile S4 Class}
 
 \description{

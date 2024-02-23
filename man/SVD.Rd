@@ -2,6 +2,10 @@
 \alias{svd}
 \alias{La.svd,Rcpp_MPCR-method}
 \alias{svd,Rcpp_MPCR-method}
+
+\alias{MPCR.La.svd}
+\alias{MPCR.svd}
+
 \title{SVD}
 \usage{
 \S4method{La.svd}{Rcpp_MPCR}(x, nu = min(n, p), nv = min(n, p))

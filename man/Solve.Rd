@@ -1,5 +1,6 @@
 \name{36-Solve}
 \alias{solve}
+\alias{MPCR.solve}
 \alias{solve,Rcpp_MPCR-method}
 \title{solve}
 \usage{

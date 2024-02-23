@@ -1,5 +1,6 @@
 \name{19-Scale}
 \alias{scale}
+\alias{MPCR.scale}
 \alias{scale,Rcpp_MPCR-method}
 \title{scale}
 \usage{

@@ -3,6 +3,11 @@
 \alias{MPCR.is.na,Rcpp_MPCR-method}
 \alias{MPCR.na.exclude,Rcpp_MPCR-method}
 \alias{MPCR.na.omit,Rcpp_MPCR-method}
+
+\alias{MPCR.is.na}
+\alias{MPCR.na.exclude}
+\alias{MPCR.na.omit}
+
 \title{NA's}
 \usage{
 \S4method{MPCR.is.na}{Rcpp_MPCR}(object,index=-1)

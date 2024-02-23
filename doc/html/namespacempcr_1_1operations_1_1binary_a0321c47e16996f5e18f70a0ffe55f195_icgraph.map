@@ -1,8 +1,0 @@
-<map id="mpcr::operations::binary::PerformOperationSingle" name="mpcr::operations::binary::PerformOperationSingle">
-<area shape="rect" id="node1" title="Perform Operation on MPCR Object and a Numerical Value according to provided Operation aFun." alt="" coords="176,99,363,141"/>
-<area shape="rect" id="node2" href="$RBinaryOperations_8hpp.html#a68f13e2c0cc9769fa925dfb7a9331bc5" title="R&#45;Adapter for Performing Div with on MPCR object using a Given Value." alt="" coords="14,5,119,32"/>
-<area shape="rect" id="node3" href="$RBinaryOperations_8hpp.html#a770313c42d045067bdc981881f048583" title="R&#45;Adapter for Performing Minus with on MPCR object using a Given Value." alt="" coords="5,56,128,83"/>
-<area shape="rect" id="node4" href="$RBinaryOperations_8hpp.html#a813d05ef218f6f3cf6b02f25d59a8c6c" title="R&#45;Adapter for Performing Multiplication on MPCR object using a Given Value." alt="" coords="11,107,123,133"/>
-<area shape="rect" id="node5" href="$RBinaryOperations_8hpp.html#a4bb7fad31d6813dd725233de0519c5ee" title="R&#45;Adapter for Performing Plus on MPCR object using a Given Value." alt="" coords="11,157,122,184"/>
-<area shape="rect" id="node6" href="$RBinaryOperations_8hpp.html#aa3d1270b230020f8bf544e2855590af9" title="R&#45;Adapter for Performing Power operation on MPCR object using a Given Value." alt="" coords="11,208,122,235"/>
-</map>

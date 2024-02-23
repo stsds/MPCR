@@ -10,7 +10,11 @@
 #include <operations/LinearAlgebra.hpp>
 #include <utilities/MPCRDispatcher.hpp>
 #include <data-units/Promoter.hpp>
+
+
+#ifdef _OPENMP
 #include <omp.h>
+#endif
 
 
 using namespace mpcr::operations;
@@ -39,7 +43,9 @@ linear::TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput,
     Promoter prom(2);
     Promoter dep_promoter(1);
 
+#ifdef _OPENMP
     omp_set_num_threads(aNumThreads);
+#endif
 
     for (auto k = 0; k < tiles_per_row; k++) {
 
@@ -58,8 +64,9 @@ linear::TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput,
 
         prom.ResetPromoter(2);
         pOutput->InsertTile(pTile_potrf_out, k, k);
-
+#ifdef _OPENMP
 #pragma omp parallel for
+#endif
         for (auto i = k + 1; i < tiles_per_row; i++) {
 
             Promoter temp_promoter(2);
@@ -67,23 +74,29 @@ linear::TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput,
             auto pTemp_tile_a = pOutput->GetTile(k, k);
             auto pTemp_tile_b = pOutput->GetTile(i, k);
             DataType *pTile_trsm_out = nullptr;
-
+#ifdef _OPENMP
 #pragma omp critical
             {
                 pTile_trsm_out = new DataType(pTemp_tile_b->GetPrecision());
             }
-
+#else
+            pTile_trsm_out = new DataType(pTemp_tile_b->GetPrecision());
+#endif
             temp_promoter.Insert(*pTile_trsm_out);
             temp_promoter.Insert(*pTemp_tile_b);
             temp_promoter.Promote();
 
             DataType *pTile_a_promoted = nullptr;
-
+#ifdef _OPENMP
 #pragma omp critical
             {
                 pTile_a_promoted = dep_promoter.GetPromotedTile(pTemp_tile_a,
                                                                 pTemp_tile_b->GetPrecision());
             }
+#else
+            pTile_a_promoted = dep_promoter.GetPromotedTile(pTemp_tile_a,
+                                                                pTemp_tile_b->GetPrecision());
+#endif
 
 
             /** trsm **/
@@ -120,8 +133,9 @@ linear::TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput,
 
             prom.DePromote();
             pOutput->InsertTile(pTemp_tile_out_two, j, j);
-
+#ifdef _OPENMP
 #pragma omp parallel for
+#endif
             for (auto i = j + 1; i < tiles_per_row; i++) {
                 auto pTemp_tile_a = pOutput->GetTile(i, k);
                 auto pTemp_tile_b = pOutput->GetTile(j, k);
@@ -134,7 +148,9 @@ linear::TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput,
 
                 DataType *pTile_a_promoted_gemm = nullptr;
                 DataType *pTile_b_promoted = nullptr;
+#ifdef _OPENMP
 #pragma omp critical
+
                 {
                     pTile_a_promoted_gemm = dep_promoter.GetPromotedTile(
                         pTemp_tile_a, pTile_gemm_out->GetPrecision());
@@ -142,8 +158,14 @@ linear::TileCholesky(MPCRTile &aMatrix, const bool &aOverWriteInput,
                     pTile_b_promoted = dep_promoter.GetPromotedTile(
                         pTemp_tile_b, pTile_gemm_out->GetPrecision());
                 }
+#else
+                pTile_a_promoted_gemm = dep_promoter.GetPromotedTile(
+                        pTemp_tile_a, pTile_gemm_out->GetPrecision());
 
+                    pTile_b_promoted = dep_promoter.GetPromotedTile(
+                        pTemp_tile_b, pTile_gemm_out->GetPrecision());
 
+#endif
                 /** gemm **/
                 SIMPLE_DISPATCH(pTile_gemm_out->GetPrecision(),
                                 linear::CrossProduct, *pTile_a_promoted_gemm,
@@ -186,10 +208,14 @@ linear::TileGemm(MPCRTile &aInputA, MPCRTile &aInputB, MPCRTile &aInputC,
     }
 
     auto pOutput = &aInputC;
-
+#ifdef _OPENMP
     omp_set_num_threads(aNumThreads);
+#endif
 
+#ifdef _OPENMP
 #pragma omp parallel for collapse(2)
+#endif
+
     for (auto i = 0; i < tile_per_row_a; i++) {
         for (auto j = 0; j < tile_per_col_b; j++) {
 

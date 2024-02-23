@@ -1,4 +1,0 @@
-<map id="mpcr::operations::linear::TileGemm" name="mpcr::operations::linear::TileGemm">
-<area shape="rect" id="node1" title="Tiled&#45;Matrix Multiplication of 2 MPCR Tile Matrices performs: C = alpha A * B + beta C." alt="" coords="173,5,351,47"/>
-<area shape="rect" id="node2" href="$MPCRTileModule_8cpp.html#a966697cc32c8d25af9d1a0a54b9ebf18" title=" " alt="" coords="5,13,125,39"/>
-</map>

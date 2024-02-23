@@ -1,0 +1,6 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{mpcr}
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{MPCR.pdf}
+\end{document}

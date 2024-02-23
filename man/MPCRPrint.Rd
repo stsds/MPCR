@@ -1,7 +1,12 @@
 \name{27-Print}
 \alias{print}
+\alias{MPCR.str}
 \alias{print,Rcpp_MPCR-method}
 \alias{show,Rcpp_MPCR-method}
+
+\alias{MPCR.print}
+\alias{MPCR.show}
+
 \title{print}
 \usage{
 \S4method{print}{Rcpp_MPCR}(x)

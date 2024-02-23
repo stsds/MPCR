@@ -6,6 +6,14 @@
 \alias{asinh,Rcpp_MPCR-method}
 \alias{acosh,Rcpp_MPCR-method}
 \alias{atanh,Rcpp_MPCR-method}
+
+\alias{MPCR.sinh}
+\alias{MPCR.cosh}
+\alias{MPCR.tanh}
+\alias{MPCR.asinh}
+\alias{MPCR.acosh}
+\alias{MPCR.atanh}
+
 \title{Hyperbolic functions}
 \description{
 These functions give the obvious hyperbolic functions. They respectively compute the hyperbolic cosine, sine, tangent, and their inverses, arc-cosine, arc-sine, arc-tangent (or 'area cosine', etc).

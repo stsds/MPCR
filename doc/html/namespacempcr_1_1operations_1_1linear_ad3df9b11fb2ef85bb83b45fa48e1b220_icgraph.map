@@ -1,5 +1,0 @@
-<map id="mpcr::operations::linear::ReciprocalCondition" name="mpcr::operations::linear::ReciprocalCondition">
-<area shape="rect" id="node1" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="295,5,472,47"/>
-<area shape="rect" id="node2" href="$RLinearAlgebra_8hpp.html#a8d4a9dc85f82d4e225cdced198536698" title="Estimate the reciprocal of the condition number of a matrix." alt="" coords="173,13,247,39"/>
-<area shape="rect" id="node3" href="$DataTypeModule_8cpp.html#a4c7bb26c8e7bbf9c1cf1740b99a5723a" title=" " alt="" coords="5,13,125,39"/>
-</map>
