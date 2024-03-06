@@ -21,13 +21,20 @@ RunContext::RunContext(
 #ifdef USE_CUDA
     this->mpInfo = nullptr;
     if (aOperationPlacement == definitions::GPU) {
+
         cudaStreamCreate(&this->mCudaStream);
         cusolverDnCreate(&this->mCuSolverHandle);
         cusolverDnSetStream(this->mCuSolverHandle, this->mCudaStream);
+
+        cublasCreate(&this->mCuBlasHandle);
+        cublasSetStream(this->mCuBlasHandle, this->mCudaStream);
+
         GPU_ERROR_CHECK(cudaMalloc((void **) &this->mpInfo, sizeof(int)));
     }
-    this->mWorkBufferSize = 0;
-    this->mpWorkBuffer = nullptr;
+    this->mWorkBufferSizeHost = 0;
+    this->mpWorkBufferHost = nullptr;
+    this->mWorkBufferSizeDevice = 0;
+    this->mpWorkBufferDevice = nullptr;
     this->mOperationPlacement = aOperationPlacement;
 
 #else
@@ -44,12 +51,21 @@ RunContext::RunContext(
 
 RunContext::RunContext(const RunContext &aContext) {
 
+    this->mOperationPlacement = aContext.mOperationPlacement;
+    this->mRunMode = aContext.mRunMode;
+    this->mpInfo= nullptr;
+
 #ifdef USE_CUDA
-    this->mCuSolverHandle = aContext.mCuSolverHandle;
-    this->mCudaStream = aContext.mCudaStream;
-    this->mpInfo = aContext.mpInfo;
-    this->mWorkBufferSize = 0;
-    this->mpWorkBuffer = nullptr;
+    if(this->mOperationPlacement==definitions::GPU){
+        this->mCuSolverHandle = aContext.mCuSolverHandle;
+        this->mCudaStream = aContext.mCudaStream;
+        this->mCuBlasHandle = aContext.mCuBlasHandle;
+        GPU_ERROR_CHECK(cudaMalloc((void **) &this->mpInfo, sizeof(int)));
+    }
+    this->mWorkBufferSizeDevice = 0;
+    this->mpWorkBufferDevice = nullptr;
+    this->mWorkBufferSizeHost = 0;
+    this->mpWorkBufferHost = nullptr;
 
 
 #else
@@ -57,8 +73,6 @@ RunContext::RunContext(const RunContext &aContext) {
     MPCR_PRINTER(std::endl)
 #endif
 
-    this->mOperationPlacement = aContext.mOperationPlacement;
-    this->mRunMode = aContext.mRunMode;
 
 }
 
@@ -67,18 +81,27 @@ RunContext::~RunContext() {
 #ifdef USE_CUDA
     int rc = 0;
     this->Sync();
-    if (this->mpWorkBuffer != nullptr) {
-        GPU_ERROR_CHECK(cudaFree(this->mpWorkBuffer));
+    if (this->mpWorkBufferDevice != nullptr) {
+        GPU_ERROR_CHECK(cudaFree(this->mpWorkBufferDevice));
     }
+    if (this->mpWorkBufferHost != nullptr) {
+        delete[] (char *) this->mpWorkBufferHost;
+    }
+
     if (this->mOperationPlacement == definitions::GPU) {
         rc = cusolverDnDestroy(this->mCuSolverHandle);
         if (rc) {
             MPCR_API_EXCEPTION("Error While Destroying CuSolver Handle", rc);
         }
+        rc=cublasDestroy(this->mCuBlasHandle);
+        if (rc) {
+            MPCR_API_EXCEPTION("Error While Destroying CuBlas Handle", rc);
+        }
         rc = cudaStreamDestroy(this->mCudaStream);
         if (rc) {
             MPCR_API_EXCEPTION("Error While Destroying CUDA stream", rc);
         }
+
         GPU_ERROR_CHECK(cudaFree(this->mpInfo));
     }
 
@@ -105,7 +128,7 @@ RunContext::SetOperationPlacement(
 #ifdef USE_CUDA
     if (this->mOperationPlacement == definitions::GPU &&
         aOperationPlacement == definitions::GPU) {
-        this->FreeWorkBuffer();
+        this->FreeWorkBufferDevice();
         return;
     }
     this->ClearUp();
@@ -114,6 +137,10 @@ RunContext::SetOperationPlacement(
         cudaStreamCreate(&this->mCudaStream);
         cusolverDnCreate(&this->mCuSolverHandle);
         cusolverDnSetStream(this->mCuSolverHandle, this->mCudaStream);
+
+        cublasCreate(&this->mCuBlasHandle);
+        cublasSetStream(this->mCuBlasHandle, this->mCudaStream);
+
         GPU_ERROR_CHECK(cudaMalloc((void **) &this->mpInfo, sizeof(int)));
     }
 
@@ -179,21 +206,49 @@ RunContext::GetInfoPointer() const {
 
 
 void *
-RunContext::RequestWorkBuffer(const size_t &aBufferSize) const {
+RunContext::RequestWorkBufferDevice(const size_t &aBufferSize) const {
+
+    if (aBufferSize == 0) {
+        return this->mpWorkBufferDevice;
+    }
 
     if (this->mOperationPlacement == definitions::CPU) {
         MPCR_API_EXCEPTION(
             "Cannot get context metadata while running CPU context", -1);
     }
 
-    if (aBufferSize > this->mWorkBufferSize) {
-        if (this->mpWorkBuffer != nullptr) {
-            cudaFree(this->mpWorkBuffer);
+    if (aBufferSize > this->mWorkBufferSizeDevice) {
+        if (this->mpWorkBufferDevice != nullptr) {
+            cudaFree(this->mpWorkBufferDevice);
         }
-        this->mWorkBufferSize = aBufferSize;
-        GPU_ERROR_CHECK(cudaMalloc(&this->mpWorkBuffer, aBufferSize));
+        this->mWorkBufferSizeDevice = aBufferSize;
+        GPU_ERROR_CHECK(cudaMalloc(&this->mpWorkBufferDevice, aBufferSize));
     }
-    return this->mpWorkBuffer;
+    return this->mpWorkBufferDevice;
+
+}
+
+
+void *
+RunContext::RequestWorkBufferHost(const size_t &aBufferSize) const {
+
+    if (aBufferSize == 0) {
+        return this->mpWorkBufferHost;
+    }
+
+    if (this->mOperationPlacement == definitions::CPU) {
+        MPCR_API_EXCEPTION(
+            "Cannot get context metadata while running CPU context", -1);
+    }
+
+    if (aBufferSize > this->mWorkBufferSizeHost) {
+        if (this->mpWorkBufferHost != nullptr) {
+            delete[] (char *) this->mpWorkBufferHost;
+        }
+        this->mWorkBufferSizeHost = aBufferSize;
+        this->mpWorkBufferHost = new char[aBufferSize];
+    }
+    return this->mpWorkBufferHost;
 
 }
 
@@ -202,12 +257,19 @@ void RunContext::ClearUp() {
     if (this->mOperationPlacement == definitions::GPU) {
         int rc = 0;
         this->Sync();
-        if (this->mpWorkBuffer != nullptr) {
-            GPU_ERROR_CHECK(cudaFree(this->mpWorkBuffer));
+        if (this->mpWorkBufferDevice != nullptr) {
+            GPU_ERROR_CHECK(cudaFree(this->mpWorkBufferDevice));
+        }
+        if (this->mpWorkBufferHost != nullptr) {
+            delete[] (char *) this->mpWorkBufferHost;
         }
         rc = cusolverDnDestroy(this->mCuSolverHandle);
         if (rc) {
             MPCR_API_EXCEPTION("Error While Destroying CuSolver Handle", rc);
+        }
+        rc=cublasDestroy(this->mCuBlasHandle);
+        if (rc) {
+            MPCR_API_EXCEPTION("Error While Destroying CuBlas Handle", rc);
         }
         rc = cudaStreamDestroy(this->mCudaStream);
         if (rc) {
@@ -217,23 +279,51 @@ void RunContext::ClearUp() {
     }
 
     this->mpInfo = nullptr;
-    this->mWorkBufferSize = 0;
-    this->mpWorkBuffer = nullptr;
+    this->mWorkBufferSizeDevice = 0;
+    this->mpWorkBufferDevice = nullptr;
+    this->mWorkBufferSizeHost = 0;
+    this->mpWorkBufferHost = nullptr;
 }
 
 
 void
-RunContext::FreeWorkBuffer() const {
+RunContext::FreeWorkBufferDevice() const {
 
     if (this->mOperationPlacement == definitions::GPU) {
         this->Sync();
-        if (this->mpWorkBuffer != nullptr) {
-            GPU_ERROR_CHECK(cudaFree(this->mpWorkBuffer));
+        if (this->mpWorkBufferDevice != nullptr) {
+            GPU_ERROR_CHECK(cudaFree(this->mpWorkBufferDevice));
         }
     }
-    this->mWorkBufferSize = 0;
-    this->mpWorkBuffer = nullptr;
+    this->mWorkBufferSizeDevice = 0;
+    this->mpWorkBufferDevice = nullptr;
 
+
+}
+
+
+void
+RunContext::FreeWorkBufferHost() const {
+
+    if (this->mOperationPlacement == definitions::GPU) {
+        this->Sync();
+        if (this->mpWorkBufferHost != nullptr) {
+            delete[] (char *) this->mpWorkBufferHost;
+        }
+    }
+    this->mWorkBufferSizeHost = 0;
+    this->mpWorkBufferHost = nullptr;
+
+}
+
+
+cublasHandle_t
+RunContext::GetCuBlasDnHandle() const {
+    if (this->mOperationPlacement == definitions::CPU) {
+        MPCR_API_EXCEPTION(
+            "Cannot get context metadata while running CPU context", -1);
+    }
+    return mCuBlasHandle;
 }
 
 

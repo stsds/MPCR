@@ -154,6 +154,17 @@ namespace mpcr {
 
             /**
              * @brief
+             * Get context CuBlas handle.
+             *
+             * @returns
+             * Cublas handle.
+             *
+             */
+            cublasHandle_t
+            GetCuBlasDnHandle() const;
+
+            /**
+             * @brief
              * Get Information pointer used as output for any CuSolver call.
              *
              * @returns
@@ -165,7 +176,7 @@ namespace mpcr {
 
             /**
              * @brief
-             * Request a work buffer for CuSolver/CuBlas operations.
+             * Request a GPU work buffer for CuSolver/CuBlas operations.
              * The function will allocate a buffer in case the buffer size requested
              * is larger than the ine already allocated, if not, it will return
              * the allocated work buffer.
@@ -175,7 +186,21 @@ namespace mpcr {
              *
              */
             void *
-            RequestWorkBuffer(const size_t &aBufferSize) const;
+            RequestWorkBufferDevice(const size_t &aBufferSize) const;
+
+            /**
+             * @brief
+             * Request a CPU work buffer for CuSolver/CuBlas operations.
+             * The function will allocate a buffer in case the buffer size requested
+             * is larger than the ine already allocated, if not, it will return
+             * the allocated work buffer.
+             *
+             * @returns
+             * void pointer to the allocated work buffer.
+             *
+             */
+            void *
+            RequestWorkBufferHost(const size_t &aBufferSize) const;
 
             /**
              * @brief
@@ -183,7 +208,15 @@ namespace mpcr {
              *
              */
             void
-            FreeWorkBuffer() const;
+            FreeWorkBufferDevice() const;
+
+            /**
+             * @brief
+             * Sync the stream and then free the allocated work buffer.
+             *
+             */
+            void
+            FreeWorkBufferHost() const;
 
         private:
 
@@ -204,12 +237,18 @@ namespace mpcr {
 #ifdef USE_CUDA
             /** Integer pointer on device containing the rc values of cublas/cusolver **/
             int *mpInfo;
-            /** Work buffer needed for cublas/cusolver operations **/
-            mutable void *mpWorkBuffer;
+            /** GPU Work buffer needed for cublas/cusolver operations **/
+            mutable void *mpWorkBufferDevice;
+            /** CPU Work buffer needed for cublas/cusolver operations **/
+            mutable void *mpWorkBufferHost;
             /** Work buffer size **/
-            mutable size_t mWorkBufferSize;
+            mutable size_t mWorkBufferSizeDevice;
+            /** Work buffer size **/
+            mutable size_t mWorkBufferSizeHost;
             /** cusolver handle **/
             cusolverDnHandle_t mCuSolverHandle;
+            /** cublas handle **/
+            cublasHandle_t  mCuBlasHandle;
             /** Cuda stream **/
             cudaStream_t mCudaStream;
 #endif

@@ -30,25 +30,25 @@ TEST_RUN_CONTEXT_CUDA() {
     context.SetRunMode(RunMode::ASYNC);
     REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
 
-    auto pwork_buffer=context.RequestWorkBuffer(500);
+    auto pwork_buffer=context.RequestWorkBufferDevice(500);
     REQUIRE(pwork_buffer!= nullptr);
 
-    auto pwork_buffer_two=context.RequestWorkBuffer(600);
+    auto pwork_buffer_two=context.RequestWorkBufferDevice(600);
     REQUIRE(pwork_buffer_two!= nullptr);
 
-    pwork_buffer=context.RequestWorkBuffer(300);
+    pwork_buffer=context.RequestWorkBufferDevice(300);
     REQUIRE(pwork_buffer==pwork_buffer_two);
 
-    context.FreeWorkBuffer();
+    context.FreeWorkBufferDevice();
     REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
 
     REQUIRE(context.GetInfoPointer()!= nullptr);
 
-    pwork_buffer=context.RequestWorkBuffer(400);
+    pwork_buffer=context.RequestWorkBufferDevice(400);
     REQUIRE(pwork_buffer!= nullptr);
 
-    context.FreeWorkBuffer();
-    pwork_buffer_two=context.RequestWorkBuffer(0);
+    context.FreeWorkBufferDevice();
+    pwork_buffer_two=context.RequestWorkBufferDevice(0);
     REQUIRE(pwork_buffer_two== nullptr);
 
 

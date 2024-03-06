@@ -587,41 +587,143 @@ TEST_LINEAR_ALGEBRA() {
         REQUIRE(val <= 0.001);
     }
 }
+
+#ifdef USE_CUDA
+void
+TEST_GPU(){
+    SECTION("Testing Cholesky CUDA Decomposition") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
+        cout << "Testing CUDA Cholesky Decomposition ..." << endl;
+        vector <double> values = {4, 12, -16, 12, 37, -43, -16, -43, 98};
+        DataType a(values, DOUBLE);
+        a.ToMatrix(3, 3);
+        a.Print();
+        DataType b(DOUBLE);
+        SIMPLE_DISPATCH(DOUBLE, linear::Cholesky, a, b)
+
+        vector <double> values_validate = {2, 0, 0, 6, 1, 0, -8, 5, 3}; //Fill Triangle is still not implemented as a CUDA Kernel.
+        // Lower Triangle should be set to zeros
+
+        REQUIRE(b.GetNCol() == 3);
+        REQUIRE(b.GetNRow() == 3);
+        REQUIRE(b.GetPrecision()==DOUBLE);
+        b.Print();
+
+        for (auto i = 0; i < b.GetSize(); i++) {
+            REQUIRE(b.GetVal(i)==values_validate[i]);
+        }
+
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(CPU);
+
+    }
+    SECTION("Testing CholeskyInv CUDA Decomposition") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
+        cout << "Testing CUDA Cholesky Inverse ..." << endl;
+
+        vector <double> values = {1, 0, 0, 1, 1, 0, 1, 2, 1.414214};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+
+        DataType b(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::CholeskyInv, a, b, a.GetNCol())
+        vector <float> values_validate = {2.5, -2.0, 0.5, -2, 3, -1, 0.5, -1.0,
+                                          0.5};
+        REQUIRE(b.GetNCol() == 3);
+        REQUIRE(b.GetNRow() == 3);
+
+
+        float error = 0.001;
+        for (auto i = 0; i < b.GetSize(); i++) {
+            float val =
+                fabs((float) b.GetVal(i) - (float) values_validate[ i ]) /
+                (float) values_validate[ i ];
+            REQUIRE(val <= error);
+        }
+
+        SIMPLE_DISPATCH(FLOAT, linear::CholeskyInv, a, b, 2)
+        values_validate = {2, -1, -1, 1};
+
+        REQUIRE(b.GetNCol() == 2);
+        REQUIRE(b.GetNRow() == 2);
+
+
+        for (auto i = 0; i < b.GetSize(); i++) {
+            auto val =
+                fabs((float) b.GetVal(i) - (float) values_validate[ i ]) /
+                (float) values_validate[ i ];
+            REQUIRE(val <= error);
+        }
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(CPU);
+
+    }SECTION("Test CUDA Eigen") {
+
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
+        cout << "Testing CUDA Eigen ..." << endl;
+
+        vector <double> values = {1, -1, -1, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(2, 2);
+
+
+        DataType vals(FLOAT);
+        DataType vec(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Eigen, a, vals, &vec)
+
+//        REQUIRE(vals.GetSize() == 2);
+//        REQUIRE(vals.GetVal(0) == 2);
+//        REQUIRE(vals.GetVal(1) == 0);
 //
-//void
-//TEST(){
-//#ifdef USE_CUDA
-//    SECTION("Testing Cholesky CUDA Decomposition") {
-//        cout << "Testing CUDA Cholesky Decomposition ..." << endl;
-//        vector <double> values = {4, 12, -16, 12, 37, -43, -16, -43, 98};
-//        DataType a(values, DOUBLE);
-//        a.ToMatrix(3, 3);
-//        a.Print();
-//        DataType b(DOUBLE);
-//        SIMPLE_DISPATCH(DOUBLE, linear::CudaCholesky, a, b)
-////
-//        vector <double> values_validate = {2, 12, -16, 6, 1, -43, -8, 5, 3}; //Fill Triangle is still not implemented as a CUDA Kernel.
-//        // Lower Triangle should be set to zeros
-//
-//        REQUIRE(b.GetNCol() == 3);
-//        REQUIRE(b.GetNRow() == 3);
-//        REQUIRE(b.GetPrecision()==DOUBLE);
-//        b.Print();
-//
-//        for (auto i = 0; i < b.GetSize(); i++) {
-//            REQUIRE(b.GetVal(i)==values_validate[i]);
-//        }
-//
-//
-//    }
-//#endif
-//
-//}
+//        REQUIRE(vec.GetSize() == 4);
+//        REQUIRE(vec.GetNCol() == 2);
+//        REQUIRE(vec.GetNRow() == 2);
+
+        vals.Print();
+        vec.Print();
+
+
+        vector <float> validate_values = {-0.7071068, 0.7071068, -0.7071068,
+                                          -0.7071068};
+        auto err = 0.001;
+        for (auto i = 0; i < vec.GetSize(); i++) {
+            auto val =
+                fabs((float) vec.GetVal(i) - (float) validate_values[ i ]) /
+                (float) validate_values[ i ];
+//            REQUIRE(val <= err);
+        }
+
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(CPU);
+    }SECTION("CUDA SVD"){
+        vector <double> values = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+                                  0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+                                  0, 0, 0, 1, 1, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(9, 4);
+
+        vector <float> validate_values = {3.464102e+00, 1.732051e+00,
+                                          1.732051e+00, 1.922963e-16};
+
+        DataType d(FLOAT);
+        DataType u(FLOAT);
+        DataType v(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::SVD, a, d, u, v, a.GetNCol(),
+                        a.GetNCol())
+        REQUIRE(d.GetSize() == 4);
+        auto err = 0.001;
+
+    }
+}
+
+#endif
 
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
     mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
         CPU);
     TEST_LINEAR_ALGEBRA();
-//    TEST();
+#ifdef USE_CUDA
+    TEST_GPU();
+#endif
 
 }

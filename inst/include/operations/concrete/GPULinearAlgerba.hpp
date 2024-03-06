@@ -81,7 +81,7 @@ namespace mpcr {
                     T *aDataU, const int &aLdu, T *aDataVT,
                     const int &aLdvt);
 
-                //eigen - lapack -> syevd (GPU) syevr(CPU)
+                //eigen - lapack -> syevd (GPU)
                 int
                 Syevd(const bool &aJobzNoVec, const bool &aFillUpperTri,
                       const int &aNumCol, T *aDataA, const int64_t &aLda,
