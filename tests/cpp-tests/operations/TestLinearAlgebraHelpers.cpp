@@ -177,6 +177,37 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         for (auto i = 0; i < values.size(); i++) {
             REQUIRE(a.GetVal(i) == b.GetVal(i));
         }
+    }SECTION("Transpose"){
+
+        vector <double> values;
+        auto row = 10;
+        auto col=20;
+        auto size=row*col;
+        values.resize(size);
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i;
+        }
+
+        DataType a(values, FLOAT);
+        DataType b(values, FLOAT);
+        a.ToMatrix(row, col);
+        b.ToMatrix(row, col);
+
+        a.Transpose();
+        REQUIRE(a.GetNRow()==col);
+        REQUIRE(a.GetNCol()==row);
+        REQUIRE(a.GetSize()==size);
+
+        helpers::CudaHelpers::Transpose<float>(b,
+                                              mpcr::kernels::ContextManager::GetGPUContext());
+
+        REQUIRE(b.GetNRow()==col);
+        REQUIRE(b.GetNCol()==row);
+        REQUIRE(b.GetSize()==size);
+
+        for (auto i = 0; i < values.size(); i++) {
+            REQUIRE(a.GetVal(i) == b.GetVal(i));
+        }
     }
 
 

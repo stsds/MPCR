@@ -323,6 +323,7 @@ GPULinearAlgebra <T>::Getri(const int &aMatRank, T *aDataA, const int &aLda,
                             int64_t *aIpiv) {
 
     // NO GPU implementation
+    MPCR_API_EXCEPTION("No Getri implementation for GPU",-1);
 }
 
 
@@ -503,6 +504,7 @@ GPULinearAlgebra <T>::Gecon(const std::string &aNorm, const int &aNumRow,
                             const T *aData, const int &aLda, T aNormVal,
                             T *aRCond) {
     // NO GPU Implementation
+    MPCR_API_EXCEPTION("No Gecon implementation for GPU",-1);
 }
 
 
@@ -512,4 +514,5 @@ int GPULinearAlgebra <T>::Trcon(const std::string &aNorm,
                                 const bool &aUnitTriangle, const int &aMatOrder,
                                 const T *aData, const int &aLda, T *aRCond) {
     // NO GPU Implementation
+    MPCR_API_EXCEPTION("No Trcon implementation for GPU",-1);
 }

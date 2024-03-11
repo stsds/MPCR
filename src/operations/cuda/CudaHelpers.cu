@@ -1,4 +1,10 @@
-
+/**
+ * Copyright (c) 2023, King Abdullah University of Science and Technology
+ * All rights reserved.
+ *
+ * MPCR is an R package provided by the STSDS group at KAUST
+ *
+ **/
 
 #include <operations/cuda/CudaHelpers.hpp>
 #include <utilities/MPCRDispatcher.hpp>
@@ -11,7 +17,7 @@ using namespace mpcr;
 template <typename T>
 __global__
 void
-SymmetrizeKernel(T *aData, size_t aSideLength, bool aToUpperTriangle) {
+SymmetrizeKernel(T *apData, size_t aSideLength, bool aToUpperTriangle) {
     size_t col = blockIdx.x * blockDim.x + threadIdx.x;
     size_t row = blockIdx.y * blockDim.y + threadIdx.y;
 
@@ -22,11 +28,11 @@ SymmetrizeKernel(T *aData, size_t aSideLength, bool aToUpperTriangle) {
 
         if (aToUpperTriangle) {
             if (row > col) {
-                aData[ upperIndex ] = aData[ lowerIndex ];
+                apData[ upperIndex ] = apData[ lowerIndex ];
             }
         } else {
             if (col > row) {
-                aData[ upperIndex ] = aData[ lowerIndex ];
+                apData[ upperIndex ] = apData[ lowerIndex ];
             }
         }
     }
@@ -35,7 +41,7 @@ SymmetrizeKernel(T *aData, size_t aSideLength, bool aToUpperTriangle) {
 
 template <typename T>
 __global__ void
-ReverseMatrixKernel(T *apData,size_t aNumRows, size_t aNumCol) {
+ReverseMatrixKernel(T *apData, size_t aNumRows, size_t aNumCol) {
     size_t col = blockIdx.x * blockDim.x + threadIdx.x;
     size_t row = blockIdx.y * blockDim.y + threadIdx.y;
 
@@ -43,19 +49,19 @@ ReverseMatrixKernel(T *apData,size_t aNumRows, size_t aNumCol) {
     if (row < aNumRows && col < aNumCol / 2) {
         // Calculate indices for the element and its corresponding element in the reversed column
         size_t index = row + col * aNumRows;
-        size_t reverseIndex = row + (aNumCol - col - 1) * aNumRows;
+        size_t reverseIndex = row + ( aNumCol - col - 1 ) * aNumRows;
 
         // Swap elements in the current column with their corresponding elements in the reversed column
-        T temp = apData[index];
-        apData[index] = apData[reverseIndex];
-        apData[reverseIndex] = temp;
+        T temp = apData[ index ];
+        apData[ index ] = apData[ reverseIndex ];
+        apData[ reverseIndex ] = temp;
     }
 }
 
 
 template <typename T>
 __global__
-void ReverseArrayKernel(T *apData,size_t aSize) {
+void ReverseArrayKernel(T *apData, size_t aSize) {
     size_t tid = blockIdx.x * blockDim.x + threadIdx.x;
     if (tid < aSize / 2) {
         T temp = apData[ tid ];
@@ -88,6 +94,22 @@ FillTriangleKernel(T *apData, size_t aSideLength, T aValue,
 }
 
 
+template <typename T>
+__global__
+void
+TransposeKernel(T *apInput, T *apOutput, size_t aNumRow, size_t aNumCol) {
+    
+    size_t col = blockIdx.x * blockDim.x + threadIdx.x;
+    size_t row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    // Load data from global memory into shared memory
+    if (row < aNumRow && col < aNumCol) {
+        apOutput[ row * aNumCol + col ] = apInput[ col * aNumRow + row ];
+    }
+
+}
+
+
 /** -----------------------------  Drivers --------------------------------- **/
 template <typename T>
 void
@@ -106,17 +128,44 @@ CudaHelpers::FillTriangle(DataType &aInput, const double &aValue,
     auto side_len = aInput.GetNRow();
 
 
-    dim3 blockSize(16, 16);
-    dim3 gridSize(( side_len + blockSize.x - 1 ) / blockSize.x,
-                  ( side_len + blockSize.y - 1 ) / blockSize.y);
+    dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+    dim3 grid_size(( side_len + block_size.x - 1 ) / block_size.x,
+                   ( side_len + block_size.y - 1 ) / block_size.y);
 
 
-    FillTriangleKernel <T><<<gridSize, blockSize, 0, aContext->GetStream()>>>(
+    FillTriangleKernel <T><<<grid_size, block_size, 0, aContext->GetStream()>>>(
         pData, row, aValue, aUpperTriangle);
 
     aContext->Sync();
 
     aInput.SetData((char *) pData, GPU);
+
+}
+
+
+template <typename T>
+void
+CudaHelpers::Transpose(DataType &aInput, kernels::RunContext *aContext) {
+    auto row = aInput.GetNRow();
+    auto col = aInput.GetNCol();
+    auto pData = (T *) aInput.GetData(GPU);
+
+    auto pData_transposed = (T *) memory::AllocateArray(row * col * sizeof(T),
+                                                        GPU, aContext);
+    aContext->Sync();
+
+
+    dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+    dim3 grid_size(( col + block_size.x - 1 ) / block_size.x,
+                   ( row + block_size.y - 1 ) / block_size.y);
+
+    TransposeKernel <T><<<grid_size, block_size, 0, aContext->GetStream()>>>(
+        pData, pData_transposed, row, col);
+
+
+    aContext->Sync();
+    aInput.SetData((char *) pData_transposed, GPU);
+    aInput.SetDimensions(col, row);
 
 }
 
@@ -132,11 +181,11 @@ CudaHelpers::Reverse(DataType &aInput, kernels::RunContext *aContext) {
 
 
     if (is_matrix) {
-        dim3 blockSize(16, 16);
-        dim3 gridSize(( col + blockSize.x - 1 ) / blockSize.x,
-                      ( row + blockSize.y - 1 ) / blockSize.y);
+        dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+        dim3 grid_size(( col + block_size.x - 1 ) / block_size.x,
+                       ( row + block_size.y - 1 ) / block_size.y);
 
-        ReverseMatrixKernel <T><<<gridSize, blockSize, 0, aContext->GetStream()>>>(
+        ReverseMatrixKernel <T><<<grid_size, block_size, 0, aContext->GetStream()>>>(
             pData, row, col);
     } else {
 
@@ -165,13 +214,13 @@ CudaHelpers::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
     auto side_len = aInput.GetNRow();
 
 
-    dim3 blockSize(16, 16);
-    dim3 gridSize(( side_len + blockSize.x - 1 ) / blockSize.x,
-                  ( side_len + blockSize.y - 1 ) / blockSize.y);
+    dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+    dim3 grid_size(( side_len + block_size.x - 1 ) / block_size.x,
+                   ( side_len + block_size.y - 1 ) / block_size.y);
 
 
-    SymmetrizeKernel <T><<<gridSize,
-    blockSize, 0, aContext->GetStream()>>>
+    SymmetrizeKernel <T><<<grid_size,
+    block_size, 0, aContext->GetStream()>>>
         (pData, side_len, aToUpperTriangle);
 
 
@@ -187,6 +236,10 @@ SIMPLE_INSTANTIATE(void, CudaHelpers::Symmetrize, DataType &aInput,
 
 
 SIMPLE_INSTANTIATE(void, CudaHelpers::Reverse, DataType &aInput,
+                   kernels::RunContext *aContext)
+
+
+SIMPLE_INSTANTIATE(void, CudaHelpers::Transpose, DataType &aInput,
                    kernels::RunContext *aContext)
 
 SIMPLE_INSTANTIATE(void, CudaHelpers::FillTriangle, DataType &aInput,

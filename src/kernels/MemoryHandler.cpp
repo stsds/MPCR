@@ -124,6 +124,28 @@ memory::Memset(char *apDestination, char aValue, const size_t &aSizeInBytes,
 }
 
 
+template <typename T, typename X>
+void
+memory::Copy(const char *apSource, char *apDestination,
+             const size_t &aNumElements,
+             const OperationPlacement &aOperationPlacement) {
+
+
+    if (aOperationPlacement == CPU) {
+        std::copy((T *) apSource, ((T *) apSource ) + aNumElements,
+                  (X *) apDestination);
+    } else {
+#ifdef USE_CUDA
+        memory::CopyDevice <T, X>(apSource, apDestination, aNumElements);
+#else
+        MPCR_API_EXCEPTION(
+                "CUDA Copy cannot be performed with CPU Compiled code", -1);
+#endif
+    }
+
+}
+
+
 #ifdef USE_CUDA
 
 
@@ -135,8 +157,8 @@ memory::CopyDevice(const char *apSource, char *apDestination,
     auto pData_src = (T *) apSource;
     auto pData_des = (X *) apDestination;
     auto context = kernels::ContextManager::GetOperationContext();
-    if(context->GetOperationPlacement()==CPU){
-        context=kernels::ContextManager::GetGPUContext();
+    if (context->GetOperationPlacement() == CPU) {
+        context = kernels::ContextManager::GetGPUContext();
     }
     kernels::CudaMemoryKernels::Copy <T, X>(pData_src, pData_des, aNumElements,
                                             context);
@@ -146,6 +168,10 @@ memory::CopyDevice(const char *apSource, char *apDestination,
 
 COPY_INSTANTIATE(void, memory::CopyDevice, const char *apSource,
                  char *apDestination, const size_t &aNumElements)
+
+COPY_INSTANTIATE(void, memory::Copy, const char *apSource, char *apDestination,
+                 const size_t &aNumElements,
+                 const OperationPlacement &aOperationPlacement)
 
 
 #endif

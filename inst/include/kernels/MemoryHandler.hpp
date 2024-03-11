@@ -98,6 +98,32 @@ namespace mpcr {
                const OperationPlacement &aPlacement,
                const kernels::RunContext *aContext);
 
+        /**
+         * @brief
+         * Copy dispatcher, if CPU, the function will use std::copy otherwise,
+         * will use CopyDevice
+         * typename T: source datatype
+         * typename X: destination datatype
+         *
+         *
+         * @param[in] apSource
+         * The source pointer.
+         *
+         * @param[in] apDestination
+         * The destination pointer.
+         *
+         * @param[in] aNumElements
+         * Number of elements inside the array
+         *
+         * @param[in] aOperationPlacement
+         * Enum to choose if the copy is done using CPU or GPU
+         *
+         */
+        template <typename T, typename X>
+        void
+        Copy(const char *apSource, char *apDestination,
+             const size_t &aNumElements,
+             const OperationPlacement &aOperationPlacement);
 
 
 #ifdef USE_CUDA
@@ -123,7 +149,8 @@ namespace mpcr {
          */
         template <typename T, typename X>
         void
-        CopyDevice(const char* apSource,char *apDestination,const size_t &aNumElements);
+        CopyDevice(const char *apSource, char *apDestination,
+                   const size_t &aNumElements);
 
         /** Class responsible for mapping memory handler enums to cuda enums. **/
         class MemoryDirectionConverter {

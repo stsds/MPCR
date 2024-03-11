@@ -147,6 +147,8 @@ using namespace mpcr::definitions;
         template RETURNTYPE __FUN__<float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
         template RETURNTYPE __FUN__<double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
         template RETURNTYPE __FUN__<float16,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<int64_t,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<int64_t,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
 
 
 /** Instantiators for Template functions with a given return type
@@ -162,6 +164,8 @@ using namespace mpcr::definitions;
         template RETURNTYPE __FUN__<double,double> (const double*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float,float> (const float*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;     \
         template RETURNTYPE __FUN__<float16,float16> (const float16*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<int64_t,float> (const int64_t*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<int64_t,double> (const int64_t*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
 
 
 /**

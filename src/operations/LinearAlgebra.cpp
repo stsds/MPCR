@@ -11,6 +11,14 @@
 #include <utilities/TypeChecker.hpp>
 #include <operations/concrete/LinearAlgebraBackendFactory.hpp>
 
+
+#ifdef USE_CUDA
+
+#include <operations/cuda/CudaHelpers.hpp>
+
+
+#endif
+
 using namespace mpcr::operations;
 using namespace mpcr::kernels;
 using namespace std;
@@ -122,8 +130,11 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     aOutput.SetData((char *) pData_out, operation_placement);
 
     if (is_one_input && aSymmetrize) {
-        // this kernel will need to be implemented in GPU too.
-        Symmetrize <T>(aOutput, true);
+        if (operation_placement == CPU) {
+            Symmetrize <T>(aOutput, true);
+        } else {
+            helpers::CudaHelpers::Symmetrize <T>(aOutput, true, context);
+        }
     }
 
     if (flag_conv) {
@@ -138,7 +149,7 @@ void
 linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 
     aOutput = false;
-    auto pData = (T *) aInput.GetData();
+    auto pData = (T *) aInput.GetData(CPU);
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
 
@@ -211,7 +222,12 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
     aOutput.ClearUp();
     aOutput.SetDimensions(aInputA);
     aOutput.SetData((char *) pOutput, operation_placement);
-    aOutput.FillTriangle(0, !aUpperTriangle);
+    if (operation_placement == CPU) {
+        aOutput.FillTriangle(0, !aUpperTriangle);
+    } else {
+        helpers::CudaHelpers::FillTriangle <T>(aOutput, 0, !aUpperTriangle,
+                                               context);
+    }
 
 }
 
@@ -289,7 +305,11 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
 
     aOutput.SetData((char *) pOutput, operation_placement);
-    Symmetrize <T>(aOutput, false);
+    if (operation_placement == CPU) {
+        Symmetrize <T>(aOutput, false);
+    } else {
+        helpers::CudaHelpers::Symmetrize <T>(aOutput, false, context);
+    }
 
 }
 
@@ -554,8 +574,12 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
     aOutputS.SetData((char *) pOutput_s, operation_placement);
     aOutputV.SetData((char *) pOutput_vt, operation_placement);
     aOutputU.SetData((char *) pOutput_u, operation_placement);
-    if (aTranspose && operation_placement == CPU) {
-        aOutputV.Transpose();
+    if (aTranspose) {
+        if (operation_placement == CPU) {
+            aOutputV.Transpose();
+        } else {
+            helpers::CudaHelpers::Transpose <T>(aOutputV, context);
+        }
     }
 
 }
@@ -619,6 +643,8 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         apOutputVectors->SetData((char *) pVectors, operation_placement);
         if (operation_placement == CPU) {
             ReverseMatrix <T>(*apOutputVectors);
+        } else {
+            helpers::CudaHelpers::Reverse <T>(*apOutputVectors, context);
         }
     } else {
         delete[] pVectors;
@@ -630,6 +656,10 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     aOutputValues.ClearUp();
     aOutputValues.SetSize(col);
     aOutputValues.SetData((char *) pValues, operation_placement);
+
+    if (operation_placement == GPU) {
+        helpers::CudaHelpers::Reverse <T>(aOutputValues, context);
+    }
 
 
 }
@@ -730,8 +760,10 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
 
     //TODO:: revise from here
 
-    //TODO: need to add int64_t conversion to GPU
-    std::copy(pJpvt, pJpvt + col, pTemp_pvt);
+
+    memory::Copy <int64_t, T>((char *) pJpvt, (char *) pTemp_pvt, col,
+                              operation_placement);
+
     delete[] pJpvt;
 
     aOutputPivot.SetSize(col);

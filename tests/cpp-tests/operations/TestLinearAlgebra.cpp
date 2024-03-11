@@ -671,13 +671,13 @@ TEST_GPU(){
 
         SIMPLE_DISPATCH(FLOAT, linear::Eigen, a, vals, &vec)
 
-//        REQUIRE(vals.GetSize() == 2);
-//        REQUIRE(vals.GetVal(0) == 2);
-//        REQUIRE(vals.GetVal(1) == 0);
-//
-//        REQUIRE(vec.GetSize() == 4);
-//        REQUIRE(vec.GetNCol() == 2);
-//        REQUIRE(vec.GetNRow() == 2);
+        REQUIRE(vals.GetSize() == 2);
+        REQUIRE(vals.GetVal(0) == 2);
+
+
+        REQUIRE(vec.GetSize() == 4);
+        REQUIRE(vec.GetNCol() == 2);
+        REQUIRE(vec.GetNRow() == 2);
 
         vals.Print();
         vec.Print();
@@ -690,11 +690,12 @@ TEST_GPU(){
             auto val =
                 fabs((float) vec.GetVal(i) - (float) validate_values[ i ]) /
                 (float) validate_values[ i ];
-//            REQUIRE(val <= err);
+            REQUIRE(val <= err);
         }
 
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(CPU);
     }SECTION("CUDA SVD"){
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
         vector <double> values = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
                                   0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
                                   0, 0, 0, 1, 1, 1};
@@ -713,6 +714,51 @@ TEST_GPU(){
         REQUIRE(d.GetSize() == 4);
         auto err = 0.001;
 
+        DataType dd(9, 4, FLOAT);
+
+
+        for (auto i = 0; i < dd.GetSize(); i++) {
+            dd.SetVal(i, 0);
+        }
+
+        for (auto i = 0; i < 4; i++) {
+            dd.SetValMatrix(i, i, d.GetVal(i));
+        }
+
+        vector <double> temp_vals(81, 0);
+        DataType uu(temp_vals, FLOAT);
+        uu.ToMatrix(9, 9);
+
+        for (auto i = 0; i < u.GetSize(); i++) {
+            uu.SetVal(i, u.GetVal(i));
+        }
+
+        DataType vv = v;
+        vv.GetData(CPU);
+        vv.Transpose();
+
+
+        DataType temp_one(FLOAT);
+        DataType temp_two(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, uu, dd, temp_one, false,
+                        false)
+
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, temp_one, vv, temp_two,
+                        false,
+                        false)
+
+        DataType temp_three(FLOAT);
+        SIMPLE_DISPATCH(FLOAT, math::Round, temp_two, temp_three, 1);
+
+        SIMPLE_DISPATCH(FLOAT, math::PerformRoundOperation, temp_three,
+                        temp_two, "abs");
+
+        for (auto i = 0; i < a.GetSize(); i++) {
+            REQUIRE(temp_two.GetVal(i) == a.GetVal(i));
+        }
+
+
     }
 }
 
@@ -722,6 +768,7 @@ TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
     mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
         CPU);
     TEST_LINEAR_ALGEBRA();
+
 #ifdef USE_CUDA
     TEST_GPU();
 #endif
