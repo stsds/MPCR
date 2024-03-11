@@ -1354,6 +1354,12 @@ DataType::Init(std::vector <double> *aValues,
         return;
     }
 
+    auto context=mpcr::kernels::ContextManager::GetOperationContext();
+    if(aOperationPlacement==GPU && context->GetOperationPlacement()==CPU){
+        context=mpcr::kernels::ContextManager::GetGPUContext();
+    }
+
+
     this->mData.Allocate(this->GetSizeInBytes(), aOperationPlacement);
 
     auto pData = (T *) this->mData.GetDataPointer(aOperationPlacement);
@@ -1361,8 +1367,8 @@ DataType::Init(std::vector <double> *aValues,
     if (aValues == nullptr) {
         auto pdata_temp_char = this->mData.GetDataPointer(aOperationPlacement);
         mpcr::memory::Memset(pdata_temp_char, 0, this->GetSizeInBytes(),
-                             aOperationPlacement,
-                             mpcr::kernels::ContextManager::GetOperationContext());
+                             aOperationPlacement,context);
+
         this->mData.SetDataPointer(pdata_temp_char, this->GetSizeInBytes(),
                                    aOperationPlacement);
 
@@ -1378,16 +1384,12 @@ DataType::Init(std::vector <double> *aValues,
             std::copy(aValues->begin(), aValues->end(), pData);
         } else {
 #ifdef USE_CUDA
-            mpcr::kernels::RunContext context(GPU,
-                                              mpcr::kernels::RunMode::SYNC);
 
             auto size_in_bytes = aValues->size() * sizeof(double);
-            auto temp_data = mpcr::memory::AllocateArray(size_in_bytes, GPU,
-                                                         &context);
+            auto temp_data = mpcr::memory::AllocateArray(size_in_bytes, GPU,context);
 
             mpcr::memory::MemCpy(temp_data, (char *) aValues->data(),
-                                 size_in_bytes, &context,
-                                 mpcr::memory::MemoryTransfer::HOST_TO_DEVICE);
+                                 size_in_bytes, context,mpcr::memory::MemoryTransfer::HOST_TO_DEVICE);
 
             mpcr::memory::CopyDevice <double, T>((char *) temp_data,
                                                  (char *) pData,
@@ -1395,7 +1397,8 @@ DataType::Init(std::vector <double> *aValues,
 
             this->mData.SetDataPointer((char *) pData, this->GetSizeInBytes(),
                                        aOperationPlacement);
-            mpcr::memory::DestroyArray(temp_data, GPU, &context);
+            mpcr::memory::DestroyArray(temp_data, GPU, context);
+
 #else
             MPCR_API_EXCEPTION("Cannot Perform GPU Allocation, No GPU Support", -1);
 #endif

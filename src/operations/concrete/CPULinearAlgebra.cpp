@@ -102,7 +102,8 @@ template <typename T>
 int
 CPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
                            T *aDataA, const int &aLda, void *aIpiv,
-                           T *aDataOut, const int &aLdo) {
+                           T *aDataB, const int &aLdb, T *aDataOut,
+                           const int &aLdo) {
 
     auto rc = lapack::gesv(aNumN, aNumNRH, aDataA, aLda, (int64_t *) aIpiv,
                            aDataOut, aLdo);
@@ -169,7 +170,7 @@ CPULinearAlgebra <T>::Syevd(const bool &aJobzNoVec,
     auto jobz = aJobzNoVec ? lapack::Job::NoVec : lapack::Job::Vec;
     auto triangle = aFillUpperTri ? lapack::Uplo::Upper : lapack::Uplo::Lower;
 
-    auto rc= lapack::syevd(jobz,triangle,aNumCol,aDataA,aNumCol,aDataW);
+    auto rc = lapack::syevd(jobz, triangle, aNumCol, aDataA, aNumCol, aDataW);
     return rc;
 
 }

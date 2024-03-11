@@ -224,9 +224,58 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
 template <typename T>
 int
 GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
-                           T *aDataA, const int &aLda, void *aIpiv,
-                           T *aDataOut, const int &aLdo) {
+                           T *aDataA, const int &aLda, void *aIpiv, T *aDataB,
+                           const int &aLdb, T *aDataOut, const int &aLdo) {
     // TODO : This function can support half precision internally for the LU factorization
+
+    auto context = ContextManager::GetOperationContext();
+    auto cusolver_handle = context->GetCusolverDnHandle();
+    size_t lWork_device = 0;
+    cusolver_int_t nitr = 0;
+
+    if constexpr(is_double <T>()) {
+
+        cusolverDnDDgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, aDataA,
+                                    aLda, (cusolver_int_t *) aIpiv, aDataB,
+                                    aLdb, aDataOut, aLdo, nullptr,
+                                    &lWork_device);
+
+        auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
+
+
+        cusolverDnDDgesv(cusolver_handle, aNumN, aNumNRH, aDataA, aLda,
+                         (cusolver_int_t *) aIpiv, aDataB, aLdb, aDataOut, aLdo,
+                         work_space_dev, lWork_device, &nitr,
+                         context->GetInfoPointer());
+
+
+    } else {
+        cusolverDnSSgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, aDataA,
+                                    aLda, (cusolver_int_t *) aIpiv, aDataB,
+                                    aLdb, aDataOut, aLdo, nullptr,
+                                    &lWork_device);
+
+        auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
+
+
+        cusolverDnSSgesv(cusolver_handle, aNumN, aNumNRH, aDataA, aLda,
+                         (cusolver_int_t *) aIpiv, aDataB, aLdb, aDataOut, aLdo,
+                         work_space_dev, lWork_device, &nitr,
+                         context->GetInfoPointer());
+    }
+
+    if (nitr < 0) {
+        MPCR_API_EXCEPTION("Error While Performing factorization in Gesv GPU",
+                           nitr);
+    }
+
+    int rc = 0;
+    memory::MemCpy((char *) &rc, (char *) context->GetInfoPointer(),
+                   sizeof(int), context,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    return rc;
+
 }
 
 

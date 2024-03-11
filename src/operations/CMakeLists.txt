@@ -5,6 +5,10 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+if(${USE_CUDA})
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/cuda)
+endif()
+
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/concrete)
 
 set(SOURCES

@@ -147,14 +147,13 @@ void
 DataHolder::Sync() {
     auto context = ContextManager::GetOperationContext();
 
-    if (( mBufferState != BufferState::NO_DEVICE &&
-          mBufferState != BufferState::HOST_NEWER ) &&
-        context->GetOperationPlacement() != GPU) {
-
-        context = ContextManager::GetGPUContext();
-    }
 
     if (mBufferState == BufferState::HOST_NEWER) {
+
+        if(context->GetOperationPlacement()!=GPU){
+            context = ContextManager::GetGPUContext();
+        }
+
 #ifndef USE_CUDA
         MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
 #endif
@@ -163,6 +162,11 @@ DataHolder::Sync() {
                        context, memory::MemoryTransfer::HOST_TO_DEVICE);
         mBufferState = BufferState::EQUAL;
     } else if (mBufferState == BufferState::DEVICE_NEWER) {
+
+        if(context->GetOperationPlacement()!=GPU){
+            context = ContextManager::GetGPUContext();
+        }
+
 #ifndef USE_CUDA
         MPCR_API_EXCEPTION("Package is compiled with no GPU support, check Operation Placement",-1);
 #endif

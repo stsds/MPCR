@@ -135,6 +135,9 @@ memory::CopyDevice(const char *apSource, char *apDestination,
     auto pData_src = (T *) apSource;
     auto pData_des = (X *) apDestination;
     auto context = kernels::ContextManager::GetOperationContext();
+    if(context->GetOperationPlacement()==CPU){
+        context=kernels::ContextManager::GetGPUContext();
+    }
     kernels::CudaMemoryKernels::Copy <T, X>(pData_src, pData_des, aNumElements,
                                             context);
 

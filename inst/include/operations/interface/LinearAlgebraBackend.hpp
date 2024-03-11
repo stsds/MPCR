@@ -231,9 +231,14 @@ namespace mpcr {
                  * @param [in,out] aIpiv
                  * The pivot indices that define the permutation matrix P;
                  * row i of the matrix was interchanged with row aIpiv(i).
+                 * @param[in] aDataB
+                 *  On entry, the N-by-NRHS matrix of right hand side matrix B.
+                 *  @param[in] aLdb
+                 *  Leading dimension of matrix aDataB
                  * @param [in,out] aDataOut
                  *  On entry, the N-by-NRHS matrix of right hand side matrix B.
                  *  On exit, if rc = 0, the N-by-NRHS solution matrix X.
+                 *  Note:: this pointer will be used as input in case of using CPU only.
                  * @param [in] aLdo
                  * Leading dimension of matrix output
                  *
@@ -249,8 +254,8 @@ namespace mpcr {
                 virtual
                 int
                 Gesv(const int &aNumN, const int &aNumNRH, T *aDataA,
-                     const int &aLda, void *aIpiv, T *aDataOut,
-                     const int &aLdo) = 0;
+                     const int &aLda, void *aIpiv, T *aDataB,
+                     const int &aLdb,T* aDataOut,const int &aLdo) = 0;
 
                 /**
                  * @brief

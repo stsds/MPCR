@@ -60,8 +60,8 @@ namespace mpcr {
                 // might need refactor if both doesn't match the same format.
                 int
                 Gesv(const int &aNumN, const int &aNumNRH, T *aDataA,
-                     const int &aLda, void *aIpiv, T *aDataOut,
-                     const int &aLdo);
+                     const int &aLda, void *aIpiv,  T *aDataB,
+                     const int &aLdb,T* aDataOut,const int &aLdo);
 
                 //solve - lapack - avail
                 // might need revision since 2 more params are added.

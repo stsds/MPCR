@@ -11,14 +11,6 @@
 #include <utilities/TypeChecker.hpp>
 #include <operations/concrete/LinearAlgebraBackendFactory.hpp>
 
-
-#ifdef USE_CUDA
-
-#include <cusolverDn.h>
-
-
-#endif
-
 using namespace mpcr::operations;
 using namespace mpcr::kernels;
 using namespace std;
@@ -347,12 +339,30 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     if (!aSingle) {
         DataType dump = aInputA;
-        aOutput = aInputB;
         auto pData_dump = (T *) dump.GetData(operation_placement);
-        auto pData_in_out = (T *) aOutput.GetData(operation_placement);
+        T *pData_in_out = nullptr;
 
-        rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a, (void *) pIpiv,
-                          pData_in_out, rows_b);
+        /**
+         * Incase of using CPU backend, lapack will overwrite the pData_in_out.
+         * However, when using GPU, CuBlas will not change pData_in_out and instead
+         * will change the output pointer.
+         * **/
+        if (operation_placement == definitions::CPU) {
+            aOutput = aInputB;
+            pData_in_out = (T *) aOutput.GetData(operation_placement);
+            rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
+                              (void *) pIpiv, nullptr, rows_b, pData_in_out,
+                              rows_b);
+
+        } else {
+            aOutput.SetDimensions(aInputB);
+            pData_in_out = (T *) memory::AllocateArray(
+                aOutput.GetSize() * sizeof(T), GPU, context);
+
+            rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
+                              (void *) pIpiv, (T *) aInputB.GetData(), rows_b,
+                              pData_in_out, rows_b);
+        }
         aOutput.SetData((char *) pData_in_out, operation_placement);
 
     } else {
@@ -544,7 +554,7 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
     aOutputS.SetData((char *) pOutput_s, operation_placement);
     aOutputV.SetData((char *) pOutput_vt, operation_placement);
     aOutputU.SetData((char *) pOutput_u, operation_placement);
-    if (aTranspose && operation_placement==CPU) {
+    if (aTranspose && operation_placement == CPU) {
         aOutputV.Transpose();
     }
 
@@ -607,14 +617,14 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         apOutputVectors->SetSize(col * col);
         apOutputVectors->SetDimensions(col, col);
         apOutputVectors->SetData((char *) pVectors, operation_placement);
-        if(operation_placement==CPU){
+        if (operation_placement == CPU) {
             ReverseMatrix <T>(*apOutputVectors);
         }
     } else {
         delete[] pVectors;
     }
 
-    if(operation_placement==CPU){
+    if (operation_placement == CPU) {
         std::reverse(pValues, pValues + col);
     }
     aOutputValues.ClearUp();
@@ -954,6 +964,7 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     aOutput.SetDimensions(row, output_nrhs);
     aOutput.SetData((char *) pOutput_data, operation_placement);
 }
+
 
 SIMPLE_INSTANTIATE(void, linear::CrossProduct, DataType &aInputA,
                    DataType &aInputB, DataType &aOutput,

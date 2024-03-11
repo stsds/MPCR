@@ -50,8 +50,8 @@ namespace mpcr {
 
                 int
                 Gesv(const int &aNumN, const int &aNumNRH, T *aDataA,
-                     const int &aLda, void *aIpiv, T *aDataOut,
-                     const int &aLdo);
+                     const int &aLda, void *aIpiv, T *aDataB, const int &aLdb,
+                     T *aDataOut, const int &aLdo);
 
                 int
                 Getrf(const int &aNumRow, const int &aNumCol, T *aDataA,
