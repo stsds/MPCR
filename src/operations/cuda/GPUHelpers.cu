@@ -6,7 +6,7 @@
  *
  **/
 
-#include <operations/cuda/CudaHelpers.hpp>
+#include <operations/concrete/GPUHelpers.hpp>
 #include <utilities/MPCRDispatcher.hpp>
 
 
@@ -113,7 +113,7 @@ TransposeKernel(T *apInput, T *apOutput, size_t aNumRow, size_t aNumCol) {
 /** -----------------------------  Drivers --------------------------------- **/
 template <typename T>
 void
-CudaHelpers::FillTriangle(DataType &aInput, const double &aValue,
+GPUHelpers<T>::FillTriangle(DataType &aInput, const double &aValue,
                           const bool &aUpperTriangle,
                           kernels::RunContext *aContext) {
 
@@ -145,7 +145,7 @@ CudaHelpers::FillTriangle(DataType &aInput, const double &aValue,
 
 template <typename T>
 void
-CudaHelpers::Transpose(DataType &aInput, kernels::RunContext *aContext) {
+GPUHelpers<T>::Transpose(DataType &aInput, kernels::RunContext *aContext) {
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
     auto pData = (T *) aInput.GetData(GPU);
@@ -172,7 +172,7 @@ CudaHelpers::Transpose(DataType &aInput, kernels::RunContext *aContext) {
 
 template <typename T>
 void
-CudaHelpers::Reverse(DataType &aInput, kernels::RunContext *aContext) {
+GPUHelpers<T>::Reverse(DataType &aInput, kernels::RunContext *aContext) {
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
     auto pData = (T *) aInput.GetData(GPU);
@@ -205,7 +205,7 @@ CudaHelpers::Reverse(DataType &aInput, kernels::RunContext *aContext) {
 
 template <typename T>
 void
-CudaHelpers::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
+GPUHelpers<T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
                         kernels::RunContext *aContext) {
     if (aInput.GetNRow() != aInput.GetNCol()) {
         MPCR_API_EXCEPTION("Cannot Symmetrize ,Matrix is Not Square", -1);
@@ -230,18 +230,3 @@ CudaHelpers::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
 
 }
 
-
-SIMPLE_INSTANTIATE(void, CudaHelpers::Symmetrize, DataType &aInput,
-                   const bool &aToUpperTriangle, kernels::RunContext *aContext)
-
-
-SIMPLE_INSTANTIATE(void, CudaHelpers::Reverse, DataType &aInput,
-                   kernels::RunContext *aContext)
-
-
-SIMPLE_INSTANTIATE(void, CudaHelpers::Transpose, DataType &aInput,
-                   kernels::RunContext *aContext)
-
-SIMPLE_INSTANTIATE(void, CudaHelpers::FillTriangle, DataType &aInput,
-                   const double &aValue, const bool &aUpperTriangle,
-                   kernels::RunContext *aContext)

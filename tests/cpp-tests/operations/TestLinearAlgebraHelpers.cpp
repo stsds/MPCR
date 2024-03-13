@@ -8,10 +8,8 @@
 
 #include <libraries/catch/catch.hpp>
 #include <utilities/MPCRDispatcher.hpp>
-#include <operations/helpers/LinearAlgebraHelper.hpp>
+#include <operations/concrete/BackendFactory.hpp>
 #include <operations/LinearAlgebra.hpp>
-#include <data-units/DataType.hpp>
-#include <operations/cuda/CudaHelpers.hpp>
 
 
 using namespace std;
@@ -21,6 +19,8 @@ using namespace mpcr::operations;
 
 void
 TEST_LINEAR_ALGEBRA_HELPERS() {
+    auto helper_host = BackendFactory <float>::CreateHelpersBackend(CPU);
+    auto helper_dev = BackendFactory <float>::CreateHelpersBackend(GPU);
 
     SECTION("Symmetrize") {
 
@@ -37,7 +37,7 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         b.ToMatrix(side_len, side_len);
 
 
-        Symmetrize <float>(a, true);
+        helper_host->Symmetrize(a, true, nullptr);
         auto is_symmetric = false;
         linear::IsSymmetric <float>(a, is_symmetric);
 
@@ -45,8 +45,8 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
 
 
         b.GetData(GPU);
-        helpers::CudaHelpers::Symmetrize <float>(b, true,
-                                                 mpcr::kernels::ContextManager::GetGPUContext());
+        helper_dev->Symmetrize(b, true,
+                               mpcr::kernels::ContextManager::GetGPUContext());
 
         b.GetData(CPU);
 
@@ -66,14 +66,14 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         c.ToMatrix(side_len, side_len);
         d.ToMatrix(side_len, side_len);
 
-        Symmetrize <float>(c, false);
+        helper_host->Symmetrize(c, false, nullptr);
         is_symmetric = false;
         linear::IsSymmetric <float>(c, is_symmetric);
 
 
         d.GetData(GPU);
-        helpers::CudaHelpers::Symmetrize <float>(d, false,
-                                                 mpcr::kernels::ContextManager::GetGPUContext());
+        helper_dev->Symmetrize(d, false,
+                               mpcr::kernels::ContextManager::GetGPUContext());
 
         d.GetData(CPU);
 
@@ -101,11 +101,12 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         a.ToMatrix(side_len, side_len);
         b.ToMatrix(side_len, side_len);
 
-        a.FillTriangle(0, true);
+        helper_host->FillTriangle(a, 0, true, nullptr);
+
 
         b.GetData(GPU);
-        helpers::CudaHelpers::FillTriangle <float>(b, 0, true,
-                                                   mpcr::kernels::ContextManager::GetGPUContext());
+        helper_dev->FillTriangle(b, 0, true,
+                                 mpcr::kernels::ContextManager::GetGPUContext());
 
         b.GetData(CPU);
         REQUIRE(b.GetSize() == a.GetSize());
@@ -123,9 +124,10 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         d.ToMatrix(side_len, side_len);
 
 
-        c.FillTriangle(0, false);
-        helpers::CudaHelpers::FillTriangle <float>(d, 0, false,
-                                                   mpcr::kernels::ContextManager::GetGPUContext());
+        helper_host->FillTriangle(c, 0, false, nullptr);
+
+        helper_dev->FillTriangle(d, 0, false,
+                                 mpcr::kernels::ContextManager::GetGPUContext());
 
         REQUIRE(c.GetSize() == d.GetSize());
         REQUIRE(c.GetNCol() == d.GetNCol());
@@ -148,8 +150,7 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         DataType a(values, FLOAT);
         DataType b(values, FLOAT);
 
-        helpers::CudaHelpers::Reverse <float>(b,
-                                              mpcr::kernels::ContextManager::GetGPUContext());
+        helper_dev->Reverse(b, mpcr::kernels::ContextManager::GetGPUContext());
 
         for (auto i = 0; i < values.size(); i++) {
             REQUIRE(a.GetVal(values.size() - i - 1) == b.GetVal(i));
@@ -169,20 +170,18 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         a.ToMatrix(side_len, side_len);
         b.ToMatrix(side_len, side_len);
 
-        ReverseMatrix <float>(a);
-
-        helpers::CudaHelpers::Reverse <float>(b,
-                                              mpcr::kernels::ContextManager::GetGPUContext());
+        helper_host->Reverse(a, nullptr);
+        helper_dev->Reverse(b, mpcr::kernels::ContextManager::GetGPUContext());
 
         for (auto i = 0; i < values.size(); i++) {
             REQUIRE(a.GetVal(i) == b.GetVal(i));
         }
-    }SECTION("Transpose"){
+    }SECTION("Transpose") {
 
         vector <double> values;
         auto row = 10;
-        auto col=20;
-        auto size=row*col;
+        auto col = 20;
+        auto size = row * col;
         values.resize(size);
         for (auto i = 0; i < size; i++) {
             values[ i ] = i;
@@ -193,17 +192,17 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         a.ToMatrix(row, col);
         b.ToMatrix(row, col);
 
-        a.Transpose();
-        REQUIRE(a.GetNRow()==col);
-        REQUIRE(a.GetNCol()==row);
-        REQUIRE(a.GetSize()==size);
+        helper_host->Transpose(a, nullptr);
+        REQUIRE(a.GetNRow() == col);
+        REQUIRE(a.GetNCol() == row);
+        REQUIRE(a.GetSize() == size);
 
-        helpers::CudaHelpers::Transpose<float>(b,
-                                              mpcr::kernels::ContextManager::GetGPUContext());
+        helper_dev->Transpose(b,
+                              mpcr::kernels::ContextManager::GetGPUContext());
 
-        REQUIRE(b.GetNRow()==col);
-        REQUIRE(b.GetNCol()==row);
-        REQUIRE(b.GetSize()==size);
+        REQUIRE(b.GetNRow() == col);
+        REQUIRE(b.GetNCol() == row);
+        REQUIRE(b.GetSize() == size);
 
         for (auto i = 0; i < values.size(); i++) {
             REQUIRE(a.GetVal(i) == b.GetVal(i));

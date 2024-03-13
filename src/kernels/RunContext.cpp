@@ -53,9 +53,10 @@ RunContext::RunContext(const RunContext &aContext) {
 
     this->mOperationPlacement = aContext.mOperationPlacement;
     this->mRunMode = aContext.mRunMode;
-    this->mpInfo= nullptr;
+
 
 #ifdef USE_CUDA
+    this->mpInfo= nullptr;
     if(this->mOperationPlacement==definitions::GPU){
         this->mCuSolverHandle = aContext.mCuSolverHandle;
         this->mCudaStream = aContext.mCudaStream;

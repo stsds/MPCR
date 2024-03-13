@@ -9,12 +9,12 @@
 #include <operations/helpers/LinearAlgebraHelper.hpp>
 #include <operations/LinearAlgebra.hpp>
 #include <utilities/TypeChecker.hpp>
-#include <operations/concrete/LinearAlgebraBackendFactory.hpp>
+#include <operations/concrete/BackendFactory.hpp>
 
 
 #ifdef USE_CUDA
 
-#include <operations/cuda/CudaHelpers.hpp>
+#include <operations/concrete/GPUHelpers.hpp>
 
 
 #endif
@@ -115,7 +115,7 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto pData_a = (T *) aInputA.GetData(operation_placement);
     auto pData_b = (T *) aInputB.GetData(operation_placement);
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     if (!is_one_input) {
@@ -130,11 +130,8 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     aOutput.SetData((char *) pData_out, operation_placement);
 
     if (is_one_input && aSymmetrize) {
-        if (operation_placement == CPU) {
-            Symmetrize <T>(aOutput, true);
-        } else {
-            helpers::CudaHelpers::Symmetrize <T>(aOutput, true, context);
-        }
+        auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
+        helper->Symmetrize(aOutput,true,context);
     }
 
     if (flag_conv) {
@@ -209,7 +206,7 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
                    mem_transfer);
 
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     auto rc = solver->Potrf(aUpperTriangle, row, (T *) pOutput, row);
@@ -222,12 +219,9 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
     aOutput.ClearUp();
     aOutput.SetDimensions(aInputA);
     aOutput.SetData((char *) pOutput, operation_placement);
-    if (operation_placement == CPU) {
-        aOutput.FillTriangle(0, !aUpperTriangle);
-    } else {
-        helpers::CudaHelpers::FillTriangle <T>(aOutput, 0, !aUpperTriangle,
-                                               context);
-    }
+
+    auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
+    helper->FillTriangle(aOutput,0,!aUpperTriangle,context);
 
 }
 
@@ -294,7 +288,7 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
     }
 
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
     auto rc = solver->Potri(true, aNCol, pOutput, aOutput.GetNRow());
 
@@ -305,11 +299,9 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
 
     aOutput.SetData((char *) pOutput, operation_placement);
-    if (operation_placement == CPU) {
-        Symmetrize <T>(aOutput, false);
-    } else {
-        helpers::CudaHelpers::Symmetrize <T>(aOutput, false, context);
-    }
+
+    auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
+    helper->Symmetrize(aOutput,false,context);
 
 }
 
@@ -354,7 +346,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     aOutput.ClearUp();
     auto rc = 0;
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     if (!aSingle) {
@@ -473,7 +465,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     }
 
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     solver->Trsm(left_side, aUpperTri, aTranspose, row_b, col_b, aAlpha, pData,
@@ -555,7 +547,7 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
         ldvt = aNv;
     }
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     // Gesdd routine in CPU
@@ -574,13 +566,12 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
     aOutputS.SetData((char *) pOutput_s, operation_placement);
     aOutputV.SetData((char *) pOutput_vt, operation_placement);
     aOutputU.SetData((char *) pOutput_u, operation_placement);
+
     if (aTranspose) {
-        if (operation_placement == CPU) {
-            aOutputV.Transpose();
-        } else {
-            helpers::CudaHelpers::Transpose <T>(aOutputV, context);
-        }
+        auto helper= BackendFactory<T>::CreateHelpersBackend(operation_placement);
+        helper->Transpose(aOutputV,context);
     }
+
 
 }
 
@@ -624,7 +615,7 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     memory::MemCpy((char *) pVectors, (char *) pData, col * col * sizeof(T),
                    context, mem_transfer);
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     auto rc = solver->Syevd(jobz_no_vec, fill_upper, col, pVectors, col,
@@ -636,30 +627,26 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         MPCR_API_EXCEPTION("Error While Performing Eigen", rc);
     }
 
+    auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
+
     if (apOutputVectors) {
         apOutputVectors->ClearUp();
         apOutputVectors->SetSize(col * col);
         apOutputVectors->SetDimensions(col, col);
         apOutputVectors->SetData((char *) pVectors, operation_placement);
-        if (operation_placement == CPU) {
-            ReverseMatrix <T>(*apOutputVectors);
-        } else {
-            helpers::CudaHelpers::Reverse <T>(*apOutputVectors, context);
-        }
+
+        helper->Reverse(*apOutputVectors,context);
+
     } else {
         delete[] pVectors;
     }
 
-    if (operation_placement == CPU) {
-        std::reverse(pValues, pValues + col);
-    }
     aOutputValues.ClearUp();
     aOutputValues.SetSize(col);
     aOutputValues.SetData((char *) pValues, operation_placement);
 
-    if (operation_placement == GPU) {
-        helpers::CudaHelpers::Reverse <T>(aOutputValues, context);
-    }
+    helper->Reverse(aOutputValues,context);
+
 
 
 }
@@ -731,7 +718,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     memory::MemCpy((char *) pQr_in_out, (char *) pData,
                    ( aInputA.GetSize()) * sizeof(T), context, mem_transfer);
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     auto rc = solver->Geqp3(row, col, pQr_in_out, row, pJpvt, pQraux);
@@ -844,7 +831,7 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
     memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
                    ( output_size * sizeof(T)), context, mem_transfer);
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     auto rc = solver->Orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
@@ -883,7 +870,7 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
 
     string norm = aNorm == "I" ? "inf" : "one";
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     auto pData = (T *) aInput.GetData(operation_placement);
@@ -981,7 +968,7 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
                    ( output_size * sizeof(T)), context, mem_transfer);
 
-    auto solver = linear::LinearAlgebraBackendFactory <T>::CreateBackend(
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
     auto rc = solver->Orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);

@@ -6,7 +6,7 @@
 ##########################################################################
 
 set(SOURCES
-        ${CMAKE_CURRENT_SOURCE_DIR}/CudaHelpers.cu
+        ${CMAKE_CURRENT_SOURCE_DIR}/GPUHelpers.cu
 
         ${SOURCES}
         PARENT_SCOPE)

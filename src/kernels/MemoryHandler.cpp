@@ -8,14 +8,10 @@
 
 
 #include <kernels/MemoryHandler.hpp>
-
-
-#ifdef USE_CUDA
-
-#include <kernels/cuda/CudaMemoryKernels.hpp>
 #include <utilities/MPCRDispatcher.hpp>
 
-
+#ifdef USE_CUDA
+#include <kernels/cuda/CudaMemoryKernels.hpp>
 #endif
 
 
@@ -165,13 +161,16 @@ memory::CopyDevice(const char *apSource, char *apDestination,
 
 }
 
-
-COPY_INSTANTIATE(void, memory::CopyDevice, const char *apSource,
-                 char *apDestination, const size_t &aNumElements)
+#endif
 
 COPY_INSTANTIATE(void, memory::Copy, const char *apSource, char *apDestination,
                  const size_t &aNumElements,
                  const OperationPlacement &aOperationPlacement)
+
+
+#ifdef USE_CUDA
+COPY_INSTANTIATE(void, memory::CopyDevice, const char *apSource,
+                 char *apDestination, const size_t &aNumElements)
 
 
 #endif

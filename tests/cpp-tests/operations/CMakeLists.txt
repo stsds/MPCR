@@ -5,6 +5,13 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+if (${USE_CUDA})
+    set(TESTFILES
+            ${CMAKE_CURRENT_SOURCE_DIR}/TestLinearAlgebraHelpers.cpp
+            ${TESTFILES})
+endif ()
+
+
 set(TESTFILES
 
         ${CMAKE_CURRENT_SOURCE_DIR}/TestBasicOperations.cpp
@@ -12,7 +19,6 @@ set(TESTFILES
         ${CMAKE_CURRENT_SOURCE_DIR}/TestLinearAlgebra.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TestMathematicalOperations.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TestMathematicalOperations.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/TestLinearAlgebraHelpers.cpp
 
         ${TESTFILES}
         PARENT_SCOPE

@@ -6,47 +6,53 @@
  *
  **/
 
-
-#ifndef MPCR_CUDAHELPERS_HPP
-#define MPCR_CUDAHELPERS_HPP
+#ifndef MPCR_CPUHELPERS_HPP
+#define MPCR_CPUHELPERS_HPP
 
 #include <kernels/ContextManager.hpp>
 #include <data-units/DataType.hpp>
+#include <operations/interface/Helpers.hpp>
 
-#define MPCR_CUDA_BLOCK_SIZE 16
+#define MPCR_CPU_BLOCK_SIZE 8
 
-namespace mpcr {
-    namespace operations {
-        namespace helpers {
-            class CudaHelpers {
+namespace mpcr::operations{
+    namespace helpers {
+
+            template <typename T>
+            class CPUHelpers : public  Helpers<T> {
 
             public:
-                template <typename T>
-                static
+
+                CPUHelpers()=default;
+                ~CPUHelpers()=default;
+
+
                 void
                 Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
                            kernels::RunContext *aContext);
 
-                template <typename T>
-                static
+
+
                 void
                 Reverse(DataType &aInput, kernels::RunContext *aContext);
 
-                template <typename T>
-                static
+
+
                 void
                 Transpose(DataType &aInput, kernels::RunContext *aContext);
 
-                template <typename T>
-                static
+
+
                 void
                 FillTriangle(DataType &aInput, const double &aValue,
                              const bool &aUpperTriangle,
                              kernels::RunContext *aContext);
 
             };
+
+            MPCR_INSTANTIATE_CLASS(CPUHelpers)
         }
-    }
+
 }
 
-#endif //MPCR_CUDAHELPERS_HPP
+#endif //MPCR_CPUHELPERS_HPP
