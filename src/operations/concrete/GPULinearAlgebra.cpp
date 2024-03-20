@@ -18,10 +18,10 @@ GPULinearAlgebra <T>::Gemm(const bool &aTransposeA,
                            const int &aNumRowsA,
                            const int &aNumColB,
                            const int &aNumRowB,
-                           const T &aAlpha, const T *aDataA,
-                           const int &aLda, const T *aDataB,
+                           const T &aAlpha, const T *apDataA,
+                           const int &aLda, const T *apDataB,
                            const int &aLdb, const T &aBeta,
-                           T *aDataC, const int &aLdc) {
+                           T *apDataC, const int &aLdc) {
 
     auto context = ContextManager::GetOperationContext();
     auto transpose_a = aTransposeA ? CUBLAS_OP_T : CUBLAS_OP_N;
@@ -33,13 +33,13 @@ GPULinearAlgebra <T>::Gemm(const bool &aTransposeA,
     if constexpr(is_double <T>()) {
         rc = cublasDgemm(cublas_handle, transpose_a, transpose_b,
                          aNumRowsA,
-                         aNumColB, aNumRowB, &aAlpha, aDataA, aLda,
-                         aDataB, aLdb, &aBeta, aDataC, aLdc);
+                         aNumColB, aNumRowB, &aAlpha, apDataA, aLda,
+                         apDataB, aLdb, &aBeta, apDataC, aLdc);
     } else {
         rc = cublasSgemm(cublas_handle, transpose_a, transpose_b,
                          aNumRowsA,
-                         aNumColB, aNumRowB, &aAlpha, aDataA, aLda,
-                         aDataB, aLdb, &aBeta, aDataC, aLdc);
+                         aNumColB, aNumRowB, &aAlpha, apDataA, aLda,
+                         apDataB, aLdb, &aBeta, apDataC, aLdc);
     }
 
     if (rc != 0) {
@@ -55,9 +55,9 @@ GPULinearAlgebra <T>::Syrk(const bool &aFillLower,
                            const bool &aTranspose,
                            const int &aNumRowA,
                            const int &aNumColA,
-                           const T &aAlpha, const T *aDataA,
+                           const T &aAlpha, const T *apDataA,
                            const int &aLda, const T &aBeta,
-                           T *aDataC, const int &aLdc) {
+                           T *apDataC, const int &aLdc) {
 
     auto context = ContextManager::GetOperationContext();
     auto cublas_handle = context->GetCuBlasDnHandle();
@@ -69,12 +69,12 @@ GPULinearAlgebra <T>::Syrk(const bool &aFillLower,
 
     if constexpr(is_double <T>()) {
         rc = cublasDsyrk(cublas_handle, triangle, transpose, aNumRowA,
-                         aNumColA, &aAlpha, aDataA, aLda, &aBeta, aDataC,
+                         aNumColA, &aAlpha, apDataA, aLda, &aBeta, apDataC,
                          aLdc);
 
     } else {
         rc = cublasSsyrk(cublas_handle, triangle, transpose, aNumRowA,
-                         aNumColA, &aAlpha, aDataA, aLda, &aBeta, aDataC,
+                         aNumColA, &aAlpha, apDataA, aLda, &aBeta, apDataC,
                          aLdc);
     }
 
@@ -93,8 +93,8 @@ GPULinearAlgebra <T>::Trsm(const bool &aLeftSide,
                            const bool &aTranspose,
                            const int &aNumRowsB,
                            const int &aNumColsB,
-                           const T &aAlpha, const T *aDataA,
-                           const int &aLda, T *aDataB,
+                           const T &aAlpha, const T *apDataA,
+                           const int &aLda, T *apDataB,
                            const int &aLdb) {
 
     auto context = ContextManager::GetOperationContext();
@@ -109,12 +109,12 @@ GPULinearAlgebra <T>::Trsm(const bool &aLeftSide,
 
     if constexpr(is_double <T>()) {
         rc = cublasDtrsm(cublas_handle, side, triangle, transpose, diag,
-                         aNumRowsB, aNumColsB, &aAlpha, aDataA, aLda,
-                         aDataB, aLdb);
+                         aNumRowsB, aNumColsB, &aAlpha, apDataA, aLda,
+                         apDataB, aLdb);
     } else {
         rc = cublasStrsm(cublas_handle, side, triangle, transpose, diag,
-                         aNumRowsB, aNumColsB, &aAlpha, aDataA, aLda,
-                         aDataB, aLdb);
+                         aNumRowsB, aNumColsB, &aAlpha, apDataA, aLda,
+                         apDataB, aLdb);
     }
 
     if (rc != 0) {
@@ -126,7 +126,7 @@ GPULinearAlgebra <T>::Trsm(const bool &aLeftSide,
 template <typename T>
 int
 GPULinearAlgebra <T>::Potrf(const bool &aFillUpperTri,
-                            const int &aNumRow, T *aDataA,
+                            const int &aNumRow, T *apDataA,
                             const int &aLda) {
     auto triangle = aFillUpperTri ? CUBLAS_FILL_MODE_UPPER
                                   : CUBLAS_FILL_MODE_LOWER;
@@ -137,7 +137,7 @@ GPULinearAlgebra <T>::Potrf(const bool &aFillUpperTri,
     auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXpotrf_bufferSize(cusolver_handle, NULL, triangle, aNumRow,
-                                data_type, (void *) aDataA, aNumRow, data_type,
+                                data_type, (void *) apDataA, aNumRow, data_type,
                                 &lWork_device, &lWork_host);
 
     auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
@@ -145,7 +145,7 @@ GPULinearAlgebra <T>::Potrf(const bool &aFillUpperTri,
 
 
     cusolverDnXpotrf(cusolver_handle, NULL, triangle, aNumRow, data_type,
-                     (void *) aDataA, aNumRow, data_type, work_space_dev,
+                     (void *) apDataA, aNumRow, data_type, work_space_dev,
                      lWork_device, work_space_host, lWork_host,
                      context->GetInfoPointer());
 
@@ -167,7 +167,7 @@ GPULinearAlgebra <T>::Potrf(const bool &aFillUpperTri,
 template <typename T>
 int
 GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
-                            const int &aNumRow, T *aDataA,
+                            const int &aNumRow, T *apDataA,
                             const int &aLda) {
     auto triangle = aFillUpperTri ? CUBLAS_FILL_MODE_UPPER
                                   : CUBLAS_FILL_MODE_LOWER;
@@ -179,7 +179,7 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
         cusolverDnDpotri_bufferSize(cusolver_handle,
                                     triangle,
                                     aNumRow,
-                                    aDataA,
+                                    apDataA,
                                     aNumRow,
                                     &lWork);
         auto work_space = context->RequestWorkBufferDevice(lWork * sizeof(T));
@@ -187,7 +187,7 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
         cusolverDnDpotri(cusolver_handle,
                          triangle,
                          aNumRow,
-                         aDataA,
+                         apDataA,
                          aNumRow,
                          (T *) work_space,
                          lWork,
@@ -196,7 +196,7 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
         cusolverDnSpotri_bufferSize(cusolver_handle,
                                     triangle,
                                     aNumRow,
-                                    aDataA,
+                                    apDataA,
                                     aNumRow,
                                     &lWork);
 
@@ -205,7 +205,7 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
         cusolverDnSpotri(cusolver_handle,
                          triangle,
                          aNumRow,
-                         aDataA,
+                         apDataA,
                          aNumRow,
                          (T *) work_space,
                          0,
@@ -224,8 +224,9 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
 template <typename T>
 int
 GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
-                           T *aDataA, const int &aLda, void *aIpiv, T *aDataB,
-                           const int &aLdb, T *aDataOut, const int &aLdo) {
+                           T *apDataA, const int &aLda, void *apIpiv,
+                           T *apDataB,
+                           const int &aLdb, T *apDataOut, const int &aLdo) {
     // TODO : This function can support half precision internally for the LU factorization
 
     auto context = ContextManager::GetOperationContext();
@@ -235,31 +236,33 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
 
     if constexpr(is_double <T>()) {
 
-        cusolverDnDDgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, aDataA,
-                                    aLda, (cusolver_int_t *) aIpiv, aDataB,
-                                    aLdb, aDataOut, aLdo, nullptr,
+        cusolverDnDDgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, apDataA,
+                                    aLda, (cusolver_int_t *) apIpiv, apDataB,
+                                    aLdb, apDataOut, aLdo, nullptr,
                                     &lWork_device);
 
         auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
 
 
-        cusolverDnDDgesv(cusolver_handle, aNumN, aNumNRH, aDataA, aLda,
-                         (cusolver_int_t *) aIpiv, aDataB, aLdb, aDataOut, aLdo,
+        cusolverDnDDgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                         (cusolver_int_t *) apIpiv, apDataB, aLdb, apDataOut,
+                         aLdo,
                          work_space_dev, lWork_device, &nitr,
                          context->GetInfoPointer());
 
 
     } else {
-        cusolverDnSSgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, aDataA,
-                                    aLda, (cusolver_int_t *) aIpiv, aDataB,
-                                    aLdb, aDataOut, aLdo, nullptr,
+        cusolverDnSSgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, apDataA,
+                                    aLda, (cusolver_int_t *) apIpiv, apDataB,
+                                    aLdb, apDataOut, aLdo, nullptr,
                                     &lWork_device);
 
         auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
 
 
-        cusolverDnSSgesv(cusolver_handle, aNumN, aNumNRH, aDataA, aLda,
-                         (cusolver_int_t *) aIpiv, aDataB, aLdb, aDataOut, aLdo,
+        cusolverDnSSgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                         (cusolver_int_t *) apIpiv, apDataB, aLdb, apDataOut,
+                         aLdo,
                          work_space_dev, lWork_device, &nitr,
                          context->GetInfoPointer());
     }
@@ -282,8 +285,8 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
 template <typename T>
 int
 GPULinearAlgebra <T>::Getrf(const int &aNumRow, const int &aNumCol,
-                            T *aDataA, const int &aLda,
-                            int64_t *aIpiv) {
+                            T *apDataA, const int &aLda,
+                            int64_t *apIpiv) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
@@ -293,14 +296,15 @@ GPULinearAlgebra <T>::Getrf(const int &aNumRow, const int &aNumCol,
     auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXgetrf_bufferSize(cusolver_handle, NULL, aNumRow, aNumCol,
-                                data_type, (void *) aDataA, aLda, data_type,
+                                data_type, (void *) apDataA, aLda, data_type,
                                 &lWork_device, &lWork_host);
 
     auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
     auto work_space_host = context->RequestWorkBufferHost(lWork_host);
 
-    cusolverDnXgetrf(cusolver_handle, NULL, aNumRow, aNumCol, data_type, aDataA,
-                     aLda, aIpiv, data_type, work_space_dev, lWork_device,
+    cusolverDnXgetrf(cusolver_handle, NULL, aNumRow, aNumCol, data_type,
+                     apDataA,
+                     aLda, apIpiv, data_type, work_space_dev, lWork_device,
                      work_space_host, lWork_host, context->GetInfoPointer());
 
 
@@ -319,11 +323,13 @@ GPULinearAlgebra <T>::Getrf(const int &aNumRow, const int &aNumCol,
 
 template <typename T>
 int
-GPULinearAlgebra <T>::Getri(const int &aMatRank, T *aDataA, const int &aLda,
-                            int64_t *aIpiv) {
+GPULinearAlgebra <T>::Getri(const int &aMatRank, T *apDataA, const int &aLda,
+                            int64_t *apIpiv) {
 
     // NO GPU implementation
-    MPCR_API_EXCEPTION("No Getri implementation for GPU",-1);
+    // Cusolver provides a getrs() to solve AX=B.
+    // All you need to do is to set B=I before calling getrs().
+    MPCR_API_EXCEPTION("No Getri implementation for GPU", -1);
 }
 
 
@@ -331,10 +337,10 @@ template <typename T>
 int
 GPULinearAlgebra <T>::SVD(const signed char &aJob,
                           const int &aNumRow,
-                          const int &aNumCol, T *aDataA,
-                          const int &aLda, T *aDataS,
-                          T *aDataU, const int &aLdu,
-                          T *aDataVT, const int &aLdvt) {
+                          const int &aNumCol, T *apDataA,
+                          const int &aLda, T *apDataS,
+                          T *apDataU, const int &aLdu,
+                          T *apDataVT, const int &aLdvt) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
@@ -344,19 +350,19 @@ GPULinearAlgebra <T>::SVD(const signed char &aJob,
     auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXgesvd_bufferSize(cusolver_handle, NULL, aJob, aJob, aNumRow,
-                                aNumCol, data_type, (void *) aDataA, aLda,
-                                data_type, (void *) aDataS, data_type,
-                                (void *) aDataU, aLdu, data_type,
-                                (void *) aDataVT, aLdvt, data_type,
+                                aNumCol, data_type, (void *) apDataA, aLda,
+                                data_type, (void *) apDataS, data_type,
+                                (void *) apDataU, aLdu, data_type,
+                                (void *) apDataVT, aLdvt, data_type,
                                 &lWork_device, &lWork_host);
 
     auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
     auto work_space_host = context->RequestWorkBufferHost(lWork_host);
 
     cusolverDnXgesvd(cusolver_handle, NULL, aJob, aJob, aNumRow, aNumCol,
-                     data_type, (void *) aDataA, aLda, data_type,
-                     (void *) aDataS, data_type, (void *) aDataU, aLdu,
-                     data_type, (void *) aDataVT, aLdvt, data_type,
+                     data_type, (void *) apDataA, aLda, data_type,
+                     (void *) apDataS, data_type, (void *) apDataU, aLdu,
+                     data_type, (void *) apDataVT, aLdvt, data_type,
                      work_space_dev, lWork_device, work_space_host, lWork_host,
                      context->GetInfoPointer());
 
@@ -377,8 +383,8 @@ template <typename T>
 int
 GPULinearAlgebra <T>::Syevd(const bool &aJobzNoVec,
                             const bool &aFillUpperTri,
-                            const int &aNumCol, T *aDataA,
-                            const int64_t &aLda, T *aDataW) {
+                            const int &aNumCol, T *apDataA,
+                            const int64_t &aLda, T *apDataW) {
 
     auto jobz = aJobzNoVec ? CUSOLVER_EIG_MODE_NOVECTOR
                            : CUSOLVER_EIG_MODE_VECTOR;
@@ -395,14 +401,15 @@ GPULinearAlgebra <T>::Syevd(const bool &aJobzNoVec,
     size_t lWork_host = 0;
 
     cusolverDnXsyevd_bufferSize(cusolver_handle, NULL, jobz, triangle, aNumCol,
-                                data_type, aDataA, aLda, data_type, aDataW,
+                                data_type, apDataA, aLda, data_type, apDataW,
                                 data_type, &lWork_device, &lWork_host);
 
     auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
     auto work_space_host = context->RequestWorkBufferHost(lWork_host);
 
     cusolverDnXsyevd(cusolver_handle, NULL, jobz, triangle, aNumCol, data_type,
-                     aDataA, aLda, data_type, aDataW, data_type, work_space_dev,
+                     apDataA, aLda, data_type, apDataW, data_type,
+                     work_space_dev,
                      lWork_device, work_space_host, lWork_host,
                      context->GetInfoPointer());
 
@@ -422,7 +429,7 @@ GPULinearAlgebra <T>::Syevd(const bool &aJobzNoVec,
 
 template <typename T>
 int
-GPULinearAlgebra <T>::Geqp3(const int &aNumRow, const int &aNumCol, T *aDataA,
+GPULinearAlgebra <T>::Geqp3(const int &aNumRow, const int &aNumCol, T *apDataA,
                             const int &aLda, int64_t *aJpVt, T *aTaw) {
 
     auto context = ContextManager::GetOperationContext();
@@ -434,13 +441,14 @@ GPULinearAlgebra <T>::Geqp3(const int &aNumRow, const int &aNumCol, T *aDataA,
     auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXgeqrf_bufferSize(cusolver_handle, NULL, aNumRow, aNumCol,
-                                data_type, aDataA, aLda, data_type, aTaw,
+                                data_type, apDataA, aLda, data_type, aTaw,
                                 data_type, &lWork_device, &lWork_host);
 
     auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
     auto work_space_host = context->RequestWorkBufferHost(lWork_host);
 
-    cusolverDnXgeqrf(cusolver_handle, NULL, aNumRow, aNumCol, data_type, aDataA,
+    cusolverDnXgeqrf(cusolver_handle, NULL, aNumRow, aNumCol, data_type,
+                     apDataA,
                      aLda, data_type, aTaw, data_type, work_space_dev,
                      lWork_device, work_space_host, lWork_host,
                      context->GetInfoPointer());
@@ -462,7 +470,7 @@ GPULinearAlgebra <T>::Geqp3(const int &aNumRow, const int &aNumCol, T *aDataA,
 template <typename T>
 int
 GPULinearAlgebra <T>::Orgqr(const int &aNumRow, const int &aNum,
-                            const int &aNumCol, T *aDataA,
+                            const int &aNumCol, T *apDataA,
                             const int &aLda, const T *aTau) {
 
     auto context = ContextManager::GetOperationContext();
@@ -471,20 +479,20 @@ GPULinearAlgebra <T>::Orgqr(const int &aNumRow, const int &aNum,
 
     if constexpr(is_double <T>()) {
         cusolverDnDorgqr_bufferSize(cusolver_handle, aNumRow, aNum, aNumCol,
-                                    aDataA, aLda, aTau, &lWork_device);
+                                    apDataA, aLda, aTau, &lWork_device);
 
         auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
 
-        cusolverDnDorgqr(cusolver_handle, aNumRow, aNum, aNumCol, aDataA, aLda,
+        cusolverDnDorgqr(cusolver_handle, aNumRow, aNum, aNumCol, apDataA, aLda,
                          aTau, (double *) work_space_dev, lWork_device,
                          context->GetInfoPointer());
     } else {
         cusolverDnSorgqr_bufferSize(cusolver_handle, aNumRow, aNum, aNumCol,
-                                    aDataA, aLda, aTau, &lWork_device);
+                                    apDataA, aLda, aTau, &lWork_device);
 
         auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
 
-        cusolverDnSorgqr(cusolver_handle, aNumRow, aNum, aNumCol, aDataA, aLda,
+        cusolverDnSorgqr(cusolver_handle, aNumRow, aNum, aNumCol, apDataA, aLda,
                          aTau, (float *) work_space_dev, lWork_device,
                          context->GetInfoPointer());
     }
@@ -501,10 +509,21 @@ GPULinearAlgebra <T>::Orgqr(const int &aNumRow, const int &aNum,
 template <typename T>
 int
 GPULinearAlgebra <T>::Gecon(const std::string &aNorm, const int &aNumRow,
-                            const T *aData, const int &aLda, T aNormVal,
+                            const T *apData, const int &aLda, T aNormVal,
                             T *aRCond) {
+//
+//// Perform LU factorization
+//    cusolverDnDgetrf(handle, n, n, d_A, lda, d_ipiv, nullptr);
+//
+//// Compute singular values
+//    cusolverDnDgesvd(handle, 'N', 'N', n, n, d_A, lda, d_S, nullptr, 1, nullptr, 1, nullptr, nullptr);
+//
+//// Calculate the condition number
+//    double conditionNumber = d_S[0] / d_S[n-1];
+
+
     // NO GPU Implementation
-    MPCR_API_EXCEPTION("No Gecon implementation for GPU",-1);
+    MPCR_API_EXCEPTION("No Gecon implementation for GPU", -1);
 }
 
 
@@ -512,7 +531,39 @@ template <typename T>
 int GPULinearAlgebra <T>::Trcon(const std::string &aNorm,
                                 const bool &aUpperTriangle,
                                 const bool &aUnitTriangle, const int &aMatOrder,
-                                const T *aData, const int &aLda, T *aRCond) {
+                                const T *apData, const int &aLda, T *aRCond) {
     // NO GPU Implementation
-    MPCR_API_EXCEPTION("No Trcon implementation for GPU",-1);
+    MPCR_API_EXCEPTION("No Trcon implementation for GPU", -1);
+}
+
+
+template <typename T>
+int GPULinearAlgebra <T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
+                                const size_t &aNumRhs, const T *apDataA,
+                                const size_t &aLda, const int64_t *apIpiv,
+                                T *apDataB, const size_t &aLdb) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto cusolver_handle = context->GetCusolverDnHandle();
+    auto transpose = aTransposeA ? CUBLAS_OP_T : CUBLAS_OP_N;
+
+    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+
+
+    cusolverDnXgetrs(cusolver_handle, NULL, transpose, aNumRowA, aNumRhs,
+                     data_type, (void *) apDataA, aLda, apIpiv, data_type,
+                     (void *) apDataB, aLdb, context->GetInfoPointer());
+
+
+    int rc = 0;
+    memory::MemCpy((char *) &rc, (char *) context->GetInfoPointer(),
+                   sizeof(int), context,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    if (context->GetRunMode() == kernels::RunMode::SYNC) {
+        context->FreeWorkBufferHost();
+    }
+
+    return rc;
+
 }

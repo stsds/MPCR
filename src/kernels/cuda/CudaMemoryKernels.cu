@@ -16,11 +16,11 @@ using namespace mpcr::kernels;
 template <typename T, typename X>
 __global__
 void
-PerformCopy(const T *apSource, X *apDestination,
-            size_t aNumElements) {
+PerformCopy(const T *apSource, X *apDestination,size_t aNumElements) {
     size_t tid = blockIdx.x * blockDim.x + threadIdx.x;
 
     if (tid < aNumElements) {
+//        apDestination[ tid ] = apSource[tid];
         apDestination[ tid ] = static_cast<X>(apSource[ tid ]);
     }
 }

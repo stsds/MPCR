@@ -43,17 +43,17 @@ namespace mpcr {
                  * Number of rows in matrix B and cols in matrix A
                  * @param [in] aAlpha
                  * Scalar alpha. If alpha is zero, A and B are not accessed
-                 * @param [in] aDataA
+                 * @param [in] apDataA
                  * Matrix A data
                  * @param [in] aLda
                  * Leading dimension for matrix A
-                 * @param [in] aDataB
+                 * @param [in] apDataB
                  * Matrix B data
                  * @param [in] aLdb
                  * Leading dimension for matrix B
                  * @param [in] aBeta
                  * Scalar beta. If beta is zero, C need not be set on input.
-                 * @param [in,out] aDataC
+                 * @param [in,out] apDataC
                  * input and output matrix C, will be used as an input in case
                  * aBeta != 0
                  * @param [in] aLdc
@@ -64,9 +64,9 @@ namespace mpcr {
                 void
                 Gemm(const bool &aTransposeA, const bool &aTransposeB,
                      const int &aNumRowsA, const int &aNumColB,
-                     const int &aNumRowB, const T &aAlpha, const T *aDataA,
-                     const int &aLda, const T *aDataB, const int &aLdb,
-                     const T &aBeta, T *aDataC, const int &aLdc) = 0;
+                     const int &aNumRowB, const T &aAlpha, const T *apDataA,
+                     const int &aLda, const T *apDataB, const int &aLdb,
+                     const T &aBeta, T *apDataC, const int &aLdc) = 0;
 
                 /**
                  * @brief
@@ -89,13 +89,13 @@ namespace mpcr {
                  * Number of cols in matrix A
                  * @param [in] aAlpha
                  * Scalar alpha. If alpha is zero, A is not accessed
-                 * @param [in] aDataA
+                 * @param [in] apDataA
                  * Matrix A data
                  * @param [in] aLda
                  * Leading dimension for matrix A
                  * @param [in] aBeta
                  * Scalar beta. If beta is zero, C need not be set on input.
-                 * @param [in,out] aDataC
+                 * @param [in,out] apDataC
                  * input and output matrix C, will be used as an input in case
                  * aBeta != 0
                  * @param [in] aLdc
@@ -106,8 +106,8 @@ namespace mpcr {
                 void
                 Syrk(const bool &aFillLower, const bool &aTranspose,
                      const int &aNumRowA, const int &aNumColA, const T &aAlpha,
-                     const T *aDataA, const int &aLda, const T &aBeta,
-                     T *aDataC, const int &aLdc) = 0;
+                     const T *apDataA, const int &aLda, const T &aBeta,
+                     T *apDataC, const int &aLdc) = 0;
 
                 /**
                  * @brief
@@ -130,11 +130,11 @@ namespace mpcr {
                  * Number of cols in matrix B
                  * @param [in] aAlpha
                  * 	Scalar alpha. If alpha is zero, A is not accessed.
-                 * @param [in] aDataA
+                 * @param [in] apDataA
                  * matrix A data
                  * @param [in] aLda
                  * Leading dimension of matrix A
-                 * @param [in,out] aDataB
+                 * @param [in,out] apDataB
                  * input and output matrix B,On entry.
                  * On exit, overwritten by the solution matrix X.
                  * @param [in] aLdb
@@ -145,8 +145,8 @@ namespace mpcr {
                 void
                 Trsm(const bool &aLeftSide, const bool &aFillUpperTri,
                      const bool &aTranspose, const int &aNumRowsB,
-                     const int &aNumColsB, const T &aAlpha, const T *aDataA,
-                     const int &aLda, T *aDataB, const int &aLdb) = 0;
+                     const int &aNumColsB, const T &aAlpha, const T *apDataA,
+                     const int &aLda, T *apDataB, const int &aLdb) = 0;
 
                 /**
                  * @brief
@@ -159,7 +159,7 @@ namespace mpcr {
                  * @param [in] aNumRow
                  * Order of matrix A, for the whole matrix number of rows or cols
                  * can be used.
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  * Matrix A data, on exit, the buffer will hold the decomposition
                  * output either in the upper or the lower triangle only.
                  * @param [in] aLda
@@ -175,7 +175,7 @@ namespace mpcr {
                  */
                 virtual
                 int
-                Potrf(const bool &aFillUpperTri, const int &aNumRow, T *aDataA,
+                Potrf(const bool &aFillUpperTri, const int &aNumRow, T *apDataA,
                       const int &aLda) = 0;
 
                 /**
@@ -189,7 +189,7 @@ namespace mpcr {
                  * @param [in] aNumRow
                  * Order of matrix A, for the whole matrix number of rows or cols
                  * can be used.
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  * Matrix A data, on exit, the buffer will hold inv(A).
                  * @param [in] aLda
                  * Leading dimension of matrix A
@@ -204,7 +204,7 @@ namespace mpcr {
                  */
                 virtual
                 int
-                Potri(const bool &aFillUpperTri, const int &aNumRow, T *aDataA,
+                Potri(const bool &aFillUpperTri, const int &aNumRow, T *apDataA,
                       const int &aLda) = 0;
 
                 /**
@@ -223,19 +223,19 @@ namespace mpcr {
                  * Number of linear equations, the order of the matrix.
                  * @param [in] aNumNRH
                  * Number of right hand sides, the number of cols of matrix B
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  *  On entry, the N-by-N coefficient matrix A.
                  *  On exit, the factors L and U from the factorization
                  * @param [in] aLda
                  * Leading dimension of matrix A
-                 * @param [in,out] aIpiv
+                 * @param [in,out] apIpiv
                  * The pivot indices that define the permutation matrix P;
-                 * row i of the matrix was interchanged with row aIpiv(i).
-                 * @param[in] aDataB
+                 * row i of the matrix was interchanged with row apIpiv(i).
+                 * @param[in] apDataB
                  *  On entry, the N-by-NRHS matrix of right hand side matrix B.
                  *  @param[in] aLdb
-                 *  Leading dimension of matrix aDataB
-                 * @param [in,out] aDataOut
+                 *  Leading dimension of matrix apDataB
+                 * @param [in,out] apDataOut
                  *  On entry, the N-by-NRHS matrix of right hand side matrix B.
                  *  On exit, if rc = 0, the N-by-NRHS solution matrix X.
                  *  Note:: this pointer will be used as input in case of using CPU only.
@@ -253,9 +253,9 @@ namespace mpcr {
                  */
                 virtual
                 int
-                Gesv(const int &aNumN, const int &aNumNRH, T *aDataA,
-                     const int &aLda, void *aIpiv, T *aDataB,
-                     const int &aLdb,T* aDataOut,const int &aLdo) = 0;
+                Gesv(const int &aNumN, const int &aNumNRH, T *apDataA,
+                     const int &aLda, void *apIpiv, T *apDataB,
+                     const int &aLdb, T *apDataOut, const int &aLdo) = 0;
 
                 /**
                  * @brief
@@ -272,14 +272,14 @@ namespace mpcr {
                  * The number of rows of the matrix A
                  * @param [in] aNumCol
                  * The number of columns of the matrix A
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  * On entry, the M-by-N matrix to be factored.
                  * On exit, the factors L and U from the factorization
                  * @param [in] aLda
                  * Leading dimension of matrix A
-                 * @param [in,out] aIpiv
+                 * @param [in,out] apIpiv
                  *  The pivot indices; for 1 <= i <= min(M,N), row i of the
-                 *  matrix was interchanged with row aIpiv(i).
+                 *  matrix was interchanged with row apIpiv(i).
                  *
                  * @returns
                  * rc code :
@@ -293,8 +293,8 @@ namespace mpcr {
                  */
                 virtual
                 int
-                Getrf(const int &aNumRow, const int &aNumCol, T *aDataA,
-                      const int &aLda, int64_t *aIpiv) = 0;
+                Getrf(const int &aNumRow, const int &aNumCol, T *apDataA,
+                      const int &aLda, int64_t *apIpiv) = 0;
 
                 /**
                  * @brief
@@ -306,15 +306,15 @@ namespace mpcr {
                  *
                  * @param [in] aMatRank
                  * The order of the matrix A
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  * On entry, the factors L and U from the factorization
                  * A = P*L*U as computed by GETRF.
                  * On exit, if rc = 0, the inverse of the original matrix A.
                  * @param [in] aLda
                  * Leading dimension of matrix A
-                 * @param [in,out] aIpiv
+                 * @param [in,out] apIpiv
                  * The pivot indices from GETRF; for 1<=i<=N, row i of the
-                 * matrix was interchanged with row aIpiv(i)
+                 * matrix was interchanged with row apIpiv(i)
                  *
                  * @returns
                  * rc code :
@@ -326,16 +326,16 @@ namespace mpcr {
                  */
                 virtual
                 int
-                Getri(const int &aMatRank, T *aDataA, const int &aLda,
-                      int64_t *aIpiv) = 0;
+                Getri(const int &aMatRank, T *apDataA, const int &aLda,
+                      int64_t *apIpiv) = 0;
 
 
                 //svd - lapack  -> gesvd (GPU) and gesdd(CPU)
                 virtual
                 int
                 SVD(const signed char &aJob, const int &aNumRow,
-                    const int &aNumCol, T *aDataA, const int &aLda, T *aDataS,
-                    T *aDataU, const int &aLdu, T *aDataVT,
+                    const int &aNumCol, T *apDataA, const int &aLda, T *apDataS,
+                    T *apDataU, const int &aLdu, T *apDataVT,
                     const int &aLdvt) = 0;
 
                 /**
@@ -350,14 +350,14 @@ namespace mpcr {
                  * If True, Upper triangle is stored, otherwise, lower triangle.
                  * @param [in] aNumCol
                  * Number of Cols, Matrix order.
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  * On entry, the symmetric matrix A.
                  * On exit, eigenvectors of the matrix A, if aJobzNoVec= False,
                  * otherwise, upper/lower triangle of A, including the diagonal,
                  * is destroyed.
                  * @param[in] aLda
                  * Leading dimension of matrix A
-                 * @param[in,out] aDataW
+                 * @param[in,out] apDataW
                  * The eigenvalues in ascending order.
                  *
                  * @returns
@@ -376,8 +376,8 @@ namespace mpcr {
                 virtual
                 int
                 Syevd(const bool &aJobzNoVec, const bool &aFillUpperTri,
-                      const int &aNumCol, T *aDataA, const int64_t &aLda,
-                      T *aDataW) = 0;
+                      const int &aNumCol, T *apDataA, const int64_t &aLda,
+                      T *apDataW) = 0;
 
                 /**
                  * @brief
@@ -388,7 +388,7 @@ namespace mpcr {
                  * Number of rows of matrix A
                  * @param [in] aNumCol
                  * Number of cols of matrix A
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  * On entry, the matrix A.
                  * On exit, the upper triangle of the array contains the
                  * min(M,N)-by-N upper trapezoidal matrix R; the elements below
@@ -414,7 +414,7 @@ namespace mpcr {
                  */
                 virtual
                 int
-                Geqp3(const int &aNumRow, const int &aNumCol, T *aDataA,
+                Geqp3(const int &aNumRow, const int &aNumCol, T *apDataA,
                       const int &aLda, int64_t *aJpVt, T *aTaw) = 0;
 
                 /**
@@ -431,7 +431,7 @@ namespace mpcr {
                  * @param [in] aNumCol
                  * The number of elementary reflectors whose product defines the
                  * matrix Q
-                 * @param [in,out] aDataA
+                 * @param [in,out] apDataA
                  * On entry, the i-th column must contain the vector which
                  * defines the elementary reflector
                  * On exit, the M-by-N matrix Q.
@@ -449,7 +449,7 @@ namespace mpcr {
                 virtual
                 int
                 Orgqr(const int &aNumRow, const int &aNum, const int &aNumCol,
-                      T *aDataA, const int &aLda, const T *aTau) = 0;
+                      T *apDataA, const int &aLda, const T *aTau) = 0;
 
                 /**
                  * @brief
@@ -464,7 +464,7 @@ namespace mpcr {
                  * = Otherwise :         1-norm.
                  * @param [in] aNumRow
                  *  Number of rows of matrix A, The order of the matrix A.
-                 * @param [in] aData
+                 * @param [in] apData
                  * The factors L and U from the factorization A = P*L*U
                  * as computed by GETRF.
                  * @param [in] aLda
@@ -492,7 +492,7 @@ namespace mpcr {
                 virtual
                 int
                 Gecon(const std::string &aNorm, const int &aNumRow,
-                      const T *aData, const int &aLda, T aNormVal,
+                      const T *apData, const int &aLda, T aNormVal,
                       T *aRCond) = 0;
 
                 /**
@@ -515,7 +515,7 @@ namespace mpcr {
                  * If True, A us unit triangular, otherwise A is non-unit triangular
                  * @param [in] aMatOrder
                  * The order of matrix A.
-                 * @param[in] aData
+                 * @param[in] apData
                  * The triangular matrix A.  If upper triangle, the leading N-by-N
                  * upper triangular part of the array A contains the upper
                  * triangular matrix, and the strictly lower triangular part of
@@ -539,7 +539,37 @@ namespace mpcr {
                 int
                 Trcon(const std::string &aNorm, const bool &aUpperTriangle,
                       const bool &aUnitTriangle, const int &aMatOrder,
-                      const T *aData, const int &aLda, T *aRCond) = 0;
+                      const T *apData, const int &aLda, T *aRCond) = 0;
+
+                /**
+                 * @brief
+                 * This function solves a linear system of multiple right-hand sides
+                 * op(A) * X = B
+                 *
+                 * @param [in] aMatRank
+                 * The order of the matrix A
+                 * @param [in,out] apDataA
+                 * Data matrix A
+                 * @param [in] aLda
+                 * Leading dimension of matrix A
+                 * @param [in,out] apIpiv
+                 * The pivot indices from GETRF; for 1<=i<=N, row i of the
+                 * matrix was interchanged with row apIpiv(i)
+                 *
+                 * @returns
+                 * rc code :
+                 *  = 0:  successful exit
+                 *  < 0:  if rc = -i, the i-th argument had an illegal value
+                 *  > 0:  if rc = i, U(i,i) is exactly zero; the matrix is
+                 * singular and its inverse could not be computed.
+                 *
+                 */
+                virtual
+                int
+                Getrs(const bool &aTransposeA, const size_t &aNumRowA,
+                      const size_t &aNumRhs, const T *apDataA,
+                      const size_t &aLda, const int64_t *apIpiv, T *apDataB,
+                      const size_t &aLdb) = 0;
 
 
             };

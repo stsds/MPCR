@@ -106,6 +106,58 @@ TEST_MEMORY_HANDLER_CUDA() {
     }
 
     delete[] pdata_host;
+    SECTION("Test Copy") {
+
+        auto size = 50;
+
+        auto context = kernels::ContextManager::GetGPUContext();
+        auto buffer = (int64_t *) memory::AllocateArray(size * sizeof(int64_t),
+                                                       GPU, context);
+
+        auto host_buffer = (int64_t *) memory::AllocateArray(
+            size * sizeof(int64_t), CPU,
+            nullptr);
+
+
+        for (auto i = 0; i < size; i++) {
+            host_buffer[ i ] = i * 2;
+        }
+
+        memory::MemCpy((char *) buffer, (char *) host_buffer,
+                       sizeof(int64_t) * size, context,
+                       memory::MemoryTransfer::HOST_TO_DEVICE);
+
+
+        auto float_buffer = (float *) memory::AllocateArray(
+            size * sizeof(float), GPU, context);
+
+
+        memory::Copy <int64_t, float>((char *) buffer, (char *) float_buffer,
+                                     size, GPU);
+
+
+        auto host_buffer_val = (float *) memory::AllocateArray(
+            size * sizeof(float), CPU, nullptr);
+
+        memory::MemCpy((char *) host_buffer_val, (char *) float_buffer,
+                       sizeof(float) * size,
+                       context, memory::MemoryTransfer::DEVICE_TO_HOST);
+
+        for (auto i = 0; i < size; i++) {
+            REQUIRE(host_buffer_val[ i ] == i * 2);
+        }
+
+        auto char_buff = (char *) buffer;
+        auto char_float_buff = (char *) float_buffer;
+        auto host_one = (char *) host_buffer_val;
+        auto host_two = (char *) host_buffer;
+
+        memory::DestroyArray(char_buff, GPU, context);
+        memory::DestroyArray(host_one, CPU, context);
+        memory::DestroyArray(host_two, CPU, context);
+        memory::DestroyArray(char_float_buff, GPU, context);
+
+    }
 
 }
 

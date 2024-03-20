@@ -110,11 +110,6 @@ TEST_LINEAR_ALGEBRA() {
             REQUIRE(output.GetVal(i) == validate_vals[ i ]);
         }
 
-        vector <double> temp_values_new = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                                           0, 0, 0,
-                                           0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0,
-                                           0, 0, 0,
-                                           0, 0, 0, 1, 1, 1};
 
     }SECTION("Test Symmetric") {
         cout << "Testing Matrix Is Symmetric ..." << endl;
@@ -588,11 +583,24 @@ TEST_LINEAR_ALGEBRA() {
     }
 }
 
+
 #ifdef USE_CUDA
+
+
+/****
+ * Solve -> if single
+ * QRDecompositionQY
+ *
+ *
+ * TRCON/GECON -> reciprocal condition
+ * GETRI -> Solve with one input
+ */
+
 void
-TEST_GPU(){
+TEST_GPU() {
     SECTION("Testing Cholesky CUDA Decomposition") {
-        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
         cout << "Testing CUDA Cholesky Decomposition ..." << endl;
         vector <double> values = {4, 12, -16, 12, 37, -43, -16, -43, 98};
         DataType a(values, DOUBLE);
@@ -601,23 +609,24 @@ TEST_GPU(){
         DataType b(DOUBLE);
         SIMPLE_DISPATCH(DOUBLE, linear::Cholesky, a, b)
 
-        vector <double> values_validate = {2, 0, 0, 6, 1, 0, -8, 5, 3}; //Fill Triangle is still not implemented as a CUDA Kernel.
+        vector <double> values_validate = {2, 0, 0, 6, 1, 0, -8, 5,
+                                           3}; //Fill Triangle is still not implemented as a CUDA Kernel.
         // Lower Triangle should be set to zeros
 
         REQUIRE(b.GetNCol() == 3);
         REQUIRE(b.GetNRow() == 3);
-        REQUIRE(b.GetPrecision()==DOUBLE);
-        b.Print();
+        REQUIRE(b.GetPrecision() == DOUBLE);
 
         for (auto i = 0; i < b.GetSize(); i++) {
-            REQUIRE(b.GetVal(i)==values_validate[i]);
+            REQUIRE(b.GetVal(i) == values_validate[ i ]);
         }
 
-        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(CPU);
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            CPU);
 
-    }
-    SECTION("Testing CholeskyInv CUDA Decomposition") {
-        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
+    }SECTION("Testing CholeskyInv CUDA Decomposition") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
         cout << "Testing CUDA Cholesky Inverse ..." << endl;
 
         vector <double> values = {1, 0, 0, 1, 1, 0, 1, 2, 1.414214};
@@ -654,11 +663,13 @@ TEST_GPU(){
                 (float) values_validate[ i ];
             REQUIRE(val <= error);
         }
-        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(CPU);
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            CPU);
 
     }SECTION("Test CUDA Eigen") {
 
-        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
         cout << "Testing CUDA Eigen ..." << endl;
 
         vector <double> values = {1, -1, -1, 1};
@@ -679,10 +690,6 @@ TEST_GPU(){
         REQUIRE(vec.GetNCol() == 2);
         REQUIRE(vec.GetNRow() == 2);
 
-        vals.Print();
-        vec.Print();
-
-
         vector <float> validate_values = {-0.7071068, 0.7071068, -0.7071068,
                                           -0.7071068};
         auto err = 0.001;
@@ -693,9 +700,9 @@ TEST_GPU(){
             REQUIRE(val <= err);
         }
 
-        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(CPU);
-    }SECTION("CUDA SVD"){
-        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
+    }SECTION("CUDA SVD") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
         vector <double> values = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
                                   0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
                                   0, 0, 0, 1, 1, 1};
@@ -759,8 +766,272 @@ TEST_GPU(){
         }
 
 
+    }SECTION("CUDA Gemm & Syrk") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        vector <double> values = {3.12393, -1.16854, -0.304408, -2.15901,
+                                  -1.16854, 1.86968, 1.04094, 1.35925,
+                                  -0.304408, 1.04094, 4.43374, 1.21072,
+                                  -2.15901, 1.35925, 1.21072, 5.57265};
+
+        DataType a(values, DOUBLE);
+        a.ToMatrix(4, 4);
+
+        DataType b(values, DOUBLE);
+        b.ToMatrix(4, 4);
+        DataType output(DOUBLE);
+
+        vector <double> validate_vals = {15.878412787064, -9.08673783542,
+                                         -6.13095182416, -20.73289403456,
+                                         -9.08673783542, 7.7923056801,
+                                         8.56286609912, 13.8991634747,
+                                         -6.13095182416, 8.56286609912,
+                                         22.300113620064, 14.18705411188,
+                                         -20.73289403456, 13.8991634747,
+                                         14.18705411188, 39.0291556835};
+
+        SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,
+                        false)
+        REQUIRE(output.GetNRow() == 4);
+        REQUIRE(output.GetNCol() == 4);
+
+        auto error = 0.001;
+        for (auto i = 0; i < validate_vals.size(); i++) {
+            auto val =
+                fabs((float) output.GetVal(i) - (float) validate_vals[ i ]) /
+                (float) validate_vals[ i ];
+            REQUIRE(val <= error);
+        }
+
+        values.clear();
+        values = {5, 11, 143, 10, 123, 132};
+        a.ClearUp();
+        a.Allocate(values);
+        a.ToMatrix(3, 2);
+
+
+        values.clear();
+        values = {2, 3, 5, 6, 8, 11, 13, 14, 20, 30};
+        b.ClearUp();
+        b.Allocate(values);
+        b.ToMatrix(5, 2);
+
+        output.ClearUp();
+
+        SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,
+                        true)
+
+        REQUIRE(output.GetNRow() == 3);
+        REQUIRE(output.GetNCol() == 5);
+
+        validate_vals.clear();
+        validate_vals = {120, 1375, 1738, 145, 1632,
+                         2145, 165, 1777, 2563, 230,
+                         2525, 3498, 340, 3778, 5104};
+
+        for (auto i = 0; i < validate_vals.size(); i++) {
+            auto val =
+                fabs((float) output.GetVal(i) - (float) validate_vals[ i ]) /
+                (float) validate_vals[ i ];
+            REQUIRE(val <= error);
+        }
+
+        values.clear();
+        values = {2, 3, 5, 6, 8, 11, 13, 14, 20, 30};
+
+        DataType c(values, FLOAT);
+        c.ToMatrix(5, 2);
+
+        DataType d(0, FLOAT);
+
+        output.ClearUp();
+        output.ConvertPrecision(FLOAT);
+
+        /** SYRK Call **/
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, c, d, output, false,
+                        true)
+
+        validate_vals.clear();
+        validate_vals = {125, 149, 164, 232, 346, 149, 178, 197, 278, 414, 164,
+                         197, 221, 310, 460, 232, 278, 310, 436, 648, 346, 414,
+                         460, 648, 964};
+
+        for (auto i = 0; i < output.GetSize(); i++) {
+            REQUIRE(output.GetVal(i) == validate_vals[ i ]);
+        }
+
+    }SECTION("CUDA backsolve Trsm") {
+        cout << "Testing Back Solve CUDA ..." << endl;
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        vector <double> values = {1, 0, 0, 2, 1, 0, 3, 1, 2};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+
+        values.clear();
+        values = {8, 4, 2};
+        DataType b(values, FLOAT);
+        b.ToMatrix(3, 1);
+        DataType c(FLOAT);
+
+
+        SIMPLE_DISPATCH(FLOAT, linear::BackSolve, a, b, c, a.GetNCol(), true,
+                        false)
+        REQUIRE(c.GetNCol() == 1);
+        REQUIRE(c.GetNRow() == 3);
+
+        vector <double> validate = {-1, 3, 1};
+
+        for (auto i = 0; i < c.GetSize(); i++) {
+            REQUIRE(c.GetVal(i) == validate[ i ]);
+        }
+
+        c.ClearUp();
+        SIMPLE_DISPATCH(FLOAT, linear::BackSolve, a, b, c, a.GetNCol(), true,
+                        true)
+        REQUIRE(c.GetNCol() == 1);
+        REQUIRE(c.GetNRow() == 3);
+
+        validate.clear();
+        validate = {8, -12, -5};
+
+        for (auto i = 0; i < c.GetSize(); i++) {
+            REQUIRE(c.GetVal(i) == validate[ i ]);
+        }
+    }SECTION("CUDA Forward Solve Trsm") {
+        cout << "Testing Forward Solve CUDA ..." << endl;
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        vector <double> values = {1, 0, 0, 2, 1, 0, 3, 1, 2};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+
+        values.clear();
+        values = {8, 4, 2};
+        DataType b(values, FLOAT);
+        b.ToMatrix(3, 1);
+        DataType c(FLOAT);
+
+
+        SIMPLE_DISPATCH(FLOAT, linear::BackSolve, a, b, c, a.GetNCol(), false,
+                        false)
+        REQUIRE(c.GetNCol() == 1);
+        REQUIRE(c.GetNRow() == 3);
+
+        vector <double> validate = {8, 4, 1};
+
+        for (auto i = 0; i < c.GetSize(); i++) {
+            REQUIRE(c.GetVal(i) == validate[ i ]);
+        }
+
+        c.ClearUp();
+        SIMPLE_DISPATCH(FLOAT, linear::BackSolve, a, b, c, a.GetNCol(), false,
+                        true)
+        REQUIRE(c.GetNCol() == 1);
+        REQUIRE(c.GetNRow() == 3);
+
+        validate.clear();
+        validate = {8, 4, 1};
+
+        for (auto i = 0; i < c.GetSize(); i++) {
+            REQUIRE(c.GetVal(i) == validate[ i ]);
+        }
+    }SECTION("CUDA QR Decomposition") {
+//        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+//            GPU);
+//        cout << "Testing CUDA QR Decomposition ..." << endl;
+//        vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
+//        DataType a(values, FLOAT);
+//        a.ToMatrix(3, 3);
+//
+//        DataType qraux(FLOAT);
+//        DataType pivot(FLOAT);
+//        DataType qr(FLOAT);
+//        DataType rank(FLOAT);
+//
+//        SIMPLE_DISPATCH(FLOAT, linear::QRDecomposition, a, qr, qraux, pivot,
+//                        rank)
+//
+//        qraux.Print();
+//        pivot.Print();
+//        qr.Print();
+//
+//        vector <float> validate_vals = {-7.48331, 0.42179, 0.63269, -4.81070,
+//                                        1.96396, 0.85977, -3.7417, 0, 0};
+//
+//
+//        REQUIRE(qr.IsMatrix());
+//        REQUIRE(qr.GetNCol() == 3);
+//        REQUIRE(qr.GetNRow() == 3);
+//
+//        auto err = 0.001;
+//        for (auto i = 0; i < qr.GetSize(); i++) {
+//
+//            if (validate_vals[ i ] != 0) {
+//                auto val =
+//                    fabs(qr.GetVal(i) - validate_vals[ i ]) /
+//                    validate_vals[ i ];
+//                REQUIRE(val <= err);
+//            } else {
+//                REQUIRE(qr.GetVal(i) <= 1e-07);
+//            }
+//
+//        }
+//
+//
+//        REQUIRE(rank.GetVal(0) == 2);
+//
+//        validate_vals.clear();
+//        validate_vals = {1.2673, 1.1500, 0.0000};
+//        REQUIRE(qraux.GetSize() == 3);
+//
+//        for (auto i = 0; i < 2; i++) {
+//            auto val =
+//                fabs(qraux.GetVal(i) - validate_vals[ i ]) / validate_vals[ i ];
+//            REQUIRE(val <= err);
+//        }
+//
+//        REQUIRE(qraux.GetVal(2) == 0);
+//
+//        validate_vals.clear();
+//        validate_vals = {0,0,0};
+//        for (auto i = 0; i < pivot.GetSize(); i++) {
+//            REQUIRE(pivot.GetVal(i) == validate_vals[ i ]);
+//        }
+    }SECTION("Testing CUDA Solve") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        cout << "Testing CUDA Solve ..." << endl;
+        vector <double> values = {3, 1, 4, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(2, 2);
+
+        values.clear();
+        values = {10, 4};
+        DataType b(values, FLOAT);
+        b.ToMatrix(2, 1);
+
+        DataType output(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Solve, a, b, output, false)
+
+        values.clear();
+        values = {6, -2};
+
+        REQUIRE(output.GetNCol() == 1);
+        REQUIRE(output.GetNRow() == 2);
+
+        float error = 0.001;
+        for (auto i = 0; i < output.GetSize(); i++) {
+            auto val = fabs((float) output.GetVal(i) - (float) values[ i ]) /
+                       (float) values[ i ];
+            REQUIRE(val <= error);
+        }
+
     }
+
 }
+
 
 #endif
 
