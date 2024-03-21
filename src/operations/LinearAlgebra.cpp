@@ -12,13 +12,6 @@
 #include <operations/concrete/BackendFactory.hpp>
 
 
-#ifdef USE_CUDA
-
-#include <operations/concrete/GPUHelpers.hpp>
-
-
-#endif
-
 using namespace mpcr::operations;
 using namespace mpcr::kernels;
 using namespace std;
@@ -243,7 +236,6 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
     T *pOutput = nullptr;
 
-
     aOutput.ClearUp();
     if (aNCol == col) {
         aOutput.SetSize(aNCol * aNCol);
@@ -341,9 +333,9 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     }
 
 
-    auto pIpiv =  memory::AllocateArray(cols_a * sizeof(int64_t),
-                                                   operation_placement,
-                                                   context);
+    auto pIpiv = memory::AllocateArray(cols_a * sizeof(int64_t),
+                                       operation_placement,
+                                       context);
     aOutput.ClearUp();
     auto rc = 0;
 
@@ -373,8 +365,14 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                 aOutput.GetSize() * sizeof(T), GPU, context);
 
             rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
-                              (void *) pIpiv, (T *) aInputB.GetData(GPU), rows_b,
+                              (void *) pIpiv, (T *) aInputB.GetData(GPU),
+                              rows_b,
                               pData_in_out, rows_b);
+        }
+
+        if (rc != 0) {
+            memory::DestroyArray(pIpiv, operation_placement, context);
+            MPCR_API_EXCEPTION("Error While Solving", rc);
         }
         aOutput.SetData((char *) pData_in_out, operation_placement);
 
@@ -383,27 +381,40 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         aOutput = aInputA;
         auto pData_in_out = (T *) aOutput.GetData(operation_placement);
 
-        rc = solver->Getrf(rows_a, cols_a, pData_in_out, rows_a, (int64_t *)pIpiv);
+        rc = solver->Getrf(rows_a, cols_a, pData_in_out, rows_a,
+                           (int64_t *) pIpiv);
 
         if (rc != 0) {
-            memory::DestroyArray(pIpiv,operation_placement,context);
+            memory::DestroyArray(pIpiv, operation_placement, context);
             MPCR_API_EXCEPTION("Error While Solving", rc);
         }
 
-        rc = solver->Getri(cols_a, pData_in_out, rows_a, (int64_t *)pIpiv);
+        if (operation_placement == CPU) {
+            rc = solver->Getri(cols_a, pData_in_out, rows_a, (int64_t *) pIpiv);
+
+        } else {
+            auto pData_identity = memory::AllocateArray(
+                rows_a * cols_a * sizeof(T), GPU, context);
+
+            auto helper = BackendFactory <T>::CreateHelpersBackend(
+                operation_placement);
+
+            helper->CreateIdentityMatrix((T *) pData_identity, rows_a, context);
+
+            rc = solver->Getrs(false, rows_a, rows_a, pData_in_out, rows_a,
+                               (int64_t *) pIpiv, (T *) pData_identity, rows_a);
+
+            pData_in_out = (T *) pData_identity;
+
+        }
+
         if (rc != 0) {
-            memory::DestroyArray(pIpiv,operation_placement,context);
+            memory::DestroyArray(pIpiv, operation_placement, context);
             MPCR_API_EXCEPTION("Error While Solving", rc);
         }
         aOutput.SetData((char *) pData_in_out, operation_placement);
 
     }
-
-    if (rc != 0) {
-        memory::DestroyArray(pIpiv,operation_placement,context);
-        MPCR_API_EXCEPTION("Error While Solving", rc);
-    }
-
 
     aOutput.SetSize(cols_a * cols_b);
     aOutput.SetDimensions(cols_a, cols_b);
@@ -411,7 +422,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         aInputB.ToVector();
     }
 
-    memory::DestroyArray(pIpiv,operation_placement,context);
+    memory::DestroyArray(pIpiv, operation_placement, context);
 
 }
 
@@ -500,7 +511,7 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
 
     auto min_dim = std::min(row, col);
     auto pOutput_s = memory::AllocateArray(min_dim * sizeof(T),
-                                                 operation_placement, context);
+                                           operation_placement, context);
     T *pOutput_u = nullptr;
     T *pOutput_vt = nullptr;
 
@@ -527,7 +538,7 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
 
 
     auto pTemp_data = memory::AllocateArray(row * col * sizeof(T),
-                                                  operation_placement, context);
+                                            operation_placement, context);
 
     auto mem_transfer = ( operation_placement == CPU )
                         ? memory::MemoryTransfer::HOST_TO_HOST
@@ -554,17 +565,18 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
         operation_placement);
 
     // Gesdd routine in CPU
-    auto rc = solver->SVD(job, row, col, (T *) pTemp_data, row, (T *) pOutput_s, pOutput_u,
+    auto rc = solver->SVD(job, row, col, (T *) pTemp_data, row, (T *) pOutput_s,
+                          pOutput_u,
                           row, pOutput_vt, ldvt);
 
     if (rc != 0) {
-        auto temp_char_vt=(char*)pOutput_vt;
-        auto temp_char_u=(char*)pOutput_u;
+        auto temp_char_vt = (char *) pOutput_vt;
+        auto temp_char_u = (char *) pOutput_u;
 
-        memory::DestroyArray(temp_char_vt,operation_placement,context);
-        memory::DestroyArray(temp_char_u,operation_placement,context);
-        memory::DestroyArray(pOutput_s,operation_placement,context);
-        memory::DestroyArray(pTemp_data,operation_placement,context);
+        memory::DestroyArray(temp_char_vt, operation_placement, context);
+        memory::DestroyArray(temp_char_u, operation_placement, context);
+        memory::DestroyArray(pOutput_s, operation_placement, context);
+        memory::DestroyArray(pTemp_data, operation_placement, context);
 
         MPCR_API_EXCEPTION("Error While Getting SVD", rc);
     }
@@ -609,11 +621,11 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     auto pData = (T *) aInput.GetData(operation_placement);
 
 
-    auto pValues =  memory::AllocateArray(col * sizeof(T),
-                                               operation_placement, context);
+    auto pValues = memory::AllocateArray(col * sizeof(T),
+                                         operation_placement, context);
 
     auto pVectors = memory::AllocateArray(col * col * sizeof(T),
-                                                operation_placement, context);
+                                          operation_placement, context);
 
     auto mem_transfer = ( operation_placement == CPU )
                         ? memory::MemoryTransfer::HOST_TO_HOST
@@ -626,12 +638,12 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
-    auto rc = solver->Syevd(jobz_no_vec, fill_upper, col,(T *)  pVectors, col,
-                            (T *)pValues);
+    auto rc = solver->Syevd(jobz_no_vec, fill_upper, col, (T *) pVectors, col,
+                            (T *) pValues);
 
     if (rc != 0) {
-        memory::DestroyArray(pValues,operation_placement,context);
-        memory::DestroyArray(pVectors,operation_placement,context);
+        memory::DestroyArray(pValues, operation_placement, context);
+        memory::DestroyArray(pVectors, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing Eigen", rc);
     }
 
@@ -646,7 +658,7 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         helper->Reverse(*apOutputVectors, context);
 
     } else {
-        memory::DestroyArray(pVectors,operation_placement,context);
+        memory::DestroyArray(pVectors, operation_placement, context);
     }
 
     aOutputValues.ClearUp();
@@ -824,9 +836,9 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
 
     auto output_nrhs = aComplete ? row : std::min(row, col);
     auto output_size = row * output_nrhs;
-    auto pOutput_data =  memory::AllocateArray(output_size * sizeof(T),
-                                                    operation_placement,
-                                                    context);
+    auto pOutput_data = memory::AllocateArray(output_size * sizeof(T),
+                                              operation_placement,
+                                              context);
 
     //TODO: revisit why added.
 //    memset(pOutput_data, 0, output_size * sizeof(T));
@@ -842,10 +854,11 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
     auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
-    auto rc = solver->Orgqr(row, output_nrhs, col, (T *)pOutput_data, row, pQraux);
+    auto rc = solver->Orgqr(row, output_nrhs, col, (T *) pOutput_data, row,
+                            pQraux);
 
     if (rc != 0) {
-        memory::DestroyArray(pOutput_data,operation_placement,context);
+        memory::DestroyArray(pOutput_data, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing QR.Q", rc);
     }
 
@@ -883,34 +896,23 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
 
     auto pData = (T *) aInput.GetData(operation_placement);
 
-    auto pRcond = (T *) memory::AllocateArray(1 * sizeof(T),
-                                              operation_placement, context);
+    auto pRcond = memory::AllocateArray(1 * sizeof(T),
+                                        CPU, context);
 
     if (aTriangle) {
         auto upper_triangle = false;
         auto unit_triangle = false;
 
         auto rc = solver->Trcon(aNorm, upper_triangle, unit_triangle, row,
-                                pData, col, pRcond);
+                                pData, col, (T *) pRcond);
         if (rc != 0) {
             delete[] pRcond;
             MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
         }
 
     } else {
-
-        auto pIpiv = (int64_t *) memory::AllocateArray(row * sizeof(int64_t),
-                                                       operation_placement,
-                                                       context);
-        auto pTemp_data = (T *) memory::AllocateArray(col * row * sizeof(T),
-                                                      operation_placement,
-                                                      context);
-
-        //TODO: revise to see if it's allocated on cpu or gpu incase of GPU
         T xnorm = 0;
-
-        memory::MemCpy((char *) pTemp_data, (char *) pData,
-                       ( row * col ) * sizeof(T), context, mem_transfer);
+        T ynorm = 0;
 
         if (norm == "one") {
             xnorm = NormMACS <T>(aInput);
@@ -918,32 +920,67 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             xnorm = NormMARS <T>(aInput);
         }
 
-        auto rc = solver->Getrf(row, col, pTemp_data, col, pIpiv);
-        if (rc != 0) {
-            delete[] pRcond;
-            delete[] pIpiv;
-            delete[] pTemp_data;
-            MPCR_API_EXCEPTION("Error While Performing rcond getrf", rc);
+        if (operation_placement == CPU) {
+            auto pIpiv = memory::AllocateArray(row * sizeof(int64_t),
+                                               operation_placement,
+                                               context);
+            auto pTemp_data = memory::AllocateArray(col * row * sizeof(T),
+                                                    operation_placement,
+                                                    context);
+
+            //TODO: revise to see if it's allocated on cpu or gpu incase of GPU
+
+
+            memory::MemCpy((char *) pTemp_data, (char *) pData,
+                           ( row * col ) * sizeof(T), context, mem_transfer);
+
+
+            auto rc = solver->Getrf(row, col, (T *) pTemp_data, col,
+                                    (int64_t *) pIpiv);
+            if (rc != 0) {
+                memory::DestroyArray(pRcond, CPU, context);
+                memory::DestroyArray(pIpiv, operation_placement, context);
+                memory::DestroyArray(pTemp_data, operation_placement, context);
+
+                MPCR_API_EXCEPTION("Error While Performing rcond getrf", rc);
+            }
+            memory::DestroyArray(pIpiv, operation_placement, context);
+
+
+            rc = solver->Gecon(aNorm, row, (T *) pTemp_data, col, xnorm,
+                               (T *) pRcond);
+
+            if (rc != 0) {
+                memory::DestroyArray(pRcond, CPU, context);
+                memory::DestroyArray(pIpiv, operation_placement, context);
+                memory::DestroyArray(pTemp_data, operation_placement, context);
+                MPCR_API_EXCEPTION("Error While Performing rcond gecon", rc);
+            }
+
+            memory::DestroyArray(pTemp_data, operation_placement, context);
+        } else {
+            auto data_type = is_double <T>() ? DOUBLE : FLOAT;
+            DataType dump(data_type);
+            DataType inverse(data_type);
+            linear::Solve <T>(aInput, dump, inverse, true);
+
+            if (norm == "one") {
+                ynorm = NormMACS <T>(inverse);
+            } else if (norm == "inf") {
+                ynorm = NormMARS <T>(inverse);
+            }
+       
+            auto val = (T *) pRcond;
+            *val = 1 / ( ynorm * xnorm );
         }
-        delete[] pIpiv;
 
 
-        rc = solver->Gecon(aNorm, row, pTemp_data, col, xnorm, pRcond);
-
-        if (rc != 0) {
-            delete[] pRcond;
-            delete[] pIpiv;
-            delete[] pTemp_data;
-            MPCR_API_EXCEPTION("Error While Performing rcond gecon", rc);
-        }
-
-        delete[] pTemp_data;
     }
 
 
     aOutput.ClearUp();
     aOutput.SetSize(1);
-    aOutput.SetData((char *) pRcond, operation_placement);
+    aOutput.SetData((char *) pRcond, CPU);
 
 
 }
@@ -969,9 +1006,9 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
 
     auto output_nrhs = aInputC.GetNCol();
     auto output_size = row * output_nrhs;
-    auto pOutput_data =  memory::AllocateArray(output_size * sizeof(T),
-                                                    operation_placement,
-                                                    context);
+    auto pOutput_data = memory::AllocateArray(output_size * sizeof(T),
+                                              operation_placement,
+                                              context);
 
     memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
                    ( output_size * sizeof(T)), context, mem_transfer);
@@ -979,10 +1016,11 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
-    auto rc = solver->Orgqr(row, output_nrhs, col,(T *) pOutput_data, row, pQraux);
+    auto rc = solver->Orgqr(row, output_nrhs, col, (T *) pOutput_data, row,
+                            pQraux);
 
     if (rc != 0) {
-        memory::DestroyArray(pOutput_data,operation_placement,context);
+        memory::DestroyArray(pOutput_data, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing QR.QY", rc);
     }
 

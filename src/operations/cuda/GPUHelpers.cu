@@ -98,7 +98,7 @@ template <typename T>
 __global__
 void
 TransposeKernel(T *apInput, T *apOutput, size_t aNumRow, size_t aNumCol) {
-    
+
     size_t col = blockIdx.x * blockDim.x + threadIdx.x;
     size_t row = blockIdx.y * blockDim.y + threadIdx.y;
 
@@ -110,12 +110,25 @@ TransposeKernel(T *apInput, T *apOutput, size_t aNumRow, size_t aNumCol) {
 }
 
 
+template <typename T>
+__global__
+void
+IdentityMatrixKernel(T *apData, size_t aSideLength) {
+    size_t col = blockIdx.x * blockDim.x + threadIdx.x;
+    size_t row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (row < aSideLength && col < aSideLength) {
+        apData[ row * aSideLength + col ] = ( row == col ) ? 1.0 : 0.0;
+    }
+}
+
+
 /** -----------------------------  Drivers --------------------------------- **/
 template <typename T>
 void
-GPUHelpers<T>::FillTriangle(DataType &aInput, const double &aValue,
-                          const bool &aUpperTriangle,
-                          kernels::RunContext *aContext) {
+GPUHelpers <T>::FillTriangle(DataType &aInput, const double &aValue,
+                             const bool &aUpperTriangle,
+                             kernels::RunContext *aContext) {
 
     if (aInput.GetNRow() != aInput.GetNCol()) {
         MPCR_API_EXCEPTION("Cannot Fill Square Matrix, Matrix is Not Square",
@@ -145,7 +158,7 @@ GPUHelpers<T>::FillTriangle(DataType &aInput, const double &aValue,
 
 template <typename T>
 void
-GPUHelpers<T>::Transpose(DataType &aInput, kernels::RunContext *aContext) {
+GPUHelpers <T>::Transpose(DataType &aInput, kernels::RunContext *aContext) {
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
     auto pData = (T *) aInput.GetData(GPU);
@@ -172,7 +185,7 @@ GPUHelpers<T>::Transpose(DataType &aInput, kernels::RunContext *aContext) {
 
 template <typename T>
 void
-GPUHelpers<T>::Reverse(DataType &aInput, kernels::RunContext *aContext) {
+GPUHelpers <T>::Reverse(DataType &aInput, kernels::RunContext *aContext) {
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
     auto pData = (T *) aInput.GetData(GPU);
@@ -205,8 +218,8 @@ GPUHelpers<T>::Reverse(DataType &aInput, kernels::RunContext *aContext) {
 
 template <typename T>
 void
-GPUHelpers<T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
-                        kernels::RunContext *aContext) {
+GPUHelpers <T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
+                           kernels::RunContext *aContext) {
     if (aInput.GetNRow() != aInput.GetNCol()) {
         MPCR_API_EXCEPTION("Cannot Symmetrize ,Matrix is Not Square", -1);
     }
@@ -228,5 +241,23 @@ GPUHelpers<T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
     aInput.SetData((char *) pData, GPU);
 
 
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::CreateIdentityMatrix(T *apData,size_t &aSideLength,
+                                     kernels::RunContext *aContext) {
+
+    dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+    dim3 grid_size(( aSideLength + block_size.x - 1 ) / block_size.x,
+                   ( aSideLength + block_size.y - 1 ) / block_size.y);
+
+
+    IdentityMatrixKernel <T><<<grid_size,
+    block_size, 0, aContext->GetStream()>>>
+        (apData, aSideLength);
+
+    aContext->Sync();
 }
 

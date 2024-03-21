@@ -199,8 +199,8 @@ TEST_LINEAR_ALGEBRA() {
                 (float) values_validate[ i ];
             REQUIRE(val <= error);
         }
-    }SECTION("Testing Solve") {
-        cout << "Testing Solve ..." << endl;
+    }SECTION("Testing Solve Two Input") {
+        cout << "Testing Solve Two Input ..." << endl;
         vector <double> values = {3, 1, 4, 1};
         DataType a(values, FLOAT);
         a.ToMatrix(2, 2);
@@ -227,9 +227,33 @@ TEST_LINEAR_ALGEBRA() {
             REQUIRE(val <= error);
         }
 
+    }SECTION("Testing Solve One Input") {
+        cout << "Testing Solve One Input ..." << endl;
+        vector <double> values = {3, 1, 4, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(2, 2);
+
+        DataType b(FLOAT);
+        DataType output(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Solve, a, b, output, true)
+
+        vector <double> validate_vals = {-1, 1, 4, -3};
+        output.Print();
+
+        REQUIRE(output.GetNCol() == 2);
+        REQUIRE(output.GetNRow() == 2);
+
+        float error = 0.001;
+        for (auto i = 0; i < validate_vals.size(); i++) {
+            auto val =
+                fabs((float) output.GetVal(i) - (float) validate_vals[ i ]) /
+                (float) validate_vals[ i ];
+            REQUIRE(val <= error);
+        }
+
     }SECTION("Testing Back solve") {
         cout << "Testing Back Solve ..." << endl;
-
         vector <double> values = {1, 0, 0, 2, 1, 0, 3, 1, 2};
         DataType a(values, FLOAT);
         a.ToMatrix(3, 3);
@@ -998,10 +1022,10 @@ TEST_GPU() {
 //        for (auto i = 0; i < pivot.GetSize(); i++) {
 //            REQUIRE(pivot.GetVal(i) == validate_vals[ i ]);
 //        }
-    }SECTION("Testing CUDA Solve") {
+    }SECTION("Testing CUDA Solve Two Input") {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
             GPU);
-        cout << "Testing CUDA Solve ..." << endl;
+        cout << "Testing CUDA Solve Two Input ..." << endl;
         vector <double> values = {3, 1, 4, 1};
         DataType a(values, FLOAT);
         a.ToMatrix(2, 2);
@@ -1028,6 +1052,71 @@ TEST_GPU() {
             REQUIRE(val <= error);
         }
 
+    }SECTION("Testing CUDA Solve One Input") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        cout << "Testing CUDA Solve One Input ..." << endl;
+        vector <double> values = {3, 1, 4, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(2, 2);
+
+        DataType b(FLOAT);
+
+        DataType output(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::Solve, a, b, output, true)
+
+
+        vector <double> validate_vals = {-1, 1, 4, -3};
+        output.Print();
+
+        REQUIRE(output.GetNCol() == 2);
+        REQUIRE(output.GetNRow() == 2);
+
+        float error = 0.001;
+        for (auto i = 0; i < validate_vals.size(); i++) {
+            auto val =
+                fabs((float) output.GetVal(i) - (float) validate_vals[ i ]) /
+                (float) validate_vals[ i ];
+            REQUIRE(val <= error);
+        }
+
+    }SECTION("Testing CUDA R Cond") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        cout << "Testing CUDA R Cond ..." << endl;
+
+        vector <double> values = {100, 2, 3, 3, 2, 1, 300, 3, 3, 400, 5, 6, 4,
+                                  44, 56, 1223};
+        DataType a(values, FLOAT);
+        a.ToMatrix(4, 4);
+
+        DataType b(FLOAT);
+
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", false)
+        auto val = fabs(b.GetVal(0) - 0.079608) / 0.079608;
+        REQUIRE(val <= 0.001);
+
+        b.ClearUp();
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", false)
+        val = fabs(b.GetVal(0) - 0.074096) / 0.074096;
+        REQUIRE(val <= 0.001);
+
+        b.ClearUp();
+//
+//        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", true)
+//        val = fabs(b.GetVal(0) - 1.3189e-05) / 1.3189e-05;
+//
+//        REQUIRE(val <= 0.001);
+//
+//        b.ClearUp();
+//
+//        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", true)
+//
+//        val = fabs(b.GetVal(0) - 1.334e-05) / 1.334e-05;
+//        REQUIRE(val <= 0.001);
     }
 
 }

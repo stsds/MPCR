@@ -48,6 +48,9 @@ namespace mpcr::operations {
                          const bool &aUpperTriangle,
                          kernels::RunContext *aContext);
 
+            void
+            CreateIdentityMatrix(T *apData,size_t &aSideLength,kernels::RunContext *aContext);
+
         };
 
         MPCR_INSTANTIATE_CLASS(GPUHelpers)

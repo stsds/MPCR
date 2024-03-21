@@ -325,10 +325,6 @@ template <typename T>
 int
 GPULinearAlgebra <T>::Getri(const int &aMatRank, T *apDataA, const int &aLda,
                             int64_t *apIpiv) {
-
-    // NO GPU implementation
-    // Cusolver provides a getrs() to solve AX=B.
-    // All you need to do is to set B=I before calling getrs().
     MPCR_API_EXCEPTION("No Getri implementation for GPU", -1);
 }
 
@@ -511,19 +507,32 @@ int
 GPULinearAlgebra <T>::Gecon(const std::string &aNorm, const int &aNumRow,
                             const T *apData, const int &aLda, T aNormVal,
                             T *aRCond) {
-//
-//// Perform LU factorization
-//    cusolverDnDgetrf(handle, n, n, d_A, lda, d_ipiv, nullptr);
-//
-//// Compute singular values
-//    cusolverDnDgesvd(handle, 'N', 'N', n, n, d_A, lda, d_S, nullptr, 1, nullptr, 1, nullptr, nullptr);
-//
-//// Calculate the condition number
-//    double conditionNumber = d_S[0] / d_S[n-1];
 
+    auto context = ContextManager::GetOperationContext();
+    auto buf_size = aNumRow * aNumRow * sizeof(T);
+    auto pData_copy = memory::AllocateArray(buf_size, GPU, context);
 
-    // NO GPU Implementation
-    MPCR_API_EXCEPTION("No Gecon implementation for GPU", -1);
+    memory::MemCpy(pData_copy, (char *) apData, buf_size, context,
+                   memory::MemoryTransfer::DEVICE_TO_DEVICE);
+
+    auto rc = this->SVD('A', aNumRow, aNumRow, (T *) pData_copy, aLda, nullptr,
+                        nullptr, 1, nullptr, 1);
+
+    if (rc != 0) {
+        MPCR_API_EXCEPTION("Error while Performing Gecon, SVD ", rc);
+    }
+
+    auto pData_host = memory::AllocateArray(buf_size, CPU, context);
+    memory::MemCpy(pData_host, pData_copy, buf_size, context,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    auto data = (T *) pData_host;
+
+    *aRCond = data[ 0 ] / data[ aNumRow - 1 ];
+
+    memory::DestroyArray(pData_host, CPU, context);
+    memory::DestroyArray(pData_copy, GPU, context);
+
 }
 
 

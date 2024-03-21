@@ -41,6 +41,10 @@ namespace mpcr {
                              const bool &aUpperTriangle,
                              kernels::RunContext *aContext)=0;
 
+                virtual
+                void
+                CreateIdentityMatrix(T *apData,size_t &aSideLength,kernels::RunContext *aContext)=0;
+
             };
             MPCR_INSTANTIATE_CLASS(Helpers)
         }

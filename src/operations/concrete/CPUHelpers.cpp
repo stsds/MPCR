@@ -100,9 +100,11 @@ CPUHelpers <T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
         for (auto j = 0; j < row; j += MPCR_CPU_BLOCK_SIZE) {
             for (auto i = j + 1; i < row; i += MPCR_CPU_BLOCK_SIZE) {
                 for (auto col_idx = j;
-                     col_idx < j + MPCR_CPU_BLOCK_SIZE && col_idx < row; ++col_idx) {
+                     col_idx < j + MPCR_CPU_BLOCK_SIZE &&
+                     col_idx < row; ++col_idx) {
                     for (auto row_idx = i;
-                         row_idx < i + MPCR_CPU_BLOCK_SIZE && row_idx < row; ++row_idx)
+                         row_idx < i + MPCR_CPU_BLOCK_SIZE &&
+                         row_idx < row; ++row_idx)
                         pData[ col_idx + row * row_idx ] = pData[ row_idx +
                                                                   row *
                                                                   col_idx ];
@@ -115,9 +117,11 @@ CPUHelpers <T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
         for (auto j = 0; j < row; j += MPCR_CPU_BLOCK_SIZE) {
             for (auto i = j + 1; i < row; i += MPCR_CPU_BLOCK_SIZE) {
                 for (auto col_idx = j;
-                     col_idx < j + MPCR_CPU_BLOCK_SIZE && col_idx < row; ++col_idx) {
+                     col_idx < j + MPCR_CPU_BLOCK_SIZE &&
+                     col_idx < row; ++col_idx) {
                     for (auto row_idx = i;
-                         row_idx < i + MPCR_CPU_BLOCK_SIZE && row_idx < row; ++row_idx)
+                         row_idx < i + MPCR_CPU_BLOCK_SIZE &&
+                         row_idx < row; ++row_idx)
                         pData[ row_idx + row * col_idx ] = pData[ col_idx +
                                                                   row *
                                                                   row_idx ];
@@ -130,3 +134,10 @@ CPUHelpers <T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
     aInput.SetData((char *) pData, CPU);
 }
 
+
+template <typename T>
+void
+CPUHelpers <T>::CreateIdentityMatrix(T *apData, size_t &aSideLength,
+                                     kernels::RunContext *aContext) {
+    MPCR_API_EXCEPTION("CPU Identity Matrix is not implemented", -1);
+}

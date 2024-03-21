@@ -546,22 +546,28 @@ namespace mpcr {
                  * This function solves a linear system of multiple right-hand sides
                  * op(A) * X = B
                  *
-                 * @param [in] aMatRank
-                 * The order of the matrix A
-                 * @param [in,out] apDataA
-                 * Data matrix A
+                 * @param [in] aTransposeA
+                 * Whether to use A or A^T
+                 * @param [in] aNumRowA
+                 * Number of rows and cols in matrix A
+                 * @param [in] aNumRhs
+                 * Number of right-hand sides
+                 * @param [in] apDataA
+                 * Matrix A
                  * @param [in] aLda
                  * Leading dimension of matrix A
-                 * @param [in,out] apIpiv
+                 * @param [in] apIpiv
                  * The pivot indices from GETRF; for 1<=i<=N, row i of the
                  * matrix was interchanged with row apIpiv(i)
+                 * @param [in,out] apDataB
+                 * Matrix B
+                 * @param [in] aLdb
+                 * Leading dimension of matrix B
                  *
                  * @returns
                  * rc code :
-                 *  = 0:  successful exit
-                 *  < 0:  if rc = -i, the i-th argument had an illegal value
-                 *  > 0:  if rc = i, U(i,i) is exactly zero; the matrix is
-                 * singular and its inverse could not be computed.
+                 *  rc = 0 , the operation is successful.
+                 *     = -i ,the i-th parameter is wrong (not counting handle).
                  *
                  */
                 virtual
