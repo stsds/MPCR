@@ -51,6 +51,26 @@ namespace mpcr::operations {
             void
             CreateIdentityMatrix(T *apData,size_t &aSideLength,kernels::RunContext *aContext);
 
+
+            void
+            NormMARS(DataType &aInput,T &aValue);
+
+
+            void
+            NormMACS(DataType &aInput,T &aValue);
+
+
+            void
+            NormEuclidean(DataType &aInput,T &aValue);
+
+
+            void
+            NormMaxMod(DataType &aInput,T &aValue);
+
+
+            void
+            GetRank(DataType &aInput, const double &aTolerance, T &aRank);
+
         };
 
         MPCR_INSTANTIATE_CLASS(GPUHelpers)

@@ -261,3 +261,34 @@ GPUHelpers <T>::CreateIdentityMatrix(T *apData,size_t &aSideLength,
     aContext->Sync();
 }
 
+template <typename T>
+void
+GPUHelpers <T>::NormMARS(DataType &aInput, T &aValue) {
+
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::NormMACS(DataType &aInput, T &aValue) {
+
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::NormEuclidean(DataType &aInput, T &aValue) {
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue) {
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank) {
+
+}

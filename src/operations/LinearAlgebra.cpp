@@ -6,7 +6,6 @@
  *
  **/
 
-#include <operations/helpers/LinearAlgebraHelper.hpp>
 #include <operations/LinearAlgebra.hpp>
 #include <utilities/TypeChecker.hpp>
 #include <operations/concrete/BackendFactory.hpp>
@@ -682,17 +681,18 @@ linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
     aOutput.SetSize(1);
 
     auto pOutput = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
+    auto helper=BackendFactory<T>::CreateHelpersBackend(CPU);
 
     if (row == 0 || col == 0) {
         pOutput[ 0 ] = 0.0f;
     } else if (aType == "O" || aType == "1") {
-        pOutput[ 0 ] = NormMACS <T>(aInput);
+        helper->NormMACS(aInput,pOutput[0]);
     } else if (aType == "I") {
-        pOutput[ 0 ] = NormMARS <T>(aInput);
+        helper->NormMARS(aInput,pOutput[0]);
     } else if (aType == "F") {
-        pOutput[ 0 ] = NormEuclidean <T>(aInput);
+        helper->NormEuclidean(aInput,pOutput[0]);
     } else if (aType == "M") {
-        pOutput[ 0 ] = NormMaxMod <T>(aInput);
+        helper->NormMaxMod(aInput,pOutput[0]);
     } else {
         delete[] pOutput;
         MPCR_API_EXCEPTION(
@@ -778,7 +778,9 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
 
     //TODO: needs to be revisited in GPU
     auto pRank = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
-    GetRank <T>(aOutputQr, aTolerance, *pRank);
+    auto helper=BackendFactory<T>::CreateHelpersBackend(CPU);
+
+    helper->GetRank(aOutputQr,aTolerance,*pRank);
 
     aRank.ClearUp();
     aRank.SetSize(1);
@@ -914,10 +916,12 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
         T xnorm = 0;
         T ynorm = 0;
 
+        auto helper=BackendFactory<T>::CreateHelpersBackend(CPU);
+
         if (norm == "one") {
-            xnorm = NormMACS <T>(aInput);
+            helper->NormMACS(aInput,xnorm);
         } else if (norm == "inf") {
-            xnorm = NormMARS <T>(aInput);
+            helper->NormMARS(aInput,xnorm);
         }
 
         if (operation_placement == CPU) {
@@ -965,11 +969,11 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             linear::Solve <T>(aInput, dump, inverse, true);
 
             if (norm == "one") {
-                ynorm = NormMACS <T>(inverse);
+                helper->NormMACS(inverse,ynorm);
             } else if (norm == "inf") {
-                ynorm = NormMARS <T>(inverse);
+                helper->NormMARS(inverse,ynorm);
             }
-       
+
             auto val = (T *) pRcond;
             *val = 1 / ( ynorm * xnorm );
         }

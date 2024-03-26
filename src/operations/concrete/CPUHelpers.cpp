@@ -8,6 +8,7 @@
 
 #include <operations/concrete/CPUHelpers.hpp>
 #include <utilities/MPCRDispatcher.hpp>
+#include <lapack.hh>
 
 
 using namespace mpcr::operations::helpers;
@@ -132,6 +133,113 @@ CPUHelpers <T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
     }
 
     aInput.SetData((char *) pData, CPU);
+}
+
+
+template <typename T>
+void
+CPUHelpers <T>::NormMARS(DataType &aInput, T &aValue) {
+
+    aValue = 0.0f;
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+
+    auto pData = (T *) aInput.GetData(CPU);
+    auto pTemp = (T *) memory::AllocateArray(row * sizeof(T), CPU, nullptr);
+    memory::Memset((char *) pTemp, 0, sizeof(T) * row, CPU, nullptr);
+
+
+    for (auto j = 0; j < col; j++) {
+        for (auto i = 0; i < row; i++) {
+            pTemp[ i ] += fabsf(pData[ i + row * j ]);
+        }
+    }
+
+    for (auto i = 0; i < row; i++) {
+        if (pTemp[ i ] > aValue) {
+            aValue = pTemp[ i ];
+        }
+    }
+
+    memory::DestroyArray((char *&) pTemp, CPU, nullptr);
+
+}
+
+
+template <typename T>
+void
+CPUHelpers <T>::NormMACS(DataType &aInput, T &aValue) {
+
+    aValue = 0.0f;
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+    auto pData = (T *) aInput.GetData(CPU);
+
+    for (auto j = 0; j < col; j++) {
+        T temp = 0.0f;
+        for (auto i = 0; i < row; i++) {
+            temp += fabsf(pData[ i + row * j ]);
+        }
+
+        if (temp > aValue)
+            aValue = temp;
+    }
+
+}
+
+
+template <typename T>
+void
+CPUHelpers <T>::NormEuclidean(DataType &aInput, T &aValue) {
+
+    auto pData = (T *) aInput.GetData(CPU);
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+    T scale = 0.0f;
+    T sumsq = 1.0f;
+
+    for (auto j = 0; j < col; j++) {
+        lapack::lassq(row, pData + ( j * row ), 1, &scale, &sumsq);
+    }
+
+    aValue = scale * sqrtf(sumsq);
+
+}
+
+template <typename T>
+void
+CPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue) {
+
+    auto pData = (T *) aInput.GetData(CPU);
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+    aValue = 0.0f;
+
+    for (auto j = 0; j < col; j++) {
+        for (auto i = 0; i < row; i++) {
+            T temp = (T) fabsf(pData[ i + row * j ]);
+            if (temp > aValue)
+                aValue = temp;
+        }
+    }
+
+}
+
+template <typename T>
+void
+CPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank) {
+    auto min_val = fabsf((T) aTolerance * aInput.GetVal(0));
+    auto row = aInput.GetNRow();
+    auto col = aInput.GetNCol();
+    auto min_dim = std::min(row, col);
+
+    for (auto i = 1; i < min_dim; i++) {
+        if (fabsf((T) aInput.GetVal(i + row * i)) < min_val) {
+            aRank = i;
+            return;
+        }
+    }
+    aRank = min_dim;
 }
 
 
