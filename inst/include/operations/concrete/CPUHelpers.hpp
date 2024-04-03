@@ -57,23 +57,28 @@ namespace mpcr::operations {
 
 
             void
-            NormMARS(DataType &aInput,T &aValue);
+            NormMARS(DataType &aInput, T &aValue,
+                     kernels::RunContext *aContext = nullptr);
 
 
             void
-            NormMACS(DataType &aInput,T &aValue);
+            NormMACS(DataType &aInput, T &aValue,
+                     kernels::RunContext *aContext = nullptr);
 
 
             void
-            NormEuclidean(DataType &aInput,T &aValue);
+            NormEuclidean(DataType &aInput, T &aValue,
+                          kernels::RunContext *aContext = nullptr);
 
 
             void
-            NormMaxMod(DataType &aInput,T &aValue);
+            NormMaxMod(DataType &aInput, T &aValue,
+                       kernels::RunContext *aContext = nullptr);
 
 
             void
-            GetRank(DataType &aInput, const double &aTolerance, T &aRank);
+            GetRank(DataType &aInput, const double &aTolerance, T &aRank,
+                    kernels::RunContext *aContext = nullptr);
 
         };
 

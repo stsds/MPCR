@@ -8,6 +8,7 @@
 
 #include <operations/concrete/GPUHelpers.hpp>
 #include <utilities/MPCRDispatcher.hpp>
+#include <utilities/TypeChecker.hpp>
 
 
 using namespace mpcr::operations::helpers;
@@ -119,6 +120,50 @@ IdentityMatrixKernel(T *apData, size_t aSideLength) {
 
     if (row < aSideLength && col < aSideLength) {
         apData[ row * aSideLength + col ] = ( row == col ) ? 1.0 : 0.0;
+    }
+}
+
+
+template <typename T>
+__global__
+void
+MACSKernel(T *apData, size_t aNumRow, size_t aNumCol, T *aOutput) {
+    size_t col = blockIdx.x * blockDim.x + threadIdx.x;
+    T temp_val = 0;
+    if (col < aNumCol) {
+        for (auto i = 0; i < aNumRow; i++) {
+            temp_val += fabsf(apData[ i + aNumRow * col ]);
+        }
+        aOutput[ col ] = temp_val;
+    }
+}
+
+
+template <typename T>
+__global__
+void
+MARSKernel(T *apData, size_t aNumRow, size_t aNumCol, T *aOutput) {
+    size_t col = blockIdx.x * blockDim.x + threadIdx.x;
+    T temp_val = 0;
+    if (col < aNumCol) {
+        for (auto i = 0; i < aNumRow; i++) {
+            temp_val += fabsf(apData[ i * aNumRow + col ]);
+        }
+        aOutput[ col ] = temp_val;
+    }
+}
+
+
+template <typename T>
+__global__ void
+GetRankKernel(T *apData, size_t aNumRow, size_t aNumCol, int *apRank) {
+    size_t col = blockIdx.x * blockDim.x + threadIdx.x;
+    size_t row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (row == col && row < aNumRow && col < aNumCol) {
+        if (apData[ row + aNumRow * col ] != 0) {
+            atomicAdd((int *) apRank, 1);
+        }
     }
 }
 
@@ -246,7 +291,7 @@ GPUHelpers <T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
 
 template <typename T>
 void
-GPUHelpers <T>::CreateIdentityMatrix(T *apData,size_t &aSideLength,
+GPUHelpers <T>::CreateIdentityMatrix(T *apData, size_t &aSideLength,
                                      kernels::RunContext *aContext) {
 
     dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
@@ -261,34 +306,160 @@ GPUHelpers <T>::CreateIdentityMatrix(T *apData,size_t &aSideLength,
     aContext->Sync();
 }
 
+
 template <typename T>
 void
-GPUHelpers <T>::NormMARS(DataType &aInput, T &aValue) {
+GPUHelpers <T>::NormMARS(DataType &aInput, T &aValue,
+                         kernels::RunContext *aContext) {
+
+    auto row = aInput.GetNRow();
+    auto col = aInput.GetNCol();
+    auto pData = (T *) aInput.GetData(GPU);
+
+
+    auto shared_output = (T *) memory::AllocateArray(row * sizeof(T), GPU,
+                                                     aContext);
+
+
+    auto threadsPerBlock = 256;
+    auto blocksPerGrid =
+        ( col + threadsPerBlock - 1 ) / threadsPerBlock;
+
+    MARSKernel <T><<<blocksPerGrid,
+    threadsPerBlock, 0, aContext->GetStream()>>>
+        (pData, row, col, shared_output);
+
+
+    aContext->Sync();
+    auto handle = aContext->GetCuBlasDnHandle();
+    int idx = 0;
+    if constexpr(is_double <T>()) {
+        cublasIdamax(handle, row, shared_output, 1, &idx);
+    } else {
+        cublasIsamax(handle, row, shared_output, 1, &idx);
+    }
+
+    memory::MemCpy((char *) ( &aValue ), (char *) shared_output +
+                                         ( idx * sizeof(T)), sizeof(T),
+                   aContext,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    if (aValue < 0) {
+        aValue = 0;
+    }
+
+    memory::DestroyArray((char *&) shared_output, GPU, aContext);
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::NormMACS(DataType &aInput, T &aValue,
+                         kernels::RunContext *aContext) {
+    auto row = aInput.GetNRow();
+    auto col = aInput.GetNCol();
+    auto pData = (T *) aInput.GetData(GPU);
+
+
+    auto shared_output = (T *) memory::AllocateArray(col * sizeof(T), GPU,
+                                                     aContext);
+
+
+    auto threadsPerBlock = 256;
+    auto blocksPerGrid =
+        ( col + threadsPerBlock - 1 ) / threadsPerBlock;
+
+    MARSKernel <T><<<blocksPerGrid,
+    threadsPerBlock, 0, aContext->GetStream()>>>
+        (pData, row, col, shared_output);
+
+
+    aContext->Sync();
+    auto handle = aContext->GetCuBlasDnHandle();
+    int idx = 0;
+    if constexpr(is_double <T>()) {
+        cublasIdamax(handle, col, shared_output, 1, &idx);
+    } else {
+        cublasIsamax(handle, col, shared_output, 1, &idx);
+    }
+
+    memory::MemCpy((char *) ( &aValue ), (char *) shared_output +
+                                         ( idx * sizeof(T)), sizeof(T),
+                   aContext,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    if (aValue < 0) {
+        aValue = 0;
+    }
+
+
+    memory::DestroyArray((char *&) shared_output, GPU, aContext);
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::NormEuclidean(DataType &aInput, T &aValue,
+                              kernels::RunContext *aContext) {
+
+    auto size = aInput.GetSize();
+    auto pData = (T *) aInput.GetData(GPU);
+
+    auto handle = aContext->GetCuBlasDnHandle();
+
+    if constexpr(is_double <T>()) {
+        cublasDnrm2(handle, size, pData, 1, &aValue);
+    } else {
+        cublasSnrm2(handle, size, pData, 1, &aValue);
+    }
+
 
 }
 
 
 template <typename T>
 void
-GPUHelpers <T>::NormMACS(DataType &aInput, T &aValue) {
+GPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue,
+                           kernels::RunContext *aContext) {
+    auto size = aInput.GetSize();
+    auto pData = (T *) aInput.GetData(GPU);
 
+    auto handle = aContext->GetCuBlasDnHandle();
+    int idx = 0;
+    if constexpr(is_double <T>()) {
+        cublasIdamax(handle, size, pData, 1, &idx);
+    } else {
+        cublasIsamax(handle, size, pData, 1, &idx);
+    }
+
+    memory::MemCpy((char *) ( &aValue ), (char *) pData +
+                                         ( idx * sizeof(T)), sizeof(T),
+                   aContext,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    if (aValue < 0) {
+        aValue = 0;
+    }
 }
 
 
 template <typename T>
 void
-GPUHelpers <T>::NormEuclidean(DataType &aInput, T &aValue) {
-}
+GPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
+                        kernels::RunContext *aContext) {
 
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
 
-template <typename T>
-void
-GPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue) {
-}
+    auto pData = (T *) aInput.GetData(GPU);
 
+    dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+    dim3 grid_size(( col + block_size.x - 1 ) / block_size.x,
+                   ( row + block_size.y - 1 ) / block_size.y);
 
-template <typename T>
-void
-GPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank) {
+    auto rank = (int *) memory::AllocateArray(1 * sizeof(int), GPU, aContext);
+    GetRankKernel <T><<<grid_size,
+    block_size, 0, aContext->GetStream()>>>(pData, row, col, rank);
+
 
 }

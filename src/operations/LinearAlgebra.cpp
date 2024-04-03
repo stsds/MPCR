@@ -765,7 +765,6 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     auto pTemp_pvt = (T *) memory::AllocateArray(col * sizeof(T),
                                                  operation_placement, context);
 
-    //TODO:: revise from here
 
     memory::Copy <int64_t, T>((char *) pJpvt, (char *) pTemp_pvt, col,
                               operation_placement);
@@ -877,6 +876,7 @@ void
 linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
                             const std::string &aNorm, const bool &aTriangle) {
 
+    //TODO: aOutput can be changed to double value.
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
@@ -932,9 +932,6 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
                                                     operation_placement,
                                                     context);
 
-            //TODO: revise to see if it's allocated on cpu or gpu incase of GPU
-
-
             memory::MemCpy((char *) pTemp_data, (char *) pData,
                            ( row * col ) * sizeof(T), context, mem_transfer);
 
@@ -980,7 +977,6 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
 
 
     }
-
 
     aOutput.ClearUp();
     aOutput.SetSize(1);

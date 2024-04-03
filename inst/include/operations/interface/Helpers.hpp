@@ -49,25 +49,29 @@ namespace mpcr {
 
                 virtual
                 void
-                NormMARS(DataType &aInput, T &aValue) = 0;
+                NormMARS(DataType &aInput, T &aValue,
+                         kernels::RunContext *aContext = nullptr) = 0;
 
                 virtual
                 void
-                NormMACS(DataType &aInput, T &aValue) = 0;
+                NormMACS(DataType &aInput, T &aValue,
+                         kernels::RunContext *aContext = nullptr) = 0;
 
                 virtual
                 void
-                NormEuclidean(DataType &aInput, T &aValue) = 0;
+                NormEuclidean(DataType &aInput, T &aValue,
+                              kernels::RunContext *aContext = nullptr) = 0;
 
                 virtual
                 void
-                NormMaxMod(DataType &aInput, T &aValue) = 0;
+                NormMaxMod(DataType &aInput, T &aValue,
+                           kernels::RunContext *aContext = nullptr) = 0;
 
 
                 virtual
                 void
-                GetRank(DataType &aInput, const double &aTolerance,
-                        T &aRank) = 0;
+                GetRank(DataType &aInput, const double &aTolerance, T &aRank,
+                        kernels::RunContext *aContext = nullptr) = 0;
 
             };
 

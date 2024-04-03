@@ -138,7 +138,8 @@ CPUHelpers <T>::Symmetrize(DataType &aInput, const bool &aToUpperTriangle,
 
 template <typename T>
 void
-CPUHelpers <T>::NormMARS(DataType &aInput, T &aValue) {
+CPUHelpers <T>::NormMARS(DataType &aInput, T &aValue,
+                         kernels::RunContext *aContext) {
 
     aValue = 0.0f;
     auto col = aInput.GetNCol();
@@ -168,7 +169,8 @@ CPUHelpers <T>::NormMARS(DataType &aInput, T &aValue) {
 
 template <typename T>
 void
-CPUHelpers <T>::NormMACS(DataType &aInput, T &aValue) {
+CPUHelpers <T>::NormMACS(DataType &aInput, T &aValue,
+                         kernels::RunContext *aContext) {
 
     aValue = 0.0f;
     auto col = aInput.GetNCol();
@@ -190,7 +192,8 @@ CPUHelpers <T>::NormMACS(DataType &aInput, T &aValue) {
 
 template <typename T>
 void
-CPUHelpers <T>::NormEuclidean(DataType &aInput, T &aValue) {
+CPUHelpers <T>::NormEuclidean(DataType &aInput, T &aValue,
+                              kernels::RunContext *aContext) {
 
     auto pData = (T *) aInput.GetData(CPU);
     auto col = aInput.GetNCol();
@@ -206,9 +209,11 @@ CPUHelpers <T>::NormEuclidean(DataType &aInput, T &aValue) {
 
 }
 
+
 template <typename T>
 void
-CPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue) {
+CPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue,
+                           kernels::RunContext *aContext) {
 
     auto pData = (T *) aInput.GetData(CPU);
     auto col = aInput.GetNCol();
@@ -225,9 +230,11 @@ CPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue) {
 
 }
 
+
 template <typename T>
 void
-CPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank) {
+CPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
+                        kernels::RunContext *aContext) {
     auto min_val = fabsf((T) aTolerance * aInput.GetVal(0));
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
