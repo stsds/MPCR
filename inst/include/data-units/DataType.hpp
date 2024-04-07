@@ -954,6 +954,23 @@ public:
         return mData.IsAllocated(CPU);
     }
 
+    /**
+     * @brief
+     * Checks if CPU buffer is allocated.
+     *
+     * @returns
+     * true if the buffer is allocated, false otherwise.
+     *
+     */
+    inline
+    void
+    FreeMemory(const OperationPlacement &aOperationPlacement) {
+       mData.FreeMemory(aOperationPlacement);
+
+       if(mData.IsEmpty()){
+           this->ClearUp();
+       }
+    }
 
     /**
      * @brief

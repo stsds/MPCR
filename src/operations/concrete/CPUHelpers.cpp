@@ -235,18 +235,19 @@ template <typename T>
 void
 CPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
                         kernels::RunContext *aContext) {
+    // TODO: Check if this is included in R GetRank
     auto min_val = fabsf((T) aTolerance * aInput.GetVal(0));
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
     auto min_dim = std::min(row, col);
+    aRank=0;
 
     for (auto i = 1; i < min_dim; i++) {
-        if (fabsf((T) aInput.GetVal(i + row * i)) < min_val) {
-            aRank = i;
-            return;
+        if (fabsf((T) aInput.GetVal(i + row * i)) != 0) {
+            aRank += 1;
         }
     }
-    aRank = min_dim;
+
 }
 
 

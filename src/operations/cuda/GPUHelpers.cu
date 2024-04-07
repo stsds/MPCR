@@ -339,12 +339,12 @@ GPUHelpers <T>::NormMARS(DataType &aInput, T &aValue,
         cublasIsamax(handle, row, shared_output, 1, &idx);
     }
 
-    memory::MemCpy((char *) ( &aValue ), (char *) shared_output +
-                                         ( idx * sizeof(T)), sizeof(T),
-                   aContext,
+    auto pointer = (T *) ( shared_output + ( idx - 1 ));
+
+    memory::MemCpy((char *) ( &aValue ), (char *) pointer, sizeof(T), aContext,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
-    if (aValue < 0) {
+    if (aValue <= 0) {
         aValue = 0;
     }
 
@@ -369,7 +369,7 @@ GPUHelpers <T>::NormMACS(DataType &aInput, T &aValue,
     auto blocksPerGrid =
         ( col + threadsPerBlock - 1 ) / threadsPerBlock;
 
-    MARSKernel <T><<<blocksPerGrid,
+    MACSKernel <T><<<blocksPerGrid,
     threadsPerBlock, 0, aContext->GetStream()>>>
         (pData, row, col, shared_output);
 
@@ -383,12 +383,12 @@ GPUHelpers <T>::NormMACS(DataType &aInput, T &aValue,
         cublasIsamax(handle, col, shared_output, 1, &idx);
     }
 
-    memory::MemCpy((char *) ( &aValue ), (char *) shared_output +
-                                         ( idx * sizeof(T)), sizeof(T),
-                   aContext,
+    auto pointer = (T *) ( shared_output + ( idx - 1 ));
+
+    memory::MemCpy((char *) ( &aValue ), (char *) pointer, sizeof(T), aContext,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
-    if (aValue < 0) {
+    if (aValue <= 0) {
         aValue = 0;
     }
 
@@ -432,12 +432,11 @@ GPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue,
         cublasIsamax(handle, size, pData, 1, &idx);
     }
 
-    memory::MemCpy((char *) ( &aValue ), (char *) pData +
-                                         ( idx * sizeof(T)), sizeof(T),
-                   aContext,
+    auto pointer = (T *) ( pData + ( idx - 1 ));
+    memory::MemCpy((char *) ( &aValue ), (char *) pointer, sizeof(T), aContext,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
-    if (aValue < 0) {
+    if (aValue <= 0) {
         aValue = 0;
     }
 }
@@ -458,8 +457,19 @@ GPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
                    ( row + block_size.y - 1 ) / block_size.y);
 
     auto rank = (int *) memory::AllocateArray(1 * sizeof(int), GPU, aContext);
+    memory::Memset((char*)rank,0,sizeof (int),GPU,aContext);
+
     GetRankKernel <T><<<grid_size,
     block_size, 0, aContext->GetStream()>>>(pData, row, col, rank);
+
+    aContext->Sync();
+
+    int temp = 0;
+    memory::MemCpy((char *) &temp, (char *) rank, sizeof(int), aContext,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    aRank=temp;
+    memory::DestroyArray((char*&)rank,GPU,aContext);
 
 
 }

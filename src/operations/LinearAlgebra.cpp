@@ -674,25 +674,27 @@ template <typename T>
 void
 linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
 
-    /** TODO: CPU implementation only **/
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
     aOutput.ClearUp();
     aOutput.SetSize(1);
 
     auto pOutput = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
-    auto helper=BackendFactory<T>::CreateHelpersBackend(CPU);
+    auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
 
     if (row == 0 || col == 0) {
         pOutput[ 0 ] = 0.0f;
     } else if (aType == "O" || aType == "1") {
-        helper->NormMACS(aInput,pOutput[0]);
+        helper->NormMACS(aInput,pOutput[0],context);
     } else if (aType == "I") {
-        helper->NormMARS(aInput,pOutput[0]);
+        helper->NormMARS(aInput,pOutput[0],context);
     } else if (aType == "F") {
-        helper->NormEuclidean(aInput,pOutput[0]);
+        helper->NormEuclidean(aInput,pOutput[0],context);
     } else if (aType == "M") {
-        helper->NormMaxMod(aInput,pOutput[0]);
+        helper->NormMaxMod(aInput,pOutput[0],context);
     } else {
         delete[] pOutput;
         MPCR_API_EXCEPTION(
@@ -775,9 +777,9 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     aOutputPivot.SetSize(col);
     aOutputPivot.SetData((char *) pTemp_pvt, operation_placement);
 
-    //TODO: needs to be revisited in GPU
+    // TODO: Rank should be an int
     auto pRank = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
-    auto helper=BackendFactory<T>::CreateHelpersBackend(CPU);
+    auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
 
     helper->GetRank(aOutputQr,aTolerance,*pRank);
 
@@ -916,12 +918,12 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
         T xnorm = 0;
         T ynorm = 0;
 
-        auto helper=BackendFactory<T>::CreateHelpersBackend(CPU);
+        auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
 
         if (norm == "one") {
-            helper->NormMACS(aInput,xnorm);
+            helper->NormMACS(aInput,xnorm,context);
         } else if (norm == "inf") {
-            helper->NormMARS(aInput,xnorm);
+            helper->NormMARS(aInput,xnorm,context);
         }
 
         if (operation_placement == CPU) {
@@ -966,9 +968,9 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             linear::Solve <T>(aInput, dump, inverse, true);
 
             if (norm == "one") {
-                helper->NormMACS(inverse,ynorm);
+                helper->NormMACS(inverse,ynorm,context);
             } else if (norm == "inf") {
-                helper->NormMARS(inverse,ynorm);
+                helper->NormMARS(inverse,ynorm,context);
             }
 
             auto val = (T *) pRcond;

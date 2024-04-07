@@ -217,6 +217,7 @@ public:
     void
     ChangePrecision();
 
+
     /**
      * @brief
      * Checks if a specific buffer is allocated, according to the operation
@@ -236,6 +237,7 @@ public:
                                                 : ( mpHostData != nullptr );
     };
 
+
     /**
      * @brief
      * Checks if the Data Holder is empty
@@ -246,9 +248,11 @@ public:
      */
     inline
     bool
-    IsEmpty(){
-        return (mpHostData== nullptr && mpDeviceData== nullptr && mSize==0);
+    IsEmpty() {
+        return ( mpHostData == nullptr && mpDeviceData == nullptr &&
+                 mSize == 0 && mBufferState == BufferState::EMPTY );
     }
+
 
 private:
 

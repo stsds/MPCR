@@ -207,6 +207,89 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         for (auto i = 0; i < values.size(); i++) {
             REQUIRE(a.GetVal(i) == b.GetVal(i));
         }
+    }SECTION("NORM") {
+
+        DataType mat_host(6, 6, FLOAT, CPU);
+        DataType mat_dev(6, 6, FLOAT);
+
+        for (auto i = 0; i < mat_host.GetSize(); i++) {
+            mat_host.SetVal(i, i * 2);
+            mat_dev.SetVal(i, i * 2);
+        }
+        mat_dev.GetData(GPU);
+        mat_dev.FreeMemory(CPU);
+
+        REQUIRE(mat_dev.GetSize() != 0);
+
+        float out_host = 0;
+        float out_dev = 0;
+
+        helper_host->NormMACS(mat_host, out_host, nullptr);
+        helper_dev->NormMACS(mat_dev, out_dev,
+                             mpcr::kernels::ContextManager::GetGPUContext());
+
+        REQUIRE(out_host != 0);
+        REQUIRE(out_host == out_dev);
+
+
+        out_host = 0;
+        out_dev = 0;
+
+        helper_host->NormMARS(mat_host, out_host, nullptr);
+        helper_dev->NormMARS(mat_dev, out_dev,
+                             mpcr::kernels::ContextManager::GetGPUContext());
+
+        REQUIRE(out_host != 0);
+        REQUIRE(out_host == out_dev);
+
+        out_host = 0;
+        out_dev = 0;
+
+        helper_host->NormMaxMod(mat_host, out_host, nullptr);
+        helper_dev->NormMaxMod(mat_dev, out_dev,
+                               mpcr::kernels::ContextManager::GetGPUContext());
+
+
+        REQUIRE(out_host != 0);
+        REQUIRE(out_host == out_dev);
+
+        out_host = 0;
+        out_dev = 0;
+
+        helper_host->NormEuclidean(mat_host, out_host, nullptr);
+        helper_dev->NormEuclidean(mat_dev, out_dev,
+                                  mpcr::kernels::ContextManager::GetGPUContext());
+
+        REQUIRE(out_host != 0);
+        REQUIRE(out_host == out_dev);
+
+    }SECTION("Get Rank") {
+        DataType mat_host(6, 6, FLOAT, CPU);
+        DataType mat_dev(6, 6, FLOAT);
+
+        for (auto i = 0; i < mat_host.GetSize(); i++) {
+            mat_host.SetVal(i, i * 2);
+            mat_dev.SetVal(i, i * 2);
+        }
+
+        for (auto i = 0; i < mat_host.GetNRow(); i++) {
+            mat_host.SetValMatrix(i, i, i);
+            mat_dev.SetValMatrix(i, i, i);
+        }
+
+
+        mat_dev.GetData(GPU);
+        mat_dev.FreeMemory(CPU);
+
+        float out_host = 0;
+        float out_dev = 0;
+        double tolerance = 1e-10;
+        helper_host->GetRank(mat_host, tolerance, out_host, nullptr);
+        helper_dev->GetRank(mat_dev, tolerance, out_dev,
+                            mpcr::kernels::ContextManager::GetGPUContext());
+
+        REQUIRE(out_host!=0);
+        REQUIRE(out_dev==out_host);
     }
 
 
