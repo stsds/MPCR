@@ -430,24 +430,25 @@ TEST_LINEAR_ALGEBRA() {
         DataType a(values, FLOAT);
         a.ToMatrix(10, 2);
 
-        DataType norm_val(FLOAT);
+        double norm_val = 0;
 
         SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "O", norm_val)
-        REQUIRE(norm_val.GetSize() == 1);
-        REQUIRE(norm_val.GetVal(0) == 55);
+
+        REQUIRE(norm_val == 55);
 
         SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "I", norm_val)
-        REQUIRE(norm_val.GetSize() == 1);
-        REQUIRE(norm_val.GetVal(0) == 11);
+
+        REQUIRE(norm_val == 11);
 
         SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "M", norm_val)
-        REQUIRE(norm_val.GetSize() == 1);
-        REQUIRE(norm_val.GetVal(0) == 10);
+
+        REQUIRE(norm_val == 10);
 
         SIMPLE_DISPATCH(FLOAT, linear::Norm, a, "F", norm_val)
-        REQUIRE(norm_val.GetSize() == 1);
-        auto val = fabs(norm_val.GetVal(0) - 19.87461) / 19.87461;
+
+        auto val = fabs(norm_val - 19.87461) / 19.87461;
         REQUIRE(val <= 0.001);
+
     }SECTION("QR Decomposition") {
         cout << "Testing QR Decomposition ..." << endl;
         vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
@@ -578,31 +579,30 @@ TEST_LINEAR_ALGEBRA() {
         DataType a(values, FLOAT);
         a.ToMatrix(4, 4);
 
-        DataType b(FLOAT);
+        double b = 0;
 
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", false)
-        auto val = fabs(b.GetVal(0) - 0.079608) / 0.079608;
+        auto val = fabs(b - 0.079608) / 0.079608;
         REQUIRE(val <= 0.001);
 
-        b.ClearUp();
+        b = 0;
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", false)
-        val = fabs(b.GetVal(0) - 0.074096) / 0.074096;
+        val = fabs(b - 0.074096) / 0.074096;
         REQUIRE(val <= 0.001);
 
-        b.ClearUp();
+        b = 0;
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", true)
-        val = fabs(b.GetVal(0) - 1.3189e-05) / 1.3189e-05;
+        val = fabs(b - 1.3189e-05) / 1.3189e-05;
 
         REQUIRE(val <= 0.001);
-
-        b.ClearUp();
+        b = 0;
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", true)
 
-        val = fabs(b.GetVal(0) - 1.334e-05) / 1.334e-05;
+        val = fabs(b - 1.334e-05) / 1.334e-05;
         REQUIRE(val <= 0.001);
     }
 }
@@ -1091,31 +1091,31 @@ TEST_GPU() {
         DataType a(values, FLOAT);
         a.ToMatrix(4, 4);
 
-        DataType b(FLOAT);
+        double b=0;
 
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", false)
-        auto val = fabs(b.GetVal(0) - 0.079608) / 0.079608;
+        auto val = fabs(b - 0.079608) / 0.079608;
         REQUIRE(val <= 0.001);
 
-        b.ClearUp();
+        b=0;
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", false)
-        val = fabs(b.GetVal(0) - 0.074096) / 0.074096;
+        val = fabs(b - 0.074096) / 0.074096;
         REQUIRE(val <= 0.001);
 
-        b.ClearUp();
-//
+        b=0;
+
 //        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", true)
-//        val = fabs(b.GetVal(0) - 1.3189e-05) / 1.3189e-05;
+//        val = fabs(b - 1.3189e-05) / 1.3189e-05;
 //
 //        REQUIRE(val <= 0.001);
 //
-//        b.ClearUp();
+//       b=0;
 //
 //        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", true)
 //
-//        val = fabs(b.GetVal(0) - 1.334e-05) / 1.334e-05;
+//        val = fabs(b - 1.334e-05) / 1.334e-05;
 //        REQUIRE(val <= 0.001);
     }
 

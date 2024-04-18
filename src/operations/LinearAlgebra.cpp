@@ -672,37 +672,33 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
 
 template <typename T>
 void
-linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
+linear::Norm(DataType &aInput, const std::string &aType, double &aOutput) {
 
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
-    aOutput.ClearUp();
-    aOutput.SetSize(1);
 
-    auto pOutput = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
-    auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    T val_out_temp = 0;
 
     if (row == 0 || col == 0) {
-        pOutput[ 0 ] = 0.0f;
+        val_out_temp = 0.0f;
     } else if (aType == "O" || aType == "1") {
-        helper->NormMACS(aInput,pOutput[0],context);
+        helper->NormMACS(aInput, val_out_temp, context);
     } else if (aType == "I") {
-        helper->NormMARS(aInput,pOutput[0],context);
+        helper->NormMARS(aInput, val_out_temp, context);
     } else if (aType == "F") {
-        helper->NormEuclidean(aInput,pOutput[0],context);
+        helper->NormEuclidean(aInput, val_out_temp, context);
     } else if (aType == "M") {
-        helper->NormMaxMod(aInput,pOutput[0],context);
+        helper->NormMaxMod(aInput, val_out_temp, context);
     } else {
-        delete[] pOutput;
         MPCR_API_EXCEPTION(
             "Argument must be one of 'M','1','O','I','F' or 'E' ",
             -1);
     }
-
-    aOutput.SetData((char *) pOutput, CPU);
+    aOutput = val_out_temp;
 }
 
 
@@ -777,11 +773,10 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     aOutputPivot.SetSize(col);
     aOutputPivot.SetData((char *) pTemp_pvt, operation_placement);
 
-    // TODO: Rank should be an int
     auto pRank = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
-    auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
 
-    helper->GetRank(aOutputQr,aTolerance,*pRank);
+    helper->GetRank(aOutputQr, aTolerance, *pRank);
 
     aRank.ClearUp();
     aRank.SetSize(1);
@@ -843,13 +838,6 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
                                               operation_placement,
                                               context);
 
-    //TODO: revisit why added.
-//    memset(pOutput_data, 0, output_size * sizeof(T));
-//
-//    for (auto i = 0; i < output_size; i += row + 1) {
-//        pOutput_data[ i ] = 1.0f;
-//    }
-
 
     memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
                    ( output_size * sizeof(T)), context, mem_transfer);
@@ -875,10 +863,9 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
 
 template <typename T>
 void
-linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
+linear::ReciprocalCondition(DataType &aInput, double &aOutput,
                             const std::string &aNorm, const bool &aTriangle) {
 
-    //TODO: aOutput can be changed to double value.
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
@@ -898,19 +885,18 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
     auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
         operation_placement);
 
+    T out_temp_val = 0.0f;
     auto pData = (T *) aInput.GetData(operation_placement);
 
-    auto pRcond = memory::AllocateArray(1 * sizeof(T),
-                                        CPU, context);
 
     if (aTriangle) {
         auto upper_triangle = false;
         auto unit_triangle = false;
 
+        //TODO: Implement TRCON for GPU
         auto rc = solver->Trcon(aNorm, upper_triangle, unit_triangle, row,
-                                pData, col, (T *) pRcond);
+                                pData, col, &out_temp_val);
         if (rc != 0) {
-            delete[] pRcond;
             MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
         }
 
@@ -918,12 +904,13 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
         T xnorm = 0;
         T ynorm = 0;
 
-        auto helper=BackendFactory<T>::CreateHelpersBackend(operation_placement);
+        auto helper = BackendFactory <T>::CreateHelpersBackend(
+            operation_placement);
 
         if (norm == "one") {
-            helper->NormMACS(aInput,xnorm,context);
+            helper->NormMACS(aInput, xnorm, context);
         } else if (norm == "inf") {
-            helper->NormMARS(aInput,xnorm,context);
+            helper->NormMARS(aInput, xnorm, context);
         }
 
         if (operation_placement == CPU) {
@@ -941,7 +928,6 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             auto rc = solver->Getrf(row, col, (T *) pTemp_data, col,
                                     (int64_t *) pIpiv);
             if (rc != 0) {
-                memory::DestroyArray(pRcond, CPU, context);
                 memory::DestroyArray(pIpiv, operation_placement, context);
                 memory::DestroyArray(pTemp_data, operation_placement, context);
 
@@ -951,10 +937,9 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
 
 
             rc = solver->Gecon(aNorm, row, (T *) pTemp_data, col, xnorm,
-                               (T *) pRcond);
+                               &out_temp_val);
 
             if (rc != 0) {
-                memory::DestroyArray(pRcond, CPU, context);
                 memory::DestroyArray(pIpiv, operation_placement, context);
                 memory::DestroyArray(pTemp_data, operation_placement, context);
                 MPCR_API_EXCEPTION("Error While Performing rcond gecon", rc);
@@ -968,21 +953,16 @@ linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
             linear::Solve <T>(aInput, dump, inverse, true);
 
             if (norm == "one") {
-                helper->NormMACS(inverse,ynorm,context);
+                helper->NormMACS(inverse, ynorm, context);
             } else if (norm == "inf") {
-                helper->NormMARS(inverse,ynorm,context);
+                helper->NormMARS(inverse, ynorm, context);
             }
 
-            auto val = (T *) pRcond;
-            *val = 1 / ( ynorm * xnorm );
+            out_temp_val = 1 / ( ynorm * xnorm );
         }
-
-
     }
 
-    aOutput.ClearUp();
-    aOutput.SetSize(1);
-    aOutput.SetData((char *) pRcond, CPU);
+    aOutput = out_temp_val;
 
 
 }
@@ -1059,10 +1039,10 @@ SIMPLE_INSTANTIATE(void, linear::Eigen, DataType &aInput,
                    DataType &aOutputValues, DataType *apOutputVectors)
 
 SIMPLE_INSTANTIATE(void, linear::Norm, DataType &aInput,
-                   const std::string &aType, DataType &aOutput)
+                   const std::string &aType, double &aOutput)
 
 SIMPLE_INSTANTIATE(void, linear::ReciprocalCondition, DataType &aInput,
-                   DataType &aOutput, const std::string &aNorm,
+                   double &aOutput, const std::string &aNorm,
                    const bool &aTriangle)
 
 SIMPLE_INSTANTIATE(void, linear::SVD, DataType &aInputA, DataType &aOutputS,

@@ -381,7 +381,7 @@ svd_output[[3]]$PrintValues()
 cat("------------------------------- RCond ------------------------------------------\n")
 #
 rcond_out <- rcond(svd_input, "O", FALSE)
-rcond_out$PrintValues()
+rcond_out
 
 
 cat("--------------------------------------------------------------------------\n")

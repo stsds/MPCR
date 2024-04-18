@@ -13,8 +13,6 @@
 #include <data-units/DataType.hpp>
 
 
-#define LAYOUT blas::Layout::ColMajor
-
 
 namespace mpcr {
     namespace operations {
@@ -173,7 +171,7 @@ namespace mpcr {
              */
             template <typename T>
             void
-            Norm(DataType &aInput, const std::string &aType, DataType &aOutput);
+            Norm(DataType &aInput, const std::string &aType, double &aOutput);
 
 
             /**
@@ -328,7 +326,7 @@ namespace mpcr {
              */
             template <typename T>
             void
-            ReciprocalCondition(DataType &aInput, DataType &aOutput,
+            ReciprocalCondition(DataType &aInput, double &aOutput,
                                 const std::string &aNorm,
                                 const bool &aTriangle);
         }

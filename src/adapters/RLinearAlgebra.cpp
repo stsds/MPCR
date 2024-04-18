@@ -297,12 +297,13 @@ RTranspose(DataType *aInputA) {
 }
 
 
-DataType *
+double
 RNorm(DataType *aInputA, const std::string &aType) {
     auto precision = aInputA->GetPrecision();
-    auto pOutput = new DataType(precision);
-    SIMPLE_DISPATCH(precision, linear::Norm, *aInputA, aType, *pOutput)
-    return pOutput;
+    double output=0;
+
+    SIMPLE_DISPATCH(precision, linear::Norm, *aInputA, aType, output)
+    return output;
 }
 
 
@@ -330,7 +331,7 @@ RQRDecomposition(DataType *aInputA, const double &aTolerance) {
 }
 
 
-DataType *
+double
 RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle) {
 
     auto row = aInputA->GetNRow();
@@ -368,16 +369,16 @@ RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle) {
         temp_input = aInputA;
     }
 
-    auto pOutput = new DataType(precision);
+//    auto pOutput = new DataType(precision);
+    double output=0;
     SIMPLE_DISPATCH(precision, linear::ReciprocalCondition, *temp_input,
-                    *pOutput,
-                    aNorm, aTriangle)
+                    output,aNorm, aTriangle)
 
     if (flag_creation) {
         delete temp_input;
     }
 
-    return pOutput;
+    return output;
 }
 
 

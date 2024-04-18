@@ -191,7 +191,7 @@ RTranspose(DataType *aInputA);
  * @returns
  * Norm Value
  */
-DataType *
+double
 RNorm(DataType *aInputA, const std::string &aType);
 
 /**
@@ -228,7 +228,7 @@ RQRDecomposition(DataType *aInputA,const double &aTolerance);
  * reciprocal condition number of aInput.
  *
  */
-DataType *
+double
 RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle);
 
 /**
