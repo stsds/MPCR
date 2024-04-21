@@ -100,6 +100,16 @@ namespace mpcr {
                       const size_t &aLda, const int64_t *apIpiv, T *apDataB,
                       const size_t &aLdb);
 
+#ifdef USING_HALF
+                void
+                HalfGemm(const bool &aTransposeA, const bool &aTransposeB,
+                     const int &aNumRowsA, const int &aNumColB,
+                     const int &aNumRowB, const half &aAlpha, const half *apDataA,
+                     const int &aLda, const half *apDataB, const int &aLdb,
+                     const half &aBeta, half *apDataC, const int &aLdc);
+#endif
+
+
             };
 
             MPCR_INSTANTIATE_CLASS(GPULinearAlgebra)

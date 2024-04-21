@@ -576,3 +576,38 @@ int GPULinearAlgebra <T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
     return rc;
 
 }
+
+
+#ifdef USING_HALF
+
+
+template <typename T>
+void
+GPULinearAlgebra <T>::HalfGemm(const bool &aTransposeA, const bool &aTransposeB,
+                               const int &aNumRowsA, const int &aNumColB,
+                               const int &aNumRowB, const half &aAlpha,
+                               const half *apDataA, const int &aLda,
+                               const half *apDataB, const int &aLdb,
+                               const half &aBeta, half *apDataC,
+                               const int &aLdc) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto transpose_a = aTransposeA ? CUBLAS_OP_T : CUBLAS_OP_N;
+    auto transpose_b = aTransposeB ? CUBLAS_OP_T : CUBLAS_OP_N;
+    auto cublas_handle = context->GetCuBlasDnHandle();
+
+    auto rc = 0;
+
+    rc = cublasHgemm(cublas_handle, transpose_a, transpose_b, aNumRowsA,
+                     aNumColB, aNumRowB, &aAlpha, apDataA, aLda, apDataB, aLdb,
+                     &aBeta, apDataC, aLdc);
+
+
+    if (rc != 0) {
+        MPCR_API_EXCEPTION("Error While Performing Gemm on GPU", rc);
+    }
+
+}
+
+
+#endif
