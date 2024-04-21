@@ -239,7 +239,7 @@ TEST_LINEAR_ALGEBRA() {
         SIMPLE_DISPATCH(FLOAT, linear::Solve, a, b, output, true)
 
         vector <double> validate_vals = {-1, 1, 4, -3};
-        output.Print();
+
 
         REQUIRE(output.GetNCol() == 2);
         REQUIRE(output.GetNRow() == 2);
@@ -629,7 +629,7 @@ TEST_GPU() {
         vector <double> values = {4, 12, -16, 12, 37, -43, -16, -43, 98};
         DataType a(values, DOUBLE);
         a.ToMatrix(3, 3);
-        a.Print();
+
         DataType b(DOUBLE);
         SIMPLE_DISPATCH(DOUBLE, linear::Cholesky, a, b)
 
@@ -961,67 +961,59 @@ TEST_GPU() {
             REQUIRE(c.GetVal(i) == validate[ i ]);
         }
     }SECTION("CUDA QR Decomposition") {
-//        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
-//            GPU);
-//        cout << "Testing CUDA QR Decomposition ..." << endl;
-//        vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
-//        DataType a(values, FLOAT);
-//        a.ToMatrix(3, 3);
-//
-//        DataType qraux(FLOAT);
-//        DataType pivot(FLOAT);
-//        DataType qr(FLOAT);
-//        DataType rank(FLOAT);
-//
-//        SIMPLE_DISPATCH(FLOAT, linear::QRDecomposition, a, qr, qraux, pivot,
-//                        rank)
-//
-//        qraux.Print();
-//        pivot.Print();
-//        qr.Print();
-//
-//        vector <float> validate_vals = {-7.48331, 0.42179, 0.63269, -4.81070,
-//                                        1.96396, 0.85977, -3.7417, 0, 0};
-//
-//
-//        REQUIRE(qr.IsMatrix());
-//        REQUIRE(qr.GetNCol() == 3);
-//        REQUIRE(qr.GetNRow() == 3);
-//
-//        auto err = 0.001;
-//        for (auto i = 0; i < qr.GetSize(); i++) {
-//
-//            if (validate_vals[ i ] != 0) {
-//                auto val =
-//                    fabs(qr.GetVal(i) - validate_vals[ i ]) /
-//                    validate_vals[ i ];
-//                REQUIRE(val <= err);
-//            } else {
-//                REQUIRE(qr.GetVal(i) <= 1e-07);
-//            }
-//
-//        }
-//
-//
+
+        auto context = mpcr::kernels::ContextManager::GetOperationContext();
+        context->SetOperationPlacement(GPU);
+
+        cout << "Testing CUDA QR Decomposition ..." << endl;
+        vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+     
+
+        DataType qraux(FLOAT);
+        DataType pivot(FLOAT);
+        DataType qr(FLOAT);
+        DataType rank(FLOAT);
+
+
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecomposition, a, qr, qraux, pivot,
+                        rank)
+
+        REQUIRE(qr.IsMatrix());
+        REQUIRE(qr.GetNCol() == 3);
+        REQUIRE(qr.GetNRow() == 3);
+
+        DataType Q(FLOAT);
+        DataType R(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionQ ,qr,qraux,Q,true)
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionR,qr,R,true)
+
+
 //        REQUIRE(rank.GetVal(0) == 2);
-//
-//        validate_vals.clear();
-//        validate_vals = {1.2673, 1.1500, 0.0000};
-//        REQUIRE(qraux.GetSize() == 3);
-//
-//        for (auto i = 0; i < 2; i++) {
-//            auto val =
-//                fabs(qraux.GetVal(i) - validate_vals[ i ]) / validate_vals[ i ];
-//            REQUIRE(val <= err);
-//        }
-//
-//        REQUIRE(qraux.GetVal(2) == 0);
-//
-//        validate_vals.clear();
-//        validate_vals = {0,0,0};
-//        for (auto i = 0; i < pivot.GetSize(); i++) {
-//            REQUIRE(pivot.GetVal(i) == validate_vals[ i ]);
-//        }
+
+        for (auto i = 0; i < pivot.GetSize(); i++) {
+            REQUIRE(pivot.GetVal(i) == 0);
+        }
+
+        auto err = 0.001;
+
+        DataType a_reconstruct(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, Q, R, a_reconstruct, false,
+                        false)
+
+        REQUIRE(a_reconstruct.GetNRow() == 3);
+        REQUIRE(a_reconstruct.GetNCol() == 3);
+
+        for (auto i = 0; i < a_reconstruct.GetSize(); i++) {
+            auto val = fabs((float) a_reconstruct.GetVal(i) - (float) a.GetVal(i)) /
+                       (float) a.GetVal(i);
+            REQUIRE(val <= err);
+        }
+
+
     }SECTION("Testing CUDA Solve Two Input") {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
             GPU);
@@ -1068,7 +1060,7 @@ TEST_GPU() {
 
 
         vector <double> validate_vals = {-1, 1, 4, -3};
-        output.Print();
+
 
         REQUIRE(output.GetNCol() == 2);
         REQUIRE(output.GetNRow() == 2);
@@ -1091,20 +1083,20 @@ TEST_GPU() {
         DataType a(values, FLOAT);
         a.ToMatrix(4, 4);
 
-        double b=0;
+        double b = 0;
 
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", false)
         auto val = fabs(b - 0.079608) / 0.079608;
         REQUIRE(val <= 0.001);
 
-        b=0;
+        b = 0;
 
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", false)
         val = fabs(b - 0.074096) / 0.074096;
         REQUIRE(val <= 0.001);
 
-        b=0;
+        b = 0;
 
 //        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", true)
 //        val = fabs(b - 1.3189e-05) / 1.3189e-05;

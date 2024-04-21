@@ -728,6 +728,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                                        operation_placement,
                                        context);
 
+
     memory::Memset((char *) pJpvt, 0, col * sizeof(int64_t),
                    operation_placement, context);
 
@@ -747,6 +748,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
         memory::DestroyArray(pQraux, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing QR Decomposition", rc);
     }
+
 
 
     aOutputQr.ClearUp();
@@ -776,7 +778,8 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     auto pRank = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
     auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
 
-    helper->GetRank(aOutputQr, aTolerance, *pRank);
+
+    helper->GetRank(aOutputQr, aTolerance, *pRank,context);
 
     aRank.ClearUp();
     aRank.SetSize(1);
