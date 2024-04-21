@@ -77,6 +77,11 @@ namespace mpcr::operations {
             GetRank(DataType &aInput, const double &aTolerance, T &aRank,
                     kernels::RunContext *aContext = nullptr);
 
+
+            void
+            IsSymmetric(DataType &aInput,bool &aOutput,
+                        kernels::RunContext *aContext = nullptr);
+
         };
 
         MPCR_INSTANTIATE_CLASS(GPUHelpers)

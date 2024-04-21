@@ -1109,6 +1109,39 @@ TEST_GPU() {
 //
 //        val = fabs(b - 1.334e-05) / 1.334e-05;
 //        REQUIRE(val <= 0.001);
+
+
+    }SECTION("Testing CUDA IsSymmetric"){
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+
+        cout << "Testing CUDA Matrix Is Symmetric ..." << endl;
+
+        vector <double> values = {2, 3, 6, 3, 4, 5, 6, 5, 9};
+        DataType a(values, FLOAT);
+        a.ToMatrix(3, 3);
+
+        a.GetData(GPU);
+        a.FreeMemory(CPU);
+
+        auto isSymmetric = false;
+        SIMPLE_DISPATCH(FLOAT, linear::IsSymmetric, a, isSymmetric)
+        REQUIRE(isSymmetric == true);
+
+        values.clear();
+        values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        for (auto i = 0; i < values.size(); i++) {
+            a.SetVal(i, values[ i ]);
+        }
+
+        a.GetData(GPU);
+        a.FreeMemory(CPU);
+
+        isSymmetric = true;
+        SIMPLE_DISPATCH(FLOAT, linear::IsSymmetric, a, isSymmetric)
+        REQUIRE(isSymmetric == false);
+
     }
 
 }

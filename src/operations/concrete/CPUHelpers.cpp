@@ -253,6 +253,44 @@ CPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
 
 template <typename T>
 void
+CPUHelpers <T>::IsSymmetric(DataType &aInput, bool &aOutput,
+                            kernels::RunContext *aContext) {
+
+    aOutput = false;
+    auto pData = (T *) aInput.GetData(CPU);
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+
+    if (col != row) {
+        return;
+    }
+
+    size_t idx_col_maj;
+    size_t idx_row_maj;
+    auto epsilon = std::numeric_limits <T>::epsilon();
+    T val;
+    for (auto i = 0; i < col; i++) {
+        for (auto j = 0; j < row; j++) {
+            if (i == j) {
+                break;
+            }
+            idx_col_maj = ( i * row ) + j;
+            idx_row_maj = ( j * col ) + i;
+            val = std::fabs(pData[ idx_row_maj ] - pData[ idx_col_maj ]);
+            if (val > epsilon) {
+                return;
+            }
+        }
+    }
+
+    aOutput = true;
+}
+
+
+
+
+template <typename T>
+void
 CPUHelpers <T>::CreateIdentityMatrix(T *apData, size_t &aSideLength,
                                      kernels::RunContext *aContext) {
     MPCR_API_EXCEPTION("CPU Identity Matrix is not implemented", -1);

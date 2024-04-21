@@ -138,8 +138,10 @@ template <typename T>
 void
 linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
     aOutput = false;
-    auto pData = (T *) aInput.GetData(CPU);
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
 
@@ -147,25 +149,11 @@ linear::IsSymmetric(DataType &aInput, bool &aOutput) {
         return;
     }
 
-    size_t idx_col_maj;
-    size_t idx_row_maj;
-    auto epsilon = std::numeric_limits <T>::epsilon();
-    T val;
-    for (auto i = 0; i < col; i++) {
-        for (auto j = 0; j < row; j++) {
-            if (i == j) {
-                break;
-            }
-            idx_col_maj = ( i * row ) + j;
-            idx_row_maj = ( j * col ) + i;
-            val = std::fabs(pData[ idx_row_maj ] - pData[ idx_col_maj ]);
-            if (val > epsilon) {
-                return;
-            }
-        }
-    }
+    auto helper = BackendFactory <T>::CreateHelpersBackend(
+        operation_placement);
 
-    aOutput = true;
+    helper->IsSymmetric(aInput,aOutput,context);
+
 
 }
 

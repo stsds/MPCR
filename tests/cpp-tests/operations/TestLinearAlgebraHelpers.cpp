@@ -290,6 +290,33 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
 
         REQUIRE(out_host!=0);
         REQUIRE(out_dev==out_host);
+    }SECTION("IsSymmetric"){
+        vector <double> values_symmetric = {2, 3, 6, 3, 4, 5, 6, 5, 9};
+        vector <double> values_non_symmetric = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        DataType a_symmetric(values_symmetric, FLOAT);
+        a_symmetric.ToMatrix(3, 3);
+
+
+        DataType b_non_symmetric(values_non_symmetric, FLOAT);
+        b_non_symmetric.ToMatrix(3, 3);
+
+        auto output=false;
+        helper_host->IsSymmetric(a_symmetric,output, nullptr);
+        REQUIRE(output==true);
+
+
+        helper_host->IsSymmetric(b_non_symmetric,output, nullptr);
+        REQUIRE(output==false);
+
+        auto output_dev=false;
+        helper_dev->IsSymmetric(a_symmetric,output_dev, mpcr::kernels::ContextManager::GetGPUContext());
+        REQUIRE(output_dev==true);
+
+
+        helper_dev->IsSymmetric(b_non_symmetric,output_dev, mpcr::kernels::ContextManager::GetGPUContext());
+        REQUIRE(output_dev==false);
+
     }
 
 

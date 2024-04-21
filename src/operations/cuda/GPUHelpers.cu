@@ -103,7 +103,6 @@ TransposeKernel(T *apInput, T *apOutput, size_t aNumRow, size_t aNumCol) {
     size_t col = blockIdx.x * blockDim.x + threadIdx.x;
     size_t row = blockIdx.y * blockDim.y + threadIdx.y;
 
-    // Load data from global memory into shared memory
     if (row < aNumRow && col < aNumCol) {
         apOutput[ row * aNumCol + col ] = apInput[ col * aNumRow + row ];
     }
@@ -165,6 +164,27 @@ GetRankKernel(T *apData, size_t aNumRow, size_t aNumCol, int *apRank) {
             atomicAdd((int *) apRank, 1);
         }
     }
+}
+
+
+template <typename T>
+__global__
+void
+IsSymmetricKernel(T *apInput, size_t aSideLength, bool *aOutput) {
+
+    size_t col = blockIdx.x * blockDim.x + threadIdx.x;
+    size_t row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    T epsilon = 0.001;
+    if (row < aSideLength && col < aSideLength && row > col) {
+        size_t idx_one = row * aSideLength + col;
+        size_t idx_two = col * aSideLength + row;
+        T val = std::fabs(apInput[ idx_one ] - apInput[ idx_two ]);
+        if (val > epsilon) {
+            *aOutput = false;
+        }
+    }
+
 }
 
 
@@ -457,7 +477,7 @@ GPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
                    ( row + block_size.y - 1 ) / block_size.y);
 
     auto rank = (int *) memory::AllocateArray(1 * sizeof(int), GPU, aContext);
-    memory::Memset((char*)rank,0,sizeof (int),GPU,aContext);
+    memory::Memset((char *) rank, 0, sizeof(int), GPU, aContext);
 
     GetRankKernel <T><<<grid_size,
     block_size, 0, aContext->GetStream()>>>(pData, row, col, rank);
@@ -468,8 +488,47 @@ GPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
     memory::MemCpy((char *) &temp, (char *) rank, sizeof(int), aContext,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
-    aRank=temp;
-    memory::DestroyArray((char*&)rank,GPU,aContext);
+    aRank = temp;
+    memory::DestroyArray((char *&) rank, GPU, aContext);
 
+
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::IsSymmetric(DataType &aInput, bool &aOutput,
+                            kernels::RunContext *aContext) {
+
+    aOutput = true;
+
+    if (aInput.GetNRow() != aInput.GetNCol()) {
+        aOutput = false;
+        return;
+    }
+    auto pData = (T *) aInput.GetData(GPU);
+    auto side_len = aInput.GetNRow();
+
+
+    dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+    dim3 grid_size(( side_len + block_size.x - 1 ) / block_size.x,
+                   ( side_len + block_size.y - 1 ) / block_size.y);
+
+    auto output = (bool *) memory::AllocateArray(1 * sizeof(bool), GPU,
+                                                 aContext);
+
+    memory::Memset((char *) output, 1, sizeof(bool), GPU, aContext);
+
+
+    IsSymmetricKernel <T><<<grid_size,
+    block_size, 0, aContext->GetStream()>>>
+        (pData, side_len, output);
+
+    aContext->Sync();
+
+    memory::MemCpy((char *) &aOutput, (char *) output, sizeof(bool), aContext,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    memory::DestroyArray((char*&)output,GPU,aContext);
 
 }
