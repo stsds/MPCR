@@ -5,7 +5,7 @@
 ##########################################################################
 
 # Set minimum cmake version
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.19.0)
 cmake_policy(SET CMP0048 NEW)
 
 set(CMAKE_CXX_COMPILER g++)
@@ -28,7 +28,7 @@ else ()
 endif ()
 
 # Set C++ standard to C++11.
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 

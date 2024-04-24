@@ -24,7 +24,9 @@ Compute matrix norm.
 \donttest{
 library(MPCR)
 
-x <- as.MPCR(1:20,precision="double")
+x <- as.MPCR(1:25,precision="double")
+x$ToMatrix(5,5)
+
 rcond(x)
 }
 }
