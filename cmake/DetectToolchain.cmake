@@ -20,12 +20,26 @@
 # Brief:
 #  This module is used to find the specified technology and use it with the appropriate toolchain if found.
 #
-set(USE_TECH "omp" CACHE STRING "Specify the technology to use(cuda,sycl,omp_offload), default will fallback to omp")
-option(USE_INTEL "Use intel compilers as base compilers if possible" OFF)
+
+if (DEFINED ENV{R_HOME})
+    set(R_ROOT_PATH "$ENV{R_HOME}")
+
+else ()
+    execute_process(COMMAND R RHOME OUTPUT_VARIABLE R_HOME)
+    string(REGEX REPLACE "\n" "" R_HOME "${R_HOME}")
+    set(R_ROOT_PATH "${R_HOME}")
+endif ()
+
+if (NOT USE_TECH)
+    execute_process(COMMAND ${R_ROOT_PATH}/bin/R CMD config CC OUTPUT_VARIABLE USE_TECH)
+    string(REGEX REPLACE "\n" "" USE_TECH "${USE_TECH}")
+    set(USE_TECH "${USE_TECH}")
+    message("C Compiler used for R :  " ${USE_TECH})
+endif ()
 
 string(TOLOWER ${USE_TECH} USE_TECH)
 
-if ("${USE_TECH}" STREQUAL "intel")
+if ("${USE_TECH}" STREQUAL "intel" OR "${USE_TECH}" STREQUAL "intel")
     include(toolchains/intel)
     if ("${USE_TECH}" STREQUAL "omp" OR "${USE_TECH}" STREQUAL "cuda")
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -qopenmp")
