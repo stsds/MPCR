@@ -8,8 +8,7 @@
 cmake_minimum_required(VERSION 3.19.0)
 cmake_policy(SET CMP0048 NEW)
 
-set(CMAKE_CXX_COMPILER g++)
-set(CMAKE_C_COMPILER gcc)
+include(cmake/DetectToolchain.cmake)
 
 # Project Name and Version
 project(MPCR VERSION 1.0.0)
@@ -26,11 +25,6 @@ elseif (${CMAKE_BUILD_TYPE} STREQUAL "DEBUG" OR ${CMAKE_BUILD_TYPE} STREQUAL "De
 else ()
     message(FATAL_ERROR "Unrecognized build type")
 endif ()
-
-# Set C++ standard to C++11.
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)

@@ -41,8 +41,8 @@ set(USE_CLANG ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -march=native -g -O0 -ffast-math -fma -Rpass=.*")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native -O3 -ffast-math -fma -Rpass=.*")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -march=native -g -O0 -fPIC")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native -O3 -fPIC")
 
 # Obtain Clang compiler version
 execute_process(
@@ -59,4 +59,4 @@ set(CLANG_VERSION ${CMAKE_MATCH_1})
 message(STATUS "Detected Clang version: ${CLANG_VERSION}")
 add_definitions(-DCLANG_VERSION=${CLANG_VERSION})
 
-message(STATUS "${Green}Using Clang Compiler - [Version ${CLANG_VERSION}]")
+message(STATUS "--------------- Using Intel Compiler -------------- [Version ${CLANG_VERSION}]")

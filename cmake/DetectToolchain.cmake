@@ -23,7 +23,6 @@
 
 if (DEFINED ENV{R_HOME})
     set(R_ROOT_PATH "$ENV{R_HOME}")
-
 else ()
     execute_process(COMMAND R RHOME OUTPUT_VARIABLE R_HOME)
     string(REGEX REPLACE "\n" "" R_HOME "${R_HOME}")
@@ -39,34 +38,11 @@ endif ()
 
 string(TOLOWER ${USE_TECH} USE_TECH)
 
-if ("${USE_TECH}" STREQUAL "intel" OR "${USE_TECH}" STREQUAL "intel")
-    include(toolchains/intel)
-    if ("${USE_TECH}" STREQUAL "omp" OR "${USE_TECH}" STREQUAL "cuda")
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -qopenmp")
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -qopenmp")
-    endif ()
+if ("${USE_TECH}" STREQUAL "intel" OR "${USE_TECH}" STREQUAL "icc" OR "${USE_TECH}" STREQUAL "icx")
+    include(${CMAKE_SOURCE_DIR}/cmake/toolchains/intel.cmake)
 elseif ("${USE_TECH}" STREQUAL "clang")
-    include(toolchains/clang)
-    if ("${USE_TECH}" STREQUAL "omp" OR "${USE_TECH}" STREQUAL "cuda")
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fopenmp")
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopenmp")
-    endif ()
+    include(${CMAKE_SOURCE_DIR}/cmake/toolchains/clang.cmake)
 else ()
-    include(toolchains/gnu)
-    if ("${USE_TECH}" STREQUAL "omp" OR "${USE_TECH}" STREQUAL "cuda")
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fopenmp")
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fopenmp")
-    endif ()
-endif ()
-
-
-if ("${USE_TECH}" STREQUAL "omp" OR "${USE_TECH}" STREQUAL "cuda")
-    add_definitions(-DUSE_OMP)
-    set(USE_OMP ON)
-    message("STATUS OpenMP is enabled")
-endif ()
-
-if ("${USE_TECH}" STREQUAL "cuda")
-    include(toolchains/cuda)
+    include(${CMAKE_SOURCE_DIR}/cmake/toolchains/gnu.cmake)
 endif ()
 
