@@ -326,6 +326,7 @@ int
 GPULinearAlgebra <T>::Getri(const int &aMatRank, T *apDataA, const int &aLda,
                             int64_t *apIpiv) {
     MPCR_API_EXCEPTION("No Getri implementation for GPU", -1);
+    return 0;
 }
 
 
@@ -533,6 +534,8 @@ GPULinearAlgebra <T>::Gecon(const std::string &aNorm, const int &aNumRow,
     memory::DestroyArray(pData_host, CPU, context);
     memory::DestroyArray(pData_copy, GPU, context);
 
+    return 0;
+
 }
 
 
@@ -543,6 +546,7 @@ int GPULinearAlgebra <T>::Trcon(const std::string &aNorm,
                                 const T *apData, const int &aLda, T *aRCond) {
     // NO GPU Implementation
     MPCR_API_EXCEPTION("No Trcon implementation for GPU", -1);
+    return 0;
 }
 
 
@@ -577,6 +581,51 @@ int GPULinearAlgebra <T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
 
 }
 
+
+template <typename T>
+int
+GPULinearAlgebra <T>::Trtri(const size_t &aSideLength, T *apDataA,
+                            const size_t &aLda, const bool &aUpperTri) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto cusolver_handle = context->GetCusolverDnHandle();
+
+    size_t lWork_device = 0;
+    size_t lWork_host = 0;
+    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto triangle = aUpperTri ? CUBLAS_FILL_MODE_UPPER
+                              : CUBLAS_FILL_MODE_LOWER;
+    auto diag = CUBLAS_DIAG_UNIT;
+
+
+    cusolverDnXtrtri_bufferSize(cusolver_handle, triangle, diag, aSideLength,
+                                data_type, (void *) apDataA, aLda,
+                                &lWork_device, &lWork_host);
+
+    auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
+    auto work_space_host = context->RequestWorkBufferHost(lWork_host);
+
+    cusolverDnXtrtri(cusolver_handle, triangle, diag, aSideLength,
+                     data_type, (void *) apDataA, aLda, work_space_dev,
+                     lWork_device, work_space_host, lWork_host,
+                     context->GetInfoPointer());
+
+
+    int rc = 0;
+    memory::MemCpy((char *) &rc, (char *) context->GetInfoPointer(),
+                   sizeof(int), context,
+                   memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    if (context->GetRunMode() == kernels::RunMode::SYNC) {
+        context->FreeWorkBufferHost();
+    }
+
+    return rc;
+}
+
+
+
+/************************* Half Only Routines ***************************/
 
 #ifdef USING_HALF
 

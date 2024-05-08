@@ -382,6 +382,8 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
             memory::MemCpy((char *) pOutput, (char *) pTemp_data,
                            new_size * sizeof(T), context,
                            memory::MemoryTransfer::HOST_TO_DEVICE);
+
+            memory::DestroyArray((char *&) pTemp_data, CPU, context);
         }
     }
 
@@ -1001,11 +1003,50 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
         auto upper_triangle = false;
         auto unit_triangle = false;
 
-        //TODO: Implement TRCON for GPU
-        auto rc = solver->Trcon(aNorm, upper_triangle, unit_triangle, row,
-                                pData, col, &out_temp_val);
-        if (rc != 0) {
-            MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
+        if (operation_placement == CPU) {
+            auto rc = solver->Trcon(aNorm, upper_triangle, unit_triangle, row,
+                                    pData, col, &out_temp_val);
+            if (rc != 0) {
+                MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
+            }
+        } else {
+            T xnorm = 0;
+            T ynorm = 0;
+
+            auto helper = BackendFactory <T>::CreateHelpersBackend(
+                operation_placement);
+
+            if (norm == "one") {
+                helper->NormMACS(aInput, xnorm, context);
+            } else if (norm == "inf") {
+                helper->NormMARS(aInput, xnorm, context);
+            }
+            auto side_len = aInput.GetNRow();
+            auto pInverse = (T *) memory::AllocateArray(
+                side_len * side_len * sizeof(T), GPU, context);
+            memory::MemCpy((char *) pInverse, aInput.GetData(GPU),
+                           side_len * side_len * sizeof(T), context,
+                           memory::MemoryTransfer::DEVICE_TO_DEVICE);
+
+            auto rc = solver->Trtri(side_len, pInverse, side_len, false);
+
+            if (rc != 0) {
+                memory::DestroyArray((char*&)pInverse,GPU,context);
+                MPCR_API_EXCEPTION("Error While Performing rcond Trtri", rc);
+            }
+            auto data_type = is_double <T>() ? DOUBLE : FLOAT;
+            DataType temp(data_type, GPU);
+            temp.SetSize(side_len * side_len);
+            temp.SetDimensions(side_len, side_len);
+            temp.SetData((char *) pInverse, GPU);
+
+            if (norm == "one") {
+                helper->NormMACS(temp, ynorm, context);
+            } else if (norm == "inf") {
+                helper->NormMARS(temp, ynorm, context);
+            }
+
+            out_temp_val = 1 / ( ynorm * xnorm );
         }
 
     } else {

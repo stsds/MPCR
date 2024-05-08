@@ -232,6 +232,15 @@ int CPULinearAlgebra <T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
                                 const size_t &aLda, const int64_t *aIpiv,
                                 T *apDataB, const size_t &aLdb) {
 
-    MPCR_API_EXCEPTION("Getrs is not implemented in CPU",-1);
+    MPCR_API_EXCEPTION("Getrs is not implemented in CPU", -1);
+    return 0;
+}
+
+
+template <typename T>
+int
+CPULinearAlgebra <T>::Trtri(const size_t &aSideLength, T *apDataA,
+                            const size_t &aLda,const bool &aUpperTri) {
+    MPCR_API_EXCEPTION("Trtri is not implemented in CPU", -1);
     return 0;
 }

@@ -577,6 +577,11 @@ namespace mpcr {
                       const size_t &aLda, const int64_t *apIpiv, T *apDataB,
                       const size_t &aLdb) = 0;
 
+                virtual
+                int
+                Trtri(const size_t &aSideLength, T *apDataA, const size_t &aLda,
+                      const bool &aUpperTri) = 0;
+
 
             };
 

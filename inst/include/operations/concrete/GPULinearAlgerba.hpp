@@ -27,13 +27,11 @@ namespace mpcr {
                      const T &aBeta, T *apDataC, const int &aLdc);
 
 
-
                 void
                 Syrk(const bool &aFillLower, const bool &aTranspose,
                      const int &aNumRowA, const int &aNumColA, const T &aAlpha,
                      const T *apDataA, const int &aLda, const T &aBeta,
                      T *apDataC, const int &aLdc);
-
 
 
                 void
@@ -54,8 +52,8 @@ namespace mpcr {
 
                 int
                 Gesv(const int &aNumN, const int &aNumNRH, T *apDataA,
-                     const int &aLda, void *apIpiv,  T *apDataB,
-                     const int &aLdb,T* apDataOut,const int &aLdo);
+                     const int &aLda, void *apIpiv, T *apDataB,
+                     const int &aLdb, T *apDataOut, const int &aLdo);
 
 
                 int
@@ -63,7 +61,8 @@ namespace mpcr {
                       const int &aLda, int64_t *apIpiv);
 
                 int
-                Getri(const int &aMatRank,T *apDataA,const int &aLda, int64_t *apIpiv);
+                Getri(const int &aMatRank, T *apDataA, const int &aLda,
+                      int64_t *apIpiv);
 
                 int
                 SVD(const signed char &aJob, const int &aNumRow,
@@ -90,8 +89,9 @@ namespace mpcr {
 
                 int
                 Trcon(const std::string &aNorm, const bool &aUpperTriangle,
-                      const bool &aUnitTriangle, const int &aMatOrder,const T *apData,
-                      const int &aLda,T *aRCond);
+                      const bool &aUnitTriangle, const int &aMatOrder,
+                      const T *apData,
+                      const int &aLda, T *aRCond);
 
 
                 int
@@ -100,13 +100,22 @@ namespace mpcr {
                       const size_t &aLda, const int64_t *apIpiv, T *apDataB,
                       const size_t &aLdb);
 
+
+                int
+                Trtri(const size_t &aSideLength, T *apDataA, const size_t &aLda,
+                      const bool &aUpperTri);
+
+
 #ifdef USING_HALF
+
                 void
                 HalfGemm(const bool &aTransposeA, const bool &aTransposeB,
-                     const int &aNumRowsA, const int &aNumColB,
-                     const int &aNumRowB, const half &aAlpha, const half *apDataA,
-                     const int &aLda, const half *apDataB, const int &aLdb,
-                     const half &aBeta, half *apDataC, const int &aLdc);
+                         const int &aNumRowsA, const int &aNumColB,
+                         const int &aNumRowB, const half &aAlpha,
+                         const half *apDataA,
+                         const int &aLda, const half *apDataB, const int &aLdb,
+                         const half &aBeta, half *apDataC, const int &aLdc);
+
 #endif
 
 

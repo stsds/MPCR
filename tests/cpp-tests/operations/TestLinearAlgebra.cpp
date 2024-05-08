@@ -1087,6 +1087,8 @@ TEST_GPU() {
         double b = 0;
 
 
+
+
         SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", false)
         auto val = fabs(b - 0.079608) / 0.079608;
         REQUIRE(val <= 0.001);
@@ -1099,17 +1101,56 @@ TEST_GPU() {
 
         b = 0;
 
-//        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "I", true)
-//        val = fabs(b - 1.3189e-05) / 1.3189e-05;
-//
-//        REQUIRE(val <= 0.001);
-//
-//       b=0;
-//
-//        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, a, b, "O", true)
-//
-//        val = fabs(b - 1.334e-05) / 1.334e-05;
-//        REQUIRE(val <= 0.001);
+        DataType temp(4,4,FLOAT);
+
+        for(auto i=0;i<a.GetNRow();i++){
+            for(auto j=0;j<a.GetNCol();j++){
+                if(i>j){
+                    temp.SetValMatrix(i,j,a.GetValMatrix(i,j));
+                }
+                if(i==j){
+                    temp.SetValMatrix(i,j,1);
+                }
+            }
+        }
+
+        double c=0;
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, temp, b, "I", true)
+
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            CPU);
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, temp, c, "I", true)
+
+
+
+        if(b!=c){
+            val = fabs(b - c) / c;
+        }else{
+            val=0;
+        }
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+
+        REQUIRE(val <= 0.001);
+
+       b=0;
+       c=0;
+
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, temp, b, "O", true)
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            CPU);
+        SIMPLE_DISPATCH(FLOAT, linear::ReciprocalCondition, temp, c, "O", true)
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+
+        if(b!=c){
+            val = fabs(b - c) / c;
+        }else{
+            val=0;
+        }
+
+        REQUIRE(val <= 0.001);
 
 
     }SECTION("Testing CUDA IsSymmetric") {
@@ -1188,7 +1229,7 @@ TEST_HALF_GEMM() {
         REQUIRE(output.GetPrecision() == HALF);
         REQUIRE(output.GetNRow() == 4);
         REQUIRE(output.GetNCol() == 4);
-        output.Print();
+
 
         auto error = 0.001;
         for (auto i = 0; i < validate_vals.size(); i++) {

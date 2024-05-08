@@ -97,6 +97,12 @@ namespace mpcr {
                       const size_t &aNumRhs, const T *apDataA,
                       const size_t &aLda, const int64_t *apIpiv, T *apDataB,
                       const size_t &aLdb);
+
+
+                int
+                Trtri(const size_t &aSideLength, T *apDataA, const size_t &aLda,
+                      const bool &aUpperTri);
+
             };
 
             MPCR_INSTANTIATE_CLASS(CPULinearAlgebra)
