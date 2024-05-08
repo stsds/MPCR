@@ -51,4 +51,4 @@ execute_process(
 )
 add_definitions(-DGCC_VERSION=${GCC_VERSION})
 
-message(STATUS "$--------------- Using GCC Compiler ------------- - [Version ${GCC_VERSION}]")
+message(STATUS "--------------- Using GCC Compiler ------------- - [Version ${GCC_VERSION}]")

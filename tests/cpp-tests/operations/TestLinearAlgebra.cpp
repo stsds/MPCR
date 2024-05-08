@@ -969,7 +969,7 @@ TEST_GPU() {
         vector <double> values = {1, 2, 3, 2, 4, 6, 3, 3, 3};
         DataType a(values, FLOAT);
         a.ToMatrix(3, 3);
-     
+
 
         DataType qraux(FLOAT);
         DataType pivot(FLOAT);
@@ -987,8 +987,8 @@ TEST_GPU() {
         DataType Q(FLOAT);
         DataType R(FLOAT);
 
-        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionQ ,qr,qraux,Q,true)
-        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionR,qr,R,true)
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionQ, qr, qraux, Q, true)
+        SIMPLE_DISPATCH(FLOAT, linear::QRDecompositionR, qr, R, true)
 
 
 //        REQUIRE(rank.GetVal(0) == 2);
@@ -1008,8 +1008,9 @@ TEST_GPU() {
         REQUIRE(a_reconstruct.GetNCol() == 3);
 
         for (auto i = 0; i < a_reconstruct.GetSize(); i++) {
-            auto val = fabs((float) a_reconstruct.GetVal(i) - (float) a.GetVal(i)) /
-                       (float) a.GetVal(i);
+            auto val =
+                fabs((float) a_reconstruct.GetVal(i) - (float) a.GetVal(i)) /
+                (float) a.GetVal(i);
             REQUIRE(val <= err);
         }
 
@@ -1111,7 +1112,7 @@ TEST_GPU() {
 //        REQUIRE(val <= 0.001);
 
 
-    }SECTION("Testing CUDA IsSymmetric"){
+    }SECTION("Testing CUDA IsSymmetric") {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
             GPU);
 
@@ -1149,6 +1150,106 @@ TEST_GPU() {
 
 #endif
 
+
+#if defined(USE_CUDA) && defined(USING_HALF)
+
+
+void
+TEST_HALF_GEMM() {
+    SECTION("GEMM HALF") {
+        cout << "Testing CUDA HALF Matrix ..." << endl;
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        vector <double> values = {3.12393, -1.16854, -0.304408, -2.15901,
+                                  -1.16854, 1.86968, 1.04094, 1.35925,
+                                  -0.304408, 1.04094, 4.43374, 1.21072,
+                                  -2.15901, 1.35925, 1.21072, 5.57265};
+
+
+        DataType a(values, HALF, GPU);
+        a.ToMatrix(4, 4);
+
+        DataType b(values, HALF, GPU);
+        b.ToMatrix(4, 4);
+        DataType output(HALF, GPU);
+
+        vector <double> validate_vals = {15.878412787064, -9.08673783542,
+                                         -6.13095182416, -20.73289403456,
+                                         -9.08673783542, 7.7923056801,
+                                         8.56286609912, 13.8991634747,
+                                         -6.13095182416, 8.56286609912,
+                                         22.300113620064, 14.18705411188,
+                                         -20.73289403456, 13.8991634747,
+                                         14.18705411188, 39.0291556835};
+
+        SIMPLE_DISPATCH_WITH_HALF(HALF, linear::CrossProduct, a, b, output,
+                                  false,
+                                  false)
+        REQUIRE(output.GetPrecision() == HALF);
+        REQUIRE(output.GetNRow() == 4);
+        REQUIRE(output.GetNCol() == 4);
+        output.Print();
+
+        auto error = 0.001;
+        for (auto i = 0; i < validate_vals.size(); i++) {
+            auto val =
+                fabs((float) output.GetVal(i) - (float) validate_vals[ i ]) /
+                (float) validate_vals[ i ];
+            REQUIRE(val <= error);
+        }
+
+    }SECTION("Testing Half Syrk using gemm") {
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        int size = 16;
+        std::vector <double> values;
+        // Random number generator
+        std::random_device rd; // Seed for the random number engine
+        std::mt19937 rng(rd()); // Mersenne-Twister random number engine
+        std::uniform_real_distribution <> dist(0.0,
+                                               1.0); // Uniform distribution between 0 and 1
+
+        // Generate and store the numbers
+        for (int i = 0; i < size; i++) {
+            double num = dist(rng);
+            num = std::round(num * 100) / 100.0; // Round to two decimal places
+            values.push_back(num);
+        }
+
+        DataType a(values, HALF, GPU);
+        a.SetDimensions(4, 4);
+
+        DataType c(HALF, GPU);
+        DataType b(HALF, GPU);
+        DataType validate(FLOAT, GPU);
+
+
+        a.ConvertPrecision(HALF);
+
+        SIMPLE_DISPATCH_WITH_HALF(HALF, linear::CrossProduct, a, b, c,
+                                  false,
+                                  false)
+
+        a.ConvertPrecision(FLOAT);
+
+        SIMPLE_DISPATCH(FLOAT, linear::CrossProduct, a, b, validate,
+                        false, false)
+
+        auto error = 0.001;
+        for (auto i = 0; i < size; i++) {
+            auto val =
+                fabs((float) c.GetVal(i) - (float) validate.GetVal(i)) /
+                (float) validate.GetVal( i );
+            REQUIRE(val <= error);
+        }
+
+    }
+}
+
+
+#endif
+
+
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
     mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
         CPU);
@@ -1156,6 +1257,10 @@ TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
 
 #ifdef USE_CUDA
     TEST_GPU();
+#endif
+
+#if defined(USE_CUDA) && defined(USING_HALF)
+    TEST_HALF_GEMM();
 #endif
 
 }

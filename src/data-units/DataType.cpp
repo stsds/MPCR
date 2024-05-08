@@ -157,6 +157,9 @@ DataType::PrintRow(const size_t &aRowIdx) {
     if (aRowIdx > this->GetNRow()) {
         MPCR_API_EXCEPTION("Segmentation fault index out of Bound", -1);
     }
+
+    this->CheckHalfCompatibility();
+
     std::stringstream ss;
     SIMPLE_DISPATCH(this->mPrecision, DataType::PrintRowsDispatcher, aRowIdx,
                     ss)
@@ -167,6 +170,7 @@ DataType::PrintRow(const size_t &aRowIdx) {
 
 void
 DataType::Print() {
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(mPrecision, PrintVal)
 }
 
@@ -179,13 +183,7 @@ DataType::GetPrecision() {
 
 char *
 DataType::GetData(const OperationPlacement &aOperationPlacement) {
-    if (mPrecision == HALF && aOperationPlacement == CPU) {
-        MPCR_PRINTER("CPU doesn't support 16-bit, ")
-        MPCR_PRINTER("the data will be converted to 32-bit")
-        MPCR_PRINTER(std::endl)
-        SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, ConvertPrecisionDispatcher,
-                                  FLOAT)
-    }
+    this->CheckHalfCompatibility(aOperationPlacement);
     return mData.GetDataPointer(aOperationPlacement);
 }
 
@@ -212,6 +210,8 @@ DataType::GetVal(size_t aIndex) {
     if (aIndex >= this->mSize) {
         MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
+    this->CheckHalfCompatibility();
+
     SIMPLE_DISPATCH(mPrecision, GetValue, aIndex, temp)
     return temp;
 }
@@ -222,6 +222,8 @@ DataType::SetVal(size_t aIndex, double aVal) {
     if (aIndex >= this->mSize) {
         MPCR_API_EXCEPTION("Segmentation Fault Index Out Of Bound", -1);
     }
+    this->CheckHalfCompatibility();
+
     SIMPLE_DISPATCH(mPrecision, SetValue, aIndex, aVal)
 
 }
@@ -365,6 +367,7 @@ DataType::operator =(const DataType &aDataType) {
 bool
 DataType::IsNA(const size_t &aIndex) {
     bool flag = false;
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, CheckNA, aIndex, flag)
     return flag;
 }
@@ -439,6 +442,7 @@ DataType::ConvertPrecision(const mpcr::definitions::Precision &aPrecision) {
 std::vector <double> *
 DataType::ConvertToNumericVector() {
     auto pOutput = new std::vector <double>();
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, ConvertToVector, *pOutput)
     return pOutput;
 }
@@ -450,7 +454,7 @@ DataType::ConvertToRMatrix() {
         MPCR_API_EXCEPTION("Invalid Cannot Convert, Not a Matrix", -1);
     }
     Rcpp::NumericMatrix *pOutput = nullptr;
-
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, ConvertToRMatrixDispatcher, pOutput)
     return pOutput;
 
@@ -460,6 +464,7 @@ DataType::ConvertToRMatrix() {
 std::vector <int> *
 DataType::IsNA(Dimensions *&apDimensions) {
     auto pOutput = new std::vector <int>();
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, CheckNA, *pOutput, apDimensions)
     return pOutput;
 }
@@ -470,12 +475,14 @@ DataType::Transpose() {
     if (!this->mMatrix) {
         MPCR_API_EXCEPTION("Cannot Transpose a Vector", -1);
     }
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, DataType::TransposeDispatcher)
 }
 
 
 void
 DataType::FillTriangle(const double &aValue, const bool &aUpperTriangle) {
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, DataType::FillTriangleDispatcher, aValue,
                     aUpperTriangle)
 }
@@ -484,6 +491,7 @@ DataType::FillTriangle(const double &aValue, const bool &aUpperTriangle) {
 double
 DataType::Sum() {
     double sum;
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, DataType::SumDispatcher, sum)
     return sum;
 }
@@ -492,6 +500,7 @@ DataType::Sum() {
 double
 DataType::SquareSum() {
     double sum;
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, DataType::SquareSumDispatcher, sum)
     return sum;
 
@@ -501,6 +510,7 @@ DataType::SquareSum() {
 double
 DataType::Product() {
     double prod;
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, DataType::ProductDispatcher, prod)
     return prod;
 }
@@ -515,6 +525,7 @@ double DataType::Determinant() {
             "Cannot calculate determinant for a non-square matrix", -1);
     }
     double result;
+    this->CheckHalfCompatibility();
     SIMPLE_DISPATCH(this->mPrecision, DataType::DeterminantDispatcher, result)
     return result;
 }
@@ -522,6 +533,8 @@ double DataType::Determinant() {
 
 std::vector <char>
 DataType::Serialize() {
+    this->CheckHalfCompatibility();
+
     size_t size = 1;
     auto size_val = 0;
     auto itr = 0;
@@ -607,6 +620,8 @@ DataType::DeSerialize(char *apData) {
 
 Rcpp::RawVector
 DataType::RSerialize() {
+    this->CheckHalfCompatibility();
+
     size_t size = 1;
     auto size_val = 0;
     auto itr = 0;
@@ -1354,9 +1369,9 @@ DataType::Init(std::vector <double> *aValues,
         return;
     }
 
-    auto context=mpcr::kernels::ContextManager::GetOperationContext();
-    if(aOperationPlacement==GPU && context->GetOperationPlacement()==CPU){
-        context=mpcr::kernels::ContextManager::GetGPUContext();
+    auto context = mpcr::kernels::ContextManager::GetOperationContext();
+    if (aOperationPlacement == GPU && context->GetOperationPlacement() == CPU) {
+        context = mpcr::kernels::ContextManager::GetGPUContext();
     }
 
 
@@ -1367,7 +1382,7 @@ DataType::Init(std::vector <double> *aValues,
     if (aValues == nullptr) {
         auto pdata_temp_char = this->mData.GetDataPointer(aOperationPlacement);
         mpcr::memory::Memset(pdata_temp_char, 0, this->GetSizeInBytes(),
-                             aOperationPlacement,context);
+                             aOperationPlacement, context);
 
         this->mData.SetDataPointer(pdata_temp_char, this->GetSizeInBytes(),
                                    aOperationPlacement);
@@ -1386,10 +1401,12 @@ DataType::Init(std::vector <double> *aValues,
 #ifdef USE_CUDA
 
             auto size_in_bytes = aValues->size() * sizeof(double);
-            auto temp_data = mpcr::memory::AllocateArray(size_in_bytes, GPU,context);
+            auto temp_data = mpcr::memory::AllocateArray(size_in_bytes, GPU,
+                                                         context);
 
             mpcr::memory::MemCpy(temp_data, (char *) aValues->data(),
-                                 size_in_bytes, context,mpcr::memory::MemoryTransfer::HOST_TO_DEVICE);
+                                 size_in_bytes, context,
+                                 mpcr::memory::MemoryTransfer::HOST_TO_DEVICE);
 
             mpcr::memory::CopyDevice <double, T>((char *) temp_data,
                                                  (char *) pData,
@@ -1406,6 +1423,18 @@ DataType::Init(std::vector <double> *aValues,
     }
 
 
+}
+
+
+void
+DataType::CheckHalfCompatibility(const OperationPlacement &aOperationPlacement) {
+    if (mPrecision == HALF && aOperationPlacement == CPU) {
+        MPCR_PRINTER("CPU doesn't support 16-bit, ")
+        MPCR_PRINTER("the data will be converted to 32-bit")
+        MPCR_PRINTER(std::endl)
+        SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, ConvertPrecisionDispatcher,
+                                  FLOAT)
+    }
 }
 
 /** ------------------------- INSTANTIATIONS ---------------------------------- **/

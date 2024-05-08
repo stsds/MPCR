@@ -38,9 +38,9 @@ endif ()
 
 string(TOLOWER ${USE_TECH} USE_TECH)
 
-if ("${USE_TECH}" STREQUAL "intel" OR "${USE_TECH}" STREQUAL "icc" OR "${USE_TECH}" STREQUAL "icx")
+if ("${USE_TECH}" MATCHES "intel" OR "${USE_TECH}" MATCHES "icc" OR "${USE_TECH}" MATCHES "icx")
     include(${CMAKE_SOURCE_DIR}/cmake/toolchains/intel.cmake)
-elseif ("${USE_TECH}" STREQUAL "clang")
+elseif ("${USE_TECH}" MATCHES "clang")
     include(${CMAKE_SOURCE_DIR}/cmake/toolchains/clang.cmake)
 else ()
     include(${CMAKE_SOURCE_DIR}/cmake/toolchains/gnu.cmake)

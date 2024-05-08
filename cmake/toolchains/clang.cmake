@@ -59,4 +59,4 @@ set(CLANG_VERSION ${CMAKE_MATCH_1})
 message(STATUS "Detected Clang version: ${CLANG_VERSION}")
 add_definitions(-DCLANG_VERSION=${CLANG_VERSION})
 
-message(STATUS "--------------- Using Intel Compiler -------------- [Version ${CLANG_VERSION}]")
+message(STATUS "--------------- Using Clang Compiler -------------- [Version ${CLANG_VERSION}]")

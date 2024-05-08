@@ -1237,6 +1237,9 @@ private:
     InitializeObject(size_t aSize, const Precision &aPrecision,
                      const OperationPlacement &aOperationPlacement);
 
+    void
+    CheckHalfCompatibility(const OperationPlacement &aOperationPlacement=CPU);
+
 private:
 
     /** Buffer Holding the Data **/

@@ -15,6 +15,124 @@ using namespace mpcr::operations;
 using namespace mpcr::kernels;
 using namespace std;
 
+#ifdef USING_HALF
+
+
+template <>
+void
+linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
+                               DataType &aOutput,
+                               const bool &aTransposeA, const bool &aTransposeB,
+                               const bool &aSymmetrize, const double &aAlpha,
+                               const double &aBeta) {
+
+
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    if (operation_placement == CPU || aInputA.GetPrecision() != HALF ||
+        ( aInputB.GetPrecision() != HALF && aInputB.GetSize() != 0 )) {
+        MPCR_API_EXCEPTION("Cannot perform half gemm using CPU", -1);
+    }
+
+    auto is_one_input = aInputB.GetSize() == 0;
+    auto flag_conv = false;
+
+    if (!aInputB.IsMatrix() && !is_one_input) {
+        if (aInputA.IsMatrix()) {
+            if (aInputA.GetNCol() == aInputB.GetNCol()) {
+                aInputB.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
+            }
+        }
+    }
+
+    if (!aInputA.IsMatrix() && !is_one_input) {
+        if (aInputB.IsMatrix()) {
+            if (aInputA.GetNCol() != aInputB.GetNRow()) {
+                aInputA.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
+            }
+        }
+    }
+
+    auto row_a = aInputA.GetNRow();
+    auto col_a = aInputA.GetNCol();
+
+    size_t row_b;
+    size_t col_b;
+
+    if (is_one_input) {
+        row_b = row_a;
+        col_b = col_a;
+    } else {
+        row_b = aInputB.GetNRow();
+        col_b = aInputB.GetNCol();
+    }
+
+    size_t lda = row_a;
+    size_t ldb = row_b;
+
+    if (aTransposeA) {
+        std::swap(row_a, col_a);
+    }
+    if (aTransposeB) {
+        std::swap(row_b, col_b);
+    }
+
+    if (col_a != row_b) {
+        MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
+    }
+
+
+    float16 *pData_out = nullptr;
+
+    if (aOutput.GetSize() != 0) {
+
+        if (aOutput.GetNRow() != row_a || aOutput.GetNCol() != col_b) {
+            MPCR_API_EXCEPTION("Wrong Output Matrix Dimensions", -1);
+        }
+
+        pData_out = (float16 *) aOutput.GetData(operation_placement);
+
+    } else {
+        auto output_size = row_a * col_b;
+        pData_out = (float16 *) memory::AllocateArray(
+            output_size * sizeof(float16),
+            operation_placement, context);
+        memory::Memset((char *) pData_out, 0, sizeof(float16) * output_size,
+                       operation_placement, context);
+
+        aOutput.ClearUp();
+        aOutput.SetSize(output_size);
+        aOutput.SetDimensions(row_a, col_b);
+    }
+
+    auto pData_a = (float16 *) aInputA.GetData(operation_placement);
+    auto pData_b = (float16 *) aInputB.GetData(operation_placement);
+
+    auto solver = std::make_unique <linear::GPULinearAlgebra <double>>();
+
+    if (!is_one_input) {
+        solver->HalfGemm(aTransposeA, aTransposeB, row_a, col_b, col_a, aAlpha,
+                         pData_a, lda, pData_b, ldb, aBeta, pData_out, row_a);
+    } else {
+        solver->HalfGemm(aTransposeA, !aTransposeA, row_a, col_b, col_a, aAlpha,
+                         pData_a, lda, pData_a, lda, aBeta, pData_out, row_a);
+    }
+
+    aOutput.SetData((char *) pData_out, operation_placement);
+
+
+    if (flag_conv) {
+        aInputB.ToVector();
+    }
+
+}
+
+
+#endif
+
 
 template <typename T>
 void
@@ -152,7 +270,7 @@ linear::IsSymmetric(DataType &aInput, bool &aOutput) {
     auto helper = BackendFactory <T>::CreateHelpersBackend(
         operation_placement);
 
-    helper->IsSymmetric(aInput,aOutput,context);
+    helper->IsSymmetric(aInput, aOutput, context);
 
 
 }
@@ -738,7 +856,6 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     }
 
 
-
     aOutputQr.ClearUp();
     aOutputPivot.ClearUp();
     aOutputQraux.ClearUp();
@@ -767,7 +884,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
 
 
-    helper->GetRank(aOutputQr, aTolerance, *pRank,context);
+    helper->GetRank(aOutputQr, aTolerance, *pRank, context);
 
     aRank.ClearUp();
     aRank.SetSize(1);
