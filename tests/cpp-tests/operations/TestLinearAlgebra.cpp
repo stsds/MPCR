@@ -1192,7 +1192,7 @@ TEST_GPU() {
 #endif
 
 
-#if defined(USE_CUDA) && defined(USING_HALF)
+#ifdef USING_HALF
 
 
 void
@@ -1287,8 +1287,8 @@ TEST_HALF_GEMM() {
     }
 }
 
-
 #endif
+
 
 
 TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
@@ -1300,7 +1300,7 @@ TEST_CASE("LinearAlgebra", "[Linear Algebra]") {
     TEST_GPU();
 #endif
 
-#if defined(USE_CUDA) && defined(USING_HALF)
+#ifdef USING_HALF
     TEST_HALF_GEMM();
 #endif
 

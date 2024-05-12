@@ -85,6 +85,10 @@ namespace mpcr::operations {
             IsSymmetric(DataType &aInput,bool &aOutput,
                         kernels::RunContext *aContext = nullptr);
 
+
+            void
+            CopyUpperTriangle(DataType &aInput, DataType &aOutput,
+                         kernels::RunContext *aContext);
         };
 
         MPCR_INSTANTIATE_CLASS(CPUHelpers)

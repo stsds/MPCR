@@ -288,9 +288,9 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         helper_dev->GetRank(mat_dev, tolerance, out_dev,
                             mpcr::kernels::ContextManager::GetGPUContext());
 
-        REQUIRE(out_host!=0);
-        REQUIRE(out_dev==out_host);
-    }SECTION("IsSymmetric"){
+        REQUIRE(out_host != 0);
+        REQUIRE(out_dev == out_host);
+    }SECTION("IsSymmetric") {
         vector <double> values_symmetric = {2, 3, 6, 3, 4, 5, 6, 5, 9};
         vector <double> values_non_symmetric = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
@@ -301,22 +301,118 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         DataType b_non_symmetric(values_non_symmetric, FLOAT);
         b_non_symmetric.ToMatrix(3, 3);
 
-        auto output=false;
-        helper_host->IsSymmetric(a_symmetric,output, nullptr);
-        REQUIRE(output==true);
+        auto output = false;
+        helper_host->IsSymmetric(a_symmetric, output, nullptr);
+        REQUIRE(output == true);
 
 
-        helper_host->IsSymmetric(b_non_symmetric,output, nullptr);
-        REQUIRE(output==false);
+        helper_host->IsSymmetric(b_non_symmetric, output, nullptr);
+        REQUIRE(output == false);
 
-        auto output_dev=false;
-        helper_dev->IsSymmetric(a_symmetric,output_dev, mpcr::kernels::ContextManager::GetGPUContext());
-        REQUIRE(output_dev==true);
+        auto output_dev = false;
+        helper_dev->IsSymmetric(a_symmetric, output_dev,
+                                mpcr::kernels::ContextManager::GetGPUContext());
+        REQUIRE(output_dev == true);
 
 
-        helper_dev->IsSymmetric(b_non_symmetric,output_dev, mpcr::kernels::ContextManager::GetGPUContext());
-        REQUIRE(output_dev==false);
+        helper_dev->IsSymmetric(b_non_symmetric, output_dev,
+                                mpcr::kernels::ContextManager::GetGPUContext());
+        REQUIRE(output_dev == false);
 
+    }SECTION("Copy Upper triangle") {
+        vector <double> values;
+        auto size = 50;
+        values.resize(size);
+
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i;
+        }
+
+        DataType host(values, FLOAT);
+        DataType device(values, FLOAT, GPU);
+        DataType output_host(FLOAT);
+        DataType output_dev(FLOAT);
+
+        host.ToMatrix(10, 5);
+        device.ToMatrix(10, 5);
+
+        output_dev.SetSize(size);
+        output_dev.SetDimensions(10, 5);
+
+        output_host.SetSize(size);
+        output_host.SetDimensions(10, 5);
+
+        auto pdata_out_host = mpcr::memory::AllocateArray(size * sizeof(float),
+                                                          CPU,
+                                                          nullptr);
+
+        auto pdata_out_dev = mpcr::memory::AllocateArray(size * sizeof(float),
+                                                         GPU,
+                                                         mpcr::kernels::ContextManager::GetGPUContext());
+
+        output_host.SetData(pdata_out_host, CPU);
+        output_dev.SetData(pdata_out_dev, GPU);
+
+        helper_dev->CopyUpperTriangle(device, output_dev,
+                                      mpcr::kernels::ContextManager::GetGPUContext());
+        helper_host->CopyUpperTriangle(host, output_host, nullptr);
+
+
+        REQUIRE(output_host.GetSize() == 50);
+        REQUIRE(output_host.GetNRow() == 10);
+        REQUIRE(output_host.GetNCol() == 5);
+
+        REQUIRE(output_dev.GetSize() == 50);
+        REQUIRE(output_dev.GetNRow() == 10);
+        REQUIRE(output_dev.GetNCol() == 5);
+
+        for (auto i = 0; i < size; i++) {
+            REQUIRE(output_host.GetVal(i) == output_dev.GetVal(i));
+        }
+
+        DataType output_host_non_complete(FLOAT);
+        DataType output_dev_non_complete(FLOAT);
+
+        auto size_non_complete = 5 * 5;
+
+        output_host_non_complete.SetSize(size_non_complete);
+        output_host_non_complete.SetDimensions(5, 5);
+
+        output_dev_non_complete.SetSize(size_non_complete);
+        output_dev_non_complete.SetDimensions(5, 5);
+
+        auto pdata_out_host_temp = mpcr::memory::AllocateArray(
+            size_non_complete * sizeof(float), CPU,
+            nullptr);
+
+        auto pdata_out_dev_temp = mpcr::memory::AllocateArray(
+            size_non_complete * sizeof(float), GPU,
+            mpcr::kernels::ContextManager::GetGPUContext());
+
+
+        output_host_non_complete.SetData((char*)pdata_out_host_temp, CPU);
+        output_dev_non_complete.SetData((char*)pdata_out_dev_temp, GPU);
+        memset(pdata_out_host_temp, 0, size_non_complete * sizeof(float));
+
+
+        helper_dev->CopyUpperTriangle(device, output_dev_non_complete,
+                                      mpcr::kernels::ContextManager::GetGPUContext());
+        helper_host->CopyUpperTriangle(host, output_host_non_complete, nullptr);
+
+
+        auto row = 10;
+        auto output_nrows = 5;
+
+        for (auto j = 0; j < 5; j++) {
+            for (auto i = 0; i <= j && i < 5; i++) {
+                REQUIRE(output_dev_non_complete.GetVal(i + output_nrows * j) ==
+                        host.GetVal(i + row * j));
+
+                REQUIRE(output_host_non_complete.GetVal(i + output_nrows * j) ==
+                        host.GetVal(i + row * j));
+
+            }
+        }
     }
 
 

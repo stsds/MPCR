@@ -75,8 +75,13 @@ namespace mpcr {
 
                 virtual
                 void
-                IsSymmetric(DataType &aInput,bool &aOutput,
-                        kernels::RunContext *aContext = nullptr) = 0;
+                IsSymmetric(DataType &aInput, bool &aOutput,
+                            kernels::RunContext *aContext = nullptr) = 0;
+
+                virtual
+                void
+                CopyUpperTriangle(DataType &aInput, DataType &aOutput,
+                             kernels::RunContext *aContext)=0;
 
             };
 

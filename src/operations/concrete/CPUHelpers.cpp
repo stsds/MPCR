@@ -295,3 +295,30 @@ CPUHelpers <T>::CreateIdentityMatrix(T *apData, size_t &aSideLength,
                                      kernels::RunContext *aContext) {
     MPCR_API_EXCEPTION("CPU Identity Matrix is not implemented", -1);
 }
+
+
+template <typename T>
+void
+CPUHelpers <T>::CopyUpperTriangle(DataType &aInput, DataType &aOutput,
+                                  kernels::RunContext *aContext) {
+
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+    auto output_nrows = aOutput.GetNRow();
+    auto output_size=aOutput.GetSize();
+
+
+    auto pData_src = (T *) aInput.GetData(CPU);
+    auto pData_dest = (T *) aOutput.GetData(CPU);
+
+    memset(pData_dest, 0, output_size * sizeof(T));
+
+    for (auto j = 0; j < col; j++) {
+        for (auto i = 0; i <= j && i < output_nrows; i++){
+            pData_dest[ i + output_nrows * j ] = pData_src[ i + row * j ];
+        }
+    }
+
+    aOutput.SetData((char *) pData_dest, CPU);
+
+}

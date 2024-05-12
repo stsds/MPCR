@@ -900,27 +900,26 @@ void
 linear::QRDecompositionR(DataType &aInputA, DataType &aOutput,
                          const bool &aComplete) {
 
-//TODO:: CPU Implementation only
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
 
     auto col = aInputA.GetNCol();
     auto row = aInputA.GetNRow();
     auto output_nrows = aComplete ? row : std::min(row, col);
     auto output_size = output_nrows * col;
+
     auto pOutput_data = (T *) memory::AllocateArray(output_size * sizeof(T),
-                                                    CPU, nullptr);
-    auto pData = (T *) aInputA.GetData();
-
-    memset(pOutput_data, 0, output_size * sizeof(T));
-
-    for (auto j = 0; j < col; j++) {
-        for (auto i = 0; i <= j && i < output_nrows; i++)
-            pOutput_data[ i + output_nrows * j ] = pData[ i + row * j ];
-    }
+                                                    operation_placement,
+                                                    context);
 
     aOutput.ClearUp();
     aOutput.SetSize(output_size);
     aOutput.SetDimensions(output_nrows, col);
-    aOutput.SetData((char *) pOutput_data, CPU);
+    aOutput.SetData((char *) pOutput_data, operation_placement);
+
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    helper->CopyUpperTriangle(aInputA, aOutput, context);
+
 
 }
 
@@ -1031,7 +1030,7 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
             auto rc = solver->Trtri(side_len, pInverse, side_len, false);
 
             if (rc != 0) {
-                memory::DestroyArray((char*&)pInverse,GPU,context);
+                memory::DestroyArray((char *&) pInverse, GPU, context);
                 MPCR_API_EXCEPTION("Error While Performing rcond Trtri", rc);
             }
             auto data_type = is_double <T>() ? DOUBLE : FLOAT;

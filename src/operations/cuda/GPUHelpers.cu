@@ -188,6 +188,26 @@ IsSymmetricKernel(T *apInput, size_t aSideLength, bool *aOutput) {
 }
 
 
+template <typename T>
+__global__
+void
+CopyUpperTriangleKernel(const T *apDataSrc, T *apDataDestination, size_t aRow,
+                        size_t aCol,
+                        size_t aOutputNRow) {
+    size_t col = blockIdx.x * blockDim.x + threadIdx.x;
+    size_t row = blockIdx.y * blockDim.y + threadIdx.y;
+
+    auto idx_dest = row + aOutputNRow * col;
+    auto idx_src = row + aRow * col;
+
+    if (col < aCol && row < aOutputNRow && row <= col) {
+        apDataDestination[ idx_dest ] = apDataSrc[ idx_src ];
+    } else if (row > col && col < aCol && row < aOutputNRow) {
+        apDataDestination[ idx_dest ] = 0;
+    }
+}
+
+
 /** -----------------------------  Drivers --------------------------------- **/
 template <typename T>
 void
@@ -529,6 +549,35 @@ GPUHelpers <T>::IsSymmetric(DataType &aInput, bool &aOutput,
     memory::MemCpy((char *) &aOutput, (char *) output, sizeof(bool), aContext,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
-    memory::DestroyArray((char*&)output,GPU,aContext);
+    memory::DestroyArray((char *&) output, GPU, aContext);
+
+}
+
+
+template <typename T>
+void
+GPUHelpers <T>::CopyUpperTriangle(DataType &aInput, DataType &aOutput,
+                                  kernels::RunContext *aContext) {
+
+    auto col = aInput.GetNCol();
+    auto row = aInput.GetNRow();
+    auto output_nrows = aOutput.GetNRow();
+
+
+    auto pData_src = (T *) aInput.GetData(GPU);
+    auto pData_dest = (T *) aOutput.GetData(GPU);
+
+
+    dim3 block_size(MPCR_CUDA_BLOCK_SIZE, MPCR_CUDA_BLOCK_SIZE);
+    dim3 grid_size(( col + block_size.x - 1 ) / block_size.x,
+                   ( row + block_size.y - 1 ) / block_size.y);
+
+
+    CopyUpperTriangleKernel <T><<<grid_size, block_size, 0, aContext->GetStream()>>>(
+        pData_src, pData_dest, row,col, output_nrows);
+
+    aContext->Sync();
+
+    aOutput.SetData((char *) pData_dest, GPU);
 
 }
