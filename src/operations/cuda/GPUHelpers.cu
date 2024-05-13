@@ -484,7 +484,7 @@ GPUHelpers <T>::NormMaxMod(DataType &aInput, T &aValue,
 
 template <typename T>
 void
-GPUHelpers <T>::GetRank(DataType &aInput, const double &aTolerance, T &aRank,
+GPUHelpers <T>::GetRank(DataType &aInput, T &aRank,
                         kernels::RunContext *aContext) {
 
     auto col = aInput.GetNCol();

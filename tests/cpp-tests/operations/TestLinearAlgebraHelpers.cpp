@@ -284,8 +284,8 @@ TEST_LINEAR_ALGEBRA_HELPERS() {
         float out_host = 0;
         float out_dev = 0;
         double tolerance = 1e-10;
-        helper_host->GetRank(mat_host, tolerance, out_host, nullptr);
-        helper_dev->GetRank(mat_dev, tolerance, out_dev,
+        helper_host->GetRank(mat_host, out_host, nullptr);
+        helper_dev->GetRank(mat_dev, out_dev,
                             mpcr::kernels::ContextManager::GetGPUContext());
 
         REQUIRE(out_host != 0);

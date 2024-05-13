@@ -1237,6 +1237,17 @@ private:
     InitializeObject(size_t aSize, const Precision &aPrecision,
                      const OperationPlacement &aOperationPlacement);
 
+    /**
+     * @brief
+     * Function to check if the function called is compatible with half precision.
+     * in case the precision is half and the function is not compatible, the function
+     * will automatically promote the half precision data to float.
+     *
+     * @param [in] aOperationPlacement
+     * Operation Placement used to determine whether the function is compatible
+     * with half precision or not.
+     *
+     */
     void
     CheckHalfCompatibility(const OperationPlacement &aOperationPlacement=CPU);
 

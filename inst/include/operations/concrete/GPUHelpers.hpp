@@ -74,7 +74,7 @@ namespace mpcr::operations {
 
 
             void
-            GetRank(DataType &aInput, const double &aTolerance, T &aRank,
+            GetRank(DataType &aInput, T &aRank,
                     kernels::RunContext *aContext);
 
 

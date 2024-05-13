@@ -886,7 +886,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
 
 
-    helper->GetRank(aOutputQr, aTolerance, *pRank, context);
+    helper->GetRank(aOutputQr, *pRank, context);
 
     aRank.ClearUp();
     aRank.SetSize(1);
