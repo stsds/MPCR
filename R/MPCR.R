@@ -249,11 +249,8 @@
   })
 
 
-  setMethod("qr", c(x = "Rcpp_MPCR"), function(x, tol) {
-    if (missing(tol)) {
-      tol = 1e-07
-    }
-    ret <- MPCR.qr(x, tol)
+  setMethod("qr", c(x = "Rcpp_MPCR"), function(x) {
+    ret <- MPCR.qr(x)
     names(ret) <- c("qr", "qraux", "pivot", "rank")
     ret
   })

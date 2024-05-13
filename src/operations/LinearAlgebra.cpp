@@ -814,7 +814,7 @@ template <typename T>
 void
 linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                         DataType &aOutputQraux, DataType &aOutputPivot,
-                        DataType &aRank, const double &aTolerance) {
+                        DataType &aRank) {
 
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
@@ -1202,8 +1202,7 @@ SIMPLE_INSTANTIATE(void, linear::QRDecompositionQ, DataType &aInputA,
 
 SIMPLE_INSTANTIATE(void, linear::QRDecomposition, DataType &aInputA,
                    DataType &aOutputQr, DataType &aOutputQraux,
-                   DataType &aOutputPivot, DataType &aRank,
-                   const double &aTolerance)
+                   DataType &aOutputPivot, DataType &aRank)
 
 SIMPLE_INSTANTIATE(void, linear::QRDecompositionR, DataType &aInputA,
                    DataType &aOutput, const bool &aComplete)

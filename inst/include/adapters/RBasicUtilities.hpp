@@ -465,6 +465,9 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c);
  * Number of Cols in case of creating an MPCR Matrix .
  * @param[in] aPrecision
  * Required Precision of the created MPCR Object.
+ * @param [in] aOperationPlacement
+ * String indicating whether the MPCR object should be allocated on CPU or GPU.
+ * default is CPU.
  *
  * @returns
  * New MPCR Object constructed from the given inputs
@@ -472,7 +475,8 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c);
  */
 DataType *
 RConvertToMPCR(std::vector <double> &aValues, const size_t &aRow,
-              const size_t &aCol, const std::string &aPrecision);
+               const size_t &aCol, const std::string &aPrecision,
+               const std::string &aOperationPlacement = "CPU");
 
 
 #endif //MPCR_RBASICUTILITIES_HPP

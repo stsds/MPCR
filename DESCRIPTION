@@ -10,7 +10,7 @@ License: GPL (>= 3)
 Imports: methods, Rcpp (>= 1.0.9)
 Depends: R (>= 3.6.0)
 RoxygenNote: 7.2.3
-SystemRequirements: CMake (>=3.20) , C++ (>= 11)
+SystemRequirements: CMake (>=3.20) , C++ (>= 11) ,CUDA (>=11.2)
 NeedsCompilation: yes
 OS_type: unix
 Authors@R: c(

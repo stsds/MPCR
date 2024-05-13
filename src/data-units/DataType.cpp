@@ -26,6 +26,16 @@ void DataType::InitializeObject(size_t aSize, const Precision &aPrecision,
 }
 
 
+DataType::DataType(size_t aSize, const std::string &aPrecision,
+                   const std::string &aOperationPlacement) {
+    auto precision = GetInputPrecision(aPrecision);
+    auto operation_placement = GetInputOperationPlacement(aOperationPlacement);
+    this->InitializeObject(aSize, precision, operation_placement);
+    SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, Init, nullptr,
+                              operation_placement)
+}
+
+
 DataType::DataType(size_t aSize, Precision aPrecision,
                    const OperationPlacement &aOperationPlacement) {
 
@@ -1427,7 +1437,8 @@ DataType::Init(std::vector <double> *aValues,
 
 
 void
-DataType::CheckHalfCompatibility(const OperationPlacement &aOperationPlacement) {
+DataType::CheckHalfCompatibility(
+    const OperationPlacement &aOperationPlacement) {
     if (mPrecision == HALF && aOperationPlacement == CPU) {
         MPCR_PRINTER("CPU doesn't support 16-bit, ")
         MPCR_PRINTER("the data will be converted to 32-bit")
@@ -1436,6 +1447,9 @@ DataType::CheckHalfCompatibility(const OperationPlacement &aOperationPlacement) 
                                   FLOAT)
     }
 }
+
+
+
 
 /** ------------------------- INSTANTIATIONS ---------------------------------- **/
 

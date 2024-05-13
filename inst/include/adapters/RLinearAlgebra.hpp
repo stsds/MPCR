@@ -200,15 +200,12 @@ RNorm(DataType *aInputA, const std::string &aType);
  *
  * @param[in] aInputA
  * MPCR Matrix
- * @param[in] aTolerance
- * the tolerance for detecting linear dependencies in the columns of
- * aInputA
  * @returns
  * vector containing QR,QRaux,Pivot,Rank
  *
  */
 std::vector <DataType>
-RQRDecomposition(DataType *aInputA,const double &aTolerance);
+RQRDecomposition(DataType *aInputA);
 
 /**
  * @brief

@@ -9,6 +9,9 @@
 #ifndef MPCR_DEFINITIONS_HPP
 #define MPCR_DEFINITIONS_HPP
 
+#include <sstream>
+#include <algorithm>
+
 namespace mpcr{
     namespace definitions{
 
@@ -72,6 +75,37 @@ namespace mpcr{
             /** in:float ,in:sfloat ,out:double **/
             FSD = 32
         };
+
+        /**
+         * @brief
+         * Get Input operation placement from a string.
+         * Transforms the string to lower case to ensure proper initialization
+         *
+         * @param[in] aPrecision
+         * int describing required precision
+         *
+         * @returns
+         * Precision out the 3-supported precision ,or throw exception in-case
+         * it's not supported
+         */
+        inline
+        OperationPlacement
+        GetInputOperationPlacement(std::string aOperationPlacement) {
+            std::transform(aOperationPlacement.begin(), aOperationPlacement.end(),
+                           aOperationPlacement.begin(), ::tolower);
+
+            if (aOperationPlacement == "gpu" ){
+#ifdef USE_CUDA
+                return GPU;
+#else
+                MPCR_API_EXCEPTION("MPCR is build with no GPU support",-1);
+
+#endif
+            }else{
+                return CPU;
+            }
+        }
+
     }
 }
 

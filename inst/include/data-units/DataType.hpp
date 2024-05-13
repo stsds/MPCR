@@ -192,7 +192,6 @@ public:
     DataType(std::vector <double> aValues, std::string aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
 
-
     /**
      * @brief
      * DataType Matrix Constructor from a vector of values.
@@ -243,6 +242,22 @@ public:
     explicit
     DataType(size_t aSize, const std::string &aPrecision,
              const OperationPlacement &aOperationPlacement = CPU);
+
+    /**
+     * @brief
+     * DataType Constructor
+     *
+     * @param[in] aSize
+     * Size of Vector
+     * @param[in] aPrecision
+     * Precision to Describe the Values (as a String)
+     * @param [in] aOperationPlacement
+     * Operation placement to decide whether the buffer is allocated on CPU or GPU.
+     *
+     */
+    explicit
+    DataType(size_t aSize, const std::string &aPrecision,
+             const std::string &aOperationPlacement);
 
     /**
      * @brief

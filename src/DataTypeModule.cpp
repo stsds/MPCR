@@ -11,6 +11,7 @@
 #include <adapters/RMathematicalOperations.hpp>
 #include <adapters/RLinearAlgebra.hpp>
 #include <adapters/RHelpers.hpp>
+#include <adapters/RContextManager.hpp>
 
 
 
@@ -30,7 +31,7 @@ RCPP_MODULE(MPCR) {
 
     /** Basic Utilities **/
     class_ <DataType>("MPCR")
-        .constructor <size_t, std::string>()
+        .constructor <size_t, std::string,std::string>()
         .property("IsMatrix", &DataType::IsMatrix)
         .property("Size", &DataType::GetSize)
         .property("Row", &DataType::GetNRow)
@@ -159,7 +160,7 @@ RCPP_MODULE(MPCR) {
              List::create(_[ "x" ], _[ "nu" ] = -1, _[ "nv" ] = -1,
                           _[ "Transpose" ] = false));
     function("MPCR.norm", &RNorm, List::create(_[ "x" ], _[ "type" ] = "O"));
-    function("MPCR.qr", &RQRDecomposition,List::create(_["x"],_["tol"]= 1e-07));
+    function("MPCR.qr", &RQRDecomposition,List::create(_["x"]));
     function("MPCR.qr.Q", &RQRDecompositionQ,
              List::create(_[ "qr" ], _[ "qraux" ], _[ "complete" ] = false,
                           _[ "Dvec" ] = R_NilValue));
@@ -173,7 +174,7 @@ RCPP_MODULE(MPCR) {
 
     function("as.MPCR", &RConvertToMPCR,
              List::create(_[ "data" ], _[ "nrow" ] = 0, _[ "ncol" ] = 0,
-                          _[ "precision" ]));
+                          _[ "precision" ],_["placement"]="CPU"));
 
 
     /** Function to expose gemm , trsm , syrk **/
@@ -190,5 +191,11 @@ RCPP_MODULE(MPCR) {
 
 
     function("MPCR.copy",&RCopyMPR,List::create(_["x"]));
+
+
+    /** Run Context Functions **/
+
+    function("MPCR.SetOperationPLacement",&SetOperationPlacement);
+    function("MPCR.GetOperationPLacement",&GetOperationPlacement);
 
 }

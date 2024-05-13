@@ -198,7 +198,7 @@ RIsNa(DataType *apInput, long aIdx) {
         delete pOutput;
         return vec;
     } else {
-        return Rcpp::wrap(apInput->IsNA(aIdx-1));
+        return Rcpp::wrap(apInput->IsNA(aIdx - 1));
     }
 
 }
@@ -228,7 +228,6 @@ RPrint(DataType *apInput) {
     basic::GetAsStr(*apInput, output);
     Rcpp::Rcout << output;
 }
-
 
 
 DataType *
@@ -452,13 +451,17 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
 
 }
 
+
 DataType *
 RConvertToMPCR(std::vector <double> &aValues, const size_t &aRow,
-              const size_t &aCol, const std::string &aPrecision){
-    if(aRow==0 || aCol==0){
-        return new DataType(aValues,aPrecision);
-    }else{
-        return new DataType(aValues,aRow,aCol,aPrecision);
+               const size_t &aCol, const std::string &aPrecision,
+               const std::string &aOperationPlacement) {
+    auto operation_placement = GetInputOperationPlacement(aOperationPlacement);
+    if (aRow == 0 || aCol == 0) {
+        return new DataType(aValues, aPrecision, operation_placement);
+    } else {
+        return new DataType(aValues, aRow, aCol, aPrecision,
+                            operation_placement);
     }
 }
 

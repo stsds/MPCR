@@ -200,7 +200,7 @@ namespace mpcr {
             void
             QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                             DataType &aOutputQraux, DataType &aOutputPivot,
-                            DataType &aRank, const double &aTolerance = 1e-07);
+                            DataType &aRank);
 
             /**
              * @brief
