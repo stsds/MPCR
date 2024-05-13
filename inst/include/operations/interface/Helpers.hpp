@@ -50,38 +50,38 @@ namespace mpcr {
                 virtual
                 void
                 NormMARS(DataType &aInput, T &aValue,
-                         kernels::RunContext *aContext = nullptr) = 0;
+                         kernels::RunContext *aContext) = 0;
 
                 virtual
                 void
                 NormMACS(DataType &aInput, T &aValue,
-                         kernels::RunContext *aContext = nullptr) = 0;
+                         kernels::RunContext *aContext) = 0;
 
                 virtual
                 void
                 NormEuclidean(DataType &aInput, T &aValue,
-                              kernels::RunContext *aContext = nullptr) = 0;
+                              kernels::RunContext *aContext) = 0;
 
                 virtual
                 void
                 NormMaxMod(DataType &aInput, T &aValue,
-                           kernels::RunContext *aContext = nullptr) = 0;
+                           kernels::RunContext *aContext) = 0;
 
 
                 virtual
                 void
                 GetRank(DataType &aInput, const double &aTolerance, T &aRank,
-                        kernels::RunContext *aContext = nullptr) = 0;
+                        kernels::RunContext *aContext) = 0;
 
                 virtual
                 void
                 IsSymmetric(DataType &aInput, bool &aOutput,
-                            kernels::RunContext *aContext = nullptr) = 0;
+                            kernels::RunContext *aContext) = 0;
 
                 virtual
                 void
                 CopyUpperTriangle(DataType &aInput, DataType &aOutput,
-                             kernels::RunContext *aContext)=0;
+                                  kernels::RunContext *aContext) = 0;
 
             };
 

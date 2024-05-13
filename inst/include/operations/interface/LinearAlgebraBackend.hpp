@@ -330,7 +330,6 @@ namespace mpcr {
                       int64_t *apIpiv) = 0;
 
 
-                //svd - lapack  -> gesvd (GPU) and gesdd(CPU)
                 virtual
                 int
                 SVD(const signed char &aJob, const int &aNumRow,
@@ -577,6 +576,29 @@ namespace mpcr {
                       const size_t &aLda, const int64_t *apIpiv, T *apDataB,
                       const size_t &aLdb) = 0;
 
+                /**
+                 * @brief
+                 * This function computes the inverse of a real upper or
+                 * lower triangular matrix A.
+                 *
+                 * @param [in] aSideLength
+                 * Number of columns and rows.
+                 * @param [in] apDataA
+                 * matrix A
+                 * @param [in] aLda
+                 * Leading dimension of matrix A
+                 * @param [in] aUpperTri
+                 * flag to indicate whether the matrix is upper or lower triangular
+                 * matrix.
+                 *
+                 * @returns
+                 * rc code :
+                 *  rc = 0 , the operation is successful.
+                 *     = -i ,the i-th parameter is wrong.
+                 *     =  i, A(i,i) is exactly zero.The triangular matrix
+                 *     is singular and its inverse can not be compute
+                 *
+                 */
                 virtual
                 int
                 Trtri(const size_t &aSideLength, T *apDataA, const size_t &aLda,

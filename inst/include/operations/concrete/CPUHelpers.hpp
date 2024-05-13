@@ -58,32 +58,32 @@ namespace mpcr::operations {
 
             void
             NormMARS(DataType &aInput, T &aValue,
-                     kernels::RunContext *aContext = nullptr);
+                     kernels::RunContext *aContext);
 
 
             void
             NormMACS(DataType &aInput, T &aValue,
-                     kernels::RunContext *aContext = nullptr);
+                     kernels::RunContext *aContext);
 
 
             void
             NormEuclidean(DataType &aInput, T &aValue,
-                          kernels::RunContext *aContext = nullptr);
+                          kernels::RunContext *aContext);
 
 
             void
             NormMaxMod(DataType &aInput, T &aValue,
-                       kernels::RunContext *aContext = nullptr);
+                       kernels::RunContext *aContext);
 
 
             void
             GetRank(DataType &aInput, const double &aTolerance, T &aRank,
-                    kernels::RunContext *aContext = nullptr);
+                    kernels::RunContext *aContext);
 
 
             void
             IsSymmetric(DataType &aInput,bool &aOutput,
-                        kernels::RunContext *aContext = nullptr);
+                        kernels::RunContext *aContext);
 
 
             void
