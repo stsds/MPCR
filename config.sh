@@ -21,7 +21,7 @@ else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi
 
-while getopts ":f:c:tevhi:" opt; do
+while getopts ":f:c:tevshi:" opt; do
   case $opt in
   f) ##### Define test file path  #####
     echo -e "${BLUE}Test File path set to $OPTARG${NC}"
@@ -43,6 +43,10 @@ while getopts ":f:c:tevhi:" opt; do
     echo -e "${BLUE}Installation path set to $OPTARG${NC}"
     INSTALL_PATH=$OPTARG
     ;;
+  s) ##### Define installation type  #####
+    echo -e "${GREEN}Building MPCR as static library"
+    MPCR_AS_STATIC="ON"
+    ;;
   v) ##### printing full output of make #####
     echo -e "${YELLOW}printing make with details${NC}"
     VERBOSE=ON
@@ -58,6 +62,7 @@ while getopts ":f:c:tevhi:" opt; do
     VERBOSE=OFF
     TEST_PATH="${ABSOLUE_PATH}/tests/test-files"
     CONFIG_PATH="${ABSOLUE_PATH}/config"
+    MPCR_AS_STATIC="OFF"
     ;;
   :) ##### Error in an option #####
     echo "Option $OPTARG requires parameter(s)"
@@ -83,6 +88,11 @@ done
 if [ -z "$BUILDING_TESTS" ]; then
   BUILDING_TESTS="OFF"
   echo -e "${RED}Building tests disabled${NC}"
+fi
+
+if [ -z "$MPCR_AS_STATIC" ]; then
+  MPCR_AS_STATIC="OFF"
+  echo -e "${RED}Building MPCR as dynamic library${NC}"
 fi
 
 if [ -z "$BUILDING_EXAMPLES" ]; then
@@ -116,6 +126,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
   -H"${PROJECT_SOURCE_DIR}" \
   -B"${PROJECT_SOURCE_DIR}/bin" \
   -DRUNNING_CPP=ON \
+  -DBUILD_MPCR_STATIC="$MPCR_AS_STATIC"\
   -DBUILD_SHARED_LIBS=OFF \
   -DCMAKE_CXX_FLAGS_DEBUG="-fPIC" \
   -DCMAKE_CXX_FLAGS_RELEASE="-fPIC"

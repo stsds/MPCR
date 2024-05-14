@@ -11,6 +11,7 @@
 
 #include <sstream>
 #include <algorithm>
+#include <utilities/MPCRErrorHandler.hpp>
 
 namespace mpcr{
     namespace definitions{

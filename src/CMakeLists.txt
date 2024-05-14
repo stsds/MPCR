@@ -19,11 +19,17 @@ set(
 
 )
 
+if(${BUILD_MPCR_STATIC})
 add_library(mpcr
-        SHARED
+        STATIC
         ${NEW_SOURCES}
         )
-
+else()
+    add_library(mpcr
+            SHARED
+            ${NEW_SOURCES}
+            )
+    endif()
 
 target_link_libraries(mpcr ${LIBS})
 
