@@ -51,7 +51,8 @@ namespace mpcr {
                 int
                 Gesv(const int &aNumN, const int &aNumNRH, T *apDataA,
                      const int &aLda, void *apIpiv, T *apDataB, const int &aLdb,
-                     T *apDataOut, const int &aLdo);
+                     T *apDataOut, const int &aLdo,
+                     const std::string &aInternalPrecision = "same");
 
                 int
                 Getrf(const int &aNumRow, const int &aNumCol, T *apDataA,

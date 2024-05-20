@@ -60,20 +60,23 @@ RCPP_MODULE(MPCR) {
 
     /** Function that are not masked **/
 
-    function("MPCR.is.single", &RIsFloat,List::create(_["x"]));
-    function("MPCR.is.float", &RIsFloat,List::create(_["x"]));
-    function("MPCR.is.double", &RIsDouble,List::create(_["x"]));
-    function("MPCR.is.half", &RIsSFloat,List::create(_["x"]));
-    function("MPCR.rbind", &RRBind,List::create(_["x"],_["y"]));
-    function("MPCR.cbind", &RCBind,List::create(_["x"],_["y"]));
-    function("MPCR.is.na", &RIsNa, List::create(_[ "object" ], _[ "index" ] = -1));
-    function("MPCR.na.exclude", &RNaReplace,List::create(_["object"],_["value"]));
-    function("MPCR.na.omit", &RNaExclude,List::create(_["object"]));
-    function("MPCR.object.size", &RObjectSize,List::create(_["x"]));
-    function("MPCR.Concatenate", &RConcatenate,List::create(_["x"]));
-    function("MPCR.ToNumericVector", &RToNumericVector,List::create(_["x"]));
-    function("MPCR.ToNumericMatrix", &RToNumericMatrix,List::create(_["x"]));
-    function("MPCR.ChangePrecision", &RChangePrecision,List::create(_["x"],_["precision"]));
+    function("MPCR.is.single", &RIsFloat, List::create(_[ "x" ]));
+    function("MPCR.is.float", &RIsFloat, List::create(_[ "x" ]));
+    function("MPCR.is.double", &RIsDouble, List::create(_[ "x" ]));
+    function("MPCR.is.half", &RIsSFloat, List::create(_[ "x" ]));
+    function("MPCR.rbind", &RRBind, List::create(_[ "x" ], _[ "y" ]));
+    function("MPCR.cbind", &RCBind, List::create(_[ "x" ], _[ "y" ]));
+    function("MPCR.is.na", &RIsNa,
+             List::create(_[ "object" ], _[ "index" ] = -1));
+    function("MPCR.na.exclude", &RNaReplace,
+             List::create(_[ "object" ], _[ "value" ]));
+    function("MPCR.na.omit", &RNaExclude, List::create(_[ "object" ]));
+    function("MPCR.object.size", &RObjectSize, List::create(_[ "x" ]));
+    function("MPCR.Concatenate", &RConcatenate, List::create(_[ "x" ]));
+    function("MPCR.ToNumericVector", &RToNumericVector, List::create(_[ "x" ]));
+    function("MPCR.ToNumericMatrix", &RToNumericMatrix, List::create(_[ "x" ]));
+    function("MPCR.ChangePrecision", &RChangePrecision,
+             List::create(_[ "x" ], _[ "precision" ]));
     function("MPCR.Add", &RPerformPlusDispatcher,
              List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
     function("MPCR.Multiply", &RPerformMltDispatcher,
@@ -86,53 +89,55 @@ RCPP_MODULE(MPCR) {
              List::create(_[ "x" ], _[ "y" ], _[ "Precision" ] = ""));
 
 
-    function("MPCR.print", &RPrint,List::create(_["x"]));
-    function("MPCR.diag", &RGetDiagonal,List::create(_["x"]));
-    function("MPCR.min", &RGetMin,List::create(_["x"]));
-    function("MPCR.max", &RGetMax,List::create(_["x"]));
-    function("MPCR.nrow", &RGetNRow,List::create(_["x"]));
-    function("MPCR.ncol", &RGetNCol,List::create(_["x"]));
-    function("MPCR.str", &RPrint,List::create(_["object"]));
-    function("MPCR.show", &RGetType,List::create(_["object"]));
+    function("MPCR.print", &RPrint, List::create(_[ "x" ]));
+    function("MPCR.diag", &RGetDiagonal, List::create(_[ "x" ]));
+    function("MPCR.min", &RGetMin, List::create(_[ "x" ]));
+    function("MPCR.max", &RGetMax, List::create(_[ "x" ]));
+    function("MPCR.nrow", &RGetNRow, List::create(_[ "x" ]));
+    function("MPCR.ncol", &RGetNCol, List::create(_[ "x" ]));
+    function("MPCR.str", &RPrint, List::create(_[ "object" ]));
+    function("MPCR.show", &RGetType, List::create(_[ "object" ]));
     function("MPCR.rep", &RReplicate,
              List::create(_[ "x" ], _[ "count" ] = 0, _[ "len" ] = 0));
-    function("MPCR.sweep", &RSweep,List::create(_["x"],_["stat"],_["margin"],_["FUN"]));
-    function("MPCR.typeof", &RGetType,List::create(_["x"]));
-    function("MPCR.storage.mode", &RGetType,List::create(_["x"]));
-    function("MPCR.which.min", &RGetMinIdx,List::create(_["x"]));
-    function("MPCR.which.max", &RGetMaxIdx,List::create(_["x"]));
-    function("MPCR.scale", &RScaleDispatcher,List::create(_["x"],_["center"],_["scale"]));
+    function("MPCR.sweep", &RSweep,
+             List::create(_[ "x" ], _[ "stat" ], _[ "margin" ], _[ "FUN" ]));
+    function("MPCR.typeof", &RGetType, List::create(_[ "x" ]));
+    function("MPCR.storage.mode", &RGetType, List::create(_[ "x" ]));
+    function("MPCR.which.min", &RGetMinIdx, List::create(_[ "x" ]));
+    function("MPCR.which.max", &RGetMaxIdx, List::create(_[ "x" ]));
+    function("MPCR.scale", &RScaleDispatcher,
+             List::create(_[ "x" ], _[ "center" ], _[ "scale" ]));
 
     /** Math Functions **/
 
-    function("MPCR.abs", &RAbs,List::create(_["x"]));
-    function("MPCR.sqrt", &RSqrt,List::create(_["x"]));
-    function("MPCR.ceiling", &RCeiling,List::create(_["x"]));
-    function("MPCR.floor", &RFloor,List::create(_["x"]));
-    function("MPCR.trunc", &RTruncate,List::create(_["x"]));
+    function("MPCR.abs", &RAbs, List::create(_[ "x" ]));
+    function("MPCR.sqrt", &RSqrt, List::create(_[ "x" ]));
+    function("MPCR.ceiling", &RCeiling, List::create(_[ "x" ]));
+    function("MPCR.floor", &RFloor, List::create(_[ "x" ]));
+    function("MPCR.trunc", &RTruncate, List::create(_[ "x" ]));
     function("MPCR.round", &RRound, List::create(_[ "x" ], _[ "digits" ] = 0));
-    function("MPCR.exp", &RExp,List::create(_["x"]));
-    function("MPCR.expm1", &RExp1m,List::create(_["x"]));
-    function("MPCR.gamma", &RGamma,List::create(_["x"]));
-    function("MPCR.lgamma", &RLGamma,List::create(_["x"]));
-    function("MPCR.is.finite", &RIsFinite,List::create(_["x"]));
-    function("MPCR.is.infinite", &RIsInFinite,List::create(_["x"]));
-    function("MPCR.is.nan", &RIsNan,List::create(_["x"]));
+    function("MPCR.exp", &RExp, List::create(_[ "x" ]));
+    function("MPCR.expm1", &RExp1m, List::create(_[ "x" ]));
+    function("MPCR.gamma", &RGamma, List::create(_[ "x" ]));
+    function("MPCR.lgamma", &RLGamma, List::create(_[ "x" ]));
+    function("MPCR.is.finite", &RIsFinite, List::create(_[ "x" ]));
+    function("MPCR.is.infinite", &RIsInFinite, List::create(_[ "x" ]));
+    function("MPCR.is.nan", &RIsNan, List::create(_[ "x" ]));
     function("MPCR.log", &RLog, List::create(_[ "x" ], _[ "base" ] = 1));
-    function("MPCR.log10", &RLog10,List::create(_["x"]));
-    function("MPCR.log2", &RLog2,List::create(_["x"]));
-    function("MPCR.sin", &RSin,List::create(_["x"]));
-    function("MPCR.cos", &RCos,List::create(_["x"]));
-    function("MPCR.tan", &RTan,List::create(_["x"]));
-    function("MPCR.asin", &RASin,List::create(_["x"]));
-    function("MPCR.acos", &RACos,List::create(_["x"]));
-    function("MPCR.atan", &RATan,List::create(_["x"]));
-    function("MPCR.sinh", &RSinh,List::create(_["x"]));
-    function("MPCR.cosh", &RCosh,List::create(_["x"]));
-    function("MPCR.tanh", &RTanh,List::create(_["x"]));
-    function("MPCR.asinh", &RASinh,List::create(_["x"]));
-    function("MPCR.acosh", &RACosh,List::create(_["x"]));
-    function("MPCR.atanh", &RATanh,List::create(_["x"]));
+    function("MPCR.log10", &RLog10, List::create(_[ "x" ]));
+    function("MPCR.log2", &RLog2, List::create(_[ "x" ]));
+    function("MPCR.sin", &RSin, List::create(_[ "x" ]));
+    function("MPCR.cos", &RCos, List::create(_[ "x" ]));
+    function("MPCR.tan", &RTan, List::create(_[ "x" ]));
+    function("MPCR.asin", &RASin, List::create(_[ "x" ]));
+    function("MPCR.acos", &RACos, List::create(_[ "x" ]));
+    function("MPCR.atan", &RATan, List::create(_[ "x" ]));
+    function("MPCR.sinh", &RSinh, List::create(_[ "x" ]));
+    function("MPCR.cosh", &RCosh, List::create(_[ "x" ]));
+    function("MPCR.tanh", &RTanh, List::create(_[ "x" ]));
+    function("MPCR.asinh", &RASinh, List::create(_[ "x" ]));
+    function("MPCR.acosh", &RACosh, List::create(_[ "x" ]));
+    function("MPCR.atanh", &RATanh, List::create(_[ "x" ]));
 
 
     /** Linear Algebra **/
@@ -159,14 +164,17 @@ RCPP_MODULE(MPCR) {
              List::create(_[ "x" ], _[ "nu" ] = -1, _[ "nv" ] = -1,
                           _[ "Transpose" ] = false));
     function("MPCR.norm", &RNorm, List::create(_[ "x" ], _[ "type" ] = "O"));
-    function("MPCR.qr", &RQRDecomposition,List::create(_["x"],_["tol"]= 1e-07));
+    function("MPCR.qr", &RQRDecomposition,
+             List::create(_[ "x" ], _[ "tol" ] = 1e-07));
     function("MPCR.qr.Q", &RQRDecompositionQ,
              List::create(_[ "qr" ], _[ "qraux" ], _[ "complete" ] = false,
                           _[ "Dvec" ] = R_NilValue));
     function("MPCR.qr.R", &RQRDecompositionR);
     function("MPCR.rcond", &RRCond,
              List::create(_[ "x" ], _[ "norm" ] = "O", _[ "useInv" ] = false));
-    function("MPCR.solve", &RSolve);
+    function("MPCR.solve", &RSolve,
+             List::create(_[ "a" ], _[ "b" ] = R_NilValue,
+                          _[ "internal_precision" ] = "same"));
     function("MPCR.t", &RTranspose);
     function("MPCR.qr.qy", &RQRDecompositionQy);
     function("MPCR.qr.qty", &RQRDecompositionQty);
@@ -189,6 +197,6 @@ RCPP_MODULE(MPCR) {
                           _[ "alpha" ] = 1));
 
 
-    function("MPCR.copy",&RCopyMPR,List::create(_["x"]));
+    function("MPCR.copy", &RCopyMPR, List::create(_[ "x" ]));
 
 }

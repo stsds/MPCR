@@ -255,7 +255,8 @@ namespace mpcr {
                 int
                 Gesv(const int &aNumN, const int &aNumNRH, T *apDataA,
                      const int &aLda, void *apIpiv, T *apDataB,
-                     const int &aLdb, T *apDataOut, const int &aLdo) = 0;
+                     const int &aLdb, T *apDataOut, const int &aLdo,
+                     const std::string &aInternalPrecision = "same") = 0;
 
                 /**
                  * @brief

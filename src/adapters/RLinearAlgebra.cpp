@@ -214,7 +214,7 @@ RCholeskyInv(DataType *aInputA, const size_t &aSize) {
 
 
 DataType *
-RSolve(DataType *aInputA, SEXP aInputB) {
+RSolve(DataType *aInputA, SEXP aInputB,const std::string &aInternalPrecision) {
 
     bool aSingle = ((SEXP) aInputB == R_NilValue );
     Promoter pr(2);
@@ -240,7 +240,7 @@ RSolve(DataType *aInputA, SEXP aInputB) {
 
     auto pOutput = new DataType(precision);
     SIMPLE_DISPATCH(precision, linear::Solve, *aInputA, *temp_b,
-                    *pOutput, aSingle)
+                    *pOutput, aSingle,aInternalPrecision)
 
     if (!aSingle) {
         pr.DePromote();

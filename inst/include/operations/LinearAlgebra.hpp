@@ -104,12 +104,16 @@ namespace mpcr {
              * MPCR Matrix B
              * @param[in] aSingle
              * if true only aInputA will be used and for X t(A) will be used.
+             * @param [in] aInternalPrecision
+             * string that indicate the precision used for the LU factorization in
+             * case of using GESV routine in CuSolver ( GPU operation & aSingle == false).
+             * Options: (float or single) ,half ,tensorfloat
              *
              */
             template <typename T>
             void
             Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
-                  const bool &aSingle);
+                  const bool &aSingle,const std::string &aInternalPrecision="same");
 
 
             /**

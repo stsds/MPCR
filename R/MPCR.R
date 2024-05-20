@@ -382,11 +382,11 @@
     ret
   })
 
-  setMethod("solve", signature(a = "Rcpp_MPCR"), function(a, b, ...) {
+  setMethod("solve", signature(a = "Rcpp_MPCR"), function(a, b,internal_precision="same", ...) {
     if (missing(b)) {
       b = NULL
     }
-    ret <- MPCR.solve(a, b)
+    ret <- MPCR.solve(a, b,internal_precision)
     ret
   })
 
