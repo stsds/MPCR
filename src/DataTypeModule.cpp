@@ -167,7 +167,9 @@ RCPP_MODULE(MPCR) {
     function("MPCR.qr.R", &RQRDecompositionR);
     function("MPCR.rcond", &RRCond,
              List::create(_[ "x" ], _[ "norm" ] = "O", _[ "useInv" ] = false));
-    function("MPCR.solve", &RSolve);
+    function("MPCR.solve", &RSolve,
+             List::create(_[ "a" ], _[ "b" ] = R_NilValue,
+                          _[ "internal_precision" ] = "same"));
     function("MPCR.t", &RTranspose);
     function("MPCR.qr.qy", &RQRDecompositionQy);
     function("MPCR.qr.qty", &RQRDecompositionQty);

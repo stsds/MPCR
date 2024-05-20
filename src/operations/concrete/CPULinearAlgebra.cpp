@@ -103,7 +103,7 @@ int
 CPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
                            T *apDataA, const int &aLda, void *aIpiv,
                            T *apDataB, const int &aLdb, T *apDataOut,
-                           const int &aLdo) {
+                           const int &aLdo,const std::string &aInternalPrecision) {
 
     auto rc = lapack::gesv(aNumN, aNumNRH, apDataA, aLda, (int64_t *) aIpiv,
                            apDataOut, aLdo);
@@ -240,7 +240,7 @@ int CPULinearAlgebra <T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
 template <typename T>
 int
 CPULinearAlgebra <T>::Trtri(const size_t &aSideLength, T *apDataA,
-                            const size_t &aLda,const bool &aUpperTri) {
+                            const size_t &aLda, const bool &aUpperTri) {
     MPCR_API_EXCEPTION("Trtri is not implemented in CPU", -1);
     return 0;
 }

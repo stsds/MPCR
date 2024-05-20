@@ -176,4 +176,29 @@ using namespace mpcr::definitions;
 #define MPCR_INSTANTIATE_CLASS(TEMPLATE_CLASS)   template class TEMPLATE_CLASS<float>;  \
                                                     template class TEMPLATE_CLASS<double>;
 
+
+
+#define CONCATENATE(a, b) a ## b
+
+#define CONCATENATE3(a, b, c) a ## b ## c
+
+// Macro to define the function name based on precision
+#define CONCATENATE_FUNCTION_NAME(NAME_ONE,PRECISION, NAME_TWO) CONCATENATE3(NAME_ONE, PRECISION, NAME_TWO)
+
+#define CALL_FUNCTION_S(NAME_ONE, NAME_TWO, ...) CONCATENATE_FUNCTION_NAME(NAME_ONE, S, NAME_TWO)(__VA_ARGS__)
+#define CALL_FUNCTION_D(NAME_ONE, NAME_TWO, ...) CONCATENATE_FUNCTION_NAME(NAME_ONE, D, NAME_TWO)(__VA_ARGS__)
+#define CALL_FUNCTION_H(NAME_ONE, NAME_TWO, ...) CONCATENATE_FUNCTION_NAME(NAME_ONE, H, NAME_TWO)(__VA_ARGS__)
+
+
+/** Dispatcher for CUDA functions **/
+#define CUDA_FUNCTIONS_NAME_DISPATCHER(NAME_ONE,NAME_TWO, ...)                 \
+        if constexpr(is_float<T>()){                                           \
+               CALL_FUNCTION_S(NAME_ONE, NAME_TWO, __VA_ARGS__);               \
+        }else if constexpr(is_double<T>()) {                                   \
+               CALL_FUNCTION_D(NAME_ONE, NAME_TWO, __VA_ARGS__)  ;             \
+        }else if constexpr(is_half<T>()){                                      \
+               CALL_FUNCTION_H(NAME_ONE, NAME_TWO, __VA_ARGS__)  ;             \
+        }                                                                      \
+
+
 #endif //MPCR_MPRDISPATCHER_HPP

@@ -175,42 +175,22 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
     auto cusolver_handle = context->GetCusolverDnHandle();
     int lWork = 0;
 
-    if constexpr(is_double <T>()) {
-        cusolverDnDpotri_bufferSize(cusolver_handle,
-                                    triangle,
-                                    aNumRow,
-                                    apDataA,
-                                    aNumRow,
-                                    &lWork);
-        auto work_space = context->RequestWorkBufferDevice(lWork * sizeof(T));
+    CUDA_FUNCTIONS_NAME_DISPATCHER(cusolverDn, potri_bufferSize,
+                                   cusolver_handle,
+                                   triangle, aNumRow, apDataA, aNumRow,
+                                   &lWork);
 
-        cusolverDnDpotri(cusolver_handle,
-                         triangle,
-                         aNumRow,
-                         apDataA,
-                         aNumRow,
-                         (T *) work_space,
-                         lWork,
-                         context->GetInfoPointer());
-    } else {
-        cusolverDnSpotri_bufferSize(cusolver_handle,
-                                    triangle,
-                                    aNumRow,
-                                    apDataA,
-                                    aNumRow,
-                                    &lWork);
+    auto work_space = context->RequestWorkBufferDevice(lWork * sizeof(T));
 
-        auto work_space = context->RequestWorkBufferDevice(lWork * sizeof(T));
-
-        cusolverDnSpotri(cusolver_handle,
-                         triangle,
-                         aNumRow,
-                         apDataA,
-                         aNumRow,
-                         (T *) work_space,
-                         0,
-                         context->GetInfoPointer());
-    }
+    CUDA_FUNCTIONS_NAME_DISPATCHER(cusolverDn, potri,
+                                   cusolver_handle,
+                                   triangle,
+                                   aNumRow,
+                                   apDataA,
+                                   aNumRow,
+                                   (T *) work_space,
+                                   lWork,
+                                   context->GetInfoPointer());
 
     int rc = 0;
     memory::MemCpy((char *) &rc, (char *) context->GetInfoPointer(),
@@ -225,51 +205,167 @@ template <typename T>
 int
 GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
                            T *apDataA, const int &aLda, void *apIpiv,
-                           T *apDataB,
-                           const int &aLdb, T *apDataOut, const int &aLdo) {
-    // TODO : This function can support half precision internally for the LU factorization
+                           T *apDataB, const int &aLdb, T *apDataOut,
+                           const int &aLdo,
+                           const std::string &aInternalPrecision) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
+    std::string internal_precision;
+    std::transform(aInternalPrecision.begin(), aInternalPrecision.end(),
+                   internal_precision.begin(), ::tolower);
+
     size_t lWork_device = 0;
     cusolver_int_t nitr = 0;
 
+    /**
+     * DD DS DH  DX
+     * SS SH SX
+     *
+     * cusolverDn _ _ gesv
+     * **/
+
     if constexpr(is_double <T>()) {
+        if (internal_precision == "single" || internal_precision == "float") {
+            cusolverDnDSgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
+                                        apDataA,
+                                        aLda, (cusolver_int_t *) apIpiv,
+                                        apDataB,
+                                        aLdb, apDataOut, aLdo, nullptr,
+                                        &lWork_device);
 
-        cusolverDnDDgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, apDataA,
-                                    aLda, (cusolver_int_t *) apIpiv, apDataB,
-                                    aLdb, apDataOut, aLdo, nullptr,
-                                    &lWork_device);
-
-        auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
-
-
-        cusolverDnDDgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
-                         (cusolver_int_t *) apIpiv, apDataB, aLdb, apDataOut,
-                         aLdo,
-                         work_space_dev, lWork_device, &nitr,
-                         context->GetInfoPointer());
+            auto work_space_dev = context->RequestWorkBufferDevice(
+                lWork_device);
 
 
+            cusolverDnDSgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                             (cusolver_int_t *) apIpiv, apDataB, aLdb,
+                             apDataOut,
+                             aLdo,
+                             work_space_dev, lWork_device, &nitr,
+                             context->GetInfoPointer());
+
+        } else if (internal_precision == "half") {
+            cusolverDnDHgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
+                                        apDataA,
+                                        aLda, (cusolver_int_t *) apIpiv,
+                                        apDataB,
+                                        aLdb, apDataOut, aLdo, nullptr,
+                                        &lWork_device);
+
+            auto work_space_dev = context->RequestWorkBufferDevice(
+                lWork_device);
+
+
+            cusolverDnDHgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                             (cusolver_int_t *) apIpiv, apDataB, aLdb,
+                             apDataOut,
+                             aLdo,
+                             work_space_dev, lWork_device, &nitr,
+                             context->GetInfoPointer());
+
+        } else if (internal_precision == "tensorfloat") {
+            cusolverDnDXgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
+                                        apDataA,
+                                        aLda, (cusolver_int_t *) apIpiv,
+                                        apDataB,
+                                        aLdb, apDataOut, aLdo, nullptr,
+                                        &lWork_device);
+
+            auto work_space_dev = context->RequestWorkBufferDevice(
+                lWork_device);
+
+
+            cusolverDnDXgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                             (cusolver_int_t *) apIpiv, apDataB, aLdb,
+                             apDataOut,
+                             aLdo,
+                             work_space_dev, lWork_device, &nitr,
+                             context->GetInfoPointer());
+
+        } else {
+            cusolverDnDDgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
+                                        apDataA,
+                                        aLda, (cusolver_int_t *) apIpiv,
+                                        apDataB,
+                                        aLdb, apDataOut, aLdo, nullptr,
+                                        &lWork_device);
+
+            auto work_space_dev = context->RequestWorkBufferDevice(
+                lWork_device);
+
+
+            cusolverDnDDgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                             (cusolver_int_t *) apIpiv, apDataB, aLdb,
+                             apDataOut,
+                             aLdo,
+                             work_space_dev, lWork_device, &nitr,
+                             context->GetInfoPointer());
+        }
     } else {
-        cusolverDnSSgesv_bufferSize(cusolver_handle, aNumN, aNumNRH, apDataA,
-                                    aLda, (cusolver_int_t *) apIpiv, apDataB,
-                                    aLdb, apDataOut, aLdo, nullptr,
-                                    &lWork_device);
+        if (internal_precision == "half") {
+            cusolverDnSHgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
+                                        apDataA,
+                                        aLda, (cusolver_int_t *) apIpiv,
+                                        apDataB,
+                                        aLdb, apDataOut, aLdo, nullptr,
+                                        &lWork_device);
 
-        auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
+
+            auto work_space_dev = context->RequestWorkBufferDevice(
+                lWork_device);
 
 
-        cusolverDnSSgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
-                         (cusolver_int_t *) apIpiv, apDataB, aLdb, apDataOut,
-                         aLdo,
-                         work_space_dev, lWork_device, &nitr,
-                         context->GetInfoPointer());
+            cusolverDnSHgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                             (cusolver_int_t *) apIpiv, apDataB, aLdb,
+                             apDataOut,
+                             aLdo,
+                             work_space_dev, lWork_device, &nitr,
+                             context->GetInfoPointer());
+        } else if (internal_precision == "tensorfloat") {
+            cusolverDnSXgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
+                                        apDataA,
+                                        aLda, (cusolver_int_t *) apIpiv,
+                                        apDataB,
+                                        aLdb, apDataOut, aLdo, nullptr,
+                                        &lWork_device);
+
+
+            auto work_space_dev = context->RequestWorkBufferDevice(
+                lWork_device);
+
+
+            cusolverDnSXgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                             (cusolver_int_t *) apIpiv, apDataB, aLdb,
+                             apDataOut,
+                             aLdo,
+                             work_space_dev, lWork_device, &nitr,
+                             context->GetInfoPointer());
+        } else {
+            cusolverDnSSgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
+                                        apDataA,
+                                        aLda, (cusolver_int_t *) apIpiv,
+                                        apDataB,
+                                        aLdb, apDataOut, aLdo, nullptr,
+                                        &lWork_device);
+
+
+            auto work_space_dev = context->RequestWorkBufferDevice(
+                lWork_device);
+
+
+            cusolverDnSSgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
+                             (cusolver_int_t *) apIpiv, apDataB, aLdb,
+                             apDataOut,
+                             aLdo,
+                             work_space_dev, lWork_device, &nitr,
+                             context->GetInfoPointer());
+        }
     }
 
     if (nitr < 0) {
-        MPCR_API_EXCEPTION("Error While Performing factorization in Gesv GPU",
-                           nitr);
+        MPCR_API_WARN("Same input precision is used in LU factorization in GESV CUDA ",
+                      nitr);
     }
 
     int rc = 0;
@@ -474,25 +570,16 @@ GPULinearAlgebra <T>::Orgqr(const int &aNumRow, const int &aNum,
     auto cusolver_handle = context->GetCusolverDnHandle();
     int lWork_device = 0;
 
-    if constexpr(is_double <T>()) {
-        cusolverDnDorgqr_bufferSize(cusolver_handle, aNumRow, aNum, aNumCol,
-                                    apDataA, aLda, aTau, &lWork_device);
+    CUDA_FUNCTIONS_NAME_DISPATCHER(cusolverDn, orgqr_bufferSize,
+                                   cusolver_handle, aNumRow, aNum, aNumCol,
+                                   apDataA, aLda, aTau, &lWork_device)
 
-        auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
+    auto work_space_dev = (T *) context->RequestWorkBufferDevice(lWork_device);
 
-        cusolverDnDorgqr(cusolver_handle, aNumRow, aNum, aNumCol, apDataA, aLda,
-                         aTau, (double *) work_space_dev, lWork_device,
-                         context->GetInfoPointer());
-    } else {
-        cusolverDnSorgqr_bufferSize(cusolver_handle, aNumRow, aNum, aNumCol,
-                                    apDataA, aLda, aTau, &lWork_device);
-
-        auto work_space_dev = context->RequestWorkBufferDevice(lWork_device);
-
-        cusolverDnSorgqr(cusolver_handle, aNumRow, aNum, aNumCol, apDataA, aLda,
-                         aTau, (float *) work_space_dev, lWork_device,
-                         context->GetInfoPointer());
-    }
+    CUDA_FUNCTIONS_NAME_DISPATCHER(cusolverDn, orgqr, cusolver_handle, aNumRow,
+                                   aNum, aNumCol, apDataA, aLda,
+                                   aTau, work_space_dev, lWork_device,
+                                   context->GetInfoPointer())
 
     int rc = 0;
     memory::MemCpy((char *) &rc, (char *) context->GetInfoPointer(),

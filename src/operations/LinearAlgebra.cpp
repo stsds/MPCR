@@ -408,7 +408,7 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
 template <typename T>
 void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
-                   const bool &aSingle) {
+                   const bool &aSingle, const std::string &aInternalPrecision) {
 
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
@@ -473,8 +473,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
             rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
                               (void *) pIpiv, (T *) aInputB.GetData(GPU),
-                              rows_b,
-                              pData_in_out, rows_b);
+                              rows_b,pData_in_out, rows_b,aInternalPrecision);
         }
 
         if (rc != 0) {
@@ -1176,7 +1175,7 @@ SIMPLE_INSTANTIATE(void, linear::CholeskyInv, DataType &aInputA,
                    DataType &aOutput, const size_t &aNCol)
 
 SIMPLE_INSTANTIATE(void, linear::Solve, DataType &aInputA, DataType &aInputB,
-                   DataType &aOutput, const bool &aSingle)
+                   DataType &aOutput, const bool &aSingle,const std::string &aInternalPrecision)
 
 SIMPLE_INSTANTIATE(void, linear::BackSolve, DataType &aInputA,
                    DataType &aInputB, DataType &aOutput, const size_t &aCol,
