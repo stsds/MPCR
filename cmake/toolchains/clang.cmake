@@ -34,8 +34,10 @@
 #   CLANG_VERSION
 
 # Set the compilers to clang for C and C++
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
+
+set(CMAKE_C_COMPILER "${C_MPCR_COMPILER}" "${C_MPCR_FLAGS}")
+set(CMAKE_CXX_COMPILER "${CXX_MPCR_COMPILER}" "${CXX_MPCR_FLAGS}")
+
 add_definitions(-DUSE_CLANG)
 set(USE_CLANG ON)
 set(CMAKE_CXX_STANDARD 17)

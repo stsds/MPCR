@@ -32,8 +32,9 @@
 #  It adds the following definitions to compilation:
 #   USE_INTEL
 
-set(CMAKE_C_COMPILER icx)
-set(CMAKE_CXX_COMPILER icpx)
+set(CMAKE_C_COMPILER "${C_MPCR_COMPILER}" "${C_MPCR_FLAGS}")
+set(CMAKE_CXX_COMPILER "${CXX_MPCR_COMPILER}" "${CXX_MPCR_FLAGS}")
+
 add_definitions(-DUSE_INTEL)
 set(USE_INTEL ON)
 set(CMAKE_CXX_STANDARD 17)

@@ -33,26 +33,8 @@
 #   USE_GNU
 #   GCC_VERSION
 
-
-#execute_process(COMMAND ${R_ROOT_PATH}/bin/R CMD config CC OUTPUT_VARIABLE C_COMPILER_FLAG)
-#string(REGEX REPLACE "\n" "" USE_TECH "${C_COMPILER_FLAG}")
-#set(C_COMPILER_FLAG "${C_COMPILER_FLAG}")
-#
-#execute_process(COMMAND ${R_ROOT_PATH}/bin/R CMD config CXX OUTPUT_VARIABLE CXX_COMPILER_FLAG)
-#string(REGEX REPLACE "\n" "" USE_TECH "${CXX_COMPILER_FLAG}")
-#set(CXX_COMPILER_FLAG "${CXX_COMPILER_FLAG}")
-
-
-message("----------------------------------------------------------------------")
-message(${C_MPCR_COMPILER})
-message(${CXX_MPCR_COMPILER})
-message("----------------------------------------------------------------------")
-set(CMAKE_C_COMPILER ${C_MPCR_COMPILER})
-set(CMAKE_CXX_COMPILER ${CXX_MPCR_COMPILER})
-
-#set(CMAKE_C_COMPILER gcc)
-#set(CMAKE_CXX_COMPILER g++ -std=gnu++11)
-
+set(CMAKE_C_COMPILER "${C_MPCR_COMPILER}" "${C_MPCR_FLAGS}")
+set(CMAKE_CXX_COMPILER "${CXX_MPCR_COMPILER}" "${CXX_MPCR_FLAGS}")
 
 add_definitions(-DUSE_GNU)
 set(USE_GNU ON)
