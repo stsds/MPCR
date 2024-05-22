@@ -36,6 +36,16 @@ if (NOT USE_TECH)
     message("C Compiler used for R :  " ${USE_TECH})
 endif ()
 
+execute_process(COMMAND ${R_ROOT_PATH}/bin/R CMD config CC OUTPUT_VARIABLE C_MPCR_COMPILER)
+string(REGEX REPLACE "\n" "" C_MPCR_COMPILER "${C_MPCR_COMPILER}")
+set(C_MPCR_COMPILER "${C_MPCR_COMPILER}")
+
+execute_process(COMMAND ${R_ROOT_PATH}/bin/R CMD config CXX OUTPUT_VARIABLE CXX_MPCR_COMPILER)
+string(REGEX REPLACE "\n" "" CXX_MPCR_COMPILER "${CXX_MPCR_COMPILER}")
+set(CXX_MPCR_COMPILER "${CXX_MPCR_COMPILER}")
+
+
+
 string(TOLOWER ${USE_TECH} USE_TECH)
 
 if ("${USE_TECH}" MATCHES "intel" OR "${USE_TECH}" MATCHES "icc" OR "${USE_TECH}" MATCHES "icx")

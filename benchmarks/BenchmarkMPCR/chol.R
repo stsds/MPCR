@@ -37,13 +37,14 @@ generate_postive_matrix_alt <- function(n) {
 }
 
 
-run_chol_benchmark <- function(n, replication, times) {
+run_chol_benchmark <- function(n, replication, times,operation_placement) {
   matrix <- generate_postive_matrix_alt(n)
 
 
-  MPCR_matrix_single <- as.MPCR(matrix, n, n, "single")
-  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double")
+  MPCR_matrix_single <- as.MPCR(matrix, n, n, "single",operation_placement)
+  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double",operation_placement)
 
+  MPCR.SetOperationPLacement(operation_placement)
 
   cat("\n\n\n")
   cat("Running chol benchmark \n")
@@ -67,7 +68,7 @@ run_chol_benchmark <- function(n, replication, times) {
 # Define the arguments
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 3) {
+if (length(args) != 4) {
   cat("\n\n\n\n")
   stop("Please provide correct arguments, 1-matrix_size 2-number_of_replication 3-times")
 }
@@ -75,6 +76,7 @@ if (length(args) != 3) {
 mat_size <- as.integer(args[1])
 replication <- as.integer(args[2])
 times <- as.integer(args[3])
+operation_placement <- toString(args[4])
 
 cat("Matrix size : ")
 cat(paste(mat_size, mat_size, sep = "*"))
@@ -83,9 +85,12 @@ cat("replication : ")
 cat(replication)
 cat("times : ")
 cat(times)
+cat("\n")
+cat("Operation Placement : ")
+cat(operation_placement)
+cat("\n")
 
-
-run_chol_benchmark(mat_size, replication, times)
+run_chol_benchmark(mat_size, replication, times,operation_placement)
 
 
 
