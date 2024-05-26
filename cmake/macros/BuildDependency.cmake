@@ -14,7 +14,10 @@ macro(BuildDependency raw_name url tag)
     execute_process(COMMAND ${CMAKE_COMMAND}
             -DCMAKE_INSTALL_PREFIX=${${name}_installpath}
             -DNOFORTRAN=1
-            -DCMAKE_C_FLAGS_RELEASE="-fPIC -w -W"
+            -DCMAKE_C_FLAGS_RELEASE="-fPIC -w -W -march=native"
+            -DCMAKE_CXX_FLAGS_RELEASE="-fPIC -w -W -march=native"
+            -DCMAKE_CXX_FLAGS_DEBUG="-fPIC -w -W -march=native"
+            -DCMAKE_C_FLAGS_DEBUG="-fPIC -w -W -march=native"
             ${${name}_srcpath}
             WORKING_DIRECTORY
             ${${name}_binpath})
