@@ -383,7 +383,7 @@ RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle) {
     } else {
         temp_input = aInputA;
     }
-    
+
     double output = 0;
     SIMPLE_DISPATCH(precision, linear::ReciprocalCondition, *temp_input,
                     output, aNorm, aTriangle)
