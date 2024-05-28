@@ -33,8 +33,9 @@
 #   USE_GNU
 #   GCC_VERSION
 
-set(CMAKE_CXX_COMPILER g++)
-set(CMAKE_C_COMPILER gcc)
+set(CMAKE_C_COMPILER "${C_MPCR_COMPILER}" "${C_MPCR_FLAGS}")
+set(CMAKE_CXX_COMPILER "${CXX_MPCR_COMPILER}" "${CXX_MPCR_FLAGS}")
+
 add_definitions(-DUSE_GNU)
 set(USE_GNU ON)
 set(CMAKE_CXX_STANDARD 11)
@@ -51,4 +52,4 @@ execute_process(
 )
 add_definitions(-DGCC_VERSION=${GCC_VERSION})
 
-message(STATUS "$--------------- Using GCC Compiler ------------- - [Version ${GCC_VERSION}]")
+message(STATUS "--------------- Using GCC Compiler ------------- - [Version ${GCC_VERSION}]")

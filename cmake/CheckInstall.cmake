@@ -5,6 +5,40 @@
 ##########################################################################
 
 
+
+function(get_all_environment_variables result)
+    if(UNIX)
+        set(command "printenv")
+    elseif(WIN32)
+        set(command "set")
+    else()
+        message(FATAL_ERROR "Unsupported platform")
+    endif()
+
+    execute_process(
+            COMMAND ${CMAKE_COMMAND} -E env ${command}
+            OUTPUT_VARIABLE env_vars
+    )
+    string(REPLACE "\n" ";" env_vars_list "${env_vars}")
+    set(${result} ${env_vars_list} PARENT_SCOPE)
+endfunction()
+
+
+
+function(find_environment_variable_prefix prefix result)
+    get_all_environment_variables(env_vars)
+    set(found "FALSE")
+    foreach(env_var ${env_vars})
+        if(env_var MATCHES "^${prefix}")
+            set(found "TRUE")
+            break()
+        endif()
+    endforeach()
+    set(${result} "${found}" PARENT_SCOPE)
+endfunction()
+
+
+
 function(check_install_dir original)
     string(LENGTH "${original}" len)
     set(result_variable_temp "")
@@ -18,9 +52,14 @@ function(check_install_dir original)
     set(ENV{MPCR_INSTALL}  ${result_variable_temp})
 endfunction()
 
+
+
+
 function(check_install path_to_check result_variable)
-    if (DEFINED ENV{_R_CHECK_NATIVE_ROUTINE_REGISTRATION_} OR DEFINED ENV{_R_CHECK_R_ON_PATH_}
-            OR DEFINED ENV{_R_CHECK_S3_METHODS_NOT_REGISTERED_})
+    set(check_install_var "FALSE")
+    find_environment_variable_prefix("_R_CHECK_" check_install_var)
+
+    if (check_install_var STREQUAL "TRUE")
         set(temp_install TRUE)
         execute_process(
                 COMMAND ${CMAKE_COMMAND} -E remove "${PROJECT_SOURCE_DIR}/R/MPCR.R"
