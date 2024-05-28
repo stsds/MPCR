@@ -31,7 +31,8 @@ linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
     auto operation_placement = context->GetOperationPlacement();
 
     if (operation_placement == CPU || aInputA.GetPrecision() != HALF ||
-        ( aInputB.GetPrecision() != HALF && aInputB.GetSize() != 0 )) {
+        ( aInputB.GetPrecision() != HALF && aInputB.GetSize() != 0 ) ||
+        aOutput.GetPrecision() != HALF) {
         MPCR_API_EXCEPTION("Cannot perform half gemm using CPU", -1);
     }
 
@@ -129,7 +130,6 @@ linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
     }
 
 }
-
 
 #endif
 
@@ -473,7 +473,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
             rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
                               (void *) pIpiv, (T *) aInputB.GetData(GPU),
-                              rows_b,pData_in_out, rows_b,aInternalPrecision);
+                              rows_b, pData_in_out, rows_b, aInternalPrecision);
         }
 
         if (rc != 0) {
@@ -1175,7 +1175,8 @@ SIMPLE_INSTANTIATE(void, linear::CholeskyInv, DataType &aInputA,
                    DataType &aOutput, const size_t &aNCol)
 
 SIMPLE_INSTANTIATE(void, linear::Solve, DataType &aInputA, DataType &aInputB,
-                   DataType &aOutput, const bool &aSingle,const std::string &aInternalPrecision)
+                   DataType &aOutput, const bool &aSingle,
+                   const std::string &aInternalPrecision)
 
 SIMPLE_INSTANTIATE(void, linear::BackSolve, DataType &aInputA,
                    DataType &aInputB, DataType &aOutput, const size_t &aCol,

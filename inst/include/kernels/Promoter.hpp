@@ -68,7 +68,7 @@ namespace mpcr {
              *
              */
             void
-            Promote();
+            Promote(const Precision &aOperationLowestPrecision=FLOAT);
 
             /**
              * @brief

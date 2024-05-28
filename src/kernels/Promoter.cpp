@@ -11,13 +11,13 @@
 using namespace mpcr::kernels;
 
 void
-Promoter::Promote() {
+Promoter::Promote(const Precision &aOperationLowestPrecision) {
 
     if (mCounter != mPrecisions.size()) {
         MPCR_API_EXCEPTION("Cannot Promote without inserting all elements", -1);
     }
 
-    Precision highest_precision = mpcr::definitions::FLOAT;
+    Precision highest_precision = aOperationLowestPrecision;
 
     for (auto &x: mPrecisions) {
         if (x > highest_precision) {
