@@ -5,11 +5,10 @@
 ##########################################################################
 
 # Set minimum cmake version
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.19.0)
 cmake_policy(SET CMP0048 NEW)
 
-set(CMAKE_CXX_COMPILER g++)
-set(CMAKE_C_COMPILER gcc)
+include(cmake/DetectToolchain.cmake)
 
 # Project Name and Version
 project(MPCR VERSION 1.0.0)
@@ -27,26 +26,8 @@ else ()
     message(FATAL_ERROR "Unrecognized build type")
 endif ()
 
-# Set C++ standard to C++11.
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-include(cmake/CheckInstall.cmake)
-set(mpcr_path_to_check ${CMAKE_BINARY_DIR})
-check_install(${mpcr_path_to_check} mpcr_result)
-
-if (${mpcr_result})
-    message("MPCR Install Result : ${mpcr_result}")
-    set(MPCR_INSTALL OFF)
-else ()
-    add_definitions(-DMPCR_INSTALL)
-    set(MPCR_INSTALL ON)
-    message("MPCR Install Result : ${mpcr_result}")
-endif ()
 
 if (NOT APPLE)
     include(ImportGFortran)
@@ -63,7 +44,6 @@ else ()
     set(BLA_STATIC ON)
 endif ()
 
-
 # Find R and Rcpp using FindR Module
 FIND_PACKAGE(R REQUIRED)
 if (${R_FOUND})
@@ -72,7 +52,6 @@ if (${R_FOUND})
     set(USE_R ON)
     add_definitions(-DUSING_R)
 endif ()
-
 
 # blaspp and lapackpp will be build with no GPU support.
 set(gpu_backend CACHE "none" FORCE)

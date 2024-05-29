@@ -135,7 +135,7 @@ RCPP_MODULE(MPCR) {
     function("MPCR.acosh", &RACosh,List::create(_["x"]));
     function("MPCR.atanh", &RATanh,List::create(_["x"]));
 
-#ifdef MPCR_INSTALL
+
     /** Linear Algebra **/
 
     function("MPCR.backsolve", &RBackSolve,
@@ -185,7 +185,7 @@ RCPP_MODULE(MPCR) {
                           _[ "alpha" ] = 1));
 
 
-#endif
+
     function("as.MPCR", &RConvertToMPCR,
              List::create(_[ "data" ], _[ "nrow" ] = 0, _[ "ncol" ] = 0,
                           _[ "precision" ]));

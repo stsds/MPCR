@@ -51,7 +51,6 @@ RCPP_MODULE(MPCRTile) {
 
     /** MPCRTile Functions **/
     function("MPCRTile.copy",&RCopyMPCRTile,List::create(_["x"]));
-#ifdef MPCR_INSTALL
     function("MPCRTile.gemm", &mpcr::operations::linear::TileGemm,
              List::create(_[ "a" ], _[ "b" ], _[ "c" ],
                           _[ "transpose_a" ] = false,
@@ -66,7 +65,7 @@ RCPP_MODULE(MPCRTile) {
              List::create(_[ "a" ], _[ "b" ], _[ "side" ],
                           _[ "upper_triangle" ], _[ "transpose" ],
                           _[ "alpha" ]));
-#endif
+
     function("MPCRTile.GetTile", &RGetTile,
              List::create(_[ "matrix" ], _[ "row" ], _[ "col" ]));
     function("MPCRTile.UpdateTile", &RInsertTile,
