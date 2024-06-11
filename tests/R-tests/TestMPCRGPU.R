@@ -25,9 +25,6 @@ for (val in 1:16) {
 
 }
 
-for (val in 1:4) {
-  z[[val]] <- eigen_temp[[val]]
-}
 x$ToMatrix(4, 4)
 y$ToMatrix(4, 4)
 paste("X and Y values")
