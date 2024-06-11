@@ -13,7 +13,7 @@ This capability includes seamless memory transfers between CPU and GPU, managed 
 ### 1. Multi-Precision Support
 
 **MPCR** introduces a new data structure that supports three different precisions:
-- **16-bit** - Supported on GPU only, with half-precision support for the Matrix-Matrix Multiplication only.
+- **16-bit** - Supported on GPU only, with half-precision support for the Matrix-Matrix Multiplication only ( crossprod () ).
 - **32-bit**
 - **64-bit**
 
@@ -80,6 +80,7 @@ MPCR.SetOperationPLacement("GPU")
 
 cat("----------------------- CrossProduct C=XY --------------------\n")
 crossproduct$PrintValues()
-# Print is a CPU only function, so the data will automatically be transferred to CPU
+# Print is a CPU only function, so the data will automatically be transferred to CPU,
+# resulting in having a copy on CPU and a copy on GPU for future GPU operation
 crossproduct <- crossprod(x, y)
 ```

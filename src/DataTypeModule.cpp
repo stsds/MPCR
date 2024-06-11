@@ -57,7 +57,11 @@ RCPP_MODULE(MPCR) {
         .method("MPCR.GetValMatrix", &DataType::GetValMatrix)
         .method("MPCR.SetVal", &DataType::SetVal)
         .method("MPCR.SetValMatrix", &DataType::SetValMatrix)
-        .method("NotEqual", &DataType::NotEqualDispatcher);
+        .method("NotEqual", &DataType::NotEqualDispatcher)
+        .method("IsGPUAllocated",&DataType::IsGPUAllocated)
+        .method("IsCPUAllocated",&DataType::IsCPUAllocated)
+        .method("FreeGPU",&DataType::FreeGPUMemory)
+        .method("FreeCPU",&DataType::FreeCPUMemory);
 
     /** Function that are not masked **/
 
@@ -197,7 +201,7 @@ RCPP_MODULE(MPCR) {
 
     /** Run Context Functions **/
 
-    function("MPCR.SetOperationPLacement",&SetOperationPlacement);
-    function("MPCR.GetOperationPLacement",&GetOperationPlacement);
+    function("MPCR.SetOperationPlacement",&SetOperationPlacement,List::create(_["placement"]));
+    function("MPCR.GetOperationPlacement",&GetOperationPlacement);
 
 }

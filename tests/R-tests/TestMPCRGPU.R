@@ -34,7 +34,7 @@ paste("X and Y values")
 x$PrintValues()
 y$PrintValues()
 
-MPCR.SetOperationPLacement("GPU")
+MPCR.SetOperationPlacement("GPU")
 cat("----------------------- CrossProduct C=XY --------------------\n")
 crossproduct <- crossprod(x, y)
 crossproduct$PrintValues()

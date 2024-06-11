@@ -971,10 +971,11 @@ public:
 
     /**
      * @brief
-     * Checks if CPU buffer is allocated.
+     * Free CPU/GPU memory according to Operation Placement
      *
-     * @returns
-     * true if the buffer is allocated, false otherwise.
+     * @param[in] aOperationPlacement
+     * Operation placement to decide which memory to free.
+     *
      *
      */
     inline
@@ -987,6 +988,27 @@ public:
        }
     }
 
+    /**
+     * @brief
+     * Free GPU memory
+     *
+     */
+    inline
+    void
+    FreeGPUMemory() {
+       this->FreeMemory(GPU);
+    }
+
+    /**
+     * @brief
+     * Free CPU memory
+     *
+     */
+    inline
+    void
+    FreeCPUMemory() {
+      this->FreeMemory(CPU);
+    }
     /**
      * @brief
      * Allocate memory buffer on CPU or GPU and set it with all the values
