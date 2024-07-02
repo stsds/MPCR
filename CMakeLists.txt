@@ -19,12 +19,20 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "" OR ${CMAKE_BUILD_TYPE} STREQUAL "NOMODE")
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "RELEASE")
     message(STATUS "WORKING ON RELEASE MODE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS_RELEASE}")
+
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "DEBUG" OR ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     message(STATUS "WORKING ON DEBUG MODE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS_DEBUG}")
 else ()
     message(FATAL_ERROR "Unrecognized build type")
 endif ()
+
+message("---------------- --------------- ----------------")
+message("${CMAKE_CXX_FLAGS}")
+message("${CMAKE_C_FLAGS}")
+message("---------------- --------------- ----------------")
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -37,6 +45,13 @@ include(ImportOpenMP)
 if (OpenMP_FOUND)
     message("OpenMp Found")
 endif ()
+
+
+message("---------------- --------------- ----------------")
+message("${CMAKE_CXX_FLAGS}")
+message("${CMAKE_C_FLAGS}")
+message("---------------- --------------- ----------------")
+
 
 if (${BUILD_SHARED_LIBS})
     set(BLA_STATIC OFF)
