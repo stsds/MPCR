@@ -9,7 +9,10 @@
 cmake_minimum_required(VERSION 3.20)
 cmake_policy(SET CMP0048 NEW)
 
-include(cmake/DetectToolchain.cmake)
+if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+    message("-------------------- MPCR 2023-2024 -------------------")
+    include(cmake/DetectToolchain.cmake)
+endif()
 
 # Project Name and Version
 project(MPCR VERSION 1.0.0)
@@ -20,9 +23,12 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "" OR ${CMAKE_BUILD_TYPE} STREQUAL "NOMODE")
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "RELEASE")
     message(STATUS "WORKING ON RELEASE MODE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS_RELEASE}")
+
 elseif (${CMAKE_BUILD_TYPE} STREQUAL "DEBUG" OR ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     message(STATUS "WORKING ON DEBUG MODE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS_DEBUG}")
 else ()
     message(FATAL_ERROR "Unrecognized build type")
 endif ()

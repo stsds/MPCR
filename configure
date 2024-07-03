@@ -8,11 +8,8 @@
 
 cd "$(dirname "$0")"
 
-COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
   ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
-  COMPILE_FLAGS="-fPIC -w -W -Wno-dev"
 else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi
@@ -36,9 +33,8 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -B"${ABSOLUE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
   -DBUILD_MPCR_STATIC="OFF"\
-  -DBUILD_SHARED_LIBS=OFF \
-  -DCMAKE_CXX_FLAGS_DEBUG="$COMPILE_FLAGS"\
-  -DCMAKE_CXX_FLAGS_RELEASE="$COMPILE_FLAGS"
+  -DBUILD_SHARED_LIBS=OFF
+
 
 cd bin/
 make clean
