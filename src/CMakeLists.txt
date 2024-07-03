@@ -25,8 +25,12 @@ add_library(mpcr
         ${NEW_SOURCES}
         )
 
-
-target_link_libraries(mpcr ${LIBS})
+target_link_libraries(mpcr ${BLAS_LIBRARIES} ${LIBS}  "-Wl,--exclude-libs=ALL" )
+set_target_properties(mpcr
+        PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${R_INCLUDE}"
+        INTERFACE_LINK_LIBRARIES "${R_LIB}"
+        IMPORTED_LOCATION ${RCPP_LIB}
+        )
 
 
 install(TARGETS mpcr DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

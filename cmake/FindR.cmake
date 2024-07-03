@@ -131,11 +131,6 @@ set(R_INCLUDE
 add_library(R INTERFACE IMPORTED)
 
 if (R_LIB)
-    set_target_properties(R
-            PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${R_INCLUDE}"
-            INTERFACE_LINK_LIBRARIES "${R_LIB}"
-            IMPORTED_LOCATION ${RCPP_LIB}
-            )
     include(FindPackageHandleStandardArgs)
     find_package_handle_standard_args(R DEFAULT_MSG
             R_INCLUDE R_LIB)

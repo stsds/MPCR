@@ -46,7 +46,6 @@ run_chol_benchmark <- function(n, replication, times) {
 
 
   cat("\n\n\n")
-  cat("Running chol benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   chol(MPCR_matrix_single),
                   chol(MPCR_matrix_double),

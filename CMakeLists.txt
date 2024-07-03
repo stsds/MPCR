@@ -8,7 +8,9 @@
 cmake_minimum_required(VERSION 3.19.0)
 cmake_policy(SET CMP0048 NEW)
 
+if(NOT "${CMAKE_C_COMPILER}" AND NOT "${CMAKE_CXX_COMPILER}")
 include(cmake/DetectToolchain.cmake)
+endif()
 
 # Project Name and Version
 project(MPCR VERSION 1.0.0)
@@ -45,12 +47,6 @@ include(ImportOpenMP)
 if (OpenMP_FOUND)
     message("OpenMp Found")
 endif ()
-
-
-message("---------------- --------------- ----------------")
-message("${CMAKE_CXX_FLAGS}")
-message("${CMAKE_C_FLAGS}")
-message("---------------- --------------- ----------------")
 
 
 if (${BUILD_SHARED_LIBS})

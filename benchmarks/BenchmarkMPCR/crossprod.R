@@ -55,47 +55,51 @@ run_gemm_benchmark <- function(row, col, replication, times) {
   MPCR_matrix_double_2 <- as.MPCR(matrix_2, col, row, "double")
 
 
+
   cat("\n\n")
   cat("Running crossprod benchmark with 2 input \n")
+
+
   print(benchmark(replications = rep(replication, times),
                   crossprod(MPCR_matrix_single_1, MPCR_matrix_single_2),
+                  crossprod(MPCR_matrix_double_1, MPCR_matrix_double_2),
                   columns = c("test", "replications", "elapsed")))
 
-  # MPCR_matrix_single_3 <- as.MPCR(matrix_2, row, col, "single")
-  # MPCR_matrix_double_3 <- as.MPCR(matrix_2, row, col, "double")
-  #
-  # cat("\n\n")
-  # cat("Running tcrossprod benchmark with 2 input \n")
-  # print(benchmark(replications = rep(replication, times),
-  #                 tcrossprod(MPCR_matrix_single_1, MPCR_matrix_single_3),
-  #                 tcrossprod(MPCR_matrix_double_1, MPCR_matrix_double_3),
-  #                 columns = c("test", "replications", "elapsed")))
-  #
-  # cat("\n\n\n")
-  # matrix_3 <- generate_matrix_big(row, row)
-  #
-  #
-  # MPCR_matrix_single_3 <- as.MPCR(matrix_3, row, row, "single")
-  # MPCR_matrix_double_3 <- as.MPCR(matrix_3, row, row, "double")
-  # cat("Matrix 3 : ")
-  # cat(paste(row, row, sep = "*"))
-  # cat("\n")
-  # cat("\n\n\n")
-  # cat("Running crossprod benchmark with 1 input \n")
-  # print(benchmark(replications = rep(replication, times),
-  #                 crossprod(MPCR_matrix_single_3),
-  #                 crossprod(MPCR_matrix_double_3),
-  #                 columns = c("test", "replications", "elapsed")))
-  #
-  #
-  # cat("Running tcrossprod benchmark with 1 input \n")
-  # print(benchmark(replications = rep(replication, times),
-  #                 tcrossprod(MPCR_matrix_single_3),
-  #                 tcrossprod(MPCR_matrix_double_3),
-  #                 columns = c("test", "replications", "elapsed")))
-  #
-  #
-  # cat("\n")
+  MPCR_matrix_single_3 <- as.MPCR(matrix_2, row, col, "single")
+  MPCR_matrix_double_3 <- as.MPCR(matrix_2, row, col, "double")
+
+  cat("\n\n")
+  cat("Running tcrossprod benchmark with 2 input \n")
+  print(benchmark(replications = rep(replication, times),
+                  tcrossprod(MPCR_matrix_single_1, MPCR_matrix_single_3),
+                  tcrossprod(MPCR_matrix_double_1, MPCR_matrix_double_3),
+                  columns = c("test", "replications", "elapsed")))
+
+  cat("\n\n\n")
+  matrix_3 <- generate_matrix_big(row, row)
+
+
+  MPCR_matrix_single_3 <- as.MPCR(matrix_3, row, row, "single")
+  MPCR_matrix_double_3 <- as.MPCR(matrix_3, row, row, "double")
+  cat("Matrix 3 : ")
+  cat(paste(row, row, sep = "*"))
+  cat("\n")
+  cat("\n\n\n")
+  cat("Running crossprod benchmark with 1 input \n")
+  print(benchmark(replications = rep(replication, times),
+                  crossprod(MPCR_matrix_single_3),
+                  crossprod(MPCR_matrix_double_3),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  cat("Running tcrossprod benchmark with 1 input \n")
+  print(benchmark(replications = rep(replication, times),
+                  tcrossprod(MPCR_matrix_single_3),
+                  tcrossprod(MPCR_matrix_double_3),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  cat("\n")
 }
 
 # Define the arguments
