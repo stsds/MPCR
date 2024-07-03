@@ -8,8 +8,9 @@
 cmake_minimum_required(VERSION 3.19.0)
 cmake_policy(SET CMP0048 NEW)
 
-if(NOT "${CMAKE_C_COMPILER}" AND NOT "${CMAKE_CXX_COMPILER}")
-include(cmake/DetectToolchain.cmake)
+if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+    message("-------------------- MPCR 2023-2024 -------------------")
+    include(cmake/DetectToolchain.cmake)
 endif()
 
 # Project Name and Version
@@ -30,11 +31,6 @@ elseif (${CMAKE_BUILD_TYPE} STREQUAL "DEBUG" OR ${CMAKE_BUILD_TYPE} STREQUAL "De
 else ()
     message(FATAL_ERROR "Unrecognized build type")
 endif ()
-
-message("---------------- --------------- ----------------")
-message("${CMAKE_CXX_FLAGS}")
-message("${CMAKE_C_FLAGS}")
-message("---------------- --------------- ----------------")
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)

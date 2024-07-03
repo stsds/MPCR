@@ -16,7 +16,7 @@ macro(BuildDependency raw_name url tag)
             -DCMAKE_INSTALL_PREFIX=${${name}_installpath}
             -DNOFORTRAN=1
             -DBUILD_SHARED_LIBS=OFF
-            -DCMAKE_C_FLAGS_RELEASE="-fPIC -w -W"
+            -DCMAKE_C_FLAGS_RELEASE=${CMAKE_C_FLAGS}
             ${${name}_srcpath}
             WORKING_DIRECTORY
             ${${name}_binpath})
@@ -24,12 +24,13 @@ macro(BuildDependency raw_name url tag)
     # Build and install subproject
     include(ProcessorCount)
     ProcessorCount(N)
-#    set(N 2)
+    set(N 2)
     if (NOT N EQUAL 0)
         execute_process(COMMAND ${CMAKE_COMMAND} --build ${${name}_binpath} --parallel ${N} --target install ERROR_FILE /dev/null OUTPUT_QUIET)
     else ()
         execute_process(COMMAND ${CMAKE_COMMAND} --build ${${name}_binpath} --parallel 48 --target install ERROR_FILE /dev/null OUTPUT_QUIET)
     endif ()
+
     set(ENV{LD_LIBRARY_PATH} "${${name}_installpath}/lib:${${name}_installpath}/lib64:$ENV{LD_LIBRARY_PATH}")
     set(ENV{LIBRARY_PATH} "${${name}_installpath}/lib:${${name}_installpath}/lib64:$ENV{LIBRARY_PATH}")
     set(ENV{CPATH} "${${name}_installpath}/include:$ENV{CPATH}")

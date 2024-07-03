@@ -41,10 +41,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}  -xHost -g -debug -O0 -fma -qopt-report=max -fPIC")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}  -xHost -g -debug -O0 -fma -qopt-report=max -fPIC")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}  -xHost -g -debug -O0 -fma -qopt-report=max -fPIC -fp-model precise")
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}  -xHost -g -debug -O0 -fma -qopt-report=max -fPIC -fp-model precise")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -xHost -O3 -fma -qopt-report=max -fPIC")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}  -xHost -O3 -fma -qopt-report=max -fPIC")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -xHost -O3 -fma -qopt-report=max -fPIC -fp-model precise")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}  -xHost -O3 -fma -qopt-report=max -fPIC -fp-model precise")
 
 message(STATUS "--------------- Using Intel Compiler -------------")
