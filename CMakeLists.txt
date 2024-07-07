@@ -122,3 +122,7 @@ if (MPCR_BUILD_TESTS)
             COMMAND system-tests
             )
 endif ()
+
+install(DIRECTORY inst/include DESTINATION ${CMAKE_INSTALL_PREFIX}/MPCR
+        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h")
+

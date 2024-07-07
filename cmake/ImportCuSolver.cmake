@@ -1,9 +1,9 @@
-set(cudart_lib CUDA::cudart)
-set(cublas_lib CUDA::cublas)
+set(cudart_lib CUDA::cudart_static)
+set(cublas_lib CUDA::cublas_static)
 set(LIBS
-        CUDA::cusolver
-        CUDA::cublas
-        CUDA::cublasLt
-        CUDA::cudart
+        CUDA::cusolver_static
+        CUDA::cublas_static
+        CUDA::cublasLt_static
+        CUDA::cudart_static
         ${LIBS}
         )
