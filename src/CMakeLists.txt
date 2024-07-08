@@ -41,3 +41,8 @@ set_target_properties(mpcr
 
 install(TARGETS mpcr DESTINATION ${CMAKE_INSTALL_PREFIX}/MPCR/lib)
 target_compile_definitions(mpcr PUBLIC CONFIG_FILES_DIR="${CMAKE_CONFIG_PREFIX}")
+
+if (EXISTS "${Backend_Support_Status}")
+    # Install the dummy file
+    install(FILES ${Backend_Support_Status} DESTINATION "${CMAKE_INSTALL_PREFIX}/MPCR/")
+endif ()

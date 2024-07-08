@@ -63,3 +63,5 @@ Read-and-delete-me
 # Output files from R CMD check
 /*.Rcheck/
 inst/doc
+
+inst/GPU_SUPPORT

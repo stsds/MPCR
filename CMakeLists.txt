@@ -9,10 +9,10 @@
 cmake_minimum_required(VERSION 3.20)
 cmake_policy(SET CMP0048 NEW)
 
-if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
     message("-------------------- MPCR 2023-2024 -------------------")
     include(cmake/DetectToolchain.cmake)
-endif()
+endif ()
 
 # Project Name and Version
 project(MPCR VERSION 1.0.0)
@@ -37,6 +37,15 @@ include(CheckLanguage)
 
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+set(Backend_Support_Status "${CMAKE_SOURCE_DIR}/inst/GPU_SUPPORT")
+# Check if the file exists
+if (EXISTS "${Backend_Support_Status}")
+    # Remove the file
+    file(REMOVE "${Backend_Support_Status}")
+    message(STATUS "Backend_Support_Status deleted: ${Backend_Support_Status}")
+endif ()
+
 
 if (NOT APPLE)
     include(ImportGFortran)
@@ -65,11 +74,11 @@ endif ()
 # This section is to test if there's a CUDA compiler available on the system,
 # if so, the code will compile both CPU and GPU backends.
 check_language(CUDA)
-if(CMAKE_CUDA_COMPILER)
+if (CMAKE_CUDA_COMPILER)
     set(USE_CUDA ON)
-else()
+else ()
     message(STATUS "-- No CUDA support --")
-endif()
+endif ()
 
 # Find CUDAToolkit and Link to CUSOLVER
 if (${USE_CUDA})
@@ -78,6 +87,8 @@ if (${USE_CUDA})
     enable_language(CUDA)
     include(ImportCuSolver)
     add_definitions(-DUSE_CUDA)
+
+    file(WRITE ${Backend_Support_Status} "MPCR built with GPU Support")
 else ()
     message("-- Build Serial Support -- ")
 endif ()
