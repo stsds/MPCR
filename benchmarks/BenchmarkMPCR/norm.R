@@ -2,7 +2,6 @@ library(rbenchmark)
 library(MPCR)
 
 
-
 generate_matrix_big <- function(n, m) {
   # Set the matrix dimensions
   nrows <- n
@@ -30,7 +29,7 @@ generate_matrix_big <- function(n, m) {
 }
 
 
-run_norm_benchmark <- function(n, replication, times) {
+run_norm_benchmark <- function(n, replication, times, operation_placement) {
 
   if (n > 20000) {
     A <- generate_matrix_big(n, n)
@@ -40,9 +39,10 @@ run_norm_benchmark <- function(n, replication, times) {
   }
 
 
-  MPCR_single <- as.MPCR(A, n, n, "single")
-  MPCR_double <- as.MPCR(A, n, n, "double")
+  MPCR_single <- as.MPCR(A, n, n, "single",operation_placement)
+  MPCR_double <- as.MPCR(A, n, n, "double",operation_placement)
 
+  MPCR.SetOperationPlacement(operation_placement)
   cat("Matrix : ")
   cat(paste(n, n, sep = "*"))
   cat("\n")
@@ -65,7 +65,7 @@ run_norm_benchmark <- function(n, replication, times) {
 # Define the arguments
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 3) {
+if (length(args) != 4) {
   cat("\n\n\n\n")
   stop("Please provide correct arguments, 1-matrix_size 2-number_of_replication 3-times")
 }
@@ -73,6 +73,7 @@ if (length(args) != 3) {
 mat_size <- as.integer(args[1])
 replication <- as.integer(args[2])
 times <- as.integer(args[3])
+operation_placement <- toString(args[4])
 
 cat("Matrix size : ")
 cat(paste(mat_size, mat_size, sep = "*"))
@@ -81,5 +82,9 @@ cat("replication : ")
 cat(replication)
 cat("times : ")
 cat(times)
+cat("\n")
+cat("Operation Placement : ")
+cat(operation_placement)
+cat("\n")
 
-run_norm_benchmark(mat_size, replication, times)
+run_norm_benchmark(mat_size, replication, times,operation_placement)

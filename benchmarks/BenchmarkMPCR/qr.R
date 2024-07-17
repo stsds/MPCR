@@ -29,7 +29,7 @@ generate_matrix_big <- function(n, m) {
 }
 
 
-run_qr_benchmark <- function(n, replication, times) {
+run_qr_benchmark <- function(n, replication, times,operation_placement) {
 
   # Generate a random matrix of size n x n
   set.seed(123)
@@ -43,9 +43,10 @@ run_qr_benchmark <- function(n, replication, times) {
   cat("Matrix A : ")
   cat(paste(n, n, sep = "*"))
 
-  MPCR_matrix_single <- as.MPCR(matrix, n, n, "single")
-  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double")
+  MPCR_matrix_single <- as.MPCR(matrix, n, n, "single",operation_placement)
+  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double",operation_placement)
 
+  MPCR.SetOperationPlacement(operation_placement)
   cat("\n\n\n")
   cat("Running qr benchmark \n")
   print(benchmark(replications = rep(replication, times),
@@ -73,24 +74,12 @@ run_qr_benchmark <- function(n, replication, times) {
                   columns = c("test", "replications", "elapsed")))
 
 
-  b <- rnorm(n)
-
-  MPCR_random_single <- as.MPCR(b, precision = "single")
-  MPCR_random_double <- as.MPCR(b, precision = "double")
-
-  cat("Running qr.qy & qr.qty benchmark \n")
-  print(benchmark(replications = rep(replication, times),
-                  qr.qty(qr_single, MPCR_random_single),
-                  qr.qy(qr_double, MPCR_random_double),
-                  columns = c("test", "replications", "elapsed")))
-
-
 }
 
 # Define the arguments
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 3) {
+if (length(args) != 4) {
   cat("\n\n\n\n")
   stop("Please provide correct arguments, 1-matrix_size 2-number_of_replication 3-times")
 }
@@ -98,6 +87,7 @@ if (length(args) != 3) {
 mat_size <- as.integer(args[1])
 replication <- as.integer(args[2])
 times <- as.integer(args[3])
+operation_placement <- toString(args[4])
 
 cat("Matrix size : ")
 cat(paste(mat_size, mat_size, sep = "*"))
@@ -106,6 +96,10 @@ cat("replication : ")
 cat(replication)
 cat("times : ")
 cat(times)
+cat("\n")
+cat("Operation Placement : ")
+cat(operation_placement)
+cat("\n")
 
 
-run_qr_benchmark(mat_size, replication, times)
+run_qr_benchmark(mat_size, replication, times,operation_placement)
