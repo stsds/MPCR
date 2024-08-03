@@ -63,7 +63,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 if (length(args) != 4) {
   cat("\n\n\n\n")
-  stop("Please provide correct arguments, 1-matrix_size 2-number_of_replication 3-times")
+  stop("Please provide correct arguments, 1-matrix_size 2-number_of_replication 3-times 4-operation_placement")
 }
 
 mat_size <- as.integer(args[1])

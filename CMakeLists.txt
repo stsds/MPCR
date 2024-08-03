@@ -15,7 +15,7 @@ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
 endif ()
 
 # Project Name and Version
-project(MPCR VERSION 1.0.0)
+project(MPCR VERSION 2.0.0)
 
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "" OR ${CMAKE_BUILD_TYPE} STREQUAL "NOMODE")
@@ -45,7 +45,6 @@ if (EXISTS "${Backend_Support_Status}")
     file(REMOVE "${Backend_Support_Status}")
     message(STATUS "Backend_Support_Status deleted: ${Backend_Support_Status}")
 endif ()
-
 
 if (NOT APPLE)
     include(ImportGFortran)

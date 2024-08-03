@@ -31,7 +31,11 @@ else ()
             )
 endif ()
 
-target_link_libraries(mpcr ${BLAS_LIBRARIES} ${LIBS} "-Wl,--exclude-libs=ALL")
+if (APPLE)
+    target_link_libraries(mpcr ${BLAS_LIBRARIES} ${LIBS})
+else ()
+    target_link_libraries(mpcr ${BLAS_LIBRARIES} ${LIBS} "-Wl,--exclude-libs=ALL")
+endif ()
 
 set_target_properties(mpcr
         PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${R_INCLUDE}"

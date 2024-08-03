@@ -79,7 +79,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 if (length(args) != 5) {
   cat("\n\n\n\n")
-  stop("Please provide correct arguments, 1-row 2-col 3-number_of_replication 4-times")
+  stop("Please provide correct arguments, 1-row 2-col 3-number_of_replication 4-times 5-operation_placement")
 }
 
 row <- as.integer(args[1])

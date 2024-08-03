@@ -1,7 +1,7 @@
 Package: MPCR
 Type: Package
 Title: Multi Precision Computing
-Version: 1.0
+Version: 2.0.0
 Date: 2023-11-12
 Author: David Helmy [aut, cph], Sameh Abdulah [cre, cph], KAUST King Abdullah University of Science and Technology [fnd, cph], Brightskies [cph]
 Maintainer: Sameh Abdulah <sameh.abdulah@kaust.edu.sa>
