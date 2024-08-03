@@ -312,12 +312,15 @@ TEST_DATA_TYPE() {
 
 }
 
+
 #ifdef USE_CUDA
 
-void
-TestHalfObject(DataType &aHalfObject,const size_t &aObjSize,const vector<double> &aValues){
 
-    REQUIRE(aValues.size()==aObjSize);
+void
+TestHalfObject(DataType &aHalfObject, const size_t &aObjSize,
+               const vector <double> &aValues) {
+
+    REQUIRE(aValues.size() == aObjSize);
 
     REQUIRE(aHalfObject.GetPrecision() == HALF);
     REQUIRE(aHalfObject.GetSize() == aObjSize);
@@ -325,7 +328,7 @@ TestHalfObject(DataType &aHalfObject,const size_t &aObjSize,const vector<double>
     REQUIRE(aHalfObject.IsCPUAllocated() == false);
 
     auto data = aHalfObject.GetData(GPU);
-    REQUIRE_THROWS(aHalfObject.SetData((char*)data,CPU));
+    REQUIRE_THROWS(aHalfObject.SetData((char *) data, CPU));
     REQUIRE(data != nullptr);
     REQUIRE(aHalfObject.IsGPUAllocated() == true);
     REQUIRE(aHalfObject.IsCPUAllocated() == false);
@@ -340,7 +343,7 @@ TestHalfObject(DataType &aHalfObject,const size_t &aObjSize,const vector<double>
 
     auto pData = (float *) data;
     for (auto i = 0; i < aObjSize; i++) {
-        REQUIRE(pData[ i ] == aValues[i]);
+        REQUIRE(pData[ i ] == aValues[ i ]);
     }
 
     data = aHalfObject.GetData(GPU);
@@ -351,14 +354,15 @@ TestHalfObject(DataType &aHalfObject,const size_t &aObjSize,const vector<double>
                          mpcr::kernels::ContextManager::GetOperationContext(),
                          mpcr::memory::MemoryTransfer::DEVICE_TO_HOST);
 
-    pData=(float*)data_val;
+    pData = (float *) data_val;
 
     for (auto i = 0; i < aObjSize; i++) {
         REQUIRE(pData[ i ] == i);
     }
 
-    mpcr::memory::DestroyArray(data_val,CPU, nullptr);
+    mpcr::memory::DestroyArray(data_val, CPU, nullptr);
 }
+
 
 void
 TEST_HALF_PRECISION_SUPPORT() {
@@ -374,35 +378,72 @@ TEST_HALF_PRECISION_SUPPORT() {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
             GPU);
         DataType half_object(values, HALF, GPU);
-        TestHalfObject(half_object,size,values);
+        TestHalfObject(half_object, size, values);
 
-    }
-    SECTION("Set values"){
+    }SECTION("Set values") {
 
-        DataType half_obj(HALF,CPU);
+        DataType half_obj(HALF, CPU);
 
-        REQUIRE(half_obj.GetPrecision()==FLOAT);
-        half_obj.SetPrecision(HALF,GPU);
-        REQUIRE(half_obj.GetPrecision()==HALF);
+        REQUIRE(half_obj.GetPrecision() == FLOAT);
+        half_obj.SetPrecision(HALF, GPU);
+        REQUIRE(half_obj.GetPrecision() == HALF);
 
-        half_obj.SetPrecision(HALF,CPU);
-        REQUIRE(half_obj.GetPrecision()==FLOAT);
+        half_obj.SetPrecision(HALF, CPU);
+        REQUIRE(half_obj.GetPrecision() == FLOAT);
 
-        half_obj.SetPrecision(HALF,GPU);
-        REQUIRE(half_obj.GetPrecision()==HALF);
+        half_obj.SetPrecision(HALF, GPU);
+        REQUIRE(half_obj.GetPrecision() == HALF);
 
 
-        half_obj.Allocate(values,GPU);
-        TestHalfObject(half_obj,size,values);
+        half_obj.Allocate(values, GPU);
+        TestHalfObject(half_obj, size, values);
 
     }
 }
+
+
 #endif
+
+
+void
+TEST_CUDA_MATRIX() {
+    SECTION("Testing free memory") {
+
+        cout << "Testing MPCR CLASS Free Memory ..." << endl;
+        vector <double> values;
+        auto size = 50;
+        values.resize(size);
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i;
+        }
+
+        DataType temp_obj(values, FLOAT, GPU);
+        temp_obj.SetDimensions(5, 10);
+
+        REQUIRE(temp_obj.IsMatrix());
+
+        auto pData = temp_obj.GetData(CPU);
+
+        REQUIRE(temp_obj.IsMatrix());
+        REQUIRE(temp_obj.GetSize() == size);
+
+        temp_obj.FreeMemory(CPU);
+
+        REQUIRE(temp_obj.IsMatrix());
+        REQUIRE(temp_obj.GetSize() == size);
+
+        temp_obj.FreeMemory(GPU);
+        REQUIRE(!temp_obj.IsMatrix());
+        REQUIRE(temp_obj.GetSize() == 0);
+    }
+}
+
 
 TEST_CASE("DataTypeTest", "[DataType]") {
     TEST_DATA_TYPE();
 #ifdef USE_CUDA
     TEST_HALF_PRECISION_SUPPORT();
+    TEST_CUDA_MATRIX();
 #endif
 }
 

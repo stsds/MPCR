@@ -40,6 +40,9 @@ To install the **MPCR** package, you can use the following command:
 - Clone the MPCR package from [here](https://github.com/stsds/MPCR).
 - Checkout to tag `v1.0.0` (Latest stable release).
 - Run `R CMD INSTALL .` from the project root directory.
+
+**General Note:** The package will automatically be built with CUDA support in case CUDA ToolKit is detected, if not, the package
+will be build with CPU support only.
 ___
 
 
