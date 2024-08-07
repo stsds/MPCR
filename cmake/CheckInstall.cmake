@@ -28,10 +28,14 @@ endfunction()
 function(find_environment_variable_prefix prefix result)
     get_all_environment_variables(env_vars)
     set(found "FALSE")
+    set(count 0)  # Initialize a counter to keep track of matches
     foreach(env_var ${env_vars})
         if(env_var MATCHES "^${prefix}")
-            set(found "TRUE")
-            break()
+            math(EXPR count "${count} + 1")  # Increment the counter
+            if(count EQUAL 3)  # Check if at least three matches are found
+                set(found "TRUE")
+                break()
+            endif()
         endif()
     endforeach()
     set(${result} "${found}" PARENT_SCOPE)

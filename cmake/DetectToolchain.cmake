@@ -110,10 +110,6 @@ SplitString("${R_CXX_MPCR_COMPILER}" CXX_MPCR_COMPILER CXX_MPCR_FLAGS)
 unset("${C_MPCR_FLAGS}")
 unset("${CXX_MPCR_FLAGS}")
 
-#set(C_MPCR_COMPILER clang)
-#set(CXX_MPCR_COMPILER clang++)
-#set(USE_TECH clang)
-
 
 string(TOLOWER ${USE_TECH} USE_TECH)
 
