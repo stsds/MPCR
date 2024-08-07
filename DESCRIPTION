@@ -1,7 +1,7 @@
 Package: MPCR
 Type: Package
 Title: Multi- And Mixed-Precision Computations
-Version: 1.1.2
+Version: 1.1.3
 Date: 2024-05-26
 Author: David Helmy [aut], Sameh Abdulah [cre], KAUST King Abdullah University of Science and Technology [fnd, cph]
 Maintainer: Sameh Abdulah <sameh.abdulah@kaust.edu.sa>
