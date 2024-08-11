@@ -1,4 +1,0 @@
-<map id="mpcr::operations::basic::IsFloat" name="mpcr::operations::basic::IsFloat">
-<area shape="rect" id="node1" title="Check if MPCR object is 32&#45;bit Precision." alt="" coords="5,5,180,47"/>
-<area shape="rect" id="node2" href="$classDataType.html#a0ce6eb097e7558135f9d958485b50fad" title="Get Precision of the Object." alt="" coords="228,13,401,39"/>
-</map>

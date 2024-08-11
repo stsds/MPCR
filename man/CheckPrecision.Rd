@@ -1,9 +1,14 @@
-\name{25-Check precision}
+\name{24-Check precision}
 \alias{Check Precision}
 \alias{MPCR.is.single,Rcpp_MPCR-method}
 \alias{MPCR.is.double,Rcpp_MPCR-method}
 \alias{MPCR.is.half,Rcpp_MPCR-method}
 \alias{MPCR.is.float,Rcpp_MPCR-method}
+
+\alias{MPCR.is.single}
+\alias{MPCR.is.double}
+\alias{MPCR.is.half}
+\alias{MPCR.is.float}
 
 \title{Metadata functions}
 \description{

@@ -1,6 +1,8 @@
-\name{32-Symmetric}
+\name{31-Symmetric}
 \alias{isSymmetric}
 \alias{isSymmetric,Rcpp_MPCR-method}
+\alias{MPCR.isSymmetric}
+
 \title{isSymmetric}
 \usage{
 \S4method{isSymmetric}{Rcpp_MPCR}(object, ...)

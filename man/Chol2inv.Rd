@@ -1,6 +1,8 @@
-\name{29-Cholesky inverse}
+\name{28-Cholesky inverse}
 \alias{chol2inv}
 \alias{chol2inv,Rcpp_MPCR-method}
+\alias{MPCR.chol2inv}
+
 \title{cholesky inverse}
 \usage{
 \S4method{chol2inv}{Rcpp_MPCR}(x, size = NCOL(x))

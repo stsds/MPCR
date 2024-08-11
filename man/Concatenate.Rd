@@ -1,6 +1,7 @@
-\name{09-Concatenate}
+\name{08-Concatenate}
 \alias{concatenate}
 \alias{MPCR.Concatenate,Rcpp_MPCR-method}
+\alias{MPCR.Concatenate}
 \title{concatenate}
 \usage{
 \S4method{MPCR.Concatenate}{Rcpp_MPCR}(x)

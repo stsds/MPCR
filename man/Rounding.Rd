@@ -1,9 +1,15 @@
-\name{18-Round}
+\name{17-Round}
 \alias{round}
 \alias{ceiling,Rcpp_MPCR-method}
 \alias{floor,Rcpp_MPCR-method}
 \alias{trunc,Rcpp_MPCR-method}
 \alias{round,Rcpp_MPCR-method}
+
+\alias{MPCR.ceiling}
+\alias{MPCR.floor}
+\alias{MPCR.trunc}
+\alias{MPCR.round}
+
 \title{Rounding functions}
 \description{
     Rounding functions.

@@ -7,8 +7,6 @@
  **/
 
 #include <operations/BinaryOperations.hpp>
-#include <utilities/MPCRErrorHandler.hpp>
-#include <utilities/MPCRDispatcher.hpp>
 #include <operations/helpers/BasicOperationsHelper.hpp>
 #include <operations/helpers/BinaryOperationsHelper.hpp>
 
@@ -33,7 +31,7 @@ binary::PerformOperation(DataType &aInputA, DataType &aInputB,
 
     auto pInput_data_a = (T *) aInputA.GetData();
     auto pInput_data_b = (X *) aInputB.GetData();
-    auto pOutput_data = new Y[size_out];
+    auto pOutput_data = (Y*)memory::AllocateArray(size_out*sizeof (Y),CPU, nullptr);
 
     if (aInputA.IsMatrix()) {
         aOutput.SetDimensions(aInputA.GetNRow(), aInputA.GetNCol());
@@ -67,7 +65,7 @@ binary::PerformOperationSingle(DataType &aInputA, const double &aVal,
     }
 
     auto pData_input = (T *) aInputA.GetData();
-    auto pData_out = new Y[size];
+    auto pData_out = (Y*)memory::AllocateArray(size*sizeof (Y),CPU, nullptr);
 
     RUN_BINARY_OP_SINGLE(pData_input, aVal, pData_out, aFun, size)
 

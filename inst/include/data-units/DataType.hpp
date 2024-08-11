@@ -11,7 +11,8 @@
 
 
 #include <vector>
-#include <data-units/Precision.hpp>
+#include <data-units/DataHolder.hpp>
+#include <utilities/MPCRDispatcher.hpp>
 
 
 /** Dimensions struct holding Dimensions for Representing a Vector as a Matrix **/
@@ -144,7 +145,11 @@ public:
      * @brief
      * DataType default constructor
      */
-    DataType() = default;
+    explicit
+    DataType() {
+        this->InitializeObject(0, DOUBLE, CPU);
+    }
+
 
     /**
      * @brief
@@ -155,7 +160,9 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aSize, mpcr::precision::Precision aPrecision);
+    explicit
+    DataType(size_t aSize, mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -166,8 +173,10 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
+    explicit
     DataType(std::vector <double> &aValues,
-             mpcr::precision::Precision aPrecision);
+             mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
 
     /**
@@ -179,8 +188,9 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a string Precision)
      */
-    DataType(std::vector <double> aValues, std::string aPrecision);
-
+    explicit
+    DataType(std::vector <double> aValues, std::string aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -195,8 +205,10 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
+    explicit
     DataType(std::vector <double> &aValues, const size_t &aRow,
-             const size_t &aCol, const std::string &aPrecision);
+             const size_t &aCol, const std::string &aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -214,7 +226,9 @@ public:
      * @param[in] aDataType
      * DataType object to copy its content
      */
-    DataType(DataType &aDataType, const mpcr::precision::Precision &aPrecision);
+    explicit
+    DataType(DataType &aDataType,
+             const mpcr::definitions::Precision &aPrecision);
 
     /**
      * @brief
@@ -225,7 +239,25 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a String)
      */
-    DataType(size_t aSize, const std::string &aPrecision);
+    explicit
+    DataType(size_t aSize, const std::string &aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
+
+    /**
+     * @brief
+     * DataType Constructor
+     *
+     * @param[in] aSize
+     * Size of Vector
+     * @param[in] aPrecision
+     * Precision to Describe the Values (as a String)
+     * @param [in] aOperationPlacement
+     * Operation placement to decide whether the buffer is allocated on CPU or GPU.
+     *
+     */
+    explicit
+    DataType(size_t aSize, const std::string &aPrecision,
+             const std::string &aOperationPlacement);
 
     /**
      * @brief
@@ -238,7 +270,9 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as a Precision ENUM object)
      */
-    DataType(size_t aRow, size_t aCol, mpcr::precision::Precision aPrecision);
+    explicit
+    DataType(size_t aRow, size_t aCol, mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -249,7 +283,9 @@ public:
      * @param[in] aPrecision
      * Precision to Describe the Values (as an int)
      */
-    DataType(size_t aSize, int aPrecision);
+    explicit
+    DataType(size_t aSize, int aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -260,7 +296,8 @@ public:
      * Precision to Describe the Values (as a Precision ENUM object)
      */
     explicit
-    DataType(mpcr::precision::Precision aPrecision);
+    DataType(mpcr::definitions::Precision aPrecision,
+             const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -431,10 +468,9 @@ public:
     ClearUp() {
         this->mSize = 0;
         this->mMatrix = false;
-        delete[] this->mpData;
         delete this->mpDimensions;
-        this->mpData = nullptr;
         this->mpDimensions = nullptr;
+        mData.ClearUp();
     }
 
 
@@ -525,18 +561,22 @@ public:
      * @returns
      * Precision Object
      */
-    mpcr::precision::Precision &
+    mpcr::definitions::Precision &
     GetPrecision();
 
     /**
      * @brief
      * Get Data of Vector
      *
+     * @param[in] aOperationPlacement
+     * Enum to decide which pointer should be returned.
+     *
      * @returns
      * Char pointer pointing to vector data (Must be casted according to precision)
+     * ( can be a host or device pointer according to operation placement )
      */
     char *
-    GetData();
+    GetData(const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -566,7 +606,8 @@ public:
      * Precision of Vector or Matrix
      */
     void
-    SetPrecision(mpcr::precision::Precision aPrecision);
+    SetPrecision(mpcr::definitions::Precision aPrecision,
+                 const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -601,7 +642,7 @@ public:
      * Buffer to set Object Buffer With.
      */
     void
-    SetData(char *aData);
+    SetData(char *aData, const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -706,51 +747,6 @@ public:
 
     /**
      * @brief
-     * Get Element at Idx from MPCR Vector as MPCR Object
-     *
-     * @param[in] aIndex
-     * Index to Get Value from
-     *
-     * @returns
-     * MPCR Object holding element at idx
-     *
-     */
-    inline
-    DataType *
-    GetElementVector(const size_t &aIndex) {
-        auto element = GetVal(aIndex);
-        auto output = new DataType(1, this->mPrecision);
-        output->SetVal(0, element);
-        return output;
-    }
-
-
-    /**
-     * @brief
-     * Get Element with Idx [row][col] from MPCR Matrix as MPCR Object
-     *
-     * @param[in] aRow
-     * Row Idx
-     * @param[in] aCol
-     * Col Idx
-     *
-     * @returns
-     * MPCR Object holding element at idx
-     *
-     */
-    inline
-    DataType *
-    GetElementMatrix(const size_t &aRow, const size_t &aCol) {
-        auto index = GetMatrixIndex(aRow, aCol);
-        auto element = GetVal(index);
-        auto output = new DataType(1, this->mPrecision);
-        output->SetVal(0, element);
-        return output;
-    }
-
-
-    /**
-     * @brief
      * Check if a Casted Memory Address is a DataType.
      *
      * @returns
@@ -772,7 +768,7 @@ public:
      *
      */
     void
-    ConvertPrecision(const mpcr::precision::Precision &aPrecision);
+    ConvertPrecision(const mpcr::definitions::Precision &aPrecision);
 
     /**
      * @brief
@@ -822,17 +818,6 @@ public:
      */
     void
     Transpose();
-
-    /**
-     * @brief
-     * Set and cast values in the data vector according to Vector of double values
-     *
-     * @param[in] aValues
-     * vector of double values
-     *
-     */
-    void
-    SetValues(std::vector <double> &aValues);
 
     /**
      * @brief
@@ -955,7 +940,114 @@ public:
     DeSerialize(char *apData);
 
 
+    /**
+     * @brief
+     * Checks if GPU buffer is allocated.
+     *
+     * @returns
+     * true if the buffer is allocated, false otherwise.
+     *
+     */
+    inline
+    bool
+    IsGPUAllocated() {
+        return mData.IsAllocated(GPU);
+    };
+
+
+    /**
+     * @brief
+     * Checks if CPU buffer is allocated.
+     *
+     * @returns
+     * true if the buffer is allocated, false otherwise.
+     *
+     */
+    inline
+    bool
+    IsCPUAllocated() {
+        return mData.IsAllocated(CPU);
+    }
+
+    /**
+     * @brief
+     * Free CPU/GPU memory according to Operation Placement
+     *
+     * @param[in] aOperationPlacement
+     * Operation placement to decide which memory to free.
+     *
+     *
+     */
+    inline
+    void
+    FreeMemory(const OperationPlacement &aOperationPlacement) {
+       mData.FreeMemory(aOperationPlacement);
+
+       if(mData.IsEmpty()){
+           this->ClearUp();
+       }
+    }
+
+    /**
+     * @brief
+     * Free GPU memory
+     *
+     */
+    inline
+    void
+    FreeGPUMemory() {
+       this->FreeMemory(GPU);
+    }
+
+    /**
+     * @brief
+     * Free CPU memory
+     *
+     */
+    inline
+    void
+    FreeCPUMemory() {
+      this->FreeMemory(CPU);
+    }
+    /**
+     * @brief
+     * Allocate memory buffer on CPU or GPU and set it with all the values
+     * of the data passed.
+     * This function will automatically handle all the allocation and memory
+     * movement needed for the operation.
+     *
+     * @param [in] aValues
+     * Vector of double values, that will be casted according to object precision.
+     * @param [in] aPlacement
+     * Placement of buffer allocation needed.
+     *
+     */
+    void
+    Allocate(std::vector <double> &aValues,
+             const OperationPlacement &aPlacement = CPU);
+
+    /**
+     * @brief
+     * Print object total size on taking into consideration the CPU and GPU data
+     * used.
+     *
+     */
+    void
+    PrintTotalSize();
+
+
 private:
+
+    /**
+     * @brief
+     * Get buffer size in bytes according to the object precision.
+     *
+     * @returns
+     * Data buffer size in bytes.
+     *
+     */
+    size_t
+    GetSizeInBytes();
 
     /**
      * @brief
@@ -996,40 +1088,12 @@ private:
 
     /**
      * @brief
-     * Copies Data From Src buffer to Dest Buffer
-     *
-     * @params[in] aSrc
-     * Buffer to copy from
-     * @params[out] aDest
-     * Buffer to copy to
-     *
-     */
-    template <typename T>
-    void
-    GetCopyOfData(const char *apSrc, char *&apDest);
-
-    /**
-     * @brief
-     * Copies Data From Src buffer to Dest Buffer
-     *
-     * @params[in] aSrc
-     * Buffer to copy from
-     * @params[out] aDest
-     * Buffer to copy to
-     *
-     */
-    template <typename T, typename X, typename Y>
-    void
-    GetCopyOfData(DataType &aSrc, DataType &aDestination);
-
-
-    /**
-     * @brief
      * Initialize Data Buffer according to its type
      */
     template <typename T>
     void
-    Init(std::vector <double> *aValues = nullptr);
+    Init(std::vector <double> *aValues = nullptr,
+         const OperationPlacement &aOperationPlacement = CPU);
 
     /**
      * @brief
@@ -1061,18 +1125,6 @@ private:
 
     /**
      * @brief
-     * Get total size of Memory used by Data in MPCR Object
-     *
-     * @param[out] aDataSize
-     * Total size of Memory used by Data in MPCR Object
-     *
-     */
-    template <typename T>
-    void
-    GetDataSize(size_t &aDataSize);
-
-    /**
-     * @brief
      * Set Magic Number To Check For DataType Object.
      *
      */
@@ -1089,7 +1141,7 @@ private:
      */
     template <typename T>
     void
-    ConvertPrecisionDispatcher(const mpcr::precision::Precision &aPrecision);
+    ConvertPrecisionDispatcher(const mpcr::definitions::Precision &aPrecision);
 
     /**
      * @brief
@@ -1124,7 +1176,6 @@ private:
     template <typename T>
     void
     TransposeDispatcher();
-
 
     /**
      * @brief
@@ -1206,15 +1257,47 @@ private:
     FillTriangleDispatcher(const double &aValue,
                            const bool &aUpperTriangle = true);
 
+    /**
+     * @brief
+     * Function to be used to init MPCR object during the object constructor, used
+     * across all constructor for consistency
+     *
+     * @param [in] aSize
+     * Object size
+     * @param [in] aPrecision
+     * Object precision
+     * @param [in] aOperationPlacement
+     * Whether the allocation will be done on CPU or GPU
+     *
+     */
+    void
+    InitializeObject(size_t aSize, const Precision &aPrecision,
+                     const OperationPlacement &aOperationPlacement);
+
+    /**
+     * @brief
+     * Function to check if the function called is compatible with half precision.
+     * in case the precision is half and the function is not compatible, the function
+     * will automatically promote the half precision data to float.
+     *
+     * @param [in] aOperationPlacement
+     * Operation Placement used to determine whether the function is compatible
+     * with half precision or not.
+     *
+     */
+    void
+    CheckHalfCompatibility(const OperationPlacement &aOperationPlacement=CPU);
+
+private:
 
     /** Buffer Holding the Data **/
-    char *mpData;
+    DataHolder mData;
     /** Dimensions object that describe the Vector as a Matrix **/
-    Dimensions *mpDimensions;
+    Dimensions *mpDimensions = nullptr;
     /** Total size of Vector or Matrix (Data Buffer) **/
     size_t mSize;
     /** Precision used to describe the data buffer **/
-    mpcr::precision::Precision mPrecision;
+    mpcr::definitions::Precision mPrecision;
     /** Bool indicating whether it's a Matrix(True) or Vector(False) **/
     bool mMatrix;
     /** Magic Number to check if object is DataType **/

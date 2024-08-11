@@ -1,9 +1,15 @@
-\name{26-Metadata}
+\name{25-Metadata}
 \alias{metadata}
 \alias{storage.mode,Rcpp_MPCR-method}
 \alias{typeof,Rcpp_MPCR-method}
 \alias{MPCR.ChangePrecision,Rcpp_MPCR-method}
 \alias{MPCR.object.size,Rcpp_MPCR-method}
+
+\alias{MPCR.storage.mode}
+\alias{MPCR.typeof}
+\alias{MPCR.ChangePrecision}
+\alias{MPCR.object.size}
+
 \title{Metadata functions}
 \description{
     Metadata functions.

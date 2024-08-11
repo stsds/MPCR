@@ -10,8 +10,16 @@
 #define MPCR_FLOATINGPOINTHANDLER_HPP
 
 
+#ifdef USE_CUDA
+#include <cuda_fp16.h>
+typedef half float16;
+#define USING_HALF 1
+
+#else
 typedef int float16;
-#define USING_HALF 0
+#endif
+
+
 
 
 #endif //MPCR_FLOATINGPOINTHANDLER_HPP

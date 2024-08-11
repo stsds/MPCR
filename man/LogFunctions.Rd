@@ -1,10 +1,17 @@
-\name{13-Log}
+\name{12-Log}
 \alias{log}
 \alias{exp,Rcpp_MPCR-method}
 \alias{expm1,Rcpp_MPCR-method}
 \alias{log,Rcpp_MPCR-method}
 \alias{log10,Rcpp_MPCR-method}
 \alias{log2,Rcpp_MPCR-method}
+
+\alias{MPCR.exp}
+\alias{MPCR.expm1}
+\alias{MPCR.log}
+\alias{MPCR.log10}
+\alias{MPCR.log2}
+
 \title{Logarithms and Exponentials}
 \description{
 exp/log functions.

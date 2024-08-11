@@ -6,14 +6,132 @@
  *
  **/
 
-#include <blas.hh>
-#include <utilities/MPCRDispatcher.hpp>
-#include <operations/helpers/LinearAlgebraHelper.hpp>
 #include <operations/LinearAlgebra.hpp>
+#include <utilities/TypeChecker.hpp>
+#include <operations/concrete/BackendFactory.hpp>
 
 
 using namespace mpcr::operations;
+using namespace mpcr::kernels;
 using namespace std;
+
+#ifdef USING_HALF
+
+
+template <>
+void
+linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
+                               DataType &aOutput,
+                               const bool &aTransposeA, const bool &aTransposeB,
+                               const bool &aSymmetrize, const double &aAlpha,
+                               const double &aBeta) {
+
+
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    if (operation_placement == CPU || aInputA.GetPrecision() != HALF ||
+        ( aInputB.GetPrecision() != HALF && aInputB.GetSize() != 0 ) ||
+        aOutput.GetPrecision() != HALF) {
+        MPCR_API_EXCEPTION("Cannot perform half gemm using CPU", -1);
+    }
+
+    auto is_one_input = aInputB.GetSize() == 0;
+    auto flag_conv = false;
+
+    if (!aInputB.IsMatrix() && !is_one_input) {
+        if (aInputA.IsMatrix()) {
+            if (aInputA.GetNCol() == aInputB.GetNCol()) {
+                aInputB.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
+            }
+        }
+    }
+
+    if (!aInputA.IsMatrix() && !is_one_input) {
+        if (aInputB.IsMatrix()) {
+            if (aInputA.GetNCol() != aInputB.GetNRow()) {
+                aInputA.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
+            }
+        }
+    }
+
+    auto row_a = aInputA.GetNRow();
+    auto col_a = aInputA.GetNCol();
+
+    size_t row_b;
+    size_t col_b;
+
+    if (is_one_input) {
+        row_b = row_a;
+        col_b = col_a;
+    } else {
+        row_b = aInputB.GetNRow();
+        col_b = aInputB.GetNCol();
+    }
+
+    size_t lda = row_a;
+    size_t ldb = row_b;
+
+    if (aTransposeA) {
+        std::swap(row_a, col_a);
+    }
+    if (aTransposeB) {
+        std::swap(row_b, col_b);
+    }
+
+    if (col_a != row_b) {
+        MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
+    }
+
+
+    float16 *pData_out = nullptr;
+
+    if (aOutput.GetSize() != 0) {
+
+        if (aOutput.GetNRow() != row_a || aOutput.GetNCol() != col_b) {
+            MPCR_API_EXCEPTION("Wrong Output Matrix Dimensions", -1);
+        }
+
+        pData_out = (float16 *) aOutput.GetData(operation_placement);
+
+    } else {
+        auto output_size = row_a * col_b;
+        pData_out = (float16 *) memory::AllocateArray(
+            output_size * sizeof(float16),
+            operation_placement, context);
+        memory::Memset((char *) pData_out, 0, sizeof(float16) * output_size,
+                       operation_placement, context);
+
+        aOutput.ClearUp();
+        aOutput.SetSize(output_size);
+        aOutput.SetDimensions(row_a, col_b);
+    }
+
+    auto pData_a = (float16 *) aInputA.GetData(operation_placement);
+    auto pData_b = (float16 *) aInputB.GetData(operation_placement);
+
+    auto solver = std::make_unique <linear::GPULinearAlgebra <double>>();
+
+    if (!is_one_input) {
+        solver->HalfGemm(aTransposeA, aTransposeB, row_a, col_b, col_a, aAlpha,
+                         pData_a, lda, pData_b, ldb, aBeta, pData_out, row_a);
+    } else {
+        solver->HalfGemm(aTransposeA, !aTransposeA, row_a, col_b, col_a, aAlpha,
+                         pData_a, lda, pData_a, lda, aBeta, pData_out, row_a);
+    }
+
+    aOutput.SetData((char *) pData_out, operation_placement);
+
+
+    if (flag_conv) {
+        aInputB.ToVector();
+    }
+
+}
+
+#endif
 
 
 template <typename T>
@@ -23,39 +141,35 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                      const bool &aSymmetrize, const double &aAlpha,
                      const double &aBeta) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
     auto is_one_input = aInputB.GetSize() == 0;
-    auto flag_conv=false;
+    auto flag_conv = false;
 
-    if(!aInputB.IsMatrix() && !is_one_input){
-        if(aInputA.IsMatrix()){
-            if(aInputA.GetNCol()==aInputB.GetNCol()){
-                aInputB.SetDimensions(aInputA.GetNCol(),1);
-                flag_conv=true;
+    if (!aInputB.IsMatrix() && !is_one_input) {
+        if (aInputA.IsMatrix()) {
+            if (aInputA.GetNCol() == aInputB.GetNCol()) {
+                aInputB.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
             }
         }
     }
 
-    if(!aInputA.IsMatrix() && !is_one_input){
-        if(aInputB.IsMatrix()){
-            if(aInputA.GetNCol()!=aInputB.GetNRow()){
-                aInputA.SetDimensions(aInputA.GetNCol(),1);
-                flag_conv=true;
+    if (!aInputA.IsMatrix() && !is_one_input) {
+        if (aInputB.IsMatrix()) {
+            if (aInputA.GetNCol() != aInputB.GetNRow()) {
+                aInputA.SetDimensions(aInputA.GetNCol(), 1);
+                flag_conv = true;
             }
         }
     }
-
-    auto pData_a = (T *) aInputA.GetData();
-    auto pData_b = (T *) aInputB.GetData();
 
     auto row_a = aInputA.GetNRow();
     auto col_a = aInputA.GetNCol();
-    auto transpose_a = aTransposeA ? blas::Op::Trans : blas::Op::NoTrans;
-    auto transpose_b = aTransposeB ? blas::Op::Trans : blas::Op::NoTrans;
 
     size_t row_b;
     size_t col_b;
-
-
 
     // cross(x,y) -> x y
     // tcross(x,y) -> x t(y)
@@ -85,42 +199,53 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
     }
 
+
     T *pData_out = nullptr;
 
     if (aOutput.GetSize() != 0) {
-        pData_out = (T *) aOutput.GetData();
 
         if (aOutput.GetNRow() != row_a || aOutput.GetNCol() != col_b) {
             MPCR_API_EXCEPTION("Wrong Output Matrix Dimensions", -1);
         }
 
-    } else {
+        pData_out = (T *) aOutput.GetData(operation_placement);
 
+    } else {
         auto output_size = row_a * col_b;
-        pData_out = new T[output_size];
-        memset(pData_out, 0, sizeof(T) * output_size);
+        pData_out = (T *) memory::AllocateArray(output_size * sizeof(T),
+                                                operation_placement, context);
+        memory::Memset((char *) pData_out, 0, sizeof(T) * output_size,
+                       operation_placement, context);
+
         aOutput.ClearUp();
         aOutput.SetSize(output_size);
         aOutput.SetDimensions(row_a, col_b);
     }
 
+    auto pData_a = (T *) aInputA.GetData(operation_placement);
+    auto pData_b = (T *) aInputB.GetData(operation_placement);
+
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
 
     if (!is_one_input) {
-        blas::gemm(LAYOUT, transpose_a, transpose_b,
-                   row_a, col_b, col_a, aAlpha, pData_a, lda, pData_b, ldb,
-                   aBeta, pData_out, row_a);
+        solver->Gemm(aTransposeA, aTransposeB, row_a, col_b, col_a, aAlpha,
+                     pData_a, lda, pData_b, ldb, aBeta, pData_out, row_a);
     } else {
-        blas::syrk(LAYOUT, blas::Uplo::Lower, transpose_a, row_a, col_a,
-                   aAlpha, pData_a, lda, aBeta, pData_out, row_a);
+        solver->Syrk(true, aTransposeA, row_a, col_a, aAlpha, pData_a, lda,
+                     aBeta, pData_out, row_a);
+
     }
 
-    aOutput.SetData((char *) pData_out);
+    aOutput.SetData((char *) pData_out, operation_placement);
 
     if (is_one_input && aSymmetrize) {
-        Symmetrize <T>(aOutput, true);
+        auto helper = BackendFactory <T>::CreateHelpersBackend(
+            operation_placement);
+        helper->Symmetrize(aOutput, true, context);
     }
 
-    if(flag_conv){
+    if (flag_conv) {
         aInputB.ToVector();
     }
 
@@ -131,8 +256,10 @@ template <typename T>
 void
 linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
     aOutput = false;
-    auto pData = (T *) aInput.GetData();
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
 
@@ -140,25 +267,11 @@ linear::IsSymmetric(DataType &aInput, bool &aOutput) {
         return;
     }
 
-    size_t idx_col_maj;
-    size_t idx_row_maj;
-    auto epsilon = std::numeric_limits <T>::epsilon();
-    T val;
-    for (auto i = 0; i < col; i++) {
-        for (auto j = 0; j < row; j++) {
-            if (i == j) {
-                break;
-            }
-            idx_col_maj = ( i * row ) + j;
-            idx_row_maj = ( j * col ) + i;
-            val = std::fabs(pData[ idx_row_maj ] - pData[ idx_col_maj ]);
-            if (val > epsilon) {
-                return;
-            }
-        }
-    }
+    auto helper = BackendFactory <T>::CreateHelpersBackend(
+        operation_placement);
 
-    aOutput = true;
+    helper->IsSymmetric(aInput, aOutput, context);
+
 
 }
 
@@ -168,9 +281,11 @@ void
 linear::Cholesky(DataType &aInputA, DataType &aOutput,
                  const bool &aUpperTriangle) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
-    auto triangle = aUpperTriangle ? lapack::Uplo::Upper : lapack::Uplo::Lower;
 
 
     if (row != col) {
@@ -178,21 +293,34 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
             "Cannot Apply Cholesky Decomposition on non-square Matrix", -1);
     }
 
-    auto pOutput = new T[row * col];
-    auto pData = (T *) aInputA.GetData();
-    memcpy(pOutput, pData, ( row * col * sizeof(T)));
+    auto pData = (T *) aInputA.GetData(operation_placement);
+    auto pOutput = memory::AllocateArray(row * col * sizeof(T),
+                                         operation_placement, context);
 
-    auto rc = lapack::potrf(triangle, row, pOutput, row);
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+
+    memory::MemCpy(pOutput, (char *) pData, row * col * sizeof(T), context,
+                   mem_transfer);
+
+
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    auto rc = solver->Potrf(aUpperTriangle, row, (T *) pOutput, row);
+
     if (rc != 0) {
         MPCR_API_EXCEPTION(
             "Error While Applying Cholesky Decomposition", rc);
     }
 
-
     aOutput.ClearUp();
     aOutput.SetDimensions(aInputA);
-    aOutput.SetData((char *) pOutput);
-    aOutput.FillTriangle(0, !aUpperTriangle);
+    aOutput.SetData((char *) pOutput, operation_placement);
+
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    helper->FillTriangle(aOutput, 0, !aUpperTriangle, context);
 
 }
 
@@ -201,7 +329,9 @@ template <typename T>
 void
 linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
-    auto pData = (T *) aInputA.GetData();
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
     auto col = aInputA.GetNCol();
 
     if (aNCol > col) {
@@ -210,16 +340,32 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
     }
 
     T *pOutput = nullptr;
+
     aOutput.ClearUp();
     if (aNCol == col) {
-        aOutput = aInputA;
+        aOutput.SetSize(aNCol * aNCol);
         aOutput.SetDimensions(aNCol, aNCol);
-        pOutput = (T *) aOutput.GetData();
+        auto pData = (T *) aInputA.GetData(operation_placement);
+
+        pOutput = (T *) memory::AllocateArray(aNCol * aNCol * sizeof(T),
+                                              operation_placement, context);
+        auto mem_transfer = ( operation_placement == CPU )
+                            ? memory::MemoryTransfer::HOST_TO_HOST
+                            : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+
+        memory::MemCpy((char *) pOutput, (char *) pData,
+                       aNCol * aNCol * sizeof(T), context,
+                       mem_transfer);
+
     } else {
+        auto pData = (T *) aInputA.GetData(CPU);
         auto new_size = aNCol * aNCol;
         aOutput.SetSize(new_size);
         aOutput.SetDimensions(aNCol, aNCol);
-        auto pTemp_data = new T[new_size];
+        auto pTemp_data = (T *) memory::AllocateArray(new_size * sizeof(T), CPU,
+                                                      nullptr);
+
+        /** TODO: for better optimization, this kernel should be implemented for GPU **/
         size_t idx;
         for (auto i = 0; i < aNCol; i++) {
             for (auto j = 0; j < aNCol; j++) {
@@ -227,44 +373,63 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
                 pTemp_data[ idx ] = pData[ j + ( col * i ) ];
             }
         }
-        pOutput = pTemp_data;
+        if (operation_placement == CPU) {
+            pOutput = pTemp_data;
+        } else {
+            pOutput = (T *) memory::AllocateArray(new_size * sizeof(T), GPU,
+                                                  context);
+
+            memory::MemCpy((char *) pOutput, (char *) pTemp_data,
+                           new_size * sizeof(T), context,
+                           memory::MemoryTransfer::HOST_TO_DEVICE);
+
+            memory::DestroyArray((char *&) pTemp_data, CPU, context);
+        }
     }
 
-    auto rc = lapack::potri(lapack::Uplo::Upper, aNCol, pOutput,
-                            aOutput.GetNRow());
+
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+    auto rc = solver->Potri(true, aNCol, pOutput, aOutput.GetNRow());
+
     if (rc != 0) {
         MPCR_API_EXCEPTION(
             "Error While Applying Cholesky Decomposition", rc);
     }
 
 
-    aOutput.SetData((char *) pOutput);
-    Symmetrize <T>(aOutput, false);
+    aOutput.SetData((char *) pOutput, operation_placement);
+
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    helper->Symmetrize(aOutput, false, context);
 
 }
 
 
 template <typename T>
 void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
-                   const bool &aSingle) {
+                   const bool &aSingle, const std::string &aInternalPrecision) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
 
     auto rows_a = aInputA.GetNRow();
     auto cols_a = aInputA.GetNCol();
-    bool flag_to_matrix=false;
+    bool flag_to_matrix = false;
 
 
     if (rows_a != cols_a) {
         MPCR_API_EXCEPTION("Cannot Solve This Matrix , Must be a Square Matrix",
-                          -1);
+                           -1);
     }
 
     auto rows_b = rows_a;
     auto cols_b = rows_b;
 
     if (!aSingle) {
-        if(!aInputB.IsMatrix()){
-            flag_to_matrix=true;
-            aInputB.SetDimensions(aInputB.GetNCol(),1);
+        if (!aInputB.IsMatrix()) {
+            flag_to_matrix = true;
+            aInputB.SetDimensions(aInputB.GetNCol(), 1);
         }
         rows_b = aInputB.GetNRow();
         cols_b = aInputB.GetNCol();
@@ -274,51 +439,97 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         MPCR_API_EXCEPTION("Dimensions must be compatible", -1);
     }
 
-    auto pIpiv = new int64_t[cols_a];
+
+    auto pIpiv = memory::AllocateArray(cols_a * sizeof(int64_t),
+                                       operation_placement,
+                                       context);
     aOutput.ClearUp();
     auto rc = 0;
+
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
     if (!aSingle) {
         DataType dump = aInputA;
-        aOutput = aInputB;
-        auto pData_dump = (T *) dump.GetData();
-        auto pData_in_out = (T *) aOutput.GetData();
+        auto pData_dump = (T *) dump.GetData(operation_placement);
+        T *pData_in_out = nullptr;
 
-        rc = lapack::gesv(cols_a, cols_b, pData_dump, rows_a, pIpiv,
-                          pData_in_out, rows_b);
+        /**
+         * Incase of using CPU backend, lapack will overwrite the pData_in_out.
+         * However, when using GPU, CuBlas will not change pData_in_out and instead
+         * will change the output pointer.
+         * **/
+        if (operation_placement == definitions::CPU) {
+            aOutput = aInputB;
+            pData_in_out = (T *) aOutput.GetData(operation_placement);
+            rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
+                              (void *) pIpiv, nullptr, rows_b, pData_in_out,
+                              rows_b);
+
+        } else {
+            aOutput.SetDimensions(aInputB);
+            pData_in_out = (T *) memory::AllocateArray(
+                aOutput.GetSize() * sizeof(T), GPU, context);
+
+            rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
+                              (void *) pIpiv, (T *) aInputB.GetData(GPU),
+                              rows_b, pData_in_out, rows_b, aInternalPrecision);
+        }
+
+        if (rc != 0) {
+            memory::DestroyArray(pIpiv, operation_placement, context);
+            MPCR_API_EXCEPTION("Error While Solving", rc);
+        }
+        aOutput.SetData((char *) pData_in_out, operation_placement);
+
     } else {
+        /** This code block should compute the inverse of matrix A **/
         aOutput = aInputA;
-        auto pData_in_out = (T *) aOutput.GetData();
+        auto pData_in_out = (T *) aOutput.GetData(operation_placement);
 
-        rc = lapack::getrf(rows_a, cols_a, pData_in_out, rows_a, pIpiv);
+        rc = solver->Getrf(rows_a, cols_a, pData_in_out, rows_a,
+                           (int64_t *) pIpiv);
 
         if (rc != 0) {
-            delete[] pIpiv;
+            memory::DestroyArray(pIpiv, operation_placement, context);
             MPCR_API_EXCEPTION("Error While Solving", rc);
         }
 
-        rc = lapack::getri(cols_a, pData_in_out, rows_a, pIpiv);
+        if (operation_placement == CPU) {
+            rc = solver->Getri(cols_a, pData_in_out, rows_a, (int64_t *) pIpiv);
 
+        } else {
+            auto pData_identity = memory::AllocateArray(
+                rows_a * cols_a * sizeof(T), GPU, context);
 
-        if (rc != 0) {
-            delete[] pIpiv;
-            MPCR_API_EXCEPTION("Error While Solving", rc);
+            auto helper = BackendFactory <T>::CreateHelpersBackend(
+                operation_placement);
+
+            helper->CreateIdentityMatrix((T *) pData_identity, rows_a, context);
+
+            rc = solver->Getrs(false, rows_a, rows_a, pData_in_out, rows_a,
+                               (int64_t *) pIpiv, (T *) pData_identity, rows_a);
+
+            pData_in_out = (T *) pData_identity;
+
         }
 
-    }
+        if (rc != 0) {
+            memory::DestroyArray(pIpiv, operation_placement, context);
+            MPCR_API_EXCEPTION("Error While Solving", rc);
+        }
+        aOutput.SetData((char *) pData_in_out, operation_placement);
 
-    if (rc != 0) {
-        delete[] pIpiv;
-        MPCR_API_EXCEPTION("Error While Solving", rc);
     }
-
 
     aOutput.SetSize(cols_a * cols_b);
     aOutput.SetDimensions(cols_a, cols_b);
-    if(flag_to_matrix){
+    if (flag_to_matrix) {
         aInputB.ToVector();
     }
 
-    delete[] pIpiv;
+    memory::DestroyArray(pIpiv, operation_placement, context);
+
 }
 
 
@@ -326,57 +537,63 @@ template <typename T>
 void
 linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const size_t &aCol, const bool &aUpperTri,
-                  const bool &aTranspose, const char &aSide,const double &aAlpha) {
+                  const bool &aTranspose, const char &aSide,
+                  const double &aAlpha) {
 
-    bool flag_transform=false;
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    bool flag_transform = false;
     if (!aInputA.IsMatrix()) {
         MPCR_API_EXCEPTION(
             "Inputs Must Be Matrices", -1);
     }
 
-    if(!aInputB.IsMatrix()){
-        aInputB.SetDimensions(aInputB.GetNCol(),1);
-        flag_transform=true;
+    if (!aInputB.IsMatrix()) {
+        aInputB.SetDimensions(aInputB.GetNCol(), 1);
+        flag_transform = true;
 
     }
     auto row_a = aInputA.GetNRow();
     auto row_b = aInputB.GetNRow();
     auto col_b = aInputB.GetNCol();
-    auto which_triangle = blas::Uplo::Lower;
-    auto transpose = blas::Op::NoTrans;
-    auto side = aSide == 'L' ? blas::Side::Left : blas::Side::Right;
+    auto left_side = aSide == 'L';
 
     if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
         MPCR_API_EXCEPTION(
             "Given Number of Columns is Greater than Columns of B", -1);
-    }
-    if (aUpperTri) {
-        which_triangle = blas::Uplo::Upper;
-    }
-
-    if (aTranspose) {
-        transpose = blas::Op::Trans;
     }
 
     aOutput.ClearUp();
     aOutput.SetSize(col_b * aCol);
     aOutput.SetDimensions(aCol, col_b);
 
-    auto pData = (T *) aInputA.GetData();
-    auto pData_b = (T *) aInputB.GetData();
-    auto pData_in_out = new T[col_b * aCol];
+    auto pData = (T *) aInputA.GetData(operation_placement);
+    auto pData_b = (T *) aInputB.GetData(operation_placement);
+    auto pData_in_out = (T *) memory::AllocateArray(col_b * aCol * sizeof(T),
+                                                    operation_placement,
+                                                    context);
+
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
     for (auto i = 0; i < col_b; i++) {
-        memcpy(( pData_in_out + ( aCol * i )), pData_b + ( row_b * i ),
-               ( sizeof(T) * aCol ));
+        memory::MemCpy((char *) ( pData_in_out + ( aCol * i )),
+                       (char *) ( pData_b + ( row_b * i )),
+                       ( sizeof(T) * aCol ), context, mem_transfer);
     }
 
-    blas::trsm(LAYOUT, side, which_triangle, transpose,
-               blas::Diag::NonUnit, row_b, col_b, aAlpha, pData, row_a, pData_in_out,
-               row_b);
 
-    aOutput.SetData((char *) pData_in_out);
-    if(flag_transform){
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    solver->Trsm(left_side, aUpperTri, aTranspose, row_b, col_b, aAlpha, pData,
+                 row_a, pData_in_out, row_b);
+
+
+    aOutput.SetData((char *) pData_in_out, operation_placement);
+    if (flag_transform) {
         aInputB.ToVector();
     }
 
@@ -390,14 +607,17 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
             DataType &aOutputV, const size_t &aNu,
             const size_t &aNv, const bool &aTranspose) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
 
     //s ,u ,vt
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
-    auto pData = (T *) aInputA.GetData();
+    auto pData = (T *) aInputA.GetData(operation_placement);
 
     auto min_dim = std::min(row, col);
-    auto pOutput_s = new T[min_dim];
+    auto pOutput_s = memory::AllocateArray(min_dim * sizeof(T),
+                                           operation_placement, context);
     T *pOutput_u = nullptr;
     T *pOutput_vt = nullptr;
 
@@ -408,53 +628,76 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
     aOutputS.SetSize(min_dim);
 
     if (aNu) {
-        pOutput_u = new T[row * aNu];
+        pOutput_u = (T *) memory::AllocateArray(row * aNu * sizeof(T),
+                                                operation_placement, context);
         aOutputU.SetSize(row * aNu);
         aOutputU.SetDimensions(row, aNu);
     }
 
     if (aNv) {
-        pOutput_vt = new T[col * aNv];
+        pOutput_vt = (T *) memory::AllocateArray(col * aNv * sizeof(T),
+                                                 operation_placement, context);
         aOutputV.SetSize(col * aNv);
         /** Will be transposed at the end in case of svd **/
         aOutputV.SetDimensions(aNv, col);
     }
 
 
-    auto pTemp_data = new T[row * col];
-    memcpy((void *) pTemp_data, (void *) pData, ( row * col ) * sizeof(T));
+    auto pTemp_data = memory::AllocateArray(row * col * sizeof(T),
+                                            operation_placement, context);
 
-    lapack::Job job;
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+
+    memory::MemCpy((char *) pTemp_data, (char *) pData,
+                   ( row * col ) * sizeof(T), context, mem_transfer);
+
+
+    signed char job;
     int ldvt;
     if (aNu == 0 && aNv == 0) {
-        job = lapack::Job::NoVec;
+        job = 'N'; // NoVec
         ldvt = 1;
     } else if (aNu <= min_dim && aNv <= min_dim) {
-        job = lapack::Job::SomeVec;
+        job = 'S'; // SomeVec
         ldvt = min_dim;
     } else {
-        job = lapack::Job::AllVec;
+        job = 'A'; //AllVec
         ldvt = aNv;
     }
 
-    auto rc = lapack::gesdd(job, row, col, pTemp_data, row, pOutput_s,
-                            pOutput_u, row, pOutput_vt, ldvt);
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    // Gesdd routine in CPU
+    auto rc = solver->SVD(job, row, col, (T *) pTemp_data, row, (T *) pOutput_s,
+                          pOutput_u,
+                          row, pOutput_vt, ldvt);
 
     if (rc != 0) {
-        delete[] pOutput_vt;
-        delete[] pOutput_u;
-        delete[] pOutput_s;
-        delete[] pTemp_data;
+        auto temp_char_vt = (char *) pOutput_vt;
+        auto temp_char_u = (char *) pOutput_u;
+
+        memory::DestroyArray(temp_char_vt, operation_placement, context);
+        memory::DestroyArray(temp_char_u, operation_placement, context);
+        memory::DestroyArray(pOutput_s, operation_placement, context);
+        memory::DestroyArray(pTemp_data, operation_placement, context);
+
         MPCR_API_EXCEPTION("Error While Getting SVD", rc);
     }
 
 
-    aOutputS.SetData((char *) pOutput_s);
-    aOutputV.SetData((char *) pOutput_vt);
-    aOutputU.SetData((char *) pOutput_u);
+    aOutputS.SetData((char *) pOutput_s, operation_placement);
+    aOutputV.SetData((char *) pOutput_vt, operation_placement);
+    aOutputU.SetData((char *) pOutput_u, operation_placement);
+
     if (aTranspose) {
-        aOutputV.Transpose();
+        auto helper = BackendFactory <T>::CreateHelpersBackend(
+            operation_placement);
+        helper->Transpose(aOutputV, context);
     }
+
 
 }
 
@@ -462,6 +705,9 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
 template <typename T>
 void linear::Eigen(DataType &aInput, DataType &aOutputValues,
                    DataType *apOutputVectors) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
 
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
@@ -471,47 +717,61 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     }
 
 
-    auto jobz = lapack::Job::NoVec;
+    auto jobz_no_vec = true;
+    auto fill_upper = true;
+
     if (apOutputVectors != nullptr) {
-        jobz = lapack::Job::Vec;
+        jobz_no_vec = false;
     }
 
-    DataType dump = aInput;
-    T dump_val = 0;
-    auto pData = (T *) dump.GetData();
-    int64_t num_found = 0;
-
-    auto pValues = new T[col];
-    auto pVectors = new T[col * col];
-    auto pIsuppz = new int64_t[2 * col];
+    auto pData = (T *) aInput.GetData(operation_placement);
 
 
-    auto rc = lapack::syevr(jobz, lapack::Range::All, lapack::Uplo::Upper, col,
-                            pData, row, 0, 0, 0, 0, 0, &num_found, pValues,
-                            pVectors, row, pIsuppz);
+    auto pValues = memory::AllocateArray(col * sizeof(T),
+                                         operation_placement, context);
+
+    auto pVectors = memory::AllocateArray(col * col * sizeof(T),
+                                          operation_placement, context);
+
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+
+
+    memory::MemCpy((char *) pVectors, (char *) pData, col * col * sizeof(T),
+                   context, mem_transfer);
+
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    auto rc = solver->Syevd(jobz_no_vec, fill_upper, col, (T *) pVectors, col,
+                            (T *) pValues);
 
     if (rc != 0) {
-        delete[] pIsuppz;
-        delete[] pValues;
-        delete[] pVectors;
+        memory::DestroyArray(pValues, operation_placement, context);
+        memory::DestroyArray(pVectors, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing Eigen", rc);
     }
+
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
 
     if (apOutputVectors) {
         apOutputVectors->ClearUp();
         apOutputVectors->SetSize(col * col);
         apOutputVectors->SetDimensions(col, col);
-        apOutputVectors->SetData((char *) pVectors);
-        ReverseMatrix <T>(*apOutputVectors);
+        apOutputVectors->SetData((char *) pVectors, operation_placement);
+
+        helper->Reverse(*apOutputVectors, context);
+
     } else {
-        delete[] pVectors;
+        memory::DestroyArray(pVectors, operation_placement, context);
     }
 
-    delete[] pIsuppz;
-    std::reverse(pValues, pValues + col);
     aOutputValues.ClearUp();
     aOutputValues.SetSize(col);
-    aOutputValues.SetData((char *) pValues);
+    aOutputValues.SetData((char *) pValues, operation_placement);
+
+    helper->Reverse(aOutputValues, context);
 
 
 }
@@ -519,32 +779,33 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
 
 template <typename T>
 void
-linear::Norm(DataType &aInput, const std::string &aType, DataType &aOutput) {
+linear::Norm(DataType &aInput, const std::string &aType, double &aOutput) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
 
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
-    aOutput.ClearUp();
-    aOutput.SetSize(1);
 
-    auto pOutput = new T[1];
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    T val_out_temp = 0;
 
     if (row == 0 || col == 0) {
-        pOutput[ 0 ] = 0.0f;
+        val_out_temp = 0.0f;
     } else if (aType == "O" || aType == "1") {
-        pOutput[ 0 ] = NormMACS <T>(aInput);
+        helper->NormMACS(aInput, val_out_temp, context);
     } else if (aType == "I") {
-        pOutput[ 0 ] = NormMARS <T>(aInput);
+        helper->NormMARS(aInput, val_out_temp, context);
     } else if (aType == "F") {
-        pOutput[ 0 ] = NormEuclidean <T>(aInput);
+        helper->NormEuclidean(aInput, val_out_temp, context);
     } else if (aType == "M") {
-        pOutput[ 0 ] = NormMaxMod <T>(aInput);
+        helper->NormMaxMod(aInput, val_out_temp, context);
     } else {
-        delete[] pOutput;
-        MPCR_API_EXCEPTION("Argument must be one of 'M','1','O','I','F' or 'E' ",
-                          -1);
+        MPCR_API_EXCEPTION(
+            "Argument must be one of 'M','1','O','I','F' or 'E' ",
+            -1);
     }
-
-    aOutput.SetData((char *) pOutput);
+    aOutput = val_out_temp;
 }
 
 
@@ -552,29 +813,46 @@ template <typename T>
 void
 linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                         DataType &aOutputQraux, DataType &aOutputPivot,
-                        DataType &aRank, const double &aTolerance) {
+                        DataType &aRank) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
     auto col = aInputA.GetNCol();
     auto row = aInputA.GetNRow();
     auto min_dim = std::min(col, row);
-    auto pData = (T *) aInputA.GetData();
+    auto pData = (T *) aInputA.GetData(operation_placement);
 
-    auto pQr_in_out = new T[row * col];
-    auto pQraux = new T[min_dim];
-    auto pJpvt = new int64_t[col];
+    auto pQr_in_out = memory::AllocateArray(row * col * sizeof(T),
+                                            operation_placement, context);
+    auto pQraux = memory::AllocateArray(min_dim * sizeof(T),
+                                        operation_placement, context);
+    auto pJpvt = memory::AllocateArray(col * sizeof(int64_t),
+                                       operation_placement,
+                                       context);
 
-    memset(pJpvt, 0, col * sizeof(int64_t));
 
-    memcpy((void *) pQr_in_out, (void *) pData,
-           ( aInputA.GetSize()) * sizeof(T));
+    memory::Memset((char *) pJpvt, 0, col * sizeof(int64_t),
+                   operation_placement, context);
 
 
-    auto rc = lapack::geqp3(row, col, pQr_in_out, row, pJpvt, pQraux);
+    memory::MemCpy((char *) pQr_in_out, (char *) pData,
+                   ( aInputA.GetSize()) * sizeof(T), context, mem_transfer);
+
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    auto rc = solver->Geqp3(row, col, (T *) pQr_in_out, row, (int64_t *) pJpvt,
+                            (T *) pQraux);
 
     if (rc != 0) {
-        delete[] pQr_in_out;
-        delete[] pJpvt;
-        delete[] pQraux;
+        memory::DestroyArray(pJpvt, operation_placement, context);
+        memory::DestroyArray(pQr_in_out, operation_placement, context);
+        memory::DestroyArray(pQraux, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing QR Decomposition", rc);
     }
 
@@ -585,26 +863,33 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
 
     aOutputQr.SetSize(row * col);
     aOutputQr.SetDimensions(row, col);
-    aOutputQr.SetData((char *) pQr_in_out);
+    aOutputQr.SetData((char *) pQr_in_out, operation_placement);
 
     aOutputQraux.SetSize(min_dim);
-    aOutputQraux.SetData((char *) pQraux);
+    aOutputQraux.SetData((char *) pQraux, operation_placement);
 
-    auto pTemp_pvt = new T[col];
+    auto pTemp_pvt = (T *) memory::AllocateArray(col * sizeof(T),
+                                                 operation_placement, context);
 
 
-    std::copy(pJpvt, pJpvt + col, pTemp_pvt);
-    delete[] pJpvt;
+    memory::Copy <int64_t, T>((char *) pJpvt, (char *) pTemp_pvt, col,
+                              operation_placement);
+
+    memory::DestroyArray(pJpvt, operation_placement, context);
+
 
     aOutputPivot.SetSize(col);
-    aOutputPivot.SetData((char *) pTemp_pvt);
+    aOutputPivot.SetData((char *) pTemp_pvt, operation_placement);
 
-    auto pRank = new T[1];
-    GetRank <T>(aOutputQr, aTolerance, *pRank);
+    auto pRank = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+
+
+    helper->GetRank(aOutputQr, *pRank, context);
 
     aRank.ClearUp();
     aRank.SetSize(1);
-    aRank.SetData((char *) pRank);
+    aRank.SetData((char *) pRank, CPU);
 
 }
 
@@ -614,24 +899,26 @@ void
 linear::QRDecompositionR(DataType &aInputA, DataType &aOutput,
                          const bool &aComplete) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
     auto col = aInputA.GetNCol();
     auto row = aInputA.GetNRow();
     auto output_nrows = aComplete ? row : std::min(row, col);
     auto output_size = output_nrows * col;
-    auto pOutput_data = new T[output_size];
-    auto pData = (T *) aInputA.GetData();
 
-    memset(pOutput_data, 0, output_size * sizeof(T));
-
-    for (auto j = 0; j < col; j++) {
-        for (auto i = 0; i <= j && i < output_nrows; i++)
-            pOutput_data[ i + output_nrows * j ] = pData[ i + row * j ];
-    }
+    auto pOutput_data = (T *) memory::AllocateArray(output_size * sizeof(T),
+                                                    operation_placement,
+                                                    context);
 
     aOutput.ClearUp();
     aOutput.SetSize(output_size);
     aOutput.SetDimensions(output_nrows, col);
-    aOutput.SetData((char *) pOutput_data);
+    aOutput.SetData((char *) pOutput_data, operation_placement);
+
+    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    helper->CopyUpperTriangle(aInputA, aOutput, context);
+
 
 }
 
@@ -641,103 +928,188 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
                               DataType &aOutput,
                               const bool &aComplete) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
-    auto pQr_data = (T *) aInputA.GetData();
-    auto pQraux = (T *) aInputB.GetData();
+    auto pQr_data = (T *) aInputA.GetData(operation_placement);
+    auto pQraux = (T *) aInputB.GetData(operation_placement);
 
     auto output_nrhs = aComplete ? row : std::min(row, col);
     auto output_size = row * output_nrhs;
-    auto pOutput_data = new T[output_size];
-
-    memset(pOutput_data, 0, output_size * sizeof(T));
-
-    for (auto i = 0; i < output_size; i += row + 1) {
-        pOutput_data[ i ] = 1.0f;
-    }
+    auto pOutput_data = memory::AllocateArray(output_size * sizeof(T),
+                                              operation_placement,
+                                              context);
 
 
-    memcpy((void *) pOutput_data, (void *) pQr_data,
-           ( output_size * sizeof(T)));
+    memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
+                   ( output_size * sizeof(T)), context, mem_transfer);
 
-    auto rc = lapack::orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    auto rc = solver->Orgqr(row, output_nrhs, col, (T *) pOutput_data, row,
+                            pQraux);
 
     if (rc != 0) {
-        delete[] pOutput_data;
+        memory::DestroyArray(pOutput_data, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing QR.Q", rc);
     }
 
     aOutput.ClearUp();
     aOutput.SetSize(output_size);
     aOutput.SetDimensions(row, output_nrhs);
-    aOutput.SetData((char *) pOutput_data);
+    aOutput.SetData((char *) pOutput_data, operation_placement);
 
 }
 
 
 template <typename T>
 void
-linear::ReciprocalCondition(DataType &aInput, DataType &aOutput,
+linear::ReciprocalCondition(DataType &aInput, double &aOutput,
                             const std::string &aNorm, const bool &aTriangle) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
     auto row = aInput.GetNRow();
     auto col = aInput.GetNCol();
-    auto pData = (T *) aInput.GetData();
-    lapack::Norm norm = aNorm == "I" ? lapack::Norm::Inf : lapack::Norm::One;
 
     if (row != col) {
         MPCR_API_EXCEPTION("Wrong Dimensions for rcond", -1);
     }
-    auto pRcond = new T[1];
+
+    string norm = aNorm == "I" ? "inf" : "one";
+
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    T out_temp_val = 0.0f;
+    auto pData = (T *) aInput.GetData(operation_placement);
+
 
     if (aTriangle) {
-        auto rc = lapack::trcon(norm, lapack::Uplo::Lower,
-                                lapack::Diag::NonUnit, row,
-                                pData, col, pRcond);
+        auto upper_triangle = false;
+        auto unit_triangle = false;
 
-        if (rc != 0) {
-            delete[] pRcond;
-            MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
+        if (operation_placement == CPU) {
+            auto rc = solver->Trcon(aNorm, upper_triangle, unit_triangle, row,
+                                    pData, col, &out_temp_val);
+            if (rc != 0) {
+                MPCR_API_EXCEPTION("Error While Performing rcond Triangle", rc);
+            }
+        } else {
+            T xnorm = 0;
+            T ynorm = 0;
+
+            auto helper = BackendFactory <T>::CreateHelpersBackend(
+                operation_placement);
+
+            if (norm == "one") {
+                helper->NormMACS(aInput, xnorm, context);
+            } else if (norm == "inf") {
+                helper->NormMARS(aInput, xnorm, context);
+            }
+            auto side_len = aInput.GetNRow();
+            auto pInverse = (T *) memory::AllocateArray(
+                side_len * side_len * sizeof(T), GPU, context);
+            memory::MemCpy((char *) pInverse, aInput.GetData(GPU),
+                           side_len * side_len * sizeof(T), context,
+                           memory::MemoryTransfer::DEVICE_TO_DEVICE);
+
+            auto rc = solver->Trtri(side_len, pInverse, side_len, false);
+
+            if (rc != 0) {
+                memory::DestroyArray((char *&) pInverse, GPU, context);
+                MPCR_API_EXCEPTION("Error While Performing rcond Trtri", rc);
+            }
+            auto data_type = is_double <T>() ? DOUBLE : FLOAT;
+            DataType temp(data_type, GPU);
+            temp.SetSize(side_len * side_len);
+            temp.SetDimensions(side_len, side_len);
+            temp.SetData((char *) pInverse, GPU);
+
+            if (norm == "one") {
+                helper->NormMACS(temp, ynorm, context);
+            } else if (norm == "inf") {
+                helper->NormMARS(temp, ynorm, context);
+            }
+
+            out_temp_val = 1 / ( ynorm * xnorm );
         }
 
     } else {
+        T xnorm = 0;
+        T ynorm = 0;
 
-        auto pIpiv = new int64_t[row];
-        auto pTemp_data = new T[row * col];
-        T xnorm;
-        memcpy((void *) pTemp_data, (void *) pData, ( row * col ) * sizeof(T));
+        auto helper = BackendFactory <T>::CreateHelpersBackend(
+            operation_placement);
 
-        if (norm == lapack::Norm::One) {
-            xnorm = NormMACS <T>(aInput);
-        } else if (norm == lapack::Norm::Inf) {
-            xnorm = NormMARS <T>(aInput);
+        if (norm == "one") {
+            helper->NormMACS(aInput, xnorm, context);
+        } else if (norm == "inf") {
+            helper->NormMARS(aInput, xnorm, context);
         }
 
-        auto rc = lapack::getrf(row, col, pTemp_data, col, pIpiv);
-        if (rc != 0) {
-            delete[] pRcond;
-            delete[] pIpiv;
-            delete[] pTemp_data;
-            MPCR_API_EXCEPTION("Error While Performing rcond getrf", rc);
+        if (operation_placement == CPU) {
+            auto pIpiv = memory::AllocateArray(row * sizeof(int64_t),
+                                               operation_placement,
+                                               context);
+            auto pTemp_data = memory::AllocateArray(col * row * sizeof(T),
+                                                    operation_placement,
+                                                    context);
+
+            memory::MemCpy((char *) pTemp_data, (char *) pData,
+                           ( row * col ) * sizeof(T), context, mem_transfer);
+
+
+            auto rc = solver->Getrf(row, col, (T *) pTemp_data, col,
+                                    (int64_t *) pIpiv);
+            if (rc != 0) {
+                memory::DestroyArray(pIpiv, operation_placement, context);
+                memory::DestroyArray(pTemp_data, operation_placement, context);
+
+                MPCR_API_EXCEPTION("Error While Performing rcond getrf", rc);
+            }
+            memory::DestroyArray(pIpiv, operation_placement, context);
+
+
+            rc = solver->Gecon(aNorm, row, (T *) pTemp_data, col, xnorm,
+                               &out_temp_val);
+
+            if (rc != 0) {
+                memory::DestroyArray(pIpiv, operation_placement, context);
+                memory::DestroyArray(pTemp_data, operation_placement, context);
+                MPCR_API_EXCEPTION("Error While Performing rcond gecon", rc);
+            }
+
+            memory::DestroyArray(pTemp_data, operation_placement, context);
+        } else {
+            auto data_type = is_double <T>() ? DOUBLE : FLOAT;
+            DataType dump(data_type);
+            DataType inverse(data_type);
+            linear::Solve <T>(aInput, dump, inverse, true);
+
+            if (norm == "one") {
+                helper->NormMACS(inverse, ynorm, context);
+            } else if (norm == "inf") {
+                helper->NormMARS(inverse, ynorm, context);
+            }
+
+            out_temp_val = 1 / ( ynorm * xnorm );
         }
-        delete[] pIpiv;
-
-        lapack::gecon(norm, row, pTemp_data, col, xnorm, pRcond);
-
-        if (rc != 0) {
-            delete[] pRcond;
-            delete[] pIpiv;
-            delete[] pTemp_data;
-            MPCR_API_EXCEPTION("Error While Performing rcond gecon", rc);
-        }
-
-        delete[] pTemp_data;
     }
 
-
-    aOutput.ClearUp();
-    aOutput.SetSize(1);
-    aOutput.SetData((char *) pRcond);
+    aOutput = out_temp_val;
 
 
 }
@@ -749,81 +1121,94 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
                           DataType &aInputC, DataType &aOutput,
                           const bool &aTranspose) {
 
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+
     auto row = aInputA.GetNRow();
     auto col = aInputA.GetNCol();
-    auto pQr_data = (T *) aInputA.GetData();
-    auto pQraux = (T *) aInputB.GetData();
+    auto pQr_data = (T *) aInputA.GetData(operation_placement);
+    auto pQraux = (T *) aInputB.GetData(operation_placement);
 
     auto output_nrhs = aInputC.GetNCol();
     auto output_size = row * output_nrhs;
-    auto pOutput_data = new T[output_size];
+    auto pOutput_data = memory::AllocateArray(output_size * sizeof(T),
+                                              operation_placement,
+                                              context);
 
-    memcpy((void *) pOutput_data, (void *) pQr_data,
-           ( output_size * sizeof(T)));
+    memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
+                   ( output_size * sizeof(T)), context, mem_transfer);
 
-    auto rc = lapack::orgqr(row, output_nrhs, col, pOutput_data, row, pQraux);
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+
+    auto rc = solver->Orgqr(row, output_nrhs, col, (T *) pOutput_data, row,
+                            pQraux);
 
     if (rc != 0) {
-        delete[] pOutput_data;
+        memory::DestroyArray(pOutput_data, operation_placement, context);
         MPCR_API_EXCEPTION("Error While Performing QR.QY", rc);
     }
 
     aOutput.ClearUp();
     aOutput.SetSize(output_size);
     aOutput.SetDimensions(row, output_nrhs);
-    aOutput.SetData((char *) pOutput_data);
+    aOutput.SetData((char *) pOutput_data, operation_placement);
 }
 
 
-FLOATING_POINT_INST(void, linear::CrossProduct, DataType &aInputA,
-                    DataType &aInputB, DataType &aOutput,
-                    const bool &aTransposeA, const bool &aTransposeB,
-                    const bool &aSymmetrize, const double &aAlpha,
-                    const double &aBeta)
+SIMPLE_INSTANTIATE(void, linear::CrossProduct, DataType &aInputA,
+                   DataType &aInputB, DataType &aOutput,
+                   const bool &aTransposeA, const bool &aTransposeB,
+                   const bool &aSymmetrize, const double &aAlpha,
+                   const double &aBeta)
 
-FLOATING_POINT_INST(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
+SIMPLE_INSTANTIATE(void, linear::IsSymmetric, DataType &aInput, bool &aOutput)
 
-FLOATING_POINT_INST(void, linear::Cholesky, DataType &aInputA,
-                    DataType &aOutput, const bool &aUpperTriangle)
+SIMPLE_INSTANTIATE(void, linear::Cholesky, DataType &aInputA,
+                   DataType &aOutput, const bool &aUpperTriangle)
 
-FLOATING_POINT_INST(void, linear::CholeskyInv, DataType &aInputA,
-                    DataType &aOutput, const size_t &aNCol)
+SIMPLE_INSTANTIATE(void, linear::CholeskyInv, DataType &aInputA,
+                   DataType &aOutput, const size_t &aNCol)
 
-FLOATING_POINT_INST(void, linear::Solve, DataType &aInputA, DataType &aInputB,
-                    DataType &aOutput, const bool &aSingle)
+SIMPLE_INSTANTIATE(void, linear::Solve, DataType &aInputA, DataType &aInputB,
+                   DataType &aOutput, const bool &aSingle,
+                   const std::string &aInternalPrecision)
 
-FLOATING_POINT_INST(void, linear::BackSolve, DataType &aInputA,
-                    DataType &aInputB, DataType &aOutput, const size_t &aCol,
-                    const bool &aUpperTri, const bool &aTranspose,
-                    const char &aSide,const double &aAlpha)
+SIMPLE_INSTANTIATE(void, linear::BackSolve, DataType &aInputA,
+                   DataType &aInputB, DataType &aOutput, const size_t &aCol,
+                   const bool &aUpperTri, const bool &aTranspose,
+                   const char &aSide, const double &aAlpha)
 
-FLOATING_POINT_INST(void, linear::Eigen, DataType &aInput,
-                    DataType &aOutputValues, DataType *apOutputVectors)
+SIMPLE_INSTANTIATE(void, linear::Eigen, DataType &aInput,
+                   DataType &aOutputValues, DataType *apOutputVectors)
 
-FLOATING_POINT_INST(void, linear::Norm, DataType &aInput,
-                    const std::string &aType, DataType &aOutput)
+SIMPLE_INSTANTIATE(void, linear::Norm, DataType &aInput,
+                   const std::string &aType, double &aOutput)
 
-FLOATING_POINT_INST(void, linear::ReciprocalCondition, DataType &aInput,
-                    DataType &aOutput, const std::string &aNorm,
-                    const bool &aTriangle)
+SIMPLE_INSTANTIATE(void, linear::ReciprocalCondition, DataType &aInput,
+                   double &aOutput, const std::string &aNorm,
+                   const bool &aTriangle)
 
-FLOATING_POINT_INST(void, linear::SVD, DataType &aInputA, DataType &aOutputS,
-                    DataType &aOutputU, DataType &aOutputV, const size_t &aNu,
-                    const size_t &aNv, const bool &aTranspose)
+SIMPLE_INSTANTIATE(void, linear::SVD, DataType &aInputA, DataType &aOutputS,
+                   DataType &aOutputU, DataType &aOutputV, const size_t &aNu,
+                   const size_t &aNv, const bool &aTranspose)
 
-FLOATING_POINT_INST(void, linear::QRDecompositionQ, DataType &aInputA,
-                    DataType &aInputB, DataType &aOutput, const bool &aComplete)
+SIMPLE_INSTANTIATE(void, linear::QRDecompositionQ, DataType &aInputA,
+                   DataType &aInputB, DataType &aOutput, const bool &aComplete)
 
-FLOATING_POINT_INST(void, linear::QRDecomposition, DataType &aInputA,
-                    DataType &aOutputQr, DataType &aOutputQraux,
-                    DataType &aOutputPivot, DataType &aRank,
-                    const double &aTolerance)
+SIMPLE_INSTANTIATE(void, linear::QRDecomposition, DataType &aInputA,
+                   DataType &aOutputQr, DataType &aOutputQraux,
+                   DataType &aOutputPivot, DataType &aRank)
 
-FLOATING_POINT_INST(void, linear::QRDecompositionR, DataType &aInputA,
-                    DataType &aOutput, const bool &aComplete)
+SIMPLE_INSTANTIATE(void, linear::QRDecompositionR, DataType &aInputA,
+                   DataType &aOutput, const bool &aComplete)
 
-FLOATING_POINT_INST(void, linear::QRDecompositionQY, DataType &aInputA,
-                    DataType &aInputB, DataType &aInputC, DataType &aOutput,
-                    const bool &aTranspose)
+SIMPLE_INSTANTIATE(void, linear::QRDecompositionQY, DataType &aInputA,
+                   DataType &aInputB, DataType &aInputC, DataType &aOutput,
+                   const bool &aTranspose)
 
 
