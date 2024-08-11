@@ -40,9 +40,7 @@ generate_postive_matrix_alt <- function(n) {
 run_chol_benchmark <- function(n, replication, times,operation_placement) {
   matrix <- generate_postive_matrix_alt(n)
 
-
   MPCR_matrix_single <- as.MPCR(matrix, n, n, "single",operation_placement)
-  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double",operation_placement)
 
   MPCR.SetOperationPlacement(operation_placement)
 
@@ -50,18 +48,38 @@ run_chol_benchmark <- function(n, replication, times,operation_placement) {
   cat("Running chol benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   chol(MPCR_matrix_single),
-                  chol(MPCR_matrix_double),
                   columns = c("test", "replications", "elapsed")))
 
 
   MPCR_chol_single <- chol(MPCR_matrix_single)
-  MPCR_chol_double <- chol(MPCR_matrix_double)
 
   cat("Running chol2inv benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   chol2inv(MPCR_chol_single),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  MPCR_matrix_single$FreeGPU()
+  MPCR_matrix_single$FreeCPU()
+
+  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double",operation_placement)
+
+  MPCR.SetOperationPlacement(operation_placement)
+
+  cat("\n\n\n")
+  cat("Running chol benchmark \n")
+  print(benchmark(replications = rep(replication, times),
+                  chol(MPCR_matrix_double),
+                  columns = c("test", "replications", "elapsed")))
+
+  MPCR_chol_double <- chol(MPCR_matrix_double)
+
+  cat("Running chol2inv benchmark \n")
+  print(benchmark(replications = rep(replication, times),
                   chol2inv(MPCR_chol_double),
                   columns = c("test", "replications", "elapsed")))
+
+
 
 }
 

@@ -340,8 +340,8 @@
   })
 
   setMethod("La.svd", c(x = "Rcpp_MPCR"), function(x, nu = min(n, p), nv = min(n, p)) {
-    n = x$Row()
-    p = x$Col()
+    n = x$Row
+    p = x$Col
 
     if (missing(nu)) {
       nu = -1

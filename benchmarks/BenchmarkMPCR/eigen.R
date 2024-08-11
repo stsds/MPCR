@@ -45,13 +45,21 @@ run_eigen_becnhmark <- function(n, replication, times,operation_placement) {
 
 
   MPCR_single <- as.MPCR(matrix, n, n, "single",operation_placement)
-  MPCR_double <- as.MPCR(matrix, n, n, "double",operation_placement)
-
   MPCR.SetOperationPlacement(operation_placement)
 
   cat("\n")
   print(benchmark(replications = rep(replication, times),
                   eigen(MPCR_single),
+                  columns = c("test", "replications", "elapsed")))
+
+  MPCR_single$FreeGPU()
+  MPCR_single$FreeCPU()
+
+  MPCR_double <- as.MPCR(matrix, n, n, "double",operation_placement)
+  MPCR.SetOperationPlacement(operation_placement)
+
+  cat("\n")
+  print(benchmark(replications = rep(replication, times),
                   eigen(MPCR_double),
                   columns = c("test", "replications", "elapsed")))
 

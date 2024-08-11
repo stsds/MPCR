@@ -43,7 +43,6 @@ run_svd_benchmark <- function(n, replication, times,operation_placement) {
   }
 
   MPCR_single <- as.MPCR(A, n, n, "single",operation_placement)
-  MPCR_double <- as.MPCR(A, n, n, "double",operation_placement)
 
   MPCR.SetOperationPlacement(operation_placement)
 
@@ -51,13 +50,32 @@ run_svd_benchmark <- function(n, replication, times,operation_placement) {
   cat("Running svd benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   svd(MPCR_single),
-                  svd(MPCR_double),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n")
   cat("Running La.svd benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   La.svd(MPCR_single),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  MPCR_single$FreeGPU()
+  MPCR_single$FreeCPU()
+
+
+  MPCR_double <- as.MPCR(A, n, n, "double",operation_placement)
+
+  MPCR.SetOperationPlacement(operation_placement)
+
+  cat("\n\n")
+  cat("Running svd benchmark \n")
+  print(benchmark(replications = rep(replication, times),
+                  svd(MPCR_double),
+                  columns = c("test", "replications", "elapsed")))
+
+  cat("\n\n")
+  cat("Running La.svd benchmark \n")
+  print(benchmark(replications = rep(replication, times),
                   La.svd(MPCR_double),
                   columns = c("test", "replications", "elapsed")))
 

@@ -44,32 +44,56 @@ run_qr_benchmark <- function(n, replication, times,operation_placement) {
   cat(paste(n, n, sep = "*"))
 
   MPCR_matrix_single <- as.MPCR(matrix, n, n, "single",operation_placement)
-  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double",operation_placement)
 
   MPCR.SetOperationPlacement(operation_placement)
   cat("\n\n\n")
   cat("Running qr benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   qr(MPCR_matrix_single),
-                  qr(MPCR_matrix_double),
                   columns = c("test", "replications", "elapsed")))
 
 
   qr_single <- qr(MPCR_matrix_single)
-  qr_double <- qr(MPCR_matrix_double)
 
   print(class(qr_single))
 
   cat("Running qr.R benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   qr.R(qr_single),
-                  qr.R(qr_double),
                   columns = c("test", "replications", "elapsed")))
 
 
   cat("Running qr.Q benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   qr.Q(qr_single),
+                  columns = c("test", "replications", "elapsed")))
+
+  MPCR_matrix_single$FreeGPU()
+  MPCR_matrix_single$FreeCPU()
+
+
+  MPCR_matrix_double <- as.MPCR(matrix, n, n, "double",operation_placement)
+
+  MPCR.SetOperationPlacement(operation_placement)
+  cat("\n\n\n")
+  cat("Running qr benchmark \n")
+  print(benchmark(replications = rep(replication, times),
+                  qr(MPCR_matrix_double),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  qr_double <- qr(MPCR_matrix_double)
+
+  print(class(qr_double))
+
+  cat("Running qr.R benchmark \n")
+  print(benchmark(replications = rep(replication, times),
+                  qr.R(qr_double),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  cat("Running qr.Q benchmark \n")
+  print(benchmark(replications = rep(replication, times),
                   qr.Q(qr_double),
                   columns = c("test", "replications", "elapsed")))
 

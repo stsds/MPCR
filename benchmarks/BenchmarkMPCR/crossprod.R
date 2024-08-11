@@ -48,11 +48,8 @@ run_gemm_benchmark <- function(row, col, replication, times ,operation_placement
   print(ncol(matrix_2))
 
   MPCR_matrix_single_1 <- as.MPCR(matrix_1, row, col, "single",operation_placement)
-  MPCR_matrix_double_1 <- as.MPCR(matrix_1, row, col, "double",operation_placement)
-
-
   MPCR_matrix_single_2 <- as.MPCR(matrix_2, col, row, "single",operation_placement)
-  MPCR_matrix_double_2 <- as.MPCR(matrix_2, col, row, "double",operation_placement)
+
 
   MPCR.SetOperationPlacement(operation_placement)
 
@@ -60,17 +57,14 @@ run_gemm_benchmark <- function(row, col, replication, times ,operation_placement
   cat("Running crossprod benchmark with 2 input \n")
   print(benchmark(replications = rep(replication, times),
                   crossprod(MPCR_matrix_single_1, MPCR_matrix_single_2),
-                  crossprod(MPCR_matrix_double_1, MPCR_matrix_double_2),
                   columns = c("test", "replications", "elapsed")))
 
   MPCR_matrix_single_3 <- as.MPCR(matrix_2, row, col, "single",operation_placement)
-  MPCR_matrix_double_3 <- as.MPCR(matrix_2, row, col, "double",operation_placement)
 
   cat("\n\n")
   cat("Running tcrossprod benchmark with 2 input \n")
   print(benchmark(replications = rep(replication, times),
                   tcrossprod(MPCR_matrix_single_1, MPCR_matrix_single_3),
-                  tcrossprod(MPCR_matrix_double_1, MPCR_matrix_double_3),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n\n")
@@ -78,7 +72,6 @@ run_gemm_benchmark <- function(row, col, replication, times ,operation_placement
 
 
   MPCR_matrix_single_3 <- as.MPCR(matrix_3, row, row, "single",operation_placement)
-  MPCR_matrix_double_3 <- as.MPCR(matrix_3, row, row, "double",operation_placement)
   cat("Matrix 3 : ")
   cat(paste(row, row, sep = "*"))
   cat("\n")
@@ -86,13 +79,63 @@ run_gemm_benchmark <- function(row, col, replication, times ,operation_placement
   cat("Running crossprod benchmark with 1 input \n")
   print(benchmark(replications = rep(replication, times),
                   crossprod(MPCR_matrix_single_3),
-                  crossprod(MPCR_matrix_double_3),
                   columns = c("test", "replications", "elapsed")))
 
 
   cat("Running tcrossprod benchmark with 1 input \n")
   print(benchmark(replications = rep(replication, times),
                   tcrossprod(MPCR_matrix_single_3),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  cat("\n")
+
+  MPCR_matrix_single_1$FreeGPU()
+  MPCR_matrix_single_2$FreeGPU()
+  MPCR_matrix_single_3$FreeGPU()
+
+  MPCR_matrix_single_1$FreeCPU()
+  MPCR_matrix_single_2$FreeCPU()
+  MPCR_matrix_single_3$FreeCPU()
+
+  # --------------------------- Double ------------------------------------
+
+  MPCR_matrix_double_1 <- as.MPCR(matrix_1, row, col, "double",operation_placement)
+  MPCR_matrix_double_2 <- as.MPCR(matrix_2, col, row, "double",operation_placement)
+
+  MPCR.SetOperationPlacement(operation_placement)
+
+  cat("\n\n")
+  cat("Running crossprod benchmark with 2 input \n")
+  print(benchmark(replications = rep(replication, times),
+                  crossprod(MPCR_matrix_double_1, MPCR_matrix_double_2),
+                  columns = c("test", "replications", "elapsed")))
+
+  MPCR_matrix_double_3 <- as.MPCR(matrix_2, row, col, "double",operation_placement)
+
+  cat("\n\n")
+  cat("Running tcrossprod benchmark with 2 input \n")
+  print(benchmark(replications = rep(replication, times),
+                  tcrossprod(MPCR_matrix_double_1, MPCR_matrix_double_3),
+                  columns = c("test", "replications", "elapsed")))
+
+  cat("\n\n\n")
+  matrix_3 <- generate_matrix_big(row, row)
+
+
+  MPCR_matrix_double_3 <- as.MPCR(matrix_3, row, row, "double",operation_placement)
+  cat("Matrix 3 : ")
+  cat(paste(row, row, sep = "*"))
+  cat("\n")
+  cat("\n\n\n")
+  cat("Running crossprod benchmark with 1 input \n")
+  print(benchmark(replications = rep(replication, times),
+                  crossprod(MPCR_matrix_double_3),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  cat("Running tcrossprod benchmark with 1 input \n")
+  print(benchmark(replications = rep(replication, times),
                   tcrossprod(MPCR_matrix_double_3),
                   columns = c("test", "replications", "elapsed")))
 
@@ -128,9 +171,3 @@ cat(operation_placement)
 cat("\n")
 
 run_gemm_benchmark(row, col, replication, times , operation_placement)
-
-
-
-
-
-
