@@ -8,7 +8,7 @@
 library("MPCR")
 
 paste("Create a Vector of 50 element with 32-Bit Precision")
-x <- new(MPCR, 50, "float")
+x <- new(MPCR, 50, "float","CPU")
 
 
 paste("Element at Index 5")
@@ -51,7 +51,7 @@ x$PrintValues()
 paste("---------------------------------------------------------------")
 paste("Create a Vector of 10 element as HALF")
 paste("If Compiler doesn't support 16-bit floating point ,32-bit will be created and a warning msg will appear")
-y <- new(MPCR, 10, "half")
+y <- new(MPCR, 10, "half","CPU")
 
 paste("Element at Index 5")
 y[[5]]
@@ -111,7 +111,7 @@ x$Size
 
 paste("---------------------------------------------------------------")
 paste("Replicate 1 2 3 (3 Times)")
-temp_rep <- new(MPCR, 3, "float")
+temp_rep <- new(MPCR, 3, "float","CPU")
 temp_rep[[1]] <- 1
 temp_rep[[2]] <- 2
 temp_rep[[3]] <- 3
@@ -133,12 +133,12 @@ diag$PrintValues()
 
 paste("---------------------------------------------------------------")
 paste("CBind")
-temp_bind <- new(MPCR, 1, "float")
+temp_bind <- new(MPCR, 1, "float","CPU")
 temp_bind[[1]] <- 22
 replicated <- rep(temp_bind, 30)
 replicated$ToMatrix(5, 6)
 
-xx <- new(MPCR, 30, "float")
+xx <- new(MPCR, 30, "float","CPU")
 xx$ToMatrix(5, 6)
 
 paste("size should be 60")
@@ -168,7 +168,7 @@ cbind_temp$PrintValues()
 paste("---------------------------------------------------------------")
 paste("Sweep values should be 3 for all elements 1.5 * 2")
 
-yy <- new(MPCR, 10, "double")
+yy <- new(MPCR, 10, "double","CPU")
 temp_bind[[1]] <- 2
 temp_sweep <- sweep(x=yy, stat=temp_bind, margin=1, FUN="+")
 MPCR.is.double(temp_sweep)
@@ -176,13 +176,13 @@ MPCR.is.double(temp_sweep)
 paste("---------------------------------------------------------------")
 paste("Object size Vector of float 10 Element Float")
 paste("Data size should be 40 byte + 13 metadata")
-obj <- new(MPCR, 10, "float")
+obj <- new(MPCR, 10, "float","CPU")
 size <- MPCR.object.size(obj)
 size
 
 paste("Object size Vector of float 10 Element Double")
 paste("Data size should be 80 byte + 13 metadata")
-obj <- new(MPCR, 10, "double")
+obj <- new(MPCR, 10, "double","CPU")
 size <- MPCR.object.size(obj)
 size
 
@@ -194,14 +194,14 @@ obj
 paste("---------------------------------------------------------------")
 paste("Testing Scale")
 
-temp_scale <- new(MPCR, 50, "float")
+temp_scale <- new(MPCR, 50, "float","CPU")
 temp_scale$ToMatrix(5, 10)
 for (val in 1:50) {
   temp_scale[[val]] <- val
 }
 
 temp_scale$PrintValues()
-temp_center_scale <- new(MPCR, 10, "double")
+temp_center_scale <- new(MPCR, 10, "double","CPU")
 z <- scale(x=temp_scale, center=FALSE, scale=temp_center_scale)
 z$PrintValues()
 
@@ -210,8 +210,8 @@ paste("---------------------------------------------------------------")
 paste("Testing Binary Operations")
 
 
-x <- new(MPCR, 50, "double")
-y <- new(MPCR, 30, "float")
+x <- new(MPCR, 50, "double","CPU")
+y <- new(MPCR, 30, "float","CPU")
 
 
 for (val in 1:50) {
@@ -277,7 +277,7 @@ paste("---------------------------------------------------------------")
 paste("Testing Replicate")
 paste("Replicate (50, count=2) output =100")
 paste("---------------------------------------------------------------")
-x <- new(MPCR, 50, "float")
+x <- new(MPCR, 50, "float","CPU")
 z <- rep(x, count = 2)
 z$PrintValues()
 
@@ -293,9 +293,9 @@ values <- c(3.12393, -1.16854, -0.304408, -2.15901,
 
 
 eigen_temp <- c(1, -1, -1, 1)
-x <- new(MPCR, 16, "float")
-y <- new(MPCR, 16, "float")
-z <- new(MPCR, 4, "float")
+x <- new(MPCR, 16, "float","CPU")
+y <- new(MPCR, 16, "float","CPU")
+z <- new(MPCR, 4, "float","CPU")
 
 
 for (val in 1:16) {
@@ -334,7 +334,7 @@ valss$PrintValues()
 vecc$PrintValues()
 cat("----------------------- QR Decomposition --------------------\n")
 qr_vals <- c(1, 2, 3, 2, 4, 6, 3, 3, 3)
-qr_input <- new(MPCR, 9, "float")
+qr_input <- new(MPCR, 9, "float","CPU")
 qr_input$ToMatrix(3, 3)
 
 
@@ -362,7 +362,7 @@ svd_vals <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 1, 1, 1)
 
-svd_input <- new(MPCR, 9 * 4, "float")
+svd_input <- new(MPCR, 9 * 4, "float","CPU")
 svd_input$ToMatrix(9, 4)
 
 for (val in 1:36) {
@@ -381,15 +381,15 @@ svd_output[[3]]$PrintValues()
 cat("------------------------------- RCond ------------------------------------------\n")
 #
 rcond_out <- rcond(svd_input, "O", FALSE)
-rcond_out$PrintValues()
+rcond_out
 
 
 cat("--------------------------------------------------------------------------\n")
 cat("------------------  as.MPCR Function ------------------------\n")
-convertedMPCR <- as.MPCR(1:24, precision = "float")
+convertedMPCR <- as.MPCR(1:24, precision = "float",placement="CPU")
 convertedMPCR$PrintValues()
 cat("--------------------------------------------------------------------------\n")
-convertedMPCR <- as.MPCR(1:24, nrow = 4, ncol = 6, precision = "float")
+convertedMPCR <- as.MPCR(1:24, nrow = 4, ncol = 6, precision = "float",placement="CPU")
 convertedMPCR$PrintValues()
 cat("-------------- Test Print --------------------------\n")
 print(convertedMPCR)

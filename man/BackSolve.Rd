@@ -1,6 +1,10 @@
-\name{38-Back/Forward solve}
+\name{37-Back/Forward solve}
 \alias{forwardsolve,Rcpp_MPCR,Rcpp_MPCR-method}
 \alias{backsolve,Rcpp_MPCR,Rcpp_MPCR-method}
+
+\alias{MPCR.backsolve}
+\alias{MPCR.forwardsolve}
+
 
 \title{Back/Forward solve}
 

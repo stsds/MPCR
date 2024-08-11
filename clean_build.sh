@@ -1,10 +1,19 @@
 #!/bin/bash
 
+##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
 # All rights reserved.
+# MPCR is an R package provided by the STSDS group at KAUST
+##########################################################################
 
 verbose=
 num_proc="-j $(nproc)"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
+else
+  ABSOLUE_PATH=$(dirname $(realpath "$0"))
+fi
 
 while getopts "vj:h" opt; do
   case $opt in
@@ -33,6 +42,6 @@ while getopts "vj:h" opt; do
   esac
 done
 
-cd bin/ || exit
+cd "${ABSOLUE_PATH}/bin/" || exit
 make clean
 make all $num_proc $verbose

@@ -325,42 +325,6 @@ RPrint(DataType *apInput);
 
 /**
  * @brief
- * R Adapter for Getting Element with Idx from MPCR Vector as MPCR Object
- *
- * @param[in] apInput
- * MPCR Object
- * @param[in] aIndex
- * Index of Data
- *
- * @returns
- * MPCR Object holding element at idx
- *
- */
-DataType *
-RGetElementVector(DataType *apInput, size_t aIndex);
-
-/**
- * @brief
- * R Adapter for Getting Element with Idx [row][col] from MPCR Matrix
- * as MPCR Object
- *
- * @param[in] apInput
- * MPCR Object
- * @param[in] aRow
- * Row Idx
- * @param[in] aCol
- * Col Idx
- *
- * @returns
- * MPCR Object holding element at idx
- *
- */
-DataType *
-RGetElementMatrix(DataType *apInput, size_t aRowIdx,
-                  size_t aColIdx);
-
-/**
- * @brief
  * R Adapter for Concatenating List of MPCR Vectors into one MPCR Vector.
  * This Function Casts the SEXP pointer to DataTypes pointers , And Check a Magic
  * Number inside the MPCR Class to determine if its a MPCR object or Not.
@@ -501,6 +465,9 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c);
  * Number of Cols in case of creating an MPCR Matrix .
  * @param[in] aPrecision
  * Required Precision of the created MPCR Object.
+ * @param [in] aOperationPlacement
+ * String indicating whether the MPCR object should be allocated on CPU or GPU.
+ * default is CPU.
  *
  * @returns
  * New MPCR Object constructed from the given inputs
@@ -508,7 +475,8 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c);
  */
 DataType *
 RConvertToMPCR(std::vector <double> &aValues, const size_t &aRow,
-              const size_t &aCol, const std::string &aPrecision);
+               const size_t &aCol, const std::string &aPrecision,
+               const std::string &aOperationPlacement = "CPU");
 
 
 #endif //MPCR_RBASICUTILITIES_HPP

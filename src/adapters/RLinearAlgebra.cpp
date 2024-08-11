@@ -8,11 +8,12 @@
 
 #include <adapters/RLinearAlgebra.hpp>
 #include <adapters/RHelpers.hpp>
-#include <data-units/Promoter.hpp>
+#include <kernels/Promoter.hpp>
 #include <utilities/MPCRDispatcher.hpp>
 
 
 using namespace mpcr::operations;
+using namespace mpcr::kernels;
 
 
 DataType *
@@ -58,14 +59,20 @@ RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
         }
 
     }
+#ifdef USE_CUDA
+    auto LowestPrecision = HALF;
+#else
+    auto LowestPrecision = FLOAT;
+#endif
     pr.Insert(*aInputA);
     pr.Insert(*temp_b);
     pr.Insert(*aInputC);
-    pr.Promote();
+    pr.Promote(LowestPrecision);
 
     auto precision = aInputA->GetPrecision();
-    SIMPLE_DISPATCH(precision, linear::CrossProduct, *aInputA, *temp_b,
-                    *aInputC, aTransposeA, aTransposeB, true, aAlpha, aBeta)
+    SIMPLE_DISPATCH_WITH_HALF(precision, linear::CrossProduct, *aInputA,
+                              *temp_b, *aInputC, aTransposeA, aTransposeB, true,
+                              aAlpha, aBeta)
 
     pr.DePromote();
 }
@@ -94,17 +101,21 @@ RCrossProduct(DataType *aInputA, SEXP aInputB) {
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
+#ifdef USE_CUDA
+        auto LowestPrecision = HALF;
+#else
+        auto LowestPrecision = FLOAT;
+#endif
         pr.Insert(*aInputA);
         pr.Insert(*temp_b);
-        pr.Promote();
+        pr.Promote(LowestPrecision);
     }
 
     auto precision = aInputA->GetPrecision();
 
     auto pOutput = new DataType(precision);
-    SIMPLE_DISPATCH(precision, linear::CrossProduct, *aInputA, *temp_b,
-                    *pOutput,
-                    transpose, false)
+    SIMPLE_DISPATCH_WITH_HALF(precision, linear::CrossProduct, *aInputA,
+                              *temp_b, *pOutput, transpose, false)
 
     if (!aSingle) {
         pr.DePromote();
@@ -136,15 +147,20 @@ RTCrossProduct(DataType *aInputA, SEXP aInputB) {
                 "Undefined Object . Make Sure You're Using MMPR Object",
                 -1);
         }
+#ifdef USE_CUDA
+        auto LowestPrecision = HALF;
+#else
+        auto LowestPrecision=FLOAT;
+#endif
         pr.Insert(*aInputA);
         pr.Insert(*temp_b);
-        pr.Promote();
+        pr.Promote(LowestPrecision);
     }
 
     auto precision = aInputA->GetPrecision();
 
     auto pOutput = new DataType(precision);
-    SIMPLE_DISPATCH(precision, linear::CrossProduct, *aInputA, *temp_b,
+    SIMPLE_DISPATCH_WITH_HALF(precision, linear::CrossProduct, *aInputA, *temp_b,
                     *pOutput,
                     false, true)
 
@@ -213,7 +229,7 @@ RCholeskyInv(DataType *aInputA, const size_t &aSize) {
 
 
 DataType *
-RSolve(DataType *aInputA, SEXP aInputB) {
+RSolve(DataType *aInputA, SEXP aInputB, const std::string &aInternalPrecision) {
 
     bool aSingle = ((SEXP) aInputB == R_NilValue );
     Promoter pr(2);
@@ -239,7 +255,7 @@ RSolve(DataType *aInputA, SEXP aInputB) {
 
     auto pOutput = new DataType(precision);
     SIMPLE_DISPATCH(precision, linear::Solve, *aInputA, *temp_b,
-                    *pOutput, aSingle)
+                    *pOutput, aSingle, aInternalPrecision)
 
     if (!aSingle) {
         pr.DePromote();
@@ -296,17 +312,18 @@ RTranspose(DataType *aInputA) {
 }
 
 
-DataType *
+double
 RNorm(DataType *aInputA, const std::string &aType) {
     auto precision = aInputA->GetPrecision();
-    auto pOutput = new DataType(precision);
-    SIMPLE_DISPATCH(precision, linear::Norm, *aInputA, aType, *pOutput)
-    return pOutput;
+    double output = 0;
+
+    SIMPLE_DISPATCH(precision, linear::Norm, *aInputA, aType, output)
+    return output;
 }
 
 
 std::vector <DataType>
-RQRDecomposition(DataType *aInputA, const double &aTolerance) {
+RQRDecomposition(DataType *aInputA) {
 
     auto precision = aInputA->GetPrecision();
 
@@ -316,7 +333,7 @@ RQRDecomposition(DataType *aInputA, const double &aTolerance) {
     auto rank = new DataType(precision);
 
     SIMPLE_DISPATCH(precision, linear::QRDecomposition, *aInputA, *qr, *qraux,
-                    *pivot, *rank, aTolerance)
+                    *pivot, *rank)
 
     std::vector <DataType> output;
     output.push_back(*qr);
@@ -329,7 +346,7 @@ RQRDecomposition(DataType *aInputA, const double &aTolerance) {
 }
 
 
-DataType *
+double
 RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle) {
 
     auto row = aInputA->GetNRow();
@@ -367,16 +384,15 @@ RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle) {
         temp_input = aInputA;
     }
 
-    auto pOutput = new DataType(precision);
+    double output = 0;
     SIMPLE_DISPATCH(precision, linear::ReciprocalCondition, *temp_input,
-                    *pOutput,
-                    aNorm, aTriangle)
+                    output, aNorm, aTriangle)
 
     if (flag_creation) {
         delete temp_input;
     }
 
-    return pOutput;
+    return output;
 }
 
 

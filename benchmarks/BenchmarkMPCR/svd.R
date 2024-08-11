@@ -28,7 +28,7 @@ generate_matrix_big <- function(n, m) {
   return(my_matrix)
 }
 
-run_svd_benchmark <- function(n, replication, times) {
+run_svd_benchmark <- function(n, replication, times,operation_placement) {
 
   cat("Matrix A : ")
   cat(paste(n, n, sep = "*"))
@@ -42,21 +42,40 @@ run_svd_benchmark <- function(n, replication, times) {
     A <- matrix(rnorm(n^2), ncol = n)
   }
 
-  MPCR_single <- as.MPCR(A, n, n, "single")
-  MPCR_double <- as.MPCR(A, n, n, "double")
+  MPCR_single <- as.MPCR(A, n, n, "single",operation_placement)
 
+  MPCR.SetOperationPlacement(operation_placement)
 
   cat("\n\n")
   cat("Running svd benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   svd(MPCR_single),
-                  svd(MPCR_double),
                   columns = c("test", "replications", "elapsed")))
 
   cat("\n\n")
   cat("Running La.svd benchmark \n")
   print(benchmark(replications = rep(replication, times),
                   La.svd(MPCR_single),
+                  columns = c("test", "replications", "elapsed")))
+
+
+  MPCR_single$FreeGPU()
+  MPCR_single$FreeCPU()
+
+
+  MPCR_double <- as.MPCR(A, n, n, "double",operation_placement)
+
+  MPCR.SetOperationPlacement(operation_placement)
+
+  cat("\n\n")
+  cat("Running svd benchmark \n")
+  print(benchmark(replications = rep(replication, times),
+                  svd(MPCR_double),
+                  columns = c("test", "replications", "elapsed")))
+
+  cat("\n\n")
+  cat("Running La.svd benchmark \n")
+  print(benchmark(replications = rep(replication, times),
                   La.svd(MPCR_double),
                   columns = c("test", "replications", "elapsed")))
 
@@ -66,14 +85,15 @@ run_svd_benchmark <- function(n, replication, times) {
 # Define the arguments
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args) != 3) {
+if (length(args) != 4) {
   cat("\n\n\n\n")
-  stop("Please provide correct arguments, 1-matrix_size 2-number_of_replication 3-times")
+  stop("Please provide correct arguments, 1-matrix_size 2-number_of_replication 3-times 4-operation_placement")
 }
 
 mat_size <- as.integer(args[1])
 replication <- as.integer(args[2])
 times <- as.integer(args[3])
+operation_placement <- toString(args[4])
 
 cat("Matrix size : ")
 cat(paste(mat_size, mat_size, sep = "*"))
@@ -82,8 +102,12 @@ cat("replication : ")
 cat(replication)
 cat("times : ")
 cat(times)
+cat("\n")
+cat("Operation Placement : ")
+cat(operation_placement)
+cat("\n")
 
 
-run_svd_benchmark(mat_size, replication, times)
+run_svd_benchmark(mat_size, replication, times,operation_placement)
 
 

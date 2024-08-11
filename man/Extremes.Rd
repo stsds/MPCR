@@ -1,9 +1,15 @@
-\name{12-Extremes}
+\name{11-Extremes}
 \alias{extremes}
 \alias{min,Rcpp_MPCR-method}
 \alias{max,Rcpp_MPCR-method}
 \alias{which.min,Rcpp_MPCR-method}
 \alias{which.max,Rcpp_MPCR-method}
+
+\alias{MPCR.min}
+\alias{MPCR.max}
+\alias{MPCR.which.min}
+\alias{MPCR.which.max}
+
 \title{Min-Max Functions}
 \description{
     Min-Max functions for MPCR objects values and indices, all NA values are disregarded.

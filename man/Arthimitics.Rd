@@ -1,4 +1,4 @@
-\name{04-Arithmetic}
+\name{03-Arithmetic}
 \alias{arithmetic}
 
 \alias{+,Rcpp_MPCR,Rcpp_MPCR-method}
@@ -11,6 +11,12 @@
 \alias{-,Rcpp_MPCR,BaseLinAlg-method}
 \alias{/,Rcpp_MPCR,BaseLinAlg-method}
 \alias{^,Rcpp_MPCR,BaseLinAlg-method}
+
+\alias{MPCR.Add}
+\alias{MPCR.Divide}
+\alias{MPCR.Subtract}
+\alias{MPCR.Multiply}
+\alias{MPCR.Power}
 
 
 \title{Binary arithmetic numeric/MPCR objects.}

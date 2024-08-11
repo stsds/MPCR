@@ -1,117 +1,90 @@
 
-# MPCR
+# MPCR: Multi-Precision Computing in R
 
-MPCR is an advanced package designed to provide R users with a customized data structure.
-This package harnesses the combined strength of C++ and R, empowering users with high-performance computing capabilities.
-Specifically tailored for researchers and data scientists working with multi or mixed-precision arithmetic,
-MPCR serves as an invaluable tool for achieving efficient and accurate computations.
+## Overview
 
-##### MPCR provides R users with two primary, tailor-made data structures:
-- Normal matrix/vector with different precision allocation (16-bit (half-precision), 32-bit (single-precision), and 64-bit (double precision)).
-- The Tile-Matrix layout is constructed based on the standard MPCR matrix, enabling the creation of a matrix with multiple tiles, each having a distinct precision.
+The **MPCR** package provides new data-structure support for multi- and mixed-precision for R users, supporting 16-bit, 32-bit, and 64-bit operations.
+This enables optimized memory allocation based on the desired precision, offering significant advantages in-memory optimization and computational efficiency.
+In addition, **MPCR** leverages GPU acceleration through CUDA, allowing for high-performance computations on the GPU.
+This capability includes seamless memory transfers between CPU and GPU, managed automatically by the package, simplifying the setup and usage for end users.
+
+## Key Features
+
+### 1. Multi-Precision Support
+
+**MPCR** introduces a new data structure that supports three different precisions:
+- **16-bit** - Supported on GPU only, with half-precision support for the Matrix-Matrix Multiplication only ( crossprod () ).
+- **32-bit**
+- **64-bit**
+
+This flexibility allows for optimized memory allocation and performance tuning based on the specific needs of your application.
+
+### 2. Comprehensive Linear Algebra Support
+
+The package extends support to all basic linear algebra methods across different precisions. You can perform operations like matrix multiplication, inversion, and eigenvalue decomposition with ease, regardless of the chosen precision.
+
+### 3. Seamless Integration
+
+**MPCR** maintains a consistent interface with normal R functions, allowing for seamless code integration. You can use MPCR data structures and functions without having to significantly alter your existing codebase, ensuring a user-friendly experience.
+
+### 4. GPU Acceleration with CUDA
+
+The package now supports CUDA, enabling the allocation of memory and performance of operations on the GPU using CuSolver and CuBLAS. This includes:
+- Automatic handling of data transfers between CPU and GPU.
+- Simple selection mechanism for performing operations on either CPU or GPU, with MPCR managing the complexities behind the scenes.
+
+## 5. Installation
+
+To install the **MPCR** package, you can use the following command:
+
+- Clone the MPCR package from [here](https://github.com/stsds/MPCR).
+- Checkout to tag `v2.0.0` (Latest stable release).
+- Run `R CMD INSTALL .` from the project root directory.
+
+**General Note:** The package will automatically be built with CUDA support in case CUDA ToolKit is detected, if not, the package
+will be build with CPU support only.
 ___
 
-## Requirements
+
+## 6. Requirements
 - Rcpp (needs to be installed before trying to install the package), use `install.packages("Rcpp")` in R to install it.
 - For optimal performance, `MKL` is recommended for building the package,
-in case MKL is not found on the system, the package will automatically download [OpenBLAS](https://github.com/xianyi/OpenBLAS).
-- [Blaspp](https://github.com/icl-utk-edu/blaspp) (if not found, it will be installed automatically).
-- [Lapackpp](https://github.com/icl-utk-edu/lapackpp) (if not found, it will be installed automatically).
-
+in case MKL is not found on the system, the package will automatically download [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS).
+- [Blaspp](https://github.com/icl-utk-edu/blaspp) will be installed automatically.
+- [Lapackpp](https://github.com/icl-utk-edu/lapackpp) will be installed automatically.
+- [CUDA ToolKit > 11.4](https://developer.nvidia.com/cuda-toolkit) in case CUDA toolkit is not available on the system, the package will be installed with CPU support only.
 ___
 
-## Installation
-To install the package:
-- Clone the MPCR package from [here](https://github.com/stsds/MPCR).
-- Checkout to tag `v1.0.0` (Latest stable release).
-- Run `R CMD INSTALL .` from the project root directory.
-___
+## 7. Getting Started
 
-
-## Features
-- Creation of matrix/vector with different precision allocation (16-bit (half-precision), 32-bit (single-precision), and 64-bit (double precision)).
-- Support for all operators, basic utilities, binary operations, casters and converts, mathematical operations, and linear algebra.
-- Tile-Matrix layout build-on normal MPCR matrix, offering the creation of a matrix with multiple tiles with a different precision for each one.
-- Support for three main linear tile-algorithms `potrf, gemm, and trsm`.
-- Support for converters to MPCR-Tile matrix
-
-More details are available in the package [manual](vignettes/MPCR-manual.pdf)
-___
-
-
-## Testing
-MPCR uses Catch2 library for C++ unit-testing, offering the ability to create an automated CI/CD pipeline for development.
-All the modules contain a group of test cases to ensure the logical and mathematical validity of the added features.
-
-To run the package tests:
-
-```bash
-./config.sh -t
-./clean_build.sh
-cd bin/
-ctest -VV
-```
-___
-
-
-## Example
-```R
-# creating MPCRTile matrix and performing tile-potrf
-
-# creating an R matrix of double precision values
-R_matrix <- matrix(c(1.21, 0.18, 0.13, 0.41, 0.06, 0.23,
-              0.18, 0.64, 0.10, -0.16, 0.23, 0.07,
-              0.13, 0.10, 0.36, -0.10, 0.03, 0.18,
-              0.41, -0.16, -0.10, 1.05, -0.29, -0.08,
-              0.06, 0.23, 0.03, -0.29, 1.71, -0.10,
-              0.23, 0.07, 0.18, -0.08, -0.10, 0.36), 6, 6)
-
-# creating a vector of strings, each string represents the precision of its corresponding tile.
-# column major indexing is assumed
-precision_metadata_vector <- c("single","double", "single", "single", "double", "double","single" , "single","double")
-
-# MPCR Tile matrix initialization with size 6 x 6 and tile size 2 x 2
-MPCRTile_mat <- new( MPCRTile , 6, 6, 2, 2, R_matrix, precision_metadata_vector)
-
-# Perform out of place tile cholesky decomposition
-chol_matrix <- chol(MPCRTile_mat,overwrite_input = FALSE)
-print(chol_matrix)
-```
+Example showcasing how MPCR can be used to allocate and perform operations on CPU/GPU. More examples are available
+in the following [directory](tests/R-tests).
 
 ```R
-# MPCR object creation
-x <- new(MPCR, 50, "single")
+library("MPCR")
 
-# converting R object to MPCR object
-y <- as.MPCR(1:24, precision = "single") # vector will be created
+values <- c(3.12393, -1.16854, -0.304408, -2.15901,
+            -1.16854, 1.86968, 1.04094, 1.35925, -0.304408,
+            1.04094, 4.43374, 1.21072, -2.15901, 1.35925, 1.21072, 5.57265)
 
-# converting R object to MPCR object
-z <- as.MPCR(1:24, nrow = 4, ncol = 6, precision = "single") # Matrix will be created
+# placement will indicate on which device the allocation should be made.
+# default option : CPU
+
+A <- as.MPCR(values, nrow = 4, ncol = 4, precision = "float",placement="GPU")
+B <- as.MPCR(values, nrow = 4, ncol = 4, precision = "float",placement="GPU")
+
+# Set operation placement is the function used to decide whether the up-coming
+# operation should be executed on CPU or GPU
+
+
+# All the up-coming operation will be executed on GPU
+# default option : CPU
+MPCR.SetOperationPlacement("GPU")
+
+cat("----------------------- CrossProduct C=XY --------------------\n")
+# Print is a CPU only function, so the data will automatically be transferred to CPU,
+# resulting in having a copy on CPU and a copy on GPU for future GPU operation
+crossproduct$PrintValues()
+
+crossproduct <- crossprod(x, y)
 ```
-
-More examples are available in [here](tests/R-tests)
-___
-
-## Benchmarking MPCR vs R
-
-#### The following benchmark results are conducted on three matrix sizes, `500x500`, `5000x5000`, and `15812x15812`
-
-**This graph represents the speedup of MPCR single precision object to R double object in three major linear algebra functions.**
-
-![](benchmarks/graphs/speedup_of_MPCR_single_precision_to_R.png)
-
-
-**This graph represents the speedup of MPCR double precision object to R double object in three major linear algebra functions.**
-
-![](benchmarks/graphs/speedup_of_MPCR_double_precision_to_R_double_precision.png)
-
-
-**This graph shows the timing of different functions with different sizes and precisions.**
-
-![](benchmarks/graphs/Timings_of_different_functions_using_MPCR_objects.png)
-
-
-#### Note:
-The speedup of MPCR over R is because MPCR is using MKL blas instead of Rblas, offering parallel computation on the data.
-Normally you can use MKL backend with normal R objects, however, switching blas backends on R is quite complex and needs a lot of modification on the environment itself,
- but in our case MPCR is using MKL without any modification to the environment itself, offering high speed computations with minimal efforts from the user side.

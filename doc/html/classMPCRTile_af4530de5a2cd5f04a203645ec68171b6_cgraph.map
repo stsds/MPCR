@@ -1,5 +1,0 @@
-<map id="MPCRTile::PrintTile" name="MPCRTile::PrintTile">
-<area shape="rect" id="node1" title="Print the values of a certain tile." alt="" coords="5,42,151,69"/>
-<area shape="rect" id="node2" href="$classMPCRTile.html#ae3313ef5c28be48e60b53ccf0b2fb95e" title="Convert a 2D Index into 1D Index Column Major, Given the leading Dimension used for the conversion." alt="" coords="199,5,399,47"/>
-<area shape="rect" id="node3" href="$structDimensions.html#a5c66f939316ff3690027904ae99befea" title="Get Number of Rows." alt="" coords="215,71,383,98"/>
-</map>

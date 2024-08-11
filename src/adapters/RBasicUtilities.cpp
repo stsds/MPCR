@@ -198,7 +198,7 @@ RIsNa(DataType *apInput, long aIdx) {
         delete pOutput;
         return vec;
     } else {
-        return Rcpp::wrap(apInput->IsNA(aIdx-1));
+        return Rcpp::wrap(apInput->IsNA(aIdx - 1));
     }
 
 }
@@ -227,19 +227,6 @@ RPrint(DataType *apInput) {
     std::string output;
     basic::GetAsStr(*apInput, output);
     Rcpp::Rcout << output;
-}
-
-
-DataType *
-RGetElementVector(DataType *apInput, size_t aIndex) {
-    return apInput->GetElementVector(aIndex);
-}
-
-
-DataType *
-RGetElementMatrix(DataType *apInput, size_t aRowIdx,
-                  size_t aColIdx) {
-    return apInput->GetElementMatrix(aRowIdx, aColIdx);
 }
 
 
@@ -283,14 +270,14 @@ RConcatenate(Rcpp::ListOf <SEXP> aList) {
     }
     /** Add Dummy Object **/
     if (list_size != mpr_list_size) {
-        DataType dummy(0, HALF);
+        DataType dummy(0, FLOAT);
         mpr_objects[ i ] = &dummy;
     }
 
     auto pOutput = new DataType(size_out, precision_out);
-    auto operation_precision = HALF;
-    auto precision_one = HALF;
-    auto precision_two = HALF;
+    auto operation_precision = FLOAT;
+    auto precision_one = FLOAT;
+    auto precision_two = FLOAT;
     size_t offset = 0;
 
     for (auto j = 0; j < mpr_list_size; j += 2) {
@@ -339,7 +326,7 @@ RScale(DataType *apInput, bool aCenter, DataType *apScale) {
     auto output_precision = GetOutputPrecision(precision_a, precision_b);
     auto pOutput = new DataType(output_precision);
 
-    auto operation_comb = GetOperationPrecision(precision_a, precision_a,
+    auto operation_comb = GetOperationPrecision(precision_a, precision_b,
                                                 output_precision);
     DataType dummy_center(precision_b);
 
@@ -464,13 +451,17 @@ RScaleDispatcher(SEXP a, SEXP b, SEXP c) {
 
 }
 
+
 DataType *
 RConvertToMPCR(std::vector <double> &aValues, const size_t &aRow,
-              const size_t &aCol, const std::string &aPrecision){
-    if(aRow==0 || aCol==0){
-        return new DataType(aValues,aPrecision);
-    }else{
-        return new DataType(aValues,aRow,aCol,aPrecision);
+               const size_t &aCol, const std::string &aPrecision,
+               const std::string &aOperationPlacement) {
+    auto operation_placement = GetInputOperationPlacement(aOperationPlacement);
+    if (aRow == 0 || aCol == 0) {
+        return new DataType(aValues, aPrecision, operation_placement);
+    } else {
+        return new DataType(aValues, aRow, aCol, aPrecision,
+                            operation_placement);
     }
 }
 

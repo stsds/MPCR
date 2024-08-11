@@ -1,5 +1,6 @@
-\name{08-Copy}
+\name{05-Copy}
 \alias{copy}
+\alias{MPCR.copy}
 \title{copy}
 
 \description{
@@ -18,20 +19,6 @@
       \item{\code{x}}{MPCR object. }
     }}
 
-}
-
-\section{MPCRTile deep copy}{
-    \describe{
-    Create a duplicate of an MPCRTile object. Usually, using 'equal' creates a new pointer for the object, causing any modifications made to object one to affect object two as well.
-    }
-
-   \subsection{copy}{
-   \cr
-     \code{MPCRTile.copy(x)}: Create a new copy of an MPCRTile matrix.
-      \describe{
-         \item{\code{x}}{MPCRTile matrix. }
-      }
-   }
 }
 
 \value{

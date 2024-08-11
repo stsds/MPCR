@@ -1,5 +1,11 @@
-\name{03-Converters}
+\name{02-Converters}
 \alias{Converters}
+
+\alias{MPCR.ToNumericVector}
+\alias{MPCR.ToNumericMatrix}
+\alias{as.MPCR}
+
+
 \title{Converters}
 
 \description{
@@ -12,13 +18,14 @@
 
    \subsection{MPCR converters}{
    \cr
-     \code{as.MPCR(data,nrow = 0,ncol = 0,precision)}: Converts R object to MPCR object.
+     \code{as.MPCR(data,nrow = 0,ncol = 0,precision,placement)}: Converts R object to MPCR object.
       \cr
       \describe{
          \item{\code{data}}{R matrix/vector.}
          \item{\code{nrow}}{Number of rows of the new MPCR matrix, \bold{default = zero} which means a vector will be created.}
          \item{\code{ncol}}{Number of cols of the new MPCR matrix, \bold{default = zero} which means a vector will be created.}
          \item{\code{precision}}{String indicates the precision of the new MPCR object (half, single, or double).}
+         \item{\code{placement}}{String indicates whether the data should be allocated on CPU (default) or GPU ("CPU", "GPU") }
       }
    }
 }
@@ -54,7 +61,7 @@ An MPCR or R numeric vector/matrix.
    # Example usage of the class and its methods
    library(MPCR)
    a <- matrix(1:36, 6, 6)
-   MPCR_matrix <- as.MPCR(a,nrow=6,ncol=6,precision="single")
+   MPCR_matrix <- as.MPCR(a,nrow=6,ncol=6,precision="single", placement="CPU")
    r_vector <- MPCR.ToNumericVector(MPCR_matrix)
    r_vector
    r_matrix <- MPCR.ToNumericMatrix(MPCR_matrix)

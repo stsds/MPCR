@@ -1,4 +1,4 @@
-\name{05-Comparison}
+\name{04-Comparison}
 \alias{comparison}
 
 \alias{<,Rcpp_MPCR,Rcpp_MPCR-method}

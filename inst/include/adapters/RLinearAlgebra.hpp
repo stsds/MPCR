@@ -135,12 +135,17 @@ RCholeskyInv(DataType *aInputA, const size_t &aSize);
  * MPCR Matrix A
  * @param[in] aInputB
  * MPCR Matrix X, if Null t(A) will be used.
+ * @param [in] aInternalPrecision
+ * string that indicate the precision used for the LU factorization in
+ * case of using GESV routine in CuSolver.
+ * Options: (float or single) ,half ,tensorfloat
+ *
  * @returns
  * MPCR Matrix B
  *
  */
 DataType *
-RSolve(DataType *aInputA, SEXP aInputB);
+RSolve(DataType *aInputA, SEXP aInputB,const std::string &aInternalPrecision);
 
 /**
  * @brief
@@ -191,7 +196,7 @@ RTranspose(DataType *aInputA);
  * @returns
  * Norm Value
  */
-DataType *
+double
 RNorm(DataType *aInputA, const std::string &aType);
 
 /**
@@ -200,15 +205,12 @@ RNorm(DataType *aInputA, const std::string &aType);
  *
  * @param[in] aInputA
  * MPCR Matrix
- * @param[in] aTolerance
- * the tolerance for detecting linear dependencies in the columns of
- * aInputA
  * @returns
  * vector containing QR,QRaux,Pivot,Rank
  *
  */
 std::vector <DataType>
-RQRDecomposition(DataType *aInputA,const double &aTolerance);
+RQRDecomposition(DataType *aInputA);
 
 /**
  * @brief
@@ -228,7 +230,7 @@ RQRDecomposition(DataType *aInputA,const double &aTolerance);
  * reciprocal condition number of aInput.
  *
  */
-DataType *
+double
 RRCond(DataType *aInputA, const std::string &aNorm, const bool &aTriangle);
 
 /**

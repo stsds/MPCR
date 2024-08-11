@@ -1,5 +1,6 @@
-\name{20-Sweep}
+\name{19-Sweep}
 \alias{sweep}
+\alias{MPCR.sweep}
 \alias{sweep,Rcpp_MPCR-method}
 \title{sweep}
 \usage{

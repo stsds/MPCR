@@ -1,4 +1,4 @@
-\name{22-Trig}
+\name{21-Trig}
 \alias{trig}
 \alias{sin,Rcpp_MPCR-method}
 \alias{cos,Rcpp_MPCR-method}
@@ -6,6 +6,14 @@
 \alias{asin,Rcpp_MPCR-method}
 \alias{acos,Rcpp_MPCR-method}
 \alias{atan,Rcpp_MPCR-method}
+
+\alias{MPCR.sin}
+\alias{MPCR.cos}
+\alias{MPCR.tan}
+\alias{MPCR.asin}
+\alias{MPCR.acos}
+\alias{MPCR.atan}
+
 \title{Trigonometric functions}
 \description{
 Basic trig functions.

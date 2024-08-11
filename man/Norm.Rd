@@ -1,5 +1,6 @@
-\name{33-Norm}
+\name{32-Norm}
 \alias{norm}
+\alias{MPCR.norm}
 \alias{norm,Rcpp_MPCR-method}
 \title{norm}
 \usage{

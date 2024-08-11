@@ -9,11 +9,12 @@
 #ifndef MPCR_MPRDISPATCHER_HPP
 #define MPCR_MPRDISPATCHER_HPP
 
-#include <data-units/Precision.hpp>
+#include <common/Definitions.hpp>
 #include <utilities/MPCRErrorHandler.hpp>
+#include <utilities/FloatingPointHandler.hpp>
 
 
-using namespace mpcr::precision;
+using namespace mpcr::definitions;
 
 /** Dispatcher to support Dispatching of template functions with Rcpp
  * Only 10 arguments are supported here.
@@ -42,10 +43,6 @@ using namespace mpcr::precision;
 /** Dispatcher for one template arguments **/
 #define SIMPLE_DISPATCH(PRECISION, __FUN__, ...)                               \
           switch(PRECISION){                                                   \
-              case HALF: {                                                     \
-              __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));             \
-              break;                                                           \
-              }                                                                \
               case FLOAT: {                                                    \
                __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;          \
                break;                                                          \
@@ -60,25 +57,53 @@ using namespace mpcr::precision;
                }                                                               \
           };                                                                   \
 
+
+
+#ifdef USE_CUDA
+
+/** Dispatcher for one template arguments **/
+#define SIMPLE_DISPATCH_WITH_HALF(PRECISION, __FUN__, ...)                     \
+          switch(PRECISION){                                                   \
+                case HALF: {                                                   \
+               __FUN__<float16>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;        \
+               break;                                                          \
+               }                                                               \
+               case FLOAT: {                                                   \
+               __FUN__<float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;          \
+               break;                                                          \
+               }                                                               \
+               case DOUBLE: {                                                  \
+               __FUN__<double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__))  ;         \
+               break;                                                          \
+               }                                                               \
+               default : {                                                     \
+                MPCR_API_EXCEPTION("C++ Error : Type Undefined Dispatcher",    \
+                                 (int)PRECISION);                              \
+               }                                                               \
+          };                                                                   \
+
+
+/** Instantiators for Template functions with a given return type
+ * (One template argument)
+ **/
+#define SIMPLE_INSTANTIATE_WITH_HALF(RETURNTYPE, __FUN__, ...) \
+        template RETURNTYPE __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        SIMPLE_INSTANTIATE(RETURNTYPE, __FUN__, FIRST(__VA_ARGS__)REST(__VA_ARGS__))
+
+#else
+
+/** Dispatcher for one template arguments **/
+#define SIMPLE_DISPATCH_WITH_HALF(PRECISION, __FUN__, ...)                     \
+        SIMPLE_DISPATCH(PRECISION, __FUN__, __VA_ARGS__)
+
+#define SIMPLE_INSTANTIATE_WITH_HALF(RETURNTYPE, __FUN__, ...) \
+        SIMPLE_INSTANTIATE(RETURNTYPE, __FUN__, FIRST(__VA_ARGS__)REST(__VA_ARGS__))
+
+#endif
+
 /** Dispatcher for three template arguments **/
 #define DISPATCHER(PRECISION, __FUN__, ...)                                    \
           switch(PRECISION){                                                   \
-               case FSF: {                                                     \
-               __FUN__<float,float16,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));  \
-               break;                                                          \
-               }                                                               \
-               case SFF: {                                                     \
-               __FUN__<float16,float,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-               break;                                                          \
-               }                                                               \
-               case DSD: {                                                     \
-               __FUN__<double,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
-               case SDD: {                                                     \
-               __FUN__<float16,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
                case DFD: {                                                     \
                __FUN__<double,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
@@ -87,36 +112,12 @@ using namespace mpcr::precision;
                __FUN__<float,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
                }                                                               \
-               case SSS: {                                                     \
-               __FUN__<float16,float16,float16>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));      \
-               break;                                                          \
-               }                                                               \
                case FFF: {                                                     \
                __FUN__<float,float,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
                break;                                                          \
                }                                                               \
                case DDD: {                                                     \
                __FUN__<double,double,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
-               case SSD: {                                                     \
-               __FUN__<float16,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));   \
-               break;                                                          \
-               }                                                               \
-               case SSF: {                                                     \
-               __FUN__<float16,float16,float>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));    \
-               break;                                                          \
-               }                                                               \
-               case FFD: {                                                     \
-               __FUN__<float,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__));\
-               break;                                                          \
-               }                                                               \
-               case SFD: {                                                     \
-               __FUN__<float16,float,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
-               break;                                                          \
-               }                                                               \
-               case FSD: {                                                     \
-               __FUN__<float,float16,double>(FIRST(__VA_ARGS__)REST(__VA_ARGS__)); \
                break;                                                          \
                }                                                               \
                default : {                                                     \
@@ -129,41 +130,86 @@ using namespace mpcr::precision;
  * (One template argument)
  **/
 #define SIMPLE_INSTANTIATE(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
 
-/** Instantiators for Template functions with return type the same as dispatching
- *  type (One template argument)
- **/
-#define SIMPLE_INSTANTIATE_WITH_RETURN(__FUN__, ...) \
-        template float16 __FUN__<float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template float __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template double __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+
+
 
 /** Instantiators for Template functions with a given return type
  * (Three template argument)
  **/
 #define INSTANTIATE(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<float,float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<double,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<double,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<float,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float16,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
         template RETURNTYPE __FUN__<float,float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
         template RETURNTYPE __FUN__<double,double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<float16,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<float,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float16,float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
-        template RETURNTYPE __FUN__<float,float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
 
 
-#define FLOATING_POINT_INST(RETURNTYPE, __FUN__, ...) \
-        template RETURNTYPE __FUN__<float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
-        template RETURNTYPE __FUN__<double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+/** Instantiators for Template functions with a given return type
+ * (Three template argument)
+ **/
+#define COPY_INSTANTIATE(RETURNTYPE, __FUN__, ...) \
+        template RETURNTYPE __FUN__<float16,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<float,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<double,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<double,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<float,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<double,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<float16,float16> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<int64_t,float> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+        template RETURNTYPE __FUN__<int64_t,double> (FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;  \
+
+
+/** Instantiators for Template functions with a given return type
+ * (Three template argument)
+ **/
+#define COPY_INSTANTIATE_ONE(RETURNTYPE, __FUN__, ...) \
+        template RETURNTYPE __FUN__<float16,float> (const float16*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float16,double> (const float16*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<float,float16> (const float*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,double> (const float*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<double,float16> (const double*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;\
+        template RETURNTYPE __FUN__<double,float> (const double*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;   \
+        template RETURNTYPE __FUN__<double,double> (const double*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<float,float> (const float*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ;     \
+        template RETURNTYPE __FUN__<float16,float16> (const float16*,float16*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<int64_t,float> (const int64_t*,float*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+        template RETURNTYPE __FUN__<int64_t,double> (const int64_t*,double*,FIRST(__VA_ARGS__)REST(__VA_ARGS__)) ; \
+
+
+/**
+ * @def MPCR_INSTANTIATE_CLASS
+ * @brief Macro definition to instantiate the MPCR template classes with supported types.
+**/
+
+#define MPCR_INSTANTIATE_CLASS(TEMPLATE_CLASS)   template class TEMPLATE_CLASS<float>;  \
+                                                    template class TEMPLATE_CLASS<double>;
+
+
+#define CONCATENATE(a, b) a ## b
+
+#define CONCATENATE3(a, b, c) a ## b ## c
+
+// Macro to define the function name based on precision
+#define CONCATENATE_FUNCTION_NAME(NAME_ONE, PRECISION, NAME_TWO) CONCATENATE3(NAME_ONE, PRECISION, NAME_TWO)
+
+#define CALL_FUNCTION_S(NAME_ONE, NAME_TWO, ...) CONCATENATE_FUNCTION_NAME(NAME_ONE, S, NAME_TWO)(__VA_ARGS__)
+#define CALL_FUNCTION_D(NAME_ONE, NAME_TWO, ...) CONCATENATE_FUNCTION_NAME(NAME_ONE, D, NAME_TWO)(__VA_ARGS__)
+#define CALL_FUNCTION_H(NAME_ONE, NAME_TWO, ...) CONCATENATE_FUNCTION_NAME(NAME_ONE, H, NAME_TWO)(__VA_ARGS__)
+
+
+/** Dispatcher for CUDA functions **/
+#define CUDA_FUNCTIONS_NAME_DISPATCHER(NAME_ONE, NAME_TWO, ...)                 \
+        if constexpr(is_float<T>()){                                           \
+               CALL_FUNCTION_S(NAME_ONE, NAME_TWO, __VA_ARGS__);               \
+        }else if constexpr(is_double<T>()) {                                   \
+               CALL_FUNCTION_D(NAME_ONE, NAME_TWO, __VA_ARGS__)  ;             \
+        }else if constexpr(is_half<T>()){                                      \
+               CALL_FUNCTION_H(NAME_ONE, NAME_TWO, __VA_ARGS__)  ;             \
+        }                                                                      \
 
 
 #endif //MPCR_MPRDISPATCHER_HPP

@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/sh
 
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
@@ -6,6 +6,7 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+cd "$(dirname "$0")"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -15,21 +16,21 @@ NC='\033[0m'
 PROJECT_SOURCE_DIR=$(dirname "$0")
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  ABSOLUE_PATH=$([[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}")
+  ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
 else
   ABSOLUE_PATH=$(dirname $(realpath "$0"))
 fi
 
-while getopts ":f:c:tevhi:" opt; do
+while getopts ":f:c:tevshi:" opt; do
   case $opt in
   f) ##### Define test file path  #####
     echo -e "${BLUE}Test File path set to $OPTARG${NC}"
     TEST_PATH=$OPTARG
     ;;
   c) ##### Define test file path  #####
-      echo -e "${BLUE}Config File path set to $OPTARG${NC}"
-      CONFIG_PATH=$OPTARG
-      ;;
+    echo -e "${BLUE}Config File path set to $OPTARG${NC}"
+    CONFIG_PATH=$OPTARG
+    ;;
   t) ##### Building tests enabled #####
     echo -e "${GREEN}Building tests enabled${NC}"
     BUILDING_TESTS="ON"
@@ -41,6 +42,10 @@ while getopts ":f:c:tevhi:" opt; do
   i) ##### Define installation path  #####
     echo -e "${BLUE}Installation path set to $OPTARG${NC}"
     INSTALL_PATH=$OPTARG
+    ;;
+  s) ##### Define installation type  #####
+    echo -e "${GREEN}Building MPCR as static library"
+    MPCR_AS_STATIC="ON"
     ;;
   v) ##### printing full output of make #####
     echo -e "${YELLOW}printing make with details${NC}"
@@ -57,6 +62,7 @@ while getopts ":f:c:tevhi:" opt; do
     VERBOSE=OFF
     TEST_PATH="${ABSOLUE_PATH}/tests/test-files"
     CONFIG_PATH="${ABSOLUE_PATH}/config"
+    MPCR_AS_STATIC="OFF"
     ;;
   :) ##### Error in an option #####
     echo "Option $OPTARG requires parameter(s)"
@@ -84,6 +90,11 @@ if [ -z "$BUILDING_TESTS" ]; then
   echo -e "${RED}Building tests disabled${NC}"
 fi
 
+if [ -z "$MPCR_AS_STATIC" ]; then
+  MPCR_AS_STATIC="OFF"
+  echo -e "${RED}Building MPCR as dynamic library${NC}"
+fi
+
 if [ -z "$BUILDING_EXAMPLES" ]; then
   BUILDING_EXAMPLES="OFF"
   echo -e "${RED}Building examples disabled${NC}"
@@ -108,7 +119,6 @@ mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
-  -DMPCR_BUILD_EXAMPLES=$BUILDING_EXAMPLES \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
   -DCMAKE_TEST_PREFIX="$TEST_PATH" \
   -DCMAKE_CONFIG_PREFIX="$CONFIG_PATH" \
@@ -116,7 +126,5 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
   -H"${PROJECT_SOURCE_DIR}" \
   -B"${PROJECT_SOURCE_DIR}/bin" \
   -DRUNNING_CPP=ON \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DUSE_CUDA=OFF \
-  -DCMAKE_CXX_FLAGS_DEBUG="-fPIC" \
-  -DCMAKE_CXX_FLAGS_RELEASE="-fPIC"
+  -DBUILD_MPCR_STATIC="$MPCR_AS_STATIC"\
+  -DBUILD_SHARED_LIBS=OFF

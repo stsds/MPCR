@@ -4,43 +4,13 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+
 .onLoad <- function(libname, pkgname) {
+
   loadModule("MPCR", TRUE, loadNow = TRUE)
-  loadModule("MPCRTile", TRUE, loadNow = TRUE)
 
-  #--------------------------------------------------------------------------------
-  # MPR Tile
-  setMethod("[", signature(x = "Rcpp_MPCRTile"), function(x, i, j, drop = TRUE) {
-    if (missing(j)) {
-      stop("Please Provide a 2D Index")
-    }else {
-      i = i - 1
-      j = j - 1
-      ret <- x$MPCRTile.GetVal(i, j)
-      ret
-    }
-  })
-
-  setReplaceMethod("[", signature(x = "Rcpp_MPCRTile", value = "ANY"), function(x, i, j, ..., value) {
-    if (missing(j)) {
-      stop("Please Provide a 2D Index")
-    }else {
-      i = i - 1
-      j = j - 1
-      x$MPCRTile.SetVal(i, j, value)
-    }
-    x
-  })
-
-  #-------------------------- MPCRTile Print ---------------------------------------
-  setMethod("print", c(x = "Rcpp_MPCRTile"), function(x, ...) {
-    x$MPCRTile.print()
-  })
-  #-------------------------- MPCRTile Linear Algebra ------------------------------
-  setMethod("chol", c(x = "Rcpp_MPCRTile"), MPCRTile.chol)
-
-  #--------------------------------------------------------------------------------
-
+  utils::globalVariables(c("n", "p"))
+  suppressMessages({
   #------------------------------ MPR Class----------------------------------------
   setMethod("[", signature(x = "Rcpp_MPCR"), function(x, i, j, drop = TRUE) {
     if (missing(j)) {
@@ -279,19 +249,16 @@
   })
 
 
-  setMethod("qr", c(x = "Rcpp_MPCR"), function(x,tol) {
-    if(missing(tol)){
-      tol= 1e-07
-    }
-    ret <- MPCR.qr(x,tol)
+  setMethod("qr", c(x = "Rcpp_MPCR"), function(x) {
+    ret <- MPCR.qr(x)
     names(ret) <- c("qr", "qraux", "pivot", "rank")
     ret
   })
 
   setMethod("qr.R", c(qr = "ANY"), function(qr, complete = FALSE) {
 
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
         if (missing(complete)) {
           complete = FALSE
         }
@@ -310,8 +277,8 @@
 
   setMethod("qr.Q", c(qr = "ANY"), function(qr, complete = FALSE, Dvec) {
 
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
         if (missing(Dvec)) {
           Dvec = NULL
         }
@@ -333,9 +300,9 @@
   })
 
   setMethod("qr.qy", c(qr = "ANY"), function(qr, y) {
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
-        ret <- MPCR.qr.qy(qr$qr, qr$qraux,y)
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
+        ret <- MPCR.qr.qy(qr$qr, qr$qraux, y)
         ret
 
       }else {
@@ -347,9 +314,9 @@
   })
 
   setMethod("qr.qty", c(qr = "ANY"), function(qr, y) {
-    if (class(qr) == "list") {
-      if (length(qr) == 4 && class(qr[[2]]) == "Rcpp_MPCR") {
-        ret <- MPCR.qr.qty(qr$qr, qr$qraux,y)
+    if (is(qr, "list")) {
+      if (length(qr) == 4 && is(qr[[2]], "Rcpp_MPCR")) {
+        ret <- MPCR.qr.qty(qr$qr, qr$qraux, y)
         ret
 
       }else {
@@ -372,14 +339,17 @@
     ret
   })
 
-  setMethod("La.svd", c(x = "Rcpp_MPCR"), function(x, nu, nv) {
+  setMethod("La.svd", c(x = "Rcpp_MPCR"), function(x, nu = min(n, p), nv = min(n, p)) {
+    n = x$Row
+    p = x$Col
+
     if (missing(nu)) {
       nu = -1
     }
     if (missing(nv)) {
       nv = -1
     }
-    ret <- MPCR.La.svd(x)
+    ret <- MPCR.La.svd(x, nu, nv)
     names(ret) <- c("d", "u", "vt")
     ret
   })
@@ -409,11 +379,11 @@
     ret
   })
 
-  setMethod("solve", signature(a = "Rcpp_MPCR"), function(a, b, ...) {
+  setMethod("solve", signature(a = "Rcpp_MPCR"), function(a, b,internal_precision="same", ...) {
     if (missing(b)) {
       b = NULL
     }
-    ret <- MPCR.solve(a, b)
+    ret <- MPCR.solve(a, b,internal_precision)
     ret
   })
 
@@ -465,5 +435,6 @@
       triangular = FALSE
     }
     MPCR.rcond(x, norm, triangular)
+  })
   })
 }
