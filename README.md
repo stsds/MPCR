@@ -41,7 +41,7 @@ To install the **MPCR** package, you can use the following command:
 - Checkout to tag `v2.0.0` (Latest stable release).
 - Run `R CMD INSTALL .` from the project root directory.
 
-**General Note:** The package will automatically be built with CUDA support in case CUDA ToolKit is detected, if not, the package
+**General Note:** The package will automatically be built with CUDA support if CUDA ToolKit is detected, if not, the package
 will be build with CPU support only.
 ___
 
@@ -82,9 +82,10 @@ B <- as.MPCR(values, nrow = 4, ncol = 4, precision = "float",placement="GPU")
 MPCR.SetOperationPlacement("GPU")
 
 cat("----------------------- CrossProduct C=XY --------------------\n")
+crossproduct <- crossprod(x, y)
+
 # Print is a CPU only function, so the data will automatically be transferred to CPU,
 # resulting in having a copy on CPU and a copy on GPU for future GPU operation
 crossproduct$PrintValues()
 
-crossproduct <- crossprod(x, y)
 ```
