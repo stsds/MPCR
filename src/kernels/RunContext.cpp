@@ -146,7 +146,7 @@ RunContext::SetOperationPlacement(
     }
 
 #else
-    MPCR_PRINTER("\"Context is running without GPU support, Mode of operation is set automatically to CPU")
+    MPCR_PRINTER("Context is running without GPU support, Mode of operation is set automatically to CPU")
     MPCR_PRINTER(std::endl)
     this->mOperationPlacement=definitions::CPU;
 #endif
