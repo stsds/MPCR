@@ -99,7 +99,9 @@ namespace mpcr{
 #ifdef USE_CUDA
                 return GPU;
 #else
-                MPCR_API_EXCEPTION("MPCR is build with no GPU support",-1);
+                MPCR_PRINTER("MPCR is compiled without GPU support")
+                MPCR_PRINTER(std::endl)
+                return CPU;
 
 #endif
             }else{
