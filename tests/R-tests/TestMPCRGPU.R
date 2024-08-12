@@ -1,4 +1,3 @@
-
 ##########################################################################
 # Copyright (c) 2023, King Abdullah University of Science and Technology
 # All rights reserved.
@@ -14,19 +13,10 @@ values <- c(3.12393, -1.16854, -0.304408, -2.15901,
             1.04094, 4.43374, 1.21072, -2.15901, 1.35925, 1.21072, 5.57265)
 
 
-x <- new(MPCR, 16, "float","GPU")
-y <- new(MPCR, 16, "float","GPU")
-z <- new(MPCR, 4, "float","GPU")
+x <- as.MPCR(values, nrow = 4, ncol = 4, precision = "float", placement = "CPU")
+y <- as.MPCR(values, nrow = 4, ncol = 4, precision = "float", placement = "CPU")
 
 
-for (val in 1:16) {
-  x[[val]] <- values[[val]]
-  y[[val]] <- values[[val]]
-
-}
-
-x$ToMatrix(4, 4)
-y$ToMatrix(4, 4)
 paste("X and Y values")
 x$PrintValues()
 y$PrintValues()
