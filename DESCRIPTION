@@ -1,0 +1,22 @@
+Package: MPCR
+Type: Package
+Title: Multi Precision Computing
+Version: 2.0.0
+Date: 2023-11-12
+Author: David Helmy [aut, cph], Sameh Abdulah [cre, cph], KAUST King Abdullah University of Science and Technology [fnd, cph], Brightskies [cph]
+Maintainer: Sameh Abdulah <sameh.abdulah@kaust.edu.sa>
+Description: Provides new data-structure support for multi- and mixed-precision for R users.The package supports 16-bit, 32-bit, and 64-bit operations. To the best of our knowledge, 'MPCR' differs from the currently available packages in the following:'MPCR' introduces a new data structure that supports three different precisions (16-bit, 32-bit, and 64-bit), allowing for optimized memory allocation based on the desired precision. This feature offers significant advantages in-memory optimization. 'MPCR' extends support to all basic linear algebra methods across different precisions. 'MPCR' maintains a consistent interface with normal R functions, allowing for seamless code integration and a user-friendly experience.
+License: GPL (>= 3)
+Imports: methods, Rcpp (>= 1.0.9)
+Depends: R (>= 3.6.0)
+RoxygenNote: 7.2.3
+SystemRequirements: CMake (>=3.20) , C++ (>= 11) ,CUDA (>=11.2)
+NeedsCompilation: yes
+OS_type: unix
+Authors@R: c(
+    person("David", "Helmy", role=c("aut", "cph"), email="david.helmy@brightskiesinc.com"),
+    person("Sameh", "Abdulah", role=c("cre","cph"), email="sameh.abdulah@kaust.edu.sa"),
+    person("KAUST", "King Abdullah University of Science and Technology", role=c("fnd","cph")),
+    person("Brightskies", role=c("cph"))
+    )
+URL: https://github.com/stsds/MPCR
