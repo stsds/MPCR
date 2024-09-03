@@ -1,0 +1,449 @@
+/**
+ * Copyright (c) 2023, King Abdullah University of Science and Technology
+ * All rights reserved.
+ *
+ * MPCR is an R package provided by the STSDS group at KAUST
+ *
+ **/
+
+#include <libraries/catch/catch.hpp>
+#include <data-units/DataType.hpp>
+#include <utilities/MPCRDispatcher.hpp>
+
+
+using namespace std;
+using namespace mpcr::precision;
+
+
+template <typename T>
+void
+CheckValues(DataType *apData, char *apValidator) {
+
+    T *temp_data = (T *) apData->GetData();
+    T *temp_validate = (T *) apValidator;
+    auto size = apData->GetSize();
+    for (auto i = 0; i < size; i++) {
+        REQUIRE(temp_data[ i ] == temp_validate[ i ]);
+    }
+}
+
+
+template <typename T>
+void
+InitValidator(char *&apData, size_t aSize) {
+    T *temp = new T[aSize];
+    for (auto i = 0; i < aSize; i++) {
+        temp[ i ] = (T) 0.0;
+    }
+    apData = (char *) temp;
+}
+
+
+void
+TEST_DATA_TYPE() {
+
+    SECTION("Test Initialization") {
+        cout << "Testing MPCR CLASS ..." << endl;
+
+        DataType a(50, "float");
+        REQUIRE(a.GetSize() == 50);
+        REQUIRE(a.IsMatrix() == false);
+        REQUIRE(a.GetDimensions() == nullptr);
+
+        char *validator;
+        Precision temp_precision = FLOAT;
+        SIMPLE_DISPATCH(temp_precision, InitValidator, validator, 50)
+        SIMPLE_DISPATCH(temp_precision, CheckValues, &a, validator)
+
+        a.ToMatrix(5, 10);
+        REQUIRE(a.GetSize() == 50);
+        REQUIRE(a.IsMatrix() == true);
+        REQUIRE(a.GetDimensions()->GetNRow() == 5);
+        REQUIRE(a.GetDimensions()->GetNCol() == 10);
+
+        a.ToVector();
+        REQUIRE(a.IsMatrix() == false);
+        REQUIRE(a.GetSize() == 50);
+        REQUIRE(a.GetDimensions() == nullptr);
+
+        delete[] validator;
+    }SECTION("Test Setter and Getter") {
+        DataType a(50, "double");
+        char *validator;
+        Precision temp_precision = DOUBLE;
+        SIMPLE_DISPATCH(temp_precision, InitValidator, validator, 50)
+        auto data = (double *) validator;
+        auto size = a.GetSize();
+        for (auto i = 0; i < size; i++) {
+            REQUIRE(data[ i ] == a.GetVal(i));
+        }
+
+        for (auto i = 0; i < size; i++) {
+            a.SetVal(i, 3.555555555);
+        }
+
+        for (auto i = 0; i < size; i++) {
+            REQUIRE(a.GetVal(i) == 3.555555555);
+        }
+
+        DataType b(50, "float");
+
+        SECTION("Test Copy Constructor") {
+            DataType c = b;
+
+            REQUIRE(c.GetSize() == 50);
+            REQUIRE(c.IsMatrix() == false);
+            REQUIRE(c.GetDimensions() == nullptr);
+
+            for (auto i = 0; i < size; i++) {
+                c.SetVal(i, 3.225);
+            }
+            for (auto i = 0; i < size; i++) {
+                REQUIRE(b.GetVal(i) != c.GetVal(i));
+            }
+
+        }
+        delete[] validator;
+    }
+
+    SECTION("Test Clear Up") {
+        DataType temp(30, FLOAT);
+        REQUIRE(temp.GetPrecision() == FLOAT);
+
+        temp.ClearUp();
+        REQUIRE(temp.GetData() == nullptr);
+        REQUIRE(temp.GetDimensions() == nullptr);
+
+    }SECTION("Test Precision Conversion") {
+
+        cout << "Testing Precision Conversion ..." << endl;
+
+        DataType a(35, "float");
+        auto pData_in_a = (float *) a.GetData();
+        auto size_a = a.GetSize();
+
+        for (auto i = 0; i < size_a; i++) {
+            pData_in_a[ i ] = i * 0.5;
+        }
+        a.SetData((char *) pData_in_a, CPU);
+
+        a.ConvertPrecision(DOUBLE);
+        REQUIRE(a.GetSize() == size_a);
+        REQUIRE(a.GetPrecision() == DOUBLE);
+
+        auto pData_in_a_new = (double *) a.GetData();
+        for (auto i = 0; i < size_a; i++) {
+            REQUIRE(pData_in_a_new[ i ] == i * 0.5);
+        }
+
+        a.ConvertPrecision(FLOAT);
+        REQUIRE(a.GetSize() == size_a);
+        REQUIRE(a.GetPrecision() == FLOAT);
+
+        auto pData_in_a_new_float = (float *) a.GetData();
+        for (auto i = 0; i < size_a; i++) {
+            REQUIRE(pData_in_a_new_float[ i ] == i * 0.5);
+        }
+
+    }SECTION("Converter") {
+
+        cout << "Testing NumericVector Conversion ..." << endl;
+
+        DataType a(50, FLOAT);
+        auto pData_in_a = (float *) a.GetData();
+        auto size_a = a.GetSize();
+
+        for (auto i = 0; i < size_a; i++) {
+            pData_in_a[ i ] = i;
+        }
+
+        size_t i = 0;
+        auto pOutput_vector = a.ConvertToNumericVector();
+        for (auto x: *pOutput_vector) {
+            REQUIRE(x == i);
+            i++;
+        }
+
+        delete pOutput_vector;
+
+    }SECTION("Test Copy Constructor for different precision") {
+        vector <double> vals(50, 5);
+        DataType a(vals, DOUBLE);
+        DataType b(a, FLOAT);
+
+        REQUIRE(b.GetPrecision() == FLOAT);
+        REQUIRE(b.GetSize() == 50);
+
+        for (auto i = 0; i < b.GetSize(); i++) {
+            REQUIRE(b.GetVal(i) == 5);
+        }
+    }SECTION("Test Sum and Product") {
+        cout << "Testing MPCR Sum ..." << endl;
+        vector <double> values;
+        auto size = 50;
+        values.resize(size);
+        double validate_sum = 0;
+        double validate_prod = 1;
+
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i + 1;
+            validate_sum += values[ i ];
+            validate_prod *= values[ i ];
+        }
+
+
+        DataType a(values, FLOAT);
+        auto sum = a.Sum();
+
+        REQUIRE(sum == validate_sum);
+
+        cout << "Testing MPCR Product ..." << endl;
+
+        double prod = a.Product();
+        REQUIRE(prod == validate_prod);
+
+    }SECTION("Test square sum") {
+        cout << "Testing MPCR Square Sum ..." << endl;
+        vector <double> values;
+        auto size = 50;
+        values.resize(size);
+        double validate_sq_sum = 0;
+
+
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i + 1;
+            validate_sq_sum += pow(i + 1, 2);
+        }
+
+        DataType a(values, FLOAT);
+        auto sq_sum = a.SquareSum();
+
+        REQUIRE(sq_sum == validate_sq_sum);
+
+    }SECTION("Testing Determinant") {
+        cout << "Testing MPCR Determinant ..." << endl;
+        vector <double> values{1, 1, 1, 1, 1, 1, 2, 3, 2, 1, 1, 2, 3, 2, 1, 2,
+                               1, 0, 2, 1, 1, 1, 1, 2, 1};
+        DataType a(values, FLOAT);
+        a.ToMatrix(5, 5);
+        REQUIRE(a.GetSize() == 25);
+        REQUIRE(a.Determinant() == 0);
+
+        values = {5, 78, 23, 67, 6, 9, 11, 45, 7, 8, 6, 0, 9, 0, 0, 89};
+        DataType b(values, FLOAT);
+        b.ToMatrix(4, 4);
+        REQUIRE(b.GetSize() == 16);
+        double det_act = 374308.9999999999999;
+        auto det = b.Determinant();
+        auto validate_perc = fabs(det - det_act) / det_act;
+        REQUIRE(validate_perc < 0.001);
+    }SECTION("Testing Serialization") {
+        SECTION("Testing float vec") {
+            cout << "Testing Serialization and De-serialization ..." << endl;
+            vector <double> values;
+            auto size = 50;
+            values.resize(size);
+            for (auto i = 0; i < size; i++) {
+                values[ i ] = i;
+            }
+            DataType a(values, FLOAT);
+            auto temp_val = a.Serialize();
+            auto val = temp_val.data();
+            auto temp_deserialized = DataType::DeSerialize(val);
+            REQUIRE(temp_deserialized->GetSize() == 50);
+            REQUIRE(temp_deserialized->IsMatrix() == false);
+            REQUIRE(temp_deserialized->GetPrecision() == FLOAT);
+            for (auto i = 0; i < size; i++) {
+                REQUIRE(temp_deserialized->GetVal(i) == i);
+            }
+
+            delete temp_deserialized;
+        }SECTION("Testing float matrix") {
+            vector <double> values;
+            auto size = 50;
+            values.resize(size);
+            for (auto i = 0; i < size; i++) {
+                values[ i ] = i;
+            }
+            DataType a(values, FLOAT);
+            a.ToMatrix(5, 10);
+            auto temp_val = a.Serialize();
+            auto val = temp_val.data();
+            auto temp_deserialized = DataType::DeSerialize(val);
+            REQUIRE(temp_deserialized->IsMatrix() == true);
+            REQUIRE(temp_deserialized->GetSize() == 50);
+            REQUIRE(temp_deserialized->GetNRow() == 5);
+            REQUIRE(temp_deserialized->GetNCol() == 10);
+            REQUIRE(temp_deserialized->GetPrecision() == FLOAT);
+            for (auto i = 0; i < size; i++) {
+                REQUIRE(temp_deserialized->GetVal(i) == i);
+            }
+
+            delete temp_deserialized;
+
+        }SECTION("Testing double Matrix") {
+            vector <double> values;
+            auto size = 50;
+            values.resize(size);
+            for (auto i = 0; i < size; i++) {
+                values[ i ] = i;
+            }
+            DataType a(values, DOUBLE);
+            a.ToMatrix(5, 10);
+            auto temp_val = a.Serialize();
+            auto val = temp_val.data();
+            auto temp_deserialized = DataType::DeSerialize(val);
+            REQUIRE(temp_deserialized->IsMatrix() == true);
+            REQUIRE(temp_deserialized->GetSize() == 50);
+            REQUIRE(temp_deserialized->GetNRow() == 5);
+            REQUIRE(temp_deserialized->GetNCol() == 10);
+            REQUIRE(temp_deserialized->GetPrecision() == DOUBLE);
+            for (auto i = 0; i < size; i++) {
+                REQUIRE(temp_deserialized->GetVal(i) == i);
+            }
+
+            delete temp_deserialized;
+
+        }
+
+
+    }
+
+
+}
+
+
+#ifdef USE_CUDA
+
+
+void
+TestHalfObject(DataType &aHalfObject, const size_t &aObjSize,
+               const vector <double> &aValues) {
+
+    REQUIRE(aValues.size() == aObjSize);
+
+    REQUIRE(aHalfObject.GetPrecision() == HALF);
+    REQUIRE(aHalfObject.GetSize() == aObjSize);
+    REQUIRE(aHalfObject.IsGPUAllocated() == true);
+    REQUIRE(aHalfObject.IsCPUAllocated() == false);
+
+    auto data = aHalfObject.GetData(GPU);
+    REQUIRE_THROWS(aHalfObject.SetData((char *) data, CPU));
+    REQUIRE(data != nullptr);
+    REQUIRE(aHalfObject.IsGPUAllocated() == true);
+    REQUIRE(aHalfObject.IsCPUAllocated() == false);
+    REQUIRE(aHalfObject.GetPrecision() == HALF);
+    REQUIRE(aHalfObject.GetSize() == aObjSize);
+
+    data = aHalfObject.GetData(CPU);
+    REQUIRE(aHalfObject.GetPrecision() == FLOAT);
+    REQUIRE(aHalfObject.GetSize() == aObjSize);
+    REQUIRE(aHalfObject.IsGPUAllocated() == true);
+    REQUIRE(aHalfObject.IsCPUAllocated() == true);
+
+    auto pData = (float *) data;
+    for (auto i = 0; i < aObjSize; i++) {
+        REQUIRE(pData[ i ] == aValues[ i ]);
+    }
+
+    data = aHalfObject.GetData(GPU);
+    auto data_val = mpcr::memory::AllocateArray(aObjSize * sizeof(float), CPU,
+                                                nullptr);
+
+    mpcr::memory::MemCpy(data_val, data, aObjSize * sizeof(float),
+                         mpcr::kernels::ContextManager::GetOperationContext(),
+                         mpcr::memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    pData = (float *) data_val;
+
+    for (auto i = 0; i < aObjSize; i++) {
+        REQUIRE(pData[ i ] == i);
+    }
+
+    mpcr::memory::DestroyArray(data_val, CPU, nullptr);
+}
+
+
+void
+TEST_HALF_PRECISION_SUPPORT() {
+    vector <double> values;
+    auto size = 50;
+    values.resize(size);
+    for (auto i = 0; i < 50; i++) {
+        values[ i ] = i;
+    }
+    SECTION("HALF Precision Allocation") {
+        cout << "Testing half precision allocation ..." << endl;
+
+        mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            GPU);
+        DataType half_object(values, HALF, GPU);
+        TestHalfObject(half_object, size, values);
+
+    }SECTION("Set values") {
+
+        DataType half_obj(HALF, CPU);
+
+        REQUIRE(half_obj.GetPrecision() == FLOAT);
+        half_obj.SetPrecision(HALF, GPU);
+        REQUIRE(half_obj.GetPrecision() == HALF);
+
+        half_obj.SetPrecision(HALF, CPU);
+        REQUIRE(half_obj.GetPrecision() == FLOAT);
+
+        half_obj.SetPrecision(HALF, GPU);
+        REQUIRE(half_obj.GetPrecision() == HALF);
+
+
+        half_obj.Allocate(values, GPU);
+        TestHalfObject(half_obj, size, values);
+
+    }
+}
+
+
+#endif
+
+
+void
+TEST_CUDA_MATRIX() {
+    SECTION("Testing free memory") {
+
+        cout << "Testing MPCR CLASS Free Memory ..." << endl;
+        vector <double> values;
+        auto size = 50;
+        values.resize(size);
+        for (auto i = 0; i < size; i++) {
+            values[ i ] = i;
+        }
+
+        DataType temp_obj(values, FLOAT, GPU);
+        temp_obj.SetDimensions(5, 10);
+
+        REQUIRE(temp_obj.IsMatrix());
+
+        auto pData = temp_obj.GetData(CPU);
+
+        REQUIRE(temp_obj.IsMatrix());
+        REQUIRE(temp_obj.GetSize() == size);
+
+        temp_obj.FreeMemory(CPU);
+
+        REQUIRE(temp_obj.IsMatrix());
+        REQUIRE(temp_obj.GetSize() == size);
+
+        temp_obj.FreeMemory(GPU);
+        REQUIRE(!temp_obj.IsMatrix());
+        REQUIRE(temp_obj.GetSize() == 0);
+    }
+}
+
+
+TEST_CASE("DataTypeTest", "[DataType]") {
+    TEST_DATA_TYPE();
+#ifdef USE_CUDA
+    TEST_HALF_PRECISION_SUPPORT();
+    TEST_CUDA_MATRIX();
+#endif
+}
+
