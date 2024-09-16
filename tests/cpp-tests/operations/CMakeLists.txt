@@ -11,7 +11,6 @@ if (${USE_CUDA})
             ${TESTFILES})
 endif ()
 
-
 set(TESTFILES
 
         ${CMAKE_CURRENT_SOURCE_DIR}/TestBasicOperations.cpp
@@ -21,4 +20,4 @@ set(TESTFILES
 
         ${TESTFILES}
         PARENT_SCOPE
-        )
+)

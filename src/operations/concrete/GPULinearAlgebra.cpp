@@ -11,17 +11,17 @@ using namespace mpcr::operations::linear;
 using namespace mpcr::kernels;
 
 
-template <typename T>
+template<typename T>
 void
-GPULinearAlgebra <T>::Gemm(const bool &aTransposeA,
-                           const bool &aTransposeB,
-                           const int &aNumRowsA,
-                           const int &aNumColB,
-                           const int &aNumRowB,
-                           const T &aAlpha, const T *apDataA,
-                           const int &aLda, const T *apDataB,
-                           const int &aLdb, const T &aBeta,
-                           T *apDataC, const int &aLdc) {
+GPULinearAlgebra<T>::Gemm(const bool &aTransposeA,
+                          const bool &aTransposeB,
+                          const int &aNumRowsA,
+                          const int &aNumColB,
+                          const int &aNumRowB,
+                          const T &aAlpha, const T *apDataA,
+                          const int &aLda, const T *apDataB,
+                          const int &aLdb, const T &aBeta,
+                          T *apDataC, const int &aLdc) {
 
     auto context = ContextManager::GetOperationContext();
     auto transpose_a = aTransposeA ? CUBLAS_OP_T : CUBLAS_OP_N;
@@ -30,7 +30,7 @@ GPULinearAlgebra <T>::Gemm(const bool &aTransposeA,
 
     auto rc = 0;
 
-    if constexpr(is_double <T>()) {
+    if constexpr (is_double<T>()) {
         rc = cublasDgemm(cublas_handle, transpose_a, transpose_b,
                          aNumRowsA,
                          aNumColB, aNumRowB, &aAlpha, apDataA, aLda,
@@ -49,15 +49,15 @@ GPULinearAlgebra <T>::Gemm(const bool &aTransposeA,
 }
 
 
-template <typename T>
+template<typename T>
 void
-GPULinearAlgebra <T>::Syrk(const bool &aFillLower,
-                           const bool &aTranspose,
-                           const int &aNumRowA,
-                           const int &aNumColA,
-                           const T &aAlpha, const T *apDataA,
-                           const int &aLda, const T &aBeta,
-                           T *apDataC, const int &aLdc) {
+GPULinearAlgebra<T>::Syrk(const bool &aFillLower,
+                          const bool &aTranspose,
+                          const int &aNumRowA,
+                          const int &aNumColA,
+                          const T &aAlpha, const T *apDataA,
+                          const int &aLda, const T &aBeta,
+                          T *apDataC, const int &aLdc) {
 
     auto context = ContextManager::GetOperationContext();
     auto cublas_handle = context->GetCuBlasDnHandle();
@@ -67,7 +67,7 @@ GPULinearAlgebra <T>::Syrk(const bool &aFillLower,
 
     int rc = 0;
 
-    if constexpr(is_double <T>()) {
+    if constexpr (is_double<T>()) {
         rc = cublasDsyrk(cublas_handle, triangle, transpose, aNumRowA,
                          aNumColA, &aAlpha, apDataA, aLda, &aBeta, apDataC,
                          aLdc);
@@ -86,16 +86,16 @@ GPULinearAlgebra <T>::Syrk(const bool &aFillLower,
 }
 
 
-template <typename T>
+template<typename T>
 void
-GPULinearAlgebra <T>::Trsm(const bool &aLeftSide,
-                           const bool &aFillUpperTri,
-                           const bool &aTranspose,
-                           const int &aNumRowsB,
-                           const int &aNumColsB,
-                           const T &aAlpha, const T *apDataA,
-                           const int &aLda, T *apDataB,
-                           const int &aLdb) {
+GPULinearAlgebra<T>::Trsm(const bool &aLeftSide,
+                          const bool &aFillUpperTri,
+                          const bool &aTranspose,
+                          const int &aNumRowsB,
+                          const int &aNumColsB,
+                          const T &aAlpha, const T *apDataA,
+                          const int &aLda, T *apDataB,
+                          const int &aLdb) {
 
     auto context = ContextManager::GetOperationContext();
     auto cublas_handle = context->GetCuBlasDnHandle();
@@ -107,7 +107,7 @@ GPULinearAlgebra <T>::Trsm(const bool &aLeftSide,
 
     auto rc = 0;
 
-    if constexpr(is_double <T>()) {
+    if constexpr (is_double<T>()) {
         rc = cublasDtrsm(cublas_handle, side, triangle, transpose, diag,
                          aNumRowsB, aNumColsB, &aAlpha, apDataA, aLda,
                          apDataB, aLdb);
@@ -123,18 +123,51 @@ GPULinearAlgebra <T>::Trsm(const bool &aLeftSide,
 }
 
 
-template <typename T>
+template<typename T>
+void
+GPULinearAlgebra<T>::Trmm(const bool &aLeftSide, const bool &aFillLower, const bool &aTranspose,
+                          const int &aNumRowB, const int &aNumColB,
+                          const T &aAlpha, const T *apDataA, const int &aLda,
+                          T *apDataB, const int &aLdb, T *apDataC, const int &aLdc) {
+
+    auto context = ContextManager::GetOperationContext();
+    auto cublas_handle = context->GetCuBlasDnHandle();
+    auto side = aLeftSide ? CUBLAS_SIDE_LEFT : CUBLAS_SIDE_RIGHT;
+    auto transpose = aTranspose ? CUBLAS_OP_T : CUBLAS_OP_N;
+    auto triangle = aFillLower ? CUBLAS_FILL_MODE_LOWER
+                               : CUBLAS_FILL_MODE_UPPER;
+    auto diag = CUBLAS_DIAG_NON_UNIT;
+
+    auto rc = 0;
+
+    if constexpr (is_double<T>()) {
+        rc = cublasDtrmm(cublas_handle, side, triangle, transpose, diag,
+                         aNumRowB, aNumColB, &aAlpha, apDataA, aLda,
+                         apDataB, aLdb, apDataC, aLdc);
+    } else {
+        rc = cublasStrmm(cublas_handle, side, triangle, transpose, diag,
+                         aNumRowB, aNumColB, &aAlpha, apDataA, aLda,
+                         apDataB, aLdb, apDataC, aLdc);
+    }
+
+    if (rc != 0) {
+        MPCR_API_EXCEPTION("Error While Performing trmm on GPU", rc);
+    }
+}
+
+
+template<typename T>
 int
-GPULinearAlgebra <T>::Potrf(const bool &aFillUpperTri,
-                            const int &aNumRow, T *apDataA,
-                            const int &aLda) {
+GPULinearAlgebra<T>::Potrf(const bool &aFillUpperTri,
+                           const int &aNumRow, T *apDataA,
+                           const int &aLda) {
     auto triangle = aFillUpperTri ? CUBLAS_FILL_MODE_UPPER
                                   : CUBLAS_FILL_MODE_LOWER;
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
     size_t lWork_device = 0;
     size_t lWork_host = 0;
-    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto data_type = is_double<T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXpotrf_bufferSize(cusolver_handle, NULL, triangle, aNumRow,
                                 data_type, (void *) apDataA, aNumRow, data_type,
@@ -164,11 +197,11 @@ GPULinearAlgebra <T>::Potrf(const bool &aFillUpperTri,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
-                            const int &aNumRow, T *apDataA,
-                            const int &aLda) {
+GPULinearAlgebra<T>::Potri(const bool &aFillUpperTri,
+                           const int &aNumRow, T *apDataA,
+                           const int &aLda) {
     auto triangle = aFillUpperTri ? CUBLAS_FILL_MODE_UPPER
                                   : CUBLAS_FILL_MODE_LOWER;
     auto context = ContextManager::GetOperationContext();
@@ -201,13 +234,13 @@ GPULinearAlgebra <T>::Potri(const bool &aFillUpperTri,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
-                           T *apDataA, const int &aLda, void *apIpiv,
-                           T *apDataB, const int &aLdb, T *apDataOut,
-                           const int &aLdo,
-                           const std::string &aInternalPrecision) {
+GPULinearAlgebra<T>::Gesv(const int &aNumN, const int &aNumNRH,
+                          T *apDataA, const int &aLda, void *apIpiv,
+                          T *apDataB, const int &aLdb, T *apDataOut,
+                          const int &aLdo,
+                          const std::string &aInternalPrecision) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
@@ -225,7 +258,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
      * cusolverDn _ _ gesv
      * **/
 
-    if constexpr(is_double <T>()) {
+    if constexpr (is_double<T>()) {
         if (internal_precision == "single" || internal_precision == "float") {
             cusolverDnDSgesv_bufferSize(cusolver_handle, aNumN, aNumNRH,
                                         apDataA,
@@ -235,7 +268,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
                                         &lWork_device);
 
             auto work_space_dev = context->RequestWorkBufferDevice(
-                lWork_device);
+                    lWork_device);
 
 
             cusolverDnDSgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
@@ -254,7 +287,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
                                         &lWork_device);
 
             auto work_space_dev = context->RequestWorkBufferDevice(
-                lWork_device);
+                    lWork_device);
 
 
             cusolverDnDHgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
@@ -273,7 +306,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
                                         &lWork_device);
 
             auto work_space_dev = context->RequestWorkBufferDevice(
-                lWork_device);
+                    lWork_device);
 
 
             cusolverDnDXgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
@@ -292,7 +325,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
                                         &lWork_device);
 
             auto work_space_dev = context->RequestWorkBufferDevice(
-                lWork_device);
+                    lWork_device);
 
 
             cusolverDnDDgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
@@ -313,7 +346,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
 
 
             auto work_space_dev = context->RequestWorkBufferDevice(
-                lWork_device);
+                    lWork_device);
 
 
             cusolverDnSHgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
@@ -332,7 +365,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
 
 
             auto work_space_dev = context->RequestWorkBufferDevice(
-                lWork_device);
+                    lWork_device);
 
 
             cusolverDnSXgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
@@ -351,7 +384,7 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
 
 
             auto work_space_dev = context->RequestWorkBufferDevice(
-                lWork_device);
+                    lWork_device);
 
 
             cusolverDnSSgesv(cusolver_handle, aNumN, aNumNRH, apDataA, aLda,
@@ -378,18 +411,18 @@ GPULinearAlgebra <T>::Gesv(const int &aNumN, const int &aNumNRH,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Getrf(const int &aNumRow, const int &aNumCol,
-                            T *apDataA, const int &aLda,
-                            int64_t *apIpiv) {
+GPULinearAlgebra<T>::Getrf(const int &aNumRow, const int &aNumCol,
+                           T *apDataA, const int &aLda,
+                           int64_t *apIpiv) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
 
     size_t lWork_device = 0;
     size_t lWork_host = 0;
-    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto data_type = is_double<T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXgetrf_bufferSize(cusolver_handle, NULL, aNumRow, aNumCol,
                                 data_type, (void *) apDataA, aLda, data_type,
@@ -417,30 +450,30 @@ GPULinearAlgebra <T>::Getrf(const int &aNumRow, const int &aNumCol,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Getri(const int &aMatRank, T *apDataA, const int &aLda,
-                            int64_t *apIpiv) {
+GPULinearAlgebra<T>::Getri(const int &aMatRank, T *apDataA, const int &aLda,
+                           int64_t *apIpiv) {
     MPCR_API_EXCEPTION("No Getri implementation for GPU", -1);
     return 0;
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::SVD(const signed char &aJob,
-                          const int &aNumRow,
-                          const int &aNumCol, T *apDataA,
-                          const int &aLda, T *apDataS,
-                          T *apDataU, const int &aLdu,
-                          T *apDataVT, const int &aLdvt) {
+GPULinearAlgebra<T>::SVD(const signed char &aJob,
+                         const int &aNumRow,
+                         const int &aNumCol, T *apDataA,
+                         const int &aLda, T *apDataS,
+                         T *apDataU, const int &aLdu,
+                         T *apDataVT, const int &aLdvt) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
 
     size_t lWork_device = 0;
     size_t lWork_host = 0;
-    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto data_type = is_double<T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXgesvd_bufferSize(cusolver_handle, NULL, aJob, aJob, aNumRow,
                                 aNumCol, data_type, (void *) apDataA, aLda,
@@ -472,12 +505,12 @@ GPULinearAlgebra <T>::SVD(const signed char &aJob,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Syevd(const bool &aJobzNoVec,
-                            const bool &aFillUpperTri,
-                            const int &aNumCol, T *apDataA,
-                            const int64_t &aLda, T *apDataW) {
+GPULinearAlgebra<T>::Syevd(const bool &aJobzNoVec,
+                           const bool &aFillUpperTri,
+                           const int &aNumCol, T *apDataA,
+                           const int64_t &aLda, T *apDataW) {
 
     auto jobz = aJobzNoVec ? CUSOLVER_EIG_MODE_NOVECTOR
                            : CUSOLVER_EIG_MODE_VECTOR;
@@ -485,7 +518,7 @@ GPULinearAlgebra <T>::Syevd(const bool &aJobzNoVec,
     auto triangle = aFillUpperTri ? CUBLAS_FILL_MODE_UPPER
                                   : CUBLAS_FILL_MODE_LOWER;
 
-    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto data_type = is_double<T>() ? CUDA_R_64F : CUDA_R_32F;
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
@@ -520,10 +553,10 @@ GPULinearAlgebra <T>::Syevd(const bool &aJobzNoVec,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Geqp3(const int &aNumRow, const int &aNumCol, T *apDataA,
-                            const int &aLda, int64_t *aJpVt, T *aTaw) {
+GPULinearAlgebra<T>::Geqp3(const int &aNumRow, const int &aNumCol, T *apDataA,
+                           const int &aLda, int64_t *aJpVt, T *aTaw) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
@@ -531,7 +564,7 @@ GPULinearAlgebra <T>::Geqp3(const int &aNumRow, const int &aNumCol, T *apDataA,
     size_t lWork_device = 0;
     size_t lWork_host = 0;
 
-    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto data_type = is_double<T>() ? CUDA_R_64F : CUDA_R_32F;
 
     cusolverDnXgeqrf_bufferSize(cusolver_handle, NULL, aNumRow, aNumCol,
                                 data_type, apDataA, aLda, data_type, aTaw,
@@ -560,11 +593,11 @@ GPULinearAlgebra <T>::Geqp3(const int &aNumRow, const int &aNumCol, T *apDataA,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Orgqr(const int &aNumRow, const int &aNum,
-                            const int &aNumCol, T *apDataA,
-                            const int &aLda, const T *aTau) {
+GPULinearAlgebra<T>::Orgqr(const int &aNumRow, const int &aNum,
+                           const int &aNumCol, T *apDataA,
+                           const int &aLda, const T *aTau) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
@@ -590,11 +623,11 @@ GPULinearAlgebra <T>::Orgqr(const int &aNumRow, const int &aNum,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Gecon(const std::string &aNorm, const int &aNumRow,
-                            const T *apData, const int &aLda, T aNormVal,
-                            T *aRCond) {
+GPULinearAlgebra<T>::Gecon(const std::string &aNorm, const int &aNumRow,
+                           const T *apData, const int &aLda, T aNormVal,
+                           T *aRCond) {
 
     auto context = ContextManager::GetOperationContext();
     auto buf_size = aNumRow * aNumRow * sizeof(T);
@@ -616,7 +649,7 @@ GPULinearAlgebra <T>::Gecon(const std::string &aNorm, const int &aNumRow,
 
     auto data = (T *) pData_host;
 
-    *aRCond = data[ 0 ] / data[ aNumRow - 1 ];
+    *aRCond = data[0] / data[aNumRow - 1];
 
     memory::DestroyArray(pData_host, CPU, context);
     memory::DestroyArray(pData_copy, GPU, context);
@@ -626,28 +659,28 @@ GPULinearAlgebra <T>::Gecon(const std::string &aNorm, const int &aNumRow,
 }
 
 
-template <typename T>
-int GPULinearAlgebra <T>::Trcon(const std::string &aNorm,
-                                const bool &aUpperTriangle,
-                                const bool &aUnitTriangle, const int &aMatOrder,
-                                const T *apData, const int &aLda, T *aRCond) {
+template<typename T>
+int GPULinearAlgebra<T>::Trcon(const std::string &aNorm,
+                               const bool &aUpperTriangle,
+                               const bool &aUnitTriangle, const int &aMatOrder,
+                               const T *apData, const int &aLda, T *aRCond) {
     // NO GPU Implementation
     MPCR_API_EXCEPTION("No Trcon implementation for GPU", -1);
     return 0;
 }
 
 
-template <typename T>
-int GPULinearAlgebra <T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
-                                const size_t &aNumRhs, const T *apDataA,
-                                const size_t &aLda, const int64_t *apIpiv,
-                                T *apDataB, const size_t &aLdb) {
+template<typename T>
+int GPULinearAlgebra<T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
+                               const size_t &aNumRhs, const T *apDataA,
+                               const size_t &aLda, const int64_t *apIpiv,
+                               T *apDataB, const size_t &aLdb) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
     auto transpose = aTransposeA ? CUBLAS_OP_T : CUBLAS_OP_N;
 
-    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto data_type = is_double<T>() ? CUDA_R_64F : CUDA_R_32F;
 
 
     cusolverDnXgetrs(cusolver_handle, NULL, transpose, aNumRowA, aNumRhs,
@@ -669,17 +702,17 @@ int GPULinearAlgebra <T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
 }
 
 
-template <typename T>
+template<typename T>
 int
-GPULinearAlgebra <T>::Trtri(const size_t &aSideLength, T *apDataA,
-                            const size_t &aLda, const bool &aUpperTri) {
+GPULinearAlgebra<T>::Trtri(const size_t &aSideLength, T *apDataA,
+                           const size_t &aLda, const bool &aUpperTri) {
 
     auto context = ContextManager::GetOperationContext();
     auto cusolver_handle = context->GetCusolverDnHandle();
 
     size_t lWork_device = 0;
     size_t lWork_host = 0;
-    auto data_type = is_double <T>() ? CUDA_R_64F : CUDA_R_32F;
+    auto data_type = is_double<T>() ? CUDA_R_64F : CUDA_R_32F;
     auto triangle = aUpperTri ? CUBLAS_FILL_MODE_UPPER
                               : CUBLAS_FILL_MODE_LOWER;
     auto diag = CUBLAS_DIAG_UNIT;
@@ -717,15 +750,15 @@ GPULinearAlgebra <T>::Trtri(const size_t &aSideLength, T *apDataA,
 #ifdef USING_HALF
 
 
-template <typename T>
+template<typename T>
 void
-GPULinearAlgebra <T>::HalfGemm(const bool &aTransposeA, const bool &aTransposeB,
-                               const int &aNumRowsA, const int &aNumColB,
-                               const int &aNumRowB, const half &aAlpha,
-                               const half *apDataA, const int &aLda,
-                               const half *apDataB, const int &aLdb,
-                               const half &aBeta, half *apDataC,
-                               const int &aLdc) {
+GPULinearAlgebra<T>::HalfGemm(const bool &aTransposeA, const bool &aTransposeB,
+                              const int &aNumRowsA, const int &aNumColB,
+                              const int &aNumRowB, const half &aAlpha,
+                              const half *apDataA, const int &aLda,
+                              const half *apDataB, const int &aLdb,
+                              const half &aBeta, half *apDataC,
+                              const int &aLdc) {
 
     auto context = ContextManager::GetOperationContext();
     auto transpose_a = aTransposeA ? CUBLAS_OP_T : CUBLAS_OP_N;

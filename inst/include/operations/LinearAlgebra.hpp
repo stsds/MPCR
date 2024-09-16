@@ -310,6 +310,36 @@ namespace mpcr {
                 DataType &aOutputV, const size_t &aNu,
                 const size_t &aNv, const bool &aTranspose = true);
 
+
+            /**
+             * @brief
+             * The trmm routines compute a scalar-matrix-matrix product
+             * where one of the matrices in the multiplication is triangular.
+             *
+             * @param[in] aInputA
+             * MPCR Matrix
+             * @param[in] aInputB
+             * MPCR Matrix
+             * @param[out] aOutput
+             * The solution of the triangular matrix to matrix multiplication.
+             * @param[in] aLowerTri
+             * logical; if true (default), the lower triangular part of aInputA
+             * is used. Otherwise, the upper one.
+             * @param[in] aTranspose
+             * logical; if true, solve  for t(aInputA) * aInputB == aOutput.
+             * @param[in] aLeftSide
+             * logical; if true, the operation will be as follow:
+             * aOutput = alpha * op(aInputA) * aInputB
+             * otherwise, aOutput = alpha * aInputB * op(aInputA)
+             *
+             */
+
+            template <typename T>
+            void
+            Trmm(DataType &aInputA, DataType &aInputB, DataType &aOutput, const bool &aLowerTri,
+                 const bool &aTranspose, const bool &aLeftSide,
+                 const double &aAlpha);
+
             /**
              * @brief
              * Estimate the reciprocal of the condition number of a matrix.

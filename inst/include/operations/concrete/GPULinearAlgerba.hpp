@@ -106,6 +106,12 @@ namespace mpcr {
                 Trtri(const size_t &aSideLength, T *apDataA, const size_t &aLda,
                       const bool &aUpperTri);
 
+                void
+                Trmm(const bool &aLeftSide, const bool &aFillLower, const bool &aTranspose,
+                     const int &aNumRowB, const int &aNumColB,
+                     const T &aAlpha,const T *apDataA, const int &aLda,
+                     T *apDataB, const int &aLdb, T *apDataC, const int &aLdc);
+
 
 #ifdef USING_HALF
 
