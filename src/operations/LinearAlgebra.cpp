@@ -18,20 +18,20 @@ using namespace std;
 #ifdef USING_HALF
 
 
-template <>
+template<>
 void
-linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
-                               DataType &aOutput,
-                               const bool &aTransposeA, const bool &aTransposeB,
-                               const bool &aSymmetrize, const double &aAlpha,
-                               const double &aBeta) {
+linear::CrossProduct<float16>(DataType &aInputA, DataType &aInputB,
+                              DataType &aOutput,
+                              const bool &aTransposeA, const bool &aTransposeB,
+                              const bool &aSymmetrize, const double &aAlpha,
+                              const double &aBeta) {
 
 
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
     if (operation_placement == CPU || aInputA.GetPrecision() != HALF ||
-        ( aInputB.GetPrecision() != HALF && aInputB.GetSize() != 0 ) ||
+        (aInputB.GetPrecision() != HALF && aInputB.GetSize() != 0) ||
         aOutput.GetPrecision() != HALF) {
         MPCR_API_EXCEPTION("Cannot perform half gemm using CPU", -1);
     }
@@ -99,8 +99,8 @@ linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
     } else {
         auto output_size = row_a * col_b;
         pData_out = (float16 *) memory::AllocateArray(
-            output_size * sizeof(float16),
-            operation_placement, context);
+                output_size * sizeof(float16),
+                operation_placement, context);
         memory::Memset((char *) pData_out, 0, sizeof(float16) * output_size,
                        operation_placement, context);
 
@@ -112,7 +112,7 @@ linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
     auto pData_a = (float16 *) aInputA.GetData(operation_placement);
     auto pData_b = (float16 *) aInputB.GetData(operation_placement);
 
-    auto solver = std::make_unique <linear::GPULinearAlgebra <double>>();
+    auto solver = std::make_unique<linear::GPULinearAlgebra<double>>();
 
     if (!is_one_input) {
         solver->HalfGemm(aTransposeA, aTransposeB, row_a, col_b, col_a, aAlpha,
@@ -134,7 +134,7 @@ linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
 #endif
 
 
-template <typename T>
+template<typename T>
 void
 linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                      const bool &aTransposeA, const bool &aTransposeB,
@@ -225,8 +225,8 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto pData_a = (T *) aInputA.GetData(operation_placement);
     auto pData_b = (T *) aInputB.GetData(operation_placement);
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     if (!is_one_input) {
         solver->Gemm(aTransposeA, aTransposeB, row_a, col_b, col_a, aAlpha,
@@ -240,8 +240,8 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     aOutput.SetData((char *) pData_out, operation_placement);
 
     if (is_one_input && aSymmetrize) {
-        auto helper = BackendFactory <T>::CreateHelpersBackend(
-            operation_placement);
+        auto helper = BackendFactory<T>::CreateHelpersBackend(
+                operation_placement);
         helper->Symmetrize(aOutput, true, context);
     }
 
@@ -252,7 +252,7 @@ linear::CrossProduct(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 
@@ -267,8 +267,8 @@ linear::IsSymmetric(DataType &aInput, bool &aOutput) {
         return;
     }
 
-    auto helper = BackendFactory <T>::CreateHelpersBackend(
-        operation_placement);
+    auto helper = BackendFactory<T>::CreateHelpersBackend(
+            operation_placement);
 
     helper->IsSymmetric(aInput, aOutput, context);
 
@@ -276,7 +276,7 @@ linear::IsSymmetric(DataType &aInput, bool &aOutput) {
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::Cholesky(DataType &aInputA, DataType &aOutput,
                  const bool &aUpperTriangle) {
@@ -290,14 +290,14 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
 
     if (row != col) {
         MPCR_API_EXCEPTION(
-            "Cannot Apply Cholesky Decomposition on non-square Matrix", -1);
+                "Cannot Apply Cholesky Decomposition on non-square Matrix", -1);
     }
 
     auto pData = (T *) aInputA.GetData(operation_placement);
     auto pOutput = memory::AllocateArray(row * col * sizeof(T),
                                          operation_placement, context);
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
@@ -305,27 +305,27 @@ linear::Cholesky(DataType &aInputA, DataType &aOutput,
                    mem_transfer);
 
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     auto rc = solver->Potrf(aUpperTriangle, row, (T *) pOutput, row);
 
     if (rc != 0) {
         MPCR_API_EXCEPTION(
-            "Error While Applying Cholesky Decomposition", rc);
+                "Error While Applying Cholesky Decomposition", rc);
     }
 
     aOutput.ClearUp();
     aOutput.SetDimensions(aInputA);
     aOutput.SetData((char *) pOutput, operation_placement);
 
-    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory<T>::CreateHelpersBackend(operation_placement);
     helper->FillTriangle(aOutput, 0, !aUpperTriangle, context);
 
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
@@ -336,7 +336,7 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
     if (aNCol > col) {
         MPCR_API_EXCEPTION(
-            "Size Cannot exceed the Number of Cols of Input", -1);
+                "Size Cannot exceed the Number of Cols of Input", -1);
     }
 
     T *pOutput = nullptr;
@@ -349,7 +349,7 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
 
         pOutput = (T *) memory::AllocateArray(aNCol * aNCol * sizeof(T),
                                               operation_placement, context);
-        auto mem_transfer = ( operation_placement == CPU )
+        auto mem_transfer = (operation_placement == CPU)
                             ? memory::MemoryTransfer::HOST_TO_HOST
                             : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
@@ -369,8 +369,8 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
         size_t idx;
         for (auto i = 0; i < aNCol; i++) {
             for (auto j = 0; j < aNCol; j++) {
-                idx = j + ( i * aNCol );
-                pTemp_data[ idx ] = pData[ j + ( col * i ) ];
+                idx = j + (i * aNCol);
+                pTemp_data[idx] = pData[j + (col * i)];
             }
         }
         if (operation_placement == CPU) {
@@ -388,25 +388,25 @@ linear::CholeskyInv(DataType &aInputA, DataType &aOutput, const size_t &aNCol) {
     }
 
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
     auto rc = solver->Potri(true, aNCol, pOutput, aOutput.GetNRow());
 
     if (rc != 0) {
         MPCR_API_EXCEPTION(
-            "Error While Applying Cholesky Decomposition", rc);
+                "Error While Applying Cholesky Decomposition", rc);
     }
 
 
     aOutput.SetData((char *) pOutput, operation_placement);
 
-    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory<T>::CreateHelpersBackend(operation_placement);
     helper->Symmetrize(aOutput, false, context);
 
 }
 
 
-template <typename T>
+template<typename T>
 void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                    const bool &aSingle, const std::string &aInternalPrecision) {
 
@@ -446,8 +446,8 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     aOutput.ClearUp();
     auto rc = 0;
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     if (!aSingle) {
         DataType dump = aInputA;
@@ -469,7 +469,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
         } else {
             aOutput.SetDimensions(aInputB);
             pData_in_out = (T *) memory::AllocateArray(
-                aOutput.GetSize() * sizeof(T), GPU, context);
+                    aOutput.GetSize() * sizeof(T), GPU, context);
 
             rc = solver->Gesv(cols_a, cols_b, pData_dump, rows_a,
                               (void *) pIpiv, (T *) aInputB.GetData(GPU),
@@ -500,10 +500,10 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
         } else {
             auto pData_identity = memory::AllocateArray(
-                rows_a * cols_a * sizeof(T), GPU, context);
+                    rows_a * cols_a * sizeof(T), GPU, context);
 
-            auto helper = BackendFactory <T>::CreateHelpersBackend(
-                operation_placement);
+            auto helper = BackendFactory<T>::CreateHelpersBackend(
+                    operation_placement);
 
             helper->CreateIdentityMatrix((T *) pData_identity, rows_a, context);
 
@@ -533,7 +533,7 @@ void linear::Solve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                   const size_t &aCol, const bool &aUpperTri,
@@ -546,7 +546,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     bool flag_transform = false;
     if (!aInputA.IsMatrix()) {
         MPCR_API_EXCEPTION(
-            "Inputs Must Be Matrices", -1);
+                "Inputs Must Be Matrices", -1);
     }
 
     if (!aInputB.IsMatrix()) {
@@ -561,7 +561,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
         MPCR_API_EXCEPTION(
-            "Given Number of Columns is Greater than Columns of B", -1);
+                "Given Number of Columns is Greater than Columns of B", -1);
     }
 
     aOutput.ClearUp();
@@ -574,19 +574,19 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
                                                     operation_placement,
                                                     context);
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
     for (auto i = 0; i < col_b; i++) {
-        memory::MemCpy((char *) ( pData_in_out + ( aCol * i )),
-                       (char *) ( pData_b + ( row_b * i )),
-                       ( sizeof(T) * aCol ), context, mem_transfer);
+        memory::MemCpy((char *) (pData_in_out + (aCol * i)),
+                       (char *) (pData_b + (row_b * i)),
+                       (sizeof(T) * aCol), context, mem_transfer);
     }
 
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     solver->Trsm(left_side, aUpperTri, aTranspose, row_b, col_b, aAlpha, pData,
                  row_a, pData_in_out, row_b);
@@ -601,7 +601,7 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
             DataType &aOutputV, const size_t &aNu,
@@ -646,12 +646,12 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
     auto pTemp_data = memory::AllocateArray(row * col * sizeof(T),
                                             operation_placement, context);
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
     memory::MemCpy((char *) pTemp_data, (char *) pData,
-                   ( row * col ) * sizeof(T), context, mem_transfer);
+                   (row * col) * sizeof(T), context, mem_transfer);
 
 
     signed char job;
@@ -667,8 +667,8 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
         ldvt = aNv;
     }
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     // Gesdd routine in CPU
     auto rc = solver->SVD(job, row, col, (T *) pTemp_data, row, (T *) pOutput_s,
@@ -693,8 +693,8 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
     aOutputU.SetData((char *) pOutput_u, operation_placement);
 
     if (aTranspose) {
-        auto helper = BackendFactory <T>::CreateHelpersBackend(
-            operation_placement);
+        auto helper = BackendFactory<T>::CreateHelpersBackend(
+                operation_placement);
         helper->Transpose(aOutputV, context);
     }
 
@@ -702,7 +702,7 @@ linear::SVD(DataType &aInputA, DataType &aOutputS, DataType &aOutputU,
 }
 
 
-template <typename T>
+template<typename T>
 void linear::Eigen(DataType &aInput, DataType &aOutputValues,
                    DataType *apOutputVectors) {
 
@@ -733,7 +733,7 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     auto pVectors = memory::AllocateArray(col * col * sizeof(T),
                                           operation_placement, context);
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
@@ -741,8 +741,8 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
     memory::MemCpy((char *) pVectors, (char *) pData, col * col * sizeof(T),
                    context, mem_transfer);
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     auto rc = solver->Syevd(jobz_no_vec, fill_upper, col, (T *) pVectors, col,
                             (T *) pValues);
@@ -753,7 +753,7 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
         MPCR_API_EXCEPTION("Error While Performing Eigen", rc);
     }
 
-    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory<T>::CreateHelpersBackend(operation_placement);
 
     if (apOutputVectors) {
         apOutputVectors->ClearUp();
@@ -777,7 +777,7 @@ void linear::Eigen(DataType &aInput, DataType &aOutputValues,
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::Norm(DataType &aInput, const std::string &aType, double &aOutput) {
 
@@ -787,7 +787,7 @@ linear::Norm(DataType &aInput, const std::string &aType, double &aOutput) {
     auto col = aInput.GetNCol();
     auto row = aInput.GetNRow();
 
-    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory<T>::CreateHelpersBackend(operation_placement);
     T val_out_temp = 0;
 
     if (row == 0 || col == 0) {
@@ -802,14 +802,14 @@ linear::Norm(DataType &aInput, const std::string &aType, double &aOutput) {
         helper->NormMaxMod(aInput, val_out_temp, context);
     } else {
         MPCR_API_EXCEPTION(
-            "Argument must be one of 'M','1','O','I','F' or 'E' ",
-            -1);
+                "Argument must be one of 'M','1','O','I','F' or 'E' ",
+                -1);
     }
     aOutput = val_out_temp;
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                         DataType &aOutputQraux, DataType &aOutputPivot,
@@ -818,7 +818,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
@@ -841,10 +841,10 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
 
 
     memory::MemCpy((char *) pQr_in_out, (char *) pData,
-                   ( aInputA.GetSize()) * sizeof(T), context, mem_transfer);
+                   (aInputA.GetSize()) * sizeof(T), context, mem_transfer);
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     auto rc = solver->Geqp3(row, col, (T *) pQr_in_out, row, (int64_t *) pJpvt,
                             (T *) pQraux);
@@ -872,8 +872,8 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
                                                  operation_placement, context);
 
 
-    memory::Copy <int64_t, T>((char *) pJpvt, (char *) pTemp_pvt, col,
-                              operation_placement);
+    memory::Copy<int64_t, T>((char *) pJpvt, (char *) pTemp_pvt, col,
+                             operation_placement);
 
     memory::DestroyArray(pJpvt, operation_placement, context);
 
@@ -882,7 +882,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
     aOutputPivot.SetData((char *) pTemp_pvt, operation_placement);
 
     auto pRank = (T *) memory::AllocateArray(1 * sizeof(T), CPU, nullptr);
-    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory<T>::CreateHelpersBackend(operation_placement);
 
 
     helper->GetRank(aOutputQr, *pRank, context);
@@ -894,7 +894,7 @@ linear::QRDecomposition(DataType &aInputA, DataType &aOutputQr,
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::QRDecompositionR(DataType &aInputA, DataType &aOutput,
                          const bool &aComplete) {
@@ -916,14 +916,14 @@ linear::QRDecompositionR(DataType &aInputA, DataType &aOutput,
     aOutput.SetDimensions(output_nrows, col);
     aOutput.SetData((char *) pOutput_data, operation_placement);
 
-    auto helper = BackendFactory <T>::CreateHelpersBackend(operation_placement);
+    auto helper = BackendFactory<T>::CreateHelpersBackend(operation_placement);
     helper->CopyUpperTriangle(aInputA, aOutput, context);
 
 
 }
 
 
-template <typename T>
+template<typename T>
 void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
                               DataType &aOutput,
                               const bool &aComplete) {
@@ -931,7 +931,7 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
@@ -948,10 +948,10 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
 
 
     memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
-                   ( output_size * sizeof(T)), context, mem_transfer);
+                   (output_size * sizeof(T)), context, mem_transfer);
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     auto rc = solver->Orgqr(row, output_nrhs, col, (T *) pOutput_data, row,
                             pQraux);
@@ -969,7 +969,7 @@ void linear::QRDecompositionQ(DataType &aInputA, DataType &aInputB,
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::ReciprocalCondition(DataType &aInput, double &aOutput,
                             const std::string &aNorm, const bool &aTriangle) {
@@ -977,7 +977,7 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
@@ -990,8 +990,8 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
 
     string norm = aNorm == "I" ? "inf" : "one";
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     T out_temp_val = 0.0f;
     auto pData = (T *) aInput.GetData(operation_placement);
@@ -1011,8 +1011,8 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
             T xnorm = 0;
             T ynorm = 0;
 
-            auto helper = BackendFactory <T>::CreateHelpersBackend(
-                operation_placement);
+            auto helper = BackendFactory<T>::CreateHelpersBackend(
+                    operation_placement);
 
             if (norm == "one") {
                 helper->NormMACS(aInput, xnorm, context);
@@ -1021,7 +1021,7 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
             }
             auto side_len = aInput.GetNRow();
             auto pInverse = (T *) memory::AllocateArray(
-                side_len * side_len * sizeof(T), GPU, context);
+                    side_len * side_len * sizeof(T), GPU, context);
             memory::MemCpy((char *) pInverse, aInput.GetData(GPU),
                            side_len * side_len * sizeof(T), context,
                            memory::MemoryTransfer::DEVICE_TO_DEVICE);
@@ -1032,7 +1032,7 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
                 memory::DestroyArray((char *&) pInverse, GPU, context);
                 MPCR_API_EXCEPTION("Error While Performing rcond Trtri", rc);
             }
-            auto data_type = is_double <T>() ? DOUBLE : FLOAT;
+            auto data_type = is_double<T>() ? DOUBLE : FLOAT;
             DataType temp(data_type, GPU);
             temp.SetSize(side_len * side_len);
             temp.SetDimensions(side_len, side_len);
@@ -1044,15 +1044,15 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
                 helper->NormMARS(temp, ynorm, context);
             }
 
-            out_temp_val = 1 / ( ynorm * xnorm );
+            out_temp_val = 1 / (ynorm * xnorm);
         }
 
     } else {
         T xnorm = 0;
         T ynorm = 0;
 
-        auto helper = BackendFactory <T>::CreateHelpersBackend(
-            operation_placement);
+        auto helper = BackendFactory<T>::CreateHelpersBackend(
+                operation_placement);
 
         if (norm == "one") {
             helper->NormMACS(aInput, xnorm, context);
@@ -1069,7 +1069,7 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
                                                     context);
 
             memory::MemCpy((char *) pTemp_data, (char *) pData,
-                           ( row * col ) * sizeof(T), context, mem_transfer);
+                           (row * col) * sizeof(T), context, mem_transfer);
 
 
             auto rc = solver->Getrf(row, col, (T *) pTemp_data, col,
@@ -1094,10 +1094,10 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
 
             memory::DestroyArray(pTemp_data, operation_placement, context);
         } else {
-            auto data_type = is_double <T>() ? DOUBLE : FLOAT;
+            auto data_type = is_double<T>() ? DOUBLE : FLOAT;
             DataType dump(data_type);
             DataType inverse(data_type);
-            linear::Solve <T>(aInput, dump, inverse, true);
+            linear::Solve<T>(aInput, dump, inverse, true);
 
             if (norm == "one") {
                 helper->NormMACS(inverse, ynorm, context);
@@ -1105,7 +1105,7 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
                 helper->NormMARS(inverse, ynorm, context);
             }
 
-            out_temp_val = 1 / ( ynorm * xnorm );
+            out_temp_val = 1 / (ynorm * xnorm);
         }
     }
 
@@ -1115,7 +1115,7 @@ linear::ReciprocalCondition(DataType &aInput, double &aOutput,
 }
 
 
-template <typename T>
+template<typename T>
 void
 linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
                           DataType &aInputC, DataType &aOutput,
@@ -1124,7 +1124,7 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
 
-    auto mem_transfer = ( operation_placement == CPU )
+    auto mem_transfer = (operation_placement == CPU)
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
@@ -1140,10 +1140,10 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
                                               context);
 
     memory::MemCpy((char *) pOutput_data, (char *) pQr_data,
-                   ( output_size * sizeof(T)), context, mem_transfer);
+                   (output_size * sizeof(T)), context, mem_transfer);
 
-    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
-        operation_placement);
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(
+            operation_placement);
 
     auto rc = solver->Orgqr(row, output_nrhs, col, (T *) pOutput_data, row,
                             pQraux);
@@ -1157,6 +1157,88 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
     aOutput.SetSize(output_size);
     aOutput.SetDimensions(row, output_nrhs);
     aOutput.SetData((char *) pOutput_data, operation_placement);
+}
+
+template<typename T>
+void
+linear::Trmm(DataType &aInputA, DataType &aInputB, DataType &aOutput, const bool &aLowerTri,
+             const bool &aTransposeA, const bool &aLeftSide,
+             const double &aAlpha) {
+
+    // Check if the input matrices are valid
+    if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
+        MPCR_API_EXCEPTION(
+                "Inputs Must Be Matrices", -1);
+    }
+    // Get the operation context and placement
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    // Get the dimensions for A
+    auto row_a = aInputA.GetNRow();
+    auto col_a = aInputA.GetNCol();
+    // Get the dimensions for B
+    auto row_b = aInputB.GetNRow();
+    auto col_b = aInputB.GetNCol();
+
+    // Swap the dimensions of the matrix A if aTransposeA is set to true
+    if (aTransposeA) {
+        std::swap(row_a, col_a);
+    }
+
+    // Validate the matrix dimensions for multiplication
+    if (aLeftSide) {
+        if (col_a != row_b || row_a != row_b) {
+            MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
+        }
+    } else {
+        if (col_b != row_a || col_b != col_a) {
+            MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
+        }
+    }
+
+    // Set the size of the output which is always identical to the matrix B
+    auto output_size = row_b * col_b;
+
+    aOutput.ClearUp();
+    aOutput.SetSize(output_size);
+    aOutput.SetDimensions(row_b, col_b);
+
+    T *pData_out = nullptr;
+
+    pData_out = (T *) memory::AllocateArray(
+            output_size * sizeof(T),
+            operation_placement, context);
+    memory::Memset((char *) pData_out, 0, sizeof(T) * output_size,
+                   operation_placement, context);
+
+    // Get data pointers for matrices A and B
+    auto pData = (T *) aInputA.GetData(operation_placement);
+    auto pData_b = (T *) aInputB.GetData(operation_placement);
+    // Determine memory transfer type based on the operation placement
+    auto mem_transfer = (operation_placement == CPU)
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+    // Create the backend solver
+    auto solver = BackendFactory<T>::CreateLinearAlgebraBackend(operation_placement);
+    /**
+     * Incase of using CPU backend, Blaspp will overwrite the pData_b.
+     * However, when using GPU, CuBlas will not change pData_b and instead
+     * will change the output pointer pData_out.
+     * **/
+    if (operation_placement == CPU) {
+        // Copy data from B into the working output array
+        memory::MemCpy((char *) pData_out,
+                       (char *) pData_b,
+                       sizeof(T) * output_size,
+                       context, mem_transfer);
+        pData_b = pData_out;
+    }
+    solver->Trmm(aLeftSide, aLowerTri, aTransposeA,
+                 row_b, col_b, aAlpha, pData,
+                 row_a, (T *) pData_b, row_b, (T *) pData_out, row_b);
+    // Set the output data
+    aOutput.SetData((char *) pData_out, operation_placement);
 }
 
 
@@ -1211,4 +1293,6 @@ SIMPLE_INSTANTIATE(void, linear::QRDecompositionQY, DataType &aInputA,
                    DataType &aInputB, DataType &aInputC, DataType &aOutput,
                    const bool &aTranspose)
 
-
+SIMPLE_INSTANTIATE(void, linear::Trmm, DataType &aInputA, DataType &aInputB, DataType &aOutput, const bool &aLowerTri,
+                   const bool &aTranspose, const bool &aLeftSide,
+                   const double &aAlpha)

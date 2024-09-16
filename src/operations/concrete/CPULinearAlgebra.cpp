@@ -73,6 +73,25 @@ CPULinearAlgebra <T>::Trsm(const bool &aLeftSide,
 
 
 template <typename T>
+void
+CPULinearAlgebra <T>::Trmm(const bool &aLeftSide, const bool &aFillLower, const bool &aTranspose,
+                           const int &aNumRowB, const int &aNumColB,
+                           const T &aAlpha,const T *apDataA, const int &aLda,
+                           T *apDataB, const int &aLdb, T *apDataC, const int &aLdc) {
+
+    auto side = aLeftSide ? blas::Side::Left : blas::Side::Right;
+    auto which_triangle = aFillLower ? blas::Uplo::Lower : blas::Uplo::Upper;
+    auto transpose = aTranspose ? blas::Op::Trans : blas::Op::NoTrans;
+    auto layout = blas::Layout::ColMajor;
+    auto diag = blas::Diag::NonUnit;
+
+    blas::trmm(layout, side, which_triangle, transpose,
+               diag , aNumRowB, aNumColB, aAlpha, apDataA, aLda,
+               apDataB, aLdb);
+}
+
+
+template <typename T>
 int
 CPULinearAlgebra <T>::Potrf(const bool &aFillUpperTri,
                             const int &aNumRow, T *apDataA,
