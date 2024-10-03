@@ -48,3 +48,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -xHost -O3 -fma -qopt-r
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}  -xHost -O3 -fma -qopt-report=max -fPIC -fp-model precise")
 
 message(STATUS "--------------- Using Intel Compiler -------------")
+
+message(STATUS "C Compile Flags: ${CMAKE_C_FLAGS_RELEASE}")
+message(STATUS "CXX Compile Flags: ${CMAKE_CXX_FLAGS_RELEASE}")
+message(STATUS "C Compile Flags for the compiler : ${C_MPCR_FLAGS}")
+message(STATUS "CXX Compile Flags for the compiler : ${CXX_MPCR_FLAGS}")
