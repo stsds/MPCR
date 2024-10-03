@@ -45,9 +45,8 @@ set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -march=native -ftree-vectorize -O0 -fopt-info-vec-optimized -fPIC")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -march=native -ftree-vectorize -O0 -fopt-info-vec-optimized -fPIC")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -march=native -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
-
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -ftree-vectorize -O3 -fopt-info-vec-optimized -fPIC")
 
 # Obtain GCC compiler version
 execute_process(
