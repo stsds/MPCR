@@ -6,6 +6,7 @@
  *
  **/
 
+#include <limits>
 #include <blas.hh>
 #include <utilities/MPCRDispatcher.hpp>
 #include <operations/helpers/LinearAlgebraHelper.hpp>

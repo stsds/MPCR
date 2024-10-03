@@ -6,6 +6,7 @@
  *
  **/
 
+#include <limits>
 #include <operations/BinaryOperations.hpp>
 #include <utilities/MPCRErrorHandler.hpp>
 #include <utilities/MPCRDispatcher.hpp>
