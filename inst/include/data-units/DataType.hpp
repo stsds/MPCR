@@ -782,7 +782,7 @@ public:
      * @returns
      * Vector of Double Values
      */
-    std::vector <double> *
+    std::vector <double>
     ConvertToNumericVector();
 
     /**
@@ -793,7 +793,7 @@ public:
      * R- Numeric Matrix
      *
      */
-    Rcpp::NumericMatrix *
+    Rcpp::NumericMatrix
     ConvertToRMatrix();
 
 

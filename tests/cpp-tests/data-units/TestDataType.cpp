@@ -161,12 +161,11 @@ TEST_DATA_TYPE() {
 
         size_t i = 0;
         auto pOutput_vector = a.ConvertToNumericVector();
-        for (auto x: *pOutput_vector) {
+        for (auto x: pOutput_vector) {
             REQUIRE(x == i);
             i++;
         }
 
-        delete pOutput_vector;
 
     }SECTION("Test Copy Constructor for different precision") {
         vector <double> vals(50, 5);

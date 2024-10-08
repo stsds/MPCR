@@ -628,22 +628,23 @@ DataType::ConvertToVector(std::vector <double> &aOutput) {
 }
 
 
-std::vector <double> *
+std::vector <double>
 DataType::ConvertToNumericVector() {
-    auto pOutput = new std::vector <double>();
-    SIMPLE_DISPATCH(this->mPrecision, ConvertToVector, *pOutput)
-    return pOutput;
+    std::vector<double> output;
+    SIMPLE_DISPATCH(this->mPrecision, ConvertToVector, output)
+    return output;
 }
 
 
-Rcpp::NumericMatrix *
+Rcpp::NumericMatrix
 DataType::ConvertToRMatrix() {
     if (!this->mMatrix) {
         MPCR_API_EXCEPTION("Invalid Cannot Convert, Not a Matrix", -1);
     }
-    Rcpp::NumericMatrix *pOutput = nullptr;
+    Rcpp::NumericMatrix pOutput(this->mpDimensions->GetNRow(),this->mpDimensions->GetNCol());
+    auto ptr=&pOutput;
 
-    SIMPLE_DISPATCH(this->mPrecision, ConvertToRMatrixDispatcher, pOutput)
+    SIMPLE_DISPATCH(this->mPrecision, ConvertToRMatrixDispatcher, ptr)
     return pOutput;
 
 }
@@ -653,8 +654,7 @@ template <typename T>
 void DataType::ConvertToRMatrixDispatcher(Rcpp::NumericMatrix *&aOutput) {
 
     auto pData = (T *) mpData;
-    aOutput = new Rcpp::NumericMatrix(this->mpDimensions->GetNRow(),
-                                      this->mpDimensions->GetNCol(), pData);
+    aOutput->assign(pData,pData+this->mSize);
 
 }
 
