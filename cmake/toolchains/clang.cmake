@@ -78,3 +78,8 @@ message(STATUS "Detected Clang version: ${CLANG_VERSION}")
 add_definitions(-DCLANG_VERSION=${CLANG_VERSION})
 
 message(STATUS "--------------- Using Clang Compiler -------------- [Version ${CLANG_VERSION}]")
+
+message(STATUS "C Compile Flags: ${CMAKE_C_FLAGS_RELEASE}")
+message(STATUS "CXX Compile Flags: ${CMAKE_CXX_FLAGS_RELEASE}")
+message(STATUS "C Compile Flags for the compiler : ${C_MPCR_FLAGS}")
+message(STATUS "CXX Compile Flags for the compiler : ${CXX_MPCR_FLAGS}")

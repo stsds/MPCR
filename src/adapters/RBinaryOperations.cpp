@@ -566,14 +566,14 @@ RPerformPowDispatcher(DataType *apInputA, SEXP aObj, std::string aPrecision) {
 std::vector <double>
 RToNumericVector(DataType *apInputA) {
     auto vec = apInputA->ConvertToNumericVector();
-    return *vec;
+    return vec;
 }
 
 
 SEXP
 RToNumericMatrix(DataType *apInputA) {
     auto matrix = apInputA->ConvertToRMatrix();
-    return *matrix;
+    return matrix;
 }
 
 
