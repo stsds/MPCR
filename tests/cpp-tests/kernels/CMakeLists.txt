@@ -12,6 +12,7 @@ set(TESTFILES
         ${CMAKE_CURRENT_SOURCE_DIR}/TestMemoryHandler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TestRunContext.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TestContextManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TestCudaStreams.cpp
 
         ${TESTFILES}
         PARENT_SCOPE
