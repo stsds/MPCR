@@ -118,6 +118,18 @@ ContextManager::CreateRunContext() {
     return mpInstance->mContexts.back();
 }
 
+void
+ContextManager::DeleteRunContext(size_t aIdx) {
+    auto deleted_Context = this->GetContext(aIdx);
+    auto it = std::find(mpInstance->mContexts.begin(), mpInstance->mContexts.end(),
+                        this->GetContext(aIdx));
+
+    if (it != mpInstance->mContexts.end()) {
+        mpInstance->mContexts.erase(it);
+    }
+    delete deleted_Context;
+}
+
 RunContext *
 ContextManager::GetGPUContext() {
 #ifdef USE_CUDA

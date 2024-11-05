@@ -117,6 +117,13 @@ namespace mpcr {
 
             /**
              * @brief
+             * Delete a specific from the context manager.
+             */
+            void
+            DeleteRunContext(size_t aIdx);
+
+            /**
+             * @brief
              * Get a GPU context to be used internally if any stream is needed.
              */
             static
