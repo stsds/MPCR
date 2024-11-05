@@ -46,6 +46,11 @@ GPULinearAlgebra<T>::Gemm(const bool &aTransposeA,
         MPCR_API_EXCEPTION("Error While Performing Gemm on GPU", rc);
     }
 
+    if(context->GetRunMode() == RunMode::SYNC){
+        context->Sync();
+        context->FreeWorkBufferHost();
+    }
+
 }
 
 
@@ -82,6 +87,10 @@ GPULinearAlgebra<T>::Syrk(const bool &aFillLower,
         MPCR_API_EXCEPTION("Error While Performing Syrk on GPU", rc);
     }
 
+    if(context->GetRunMode() == RunMode::SYNC){
+        context->Sync();
+        context->FreeWorkBufferHost();
+    }
 
 }
 
@@ -120,6 +129,12 @@ GPULinearAlgebra<T>::Trsm(const bool &aLeftSide,
     if (rc != 0) {
         MPCR_API_EXCEPTION("Error While Performing Trsm on GPU", rc);
     }
+
+    if(context->GetRunMode() == RunMode::SYNC){
+        context->Sync();
+        context->FreeWorkBufferHost();
+    }
+
 }
 
 
@@ -152,6 +167,11 @@ GPULinearAlgebra<T>::Trmm(const bool &aLeftSide, const bool &aFillLower, const b
 
     if (rc != 0) {
         MPCR_API_EXCEPTION("Error While Performing trmm on GPU", rc);
+    }
+
+    if(context->GetRunMode() == RunMode::SYNC){
+        context->Sync();
+        context->FreeWorkBufferHost();
     }
 }
 
@@ -187,7 +207,8 @@ GPULinearAlgebra<T>::Potrf(const bool &aFillUpperTri,
                    sizeof(int), context,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
-    if (context->GetRunMode() == kernels::RunMode::SYNC) {
+    if(context->GetRunMode() == RunMode::SYNC){
+        context->Sync();
         context->FreeWorkBufferHost();
     }
 
@@ -229,6 +250,11 @@ GPULinearAlgebra<T>::Potri(const bool &aFillUpperTri,
     memory::MemCpy((char *) &rc, (char *) context->GetInfoPointer(),
                    sizeof(int), context,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    if(context->GetRunMode() == RunMode::SYNC){
+        context->Sync();
+        context->FreeWorkBufferHost();
+    }
 
     return rc;
 }
@@ -406,6 +432,11 @@ GPULinearAlgebra<T>::Gesv(const int &aNumN, const int &aNumNRH,
                    sizeof(int), context,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
+    if(context->GetRunMode() == RunMode::SYNC){
+        context->Sync();
+        context->FreeWorkBufferHost();
+    }
+
     return rc;
 
 }
@@ -443,6 +474,7 @@ GPULinearAlgebra<T>::Getrf(const int &aNumRow, const int &aNumCol,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
 
     if (context->GetRunMode() == kernels::RunMode::SYNC) {
+        context->Sync();
         context->FreeWorkBufferHost();
     }
 
@@ -499,6 +531,7 @@ GPULinearAlgebra<T>::SVD(const signed char &aJob,
 
     if (context->GetRunMode() == kernels::RunMode::SYNC) {
         context->FreeWorkBufferHost();
+        context->Sync();
     }
 
     return rc;
@@ -546,6 +579,7 @@ GPULinearAlgebra<T>::Syevd(const bool &aJobzNoVec,
 
     if (context->GetRunMode() == kernels::RunMode::SYNC) {
         context->FreeWorkBufferHost();
+        context->Sync();
     }
 
     return rc;
@@ -586,6 +620,7 @@ GPULinearAlgebra<T>::Geqp3(const int &aNumRow, const int &aNumCol, T *apDataA,
 
     if (context->GetRunMode() == kernels::RunMode::SYNC) {
         context->FreeWorkBufferHost();
+        context->Sync();
     }
 
     return rc;
@@ -618,6 +653,11 @@ GPULinearAlgebra<T>::Orgqr(const int &aNumRow, const int &aNum,
     memory::MemCpy((char *) &rc, (char *) context->GetInfoPointer(),
                    sizeof(int), context,
                    memory::MemoryTransfer::DEVICE_TO_HOST);
+
+    if (context->GetRunMode() == kernels::RunMode::SYNC) {
+        context->FreeWorkBufferHost();
+        context->Sync();
+    }
 
     return rc;
 }
@@ -653,6 +693,11 @@ GPULinearAlgebra<T>::Gecon(const std::string &aNorm, const int &aNumRow,
 
     memory::DestroyArray(pData_host, CPU, context);
     memory::DestroyArray(pData_copy, GPU, context);
+
+    if (context->GetRunMode() == kernels::RunMode::SYNC) {
+        context->FreeWorkBufferHost();
+        context->Sync();
+    }
 
     return 0;
 
@@ -695,6 +740,7 @@ int GPULinearAlgebra<T>::Getrs(const bool &aTransposeA, const size_t &aNumRowA,
 
     if (context->GetRunMode() == kernels::RunMode::SYNC) {
         context->FreeWorkBufferHost();
+        context->Sync();
     }
 
     return rc;
@@ -738,6 +784,7 @@ GPULinearAlgebra<T>::Trtri(const size_t &aSideLength, T *apDataA,
 
     if (context->GetRunMode() == kernels::RunMode::SYNC) {
         context->FreeWorkBufferHost();
+        context->Sync();
     }
 
     return rc;
@@ -774,6 +821,11 @@ GPULinearAlgebra<T>::HalfGemm(const bool &aTransposeA, const bool &aTransposeB,
 
     if (rc != 0) {
         MPCR_API_EXCEPTION("Error While Performing Gemm on GPU", rc);
+    }
+
+    if (context->GetRunMode() == kernels::RunMode::SYNC) {
+        context->FreeWorkBufferHost();
+        context->Sync();
     }
 
 }
