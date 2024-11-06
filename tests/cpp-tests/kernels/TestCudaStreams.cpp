@@ -37,7 +37,7 @@ TEST_CUDA_STREAMS() {
         newContextGPU->SetRunMode( RunMode::SYNC);
 
         const int size = 1024;
-        std::vector<double> values(size * size, 1.0); // Fill matrix with 1s for simplicity
+        std::vector<double> values(size * size, 1.0);
 
         DataType a(values, DOUBLE, GPU);
         a.ToMatrix(size, size);
@@ -87,7 +87,7 @@ TEST_CUDA_STREAMS() {
         newContextGPU->SetRunMode( RunMode::SYNC);
 
         const int size = 1024;
-        std::vector<double> values(size * size, 1.0); // Fill matrix with 1s for simplicity
+        std::vector<double> values(size * size, 1.0);
 
         DataType a(values, DOUBLE, GPU);
         a.ToMatrix(size, size);
@@ -135,7 +135,7 @@ TEST_CUDA_STREAMS() {
         newContextGPU->SetRunMode( RunMode::SYNC);
 
         const int size = 1024;
-        std::vector<double> values(size * size, 1.0); // Fill matrix with 1s for simplicity
+        std::vector<double> values(size * size, 1.0);
 
         DataType a(values, DOUBLE, GPU);
         a.ToMatrix(size, size);
@@ -186,7 +186,7 @@ TEST_CUDA_STREAMS() {
         newContextGPU->SetRunMode( RunMode::SYNC);
 
         const int size = 1024;
-        std::vector<double> values(size * size, 1.0); // Fill matrix with 1s for simplicity
+        std::vector<double> values(size * size, 1.0);
 
         DataType a(values, DOUBLE, GPU);
         a.ToMatrix(size, size);
@@ -312,7 +312,7 @@ TEST_CUDA_STREAMS() {
         newContextGPU->SetRunMode(RunMode::SYNC);
 
         const int size = 1024;
-        std::vector<double> values(size * size, 1.0); // Fill matrix with 1s for simplicity
+        std::vector<double> values(size * size, 1.0);
 
         DataType a(values, DOUBLE, GPU);
         a.ToMatrix(size, size);
@@ -344,7 +344,6 @@ TEST_CUDA_STREAMS() {
         }
         ContextManager.DeleteRunContext(2);
         ContextManager.DeleteRunContext(1);
-        std::cout << ContextManager.GetNumOfContexts() << std::endl;
     }
 }
 TEST_CASE("Cuda Streams", "[Cuda Streams]") {

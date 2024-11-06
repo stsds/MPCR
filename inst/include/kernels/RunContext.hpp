@@ -128,6 +128,17 @@ namespace mpcr {
             void
             Sync() const;
 
+            /**
+             * @brief
+             * Cleans up and synchronizes resources in SYNC mode.
+             *
+             * Frees the host work buffer and syncs when
+             * the context is in synchronous (SYNC) mode.
+             */
+
+            void
+            FinalizeSyncOperations();
+
 #ifdef USE_CUDA
 
             /**

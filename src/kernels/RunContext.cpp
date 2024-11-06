@@ -170,7 +170,13 @@ RunContext::SetRunMode(const RunMode &aRunMode) {
     }
     this->mRunMode = aRunMode;
 }
-
+void
+RunContext::FinalizeSyncOperations(){
+    if(this->mRunMode == RunMode::SYNC){
+        this->FreeWorkBufferHost();
+        this->Sync();
+    }
+}
 /** -------------------------- CUDA code -------------------------- **/
 
 #ifdef USE_CUDA
