@@ -141,8 +141,8 @@ namespace mpcr {
 
 
         private:
-            /** Vector holding all the created run context **/
-            std::vector <mpcr::kernels::RunContext *> mContexts;
+            /** map holding all the created run context **/
+            std::map<int ,mpcr::kernels::RunContext *> mContexts;
             /** Pointer to hold the current run context to be used internally
              *  if any streams is needed.
              **/
