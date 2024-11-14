@@ -16,6 +16,23 @@ using namespace mpcr::operations;
 using namespace mpcr::kernels;
 
 
+void
+RTrmm(DataType *aInputA, DataType *aInputB, DataType *aOutput, const bool &aLowerTri,
+      const bool &aTranspose, const bool &aLeftSide, const double &aAlpha) {
+
+    Promoter pr(2);
+    pr.Insert(*aInputA);
+    pr.Insert(*aInputB);
+    pr.Promote();
+
+    auto precision = aInputA->GetPrecision();
+
+    SIMPLE_DISPATCH(precision, linear::Trmm, *aInputA, *aInputB, *aOutput,
+                    aLowerTri, aTranspose, aLeftSide, aAlpha)
+
+    pr.DePromote();
+}
+
 DataType *
 RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
       const bool &aTranspose, const char &aSide, const double &aAlpha) {
@@ -98,7 +115,7 @@ RCrossProduct(DataType *aInputA, SEXP aInputB) {
             aInputB);
         if (!temp_b->IsDataType()) {
             MPCR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MMPR Object",
+                "Undefined Object . Make Sure You're Using MPR Object",
                 -1);
         }
 #ifdef USE_CUDA

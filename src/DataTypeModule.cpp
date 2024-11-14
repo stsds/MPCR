@@ -190,6 +190,13 @@ RCPP_MODULE(MPCR) {
                           _[ "transpose_b" ] = false, _[ "alpha" ] = 1,
                           _[ "beta" ] = 0));
 
+    /** Function to expose gemm , trmm, trsm , syrk **/
+    function("MPCR.trmm", &RTrmm,
+             List::create(_[ "a" ], _[ "b" ] , _[ "c" ],
+                          _[ "lower_triangle" ] = false,
+                          _[ "transpose_a" ] = false, _[ "lef_side" ] = true,
+                          _[ "alpha" ] = 1));
+
     function("MPCR.trsm", &RTrsm,
              List::create(_[ "a" ], _[ "b" ], _[ "upper_triangle" ],
                           _[ "transpose" ] = false, _[ "side" ] = 'L',

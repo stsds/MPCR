@@ -362,6 +362,10 @@ RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
       const bool &aTransposeA, const bool &aTransposeB, const double &aAlpha,
       const double &aBeta);
 
+void
+RTrmm(DataType *aInputA, DataType *aInputB, DataType *aOutput, const bool &aLowerTri,
+      const bool &aTranspose, const bool &aLeftSide, const double &aAlpha);
+
 DataType *
 RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
       const bool &aTranspose, const char &aSide, const double &aAlpha);
