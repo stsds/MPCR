@@ -27,11 +27,11 @@ TEST_CONTEXT_MANAGER() {
     REQUIRE(
         ContextManager::GetInstance().GetOperationContext()->GetRunMode() ==
         RunMode::SYNC);
-    REQUIRE_THROWS(ContextManager::GetInstance().GetContext(1));
-    REQUIRE_THROWS(ContextManager::GetInstance().SyncContext(1));
+    REQUIRE_THROWS(ContextManager::GetInstance().GetContext("RANDOM"));
+    REQUIRE_THROWS(ContextManager::GetInstance().SyncContext("RANDOM"));
 
 
-    auto temp_context = ContextManager::GetInstance().CreateRunContext();
+    auto temp_context = ContextManager::GetInstance().CreateRunContext((string &)"CPU");
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 2);
     REQUIRE(temp_context->GetOperationPlacement() == CPU);
     REQUIRE(temp_context->GetRunMode() == mpcr::kernels::RunMode::SYNC);

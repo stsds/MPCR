@@ -3,23 +3,47 @@
 #define MPCR_RCONTEXTMANAGER_HPP
 
 #include <kernels/ContextManager.hpp>
+#include <sstream>
+#include <algorithm>
 
+using namespace mpcr::kernels;
 
 void
-SetOperationPlacement(const std::string &aOperationPlacement) {
-    auto operation_placement = mpcr::definitions::GetInputOperationPlacement(
-        aOperationPlacement);
-
-    mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
-        operation_placement);
-}
-
+SetOperationPlacement(const std::string &aOperationPlacement, const std::string &aRunContextName= "default");
 
 std::string
-GetOperationPlacement() {
-    auto operation_placement = mpcr::kernels::ContextManager::GetOperationContext()->GetOperationPlacement();
-    return operation_placement == CPU ? "CPU" : "GPU";
-}
+GetOperationPlacement(const std::string &aRunContextName= "default");
 
+std::string
+GetRunMode(std::string &aRunContextName);
+
+void
+SetRunMode(std::string &aRunContextName, std::string &aRunMode);
+void
+FinalizeSyncOperations(std::string &aRunContextName);
+
+void
+CreateRunContext(std::string &aRunContextName);
+
+ContextManager &
+GetInstance();
+
+void
+SyncContext(const std::string &aRunContextName);
+
+void
+SyncAll();
+
+size_t
+GetNumOfContexts();
+
+RunContext *
+GetContext(const std::string &aRunContextName);
+
+void
+SetOperationContext(std::string &aRunContextName);
+
+void
+DeleteRunContext(const std::string &aRunContextName);
 
 #endif //MPCR_RCONTEXTMANAGER_HPP

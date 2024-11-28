@@ -18,8 +18,8 @@ ContextManager &
 ContextManager::GetInstance() {
     if (mpInstance == nullptr) {
         mpInstance = new ContextManager();
-        mpInstance->mContexts[ 0 ] = new RunContext();
-        mpInstance->mpCurrentContext = mpInstance->mContexts[ 0 ];
+        mpInstance->mContexts["default"] = new RunContext();
+        mpInstance->mpCurrentContext = mpInstance->mContexts["default"];
 #ifdef USE_CUDA
         mpInstance->mpGPUContext = new RunContext(definitions::GPU,
                                                   RunMode::SYNC);
@@ -29,27 +29,23 @@ ContextManager::GetInstance() {
     return *mpInstance;
 }
 
-
 void
-ContextManager::SyncContext(size_t aIdx) const {
-    if (aIdx >= mContexts.size()) {
-        MPCR_API_EXCEPTION("Trying to fetch invalid Context Idx", -1);
-    }
+ContextManager::SyncContext(const std::string &aRunContextName) const {
 
-    mContexts.at(aIdx)->Sync();
+    mContexts.at(aRunContextName)->Sync();
 
 }
 
 
 void
 ContextManager::SyncMainContext() const {
-    mContexts.at(0)->Sync();
+    mContexts.at("default")->Sync();
 }
 
 
 void
 ContextManager::SyncAll() const {
-    for (const auto& [key, context] : mContexts) {
+    for (const auto &[key, context]: mContexts) {
         if (context != nullptr) {
             context->Sync();
         }
@@ -68,7 +64,7 @@ void ContextManager::DestroyInstance() {
     if (mpInstance) {
         mpInstance->SyncAll();
 
-        for (auto& [key, context] : mpInstance->mContexts) {
+        for (auto &[key, context]: mpInstance->mContexts) {
             delete context;
             context = nullptr;
         }
@@ -85,15 +81,9 @@ void ContextManager::DestroyInstance() {
 }
 
 
-
 RunContext *
-ContextManager::GetContext(size_t aIdx) {
-    if (aIdx >= mContexts.size()) {
-        MPCR_API_EXCEPTION("Trying to fetch invalid Context Idx", -1);
-        return nullptr;
-    }else{
-        return mContexts[ aIdx ];
-    }
+ContextManager::GetContext(const std::string &aRunContextName) {
+    return mContexts[aRunContextName];
 }
 
 
@@ -116,19 +106,21 @@ ContextManager::GetOperationContext() {
 
 
 RunContext *
-ContextManager::CreateRunContext() {
+ContextManager::CreateRunContext(const std::string &aRunContextName) {
     auto run_context = new mpcr::kernels::RunContext();
-    int newKey = mpInstance->mContexts.empty() ? 0 : mpInstance->mContexts.rbegin()->first + 1;
-    mpInstance->mContexts[newKey] = run_context;
-    return mpInstance->mContexts[newKey];
+    mpInstance->mContexts[aRunContextName] = run_context;
+    return mpInstance->mContexts[aRunContextName];
 }
 
-void
-ContextManager::DeleteRunContext(size_t aIdx) {
-    auto deleted_Context = this->GetContext(aIdx);
-    auto it = mpInstance->mContexts.find(aIdx);
+
+void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
+    auto deleted_Context = this->GetContext(aRunContextName);
+    if (!deleted_Context) {
+        MPCR_API_EXCEPTION("Failed to retrieve context", -1);
+        return;
+    }
+    auto it = mpInstance->mContexts.find(aRunContextName);
     if (it != mpInstance->mContexts.end()) {
-        // Erase the entry from the map
         mpInstance->mContexts.erase(it);
     }
     delete deleted_Context;
@@ -146,6 +138,7 @@ ContextManager::GetGPUContext() {
     return mpInstance->mpGPUContext;
 #else
     MPCR_API_EXCEPTION("Code is compiled without CUDA support", -1);
-#endif
+#endifmpCurrentContext
     return nullptr;
+#endif USE_CUDA
 }

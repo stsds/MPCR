@@ -208,7 +208,19 @@ RCPP_MODULE(MPCR) {
 
     /** Run Context Functions **/
 
-    function("MPCR.SetOperationPlacement",&SetOperationPlacement,List::create(_["placement"]));
+    function("MPCR.SetOperationPlacement",&SetOperationPlacement,List::create(_["placement"],_["contextname"]= "default"));
     function("MPCR.GetOperationPlacement",&GetOperationPlacement);
+    function("MPCR.SetRunMode",&SetRunMode,List::create(_["contextname"]= "default", _["runmode"]));
+    function("MPCR.GetRunMode",&GetRunMode,List::create(_["contextname"]= "default"));
+
+    /** Context Manager Functions **/
+    function("MPCR.SyncContext", &SyncContext,List::create(_["contextname"]));
+    function("MPCR.FinalizeSyncOperations", &FinalizeSyncOperations,List::create(_["contextname"]));
+    function("MPCR.CreateRunContext", &CreateRunContext,List::create(_["contextname"]));
+//    function("MPCR.GetInstance", &GetInstance);
+    function("MPCR.SyncAll", &SyncAll);
+    function("MPCR.GetNumOfContexts", &GetNumOfContexts);
+    function("MPCR.SetOperationContext", &SetOperationContext, List::create(_["contextname"]));
+
 
 }

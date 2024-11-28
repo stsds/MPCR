@@ -54,7 +54,7 @@ namespace mpcr {
              * Synchronizes the kernel stream.
              */
             void
-            SyncContext(size_t aIdx = 0) const;
+            SyncContext(const std::string &aRunContextName) const;
 
             /**
              * @brief
@@ -83,7 +83,7 @@ namespace mpcr {
              * Get specific stream.
              */
             RunContext *
-            GetContext(size_t aIdx = 0);
+            GetContext(const std::string &aRunContextName);
 
             /**
              * @brief
@@ -112,15 +112,16 @@ namespace mpcr {
              * @brief
              * Create new stream and add it to the context manager.
              */
+            static
             RunContext *
-            CreateRunContext();
+            CreateRunContext(const std::string &aRunContextName);
 
             /**
              * @brief
              * Delete a specific from the context manager.
              */
             void
-            DeleteRunContext(size_t aIdx);
+            DeleteRunContext(const std::string &aRunContextName);
 
             /**
              * @brief
@@ -129,7 +130,6 @@ namespace mpcr {
             static
             RunContext *
             GetGPUContext();
-
 
         protected:
             /**
@@ -142,7 +142,7 @@ namespace mpcr {
 
         private:
             /** map holding all the created run context **/
-            std::map<int ,mpcr::kernels::RunContext *> mContexts;
+            std::unordered_map<std::string ,mpcr::kernels::RunContext *> mContexts;
             /** Pointer to hold the current run context to be used internally
              *  if any streams is needed.
              **/
