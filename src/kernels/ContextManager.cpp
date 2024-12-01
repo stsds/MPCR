@@ -109,7 +109,7 @@ RunContext *
 ContextManager::CreateRunContext(const std::string &aRunContextName) {
     auto run_context = new mpcr::kernels::RunContext();
     mpInstance->mContexts[aRunContextName] = run_context;
-    return mpInstance->mContexts[aRunContextName];
+    return run_context;
 }
 
 

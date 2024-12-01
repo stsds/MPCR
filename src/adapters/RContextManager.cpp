@@ -13,18 +13,18 @@
 using namespace mpcr::kernels;
 
 void
-SetOperationPlacement(const std::string &aOperationPlacement, const std::string &aRunContextName) {
+SetOperationPlacement(const std::string &aOperationPlacement) {
     auto operation_placement = mpcr::definitions::GetInputOperationPlacement(
             aOperationPlacement);
-    auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
-    ContextManager.GetContext(aRunContextName)->SetOperationPlacement(operation_placement);
+
+    mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
+            operation_placement);
 }
 
 
 std::string
-GetOperationPlacement(const std::string &aRunContextName) {
-    auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
-    auto operation_placement = ContextManager.GetContext(aRunContextName)->GetOperationPlacement();
+GetOperationPlacement() {
+    auto operation_placement = mpcr::kernels::ContextManager::GetOperationContext()->GetOperationPlacement();
     return operation_placement == mpcr::definitions::CPU ? "CPU" : "GPU";
 }
 

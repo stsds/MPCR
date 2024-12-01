@@ -30,8 +30,7 @@ TEST_CONTEXT_MANAGER() {
     REQUIRE_THROWS(ContextManager::GetInstance().GetContext("RANDOM"));
     REQUIRE_THROWS(ContextManager::GetInstance().SyncContext("RANDOM"));
 
-
-    auto temp_context = ContextManager::GetInstance().CreateRunContext((string &)"CPU");
+    auto temp_context = ContextManager::GetInstance().CreateRunContext(std::string("CPU"));
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 2);
     REQUIRE(temp_context->GetOperationPlacement() == CPU);
     REQUIRE(temp_context->GetRunMode() == mpcr::kernels::RunMode::SYNC);

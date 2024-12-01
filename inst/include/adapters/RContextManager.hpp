@@ -9,10 +9,10 @@
 using namespace mpcr::kernels;
 
 void
-SetOperationPlacement(const std::string &aOperationPlacement, const std::string &aRunContextName= "default");
+SetOperationPlacement(const std::string &aOperationPlacement);
 
 std::string
-GetOperationPlacement(const std::string &aRunContextName= "default");
+GetOperationPlacement();
 
 std::string
 GetRunMode(std::string &aRunContextName);
