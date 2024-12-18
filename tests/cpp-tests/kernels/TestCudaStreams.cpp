@@ -344,7 +344,6 @@ TEST_CUDA_STREAMS() {
         }
         ContextManager.DeleteRunContext("GPU1");
         ContextManager.DeleteRunContext("GPU2");
-//        ContextManager.DeleteRunContext("GPU1");
     }
 }
 TEST_CASE("Cuda Streams", "[Cuda Streams]") {

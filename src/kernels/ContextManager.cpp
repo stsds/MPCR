@@ -32,6 +32,10 @@ ContextManager::GetInstance() {
 void
 ContextManager::SyncContext(const std::string &aRunContextName) const {
 
+    auto it = mContexts.find(aRunContextName);
+    if (it == mContexts.end()) {
+        MPCR_API_EXCEPTION("No stream with that name", -1);
+    }
     mContexts.at(aRunContextName)->Sync();
 
 }
@@ -83,6 +87,10 @@ void ContextManager::DestroyInstance() {
 
 RunContext *
 ContextManager::GetContext(const std::string &aRunContextName) {
+    auto it = mContexts.find(aRunContextName);
+    if (it == mContexts.end()) {
+        MPCR_API_EXCEPTION("No stream with that name", -1);
+    }
     return mContexts[aRunContextName];
 }
 
@@ -114,14 +122,18 @@ ContextManager::CreateRunContext(const std::string &aRunContextName) {
 
 
 void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
+    auto it = mContexts.find(aRunContextName);
+    if (it == mContexts.end()) {
+        MPCR_API_EXCEPTION("No stream with that name", -1);
+    }
     auto deleted_Context = this->GetContext(aRunContextName);
     if (!deleted_Context) {
         MPCR_API_EXCEPTION("Failed to retrieve context", -1);
         return;
     }
-    auto it = mpInstance->mContexts.find(aRunContextName);
-    if (it != mpInstance->mContexts.end()) {
-        mpInstance->mContexts.erase(it);
+    auto erase = mpInstance->mContexts.find(aRunContextName);
+    if (erase != mpInstance->mContexts.end()) {
+        mpInstance->mContexts.erase(erase);
     }
     delete deleted_Context;
 }

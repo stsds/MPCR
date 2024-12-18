@@ -53,21 +53,16 @@ GetRunMode(std::string &aRunContextName) {
 void
 FinalizeSyncOperations(std::string &aRunContextName){
     auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
-    auto run_mode = ContextManager.GetContext(aRunContextName)->GetRunMode();
-    if(run_mode == RunMode::SYNC){
-        ContextManager.GetContext(aRunContextName)->Sync();
+    auto run_mode = GetRunMode(aRunContextName);
+    if(run_mode == "SYNC"){
+        SyncContext(aRunContextName);
         ContextManager.GetContext(aRunContextName)->FreeWorkBufferHost();
     }
 }
 
 void
 CreateRunContext(std::string &aRunContextName){
-    auto context = ContextManager::CreateRunContext(aRunContextName);
-}
-
-ContextManager &
-GetInstance(){
-    return ContextManager::GetInstance();
+    ContextManager::CreateRunContext(aRunContextName);
 }
 
 void
