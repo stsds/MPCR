@@ -342,8 +342,7 @@ TEST_CUDA_STREAMS() {
             double val = fabs(data[i] - data_validate[i]) / data_validate[i];
             REQUIRE(val <= error_threshold);
         }
-        ContextManager.DeleteRunContext("GPU1");
-        ContextManager.DeleteRunContext("GPU2");
+        mpcr::kernels::ContextManager::DestroyInstance();
     }
 }
 TEST_CASE("Cuda Streams", "[Cuda Streams]") {
