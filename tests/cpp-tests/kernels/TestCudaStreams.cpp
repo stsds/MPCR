@@ -265,16 +265,13 @@ TEST_CUDA_STREAMS() {
         streamContext1->SetRunMode(RunMode::ASYNC);
         streamContext2->SetRunMode(RunMode::ASYNC);
 
-        // Launch operations on both streams
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output1, false, false)
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output2, false, false)
 
-        // Wait for all streams to complete
         context.SyncAll();
 
         double error_threshold = 0.001;
 
-        // Validate results
         auto data1 = (double *) output1.GetData();
         auto data_validate1 = (double *) output_Validate1.GetData();
         REQUIRE(output1.GetNRow() == size);
