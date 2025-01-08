@@ -51,7 +51,7 @@ GetRunMode(std::string &aRunContextName) {
 }
 
 void
-FinalizeSyncOperations(std::string &aRunContextName){
+FinalizeOperations(std::string &aRunContextName){
     auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
     auto run_mode = GetRunMode(aRunContextName);
     if(run_mode == "SYNC"){

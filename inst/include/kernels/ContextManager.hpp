@@ -47,7 +47,7 @@ namespace mpcr {
              * Singletons should not be assignable.
              */
             void
-            operator =(const ContextManager &) = delete;
+            operator=(const ContextManager &) = delete;
 
             /**
              * @brief
@@ -111,6 +111,8 @@ namespace mpcr {
             /**
              * @brief
              * Create new stream and add it to the context manager.
+             * @param[in] aRunContextName
+             * RunContext name.
              */
             static
             RunContext *
@@ -137,12 +139,12 @@ namespace mpcr {
              * Context Manager constructor.
              *
              */
-            ContextManager()=default;
+            ContextManager() = default;
 
 
         private:
             /** map holding all the created run context **/
-            std::unordered_map<std::string ,mpcr::kernels::RunContext *> mContexts;
+            std::unordered_map<std::string, mpcr::kernels::RunContext *> mContexts;
             /** Pointer to hold the current run context to be used internally
              *  if any streams is needed.
              **/
@@ -151,7 +153,7 @@ namespace mpcr {
             /** Context used internally if any GPU context is needed, when the
              *  Current context is CPU
              **/
-             RunContext *mpGPUContext;
+            RunContext *mpGPUContext;
 #endif
         };
 

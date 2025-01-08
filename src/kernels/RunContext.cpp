@@ -172,7 +172,7 @@ RunContext::SetRunMode(const RunMode &aRunMode) {
 }
 
 void
-RunContext::FinalizeSyncOperations(){
+RunContext::FinalizeOperations(){
     if(this->mRunMode == RunMode::SYNC){
         this->Sync();
         this->FreeWorkBufferHost();
