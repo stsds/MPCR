@@ -19,6 +19,7 @@ using namespace std;
 void
 TEST_CONTEXT_MANAGER() {
     cout << "Testing Context Manager ..." << endl;
+    auto default_context = ContextManager::GetOperationContext();
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 1);
     REQUIRE(ContextManager::GetInstance().GetOperationContext() != nullptr);
     REQUIRE(
@@ -43,7 +44,9 @@ TEST_CONTEXT_MANAGER() {
     ContextManager::GetInstance().SetOperationContext(temp_context);
     REQUIRE(
         ContextManager::GetInstance().GetOperationContext() == temp_context);
-
+    ContextManager::GetInstance().DeleteRunContext("CPU");
+    REQUIRE(
+            ContextManager::GetInstance().GetOperationContext() == default_context);
     ContextManager::DestroyInstance();
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 1);
     REQUIRE(ContextManager::GetInstance().GetOperationContext() != nullptr);

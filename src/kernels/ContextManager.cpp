@@ -123,11 +123,15 @@ ContextManager::CreateRunContext(const std::string &aRunContextName) {
 
 void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
     auto it = mContexts.find(aRunContextName);
-    if (it == mContexts.end()) {
+    if(this->mpCurrentContext == this->GetContext(aRunContextName)){
+        auto default_context = this->GetContext("default");
+        this->SetOperationContext(default_context);
+    }
+        if (it == mContexts.end()) {
         MPCR_API_EXCEPTION("No stream with that name", -1);
     }
-    auto deleted_Context = this->GetContext(aRunContextName);
-    if (!deleted_Context) {
+    auto deleted_context = this->GetContext(aRunContextName);
+    if (!deleted_context) {
         MPCR_API_EXCEPTION("Failed to retrieve context", -1);
         return;
     }
@@ -135,7 +139,7 @@ void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
     if (erase != mpInstance->mContexts.end()) {
         mpInstance->mContexts.erase(erase);
     }
-    delete deleted_Context;
+    delete deleted_context;
 }
 
 RunContext *
