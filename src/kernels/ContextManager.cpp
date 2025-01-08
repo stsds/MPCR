@@ -123,11 +123,15 @@ ContextManager::CreateRunContext(const std::string &aRunContextName) {
 
 void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
     auto it = mContexts.find(aRunContextName);
-    if(this->mpCurrentContext == this->GetContext(aRunContextName)){
-        auto default_context = this->GetContext("default");
-        this->SetOperationContext(default_context);
+    if (this->mpCurrentContext == this->GetContext(aRunContextName)) {
+        if (aRunContextName == "default") {
+            MPCR_API_EXCEPTION("Cannot delete default RunContext", 1);
+        } else {
+            auto default_context = this->GetContext("default");
+            this->SetOperationContext(default_context);
+        }
     }
-        if (it == mContexts.end()) {
+    if (it == mContexts.end()) {
         MPCR_API_EXCEPTION("No stream with that name", -1);
     }
     auto deleted_context = this->GetContext(aRunContextName);
