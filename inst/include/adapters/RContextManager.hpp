@@ -72,6 +72,16 @@ FinalizeOperations(std::string &aRunContextName);
 
 /**
  * @brief
+ * Cleans up and synchronizes resources.
+ * Frees the host work buffer and syncs.
+ * @param[in] aRunContextName
+ * RunContext name.
+ */
+void
+FinalizeRunContext(std::string &aRunContextName);
+
+/**
+ * @brief
  * Create new stream and add it to the context manager.
  * @param[in] aRunContextName
  * RunContext name.
@@ -104,15 +114,6 @@ SyncAll();
  */
 size_t
 GetNumOfContexts();
-
-/**
- * @brief
- * Get specific stream.
- * @param[in] aRunContextName
- * RunContext name.
- */
-RunContext *
-GetContext(const std::string &aRunContextName);
 
 /**
  * @brief

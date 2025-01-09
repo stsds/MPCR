@@ -56,8 +56,19 @@ FinalizeOperations(std::string &aRunContextName){
     auto run_mode = GetRunMode(aRunContextName);
     if(run_mode == "SYNC"){
         SyncContext(aRunContextName);
+#ifdef USE_CUDA
         ContextManager.GetContext(aRunContextName)->FreeWorkBufferHost();
+#endif
     }
+}
+
+void
+FinalizeRunContext(std::string &aRunContextName){
+    auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+    SyncContext(aRunContextName);
+#ifdef USE_CUDA
+    ContextManager.GetContext(aRunContextName)->FreeWorkBufferHost();
+#endif
 }
 
 void
@@ -83,16 +94,10 @@ GetNumOfContexts(){
     return ContextManager.GetNumOfContexts();
 }
 
-RunContext *
-GetContext(const std::string &aRunContextName){
-    auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
-    return ContextManager.GetContext(aRunContextName);
-}
-
 void
 SetOperationContext(std::string &aRunContextName){
-    auto runContext = GetContext(aRunContextName);
     auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+    auto runContext = ContextManager.GetContext(aRunContextName);
     ContextManager.SetOperationContext(runContext);
 }
 

@@ -137,6 +137,15 @@ namespace mpcr {
             void
             FinalizeOperations();
 
+            /**
+             * @brief
+             * Cleans up and synchronizes resources.
+             *
+             * Frees the host work buffer and syncs.
+             */
+            void
+            FinalizeRunContext();
+
 #ifdef USE_CUDA
 
             /**
