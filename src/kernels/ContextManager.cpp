@@ -125,7 +125,7 @@ void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
     auto it = mContexts.find(aRunContextName);
     if (this->mpCurrentContext == this->GetContext(aRunContextName)) {
         if (aRunContextName == "default") {
-            MPCR_API_EXCEPTION("Cannot delete default RunContext", 1);
+            MPCR_API_WARN("Cannot delete default RunContext", 1);
         } else {
             auto default_context = this->GetContext("default");
             this->SetOperationContext(default_context);
@@ -158,7 +158,6 @@ ContextManager::GetGPUContext() {
     return mpInstance->mpGPUContext;
 #else
     MPCR_API_EXCEPTION("Code is compiled without CUDA support", -1);
-#endifmpCurrentContext
+#endif
     return nullptr;
-#endif USE_CUDA
 }
