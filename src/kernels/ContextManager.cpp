@@ -18,7 +18,6 @@ ContextManager &
 ContextManager::GetInstance() {
     if (mpInstance == nullptr) {
         mpInstance = new ContextManager();
-        mpInstance->mContexts.resize(1);
         mpInstance->mContexts[ 0 ] = new RunContext();
         mpInstance->mpCurrentContext = mpInstance->mContexts[ 0 ];
 #ifdef USE_CUDA
@@ -37,22 +36,25 @@ ContextManager::SyncContext(size_t aIdx) const {
         MPCR_API_EXCEPTION("Trying to fetch invalid Context Idx", -1);
     }
 
-    mContexts[ aIdx ]->Sync();
+    mContexts.at(aIdx)->Sync();
 
 }
 
 
 void
 ContextManager::SyncMainContext() const {
-    mContexts[ 0 ]->Sync();
+    mContexts.at(0)->Sync();
 }
 
 
 void
 ContextManager::SyncAll() const {
-    for (auto &context: mContexts) {
-        context->Sync();
+    for (const auto& [key, context] : mContexts) {
+        if (context != nullptr) {
+            context->Sync();
+        }
     }
+
 }
 
 
@@ -62,14 +64,15 @@ ContextManager::GetNumOfContexts() const {
 }
 
 
-void
-ContextManager::DestroyInstance() {
+void ContextManager::DestroyInstance() {
     if (mpInstance) {
         mpInstance->SyncAll();
-        for (auto *&x: mpInstance->mContexts) {
-            delete x;
-            x = nullptr;
+
+        for (auto& [key, context] : mpInstance->mContexts) {
+            delete context;
+            context = nullptr;
         }
+        mpInstance->mContexts.clear();
 
 #ifdef USE_CUDA
         delete mpInstance->mpGPUContext;
@@ -79,17 +82,18 @@ ContextManager::DestroyInstance() {
         delete mpInstance;
         mpInstance = nullptr;
     }
-
 }
+
 
 
 RunContext *
 ContextManager::GetContext(size_t aIdx) {
     if (aIdx >= mContexts.size()) {
         MPCR_API_EXCEPTION("Trying to fetch invalid Context Idx", -1);
+        return nullptr;
+    }else{
+        return mContexts[ aIdx ];
     }
-
-    return mContexts[ aIdx ];
 }
 
 
@@ -113,9 +117,21 @@ ContextManager::GetOperationContext() {
 
 RunContext *
 ContextManager::CreateRunContext() {
-    auto run_context = new RunContext();
-    mpInstance->mContexts.push_back(run_context);
-    return mpInstance->mContexts.back();
+    auto run_context = new mpcr::kernels::RunContext();
+    int newKey = mpInstance->mContexts.empty() ? 0 : mpInstance->mContexts.rbegin()->first + 1;
+    mpInstance->mContexts[newKey] = run_context;
+    return mpInstance->mContexts[newKey];
+}
+
+void
+ContextManager::DeleteRunContext(size_t aIdx) {
+    auto deleted_context = this->GetContext(aIdx);
+    auto current_context = ContextManager::GetOperationContext();
+    auto it = mpInstance->mContexts.find(aIdx);
+    if (it != mpInstance->mContexts.end()) {
+        mpInstance->mContexts.erase(it);
+    }
+    delete deleted_context;
 }
 
 RunContext *

@@ -117,6 +117,13 @@ namespace mpcr {
 
             /**
              * @brief
+             * Delete a specific RunContext from the context manager.
+             */
+            void
+            DeleteRunContext(size_t aIdx);
+
+            /**
+             * @brief
              * Get a GPU context to be used internally if any stream is needed.
              */
             static
@@ -134,8 +141,8 @@ namespace mpcr {
 
 
         private:
-            /** Vector holding all the created run context **/
-            std::vector <mpcr::kernels::RunContext *> mContexts;
+            /** map holding all the created run context **/
+            std::map<int ,mpcr::kernels::RunContext *> mContexts;
             /** Pointer to hold the current run context to be used internally
              *  if any streams is needed.
              **/
