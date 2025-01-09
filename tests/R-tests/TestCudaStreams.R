@@ -22,7 +22,7 @@ x$PrintValues()
 y$PrintValues()
 
 # Perform all the upcoming operation on GPU, if supported.
-MPCR.SetOperationPlacement("GPU")
+MPCR.SetOperationPlacement("default", "GPU")
 cat("----------------------- CrossProduct C=XY --------------------\n")
 # Data will be transfered automatically to GPU to be able to perform the operation
 # on GPU
@@ -38,13 +38,13 @@ crossproduct_validate$PrintValues()
 cat("\n")
 
 MPCR.SetOperationContext("gpu1")
-MPCR.SetOperationPlacement("GPU")
+MPCR.SetOperationPlacement("gpu1", "GPU")
 
 crossproduct <- crossprod(x, y)
 MPCR.SyncContext("gpu1")
 
 MPCR.SetOperationContext("gpu2")
-MPCR.SetOperationPlacement("GPU")
+MPCR.SetOperationPlacement("gpu2", "GPU")
 cat("asynchronous result after synchronization \n")
 crossproduct$PrintValues()
 cat("\n")

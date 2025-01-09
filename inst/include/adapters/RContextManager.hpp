@@ -18,10 +18,12 @@ using namespace mpcr::kernels;
  *
  * @param[in] aOperationPlacement
  * Operation placement enum CPU,GPU.
+ * @param[in] aRunContextName
+ * RunContext name.
  *
  */
 void
-SetOperationPlacement(const std::string &aOperationPlacement);
+SetOperationPlacement(std::string &aRunContextName, const std::string &aOperationPlacement);
 
 /**
  * @brief
@@ -35,7 +37,7 @@ SetOperationPlacement(const std::string &aOperationPlacement);
  * Operation placement.
  */
 std::string
-GetOperationPlacement();
+GetOperationPlacement(std::string &aRunContextName);
 
 /**
  * @brief
@@ -59,16 +61,6 @@ GetRunMode(std::string &aRunContextName);
  */
 void
 SetRunMode(std::string &aRunContextName, std::string &aRunMode);
-
-/**
- * @brief
- * Cleans up and synchronizes resources in SYNC mode.
- * Frees the host work buffer and syncs.
- * @param[in] aRunContextName
- * RunContext name.
- */
-void
-FinalizeOperations(std::string &aRunContextName);
 
 /**
  * @brief
@@ -132,5 +124,16 @@ SetOperationContext(std::string &aRunContextName);
  */
 void
 DeleteRunContext(const std::string &aRunContextName);
+
+
+/**
+ * @brief
+ * Retrieve the names of all existing RunContext instances managed by the ContextManager.
+ *
+ * @returns
+ * A vector of strings containing the names of all RunContext instances.
+ */
+std::vector<std::string>
+GetAllContextNames();
 
 #endif //MPCR_RCONTEXTMANAGER_HPP

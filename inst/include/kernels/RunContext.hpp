@@ -25,13 +25,6 @@
 namespace mpcr {
     namespace kernels {
 
-        /** Enum describing the cuda stream behavior (async,sync),
-         * not used in the case of CPU Context.  **/
-        enum class RunMode {
-            SYNC,
-            ASYNC
-        };
-
 
         class RunContext {
         public:
@@ -48,7 +41,7 @@ namespace mpcr {
             explicit
             RunContext(
                 const definitions::OperationPlacement &aOperationPlacement = definitions::CPU,
-                const RunMode &aRunMode = RunMode::SYNC);
+                const mpcr::definitions::RunMode &aRunMode = mpcr::definitions::RunMode::SYNC);
 
             /**
              * @brief
@@ -106,7 +99,7 @@ namespace mpcr {
              * @returns
              * Run Mode
              */
-            RunMode
+            mpcr::definitions::RunMode
             GetRunMode() const;
 
             /**
@@ -118,7 +111,7 @@ namespace mpcr {
              * Run Mode enum indicating whether the context is SYNC or ASYNC
              */
             void
-            SetRunMode(const RunMode &aRunMode);
+            SetRunMode(const mpcr::definitions::RunMode &aRunMode);
 
             /**
              * @brief
@@ -271,7 +264,7 @@ namespace mpcr {
             cudaStream_t mCudaStream;
 #endif
             /** Enum indicating whether the operation is sync or async **/
-            RunMode mRunMode;
+            mpcr::definitions::RunMode mRunMode;
             /** Enum indicating whether the operation is done on GPU or CPU **/
             definitions::OperationPlacement mOperationPlacement;
         };

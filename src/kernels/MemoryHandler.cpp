@@ -17,6 +17,7 @@
 
 using namespace mpcr;
 using namespace memory;
+using namespace mpcr::definitions;
 
 
 char *
@@ -82,7 +83,7 @@ memory::MemCpy(char *apDestination, const char *apSrcDataArray,
                             MemoryDirectionConverter::ToCudaMemoryTransferType(
                                 aTransferType),
                             aContext->GetStream()));
-        if (aContext->GetRunMode() == kernels::RunMode::SYNC) {
+        if (aContext->GetRunMode() == RunMode::SYNC) {
             cudaStreamSynchronize(aContext->GetStream());
         }
     }
@@ -108,7 +109,7 @@ memory::Memset(char *apDestination, char aValue, const size_t &aSizeInBytes,
         }
         GPU_ERROR_CHECK(cudaMemsetAsync(apDestination, aValue, aSizeInBytes,
                                         aContext->GetStream()))
-        if (aContext->GetRunMode() == kernels::RunMode::SYNC) {
+        if (aContext->GetRunMode() == RunMode::SYNC) {
             cudaStreamSynchronize(aContext->GetStream());
         }
     }

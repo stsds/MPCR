@@ -34,7 +34,7 @@ TEST_CONTEXT_MANAGER() {
     auto temp_context = ContextManager::GetInstance().CreateRunContext(std::string("CPU"));
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 2);
     REQUIRE(temp_context->GetOperationPlacement() == CPU);
-    REQUIRE(temp_context->GetRunMode() == mpcr::kernels::RunMode::SYNC);
+    REQUIRE(temp_context->GetRunMode() == mpcr::definitions::RunMode::SYNC);
     temp_context->SetOperationPlacement(GPU);
 #ifdef USE_CUDA
     REQUIRE(temp_context->GetOperationPlacement() == GPU);

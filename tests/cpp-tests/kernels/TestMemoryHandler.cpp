@@ -11,6 +11,7 @@
 
 
 using namespace mpcr;
+using namespace mpcr::definitions;
 using namespace std;
 
 
@@ -37,7 +38,7 @@ TEST_MEMORY_HANDLER_CUDA() {
                                       memory::MemoryTransfer::HOST_TO_DEVICE));
 
         context.SetOperationPlacement(GPU);
-        context.SetRunMode(kernels::RunMode::SYNC);
+        context.SetRunMode(RunMode::SYNC);
 
         memory::MemCpy(pdata_alloc_device, (char *) pdata_host,
                        sizeof(float) * n, &context,

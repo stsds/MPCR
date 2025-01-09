@@ -133,6 +133,16 @@ namespace mpcr {
             RunContext *
             GetGPUContext();
 
+            /**
+             * @brief
+             * Retrieve the names of all existing RunContext instances managed by the ContextManager.
+             *
+             * @returns
+             * A vector of strings containing the names of all RunContext instances.
+             */
+            std::vector<std::string>
+            GetAllContextNames() const;
+
         protected:
             /**
              * @brief

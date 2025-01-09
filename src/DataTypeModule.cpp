@@ -208,19 +208,19 @@ RCPP_MODULE(MPCR) {
 
     /** Run Context Functions **/
 
-    function("MPCR.SetOperationPlacement",&SetOperationPlacement,List::create(_["placement"]));
-    function("MPCR.GetOperationPlacement",&GetOperationPlacement);
+    function("MPCR.SetOperationPlacement",&SetOperationPlacement,List::create(_["contextname"]= "default",_["placement"]));
+    function("MPCR.GetOperationPlacement",&GetOperationPlacement, List::create(_["contextname"]= "default"));
     function("MPCR.SetRunMode",&SetRunMode,List::create(_["contextname"]= "default", _["runmode"]));
     function("MPCR.GetRunMode",&GetRunMode,List::create(_["contextname"]= "default"));
 
     /** Context Manager Functions **/
     function("MPCR.SyncContext", &SyncContext,List::create(_["contextname"]));
-    function("MPCR.FinalizeOperations", &FinalizeOperations,List::create(_["contextname"]));
     function("MPCR.FinalizeRunContext", &FinalizeRunContext,List::create(_["contextname"]));
     function("MPCR.CreateRunContext", &CreateRunContext,List::create(_["contextname"]));
     function("MPCR.SyncAll", &SyncAll);
     function("MPCR.GetNumOfContexts", &GetNumOfContexts);
     function("MPCR.SetOperationContext", &SetOperationContext, List::create(_["contextname"]));
-
+    function("MPCR.DeleteRunContext", &DeleteRunContext, List::create(_["contextname"]));
+    function("MPCR.GetAllContextNames", &GetAllContextNames);
 
 }

@@ -10,6 +10,7 @@
 
 
 using namespace mpcr::kernels;
+using namespace mpcr::definitions;
 
 ContextManager *ContextManager::mpInstance = nullptr;
 
@@ -160,4 +161,13 @@ ContextManager::GetGPUContext() {
     MPCR_API_EXCEPTION("Code is compiled without CUDA support", -1);
 #endif
     return nullptr;
+}
+
+std::vector<std::string>
+ContextManager::GetAllContextNames() const {
+    std::vector<std::string> contextNames;
+    for (const auto &[key, _] : mContexts) {
+        contextNames.push_back(key);
+    }
+    return contextNames;
 }
