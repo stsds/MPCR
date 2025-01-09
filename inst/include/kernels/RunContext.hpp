@@ -125,8 +125,10 @@ namespace mpcr {
              * @brief
              * Cleans up and synchronizes resources in SYNC mode.
              *
-             * Frees the host work buffer and syncs.
+             * Frees the host work buffer and syncs when
+             * the context is in synchronous (SYNC) mode.
              */
+
             void
             FinalizeOperations();
 
@@ -134,10 +136,12 @@ namespace mpcr {
              * @brief
              * Cleans up and synchronizes resources.
              *
-             * Frees the host work buffer and syncs.
+             * Frees the host work buffer and syncs the runContext.
              */
+
             void
             FinalizeRunContext();
+
 
 #ifdef USE_CUDA
 
@@ -250,10 +254,11 @@ namespace mpcr {
             int *mpInfo;
             /** GPU Work buffer needed for cublas/cusolver operations **/
             mutable void *mpWorkBufferDevice;
-            /** CPU Work buffer needed for cublas/cusolver operations **/
-            mutable void *mpWorkBufferHost;
             /** Work buffer size **/
             mutable size_t mWorkBufferSizeDevice;
+            /** CPU Work buffer needed for cublas/cusolver operations **/
+            mutable void *mpWorkBufferHost;
+            /** Enum indicating whether the operation is sync or async **/
             /** Work buffer size **/
             mutable size_t mWorkBufferSizeHost;
             /** cusolver handle **/

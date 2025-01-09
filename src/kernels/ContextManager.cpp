@@ -65,7 +65,8 @@ ContextManager::GetNumOfContexts() const {
 }
 
 
-void ContextManager::DestroyInstance() {
+void
+ContextManager::DestroyInstance() {
     if (mpInstance) {
         mpInstance->SyncAll();
 
@@ -83,6 +84,7 @@ void ContextManager::DestroyInstance() {
         delete mpInstance;
         mpInstance = nullptr;
     }
+
 }
 
 

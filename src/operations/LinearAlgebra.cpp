@@ -1171,9 +1171,8 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
 template <typename T>
 void
 linear::Trmm(DataType &aInputA, DataType &aInputB, DataType &aOutput,
-             const bool &aLowerTri,
-             const bool &aTransposeA, const bool &aLeftSide,
-             const double &aAlpha) {
+             const bool &aLowerTri,const bool &aTransposeA,
+             const bool &aLeftSide,const double &aAlpha) {
 
     // Check if the input matrices are valid
     if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {

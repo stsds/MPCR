@@ -26,15 +26,12 @@ TEST_CUDA_STREAMS() {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
                 GPU);
 
-        auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+        auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
+        auto default_context = context_manager.GetOperationContext();
 
-        auto newContext = ContextManager.CreateRunContext("GPU1");
-        newContext->SetOperationPlacement(GPU);
-        newContext->SetRunMode( RunMode::ASYNC);
-
-        auto newContextGPU = ContextManager.CreateRunContext( "GPU2");
-        newContextGPU->SetOperationPlacement(GPU);
-        newContextGPU->SetRunMode( RunMode::SYNC);
+        auto gpu_context_async = context_manager.CreateRunContext("GPU");
+        gpu_context_async->SetOperationPlacement(GPU);
+        gpu_context_async->SetRunMode( RunMode::ASYNC);
 
         const int size = 1024;
         std::vector<double> values(size * size, 1.0);
@@ -50,11 +47,11 @@ TEST_CUDA_STREAMS() {
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_validate, false,false)
 
-        ContextManager.SetOperationContext(newContext);
+        context_manager.SetOperationContext(gpu_context_async);
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,false)
 
-        ContextManager.SetOperationContext(newContextGPU);
+        context_manager.SetOperationContext(default_context);
 
         auto data = (double *) output.GetData();
         auto data_validate = (double *) output_validate.GetData();
@@ -66,7 +63,7 @@ TEST_CUDA_STREAMS() {
             double val = fabs(data[i] - data_validate[i]) / data_validate[i];
             REQUIRE(val > error_threshold);
         }
-        auto num = ContextManager.GetNumOfContexts();
+        auto num = context_manager.GetNumOfContexts();
         mpcr::kernels::ContextManager::DestroyInstance();
 
     }
@@ -76,15 +73,12 @@ TEST_CUDA_STREAMS() {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
                 GPU);
 
-        auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+        auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
+        auto default_context = context_manager.GetOperationContext();
 
-        auto newContext = ContextManager.CreateRunContext("GPU1");
-        newContext->SetOperationPlacement(GPU);
-        newContext->SetRunMode( RunMode::ASYNC);
-
-        auto newContextGPU = ContextManager.CreateRunContext("GPU2");
-        newContextGPU->SetOperationPlacement(GPU);
-        newContextGPU->SetRunMode( RunMode::SYNC);
+        auto gpu_context_async = context_manager.CreateRunContext("GPU");
+        gpu_context_async->SetOperationPlacement(GPU);
+        gpu_context_async->SetRunMode( RunMode::ASYNC);
 
         const int size = 1024;
         std::vector<double> values(size * size, 1.0);
@@ -100,12 +94,12 @@ TEST_CUDA_STREAMS() {
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_validate, false,false)
 
-        ContextManager.SetOperationContext(newContext);
+        context_manager.SetOperationContext(gpu_context_async);
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,false)
 
-        ContextManager.SyncContext("GPU1");
-        ContextManager.SetOperationContext(newContextGPU);
+        context_manager.SyncContext("GPU");
+        context_manager.SetOperationContext(default_context);
 
         auto data = (double *) output.GetData();
         auto data_validate = (double *) output_validate.GetData();
@@ -124,15 +118,12 @@ TEST_CUDA_STREAMS() {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
                 GPU);
 
-        auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+        auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
+        auto default_context = context_manager.GetOperationContext();
 
-        auto newContext = ContextManager.CreateRunContext("GPU1");
-        newContext->SetOperationPlacement(GPU);
-        newContext->SetRunMode( RunMode::SYNC);
-
-        auto newContextGPU = ContextManager.CreateRunContext("GPU2");
-        newContextGPU->SetOperationPlacement(GPU);
-        newContextGPU->SetRunMode( RunMode::SYNC);
+        auto gpu_context_sync = context_manager.CreateRunContext("GPU");
+        gpu_context_sync->SetOperationPlacement(GPU);
+        gpu_context_sync->SetRunMode( RunMode::SYNC);
 
         const int size = 1024;
         std::vector<double> values(size * size, 1.0);
@@ -148,11 +139,11 @@ TEST_CUDA_STREAMS() {
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_validate, false,false)
 
-        ContextManager.SetOperationContext(newContext);
+        context_manager.SetOperationContext(gpu_context_sync);
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,false)
 
-        ContextManager.SetOperationContext(newContextGPU);
+        context_manager.SetOperationContext(default_context);
 
         auto data = (double *) output.GetData();
         auto data_validate = (double *) output_validate.GetData();
@@ -171,19 +162,16 @@ TEST_CUDA_STREAMS() {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
                 GPU);
 
-        auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+        auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
+        auto default_context = context_manager.GetOperationContext();
 
-        auto newContextGemm = ContextManager.CreateRunContext("GPU1");
-        newContextGemm->SetOperationPlacement(GPU);
-        newContextGemm->SetRunMode( RunMode::ASYNC);
+        auto gpu_context_async = context_manager.CreateRunContext("ASYNC");
+        gpu_context_async->SetOperationPlacement(GPU);
+        gpu_context_async->SetRunMode( RunMode::ASYNC);
 
-        auto newContextTrmm = ContextManager.CreateRunContext("GPU2");
-        newContextTrmm->SetOperationPlacement(GPU);
-        newContextTrmm->SetRunMode( RunMode::SYNC);
-
-        auto newContextGPU = ContextManager.CreateRunContext("GPU3");
-        newContextGPU->SetOperationPlacement(GPU);
-        newContextGPU->SetRunMode( RunMode::SYNC);
+        auto gpu_context_sync = context_manager.CreateRunContext("SYNC");
+        gpu_context_sync->SetOperationPlacement(GPU);
+        gpu_context_sync->SetRunMode( RunMode::SYNC);
 
         const int size = 1024;
         std::vector<double> values(size * size, 1.0);
@@ -202,15 +190,15 @@ TEST_CUDA_STREAMS() {
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_validate_Gemm, false,false)
         SIMPLE_DISPATCH(DOUBLE, linear::Trmm, a, b, output_validate_Trmm, false, true, true, 1)
 
-        ContextManager.SetOperationContext(newContextGemm);
+        context_manager.SetOperationContext(gpu_context_async);
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_Gemm, false,false)
 
-        ContextManager.SetOperationContext(newContextTrmm);
+        context_manager.SetOperationContext(gpu_context_sync);
 
         SIMPLE_DISPATCH(DOUBLE, linear::Trmm, a, b, output_Trmm, false, true, true, 1)
 
-        ContextManager.SetOperationContext(newContextGPU);
+        context_manager.SetOperationContext(default_context);
 
         double error_threshold = 0.001;
 
@@ -224,7 +212,7 @@ TEST_CUDA_STREAMS() {
             REQUIRE(val <= error_threshold);
         }
 
-        ContextManager.SyncContext("GPU1");
+        context_manager.SyncContext("ASYNC");
 
         auto data_Gemm = (double *) output_Gemm.GetData();
         auto data_validate_Gemm = (double *) output_validate_Gemm.GetData();
@@ -240,9 +228,10 @@ TEST_CUDA_STREAMS() {
     }SECTION("Test Concurrent Execution with Multiple Streams (SyncAll)") {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
 
-        auto& context = mpcr::kernels::ContextManager::GetInstance();
-        auto streamContext1 = context.CreateRunContext("GPU1");
-        auto streamContext2 = context.CreateRunContext("GPU2");
+        auto& context_manager = mpcr::kernels::ContextManager::GetInstance();
+        auto default_context = context_manager.GetOperationContext();
+        auto gpu_context_async1 = context_manager.CreateRunContext("ASYNC1");
+        auto gpu_context_async2 = context_manager.CreateRunContext("ASYNC2");
 
         const int size = 1024;
         std::vector<double> values(size * size, 1.0);
@@ -259,19 +248,22 @@ TEST_CUDA_STREAMS() {
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_Validate1, false, false)
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_Validate2, false, false)
 
-        streamContext1->SetOperationPlacement(GPU);
-        streamContext2->SetOperationPlacement(GPU);
+        gpu_context_async1->SetOperationPlacement(GPU);
+        gpu_context_async2->SetOperationPlacement(GPU);
 
-        streamContext1->SetRunMode(RunMode::ASYNC);
-        streamContext2->SetRunMode(RunMode::ASYNC);
+        gpu_context_async1->SetRunMode(RunMode::ASYNC);
+        gpu_context_async2->SetRunMode(RunMode::ASYNC);
 
+        context_manager.SetOperationContext(gpu_context_async1);
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output1, false, false)
+        context_manager.SetOperationContext(gpu_context_async2);
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output2, false, false)
 
-        context.SyncAll();
+        context_manager.SyncAll();
 
         double error_threshold = 0.001;
 
+        context_manager.SetOperationContext(default_context);
         auto data1 = (double *) output1.GetData();
         auto data_validate1 = (double *) output_Validate1.GetData();
         REQUIRE(output1.GetNRow() == size);
@@ -298,15 +290,12 @@ TEST_CUDA_STREAMS() {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(
                 GPU);
 
-        auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+        auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
+        auto default_context = context_manager.GetOperationContext();
 
-        auto newContext = ContextManager.CreateRunContext("GPU1");
-        newContext->SetOperationPlacement(GPU);
-        newContext->SetRunMode(RunMode::ASYNC);
-
-        auto newContextGPU = ContextManager.CreateRunContext("GPU2");
-        newContextGPU->SetOperationPlacement(GPU);
-        newContextGPU->SetRunMode(RunMode::SYNC);
+        auto gpu_context_async = context_manager.CreateRunContext("GPU");
+        gpu_context_async->SetOperationPlacement(GPU);
+        gpu_context_async->SetRunMode(RunMode::ASYNC);
 
         const int size = 1024;
         std::vector<double> values(size * size, 1.0);
@@ -322,12 +311,12 @@ TEST_CUDA_STREAMS() {
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output_validate, false, false)
 
-        ContextManager.SetOperationContext(newContext);
+        context_manager.SetOperationContext(gpu_context_async);
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false, false)
 
-        newContext->SetRunMode(RunMode::SYNC);
-        ContextManager.SetOperationContext(newContextGPU);
+        gpu_context_async->SetRunMode(RunMode::SYNC);
+        context_manager.SetOperationContext(default_context);
 
         auto data = (double *) output.GetData();
         auto data_validate = (double *) output_validate.GetData();

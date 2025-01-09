@@ -190,6 +190,25 @@ RunContext::FinalizeRunContext(){
     this->FreeWorkBufferDevice();
 #endif
 }
+
+void
+RunContext::FinalizeOperations(){
+    if(this->mRunMode == RunMode::SYNC){
+        this->Sync();
+#ifdef USE_CUDA
+        this->FreeWorkBufferHost();
+#endif
+    }
+}
+
+void
+RunContext::FinalizeRunContext(){
+    this->Sync();
+#ifdef USE_CUDA
+    this->FreeWorkBufferHost();
+    this->FreeWorkBufferDevice();
+#endif
+}
 /** -------------------------- CUDA code -------------------------- **/
 
 #ifdef USE_CUDA
@@ -321,10 +340,8 @@ RunContext::FreeWorkBufferDevice() const {
 
 }
 
-
 void
 RunContext::FreeWorkBufferHost() const {
-
     if (this->mOperationPlacement == definitions::GPU) {
         this->Sync();
         if (this->mpWorkBufferHost != nullptr) {
@@ -335,7 +352,6 @@ RunContext::FreeWorkBufferHost() const {
     this->mpWorkBufferHost = nullptr;
 
 }
-
 
 cublasHandle_t
 RunContext::GetCuBlasDnHandle() const {
