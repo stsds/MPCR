@@ -32,8 +32,6 @@ GetOperationPlacement(std::string &aRunContextName) {
 void
 SetRunMode(std::string &aRunContextName, std::string &aRunMode) {
     auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
-    std::transform(aRunMode.begin(), aRunMode.end(),
-                   aRunMode.begin(), ::tolower);
     auto run_mode = mpcr::definitions::GetInputRunMode(
             aRunMode);
     ContextManager.GetContext(aRunContextName)->SetRunMode(
@@ -50,15 +48,19 @@ GetRunMode(std::string &aRunContextName) {
 void
 FinalizeRunContext(std::string &aRunContextName){
     auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
-    SyncContext(aRunContextName);
-#ifdef USE_CUDA
-    ContextManager.GetContext(aRunContextName)->FreeWorkBufferHost();
-#endif
+    ContextManager.FinalizeRunContext(aRunContextName);
 }
 
 void
-CreateRunContext(std::string &aRunContextName){
-    ContextManager::CreateRunContext(aRunContextName);
+CreateRunContext(const std::string &aRunContextName,
+                 const std::string &aOperationPlacement,
+                 const std::string  &aRunMode){
+    auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+    auto operation_placement = mpcr::definitions::GetInputOperationPlacement(
+            aOperationPlacement);
+    auto run_mode = mpcr::definitions::GetInputRunMode(
+            aRunMode);
+    ContextManager.CreateRunContext(aRunContextName, operation_placement, run_mode);
 }
 
 void

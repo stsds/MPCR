@@ -117,25 +117,34 @@ ContextManager::GetOperationContext() {
 
 
 RunContext *
-ContextManager::CreateRunContext(const std::string &aRunContextName) {
+ContextManager::CreateRunContext(const std::string &aRunContextName,
+                                 const OperationPlacement &aOperationPlacement,
+                                 const RunMode  &aRunMode) {
+    auto it = mContexts.find(aRunContextName);
+    if (it != mContexts.end()) {
+        MPCR_API_EXCEPTION("A stream with that name already exists", -1);
+    }
     auto run_context = new mpcr::kernels::RunContext();
     mpInstance->mContexts[aRunContextName] = run_context;
+    run_context->SetOperationPlacement(aOperationPlacement);
+    run_context->SetRunMode(aRunMode);
     return run_context;
 }
 
 
 void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
-    auto it = mContexts.find(aRunContextName);
-    if (this->mpCurrentContext == this->GetContext(aRunContextName)) {
-        if (aRunContextName == "default") {
-            MPCR_API_WARN("Cannot delete default RunContext", 1);
-        } else {
-            auto default_context = this->GetContext("default");
-            this->SetOperationContext(default_context);
-        }
+    if (aRunContextName == "default") {
+        MPCR_API_WARN("Cannot delete default RunContext", 1);
+        return;
     }
+    auto it = mContexts.find(aRunContextName);
     if (it == mContexts.end()) {
         MPCR_API_EXCEPTION("No stream with that name", -1);
+        return;
+    }
+    if (this->mpCurrentContext == this->GetContext(aRunContextName)) {
+        auto default_context = this->GetContext("default");
+        this->SetOperationContext(default_context);
     }
     auto deleted_context = this->GetContext(aRunContextName);
     if (!deleted_context) {
@@ -147,6 +156,7 @@ void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
         mpInstance->mContexts.erase(erase);
     }
     delete deleted_context;
+    deleted_context = nullptr;
 }
 
 RunContext *
@@ -172,4 +182,11 @@ ContextManager::GetAllContextNames() const {
         contextNames.push_back(key);
     }
     return contextNames;
+}
+
+void
+ContextManager::FinalizeRunContext(const std::string &aRunContextName){
+    auto &ContextManager = mpcr::kernels::ContextManager::GetInstance();
+    auto context = ContextManager.GetContext(aRunContextName);
+    context->FinalizeRunContext();
 }

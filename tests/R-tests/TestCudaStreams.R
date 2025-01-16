@@ -16,35 +16,36 @@ values <- c(3.12393, -1.16854, -0.304408, -2.15901,
 x <- as.MPCR(values, nrow = 4, ncol = 4, precision = "single", placement = "CPU")
 y <- as.MPCR(values, nrow = 4, ncol = 4, precision = "single", placement = "CPU")
 
-
-paste("X and Y values")
-x$PrintValues()
-y$PrintValues()
-
 # Perform all the upcoming operation on GPU, if supported.
+# default stream is used
+# Set the operation placement of the default stream to GPU
 MPCR.SetOperationPlacement("default", "GPU")
-cat("----------------------- CrossProduct C=XY --------------------\n")
-# Data will be transfered automatically to GPU to be able to perform the operation
-# on GPU
-MPCR.CreateRunContext("gpu1")
-MPCR.SetRunMode("gpu1", "async")
 
-MPCR.CreateRunContext("gpu2")
-MPCR.SetRunMode("gpu2", "sync")
+# Create a new ASYNC stream named "gemm" on the GPU
+MPCR.CreateStream("gemm", "GPU" ,"ASYNC")
+MPCR.SetRunMode("gemm", "async")
 
-crossproduct_validate <- crossprod(x, y)
-cat("validation result \n")
-crossproduct_validate$PrintValues()
-cat("\n")
+# Create a new SYNC stream named "chol" on the GPU
+MPCR.CreateStream("chol", "GPU" ,"SYNC")
+MPCR.SetRunMode("chol", "sync")
 
-MPCR.SetOperationContext("gpu1")
-MPCR.SetOperationPlacement("gpu1", "GPU")
+crossproduct_result <- crossprod(x, y)
+
+# Set the "gemm" stream as the operation stream
+MPCR.SetOperationStream("gemm")
 
 crossproduct <- crossprod(x, y)
-MPCR.SyncContext("gpu1")
+# Synchronize the "gemm" stream
+MPCR.SyncStream("gemm")
 
-MPCR.SetOperationContext("gpu2")
-MPCR.SetOperationPlacement("gpu2", "GPU")
-cat("asynchronous result after synchronization \n")
-crossproduct$PrintValues()
-cat("\n")
+# Set the "chol" stream as the operation stream
+MPCR.SetOperationStream("chol")
+chol_result <- chol(x)
+
+# Delete the "gemm" stream
+MPCR.DeleteStream("gemm")
+# Delete the "chol" stream
+MPCR.DeleteStream("chol")
+
+# Set the "default" stream as the operation stream
+MPCR.SetOperationStream("default")

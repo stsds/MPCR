@@ -59,7 +59,7 @@ run_solve_benchmark <- function(n, replication, times, operation_placement) {
   MPCR_matrix_single_b <- as.MPCR(b, precision = "single",operation_placement)
   MPCR_matrix_double_b <- as.MPCR(b, precision = "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n\n")
   cat("Running solve benchmark \n")

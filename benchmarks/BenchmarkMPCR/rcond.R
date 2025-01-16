@@ -62,7 +62,7 @@ run_rcond_benchmark <- function(m, n, replication, times,operation_placement) {
   MPCR_single_b <- as.MPCR(B, m, n, "single",operation_placement)
   MPCR_double_b <- as.MPCR(B, m, n, "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("Running rcond bencmark")
   print(benchmark(replications = rep(replication, times),

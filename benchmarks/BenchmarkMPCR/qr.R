@@ -45,7 +45,7 @@ run_qr_benchmark <- function(n, replication, times,operation_placement) {
 
   MPCR_matrix_single <- as.MPCR(matrix, n, n, "single",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
   cat("\n\n\n")
   cat("Running qr benchmark \n")
   print(benchmark(replications = rep(replication, times),
@@ -74,7 +74,7 @@ run_qr_benchmark <- function(n, replication, times,operation_placement) {
 
   MPCR_matrix_double <- as.MPCR(matrix, n, n, "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
   cat("\n\n\n")
   cat("Running qr benchmark \n")
   print(benchmark(replications = rep(replication, times),

@@ -57,7 +57,7 @@ run_backsolve_benchmark <- function(n, replication, times,operation_placement) {
   MPCR_single_b <- as.MPCR(b, n, n, precision = "single",operation_placement)
   MPCR_double_b <- as.MPCR(b, n, n, precision = "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n\n")
   cat("Running backsolve benchmark \n")
@@ -97,7 +97,7 @@ run_forwardsolve_benchmark <- function(n, replication, times,operation_placement
   MPCR_single_b <- as.MPCR(b, n, n, precision = "single",operation_placement)
   MPCR_double_b <- as.MPCR(b, n, n, precision = "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
   cat("\n\n")
   cat("Running forwardsolve benchmark \n")
   print(benchmark(replications = rep(replication, times),

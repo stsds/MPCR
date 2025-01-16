@@ -44,7 +44,7 @@ run_svd_benchmark <- function(n, replication, times,operation_placement) {
 
   MPCR_single <- as.MPCR(A, n, n, "single",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n\n")
   cat("Running svd benchmark \n")
@@ -65,7 +65,7 @@ run_svd_benchmark <- function(n, replication, times,operation_placement) {
 
   MPCR_double <- as.MPCR(A, n, n, "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n\n")
   cat("Running svd benchmark \n")

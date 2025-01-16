@@ -79,7 +79,9 @@ FinalizeRunContext(std::string &aRunContextName);
  * RunContext name.
  */
 void
-CreateRunContext(std::string &aRunContextName);
+CreateRunContext(const std::string &aRunContextName,
+                 const std::string &aOperationPlacement = "CPU",
+                 const std::string  &aRunMode = "SYNC");
 
 /**
  * @brief

@@ -22,7 +22,7 @@ x$PrintValues()
 y$PrintValues()
 
 # Perform all the upcoming operation on GPU, if supported.
-MPCR.SetOperationPlacement("GPU")
+MPCR.SetOperationPlacement("default", "GPU")
 cat("----------------------- CrossProduct C=XY --------------------\n")
 # Data will be transfered automatically to GPU to be able to perform the operation
 # on GPU

@@ -28,10 +28,14 @@ TEST_CONTEXT_MANAGER() {
     REQUIRE(
         ContextManager::GetInstance().GetOperationContext()->GetRunMode() ==
         RunMode::SYNC);
+    ContextManager::GetInstance().DeleteRunContext("default");
+    REQUIRE(
+            ContextManager::GetInstance().GetOperationContext() == default_context);
     REQUIRE_THROWS(ContextManager::GetInstance().GetContext("RANDOM"));
     REQUIRE_THROWS(ContextManager::GetInstance().SyncContext("RANDOM"));
 
     auto temp_context = ContextManager::GetInstance().CreateRunContext(std::string("CPU"));
+    REQUIRE_THROWS(ContextManager::GetInstance().CreateRunContext(std::string("CPU")));
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 2);
     REQUIRE(temp_context->GetOperationPlacement() == CPU);
     REQUIRE(temp_context->GetRunMode() == mpcr::definitions::RunMode::SYNC);
@@ -45,6 +49,7 @@ TEST_CONTEXT_MANAGER() {
     REQUIRE(
         ContextManager::GetInstance().GetOperationContext() == temp_context);
     ContextManager::GetInstance().DeleteRunContext("CPU");
+    REQUIRE_THROWS(ContextManager::GetInstance().DeleteRunContext("CPU"));
     REQUIRE(
             ContextManager::GetInstance().GetOperationContext() == default_context);
     ContextManager::DestroyInstance();

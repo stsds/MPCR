@@ -51,7 +51,7 @@ run_gemm_benchmark <- function(row, col, replication, times ,operation_placement
   MPCR_matrix_single_2 <- as.MPCR(matrix_2, col, row, "single",operation_placement)
 
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n\n")
   cat("Running crossprod benchmark with 2 input \n")
@@ -103,7 +103,7 @@ run_gemm_benchmark <- function(row, col, replication, times ,operation_placement
   MPCR_matrix_double_1 <- as.MPCR(matrix_1, row, col, "double",operation_placement)
   MPCR_matrix_double_2 <- as.MPCR(matrix_2, col, row, "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n\n")
   cat("Running crossprod benchmark with 2 input \n")

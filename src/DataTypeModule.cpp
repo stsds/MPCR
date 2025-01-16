@@ -207,19 +207,19 @@ RCPP_MODULE(MPCR) {
 
     /** Run Context Functions **/
 
-    function("MPCR.SetOperationPlacement",&SetOperationPlacement,List::create(_["contextname"]= "default",_["placement"]));
-    function("MPCR.GetOperationPlacement",&GetOperationPlacement, List::create(_["contextname"]= "default"));
-    function("MPCR.SetRunMode",&SetRunMode,List::create(_["contextname"]= "default", _["runmode"]));
-    function("MPCR.GetRunMode",&GetRunMode,List::create(_["contextname"]= "default"));
+    function("MPCR.SetOperationPlacement",&SetOperationPlacement,List::create(_["streamname"]= "default",_["placement"]));
+    function("MPCR.GetOperationPlacement",&GetOperationPlacement, List::create(_["streamname"]= "default"));
+    function("MPCR.SetRunMode",&SetRunMode,List::create(_["streamname"]= "default", _["runmode"]));
+    function("MPCR.GetRunMode",&GetRunMode,List::create(_["streamname"]= "default"));
 
     /** Context Manager Functions **/
-    function("MPCR.SyncContext", &SyncContext,List::create(_["contextname"]));
-    function("MPCR.FinalizeRunContext", &FinalizeRunContext,List::create(_["contextname"]));
-    function("MPCR.CreateRunContext", &CreateRunContext,List::create(_["contextname"]));
+    function("MPCR.SyncStream", &SyncContext,List::create(_["streamname"]));
+    function("MPCR.FinalizeStream", &FinalizeRunContext,List::create(_["streamname"]));
+    function("MPCR.CreateStream", &CreateRunContext,List::create(_["streamname"], _["placement"] , _["runmode"]));
     function("MPCR.SyncAll", &SyncAll);
-    function("MPCR.GetNumOfContexts", &GetNumOfContexts);
-    function("MPCR.SetOperationContext", &SetOperationContext, List::create(_["contextname"]));
-    function("MPCR.DeleteRunContext", &DeleteRunContext, List::create(_["contextname"]));
-    function("MPCR.GetAllContextNames", &GetAllContextNames);
+    function("MPCR.GetNumOfStreams", &GetNumOfContexts);
+    function("MPCR.SetOperationStream", &SetOperationContext, List::create(_["streamname"]));
+    function("MPCR.DeleteStream", &DeleteRunContext, List::create(_["streamname"]));
+    function("MPCR.GetAllStreamNames", &GetAllContextNames);
 
 }

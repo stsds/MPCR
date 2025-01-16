@@ -27,7 +27,7 @@ TEST_CUDA_STREAMS() {
                 GPU);
 
         auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
-        auto default_context = context_manager.GetOperationContext();
+        auto default_context = mpcr::kernels::ContextManager::GetOperationContext();
 
         auto gpu_context_async = context_manager.CreateRunContext("GPU");
         gpu_context_async->SetOperationPlacement(GPU);
@@ -63,7 +63,6 @@ TEST_CUDA_STREAMS() {
             double val = fabs(data[i] - data_validate[i]) / data_validate[i];
             REQUIRE(val > error_threshold);
         }
-        auto num = context_manager.GetNumOfContexts();
         mpcr::kernels::ContextManager::DestroyInstance();
 
     }
@@ -74,7 +73,7 @@ TEST_CUDA_STREAMS() {
                 GPU);
 
         auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
-        auto default_context = context_manager.GetOperationContext();
+        auto default_context = mpcr::kernels::ContextManager::GetOperationContext();
 
         auto gpu_context_async = context_manager.CreateRunContext("GPU");
         gpu_context_async->SetOperationPlacement(GPU);
@@ -98,8 +97,8 @@ TEST_CUDA_STREAMS() {
 
         SIMPLE_DISPATCH(DOUBLE, linear::CrossProduct, a, b, output, false,false)
 
-        context_manager.SyncContext("GPU");
         context_manager.SetOperationContext(default_context);
+        context_manager.SyncContext("GPU");
 
         auto data = (double *) output.GetData();
         auto data_validate = (double *) output_validate.GetData();
@@ -119,7 +118,7 @@ TEST_CUDA_STREAMS() {
                 GPU);
 
         auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
-        auto default_context = context_manager.GetOperationContext();
+        auto default_context = mpcr::kernels::ContextManager::GetOperationContext();
 
         auto gpu_context_sync = context_manager.CreateRunContext("GPU");
         gpu_context_sync->SetOperationPlacement(GPU);
@@ -163,7 +162,7 @@ TEST_CUDA_STREAMS() {
                 GPU);
 
         auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
-        auto default_context = context_manager.GetOperationContext();
+        auto default_context = mpcr::kernels::ContextManager::GetOperationContext();
 
         auto gpu_context_async = context_manager.CreateRunContext("ASYNC");
         gpu_context_async->SetOperationPlacement(GPU);
@@ -202,16 +201,6 @@ TEST_CUDA_STREAMS() {
 
         double error_threshold = 0.001;
 
-        auto data_Trmm = (double *) output_Trmm.GetData();
-        auto data_validate_Trmm = (double *) output_validate_Trmm.GetData();
-        REQUIRE(output_Trmm.GetNRow() == size);
-        REQUIRE(output_Trmm.GetNCol() == size);
-
-        for (int i = 0; i < output_Trmm.GetSize(); ++i) {
-            double val = fabs(data_Trmm[i] - data_validate_Trmm[i]) / data_validate_Trmm[i];
-            REQUIRE(val <= error_threshold);
-        }
-
         context_manager.SyncContext("ASYNC");
 
         auto data_Gemm = (double *) output_Gemm.GetData();
@@ -223,13 +212,23 @@ TEST_CUDA_STREAMS() {
             double val = fabs(data_Gemm[i] - data_validate_Gemm[i]) / data_validate_Gemm[i];
             REQUIRE(val <= error_threshold);
         }
+
+        auto data_Trmm = (double *) output_Trmm.GetData();
+        auto data_validate_Trmm = (double *) output_validate_Trmm.GetData();
+        REQUIRE(output_Trmm.GetNRow() == size);
+        REQUIRE(output_Trmm.GetNCol() == size);
+
+        for (int i = 0; i < output_Trmm.GetSize(); ++i) {
+            double val = fabs(data_Trmm[i] - data_validate_Trmm[i]) / data_validate_Trmm[i];
+            REQUIRE(val <= error_threshold);
+        }
         mpcr::kernels::ContextManager::DestroyInstance();
 
     }SECTION("Test Concurrent Execution with Multiple Streams (SyncAll)") {
         mpcr::kernels::ContextManager::GetOperationContext()->SetOperationPlacement(GPU);
 
         auto& context_manager = mpcr::kernels::ContextManager::GetInstance();
-        auto default_context = context_manager.GetOperationContext();
+        auto default_context = mpcr::kernels::ContextManager::GetOperationContext();
         auto gpu_context_async1 = context_manager.CreateRunContext("ASYNC1");
         auto gpu_context_async2 = context_manager.CreateRunContext("ASYNC2");
 
@@ -291,7 +290,7 @@ TEST_CUDA_STREAMS() {
                 GPU);
 
         auto &context_manager = mpcr::kernels::ContextManager::GetInstance();
-        auto default_context = context_manager.GetOperationContext();
+        auto default_context = mpcr::kernels::ContextManager::GetOperationContext();
 
         auto gpu_context_async = context_manager.CreateRunContext("GPU");
         gpu_context_async->SetOperationPlacement(GPU);

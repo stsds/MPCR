@@ -42,7 +42,7 @@ run_norm_benchmark <- function(n, replication, times, operation_placement) {
   MPCR_single <- as.MPCR(A, n, n, "single",operation_placement)
   MPCR_double <- as.MPCR(A, n, n, "double",operation_placement)
 
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
   cat("Matrix : ")
   cat(paste(n, n, sep = "*"))
   cat("\n")

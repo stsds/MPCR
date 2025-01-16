@@ -45,7 +45,7 @@ run_eigen_becnhmark <- function(n, replication, times,operation_placement) {
 
 
   MPCR_single <- as.MPCR(matrix, n, n, "single",operation_placement)
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n")
   print(benchmark(replications = rep(replication, times),
@@ -56,7 +56,7 @@ run_eigen_becnhmark <- function(n, replication, times,operation_placement) {
   MPCR_single$FreeCPU()
 
   MPCR_double <- as.MPCR(matrix, n, n, "double",operation_placement)
-  MPCR.SetOperationPlacement(operation_placement)
+  MPCR.SetOperationPlacement("default", operation_placement)
 
   cat("\n")
   print(benchmark(replications = rep(replication, times),

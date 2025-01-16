@@ -114,13 +114,14 @@ namespace mpcr {
              * @param[in] aRunContextName
              * RunContext name.
              */
-            static
             RunContext *
-            CreateRunContext(const std::string &aRunContextName);
+            CreateRunContext(const std::string &aRunContextName,
+                             const definitions::OperationPlacement &aOperationPlacement = definitions::CPU,
+                             const definitions::RunMode  &aRunMode = definitions::RunMode::SYNC);
 
             /**
              * @brief
-             * Delete a specific from the context manager.
+             * Delete a specific RunContext from the context manager.
              */
             void
             DeleteRunContext(const std::string &aRunContextName);
@@ -142,6 +143,15 @@ namespace mpcr {
              */
             std::vector<std::string>
             GetAllContextNames() const;
+
+            /**
+             * @brief
+             * Cleans up and synchronizes resources of a specific RunContext.
+             *
+             * Frees the host work buffer and syncs the runContext.
+             */
+            void
+            FinalizeRunContext(const std::string &aRunContextName);
 
         protected:
             /**
