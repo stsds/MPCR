@@ -47,14 +47,14 @@ namespace mpcr {
              * Singletons should not be assignable.
              */
             void
-            operator =(const ContextManager &) = delete;
+            operator=(const ContextManager &) = delete;
 
             /**
              * @brief
              * Synchronizes the kernel stream.
              */
             void
-            SyncContext(size_t aIdx = 0) const;
+            SyncContext(const std::string &aRunContextName) const;
 
             /**
              * @brief
@@ -83,7 +83,7 @@ namespace mpcr {
              * Get specific stream.
              */
             RunContext *
-            GetContext(size_t aIdx = 0);
+            GetContext(const std::string &aRunContextName);
 
             /**
              * @brief
@@ -111,9 +111,19 @@ namespace mpcr {
             /**
              * @brief
              * Create new stream and add it to the context manager.
+             * @param[in] aRunContextName
+             * RunContext name.
              */
+            static
             RunContext *
-            CreateRunContext();
+            CreateRunContext(const std::string &aRunContextName);
+
+            /**
+             * @brief
+             * Delete a specific from the context manager.
+             */
+            void
+            DeleteRunContext(const std::string &aRunContextName);
 
             /**
              * @brief
@@ -123,6 +133,15 @@ namespace mpcr {
             RunContext *
             GetGPUContext();
 
+            /**
+             * @brief
+             * Retrieve the names of all existing RunContext instances managed by the ContextManager.
+             *
+             * @returns
+             * A vector of strings containing the names of all RunContext instances.
+             */
+            std::vector<std::string>
+            GetAllContextNames() const;
 
         protected:
             /**
@@ -130,12 +149,12 @@ namespace mpcr {
              * Context Manager constructor.
              *
              */
-            ContextManager()=default;
+            ContextManager() = default;
 
 
         private:
-            /** Vector holding all the created run context **/
-            std::vector <mpcr::kernels::RunContext *> mContexts;
+            /** map holding all the created run context **/
+            std::unordered_map<std::string, mpcr::kernels::RunContext *> mContexts;
             /** Pointer to hold the current run context to be used internally
              *  if any streams is needed.
              **/
@@ -144,7 +163,7 @@ namespace mpcr {
             /** Context used internally if any GPU context is needed, when the
              *  Current context is CPU
              **/
-             RunContext *mpGPUContext;
+            RunContext *mpGPUContext;
 #endif
         };
 

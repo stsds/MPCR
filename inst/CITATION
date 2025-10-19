@@ -1,0 +1,47 @@
+## inst/CITATION
+
+meta <- utils::packageDescription("MPCR")
+
+year_pkg <- if (!is.null(meta$Date) && nzchar(meta$Date)) substr(meta$Date, 1, 4) else format(Sys.Date(), "%Y")
+urls <- if (!is.null(meta$URL) && nzchar(meta$URL)) strsplit(meta$URL, "[,[:space:]]+")[[1]] else NULL
+
+## Build author list for the software/manual entry from Authors@R (includes institutions)
+auth_pkg <- utils::as.person(meta$`Authors@R`)
+
+## Helper to print author names nicely in textVersion
+collapse_authors <- function(x) {
+  n <- length(x)
+  if (n <= 1) return(paste(x, collapse = ""))
+  if (n == 2) return(paste(x, collapse = " & "))
+  paste(paste(x[seq_len(n - 1)], collapse = ", "), "&", x[n])
+}
+
+citHeader("To cite MPCR in publications:")
+
+## ---- Preferred: Article citation ----
+article_auth <- c(
+  person("Mary Lai O.", "Salvana"),
+  person("Sameh", "Abdulah"),
+  person("Minwoo", "Kim"),
+  person("David", "Helmy"),
+  person("Ying", "Sun"),
+  person("Marc G.", "Genton")
+)
+
+bibentry(
+  bibtype = "Article",
+  title   = "MPCR: Multi-and Mixed-Precision Computations Package in R",
+  author  = article_auth,
+  journal = "arXiv preprint",
+  note    = "arXiv:2406.02701",
+  year    = "2024",
+  textVersion = {
+    auth_txt <- format(article_auth, include = c("given", "family"))
+    sprintf(
+      "%s (2024). MPCR: Multi-and Mixed-Precision Computations Package in R. arXiv preprint, arXiv:2406.02701.",
+      collapse_authors(auth_txt)
+    )
+  }
+)
+
+citFooter("Please cite the article above. If appropriate.")

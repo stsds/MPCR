@@ -115,7 +115,7 @@ endif ()
 include_directories(${CMAKE_SOURCE_DIR}/inst/include)
 
 # Options
-option(MPCR_BUILD_TESTS "Option to enable building tests" OFF)
+option(MPCR_BUILD_TESTS "Option to enable building tests" ON)
 
 # Add src Directory to expose added libraries
 add_subdirectory(src)

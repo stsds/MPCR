@@ -10,6 +10,7 @@
 
 
 using namespace mpcr::kernels;
+using namespace mpcr::definitions;
 
 ContextManager *ContextManager::mpInstance = nullptr;
 
@@ -18,9 +19,8 @@ ContextManager &
 ContextManager::GetInstance() {
     if (mpInstance == nullptr) {
         mpInstance = new ContextManager();
-        mpInstance->mContexts.resize(1);
-        mpInstance->mContexts[ 0 ] = new RunContext();
-        mpInstance->mpCurrentContext = mpInstance->mContexts[ 0 ];
+        mpInstance->mContexts["default"] = new RunContext();
+        mpInstance->mpCurrentContext = mpInstance->mContexts["default"];
 #ifdef USE_CUDA
         mpInstance->mpGPUContext = new RunContext(definitions::GPU,
                                                   RunMode::SYNC);
@@ -30,29 +30,32 @@ ContextManager::GetInstance() {
     return *mpInstance;
 }
 
-
 void
-ContextManager::SyncContext(size_t aIdx) const {
-    if (aIdx >= mContexts.size()) {
-        MPCR_API_EXCEPTION("Trying to fetch invalid Context Idx", -1);
-    }
+ContextManager::SyncContext(const std::string &aRunContextName) const {
 
-    mContexts[ aIdx ]->Sync();
+    auto it = mContexts.find(aRunContextName);
+    if (it == mContexts.end()) {
+        MPCR_API_EXCEPTION("No stream with that name", -1);
+    }
+    mContexts.at(aRunContextName)->Sync();
 
 }
 
 
 void
 ContextManager::SyncMainContext() const {
-    mContexts[ 0 ]->Sync();
+    mContexts.at("default")->Sync();
 }
 
 
 void
 ContextManager::SyncAll() const {
-    for (auto &context: mContexts) {
-        context->Sync();
+    for (const auto &[key, context]: mContexts) {
+        if (context != nullptr) {
+            context->Sync();
+        }
     }
+
 }
 
 
@@ -66,10 +69,12 @@ void
 ContextManager::DestroyInstance() {
     if (mpInstance) {
         mpInstance->SyncAll();
-        for (auto *&x: mpInstance->mContexts) {
-            delete x;
-            x = nullptr;
+
+        for (auto &[key, context]: mpInstance->mContexts) {
+            delete context;
+            context = nullptr;
         }
+        mpInstance->mContexts.clear();
 
 #ifdef USE_CUDA
         delete mpInstance->mpGPUContext;
@@ -84,12 +89,12 @@ ContextManager::DestroyInstance() {
 
 
 RunContext *
-ContextManager::GetContext(size_t aIdx) {
-    if (aIdx >= mContexts.size()) {
-        MPCR_API_EXCEPTION("Trying to fetch invalid Context Idx", -1);
+ContextManager::GetContext(const std::string &aRunContextName) {
+    auto it = mContexts.find(aRunContextName);
+    if (it == mContexts.end()) {
+        MPCR_API_EXCEPTION("No stream with that name", -1);
     }
-
-    return mContexts[ aIdx ];
+    return mContexts[aRunContextName];
 }
 
 
@@ -112,10 +117,36 @@ ContextManager::GetOperationContext() {
 
 
 RunContext *
-ContextManager::CreateRunContext() {
-    auto run_context = new RunContext();
-    mpInstance->mContexts.push_back(run_context);
-    return mpInstance->mContexts.back();
+ContextManager::CreateRunContext(const std::string &aRunContextName) {
+    auto run_context = new mpcr::kernels::RunContext();
+    mpInstance->mContexts[aRunContextName] = run_context;
+    return run_context;
+}
+
+
+void ContextManager::DeleteRunContext(const std::string &aRunContextName) {
+    auto it = mContexts.find(aRunContextName);
+    if (this->mpCurrentContext == this->GetContext(aRunContextName)) {
+        if (aRunContextName == "default") {
+            MPCR_API_WARN("Cannot delete default RunContext", 1);
+        } else {
+            auto default_context = this->GetContext("default");
+            this->SetOperationContext(default_context);
+        }
+    }
+    if (it == mContexts.end()) {
+        MPCR_API_EXCEPTION("No stream with that name", -1);
+    }
+    auto deleted_context = this->GetContext(aRunContextName);
+    if (!deleted_context) {
+        MPCR_API_EXCEPTION("Failed to retrieve context", -1);
+        return;
+    }
+    auto erase = mpInstance->mContexts.find(aRunContextName);
+    if (erase != mpInstance->mContexts.end()) {
+        mpInstance->mContexts.erase(erase);
+    }
+    delete deleted_context;
 }
 
 RunContext *
@@ -132,4 +163,13 @@ ContextManager::GetGPUContext() {
     MPCR_API_EXCEPTION("Code is compiled without CUDA support", -1);
 #endif
     return nullptr;
+}
+
+std::vector<std::string>
+ContextManager::GetAllContextNames() const {
+    std::vector<std::string> contextNames;
+    for (const auto &[key, _] : mContexts) {
+        contextNames.push_back(key);
+    }
+    return contextNames;
 }

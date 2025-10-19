@@ -17,6 +17,26 @@ using namespace mpcr::kernels;
 
 
 DataType *
+RTrmm(DataType *aInputA, DataType *aInputB, const bool &aLowerTri,
+      const bool &aTranspose, const bool &aLeftSide, const double &aAlpha) {
+
+    Promoter pr(2);
+    pr.Insert(*aInputA);
+    pr.Insert(*aInputB);
+    pr.Promote();
+
+    auto precision = aInputA->GetPrecision();
+    auto pOutput = new DataType(precision);
+
+    SIMPLE_DISPATCH(precision, linear::Trmm, *aInputA, *aInputB, *pOutput,
+                    aLowerTri, aTranspose, aLeftSide, aAlpha)
+
+    pr.DePromote();
+
+    return pOutput;
+}
+
+DataType *
 RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
       const bool &aTranspose, const char &aSide, const double &aAlpha) {
 
@@ -54,7 +74,7 @@ RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
             aInputB);
         if (!temp_b->IsDataType()) {
             MPCR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MMPR Object",
+                "Undefined Object . Make Sure You're Using MPCR Object",
                 -1);
         }
 
@@ -98,7 +118,7 @@ RCrossProduct(DataType *aInputA, SEXP aInputB) {
             aInputB);
         if (!temp_b->IsDataType()) {
             MPCR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MMPR Object",
+                "Undefined Object . Make Sure You're Using MPCR Object",
                 -1);
         }
 #ifdef USE_CUDA
@@ -144,7 +164,7 @@ RTCrossProduct(DataType *aInputA, SEXP aInputB) {
             aInputB);
         if (!temp_b->IsDataType()) {
             MPCR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MMPR Object",
+                "Undefined Object . Make Sure You're Using MPCR Object",
                 -1);
         }
 #ifdef USE_CUDA
@@ -243,7 +263,7 @@ RSolve(DataType *aInputA, SEXP aInputB, const std::string &aInternalPrecision) {
             aInputB);
         if (!temp_b->IsDataType()) {
             MPCR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MMPR Object",
+                "Undefined Object . Make Sure You're Using MPCR Object",
                 -1);
         }
         pr.Insert(*aInputA);
@@ -420,7 +440,7 @@ RQRDecompositionQ(DataType *aInputA, DataType *aInputB, const bool &aComplete,
             aDvec);
         if (!temp_dvec->IsDataType()) {
             MPCR_API_EXCEPTION(
-                "Undefined Object . Make Sure You're Using MMPR Object",
+                "Undefined Object . Make Sure You're Using MPCR Object",
                 -1);
         }
         SIMPLE_DISPATCH(precision, linear::QRDecompositionQY, *aInputA,

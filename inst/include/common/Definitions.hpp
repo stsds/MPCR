@@ -22,6 +22,13 @@ namespace mpcr{
             CPU = 1
         };
 
+        /** Enum describing the cuda stream behavior (async,sync),
+         * not used in the case of CPU Context.  **/
+        enum class RunMode {
+            SYNC,
+            ASYNC
+        };
+
         /**
          * Int Enum Describing the Precision and Operations order
          * of the MPCR (Data Type)object
@@ -106,6 +113,31 @@ namespace mpcr{
 #endif
             }else{
                 return CPU;
+            }
+        }
+
+        /**
+         * @brief
+         * Get Input RunMode from a string.
+         * Transforms the string to lower case to ensure proper initialization
+         *
+         * @param[in] aPrecision
+         * int describing required precision
+         *
+         * @returns
+         * Precision out the 3-supported precision ,or throw exception in-case
+         * it's not supported
+         */
+        inline
+        RunMode
+        GetInputRunMode(std::string aRunMode) {
+            std::transform(aRunMode.begin(), aRunMode.end(),
+                           aRunMode.begin(), ::tolower);
+
+            if (aRunMode == "async" ){
+                return RunMode::ASYNC;
+            }else{
+                return RunMode::SYNC;
             }
         }
 

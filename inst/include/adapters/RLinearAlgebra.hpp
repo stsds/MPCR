@@ -362,6 +362,52 @@ RGemm(DataType *aInputA, SEXP aInputB, DataType *aInputC,
       const bool &aTransposeA, const bool &aTransposeB, const double &aAlpha,
       const double &aBeta);
 
+/**
+ * @brief
+ * Computes a scalar-matrix-matrix product
+ * where one of the matrices in the multiplication is triangular.
+ *
+ * @param[in] aInputA
+ * MPCR Matrix
+ * @param[in] aInputB
+ * MPCR Matrix
+ * @param[in] aLowerTri
+ * logical; if true , the lower triangular part of aInputA
+ * is used. Otherwise, the upper one.
+ * @param[in] aTranspose
+ * logical; if true, solve  for t(aInputA) %*% aOutput == aInputB.
+ * @param[in] aLeftSide
+ * logical; if true, the operation will be as follow:
+ * aOutput = alpha * op(aInputA) * aInputB
+ * otherwise, aOutput = alpha * aInputB * op(aInputA)
+ * @param aAlpha
+ * factor of A
+ */
+DataType *
+RTrmm(DataType *aInputA, DataType *aInputB, const bool &aLowerTri,
+      const bool &aTranspose, const bool &aLeftSide, const double &aAlpha);
+
+/**
+ * @brief
+ * Solves a system of linear equations where the coefficient matrix
+ * is upper or lower triangular.
+ * Solve aInputA aOutput = aInputB
+ *
+ * @param[in] aInputA
+ * MPCR Matrix
+ * @param[in] aInputB
+ * MPCR Matrix
+ * @param[in] aCol
+ * The number of columns of aInputA and rows of aInputB to use.
+ * default ncol(aInputA)
+ * @param[in] aUpperTriangle
+ * logical; if true (default), the upper triangular part of aInputA
+ * is used. Otherwise, the lower one.
+ * @param[in] aTranspose
+ * logical; if true, solve  for t(aInputA) %*% aOutput == aInputB.
+ * @returns
+ * The solution of the triangular system
+ */
 DataType *
 RTrsm(DataType *aInputA, DataType *aInputB, const bool &aUpperTri,
       const bool &aTranspose, const char &aSide, const double &aAlpha);
