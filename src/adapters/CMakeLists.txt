@@ -11,6 +11,7 @@ set(SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/RBinaryOperations.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/RMathematicalOperations.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/RLinearAlgebra.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RContextManager.cpp
 
         ${SOURCES}
         PARENT_SCOPE)

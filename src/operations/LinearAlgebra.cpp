@@ -131,6 +131,7 @@ linear::CrossProduct <float16>(DataType &aInputA, DataType &aInputB,
 
 }
 
+
 #endif
 
 
@@ -542,6 +543,8 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
 
     auto context = ContextManager::GetOperationContext();
     auto operation_placement = context->GetOperationPlacement();
+    auto temp_acol = aCol;
+
 
     bool flag_transform = false;
     if (!aInputA.IsMatrix()) {
@@ -559,29 +562,34 @@ linear::BackSolve(DataType &aInputA, DataType &aInputB, DataType &aOutput,
     auto col_b = aInputB.GetNCol();
     auto left_side = aSide == 'L';
 
-    if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
-        MPCR_API_EXCEPTION(
-            "Given Number of Columns is Greater than Columns of B", -1);
+    if (aCol == 0) {
+        temp_acol = aInputB.GetNRow();
+    } else {
+        if (aCol > row_a || std::isnan(aCol) || aCol < 1) {
+            MPCR_API_EXCEPTION(
+                "Given Number of Columns is Greater than Columns of B", -1);
+        }
     }
 
     aOutput.ClearUp();
-    aOutput.SetSize(col_b * aCol);
-    aOutput.SetDimensions(aCol, col_b);
+    aOutput.SetSize(col_b * temp_acol);
+    aOutput.SetDimensions(temp_acol, col_b);
 
     auto pData = (T *) aInputA.GetData(operation_placement);
     auto pData_b = (T *) aInputB.GetData(operation_placement);
-    auto pData_in_out = (T *) memory::AllocateArray(col_b * aCol * sizeof(T),
-                                                    operation_placement,
-                                                    context);
+    auto pData_in_out = (T *) memory::AllocateArray(
+        col_b * temp_acol * sizeof(T),
+        operation_placement,
+        context);
 
     auto mem_transfer = ( operation_placement == CPU )
                         ? memory::MemoryTransfer::HOST_TO_HOST
                         : memory::MemoryTransfer::DEVICE_TO_DEVICE;
 
     for (auto i = 0; i < col_b; i++) {
-        memory::MemCpy((char *) ( pData_in_out + ( aCol * i )),
+        memory::MemCpy((char *) ( pData_in_out + ( temp_acol * i )),
                        (char *) ( pData_b + ( row_b * i )),
-                       ( sizeof(T) * aCol ), context, mem_transfer);
+                       ( sizeof(T) * temp_acol ), context, mem_transfer);
     }
 
 
@@ -1160,6 +1168,90 @@ linear::QRDecompositionQY(DataType &aInputA, DataType &aInputB,
 }
 
 
+template <typename T>
+void
+linear::Trmm(DataType &aInputA, DataType &aInputB, DataType &aOutput,
+             const bool &aLowerTri,const bool &aTransposeA,
+             const bool &aLeftSide,const double &aAlpha) {
+
+    // Check if the input matrices are valid
+    if (!aInputA.IsMatrix() || !aInputB.IsMatrix()) {
+        MPCR_API_EXCEPTION(
+            "Inputs Must Be Matrices", -1);
+    }
+    // Get the operation context and placement
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    // Get the dimensions for A
+    auto row_a = aInputA.GetNRow();
+    auto col_a = aInputA.GetNCol();
+    // Get the dimensions for B
+    auto row_b = aInputB.GetNRow();
+    auto col_b = aInputB.GetNCol();
+
+    // Swap the dimensions of the matrix A if aTransposeA is set to true
+    if (aTransposeA) {
+        std::swap(row_a, col_a);
+    }
+
+    // Validate the matrix dimensions for multiplication
+    if (aLeftSide) {
+        if (col_a != row_b || row_a != row_b) {
+            MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
+        }
+    } else {
+        if (col_b != row_a || col_b != col_a) {
+            MPCR_API_EXCEPTION("Wrong Matrix Dimensions", -1);
+        }
+    }
+
+    // Set the size of the output which is always identical to the matrix B
+    auto output_size = row_b * col_b;
+
+    aOutput.ClearUp();
+    aOutput.SetSize(output_size);
+    aOutput.SetDimensions(row_b, col_b);
+
+    T *pData_out = nullptr;
+
+    pData_out = (T *) memory::AllocateArray(
+        output_size * sizeof(T),
+        operation_placement, context);
+    memory::Memset((char *) pData_out, 0, sizeof(T) * output_size,
+                   operation_placement, context);
+
+    // Get data pointers for matrices A and B
+    auto pData = (T *) aInputA.GetData(operation_placement);
+    auto pData_b = (T *) aInputB.GetData(operation_placement);
+    // Determine memory transfer type based on the operation placement
+    auto mem_transfer = ( operation_placement == CPU )
+                        ? memory::MemoryTransfer::HOST_TO_HOST
+                        : memory::MemoryTransfer::DEVICE_TO_DEVICE;
+    // Create the backend solver
+    auto solver = BackendFactory <T>::CreateLinearAlgebraBackend(
+        operation_placement);
+    /**
+     * Incase of using CPU backend, Blaspp will overwrite the pData_b.
+     * However, when using GPU, CuBlas will not change pData_b and instead
+     * will change the output pointer pData_out.
+     * **/
+    if (operation_placement == CPU) {
+        // Copy data from B into the working output array
+        memory::MemCpy((char *) pData_out,
+                       (char *) pData_b,
+                       sizeof(T) * output_size,
+                       context, mem_transfer);
+        pData_b = pData_out;
+    }
+    solver->Trmm(aLeftSide, aLowerTri, aTransposeA,
+                 row_b, col_b, aAlpha, pData,
+                 row_a, (T *) pData_b, row_b, (T *) pData_out, row_b);
+    // Set the output data
+    aOutput.SetData((char *) pData_out, operation_placement);
+}
+
+
 SIMPLE_INSTANTIATE(void, linear::CrossProduct, DataType &aInputA,
                    DataType &aInputB, DataType &aOutput,
                    const bool &aTransposeA, const bool &aTransposeB,
@@ -1211,4 +1303,7 @@ SIMPLE_INSTANTIATE(void, linear::QRDecompositionQY, DataType &aInputA,
                    DataType &aInputB, DataType &aInputC, DataType &aOutput,
                    const bool &aTranspose)
 
-
+SIMPLE_INSTANTIATE(void, linear::Trmm, DataType &aInputA, DataType &aInputB,
+                   DataType &aOutput, const bool &aLowerTri,
+                   const bool &aTranspose, const bool &aLeftSide,
+                   const double &aAlpha)

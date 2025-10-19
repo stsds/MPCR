@@ -11,12 +11,13 @@
 
 
 using namespace mpcr::kernels;
+using namespace mpcr::definitions;;
 using namespace mpcr;
 
 
 RunContext::RunContext(
     const definitions::OperationPlacement &aOperationPlacement,
-    const RunMode &aRunMode) {
+    const mpcr::definitions::RunMode &aRunMode) {
 
 #ifdef USE_CUDA
     this->mpInfo = nullptr;
@@ -110,7 +111,7 @@ RunContext::~RunContext() {
 }
 
 
-RunMode
+mpcr::definitions::RunMode
 RunContext::GetRunMode() const {
     return this->mRunMode;
 }
@@ -164,11 +165,30 @@ RunContext::Sync() const {
 
 
 void
-RunContext::SetRunMode(const RunMode &aRunMode) {
+RunContext::SetRunMode(const mpcr::definitions::RunMode  &aRunMode) {
     if (this->mRunMode == RunMode::ASYNC && aRunMode == RunMode::SYNC) {
         this->Sync();
     }
     this->mRunMode = aRunMode;
+}
+
+void
+RunContext::FinalizeOperations(){
+    if(this->mRunMode == RunMode::SYNC){
+        this->Sync();
+#ifdef USE_CUDA
+        this->FreeWorkBufferHost();
+#endif
+    }
+}
+
+void
+RunContext::FinalizeRunContext(){
+    this->Sync();
+#ifdef USE_CUDA
+    this->FreeWorkBufferHost();
+    this->FreeWorkBufferDevice();
+#endif
 }
 
 /** -------------------------- CUDA code -------------------------- **/
@@ -302,10 +322,8 @@ RunContext::FreeWorkBufferDevice() const {
 
 }
 
-
 void
 RunContext::FreeWorkBufferHost() const {
-
     if (this->mOperationPlacement == definitions::GPU) {
         this->Sync();
         if (this->mpWorkBufferHost != nullptr) {
@@ -316,7 +334,6 @@ RunContext::FreeWorkBufferHost() const {
     this->mpWorkBufferHost = nullptr;
 
 }
-
 
 cublasHandle_t
 RunContext::GetCuBlasDnHandle() const {

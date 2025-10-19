@@ -9,7 +9,7 @@
 namespace mpcr {
     namespace operations {
         namespace linear {
-            template <typename T>
+            template<typename T>
             class LinearAlgebraBackend {
 
             public:
@@ -147,6 +147,55 @@ namespace mpcr {
                      const bool &aTranspose, const int &aNumRowsB,
                      const int &aNumColsB, const T &aAlpha, const T *apDataA,
                      const int &aLda, T *apDataB, const int &aLdb) = 0;
+
+
+                /**
+                 * @brief
+                 * Computes a matrix-matrix product with one
+                 * triangular matrix and one general matrix.
+                 * Solves :  B = alpha * A^T * B or B = alpha * B * A^T
+                 *        or B = alpha * A * B or B = alpha * B * A
+                 *
+                 * @param [in] aLeftSide
+                 * if True, the operation will be as follow:
+                 * C = alpha * op(A) * B
+                 * otherwise, C = alpha * B * op(A)
+                 * @param [in] aFillLower
+                 * What part of the matrix A is referenced,
+                 * if TRUE, Lower triangle will be used, otherwise upper triangle
+                 * @param [in] aTranspose
+                 * if True, the operation will be as follow:
+                 * B = alpha * A^T * B or B = alpha * B * A^T
+                 * otherwise, B = alpha * A * B or B = alpha * B * A
+                 * @param [in] aUnitDiag
+                 * Specifies whether A is assumed to be unit triangular.
+                 * if TRUE, all diagonal elements are 1.
+                 * @param [in] aNumRowB
+                 * Number of rows in matrix B
+                 * @param [in] aNumColB
+                 * Number of cols in matrix B
+                 * @param [in] aAlpha
+                 * Scalar alpha.
+                 * @param [in] apDataA
+                 * Matrix A data
+                 * @param [in] aLda
+                 * Leading dimension for matrix A
+                 * @param [in,out] apDataB
+                 * input matrix B.
+                 * @param [in] aLdb
+                 * Leading dimension of matrix B
+                 * @param [in,out] apDataC
+                 * output matrix C.
+                 * @param [in] aLdc
+                 * Leading dimension of matrix C
+                 *
+                 */
+                virtual
+                void
+                Trmm(const bool &aLeftSide, const bool &aFillLower, const bool &aTranspose,
+                     const int &aNumRowB, const int &aNumColB,
+                     const T &aAlpha, const T *apDataA, const int &aLda,
+                     T *apDataB, const int &aLdb,T *apDataC, const int &aLdc) = 0;
 
                 /**
                  * @brief
@@ -604,7 +653,6 @@ namespace mpcr {
                 int
                 Trtri(const size_t &aSideLength, T *apDataA, const size_t &aLda,
                       const bool &aUpperTri) = 0;
-
 
             };
 

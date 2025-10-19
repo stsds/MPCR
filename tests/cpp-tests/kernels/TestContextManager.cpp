@@ -19,6 +19,7 @@ using namespace std;
 void
 TEST_CONTEXT_MANAGER() {
     cout << "Testing Context Manager ..." << endl;
+    auto default_context = ContextManager::GetOperationContext();
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 1);
     REQUIRE(ContextManager::GetInstance().GetOperationContext() != nullptr);
     REQUIRE(
@@ -27,14 +28,13 @@ TEST_CONTEXT_MANAGER() {
     REQUIRE(
         ContextManager::GetInstance().GetOperationContext()->GetRunMode() ==
         RunMode::SYNC);
-    REQUIRE_THROWS(ContextManager::GetInstance().GetContext(1));
-    REQUIRE_THROWS(ContextManager::GetInstance().SyncContext(1));
+    REQUIRE_THROWS(ContextManager::GetInstance().GetContext("RANDOM"));
+    REQUIRE_THROWS(ContextManager::GetInstance().SyncContext("RANDOM"));
 
-
-    auto temp_context = ContextManager::GetInstance().CreateRunContext();
+    auto temp_context = ContextManager::GetInstance().CreateRunContext(std::string("CPU"));
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 2);
     REQUIRE(temp_context->GetOperationPlacement() == CPU);
-    REQUIRE(temp_context->GetRunMode() == mpcr::kernels::RunMode::SYNC);
+    REQUIRE(temp_context->GetRunMode() == mpcr::definitions::RunMode::SYNC);
     temp_context->SetOperationPlacement(GPU);
 #ifdef USE_CUDA
     REQUIRE(temp_context->GetOperationPlacement() == GPU);
@@ -44,7 +44,9 @@ TEST_CONTEXT_MANAGER() {
     ContextManager::GetInstance().SetOperationContext(temp_context);
     REQUIRE(
         ContextManager::GetInstance().GetOperationContext() == temp_context);
-
+    ContextManager::GetInstance().DeleteRunContext("CPU");
+    REQUIRE(
+            ContextManager::GetInstance().GetOperationContext() == default_context);
     ContextManager::DestroyInstance();
     REQUIRE(ContextManager::GetInstance().GetNumOfContexts() == 1);
     REQUIRE(ContextManager::GetInstance().GetOperationContext() != nullptr);

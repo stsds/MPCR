@@ -22,13 +22,13 @@ TEST_RUN_CONTEXT_CUDA() {
     cout << "Testing Run Context CUDA ..." << endl;
     RunContext context;
     REQUIRE(context.GetOperationPlacement()==mpcr::definitions::CPU);
-    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::SYNC);
+    REQUIRE(context.GetRunMode()==mpcr::definitions::RunMode::SYNC);
 
     context.SetOperationPlacement(GPU);
     REQUIRE(context.GetOperationPlacement()==GPU);
 
     context.SetRunMode(RunMode::ASYNC);
-    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+    REQUIRE(context.GetRunMode()==mpcr::definitions::RunMode::ASYNC);
 
     auto pwork_buffer=context.RequestWorkBufferDevice(500);
     REQUIRE(pwork_buffer!= nullptr);
@@ -40,7 +40,7 @@ TEST_RUN_CONTEXT_CUDA() {
     REQUIRE(pwork_buffer==pwork_buffer_two);
 
     context.FreeWorkBufferDevice();
-    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+    REQUIRE(context.GetRunMode()==mpcr::definitions::RunMode::ASYNC);
 
     REQUIRE(context.GetInfoPointer()!= nullptr);
 
@@ -63,25 +63,25 @@ TEST_RUN_CONTEXT(){
     cout << "Testing Run Context CPU ..." << endl;
     RunContext context;
     REQUIRE(context.GetOperationPlacement()==mpcr::definitions::CPU);
-    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::SYNC);
+    REQUIRE(context.GetRunMode()==mpcr::definitions::RunMode::SYNC);
 
     context.SetOperationPlacement(GPU);
     REQUIRE(context.GetOperationPlacement()==CPU);
 
     context.SetRunMode(RunMode::ASYNC);
-    REQUIRE(context.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+    REQUIRE(context.GetRunMode()== RunMode::ASYNC);
 
     auto context_copy=context;
     REQUIRE(context_copy.GetOperationPlacement()==CPU);
-    REQUIRE(context_copy.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+    REQUIRE(context_copy.GetRunMode()== RunMode::ASYNC);
 
     RunContext context_copy_two(context);
     REQUIRE(context_copy_two.GetOperationPlacement()==CPU);
-    REQUIRE(context_copy_two.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+    REQUIRE(context_copy_two.GetRunMode()== RunMode::ASYNC);
 
     RunContext context_test_placement(GPU,RunMode::ASYNC);
     REQUIRE(context_test_placement.GetOperationPlacement()==CPU);
-    REQUIRE(context_test_placement.GetRunMode()==mpcr::kernels::RunMode::ASYNC);
+    REQUIRE(context_test_placement.GetRunMode()== RunMode::ASYNC);
 
 
 }
