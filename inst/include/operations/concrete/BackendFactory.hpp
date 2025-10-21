@@ -3,7 +3,7 @@
 #ifndef MPCR_BACKENDFACTORY_HPP
 #define MPCR_BACKENDFACTORY_HPP
 
-
+#include <memory>
 #include <common/Definitions.hpp>
 #include <utilities/MPCRErrorHandler.hpp>
 #include <operations/concrete/CPULinearAlgebra.hpp>
