@@ -89,3 +89,7 @@ crossproduct <- crossprod(x, y)
 crossproduct$PrintValues()
 
 ```
+
+
+## Handout
+![handout2025.jpg](handout2025.jpg)
