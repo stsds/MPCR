@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023, King Abdullah University of Science and Technology
+ * Copyright (c) 2023-2026, King Abdullah University of Science and Technology
  * All rights reserved.
  *
  * MPCR is an R package provided by the STSDS group at KAUST
@@ -9,6 +9,7 @@
 #include <adapters/RLinearAlgebra.hpp>
 #include <adapters/RHelpers.hpp>
 #include <kernels/Promoter.hpp>
+#include <kernels/ContextManager.hpp>
 #include <utilities/MPCRDispatcher.hpp>
 
 
@@ -133,7 +134,12 @@ RCrossProduct(DataType *aInputA, SEXP aInputB) {
 
     auto precision = aInputA->GetPrecision();
 
-    auto pOutput = new DataType(precision);
+    // Get current operation placement to allocate output correctly
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    auto pOutput = new DataType(precision, operation_placement);
+
     SIMPLE_DISPATCH_WITH_HALF(precision, linear::CrossProduct, *aInputA,
                               *temp_b, *pOutput, transpose, false)
 
@@ -179,7 +185,12 @@ RTCrossProduct(DataType *aInputA, SEXP aInputB) {
 
     auto precision = aInputA->GetPrecision();
 
-    auto pOutput = new DataType(precision);
+     // Get current operation placement to allocate output correctly
+    auto context = ContextManager::GetOperationContext();
+    auto operation_placement = context->GetOperationPlacement();
+
+    auto pOutput = new DataType(precision, operation_placement);
+
     SIMPLE_DISPATCH_WITH_HALF(precision, linear::CrossProduct, *aInputA, *temp_b,
                     *pOutput,
                     false, true)
