@@ -29,9 +29,11 @@ else ()
 endif ()
 
 # Add to linking libs.
-set(LIBS
+set(LIBS_LINEAR
         lapackpp
+        ${LIBS_LINEAR}
         ${LIBS}
         )
+
 
 message(STATUS "LAPACK++ done")

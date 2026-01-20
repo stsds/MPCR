@@ -21,6 +21,9 @@ VERBOSE=OFF
 CONFIG_PATH="${ABSOLUE_PATH}/config"
 echo ${ABSOLUE_PATH}
 
+mv "${ABSOLUE_PATH}/src/cmake/" "${ABSOLUE_PATH}/cmake"
+mv "${ABSOLUE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUE_PATH}/CMakeLists.txt"
+
 rm -rf bin/
 mkdir bin/
 cmake -DCMAKE_BUILD_TYPE=RELEASE \

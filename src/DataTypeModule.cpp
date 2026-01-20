@@ -139,7 +139,7 @@ RCPP_MODULE(MPCR) {
     function("MPCR.acosh", &RACosh, List::create(_["x"]));
     function("MPCR.atanh", &RATanh, List::create(_["x"]));
 
-
+#ifdef MPCR_INSTALL
     /** Linear Algebra **/
 
     function("MPCR.backsolve", &RBackSolve,
@@ -178,11 +178,6 @@ RCPP_MODULE(MPCR) {
     function("MPCR.qr.qy", &RQRDecompositionQy);
     function("MPCR.qr.qty", &RQRDecompositionQty);
 
-    function("as.MPCR", &RConvertToMPCR,
-             List::create(_["data"], _["nrow"] = 0, _["ncol"] = 0,
-                          _["precision"], _["placement"] = "CPU"));
-
-
     /** Function to expose gemm , trsm , syrk **/
     function("MPCR.gemm", &RGemm,
              List::create(_["a"], _["b"] = R_NilValue, _["c"],
@@ -201,6 +196,10 @@ RCPP_MODULE(MPCR) {
                           _["transpose"] = false, _["side"] = 'L',
                           _["alpha"] = 1));
 
+#endif
+    function("as.MPCR", &RConvertToMPCR,
+             List::create(_["data"], _["nrow"] = 0, _["ncol"] = 0,
+                          _["precision"], _["placement"] = "CPU"));
 
     function("MPCR.copy", &RCopyMPR, List::create(_["x"]));
 

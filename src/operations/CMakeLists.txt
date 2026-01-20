@@ -9,12 +9,20 @@ if(${USE_CUDA})
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/cuda)
 endif()
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/concrete)
+if (${MPCR_INSTALL})
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/concrete)
+endif ()
+
+if (${MPCR_INSTALL})
+    set(SOURCES
+            ${CMAKE_CURRENT_SOURCE_DIR}/LinearAlgebra.cpp
+            ${SOURCES}
+            )
+endif ()
 
 set(SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/BasicOperations.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BinaryOperations.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/LinearAlgebra.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/MathematicalOperations.cpp
 
         ${SOURCES}

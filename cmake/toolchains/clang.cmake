@@ -49,10 +49,10 @@ if (APPLE)
     if (${ARCHITECTURE} MATCHES "arm64")
         set(MPCR_COMPILE_FLAGS "-mcpu=apple-m1 -O0 -fPIC")
     else ()
-        set(MPCR_COMPILE_FLAGS "-march=native -O0 -fPIC")
+        set(MPCR_COMPILE_FLAGS "-O0 -fPIC")
     endif ()
 else ()
-    set(MPCR_COMPILE_FLAGS "-march=native -O0 -fPIC")
+    set(MPCR_COMPILE_FLAGS "-O0 -fPIC")
 endif ()
 
 

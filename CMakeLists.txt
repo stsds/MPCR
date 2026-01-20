@@ -38,6 +38,19 @@ include(CheckLanguage)
 # Set cmake path module.
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+include(cmake/CheckInstall.cmake)
+set(mpcr_path_to_check ${CMAKE_BINARY_DIR})
+check_install(${mpcr_path_to_check} mpcr_result)
+
+if (${mpcr_result})
+    message("MPCR Install Result : ${mpcr_result}")
+    set(MPCR_INSTALL OFF)
+else ()
+    add_definitions(-DMPCR_INSTALL)
+    set(MPCR_INSTALL ON)
+    message("MPCR Install Result : ${mpcr_result}")
+endif ()
+
 set(Backend_Support_Status "${CMAKE_SOURCE_DIR}/inst/GPU_SUPPORT")
 # Check if the file exists
 if (EXISTS "${Backend_Support_Status}")
@@ -98,6 +111,13 @@ set(gpu_backend CACHE "none" FORCE)
 include(ImportBlasPP)
 include(ImportLapack)
 include(ImportLapackPP)
+
+if (${MPCR_INSTALL})
+    set(LIBS
+            ${LIBS_LINEAR}
+            ${LIBS}
+            )
+endif ()
 
 # definitions
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
