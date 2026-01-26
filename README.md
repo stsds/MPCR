@@ -79,7 +79,7 @@ B <- as.MPCR(values, nrow = 4, ncol = 4, precision = "float",placement="GPU")
 
 # All the up-coming operation will be executed on GPU
 # default option : CPU
-MPCR.SetOperationPlacement("GPU")
+MPCR.SetOperationPlacement(placement="GPU")
 
 cat("----------------------- CrossProduct C=XY --------------------\n")
 crossproduct <- crossprod(x, y)

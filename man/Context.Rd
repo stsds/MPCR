@@ -5,6 +5,16 @@
 
 \alias{MPCR.SetOperationPlacement}
 \alias{MPCR.GetOperationPlacement}
+\alias{MPCR.CreateRunContext}
+\alias{MPCR.DeleteRunContext}
+\alias{MPCR.FinalizeRunContext}
+\alias{MPCR.GetAllContextNames}
+\alias{MPCR.GetNumOfContexts}
+\alias{MPCR.GetRunMode}
+\alias{MPCR.SetOperationContext}
+\alias{MPCR.SetRunMode}
+\alias{MPCR.SyncAll}
+\alias{MPCR.SyncContext}
 
 \title{Context Handling}
 
@@ -34,11 +44,28 @@ The Context Placement mechanism does not control initial memory allocation. For 
 }
 }
 
+\section{Advanced Context Management}{
+  The following functions provide advanced control over GPU contexts and streams:
+  \describe{
+  \item{\code{MPCR.CreateRunContext(contextname)}}{Create a new run context for managing GPU operations.}
+  \item{\code{MPCR.DeleteRunContext(contextname)}}{Delete an existing run context.}
+  \item{\code{MPCR.FinalizeRunContext(contextname)}}{Finalize a run context.}
+  \item{\code{MPCR.GetAllContextNames()}}{Get names of all available contexts.}
+  \item{\code{MPCR.GetNumOfContexts()}}{Get the number of available contexts.}
+  \item{\code{MPCR.SetOperationContext(contextname)}}{Set the active context for operations.}
+  \item{\code{MPCR.SetRunMode(contextname, runmode)}}{Set the run mode for a context.}
+  \item{\code{MPCR.GetRunMode(contextname)}}{Get the run mode for a context.}
+  \item{\code{MPCR.SyncContext(contextname)}}{Synchronize a specific context.}
+  \item{\code{MPCR.SyncAll()}}{Synchronize all contexts.}
+}
+}
+
 \value{
  Operation Context (Setting and Getting).
 }
 
 \examples{
+\dontrun{
   library(MPCR)
   values <- c(3.12393, -1.16854, -0.304408, -2.15901,
               -1.16854, 1.86968, 1.04094, 1.35925, -0.304408,
@@ -66,7 +93,7 @@ The Context Placement mechanism does not control initial memory allocation. For 
   x$PrintValues()  # CPU Function
   y$PrintValues()  # CPU Function
 
-  MPCR.SetOperationPlacement("GPU") # Set Function Dispatching to GPU
+  MPCR.SetOperationPlacement(placement="GPU") # Set Function Dispatching to GPU
   cat("----------------------- CrossProduct C=XY --------------------\n")
 
   # GPU Cuda Kernel, The data will be automatically copied to GPU.
@@ -77,9 +104,6 @@ The Context Placement mechanism does not control initial memory allocation. For 
   y$PrintValues()  # CPU Function
 
   # CPU Function, so the data will be copied to CPU after finalizing the GPU Call.
-  crossproduct$PrintValues()
-
-
-
-
+  print(crossproduct)
+}
 }

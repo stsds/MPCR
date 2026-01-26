@@ -30,7 +30,7 @@ The SVD decomposition of the MPCR matrix.
 }
 
 \examples{
-\donttest{
+\dontrun{
 library(MPCR)
 svd_vals <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,

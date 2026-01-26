@@ -10,3 +10,16 @@
 ./bin/
 ./cmake-build-debug/
 LICENSE
+^CRAN_CHANGES_SUMMARY\.md$
+^CRAN_SUBMISSION_FIXES\.md$
+^.*\.log$
+^.*_output\.txt$
+^handout2025\.jpg$
+^replication/
+^gemm_mpcr_half_check\.R$
+^MPCR\.Rcheck/
+^MPCR.*\.tar\.gz$
+^vignettes/
+^config\.sh$
+^doxygen_config$
+^\.bs/

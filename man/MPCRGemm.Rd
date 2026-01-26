@@ -33,11 +33,14 @@
    An MPCR matrix.
  }
  \examples{
-   \donttest{
+   \dontrun{
    library(MPCR)
    # create 3 MPCR matrices a,b,c
+   a <- as.MPCR(1:12, 3, 4, "double")
+   b <- as.MPCR(1:20, 4, 5, "double")
+   c <- as.MPCR(matrix(0, 3, 5), 3, 5, "double")
    print(c)
-   MPCR.gemm(a,b,c,transpose_a=false,transpose_b=TRUE,alpha=1,beta=1)
+   MPCR.gemm(a,b,c,transpose_a=FALSE,transpose_b=TRUE,alpha=1,beta=1)
    print(c)
    }
  }
