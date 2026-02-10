@@ -6,7 +6,7 @@ year_pkg <- if (!is.null(meta$Date) && nzchar(meta$Date)) substr(meta$Date, 1, 4
 urls <- if (!is.null(meta$URL) && nzchar(meta$URL)) strsplit(meta$URL, "[,[:space:]]+")[[1]] else NULL
 
 ## Build author list for the software/manual entry from Authors@R (includes institutions)
-auth_pkg <- utils::as.person(meta$`Authors@R`)
+## auth_pkg <- utils::as.person(meta$`Authors@R`)
 
 ## Helper to print author names nicely in textVersion
 collapse_authors <- function(x) {

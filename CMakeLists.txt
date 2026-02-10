@@ -17,6 +17,10 @@ endif ()
 # Project Name and Version
 project(MPCR VERSION 2.0.0)
 
+# Enforce C++17 standard (required for GCC 12.x+ compatibility)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "" OR ${CMAKE_BUILD_TYPE} STREQUAL "NOMODE")
     message(STATUS "WORKING ON NO MODE")

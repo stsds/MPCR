@@ -8,11 +8,21 @@
 
 cd "$(dirname "$0")"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  ABSOLUE_PATH=$([[ $1 == /* ]] && echo "$1" || echo "$PWD/${1#./}")
-else
-  ABSOLUE_PATH=$(dirname $(realpath "$0"))
-fi
+case "$OSTYPE" in
+  darwin*)
+    case "$1" in
+      /*)
+        ABSOLUE_PATH="$1"
+        ;;
+      *)
+        ABSOLUE_PATH="$PWD/${1#./}"
+        ;;
+    esac
+    ;;
+  *)
+    ABSOLUE_PATH=$(dirname $(realpath "$0"))
+    ;;
+esac
 
 BUILDING_EXAMPLES="OFF"
 BUILDING_TESTS="OFF"
@@ -43,10 +53,13 @@ cd bin/
 make clean
 make all -j 8
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
-else
-  cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
-fi
+case "$OSTYPE" in
+  darwin*)
+    cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
+    ;;
+  *)
+    cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
+    ;;
+esac
 
 rm -rf "${ABSOLUE_PATH}/bin/"

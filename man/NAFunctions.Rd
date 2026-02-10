@@ -35,7 +35,7 @@ MPCR.na.exclude & MPCR.na.omit will not return anything.
   \donttest{
 library(MPCR)
 x <- as.MPCR(1:20,precision="single")
-x[1] <- NAN
+x[1] <- NaN
 MPCR.is.na(x,index=1) #TRUE
 MPCR.na.exclude(x,50)
 x[1]  #50

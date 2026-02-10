@@ -6,6 +6,7 @@
  *
  **/
 
+#include <memory>
 #include <operations/LinearAlgebra.hpp>
 #include <utilities/TypeChecker.hpp>
 #include <operations/concrete/BackendFactory.hpp>

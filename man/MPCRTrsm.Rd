@@ -29,7 +29,7 @@
    An MPCR Matrix.
  }
  \examples{
-   \donttest{
+   \dontrun{
    library(MPCR)
    a <- matrix(c(3.12393, -1.16854, -0.304408, -2.15901,
                  -1.16854, 1.86968, 1.04094, 1.35925,

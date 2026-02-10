@@ -10,3 +10,5 @@
 ./bin/
 ./cmake-build-debug/
 LICENSE
+^handout2025\.jpg$
+^replication

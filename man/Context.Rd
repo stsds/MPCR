@@ -5,6 +5,16 @@
 
 \alias{MPCR.SetOperationPlacement}
 \alias{MPCR.GetOperationPlacement}
+\alias{MPCR.CreateRunContext}
+\alias{MPCR.DeleteRunContext}
+\alias{MPCR.FinalizeRunContext}
+\alias{MPCR.GetAllContextNames}
+\alias{MPCR.GetNumOfContexts}
+\alias{MPCR.GetRunMode}
+\alias{MPCR.SetOperationContext}
+\alias{MPCR.SetRunMode}
+\alias{MPCR.SyncAll}
+\alias{MPCR.SyncContext}
 
 \title{Context Handling}
 
@@ -39,6 +49,7 @@ The Context Placement mechanism does not control initial memory allocation. For 
 }
 
 \examples{
+\donttest{
   library(MPCR)
   values <- c(3.12393, -1.16854, -0.304408, -2.15901,
               -1.16854, 1.86968, 1.04094, 1.35925, -0.304408,
@@ -66,7 +77,7 @@ The Context Placement mechanism does not control initial memory allocation. For 
   x$PrintValues()  # CPU Function
   y$PrintValues()  # CPU Function
 
-  MPCR.SetOperationPlacement("GPU") # Set Function Dispatching to GPU
+  MPCR.SetOperationPlacement("default", "GPU") # Set Function Dispatching to GPU
   cat("----------------------- CrossProduct C=XY --------------------\n")
 
   # GPU Cuda Kernel, The data will be automatically copied to GPU.
@@ -78,8 +89,5 @@ The Context Placement mechanism does not control initial memory allocation. For 
 
   # CPU Function, so the data will be copied to CPU after finalizing the GPU Call.
   crossproduct$PrintValues()
-
-
-
-
+}
 }
