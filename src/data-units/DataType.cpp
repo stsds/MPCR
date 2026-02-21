@@ -1440,8 +1440,8 @@ void
 DataType::CheckHalfCompatibility(
     const OperationPlacement &aOperationPlacement) {
     if (mPrecision == HALF && aOperationPlacement == CPU) {
-        MPCR_PRINTER("CPU doesn't support 16-bit, ")
-        MPCR_PRINTER("the data will be converted to 32-bit")
+        MPCR_PRINTER("Warning: CPU does not support 16-bit. ")
+        MPCR_PRINTER("Output will be converted to 32-bit.")
         MPCR_PRINTER(std::endl)
         SIMPLE_DISPATCH_WITH_HALF(this->mPrecision, ConvertPrecisionDispatcher,
                                   FLOAT)
