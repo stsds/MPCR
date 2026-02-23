@@ -26,12 +26,12 @@ cov.matern <- function(x, nu, a, sigma_sq) {
 
 
 # Setup spatial field
-M <- 150; n <- M^2
+M <- 120; n <- M^2
 locs <- expand.grid(x=(0:(M-1))/(M-1), y=(0:(M-1))/(M-1))
 D <- as.matrix(dist(locs))
 
 # True parameters: nu=1, a=0.05, sigma^2=1
-theta_true <- c(1, 0.1)
+theta_true <- c(1, 0.03)
 cov_true <- cov.matern(D, 0.5, theta_true[2], theta_true[1])
 
 # Simulate data
