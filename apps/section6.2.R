@@ -26,12 +26,12 @@ cov.matern <- function(x, nu, a, sigma_sq) {
 
 
 # Setup spatial field
-M <- 150; n <- M^2
+M <- 120; n <- M^2
 locs <- expand.grid(x=(0:(M-1))/(M-1), y=(0:(M-1))/(M-1))
 D <- as.matrix(dist(locs))
 
 # True parameters: nu=1, a=0.05, sigma^2=1
-theta_true <- c(1, 0.1)
+theta_true <- c(1, 0.03)
 cov_true <- cov.matern(D, 0.5, theta_true[2], theta_true[1])
 
 # Simulate data
@@ -78,7 +78,7 @@ V <- sigma2 * exp(-D * inv_a)
 
 	use_mpcr <- grepl('MPCR', prec)
 	if(use_mpcr) {
-
+         t_alloc <- system.time({
 		# Precision
 		p <- if (prec == "MPCR-Single-CPU" || prec == "MPCR-Single-GPU") "single" else "double"
 
@@ -96,6 +96,8 @@ V <- sigma2 * exp(-D * inv_a)
 			V_mpcr <- as.MPCR(V, n, n, p)
 			z_mpcr <- as.MPCR(z, n, 1, p)
 		}
+                })
+                cat("[MPCR]", prec, "MPCR alloc:", t_chol["elapsed"], "sec\n")
 
 		MPCR.SetOperationPlacement(placement = op_place)
 
@@ -130,11 +132,18 @@ V <- sigma2 * exp(-D * inv_a)
 		})
 
 		cat("[MPCR]", prec, "chol:", t_chol["elapsed"], "sec\n")
-		log_det <- 2*sum(log(diag(L)))
+		diag <- system.time({
+			# Log determinant
+			log_det <- 2*sum(log(diag(L)))
+		})
+		cat("[MPCR]", prec, "diag:", diag["elapsed"], "sec\n")
 
-		# Quadratic form using forward solve
-		w <- forwardsolve(L, z)
-		quad <- sum(w^2)
+		fs <- system.time({		
+			# Quadratic form using forward solve
+			w <- forwardsolve(L, z)
+			quad <- sum(w^2)
+		})
+		cat("[MPCR]", prec, "fs:", fs["elapsed"], "sec\n")
 	}
 
 	# Negative log-likelihood
