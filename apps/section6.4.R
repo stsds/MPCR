@@ -93,7 +93,7 @@ run_inla <- function(prec='R-Double', D, y, n) {
 
 # Compute for all sizes
 #sizes <- c(142500)
-sizes <- c(900, 1600, 2500, 2600, 4900, 10000, 12100, 14400)
+sizes <- c(900, 1600, 2500, 2600, 4900, 6400) #, 10000, 12100, 14400)
 #sizes <- c(8100, 10000, 12100, 14400)
 precs <- c('R-Double', 'MPCR-Double-CPU', 'MPCR-Single-CPU', 'MPCR-Double-GPU', 'MPCR-Single-GPU')
 #precs <- c('MPCR-Double-CPU', 'MPCR-Single-CPU', 'MPCR-Double-GPU', 'MPCR-Single-GPU')
