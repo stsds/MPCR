@@ -8,8 +8,9 @@
 
 cd "$(dirname "$0")"
 
-case "$OSTYPE" in
-  darwin*)
+OS_NAME=$(uname -s)
+case "$OS_NAME" in
+  Darwin*)
     case "$1" in
       /*)
         ABSOLUE_PATH="$1"
@@ -50,11 +51,22 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 
 
 cd bin/
-make clean
-make all -j 8
 
-case "$OSTYPE" in
-  darwin*)
+# Fix musl compilation: Add missing <cstdint> to blaspp wrappers.hh
+if [ -f "_deps/blaspp-src/include/blas/wrappers.hh" ]; then
+  if ! grep -q '#include <cstdint>' "_deps/blaspp-src/include/blas/wrappers.hh"; then
+    sed -i '1i #include <cstdint>' "_deps/blaspp-src/include/blas/wrappers.hh" 2>/dev/null || \
+    sed -i '' '1i\
+#include <cstdint>
+' "_deps/blaspp-src/include/blas/wrappers.hh" 2>/dev/null
+  fi
+fi
+
+make clean
+make all -j 2
+
+case "$OS_NAME" in
+  Darwin*)
     cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
     ;;
   *)

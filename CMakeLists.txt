@@ -109,18 +109,14 @@ else ()
     message("-- Build Serial Support -- ")
 endif ()
 
-# since the code will compile both CPU and GPU calls, blaspp and lapackpp will be build with no GPU support and all
-# the GPU operation would be done directly using cusolver.
+# BLAS++/LAPACK++ only when MPCR_INSTALL (normal install). On CRAN (R check) MPCR_INSTALL is OFF:
+# do not build or link them, so no BLAS/LAPACK/abort in MPCR.so.
 set(gpu_backend CACHE "none" FORCE)
-include(ImportBlasPP)
-include(ImportLapack)
-include(ImportLapackPP)
-
 if (${MPCR_INSTALL})
-    set(LIBS
-            ${LIBS_LINEAR}
-            ${LIBS}
-            )
+    include(ImportBlasPP)
+    include(ImportLapack)
+    include(ImportLapackPP)
+    set(LIBS ${LIBS_LINEAR} ${LIBS})
 endif ()
 
 # definitions
