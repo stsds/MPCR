@@ -78,7 +78,7 @@ V <- sigma2 * exp(-D * inv_a)
 
 	use_mpcr <- grepl('MPCR', prec)
 	if(use_mpcr) {
-
+         t_alloc <- system.time({
 		# Precision
 		p <- if (prec == "MPCR-Single-CPU" || prec == "MPCR-Single-GPU") "single" else "double"
 
@@ -96,6 +96,8 @@ V <- sigma2 * exp(-D * inv_a)
 			V_mpcr <- as.MPCR(V, n, n, p)
 			z_mpcr <- as.MPCR(z, n, 1, p)
 		}
+                })
+                cat("[MPCR]", prec, "MPCR alloc:", t_chol["elapsed"], "sec\n")
 
 		MPCR.SetOperationPlacement(placement = op_place)
 
@@ -130,11 +132,18 @@ V <- sigma2 * exp(-D * inv_a)
 		})
 
 		cat("[MPCR]", prec, "chol:", t_chol["elapsed"], "sec\n")
-		log_det <- 2*sum(log(diag(L)))
+		diag <- system.time({
+			# Log determinant
+			log_det <- 2*sum(log(diag(L)))
+		})
+		cat("[MPCR]", prec, "diag:", diag["elapsed"], "sec\n")
 
-		# Quadratic form using forward solve
-		w <- forwardsolve(L, z)
-		quad <- sum(w^2)
+		fs <- system.time({		
+			# Quadratic form using forward solve
+			w <- forwardsolve(L, z)
+			quad <- sum(w^2)
+		})
+		cat("[MPCR]", prec, "fs:", fs["elapsed"], "sec\n")
 	}
 
 	# Negative log-likelihood
