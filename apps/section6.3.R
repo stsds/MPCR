@@ -79,37 +79,50 @@ par(mfrow = c(3, 5), mar = c(4, 7, 3, 7))
 cols <- colorRampPalette(brewer.pal(9, "BrBG"))(100)
 
 for (i in 1:5) {
-  for (nm in names(res)) {
+	col_id <- 0
 
-    Z <- matrix(NA, length(lon_idx), length(lat_idx))
-    Z[valid] <- if (is.matrix(res[[nm]]$v))
-      res[[nm]]$v[, i]
-    else
-      matrix(res[[nm]]$v, nrow = length(valid))[, i]
+	for (nm in names(res)) {
+		col_id <- col_id + 1
 
-    eof_label <- paste0(i, c("st", "nd", "rd", "th", "th")[i], " EOF")
-    title_text <- ifelse(
-      i == 1,
-      sprintf("%s (%.2f mins)", nm, as.numeric(res[[nm]]$time)),
-      ""
-    )
+		Z <- matrix(NA, length(lon_idx), length(lat_idx))
 
-    image.plot(
-      lon[lon_idx], lat[lat_idx], Z,
-      col = cols,
-      main = title_text,
-      xlab = if (i == 5) "Longitude" else "",
-      ylab = if (nm == names(res)[1]) "Latitude" else "",
-      cex.main = 2.5,
-      cex.lab  = 2
-    )
+		vec <- if (is.matrix(res[[nm]]$v))
+			res[[nm]]$v[, i]
+		else
+			matrix(res[[nm]]$v, nrow = length(valid))[, i]
 
-    if (nm == names(res)[1])
-      mtext(eof_label, side = 2, line = 5, cex = 1.2, font = 2)
+		if ((i == 2 && col_id == 4) ||
+		    (i == 3 && col_id == 4) ||
+		    (i == 2 && col_id == 5)) {
+			vec <- -vec
+		}
 
-    lines(map("world", plot = FALSE))
-    box()
-  }
+		Z[valid] <- vec
+
+
+		eof_label <- paste0(i, c("st", "nd", "rd", "th", "th")[i], " EOF")
+		title_text <- ifelse(
+				     i == 1,
+				     sprintf("%s (%.2f mins)", nm, as.numeric(res[[nm]]$time)),
+				     ""
+		)
+
+		image.plot(
+			   lon[lon_idx], lat[lat_idx], Z,
+			   col = cols,
+			   main = title_text,
+			   xlab = if (i == 5) "Longitude" else "",
+			   ylab = if (nm == names(res)[1]) "Latitude" else "",
+			   cex.main = 2.5,
+			   cex.lab  = 2
+		)
+
+		if (nm == names(res)[1])
+			mtext(eof_label, side = 2, line = 5, cex = 1.2, font = 2)
+
+		lines(map("world", plot = FALSE))
+		box()
+	}
 }
 
 dev.off()
