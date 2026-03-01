@@ -1,8 +1,5 @@
 
-# MPCR: Multi-Precision Computing in R
-
 ![logo.jpeg](logo.jpeg)
-
 
 ## Overview
 
