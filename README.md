@@ -1,6 +1,9 @@
 
 # MPCR: Multi-Precision Computing in R
 
+![logo.jpeg](logo.jpeg)
+
+
 ## Overview
 
 The **MPCR** package provides new data-structure support for multi- and mixed-precision for R users, supporting 16-bit, 32-bit, and 64-bit operations.
