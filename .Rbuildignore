@@ -12,3 +12,5 @@
 LICENSE
 ^handout2025\.jpg$
 ^replication
+^tests/cpp-tests
+^prerequisites

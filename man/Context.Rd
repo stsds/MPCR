@@ -49,7 +49,7 @@ The Context Placement mechanism does not control initial memory allocation. For 
 }
 
 \examples{
-\donttest{
+\dontrun{
   library(MPCR)
   values <- c(3.12393, -1.16854, -0.304408, -2.15901,
               -1.16854, 1.86968, 1.04094, 1.35925, -0.304408,

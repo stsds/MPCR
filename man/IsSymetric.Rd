@@ -19,7 +19,7 @@ A logical value.
 Check if a given MPCR matrix is symmetric.
 }
 \examples{
-\donttest{
+\dontrun{
 library(MPCR)
 
 x <- as.MPCR(1:50,25,2,"Single")

@@ -3,7 +3,7 @@
 
 ## Overview
 
-The **MPCR** package provides new data-structure support for multi- and mixed-precision for R users, supporting 16-bit, 32-bit, and 64-bit operations.
+The **MPCR** package provides new data-structure support for multi-precision computing for R users, supporting 16-bit, 32-bit, and 64-bit operations.
 This enables optimized memory allocation based on the desired precision, offering significant advantages in-memory optimization and computational efficiency.
 In addition, **MPCR** leverages GPU acceleration through CUDA, allowing for high-performance computations on the GPU.
 This capability includes seamless memory transfers between CPU and GPU, managed automatically by the package, simplifying the setup and usage for end users.

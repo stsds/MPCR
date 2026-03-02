@@ -64,7 +64,9 @@ if (EXISTS "${Backend_Support_Status}")
 endif ()
 
 if (NOT APPLE)
-    include(ImportGFortran)
+    if (${MPCR_INSTALL})
+        include(ImportGFortran)
+    endif ()
 endif ()
 
 include(ImportOpenMP)

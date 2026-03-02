@@ -52,14 +52,21 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 
 cd bin/
 
-# Fix musl compilation: Add missing <cstdint> to blaspp wrappers.hh
-if [ -f "_deps/blaspp-src/include/blas/wrappers.hh" ]; then
-  if ! grep -q '#include <cstdint>' "_deps/blaspp-src/include/blas/wrappers.hh"; then
-    sed -i '1i #include <cstdint>' "_deps/blaspp-src/include/blas/wrappers.hh" 2>/dev/null || \
-    sed -i '' '1i\
+# Fix musl compilation: Add missing <cstdint> to all blaspp headers that use int64_t
+# This fixes the issue reported at https://github.com/icl-utk-edu/blaspp/commit/92efed76
+if [ -d "_deps/blaspp-src/include" ]; then
+  echo "Patching BLAS++ headers for musl compatibility..."
+  find _deps/blaspp-src/include -name "*.hh" -o -name "*.h" | while read -r header; do
+    if grep -q 'int64_t\|uint64_t\|int32_t\|uint32_t\|int16_t\|uint16_t' "$header" 2>/dev/null; then
+      if ! grep -q '#include <cstdint>' "$header" 2>/dev/null; then
+        echo "  Patching $(basename $header)..."
+        sed -i '1i #include <cstdint>' "$header" 2>/dev/null || \
+        sed -i '' '1i\
 #include <cstdint>
-' "_deps/blaspp-src/include/blas/wrappers.hh" 2>/dev/null
-  fi
+' "$header" 2>/dev/null
+      fi
+    fi
+  done
 fi
 
 make clean
@@ -68,9 +75,11 @@ make all -j 2
 case "$OS_NAME" in
   Darwin*)
     cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
+    strip -x "${ABSOLUE_PATH}/src/MPCR.so" 2>/dev/null || true
     ;;
   *)
     cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
+    strip --strip-unneeded "${ABSOLUE_PATH}/src/MPCR.so" 2>/dev/null || true
     ;;
 esac
 
