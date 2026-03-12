@@ -15,7 +15,7 @@ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
 endif ()
 
 # Project Name and Version
-project(MPCR VERSION 2.0.0)
+project(MPCR VERSION 2.1.1)
 
 # Enforce C++17 standard (required for GCC 12.x+ compatibility)
 set(CMAKE_CXX_STANDARD 17)
