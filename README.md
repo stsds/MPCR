@@ -1,6 +1,9 @@
 
 # MPCR: Multi-Precision Computing in R
 
+**CRAN Downloads (Total):** ![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/MPCR)  
+**CRAN Downloads (Last Month):** ![CRAN downloads](https://cranlogs.r-pkg.org/badges/last-month/MPCR)
+
 ## Overview
 
 The **MPCR** package provides new data-structure support for multi- and mixed-precision for R users, supporting 16-bit, 32-bit, and 64-bit operations.
