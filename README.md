@@ -1,8 +1,12 @@
 
 # MPCR: Multi-Precision Computing in R
 
-**CRAN Downloads (Total):** ![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/MPCR)  
-**CRAN Downloads (Last Month):** ![CRAN downloads](https://cranlogs.r-pkg.org/badges/last-month/MPCR)
+[![CRAN status](https://www.r-pkg.org/badges/version/MPCR)](https://CRAN.R-project.org/package=MPCR)
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MPCR)](https://cran.r-project.org/package=MPCR)
+[![Last Month](https://cranlogs.r-pkg.org/badges/last-month/MPCR)](https://cran.r-project.org/package=MPCR)
+[![R-CMD-check](https://github.com/stsds/MPCR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/stsds/MPCR/actions)
+![GPU](https://img.shields.io/badge/GPU-CUDA-green)
+![Precision](https://img.shields.io/badge/Precision-16%2F32%2F64--bit-orange)
 
 ## Overview
 
