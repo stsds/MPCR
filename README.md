@@ -4,10 +4,10 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/MPCR)](https://CRAN.R-project.org/package=MPCR)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MPCR)](https://cran.r-project.org/package=MPCR)
 [![Last Month](https://cranlogs.r-pkg.org/badges/last-month/MPCR)](https://cran.r-project.org/package=MPCR)
-![GitHub Stars](https://img.shields.io/github/stars/stsds/MPCR)
 ![GPU](https://img.shields.io/badge/GPU-CUDA-green)
 ![Precision](https://img.shields.io/badge/Precision-16%2F32%2F64--bit-orange)
 
+![GitHub Stars](https://img.shields.io/github/stars/stsds/MPCR)
 ## Overview
 
 The **MPCR** package provides new data-structure support for multi- and mixed-precision for R users, supporting 16-bit, 32-bit, and 64-bit operations.
