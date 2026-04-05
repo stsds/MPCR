@@ -1,5 +1,5 @@
 
-# MPCR: Multi-Precision Computing in R
+![logo.jpeg](logo.jpeg)
 
 [![CRAN status](https://www.r-pkg.org/badges/version/MPCR)](https://CRAN.R-project.org/package=MPCR)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/MPCR)](https://cran.r-project.org/package=MPCR)
