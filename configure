@@ -30,6 +30,20 @@ BUILDING_TESTS="OFF"
 INSTALL_PATH="/usr/local"
 VERBOSE=OFF
 CONFIG_PATH="${ABSOLUE_PATH}/config"
+
+if command -v cmake >/dev/null 2>&1; then
+  CMAKE=$(command -v cmake)
+elif test -x /Applications/CMake.app/Contents/bin/cmake; then
+  CMAKE=/Applications/CMake.app/Contents/bin/cmake
+else
+  cat >&2 <<'EOF'
+MPCR requires CMake, but no CMake executable was found. Install CMake and add
+it to PATH. On macOS, the standard application installation is at
+/Applications/CMake.app/Contents/bin/cmake.
+EOF
+  exit 1
+fi
+
 echo ${ABSOLUE_PATH}
 
 mv "${ABSOLUE_PATH}/src/cmake/" "${ABSOLUE_PATH}/cmake"
@@ -37,7 +51,7 @@ mv "${ABSOLUE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUE_PATH}/CMakeLists.txt"
 
 rm -rf bin/
 mkdir bin/
-if ! cmake -DCMAKE_BUILD_TYPE=RELEASE \
+if ! "${CMAKE}" -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
