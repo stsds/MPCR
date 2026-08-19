@@ -37,7 +37,7 @@ mv "${ABSOLUE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUE_PATH}/CMakeLists.txt"
 
 rm -rf bin/
 mkdir bin/
-cmake -DCMAKE_BUILD_TYPE=RELEASE \
+if ! cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
@@ -47,7 +47,18 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
   -B"${ABSOLUE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
   -DBUILD_MPCR_STATIC="OFF"\
-  -DBUILD_SHARED_LIBS=OFF
+  -DBUILD_SHARED_LIBS=OFF; then
+  cat >&2 <<'EOF'
+MPCR configuration failed.
+
+MPCR requires BLAS and LAPACK, including single-precision complex LAPACK
+routines. On macOS, the Accelerate framework is not sufficient because it
+does not provide all of the required routines (for example, clatms). Install
+a complete LAPACK implementation such as OpenBLAS and make its include and
+library directories available to CMake, then retry the installation.
+EOF
+  exit 1
+fi
 
 
 cd bin/
@@ -68,17 +79,19 @@ if [ -d "_deps/blaspp-src/include" ]; then
   done
 fi
 
-make clean
-make all -j 2
+if ! make clean || ! make all -j 2; then
+  echo "MPCR compilation failed." >&2
+  exit 1
+fi
 
 case "$OS_NAME" in
   Darwin*)
-    cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
+    cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || exit 1
     ;;
   *)
-    cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
+    cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || exit 1
     ;;
 esac
-${R_HOME}/bin/Rscript "${ABSOLUE_PATH}/cmake/CreateSymbolTable.R" "${ABSOLUE_PATH}/bin/" "${ABSOLUE_PATH}/src/symbols.rds"
+${R_HOME}/bin/Rscript "${ABSOLUE_PATH}/cmake/CreateSymbolTable.R" "${ABSOLUE_PATH}/bin/" "${ABSOLUE_PATH}/src/symbols.rds" || exit 1
 
 rm -rf "${ABSOLUE_PATH}/bin/"

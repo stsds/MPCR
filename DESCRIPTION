@@ -12,7 +12,8 @@ Depends: R (>= 3.6.0)
 RoxygenNote: 7.2.3
 VignetteBuilder: R.rsp
 Suggests: R.rsp
-SystemRequirements: C++17, CMake (>=3.20), CUDA (>=11.2)
+SystemRequirements: C++17, CMake (>= 3.20), BLAS, LAPACK (including
+        single-precision complex routines), optional CUDA (>= 11.2)
 NeedsCompilation: yes
 OS_type: unix
 Authors@R: c(

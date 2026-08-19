@@ -53,6 +53,7 @@ in case MKL is not found on the system, the package will automatically download 
 - [Blaspp](https://github.com/icl-utk-edu/blaspp) will be installed automatically.
 - [Lapackpp](https://github.com/icl-utk-edu/lapackpp) will be installed automatically.
 - [CUDA ToolKit > 11.4](https://developer.nvidia.com/cuda-toolkit) in case CUDA toolkit is not available on the system, the package will be installed with CPU support only.
+- MPCR requires a complete LAPACK implementation, including single-precision complex routines. On macOS, Apple Accelerate alone is insufficient; install OpenBLAS (for example, with Homebrew) and make its include and library directories available to CMake before installation.
 ___
 
 ## 7. Getting Started
