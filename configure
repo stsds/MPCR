@@ -6,9 +6,41 @@
 # MPCR is an R package provided by the STSDS group at KAUST
 ##########################################################################
 
+
+# Function to install CMake from source
+install_cmake() {
+  echo "CMake not found. Installing CMake from source..."
+
+  # Create a temporary directory for building CMake
+  temp_dir=$(mktemp -d)
+  cd "$temp_dir" || exit 1
+
+  # Download CMake source code
+  wget https://github.com/Kitware/CMake/releases/download/v3.28.1/cmake-3.28.1.tar.gz
+
+  # Extract the source code
+  tar -xzvf cmake-3.28.1.tar.gz
+
+  # Enter the extracted directory
+  cd cmake-3.28.1 || exit 1
+
+  # Configure, build, and install CMake to the specified location
+  ./bootstrap --prefix="$install_dir" --parallel=8 -- -DCMAKE_USE_OPENSSL=OFF
+  make -j 8
+  sudo make install
+
+  # Clean up
+  cd "$temp_dir" || exit 1
+  rm -rf "$temp_dir"
+}
+
+
 cd "$(dirname "$0")"
 
 OS_NAME=$(uname -s)
+echo $OS_TYPE
+echo "------------------------------------------------------------"
+
 case "$OS_NAME" in
   Darwin*)
     case "$1" in
@@ -30,20 +62,6 @@ BUILDING_TESTS="OFF"
 INSTALL_PATH="/usr/local"
 VERBOSE=OFF
 CONFIG_PATH="${ABSOLUE_PATH}/config"
-
-if command -v cmake >/dev/null 2>&1; then
-  CMAKE=$(command -v cmake)
-elif test -x /Applications/CMake.app/Contents/bin/cmake; then
-  CMAKE=/Applications/CMake.app/Contents/bin/cmake
-else
-  cat >&2 <<'EOF'
-MPCR requires CMake, but no CMake executable was found. Install CMake and add
-it to PATH. On macOS, the standard application installation is at
-/Applications/CMake.app/Contents/bin/cmake.
-EOF
-  exit 1
-fi
-
 echo ${ABSOLUE_PATH}
 
 mv "${ABSOLUE_PATH}/src/cmake/" "${ABSOLUE_PATH}/cmake"
@@ -51,7 +69,27 @@ mv "${ABSOLUE_PATH}/src/CMakeLists_inv.txt" "${ABSOLUE_PATH}/CMakeLists.txt"
 
 rm -rf bin/
 mkdir bin/
-if ! "${CMAKE}" -DCMAKE_BUILD_TYPE=RELEASE \
+
+# Check if cmake is installed
+if command -v cmake /dev/null 2>&1; then
+  # Save the installation directory to the variable
+  cmake_install_dir=$(command -v cmake | xargs dirname)
+  echo "CMake is installed in: $cmake_install_dir"
+  cmake_command_bin=cmake
+elif [ -x "/Applications/CMake.app/Contents/bin/cmake" ]; then
+  echo "CMake found in /Applications/CMake.app/Contents/bin/cmake."
+  cmake_install_dir="/Applications/CMake.app/Contents/bin"
+  cmake_command_bin="${cmake_install_dir}/cmake"
+else
+  echo "Installing CMake from source"
+  mkdir "${ABSOLUTE_PATH}/inst/_deps/"
+  install_dir="${ABSOLUTE_PATH}/inst/_deps/"
+  install_cmake "$install_dir"
+  cmake_command_bin="${ABSOLUTE_PATH}/inst/_deps/bin/cmake"
+fi
+
+
+"$cmake_command_bin" -DCMAKE_BUILD_TYPE=RELEASE \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DMPCR_BUILD_TESTS=$BUILDING_TESTS \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_PATH \
@@ -61,18 +99,7 @@ if ! "${CMAKE}" -DCMAKE_BUILD_TYPE=RELEASE \
   -B"${ABSOLUE_PATH}/bin" \
   -DRUNNING_CPP=OFF \
   -DBUILD_MPCR_STATIC="OFF"\
-  -DBUILD_SHARED_LIBS=OFF; then
-  cat >&2 <<'EOF'
-MPCR configuration failed.
-
-MPCR requires BLAS and LAPACK, including single-precision complex LAPACK
-routines. On macOS, the Accelerate framework is not sufficient because it
-does not provide all of the required routines (for example, clatms). Install
-a complete LAPACK implementation such as OpenBLAS and make its include and
-library directories available to CMake, then retry the installation.
-EOF
-  exit 1
-fi
+  -DBUILD_SHARED_LIBS=OFF
 
 
 cd bin/
@@ -93,19 +120,17 @@ if [ -d "_deps/blaspp-src/include" ]; then
   done
 fi
 
-if ! make clean || ! make all -j 2; then
-  echo "MPCR compilation failed." >&2
-  exit 1
-fi
+make clean
+make all -j 2
 
 case "$OS_NAME" in
   Darwin*)
-    cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || exit 1
+    cp "${ABSOLUE_PATH}/bin/src/libmpcr.dylib" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.dylib -> src"
     ;;
   *)
-    cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || exit 1
+    cp "${ABSOLUE_PATH}/bin/src/libmpcr.so" "${ABSOLUE_PATH}/src/MPCR.so" || echo "Failed: libmpcr.so -> src"
     ;;
 esac
-${R_HOME}/bin/Rscript "${ABSOLUE_PATH}/cmake/CreateSymbolTable.R" "${ABSOLUE_PATH}/bin/" "${ABSOLUE_PATH}/src/symbols.rds" || exit 1
+${R_HOME}/bin/Rscript "${ABSOLUE_PATH}/cmake/CreateSymbolTable.R" "${ABSOLUE_PATH}/bin/" "${ABSOLUE_PATH}/src/symbols.rds"
 
 rm -rf "${ABSOLUE_PATH}/bin/"

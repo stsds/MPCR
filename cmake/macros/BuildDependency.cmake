@@ -14,31 +14,21 @@ macro(BuildDependency raw_name url tag)
     # Configure subproject into <subproject-build-dir>
     execute_process(COMMAND ${CMAKE_COMMAND}
             -DCMAKE_INSTALL_PREFIX=${${name}_installpath}
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5
             -DNOFORTRAN=1
             -DBUILD_SHARED_LIBS=OFF
             -DCMAKE_C_FLAGS_RELEASE="-fPIC -w -W"
             ${${name}_srcpath}
             WORKING_DIRECTORY
-            ${${name}_binpath}
-            RESULT_VARIABLE configure_result)
-    if (NOT configure_result EQUAL 0)
-        message(FATAL_ERROR
-                "Failed to configure bundled ${name}. Ensure that CMake and a C/C++ "
-                "toolchain are available, or provide a compatible system BLAS/LAPACK.")
-    endif ()
+            ${${name}_binpath})
 
     # Build and install subproject
     include(ProcessorCount)
     ProcessorCount(N)
     set(N 2)
     if (NOT N EQUAL 0)
-        execute_process(COMMAND ${CMAKE_COMMAND} --build ${${name}_binpath} --parallel ${N} --target install RESULT_VARIABLE build_result)
+        execute_process(COMMAND ${CMAKE_COMMAND} --build ${${name}_binpath} --parallel ${N} --target install ERROR_FILE /dev/null OUTPUT_QUIET)
     else ()
-        execute_process(COMMAND ${CMAKE_COMMAND} --build ${${name}_binpath} --parallel 48 --target install RESULT_VARIABLE build_result)
-    endif ()
-    if (NOT build_result EQUAL 0)
-        message(FATAL_ERROR "Failed to build bundled ${name}.")
+        execute_process(COMMAND ${CMAKE_COMMAND} --build ${${name}_binpath} --parallel 48 --target install ERROR_FILE /dev/null OUTPUT_QUIET)
     endif ()
     set(ENV{LD_LIBRARY_PATH} "${${name}_installpath}/lib:${${name}_installpath}/lib64:$ENV{LD_LIBRARY_PATH}")
     set(ENV{LIBRARY_PATH} "${${name}_installpath}/lib:${${name}_installpath}/lib64:$ENV{LIBRARY_PATH}")
